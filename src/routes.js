@@ -1,3 +1,7 @@
+import HelloWorld from "@/components/HelloWorld";
+import bennI from "@/components/bennI";
+
 export default [
-    { name: 'default', path: '*', component: { name: 'DefaultView', render: h => h('div', 'Default view') }, props: true }
+    { path: '/bennI', name: 'bennI', component: bennI, props: false },
+    { path: '*', name: 'start', component: HelloWorld },
 ]
