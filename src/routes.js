@@ -1,7 +1,12 @@
-import HelloWorld from "@/components/HelloWorld";
-import bennI from "@/components/bennI";
+import { createWebHistory, createRouter } from "vue-router";
 
-export default [
-    { path: '/bennI', name: 'bennI', component: bennI, props: false },
-    { path: '*', name: 'start', component: HelloWorld },
+const routes = [
+
 ]
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes
+})
+
+export default router;
