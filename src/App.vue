@@ -1,13 +1,15 @@
 <template>
   <div>
-    <!-- call components -->
+    <StartMenu/>
   </div>
 </template>
 
 <script>
+import StartMenu from "@/components/StartMenu";
 export default {
   name: 'App',
   components: {
+    StartMenu
   }
 }
 </script>
