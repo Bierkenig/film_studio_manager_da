@@ -14,6 +14,8 @@ export default createStore({
         createdMovies: [],
         currentMovie: null,
         currentScreenplay: null,
+        //TODO: changes
+        logo: null
     },
 
     /** global data loaded from database*/
@@ -69,6 +71,11 @@ export default createStore({
                 }
             })
             return nextId + 1;
+        },
+
+        //TODO: changes
+        getCurrentLogo(state){
+            return state.logo;
         }
     },
 
@@ -78,9 +85,11 @@ export default createStore({
             state.screenplays.push(screenplay);
         },
 
+        //TODO: changes
         createStudio(state, payload) {
             state.studio = payload.studio;
             state.balance = payload.budget;
+            state.logo = payload.logo;
         },
 
         addBalance(state, value) {
@@ -175,6 +184,11 @@ export default createStore({
         resetCurrentScreenplayInfos(state) {
             state.currentScreenplay = null;
         },
+
+        //TODO: changes
+        setCurrentLogo(state, image){
+            state.logo = image;
+        }
     },
 
     /** Methods that change the application state asynchronously */

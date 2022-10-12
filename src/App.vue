@@ -1,16 +1,12 @@
 <template>
   <div>
-    <StartMenu/>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import StartMenu from "@/components/StartMenu";
 export default {
   name: 'App',
-  components: {
-    StartMenu
-  }
 }
 </script>
 
