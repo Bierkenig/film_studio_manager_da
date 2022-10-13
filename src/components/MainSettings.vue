@@ -55,11 +55,13 @@ export default {
 
   mounted(){
     document.getElementById('soundeffectToggle').checked = this.$store.getters.getCurrentStatusOfSoundeffect;
+    document.getElementById('musicToggle').checked = this.$store.getters.getCurrentStatusOfBackgroundMusic;
   },
 
   methods: {
     getMusicStatus(){
       this.musicStatus = document.getElementById('musicToggle').checked
+      this.$store.commit('setCurrentBackgroundMusic',document.getElementById('musicToggle').checked);
     },
 
     getSoundeffectStatus(){

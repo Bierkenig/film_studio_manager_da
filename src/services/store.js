@@ -17,6 +17,7 @@ export default createStore({
         //TODO: changes
         logo: null,
         soundeffects: true,
+        backgroundMusic: true,
     },
 
     /** global data loaded from database*/
@@ -81,6 +82,10 @@ export default createStore({
 
         getCurrentStatusOfSoundeffect(state){
             return state.soundeffects;
+        },
+
+        getCurrentStatusOfBackgroundMusic(state){
+            return state.backgroundMusic;
         }
     },
 
@@ -197,6 +202,10 @@ export default createStore({
 
         setCurrentSoundeffect(state, status){
             state.soundeffects = status;
+        },
+
+        setCurrentBackgroundMusic(state, status){
+            state.backgroundMusic = status;
         }
     },
 
