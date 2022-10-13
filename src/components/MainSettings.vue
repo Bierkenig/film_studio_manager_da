@@ -38,8 +38,12 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "MainSettings",
+
+  mixins: [soundeffectMixin('button')],
 
   data() {
     return {
@@ -49,6 +53,10 @@ export default {
     }
   },
 
+  mounted(){
+    document.getElementById('soundeffectToggle').checked = this.$store.getters.getCurrentStatusOfSoundeffect;
+  },
+
   methods: {
     getMusicStatus(){
       this.musicStatus = document.getElementById('musicToggle').checked
@@ -56,6 +64,7 @@ export default {
 
     getSoundeffectStatus(){
       this.soundeffectStatus = document.getElementById('soundeffectToggle').checked
+      this.$store.commit('setCurrentSoundeffect',document.getElementById('soundeffectToggle').checked);
     }
   }
 }

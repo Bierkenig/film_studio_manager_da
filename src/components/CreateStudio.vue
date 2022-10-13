@@ -41,9 +41,12 @@
 
 <script>
 import {Studio} from "@/classes/Studio";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "CreateStudio",
+
+  mixins: [soundeffectMixin('button')],
 
   data() {
     return {

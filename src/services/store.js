@@ -15,7 +15,8 @@ export default createStore({
         currentMovie: null,
         currentScreenplay: null,
         //TODO: changes
-        logo: null
+        logo: null,
+        soundeffects: true,
     },
 
     /** global data loaded from database*/
@@ -76,6 +77,10 @@ export default createStore({
         //TODO: changes
         getCurrentLogo(state){
             return state.logo;
+        },
+
+        getCurrentStatusOfSoundeffect(state){
+            return state.soundeffects;
         }
     },
 
@@ -188,6 +193,10 @@ export default createStore({
         //TODO: changes
         setCurrentLogo(state, image){
             state.logo = image;
+        },
+
+        setCurrentSoundeffect(state, status){
+            state.soundeffects = status;
         }
     },
 

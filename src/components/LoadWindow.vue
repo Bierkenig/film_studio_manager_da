@@ -11,8 +11,10 @@
 
 <script>
 import LoadItem from "@/components/LoadItem";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "LoadWindow",
+  mixins: [soundeffectMixin('button')],
   components: {LoadItem}
 }
 </script>

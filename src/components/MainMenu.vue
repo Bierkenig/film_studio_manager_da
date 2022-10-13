@@ -10,8 +10,10 @@
 <script>
 import MenuNav from "@/components/MenuNav";
 import GameHeader from "@/components/GameHeader";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "MainMenu",
+  mixins: [soundeffectMixin('button')],
   components: {GameHeader, MenuNav}
 }
 </script>

@@ -5,8 +5,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
-  name: "LoadItem"
+  name: "LoadItem",
+  mixins: [soundeffectMixin('button')],
 }
 </script>
 

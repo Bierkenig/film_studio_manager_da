@@ -9,8 +9,12 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
-  name: "MenuNav"
+  name: "MenuNav",
+
+  mixins: [soundeffectMixin('button')],
 }
 </script>
 

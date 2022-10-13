@@ -31,8 +31,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "GameHeader",
+  mixins: [soundeffectMixin('button')],
 
   props: {
     studioname: String,
