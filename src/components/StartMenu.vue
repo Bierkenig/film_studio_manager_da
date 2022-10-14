@@ -5,19 +5,19 @@
         <div id="startMenuBox">
           <div id="startMenu">
             <div id="heading">
-              Filmstudio Manager
+              {{ $t('welcome') }}
             </div>
             <div>
               <router-link :to="{ name: 'createStudio'}">
-                <button id="newButton" class="buttonStyle">New</button>
+                <button id="newButton" class="buttonStyle">{{ $t('newStudioButton') }}</button>
               </router-link>
               <router-link :to="{ name: 'loadWindow'}">
-                <button id="loadButton" class="buttonStyle">Load</button>
+                <button id="loadButton" class="buttonStyle">{{ $t('loadButton') }}</button>
               </router-link>
               <router-link :to="{ name: 'mainSettings'}">
-                <button id="settingsButton" class="buttonStyle">Settings</button>
+                <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
               </router-link>
-              <button id="exitButton" class="buttonStyle" @click="exit">Exit</button>
+              <button id="exitButton" class="buttonStyle" @click="exit">{{ $t('exitButton') }}</button>
             </div>
           </div>
         </div>

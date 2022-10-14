@@ -1,6 +1,6 @@
 <template>
   <div id="card">
-    <h1>No Savings</h1>
+    <h1>{{ $t('noSaving') }}</h1>
   </div>
 </template>
 

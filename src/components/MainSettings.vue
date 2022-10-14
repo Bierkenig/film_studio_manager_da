@@ -1,22 +1,25 @@
 <template>
   <div>
-    <h1>Settings</h1>
+    <h1>{{ $t('settings') }}</h1>
     <div id="languageBox">
-      <p>Language:</p>
+      <p>{{ $t('languages') }}:</p>
       <div>
-        <div>
-          <input id="german" v-model="language" type="radio" class="radioButton" value="DE" />
-          <label for="german" class="labelRadio">DE</label>
-        </div>
-        <div>
-          <input id="english" v-model="language" type="radio" class="radioButton" value="EN" />
-          <label for="english" class="labelRadio">EN</label>
+        <div v-if="languages">
+        <span v-for="(lng, index) in Object.keys(languages)" :key="lng">
+          <button v-if="$i18next.resolvedLanguage !== lng" v-on:click="$i18next.changeLanguage(lng)">
+            {{ languages[lng].nativeName }}
+          </button>
+          <button v-if="$i18next.resolvedLanguage === lng">
+            <strong>{{ languages[lng].nativeName }}</strong>
+          </button>
+          <span v-if="index < (Object.keys(languages).length - 1)">&nbsp;|&nbsp;</span>
+        </span>
         </div>
       </div>
     </div>
 
     <div id="musicBox">
-      <p>Music:</p>
+      <p>{{ $t('music') }}:</p>
       <div>
         <label class="switch">
           <input id="musicToggle" type="checkbox" @change="getMusicStatus">
@@ -26,7 +29,7 @@
     </div>
 
     <div id="soundeffectBox">
-      <p>Soundeffect:</p>
+      <p>{{ $t('soundeffects') }}:</p>
       <div>
         <label class="switch">
           <input id="soundeffectToggle" type="checkbox" @change="getSoundeffectStatus">
@@ -47,7 +50,10 @@ export default {
 
   data() {
     return {
-      language: 'DE',
+      languages: {
+        en: {nativeName: 'English'},
+        de: {nativeName: 'Deutsch'}
+      },
       musicStatus: null,
       soundeffectStatus: null
     }

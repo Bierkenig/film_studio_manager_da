@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Loadings</h1>
+    <h1>{{ $t('loadHeader') }}</h1>
     <div id="savingsBox">
       <load-item/>
       <load-item/>
