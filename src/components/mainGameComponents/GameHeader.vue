@@ -1,32 +1,16 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
-      <p>Finance</p>
-      <div>
-        <p>{{ budget }}</p>
-      </div>
-      <div>
-        <p>Details</p>
-      </div>
-    </div>
-
-    <div class="headerSectionBox">
-      <p>Popularity</p>
-      <div>
-        <p>50%</p>
-      </div>
-      <p>R&D</p>
-      <div>
-        <p>100</p>
-      </div>
-    </div>
-
-    <div class="headerSectionBox">
+      <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
-      <div>
-        <p>Details</p>
-      </div>
+      <span>&#124;</span>
+      <p>{{ budget }}</p>
     </div>
+
+    <div class="headerSectionBox">
+      <button id="skipWeekButton">{{ $t('skipWeek') }}</button>
+    </div>
+
   </div>
 </template>
 
@@ -49,10 +33,16 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  text-align: center;
   gap: 3em;
 }
 
 .headerSectionBox {
   background-color: lightgray;
+}
+
+img {
+  height: 50px;
+  width: 50px;
 }
 </style>

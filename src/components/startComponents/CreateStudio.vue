@@ -30,7 +30,7 @@
               <img :src="img.imgSource" :alt="'Logo' + index" style="width: 50px; height: 50px">
             </div>
           </div>
-          <router-link :to="{ name: 'mainMenu' }">
+          <router-link :to="{ name: 'home' }">
             <button id="startButton" class="buttonStyle" :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null" @click="startGame">{{ $t('createStudioButton') }}</button>
           </router-link>
         </div>
@@ -54,11 +54,11 @@ export default {
       budget: "100000000",
       logoImages: [
         {
-          imgSource: [require("../assets/logo.png")],
+          imgSource: [require("../../assets/logo.png")],
           index: 1
         },
         {
-          imgSource: [require("../assets/Logo-v2.png")],
+          imgSource: [require("../../assets/Logo-v2.png")],
           index: 2
         }
       ],

@@ -27,6 +27,14 @@ i18next
                     hard: 'Hard',
                     easy: 'Easy',
                     createStudioButton: 'Start A New Game',
+                    home: 'Home',
+                    movies: 'Movies',
+                    library: 'Library',
+                    news: 'News',
+                    finances: 'Finances',
+                    calendar: 'Calendar',
+                    skipWeek: 'Skip to next week',
+
                 }
             },
             de: {
@@ -45,6 +53,13 @@ i18next
                     hard: 'Hart',
                     easy: 'Leicht',
                     createStudioButton: 'Neues Spiel starten',
+                    home: 'Hauptmenü',
+                    movies: 'Filme',
+                    library: 'Bibliothek',
+                    news: 'Nachrichten',
+                    finances: 'Finanzen',
+                    calendar: 'Kalender',
+                    skipWeek: 'Zur nächsten Woche springen',
                 }
             }
         }

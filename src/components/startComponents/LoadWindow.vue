@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import LoadItem from "@/components/LoadItem";
+import LoadItem from "@/components/startComponents/LoadItem";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "LoadWindow",
