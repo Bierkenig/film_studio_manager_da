@@ -1,6 +1,9 @@
 <template>
   <div>
     <router-view/>
+    <audio id="backgroundMusic" autoplay loop>
+      <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
+    </audio>
   </div>
 </template>
 

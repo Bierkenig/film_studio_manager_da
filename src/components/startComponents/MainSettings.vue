@@ -68,6 +68,11 @@ export default {
     getMusicStatus(){
       this.musicStatus = document.getElementById('musicToggle').checked
       this.$store.commit('setCurrentBackgroundMusic',document.getElementById('musicToggle').checked);
+      if(this.musicStatus){
+        document.getElementById('backgroundMusic').play();
+      } else {
+        document.getElementById('backgroundMusic').pause();
+      }
     },
 
     getSoundeffectStatus(){
