@@ -1,4 +1,4 @@
-export default function soundeffectMixin(element){
+export default function soundeffectMixin(element, event){
     return {
         mounted() {
             let btns = document.querySelectorAll(element);
@@ -10,7 +10,7 @@ export default function soundeffectMixin(element){
             const audio = new Audio(require("../soundeffects/" + element + "Sound.mp3"));
 
             function playSound(item) {
-                item.addEventListener('click', function () {
+                item.addEventListener(event, function () {
                     if (status === true) {
                         audio.play();
                     }

@@ -9,7 +9,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "LoadItem",
-  mixins: [soundeffectMixin('button')],
+  mixins: [soundeffectMixin('button','click')],
 }
 </script>
 

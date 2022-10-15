@@ -14,7 +14,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "MenuNav",
 
-  mixins: [soundeffectMixin('button')],
+  mixins: [soundeffectMixin('button','click')],
 }
 </script>
 

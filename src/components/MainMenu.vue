@@ -13,7 +13,7 @@ import GameHeader from "@/components/GameHeader";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "MainMenu",
-  mixins: [soundeffectMixin('button')],
+  mixins: [soundeffectMixin('button','click')],
   components: {GameHeader, MenuNav}
 }
 </script>

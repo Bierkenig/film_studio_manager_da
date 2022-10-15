@@ -46,7 +46,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "MainSettings",
 
-  mixins: [soundeffectMixin('button')],
+  mixins: [soundeffectMixin('button','click')],
 
   data() {
     return {

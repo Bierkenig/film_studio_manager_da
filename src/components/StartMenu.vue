@@ -32,7 +32,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: 'StartMenu',
 
-  mixins: [soundeffectMixin('button')],
+  mixins: [soundeffectMixin('button','click')],
 
   methods: {
     exit() {

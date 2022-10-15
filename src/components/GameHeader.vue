@@ -35,7 +35,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "GameHeader",
-  mixins: [soundeffectMixin('button')],
+  mixins: [soundeffectMixin('button','click')],
 
   props: {
     studioname: String,
