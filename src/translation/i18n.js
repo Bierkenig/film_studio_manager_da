@@ -34,7 +34,12 @@ i18next
                     finances: 'Finances',
                     calendar: 'Calendar',
                     skipWeek: 'Skip to next week',
-
+                    releasedMovie: 'Released Movies',
+                    earnings: 'Earnings',
+                    week: 'Week',
+                    month: 'Month',
+                    inProduction: 'In Production',
+                    upcomingEvents: 'Upcoming Events',
                 }
             },
             de: {
@@ -60,6 +65,12 @@ i18next
                     finances: 'Finanzen',
                     calendar: 'Kalender',
                     skipWeek: 'Zur nächsten Woche springen',
+                    releasedMovie: 'Veröffentlichte Filme',
+                    earnings: 'Einnahmen',
+                    week: 'Woche',
+                    month: 'Monat',
+                    inProduction: 'In Produktion',
+                    upcomingEvents: 'Kommende Events',
                 }
             }
         }

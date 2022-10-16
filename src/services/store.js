@@ -18,6 +18,18 @@ export default createStore({
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
+        news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
+        earnings: [
+            {
+                value: 245000,
+                date: new Date(2022,9,14)
+            },
+            {
+                value: 500000,
+                date: new Date(2022,8,28)
+            }
+        ],
+        inProductionMovies: [],
     },
 
     /** global data loaded from database*/
@@ -86,7 +98,19 @@ export default createStore({
 
         getCurrentStatusOfBackgroundMusic(state){
             return state.backgroundMusic;
-        }
+        },
+
+        getCurrentNews(state){
+            return state.news;
+        },
+
+        getEarnings(state){
+            return state.earnings;
+        },
+
+        getInProductionMovies(state) {
+            return state.inProductionMovies;
+        },
     },
 
     /** Methods that change the application state synchronously */
@@ -206,7 +230,27 @@ export default createStore({
 
         setCurrentBackgroundMusic(state, status){
             state.backgroundMusic = status;
-        }
+        },
+
+        addNews(state, newNews){
+            state.news.push(newNews);
+        },
+
+        deleteNews(state, index){
+            state.news.splice(index,1);
+        },
+
+        addEarnings(state, payload){
+            state.earnings.push({value: payload[0], date: payload[1]})
+        },
+
+        addInProductionMovie(state, movie) {
+            state.inProductionMovies.push(movie);
+        },
+
+        removeInProductionMovie(state, movie) {
+            state.inProductionMovies.splice(state.inProductionMovies.indexOf(movie), 1);
+        },
     },
 
     /** Methods that change the application state asynchronously */

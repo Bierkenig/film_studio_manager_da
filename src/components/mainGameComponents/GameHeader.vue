@@ -3,7 +3,6 @@
     <div class="headerSectionBox">
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
-      <span>&#124;</span>
       <p>{{ budget }}</p>
     </div>
 
