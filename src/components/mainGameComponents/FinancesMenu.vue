@@ -1,12 +1,16 @@
 <template>
   <div>
-
+    <game-header :studioname="this.$store.getters.getStudio.name" :budget="this.$store.getters.getBalance"/>
+    <menu-nav/>
   </div>
 </template>
 
 <script>
+import GameHeader from "@/components/mainGameComponents/GameHeader";
+import MenuNav from "@/components/mainGameComponents/MenuNav";
 export default {
-  name: "FinancesMenu"
+  name: "FinancesMenu",
+  components: {GameHeader, MenuNav}
 }
 </script>
 

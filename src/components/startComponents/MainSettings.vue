@@ -37,6 +37,8 @@
         </label>
       </div>
     </div>
+
+    <button id="backButton" class="buttonStyle" @click="$router.go(-1)">Back</button>
   </div>
 </template>
 

@@ -21,6 +21,9 @@
     <router-link to="calendar">
       <button id="calendarButton" class="buttonStyle">{{ $t('calendar') }}</button>
     </router-link>
+    <router-link to="mainSettings">
+      <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
+    </router-link>
   </div>
 </template>
 
@@ -33,14 +36,14 @@ export default {
   mixins: [soundeffectMixin('button','click')],
 
   mounted() {
-    document.getElementById('homeButton').focus();
+    //document.getElementById('homeButton').focus();
   }
 }
 </script>
 
 <style scoped>
-.buttonStyle:focus {
+/*.buttonStyle:focus {
   font-weight: bold;
   background-color: red;
-}
+}*/
 </style>
