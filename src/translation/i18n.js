@@ -40,6 +40,7 @@ i18next
                     month: 'Month',
                     inProduction: 'In Production',
                     upcomingEvents: 'Upcoming Events',
+                    back: 'Back',
                 }
             },
             de: {
@@ -71,6 +72,7 @@ i18next
                     month: 'Monat',
                     inProduction: 'In Produktion',
                     upcomingEvents: 'Kommende Events',
+                    back: 'Zurück',
                 }
             }
         }
