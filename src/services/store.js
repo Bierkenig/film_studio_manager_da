@@ -22,14 +22,15 @@ export default createStore({
         earnings: [
             {
                 value: 245000,
-                date: new Date(2022,9,14)
+                date: new Date(2022,11,31)
             },
             {
                 value: 500000,
-                date: new Date(2022,8,28)
+                date: new Date(2022,11,15)
             }
         ],
         inProductionMovies: [],
+        currentDate: new Date("January 1, 2023"),
     },
 
     /** global data loaded from database*/
@@ -110,6 +111,10 @@ export default createStore({
 
         getInProductionMovies(state) {
             return state.inProductionMovies;
+        },
+
+        getCurrentDate(state){
+            return state.currentDate;
         },
     },
 
@@ -250,6 +255,11 @@ export default createStore({
 
         removeInProductionMovie(state, movie) {
             state.inProductionMovies.splice(state.inProductionMovies.indexOf(movie), 1);
+        },
+
+        updateCurrentDate(state){
+            let lastDate = state.currentDate;
+            state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+7);
         },
     },
 

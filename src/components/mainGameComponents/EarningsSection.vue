@@ -32,7 +32,7 @@ export default {
 
   methods: {
     getLastWeeksDate() {
-      const now = new Date();
+      const now = this.$store.getters.getCurrentDate;
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
     },
