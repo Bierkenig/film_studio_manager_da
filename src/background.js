@@ -22,8 +22,6 @@ async function createWindow() {
     }
   })
 
-  //Path
-  console.log(app.getAppPath())
   //DB TODO @Jakob Path
   const sqlite3 = require('sqlite3').verbose()
   const db = new sqlite3.Database("C:\\Users\\Jakob\\WebstormProjects\\film_studio_manager_da\\src\\DB\\database\\fsm.db", (err) => {
@@ -35,7 +33,7 @@ async function createWindow() {
     db.serialize(() => {
       db.each(data, (err, row) => {
         if (err) console.log(err)
-        else event.sender.send('fromMain', row.name)
+        else event.sender.send('fromMain', row)
       })
     })
 

@@ -21,7 +21,7 @@ export default {
 
   methods: {
     sendMain() {
-      window.ipcRenderer.send("toMain", "SELECT * FROM test")
+      window.ipcRenderer.send("toMain", "SELECT first_name from actors")
     }
   },
 
