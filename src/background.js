@@ -23,8 +23,10 @@ async function createWindow() {
   })
 
   //DB TODO @Jakob Path
+  const dbPath = path.join(app.getAppPath(), "../src/DB/database/fsm.db")
+  console.log(dbPath)
   const sqlite3 = require('sqlite3').verbose()
-  const db = new sqlite3.Database("C:\\Users\\Jakob\\WebstormProjects\\film_studio_manager_da\\src\\DB\\database\\fsm.db", (err) => {
+  const db = new sqlite3.Database(dbPath, (err) => {
     if (err) console.error('Database opening error: ', err);
   });
 
