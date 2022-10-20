@@ -24,7 +24,7 @@ async function createWindow() {
 
   //DB TODO @Jakob Path
   const dbPath = path.join(app.getAppPath(), "../src/DB/database/fsm.db")
-  console.log(dbPath)
+  //console.log(dbPath)
   const sqlite3 = require('sqlite3').verbose()
   const db = new sqlite3.Database(dbPath, (err) => {
     if (err) console.error('Database opening error: ', err);
