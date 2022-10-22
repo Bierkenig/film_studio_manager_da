@@ -1,9 +1,5 @@
 <template>
   <div>
-    <game-header
-        :studioname="this.$store.getters.getStudio.name"
-        :budget="this.$store.getters.getBalance"
-        :page-name="$t('home')"/>
     <div id="container">
       <news-section class="news"/>
       <movie-section class="releasedMovies" :heading="$t('releasedMovie')" :data="this.$store.getters.getCreatedMovies"/>
@@ -15,7 +11,6 @@
 </template>
 
 <script>
-import GameHeader from "@/components/mainGameComponents/GameHeader";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import NewsSection from "@/components/mainGameComponents/NewsSection";
 import MovieSection from "@/components/mainGameComponents/MovieSection";
@@ -24,7 +19,7 @@ import UpcomingEventsSection from "@/components/mainGameComponents/UpcomingEvent
 export default {
   name: "HomeMenu",
   mixins: [soundeffectMixin('button','click')],
-  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection, GameHeader}
+  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection}
 }
 </script>
 

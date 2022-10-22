@@ -2,7 +2,7 @@
   <div id="headerBox">
     <div class="headerSectionBox">
       <div>
-        <h2>{{ pageName }}</h2>
+        <h2>{{ $t(pageName) }}</h2>
         <p>{{ $t('managerDashboard') }}</p>
       </div>
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
@@ -31,7 +31,7 @@ export default {
     studioname: String,
     budget: Number,
     pageName: String
-  }
+  },
 }
 </script>
 

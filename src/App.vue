@@ -1,10 +1,18 @@
 <template>
   <div>
+    <game-header
+        v-show="this.showOnPage.includes(this.$route.name)"
+        :studioname="this.$store.getters.getStudio.name"
+        :budget="this.$store.getters.getBalance"
+        :page-name="this.$route.name"/>
+
     <router-view/>
+
     <menu-nav
         v-show="this.showOnPage.includes(this.$route.name)"
         page-name="calendar"
       />
+
     <audio id="backgroundMusic" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
     </audio>
@@ -13,9 +21,10 @@
 
 <script>
 import MenuNav from "@/components/mainGameComponents/MenuNav";
+import GameHeader from "@/components/mainGameComponents/GameHeader";
 export default {
   name: 'App',
-  components: {MenuNav},
+  components: {GameHeader, MenuNav},
   data(){
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
