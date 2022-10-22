@@ -1,6 +1,10 @@
 <template>
   <div>
     <router-view/>
+    <menu-nav
+        v-show="this.showOnPage.includes(this.$route.name)"
+        page-name="calendar"
+      />
     <audio id="backgroundMusic" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
     </audio>
@@ -8,8 +12,15 @@
 </template>
 
 <script>
+import MenuNav from "@/components/mainGameComponents/MenuNav";
 export default {
   name: 'App',
+  components: {MenuNav},
+  data(){
+    return {
+      showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
+    }
+  }
 }
 </script>
 

@@ -4,16 +4,14 @@
         :studioname="this.$store.getters.getStudio.name"
         :budget="this.$store.getters.getBalance"
         :page-name="$t('news')"/>
-    <menu-nav/>
   </div>
 </template>
 
 <script>
 import GameHeader from "@/components/mainGameComponents/GameHeader";
-import MenuNav from "@/components/mainGameComponents/MenuNav";
 export default {
   name: "NewsMenu",
-  components: {GameHeader, MenuNav}
+  components: {GameHeader}
 }
 </script>
 
