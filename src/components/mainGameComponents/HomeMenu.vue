@@ -1,7 +1,9 @@
 <template>
   <div>
-    <game-header :studioname="this.$store.getters.getStudio.name" :budget="this.$store.getters.getBalance"/>
-    <h1>{{ $t('home') }}</h1>
+    <game-header
+        :studioname="this.$store.getters.getStudio.name"
+        :budget="this.$store.getters.getBalance"
+        :page-name="$t('home')"/>
     <div id="container">
       <news-section class="news"/>
       <movie-section class="releasedMovies" :heading="$t('releasedMovie')" :data="this.$store.getters.getCreatedMovies"/>

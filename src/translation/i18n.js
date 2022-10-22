@@ -41,6 +41,7 @@ i18next
                     inProduction: 'In Production',
                     upcomingEvents: 'Upcoming Events',
                     back: 'Back',
+                    managerDashboard: 'Your manager dashboard',
                 }
             },
             de: {
@@ -73,6 +74,7 @@ i18next
                     inProduction: 'In Produktion',
                     upcomingEvents: 'Kommende Events',
                     back: 'Zurück',
+                    managerDashboard: 'Dein Management Dashboard',
                 }
             }
         }

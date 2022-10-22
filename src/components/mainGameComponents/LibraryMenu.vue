@@ -1,6 +1,9 @@
 <template>
   <div>
-    <game-header :studioname="this.$store.getters.getStudio.name" :budget="this.$store.getters.getBalance"/>
+    <game-header
+        :studioname="this.$store.getters.getStudio.name"
+        :budget="this.$store.getters.getBalance"
+        :page-name="$t('library')"/>
     <menu-nav/>
   </div>
 </template>

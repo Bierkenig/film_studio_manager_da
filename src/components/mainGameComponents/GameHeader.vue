@@ -1,6 +1,10 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
+      <div>
+        <h2>{{ pageName }}</h2>
+        <p>{{ $t('managerDashboard') }}</p>
+      </div>
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
       <p>{{ budget }}</p>
@@ -10,10 +14,9 @@
       </p>
     </div>
 
-    <div class="headerSectionBox">
-      <button id="skipWeekButton" @click="this.$store.commit('updateCurrentDate')">{{ $t('skipWeek') }}</button>
-    </div>
-
+    <router-link to="mainSettings">
+      <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
+    </router-link>
   </div>
 </template>
 
@@ -27,6 +30,7 @@ export default {
   props: {
     studioname: String,
     budget: Number,
+    pageName: String
   }
 }
 </script>
@@ -38,10 +42,6 @@ export default {
   justify-content: center;
   text-align: center;
   gap: 3em;
-}
-
-.headerSectionBox {
-  background-color: lightgray;
 }
 
 img {
