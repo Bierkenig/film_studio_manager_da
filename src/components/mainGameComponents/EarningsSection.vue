@@ -1,7 +1,7 @@
 <template>
   <div id="earningSection">
     <h1>{{ $t('earnings') }}</h1>
-    <div>
+    <!--<div>
       <div>
         <input id="week" v-model="timeEarnings" type="radio" class="time" value="week" v-on:change="changeEarnings"/>
         <label for="week" class="labelRadio">{{ $t('week') }}</label>
@@ -10,9 +10,11 @@
         <input id="month" v-model="timeEarnings" type="radio" class="time" value="month" v-on:change="changeEarnings"/>
         <label for="month" class="labelRadio">{{ $t('month') }}</label>
       </div>
-    </div>
+    </div>-->
     <div id="earningTextSection">
-      <div v-for="(it, index) in this.showEarnings" :key="index">
+      <div v-for="(it, index) in this.$store.getters.getEarnings.sort(function(a,b)
+            {return new Date(b.date) - new Date(a.date);})"
+           :key="index">
         {{ it.value }}
       </div>
     </div>
@@ -25,12 +27,12 @@ export default {
 
   data(){
     return {
-      showEarnings: [],
+      //showEarnings: [],
       timeEarnings: "week",
     }
   },
 
-  methods: {
+  /*methods: {
     getLastWeeksDate() {
       const now = this.$store.getters.getCurrentDate;
 
@@ -51,7 +53,7 @@ export default {
 
   mounted() {
     this.changeEarnings();
-  }
+  }*/
 }
 </script>
 
