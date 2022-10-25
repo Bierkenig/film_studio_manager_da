@@ -1,8 +1,5 @@
 <template>
   <div>
-    <!-- call components -->
-    <button style="accent-color: aqua" @click="sendMain"></button>
-    <h1>{{ renderer }}</h1>
   </div>
 </template>
 
@@ -11,26 +8,6 @@ export default {
   name: 'App',
   components: {
   },
-
-  data() {
-    return {
-      mainPro: ['Julian', 'Singer', 'ist', 'coProjektowner'],
-      renderer: ""
-    }
-  },
-
-  methods: {
-    sendMain() {
-      window.ipcRenderer.send("toMain", "SELECT first_name from actors")
-    }
-  },
-
-  mounted() {
-    window.ipcRenderer.receive('fromMain', (data) => {
-      console.log("DATA VARIABLE: " + data)
-      this.renderer = data
-    })
-  }
 }
 </script>
 
