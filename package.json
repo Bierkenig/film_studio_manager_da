@@ -30,6 +30,7 @@
     "i18next": "^21.10.0",
     "i18next-browser-languagedetector": "^6.1.8",
     "i18next-vue": "^2.0.0",
+    "jquery": "^3.6.1",
     "material-icons-font": "^2.1.0",
     "source-map-loader": "^4.0.0",
     "sqlite3": "^5.1.2",

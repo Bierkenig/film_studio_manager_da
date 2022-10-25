@@ -1,10 +1,12 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
-      <div>
-        <h2>{{ $t(pageName) }}</h2>
-        <p>{{ $t('managerDashboard') }}</p>
-      </div>
+      <router-link to="mainSettings">
+        <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
+      </router-link>
+
+      <h2>{{ $t(pageName) }}</h2>
+
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
       <p>{{ budget }}</p>
@@ -12,16 +14,15 @@
         {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
         {{ this.$store.getters.getCurrentDate.getFullYear() }}
       </p>
-    </div>
 
-    <router-link to="mainSettings">
-      <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
-    </router-link>
+      <button id="skipWeekButton" @click="onUpdateDate">{{ $t('skipWeek') }}</button>
+    </div>
   </div>
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import $ from "jquery";
 
 export default {
   name: "GameHeader",
@@ -32,6 +33,22 @@ export default {
     budget: Number,
     pageName: String
   },
+
+  methods: {
+    addClassByDate(date) {
+      let dataAttr = this.getDataAttr(date);
+      $("[data-date='" + dataAttr + "']").addClass("today");
+    },
+
+    getDataAttr(date) {
+      return date.getFullYear() + "-" + (date.getMonth().toString.length === 2 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "-" + (date.getDate().toString().length === 2 ? date.getDate() : "0" + date.getDate());
+    },
+
+    onUpdateDate(){
+      this.addClassByDate(this.$store.getters.getCurrentDate);
+      this.$store.commit('updateCurrentDate');
+    },
+  }
 }
 </script>
 
