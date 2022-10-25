@@ -1,10 +1,12 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
-      <div>
-        <h2>{{ $t(pageName) }}</h2>
-        <p>{{ $t('managerDashboard') }}</p>
-      </div>
+      <router-link to="mainSettings">
+        <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
+      </router-link>
+
+      <h2>{{ $t(pageName) }}</h2>
+
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
       <p>{{ budget }}</p>
@@ -12,11 +14,9 @@
         {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
         {{ this.$store.getters.getCurrentDate.getFullYear() }}
       </p>
-    </div>
 
-    <router-link to="mainSettings">
-      <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
-    </router-link>
+      <button id="skipWeekButton" @click="this.$store.commit('updateCurrentDate')">{{ $t('skipWeek') }}</button>
+    </div>
   </div>
 </template>
 
