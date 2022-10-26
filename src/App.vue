@@ -17,7 +17,7 @@
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
     </audio>
 
-    <button @click="test">Test</button>
+    <!--<button @click="test">Test</button>-->
   </div>
 </template>
 
@@ -39,12 +39,12 @@ export default {
     }
   },
 
-  mounted() {
+  /*mounted() {
     window.ipcRenderer.receive('fromMain', (data) => {
       console.log("DATA VARIABLE: " + data)
       this.renderer = data
     })
-  }
+  }*/
 }
 </script>
 

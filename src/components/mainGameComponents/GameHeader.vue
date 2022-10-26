@@ -45,8 +45,8 @@ export default {
     },
 
     onUpdateDate(){
-      this.addClassByDate(this.$store.getters.getCurrentDate);
       this.$store.commit('updateCurrentDate');
+      //this.addClassByDate(this.$store.getters.getCurrentDate);
     },
   }
 }
