@@ -1,16 +1,18 @@
 import {createStore} from "vuex";
 import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default createStore({
     /** Application state */
     state:{
         screenplays: [],
-        boughtScreenplays: [],
+        boughtScreenplays: [new Screenplay(1,'Test Screenplay','Feature','Action','Horror','PG',null,'SPASS','2','100')],
         studio: new Studio('NO STUDIO'),
         balance: 0,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
+        //movies which are still in cinema and generate profit
         createdMovies: [],
         currentMovie: null,
         currentScreenplay: null,
@@ -31,12 +33,16 @@ export default createStore({
                 date: new Date(2022,11,15)
             }
         ],
+        //movies which are in production
         inProductionMovies: [],
+        //movies which aren't in cinema anymore and are completely finished
+        finishedMovies: [],
         events: [{
             title: "SOMETHING",
             start: '2023-01-06',
             end: '2023-01-10'
         }],
+        franchises: []
     },
 
     /** global data loaded from database*/
@@ -129,6 +135,14 @@ export default createStore({
 
         getCurrentLanguage(state){
             return state.currentLanguage;
+        },
+
+        getFinishedMovies(state){
+            return state.finishedMovies;
+        },
+
+        getFranchises(state){
+            return state.franchises;
         }
     },
 
@@ -282,6 +296,18 @@ export default createStore({
 
         changeCurrentLanguage(state, value){
             state.currentLanguage = value;
+        },
+
+        addFinishedMovie(state, movie){
+            state.finishedMovies.push(movie);
+        },
+
+        addFranchise(state, franchise){
+            state.franchises.push(franchise);
+        },
+
+        removeFranchise(state, franchise){
+            state.franchises.splice(state.franchises.indexOf(franchise), 1);
         }
     },
 
