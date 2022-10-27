@@ -44,6 +44,7 @@ i18next
                     upcomingEvents: 'Upcoming Events',
                     back: 'Back',
                     managerDashboard: 'Your manager dashboard',
+                    close: 'Close',
                 }
             },
             de: {
@@ -78,6 +79,7 @@ i18next
                     upcomingEvents: 'Kommende Events',
                     back: 'Zurück',
                     managerDashboard: 'Dein Management Dashboard',
+                    close: 'Schließen',
                 }
             }
         }

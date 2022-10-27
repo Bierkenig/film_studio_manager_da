@@ -8,7 +8,7 @@
           <div class="modal-body">
             <slot name="body">
               <fieldset>
-                <legend>Event details</legend>
+                <legend>Event Details</legend>
 
                 {{ event.title }}<br>
                 {{ event.start }}<br>
@@ -20,7 +20,7 @@
           <div class="modal-footer">
             <slot name="footer">
               <button class="modal-default-button" @click="$emit('close')">
-                Close
+                {{ $t('close') }}
               </button>
             </slot>
           </div>
