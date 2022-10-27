@@ -308,7 +308,27 @@ export default createStore({
 
         removeFranchise(state, franchise){
             state.franchises.splice(state.franchises.indexOf(franchise), 1);
-        }
+        },
+
+        addCurrentScreenplayMainCharacter(state, character) {
+            state.currentScreenplay.addMainCharacter(character);
+        },
+
+        addCurrentScreenplaySupportCharacter(state, character) {
+            state.currentScreenplay.addSupportCharacter(character);
+        },
+
+        addCurrentScreenplayMinorCharacter(state, character) {
+            state.currentScreenplay.addMinorCharacter(character);
+        },
+
+        addCurrentScreenplayCameoCharacter(state, character) {
+            state.currentScreenplay.addCameoCharacter(character);
+        },
+
+        addCurrentScreenplayVoiceOverCharacter(state, character) {
+            state.currentScreenplay.addVoiceOverCharacter(character);
+        },
     },
 
     /** Methods that change the application state asynchronously */

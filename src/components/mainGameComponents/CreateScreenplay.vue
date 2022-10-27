@@ -109,7 +109,7 @@ export default {
       this.screenplay = new Screenplay(this.$store.getters.getNextScreenplayId, this.title, this.type, this.genre, this.subgenre, this.ageRating, null, this.desc, null, null);
       this.$store.commit('setNewCurrentScreenplay', this.screenplay);
       console.log(this.$store.getters.getCurrentScreenplay)
-      this.$router.push({name: 'movies'});
+      this.$router.push({name: 'screenplayCharacters'});
     },
 
     selectAgeRating(event) {

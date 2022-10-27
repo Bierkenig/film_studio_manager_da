@@ -12,6 +12,7 @@ export class Screenplay {
         this.price = price;
         this.type = type;
         this.subgenre = subgenre;
+        this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
     }
 
     getId() {
@@ -74,6 +75,30 @@ export class Screenplay {
 
     setSubgenre(value) {
         this.subgenre = value;
+    }
+
+    addMainCharacter(actor) {
+        this.roles.main.push(actor);
+    }
+
+    addSupportCharacter(actor) {
+        this.roles.support.push(actor);
+    }
+
+    addMinorCharacter(actor) {
+        this.roles.minor.push(actor);
+    }
+
+    addCameoCharacter(actor) {
+        this.roles.cameo.push(actor);
+    }
+
+    addVoiceOverCharacter(actor) {
+        this.roles.voiceOver.push(actor);
+    }
+
+    getRoles() {
+        return this.roles;
     }
 
     toString() {
