@@ -31,6 +31,11 @@ export default createStore({
         ],
         inProductionMovies: [],
         currentDate: new Date("January 1, 2023"),
+        events: [{
+            title: "SOMETHING",
+            start: '2023-01-06',
+            end: '2023-01-10'
+        }],
     },
 
     /** global data loaded from database*/
@@ -116,6 +121,10 @@ export default createStore({
         getCurrentDate(state){
             return state.currentDate;
         },
+
+        getEvents(state){
+            return state.events;
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -261,6 +270,10 @@ export default createStore({
             let lastDate = state.currentDate;
             state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+7);
         },
+
+        addEvent(state, event){
+            state.events.push(event);
+        }
     },
 
     /** Methods that change the application state asynchronously */

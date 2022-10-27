@@ -1,6 +1,16 @@
 <template>
   <div>
-    <FullCalendar :options="calendarOptions"/>
+    <FullCalendar
+        :options="calendarOptions"
+        @select="handleSelect"/>
+
+    <transition name="modal">
+      <event-modal v-if="showModal" :event="eventProp" @close="showModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </event-modal>
+    </transition>
   </div>
 </template>
 
@@ -11,11 +21,14 @@ import DayGridPlugin from '@fullcalendar/daygrid'
 import TimeGridPlugin from '@fullcalendar/timegrid'
 import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
+import {mapGetters} from 'vuex'
+import EventModal from "@/components/mainGameComponents/EventModal";
+//import EventModal from "@/components/mainGameComponents/EventModal";
 //import $ from "jquery";
 
 export default {
   name: 'CalendarMenu',
-  components: {FullCalendar},
+  components: {EventModal, FullCalendar},
   data(){
     return{
       calendarOptions: {
@@ -31,22 +44,23 @@ export default {
         validRange: {
           start: '2023-01-01'
         },
-        events: [
-          {
-            title  : 'event2',
-            start  : '2023-01-05',
-            end    : '2023-01-07'
-          },
-        ],
         selectable: true,
-        dateClick: this.handleDateClick,
-      }
+        events: this.$store.getters.getEvents,
+        eventClick: this.handleClick
+      },
+      showModal: false,
+      eventProp: Object
     }
   },
 
+  computed: {
+    ...mapGetters(["getEvents"])
+  },
+
   methods: {
-    handleDateClick: function(arg) {
-      alert('date click! ' + arg.dateStr)
+    handleClick(arg) {
+      this.eventProp = arg.event
+      this.showModal = true;
     }
   }
 
