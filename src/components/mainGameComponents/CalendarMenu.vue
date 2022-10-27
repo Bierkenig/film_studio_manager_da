@@ -35,6 +35,7 @@ export default {
         plugins: [DayGridPlugin, InteractionPlugin, ListPlugin, TimeGridPlugin],
         initialView: 'dayGridMonth',
         initialDate: this.$store.getters.getCurrentDate,
+        locale: this.$store.getters.getCurrentLanguage,
         headerToolbar: {
           start: 'prev',
           center: 'title',

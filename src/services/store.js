@@ -18,6 +18,8 @@ export default createStore({
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
+        currentDate: new Date("January 1, 2023"),
+        currentLanguage: 'en',
         news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         earnings: [
             {
@@ -30,7 +32,6 @@ export default createStore({
             }
         ],
         inProductionMovies: [],
-        currentDate: new Date("January 1, 2023"),
         events: [{
             title: "SOMETHING",
             start: '2023-01-06',
@@ -124,6 +125,10 @@ export default createStore({
 
         getEvents(state){
             return state.events;
+        },
+
+        getCurrentLanguage(state){
+            return state.currentLanguage;
         }
     },
 
@@ -273,6 +278,10 @@ export default createStore({
 
         addEvent(state, event){
             state.events.push(event);
+        },
+
+        changeCurrentLanguage(state, value){
+            state.currentLanguage = value;
         }
     },
 

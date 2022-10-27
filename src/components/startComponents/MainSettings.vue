@@ -6,10 +6,10 @@
       <div>
         <div v-if="languages">
         <span v-for="(lng, index) in Object.keys(languages)" :key="lng">
-          <button v-if="$i18next.resolvedLanguage !== lng" v-on:click="$i18next.changeLanguage(lng)">
+          <button v-if="$i18next.resolvedLanguage !== lng" v-on:click="$i18next.changeLanguage(lng)" @click="onLanguageChange(lng)">
             {{ languages[lng].nativeName }}
           </button>
-          <button v-if="$i18next.resolvedLanguage === lng">
+          <button v-if="$i18next.resolvedLanguage === lng" @click="onLanguageChange(lng)">
             <strong>{{ languages[lng].nativeName }}</strong>
           </button>
           <span v-if="index < (Object.keys(languages).length - 1)">&nbsp;|&nbsp;</span>
@@ -80,6 +80,10 @@ export default {
     getSoundeffectStatus(){
       this.soundeffectStatus = document.getElementById('soundeffectToggle').checked
       this.$store.commit('setCurrentSoundeffect',document.getElementById('soundeffectToggle').checked);
+    },
+
+    onLanguageChange(language){
+      this.$store.commit('changeCurrentLanguage',language);
     }
   }
 }

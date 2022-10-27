@@ -10,6 +10,7 @@ i18next
     // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
         fallbackLng: 'en',
+        lng: 'en',
         resources: {
             en: {
                 translation: {
