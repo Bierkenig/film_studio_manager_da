@@ -5,7 +5,10 @@
         <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
       </router-link>
 
-      <h2>{{ $t(pageName) }}</h2>
+      <div>
+        <h2>{{ $t(pageName) }}</h2>
+        <p>{{ $t('managerDashboard') }}</p>
+      </div>
 
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
