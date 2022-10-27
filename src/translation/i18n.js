@@ -45,6 +45,12 @@ i18next
                     back: 'Back',
                     managerDashboard: 'Your manager dashboard',
                     close: 'Close',
+                    finishedMovies: 'Finished Movies',
+                    owningScreenplays: 'Owning Screenplays',
+                    franchises: 'Franchises',
+                    createScreenplay: 'Create Screenplay',
+                    createMovie: 'Create Movie',
+                    buyScreenplay: 'Buy Screenplay',
                 }
             },
             de: {
@@ -80,6 +86,14 @@ i18next
                     back: 'Zurück',
                     managerDashboard: 'Dein Management Dashboard',
                     close: 'Schließen',
+                    finishedMovies: 'Fertige Filme',
+                    owningScreenplays: 'Drehbücher - in Besitz',
+                    franchises: 'Filmreihen',
+                    createScreenplay: 'Drehbuch erstellen',
+                    createMovie: 'Film erstellen',
+                    buyScreenplay: 'Drehbuch kaufen',
+                    description: 'Beschreibung',
+                    movieTitle: 'Filmtitel',
                 }
             }
         }
