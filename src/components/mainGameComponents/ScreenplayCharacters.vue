@@ -125,7 +125,7 @@ export default {
     },
 
     continueCreateMovie(){
-      this.$router.push({name: 'movies'});
+      this.$router.push({name: 'screenplayPlot'});
     }
   }
 }

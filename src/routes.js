@@ -12,6 +12,7 @@ import Finances from "@/components/mainGameComponents/FinancesMenu";
 import Calendar from "@/components/mainGameComponents/CalendarMenu";
 import CreateScreenplay from "@/components/mainGameComponents/CreateScreenplay";
 import ScreenplayCharacters from "@/components/mainGameComponents/ScreenplayCharacters";
+import ScreenplayPlot from "@/components/mainGameComponents/ScreenplayPlot";
 
 const routes = [
     { name: 'news', path: '/news', component: News, props: true },
@@ -22,6 +23,7 @@ const routes = [
     { name: 'calendar', path: '/calendar', component: Calendar, props: true },
     { name: 'createScreenplay', path: '/createScreenplay', component: CreateScreenplay, props: true },
     { name: 'screenplayCharacters', path: '/screenplayCharacters', component: ScreenplayCharacters, props: true },
+    { name: 'screenplayPlot', path: '/screenplayPlot', component: ScreenplayPlot, props: true },
 
     { name: 'createStudio', path: '/createStudio', component: CreateStudio, props: true },
     { name: 'home', path: '/home', component: Home, props: true },
