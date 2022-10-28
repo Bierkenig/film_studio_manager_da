@@ -1,18 +1,18 @@
 import { createWebHistory, createRouter } from "vue-router";
 import CreateStudio from "@/components/startComponents/CreateStudio";
 import StartMenu from "@/components/startComponents/StartMenu";
-import Home from "@/components/mainGameComponents/HomeMenu";
+import Home from "@/components/mainGameComponents/homeMenu/HomeMenu";
 import LoadWindow from "@/components/startComponents/LoadWindow";
 import MainSettings from "@/components/startComponents/MainSettings";
-import News from "@/components/mainGameComponents/NewsMenu";
-import Movies from "@/components/mainGameComponents/MoviesMenu";
-import Library from "@/components/mainGameComponents/LibraryMenu";
-import Streaming from "@/components/mainGameComponents/StreamingMenu";
-import Finances from "@/components/mainGameComponents/FinancesMenu";
-import Calendar from "@/components/mainGameComponents/CalendarMenu";
-import CreateScreenplay from "@/components/mainGameComponents/CreateScreenplay";
-import ScreenplayCharacters from "@/components/mainGameComponents/ScreenplayCharacters";
-import ScreenplayPlot from "@/components/mainGameComponents/ScreenplayPlot";
+import News from "@/components/mainGameComponents/newsMenu/NewsMenu";
+import Movies from "@/components/mainGameComponents/moviesMenu/MoviesMenu";
+import Library from "@/components/mainGameComponents/libraryMenu/LibraryMenu";
+import Streaming from "@/components/mainGameComponents/streamingMenu/StreamingMenu";
+import Finances from "@/components/mainGameComponents/financesMenu/FinancesMenu";
+import Calendar from "@/components/mainGameComponents/calendarMenu/CalendarMenu";
+import CreateScreenplay from "@/components/mainGameComponents/moviesMenu/createScreenplay/CreateScreenplay";
+import ScreenplayCharacters from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayCharacters";
+import ScreenplayPlot from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayPlot";
 
 const routes = [
     { name: 'news', path: '/news', component: News, props: true },

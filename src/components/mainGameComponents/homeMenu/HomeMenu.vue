@@ -12,10 +12,10 @@
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
-import NewsSection from "@/components/mainGameComponents/NewsSection";
-import MovieSection from "@/components/mainGameComponents/MovieSection";
-import EarningsSection from "@/components/mainGameComponents/EarningsSection";
-import UpcomingEventsSection from "@/components/mainGameComponents/UpcomingEventsSection";
+import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSection";
+import MovieSection from "@/components/mainGameComponents/sectionsForMenus/MovieSection";
+import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
+import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
 export default {
   name: "HomeMenu",
   mixins: [soundeffectMixin('button','click')],

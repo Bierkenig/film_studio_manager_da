@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import MovieSection from "@/components/mainGameComponents/MovieSection";
-import ScreenplaySection from "@/components/mainGameComponents/ScreenplaySection";
-import FranchisesSection from "@/components/mainGameComponents/FranchisesSection";
+import MovieSection from "@/components/mainGameComponents/sectionsForMenus/MovieSection";
+import ScreenplaySection from "@/components/mainGameComponents/sectionsForMenus/ScreenplaySection";
+import FranchisesSection from "@/components/mainGameComponents/sectionsForMenus/FranchisesSection";
 export default {
   name: "MoviesMenu",
   components:{FranchisesSection, ScreenplaySection, MovieSection},

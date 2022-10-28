@@ -1,8 +1,7 @@
 <template>
   <div>
     <FullCalendar
-        :options="calendarOptions"
-        @select="handleSelect"/>
+        :options="calendarOptions"/>
 
     <transition name="modal">
       <event-modal v-if="showModal" :event="eventProp" @close="showModal = false">
@@ -22,7 +21,7 @@ import TimeGridPlugin from '@fullcalendar/timegrid'
 import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
-import EventModal from "@/components/mainGameComponents/EventModal";
+import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
 //import EventModal from "@/components/mainGameComponents/EventModal";
 //import $ from "jquery";
 

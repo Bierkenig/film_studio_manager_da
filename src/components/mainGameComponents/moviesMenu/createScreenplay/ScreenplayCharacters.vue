@@ -2,34 +2,34 @@
   <div id="charactersDetailsDiv">
     <div id="characterDetailsVertical">
       <div id="castedCharacterDetails">
-        <div id="castedCharacterDetailsHeading">Casting Information</div>
+        <div id="castedCharacterDetailsHeading">{{ $t('character') }} Information</div>
         <div id="castedCharacterDetailsData">
           <div id="castedCharacterDetailsMainCharacters">
-            <div id="castedCharacterDetailsMainCharactersHint">Main</div>
-            <div id="castedCharacterDetailsMainCharactersValue">{{ numberOfMainCharacters }}/5 - (between 1 and 5)</div>
+            <div id="castedCharacterDetailsMainCharactersHint">{{ $t('main') }}</div>
+            <div id="castedCharacterDetailsMainCharactersValue">{{ numberOfMainCharacters }}/5 - ({{ $t('between15') }})</div>
           </div>
           <div id="castedCharacterDetailSupportCharacters">
-            <div id="castedCharacterDetailSupportCharactersHint">Support</div>
-            <div id="castedCharacterDetailSupportCharactersValue">{{ numberOfSupportCharacters }}/5 - (between 1 and 5)</div>
+            <div id="castedCharacterDetailSupportCharactersHint">{{ $t('support') }}</div>
+            <div id="castedCharacterDetailSupportCharactersValue">{{ numberOfSupportCharacters }}/5 - ({{ $t('between15') }})</div>
           </div>
           <div id="castedCharacterDetailsMinorCharacters">
             <div id="castedCharacterDetailsMinorCharactersHint">Minor</div>
-            <div id="castedCharacterDetailsMinorCharactersValue">{{ numberOfMinorCharacters }}/5 - (between 1 and 5)</div>
+            <div id="castedCharacterDetailsMinorCharactersValue">{{ numberOfMinorCharacters }}/5 - ({{ $t('between15') }})</div>
           </div>
           <div id="castedCharacterDetailsCameoCharacters">
-            <div id="castedCharacterDetailsCameoCharactersHint">Minor</div>
-            <div id="castedCharacterDetailsCameoCharactersValue">{{ numberOfCameoCharacters }}/5 - (between 0 and 5)</div>
+            <div id="castedCharacterDetailsCameoCharactersHint">Cameo</div>
+            <div id="castedCharacterDetailsCameoCharactersValue">{{ numberOfCameoCharacters }}/5 - ({{ $t('between05') }})</div>
           </div>
           <div id="castedCharacterDetailsVoiceOverCharacters">
-            <div id="castedCharacterDetailsVoiceOverCharactersHint">Minor</div>
-            <div id="castedCharacterDetailsVoiceOverCharactersValue">{{ numberOfVoiceOverCharacters }}/5 - (between 0 and 5)</div>
+            <div id="castedCharacterDetailsVoiceOverCharactersHint">{{ $t('voiceOver') }}</div>
+            <div id="castedCharacterDetailsVoiceOverCharactersValue">{{ numberOfVoiceOverCharacters }}/5 - ({{ $t('between05') }})</div>
           </div>
         </div>
-        <button id="CharacterDetailsContinueButton" class="buttonStyle" :disabled="numberOfMainCharacters === 0 || numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0" @click="continueCreateMovie">Continue</button>
+        <button id="CharacterDetailsContinueButton" class="buttonStyle" :disabled="numberOfMainCharacters === 0 || numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0" @click="continueCreateMovie">{{ $t('continue') }}</button>
       </div>
       <div id="characterDetails">
         <div>
-          <input id="characterName" v-model="characterName" placeholder="Character Name" />
+          <input id="characterName" v-model="characterName" :placeholder="$t('character') + ' Name'" />
           <select
               id="characterGender"
               onfocus="this.size=5;"
@@ -37,23 +37,23 @@
               onchange="this.size=1; this.blur();"
               @change="selectGender($event)"
           >
-            <option value="" disabled selected hidden>Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="diverse">Diverse</option>
+            <option value="" disabled selected hidden>{{ $t('gender') }}</option>
+            <option value="male">{{ $t('male') }}</option>
+            <option value="female">{{ $t('female') }}</option>
+            <option value="diverse">{{ $t('diverse') }}</option>
           </select>
-          <input id="characterAge" type="number" v-model="characterAge" placeholder="Character Age" min="1" max="99" />
+          <input id="characterAge" type="number" v-model="characterAge" :placeholder="$t('character') + $t('age')" min="1" max="99" />
         </div>
         <div id="characterDetailsRoleTypes">
-          <div id="characterDetailsRoleTypesHint">Cast As</div>
+          <div id="characterDetailsRoleTypesHint">{{ $t('castAs') }}</div>
           <div id="characterDetailsRoleTypesInput">
             <div id="characterDetailsRoleMain">
               <input id="characterDetailsRoleMainInput" v-model="radio" type="radio" class="radioButton" value="main" :disabled="numberOfMainCharacters === 5" />
-              <label for="characterDetailsRoleMainInput" class="characterDetailsRoleTypesLabel">Main</label>
+              <label for="characterDetailsRoleMainInput" class="characterDetailsRoleTypesLabel">{{ $t('main') }}</label>
             </div>
             <div id="characterDetailsRoleSupport">
               <input id="characterDetailsRoleSupportInput" v-model="radio" type="radio" class="radioButton" value="support" :disabled="numberOfSupportCharacters === 5" />
-              <label for="characterDetailsRoleSupportInput" class="characterDetailsRoleTypesLabel">Support</label>
+              <label for="characterDetailsRoleSupportInput" class="characterDetailsRoleTypesLabel">{{ $t('support') }}</label>
             </div>
             <div id="characterDetailsRoleMinor">
               <input id="characterDetailsRoleMinorInput" v-model="radio" type="radio" class="radioButton" value="minor" :disabled="numberOfMinorCharacters === 5" />
@@ -65,11 +65,11 @@
             </div>
             <div id="characterDetailsRoleVoiceOver">
               <input id="characterDetailsRoleVoiceOverInput" v-model="radio" type="radio" class="radioButton" value="voiceOver" :disabled="numberOfVoiceOverCharacters === 5" />
-              <label for="characterDetailsRoleVoiceOverInput" class="characterDetailsRoleTypesLabel">Voice Over</label>
+              <label for="characterDetailsRoleVoiceOverInput" class="characterDetailsRoleTypesLabel">{{ $t('voiceOver') }}</label>
             </div>
           </div>
         </div>
-        <button id="characterDetailsSaveButton" class="buttonStyle" :disabled="radio === null || !characterGender || !characterName || !characterAge" @click="saveCharacter">Save Character</button>
+        <button id="characterDetailsSaveButton" class="buttonStyle" :disabled="radio === null || !characterGender || !characterName || !characterAge" @click="saveCharacter">{{ $t('saveCharacter') }}</button>
       </div>
     </div>
   </div>
