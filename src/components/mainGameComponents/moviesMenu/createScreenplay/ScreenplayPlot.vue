@@ -103,11 +103,20 @@ export default {
     };
 
     const addTimePeriod = (timePeriod, actNumber) => {
-      items.value.push({
-        id: items.value.length - 1,
-        title: 'Time Period: ' + timePeriod,
-        list: actNumber
-      });
+      if(items.value.length === 0){
+        items.value.push({
+          id: 0,
+          title: 'Time Period: ' + timePeriod,
+          list: actNumber
+        });
+      } else {
+        items.value.push({
+          id: items.value[items.value.length - 1].id + 1,
+          title: 'Time Period: ' + timePeriod,
+          list: actNumber
+        });
+        //console.log(items.value);
+      }
     };
 
     return {
