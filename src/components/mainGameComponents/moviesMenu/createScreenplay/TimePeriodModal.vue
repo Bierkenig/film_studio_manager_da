@@ -36,7 +36,7 @@
                   <option :value="$t('stoneAge')">{{ $t('stoneAge') }}</option>
                 </select>
                 <select
-                    id="timePeriod"
+                    id="act"
                     onfocus="this.size=5;"
                     onblur="this.size=1;"
                     onchange="this.size=1; this.blur();"

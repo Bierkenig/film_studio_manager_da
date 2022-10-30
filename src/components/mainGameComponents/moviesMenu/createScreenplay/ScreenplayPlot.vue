@@ -17,6 +17,17 @@
       </time-period-modal>
     </transition>
 
+    <transition name="modal">
+      <character-moments-modal
+          v-if="showCharacterMomentsModal"
+          @close="showCharacterMomentsModal = false"
+          @send-character-moments="addCharacterMoments">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </character-moments-modal>
+    </transition>
+
     <div id="dropZones">
       <div
           class="drop-zone"
@@ -70,14 +81,16 @@
 <script>
 import { ref } from 'vue';
 import TimePeriodModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/TimePeriodModal";
+import CharacterMomentsModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/CharacterMomentsModal";
 
 
 export default {
   name: "ScreenplayPlot",
-  components: {TimePeriodModal},
+  components: {CharacterMomentsModal, TimePeriodModal},
   data(){
     return {
       showTimePeriodModal: false,
+      showCharacterMomentsModal: false
     }
   },
 
@@ -119,17 +132,34 @@ export default {
       }
     };
 
+    const addCharacterMoments = (characterMoment, actNumber) => {
+      if(items.value.length === 0){
+        items.value.push({
+          id: 0,
+          title: 'Character Moment: ' + characterMoment,
+          list: actNumber
+        });
+      } else {
+        items.value.push({
+          id: items.value[items.value.length - 1].id + 1,
+          title: 'Character Moment: ' + characterMoment,
+          list: actNumber
+        });
+      }
+    };
+
     return {
       getList,
       startDrag,
       onDrop,
-      addTimePeriod
+      addTimePeriod,
+      addCharacterMoments
     }
   },
 
   methods: {
     characterMomentButtonClick(){
-
+      this.showCharacterMomentsModal = true;
     },
 
     settingButtonClick(){

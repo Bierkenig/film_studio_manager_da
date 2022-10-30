@@ -7,47 +7,75 @@
           <div class="modal-body">
             <slot name="body">
               <fieldset>
-                <legend>Character Moments</legend>
+                <legend>{{ $t('characterMoments') }}</legend>
+                <div>
+                  <select
+                      id="characterOne"
+                      onfocus="this.size=5;"
+                      onblur="this.size=1;"
+                      onchange="this.size=1; this.blur();"
+                      @change="selectCharacterOne($event)"
+                  >
+                    <option value="" disabled selected hidden>{{ $t('character') }} 1</option>
+                    <option
+                        v-for="(item, index) in this.allCharacters"
+                        :key="index"
+                        :value="index">{{ item.name }}</option>
+                  </select>
+                  <select
+                      id="characterMoment"
+                      onfocus="this.size=5;"
+                      onblur="this.size=1;"
+                      onchange="this.size=1; this.blur();"
+                      @change="selectMoment($event)"
+                  >
+                    <option value="" disabled selected hidden>{{ $t('moment') }}</option>
+                    <option :value="$t('dies')">{{ $t('dies') }}</option>
+                    <option :value="$t('kills')">{{ $t('kills') }}</option>
+                    <option :value="$t('defies')">{{ $t('defies') }}</option>
+                    <option :value="$t('losesTo')">{{ $t('losesTo') }}</option>
+                    <option :value="$t('escapes')">{{ $t('escapes') }}</option>
+                    <option :value="$t('isCaptured')">{{ $t('isCaptured') }}</option>
+                    <option :value="$t('runsAway')">{{ $t('runsAway') }}</option>
+                    <option :value="$t('isOnAMission')">{{ $t('isOnAMission') }}</option>
+                    <option :value="$t('completesTheMission')">{{ $t('completesTheMission') }}</option>
+                    <option :value="$t('losesSomeoneImportant')">{{ $t('losesSomeoneImportant') }}</option>
+                    <option :value="$t('isAlive')">{{ $t('isAlive') }}</option>
+                    <option :value="$t('helps')">{{ $t('helps') }}</option>
+                    <option :value="$t('sendsOnAMission')">{{ $t('sendsOnAMission') }}</option>
+                    <option :value="$t('fights')">{{ $t('fights') }}</option>
+                    <option :value="$t('letsGo')">{{ $t('letsGo') }}</option>
+                    <option :value="$t('fallsInLoveWith')">{{ $t('fallsInLoveWith') }}</option>
+                  </select>
+                  <select
+                      id="characterTwo"
+                      onfocus="this.size=5;"
+                      onblur="this.size=1;"
+                      onchange="this.size=1; this.blur();"
+                      :disabled="selectedMoment === $t('dies') || selectedMoment === $t('escapes') || selectedMoment === $t('isCaptured') ||
+                                  selectedMoment === $t('runsAway') || selectedMoment === $t('isOnAMission') || selectedMoment === $t('completesTheMission') ||
+                                  selectedMoment === $t('losesSomeoneImportant') || selectedMoment === $t('isAlive')"
+                      @change="selectCharacterTwo($event)"
+                  >
+                    <option value="" disabled selected hidden>{{ $t('character') }} 2</option>
+                    <option
+                        v-for="(item, index) in this.allCharacters"
+                        :key="index"
+                        :value="item.name"
+                        :disabled="selectedCharacterOne === index">{{ item.name }}</option>
+                  </select>
+                </div>
                 <select
-                    id="characterMoments"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
-                    @change="selectCharacterMoments($event)"
-                >
-                  <option value="" disabled selected hidden>Character Moments</option>
-                  <option value="Far Future">
-                    
-                  </option>
-                  <option value="Near Future">Near Future</option>
-                  <option value="Present Day">Present Day</option>
-                  <option value="90s">90s</option>
-                  <option value="80s">80s</option>
-                  <option value="70s">70s</option>
-                  <option value="60s">60s</option>
-                  <option value="20th Century">20th Century</option>
-                  <option value="19th Century">19th Century</option>
-                  <option value="18th Century">18th Century</option>
-                  <option value="Industrial Revolution">Industrial Revolution</option>
-                  <option value="The Renaissance">The Renaissance</option>
-                  <option value="High Middle Ages">High Middle Ages</option>
-                  <option value="Early Middle Ages">Early Middle Ages</option>
-                  <option value="Viking Era">Viking Era</option>
-                  <option value="Dark Age">Dark Age</option>
-                  <option value="Ancient World">Ancient World</option>
-                  <option value="Stone Age">Stone Age</option>
-                </select>
-                <select
-                    id="timePeriod"
+                    id="act"
                     onfocus="this.size=5;"
                     onblur="this.size=1;"
                     onchange="this.size=1; this.blur();"
                     @change="selectAct($event)"
                 >
-                  <option value="" disabled selected hidden>Acts</option>
-                  <option :value="1">Act 1</option>
-                  <option :value="2">Act 2</option>
-                  <option :value="3">Act 3</option>
+                  <option value="" disabled selected hidden>{{ $t('acts') }}</option>
+                  <option :value="1">{{ $t('act1') }}</option>
+                  <option :value="2">{{ $t('act2') }}</option>
+                  <option :value="3">{{ $t('act3') }}</option>
                 </select>
               </fieldset>
             </slot>
@@ -58,8 +86,8 @@
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('close') }}
               </button>
-              <button class="modal-default-button" @click="sendTimePeriod" :disabled="!selectedTimePeriod || !selectedAct">
-                Save
+              <button class="modal-default-button" @click="sendCharacterMoments" :disabled="!selectedCharacterOne || !selectedMoment || !selectedAct">
+                {{ $t('save') }}
               </button>
             </slot>
           </div>
@@ -70,28 +98,65 @@
 </template>
 
 <script>
+
 export default {
   name: "CharacterMomentsModal",
 
   data(){
     return {
-      selectedCharacterMoments: '',
-      selectedAct: ''
+      selectedCharacterOne: '',
+      selectedCharacterTwo: '',
+      selectedMoment: '',
+      selectedAct: '',
+      realMessage: '',
+      allCharacters: [],
     }
   },
 
+  mounted() {
+    let roles = this.$store.getters.getCurrentScreenplay.getRoles();
+
+    Object.keys(roles).forEach(key => {
+      if(roles[key].length !== 0)
+      roles[key].forEach(this.getCharactersOfCurrentScreenplay);
+    });
+  },
+
   methods: {
-    selectCharacterMoments(event){
-      this.selectedCharacterMoments = event.target.value;
+    selectCharacterOne(event){
+      this.selectedCharacterOne = parseInt(event.target.value);
+      this.realMessage = this.allCharacters[event.target.value].name + ' ';
+    },
+
+    selectCharacterTwo(event){
+      this.selectedCharacterTwo = event.target.value;
+    },
+
+    selectMoment(event){
+      this.selectedMoment = event.target.value;
     },
 
     selectAct(event){
       this.selectedAct = event.target.value;
     },
 
-    sendTimePeriod(){
-      this.$emit('sendCharacterMoments',this.selectedCharacterMoments, this.selectedAct);
+    sendCharacterMoments(){
+      if(document.getElementById('characterTwo').disabled){
+        this.selectedCharacterTwo = '';
+      }
+
+      if(this.selectedCharacterTwo !== ''){
+        this.realMessage += this.selectedMoment + ' ' + this.selectedCharacterTwo;
+      } else {
+        this.realMessage += this.selectedMoment;
+      }
+
+      this.$emit('sendCharacterMoments',this.realMessage, this.selectedAct);
       this.$emit('close');
+    },
+
+    getCharactersOfCurrentScreenplay(item){
+      this.allCharacters.push(item)
     }
   }
 }
