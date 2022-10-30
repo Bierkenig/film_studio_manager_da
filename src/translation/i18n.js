@@ -205,7 +205,7 @@ i18next
                     isAlive: 'ist am Leben',
                     helps: 'hilft',
                     sendsOnAMission: 'schickt ... auf eine Mission',
-                    fights: 'kämpft',
+                    fights: 'kämpft gegen',
                     letsGo: 'lasst ... gehen',
                     fallsInLoveWith: 'verliebt sich in',
                     characterMoments: 'Charakter Ereignisse',

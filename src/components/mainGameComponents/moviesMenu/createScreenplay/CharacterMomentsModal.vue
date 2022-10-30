@@ -86,7 +86,11 @@
               <button class="modal-default-button" @click="$emit('close')">
                 {{ $t('close') }}
               </button>
-              <button class="modal-default-button" @click="sendCharacterMoments" :disabled="!selectedCharacterOne || !selectedMoment || !selectedAct">
+              <button class="modal-default-button" @click="sendCharacterMoments"
+                      :disabled="selectedCharacterOne == null || !selectedMoment || !selectedAct || ((selectedMoment === $t('kills')
+                                  || selectedMoment === $t('defies') || selectedMoment === $t('losesTo') || selectedMoment === $t('helps')
+                                  || selectedMoment === $t('sendsOnAMission') || selectedMoment === $t('fights')
+                                  || selectedMoment === $t('letsGo') || selectedMoment === $t('fallsInLoveWith')) && !selectedCharacterTwo)">
                 {{ $t('save') }}
               </button>
             </slot>
@@ -104,10 +108,10 @@ export default {
 
   data(){
     return {
-      selectedCharacterOne: '',
-      selectedCharacterTwo: '',
-      selectedMoment: '',
-      selectedAct: '',
+      selectedCharacterOne: null,
+      selectedCharacterTwo: null,
+      selectedMoment: null,
+      selectedAct: null,
       realMessage: '',
       allCharacters: [],
     }
@@ -125,6 +129,7 @@ export default {
   methods: {
     selectCharacterOne(event){
       this.selectedCharacterOne = parseInt(event.target.value);
+      console.log(this.selectedCharacterOne);
       this.realMessage = this.allCharacters[event.target.value].name + ' ';
     },
 
@@ -145,10 +150,20 @@ export default {
         this.selectedCharacterTwo = '';
       }
 
-      if(this.selectedCharacterTwo !== ''){
-        this.realMessage += this.selectedMoment + ' ' + this.selectedCharacterTwo;
-      } else {
+      if(this.selectedCharacterTwo === ''){
         this.realMessage += this.selectedMoment;
+      } else if(this.selectedMoment === 'lets ... go'){
+        this.realMessage += 'lets ' + this.selectedCharacterTwo + ' go';
+      } else if(this.selectedMoment === 'lasst ... gehen'){
+        this.realMessage += 'lasst ' + this.selectedCharacterTwo + ' gehen';
+      } else if(this.selectedMoment === 'sends ... on a mission'){
+        this.realMessage += 'sends ' + this.selectedCharacterTwo + ' on a mission';
+      } else if(this.selectedMoment === 'schickt ... auf eine Mission'){
+        this.realMessage += 'schickt ' + this.selectedCharacterTwo + ' auf eine Mission';
+      } else if(this.selectedMoment === 'fordert ... heraus'){
+        this.realMessage += 'fordert ' + this.selectedCharacterTwo + ' heraus';
+      } else {
+        this.realMessage += this.selectedMoment + ' ' + this.selectedCharacterTwo;
       }
 
       this.$emit('sendCharacterMoments',this.realMessage, this.selectedAct);
