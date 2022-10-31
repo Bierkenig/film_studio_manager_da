@@ -40,7 +40,15 @@ i18next
                     descCredit: "Produce and release your own Movie",
                     descStudio: "Lorem ipsum deine Mum",
                     fiscalPerformance: {
-                        name: "Fiscal Performance"
+                        name: "Fiscal Performance",
+                        area: "Area",
+                        incoming: "Incoming",
+                        outgoing: "Outgoing",
+                        accumulated: "Accumulated",
+                        total: "Total"
+                    },
+                    marketShare: {
+                        name: "Market Share",
                     },
                     calendar: 'Calendar',
                     streaming: 'Streaming',
@@ -213,6 +221,14 @@ i18next
                     descStudio: "Lorem ipsum deine Mum",
                     fiscalPerformance: {
                         name: "Finanzielle Leistungsfähigkeit",
+                        area: "Bereich",
+                        incoming: "Einkommen",
+                        outgoing: "Ausgaben",
+                        accumulated: "Kumuliert",
+                        total: "Gesamt"
+                    },
+                    marketShare: {
+                        name: "Marktanteil",
                     },
                     calendar: 'Kalender',
                     streaming: 'Streaming',
@@ -362,6 +378,6 @@ i18next
     });
 
 export default function (app) {
-    app.use(I18NextVue, { i18next });
+    app.use(I18NextVue, {i18next});
     return app;
 }
