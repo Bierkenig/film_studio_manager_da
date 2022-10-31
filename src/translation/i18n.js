@@ -138,6 +138,8 @@ i18next
                     space: 'Space',
                     undefined: 'Undefined',
                     countries: 'Countries',
+                    warningMsgScreenplayPlot: 'You have to add 1 element of each type to every act! ' +
+                        'You can only add 1 element of each type to every act!',
                 }
             },
             de: {
@@ -268,6 +270,9 @@ i18next
                     space: 'Weltraum',
                     undefined: 'Unbestimmt',
                     countries: 'Länder',
+                    warningMsgScreenplayPlot: 'Du musst 1 Element jeder Art zu jedem Akt hinzufügen! ' +
+                        'Sie können nur 1 Element jeder Art zu jedem Akt hinzufügen!',
+
                 }
             }
         }

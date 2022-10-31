@@ -129,7 +129,6 @@ export default {
   methods: {
     selectCharacterOne(event){
       this.selectedCharacterOne = parseInt(event.target.value);
-      console.log(this.selectedCharacterOne);
       this.realMessage = this.allCharacters[event.target.value].name + ' ';
     },
 

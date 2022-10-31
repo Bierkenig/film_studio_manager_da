@@ -86,6 +86,18 @@
         </div>
       </div>
     </div>
+
+    <p id="warningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
+    <button id="continueButton" :disabled="true">{{ $t('continue') }}</button>
+
+    <div
+        id="delete-zone"
+        @drop="onDropDelete($event)"
+        @dragenter.prevent
+        @dragover.prevent
+        hidden>
+      <img src="../../../../assets/paperbin.png" alt="writer" style="width: 50px; height: 50px" />
+    </div>
   </div>
 </template>
 
@@ -108,9 +120,7 @@ export default {
   },
 
   setup(){
-    const items = ref([
-
-    ]);
+    const items = ref([]);
 
     const getList = (list) => {
       return items.value.filter((item) => item.list == list)
@@ -120,66 +130,95 @@ export default {
       event.dataTransfer.dropEffect = 'move';
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('itemID',item.id);
+
+      document.getElementById('delete-zone').hidden = false;
     };
 
     const onDrop = (event, list) => {
       const itemId = event.dataTransfer.getData('itemID');
       const item = items.value.find((item) => item.id == itemId);
-      item.list = list
+      item.list = list;
+
+      checkStatusOfLists();
+    };
+
+    const onDropDelete = (event) => {
+      const itemId = event.dataTransfer.getData('itemID');
+      const item = items.value.find((item) => item.id == itemId);
+
+      items.value.splice(items.value.indexOf(item),1);
+      document.getElementById('delete-zone').hidden = true;
+
+      checkStatusOfLists();
+      disableAddButton(items,'timePeriod','addTimePeriodButton');
+      disableAddButton(items,'characterMoment','addCharacterMomentButton');
+      disableAddButton(items,'setting','addSettingButton');
     };
 
     const addTimePeriod = (timePeriod, actNumber) => {
-      if(items.value.length === 0){
-        items.value.push({
-          id: 0,
-          title: 'Time Period: ' + timePeriod,
-          list: actNumber
-        });
-      } else {
-        items.value.push({
-          id: items.value[items.value.length - 1].id + 1,
-          title: 'Time Period: ' + timePeriod,
-          list: actNumber
-        });
-      }
+      addElementToItems(items,actNumber,timePeriod, 'timePeriod','Time Period: ');
+      disableAddButton(items,'timePeriod','addTimePeriodButton');
+      checkStatusOfLists();
     };
 
     const addCharacterMoments = (characterMoment, actNumber) => {
-      if(items.value.length === 0){
-        items.value.push({
+      addElementToItems(items,actNumber,characterMoment, 'characterMoment','Character Moment: ');
+      disableAddButton(items,'characterMoment','addCharacterMomentButton');
+      checkStatusOfLists();
+    };
+
+    const addSetting = (setting, actNumber) => {
+      addElementToItems(items,actNumber,setting, 'setting', 'Setting: ');
+      disableAddButton(items,'setting','addSettingButton');
+      checkStatusOfLists();
+    };
+
+    const addElementToItems = (item, act, elementType, typeString, titleString) => {
+      if(item.value.length === 0){
+        item.value.push({
           id: 0,
-          title: 'Character Moment: ' + characterMoment,
-          list: actNumber
+          title: titleString + elementType,
+          list: act,
+          type: typeString
         });
       } else {
-        items.value.push({
-          id: items.value[items.value.length - 1].id + 1,
-          title: 'Character Moment: ' + characterMoment,
-          list: actNumber
+        item.value.push({
+          id: item.value[item.value.length - 1].id + 1,
+          title: titleString + elementType,
+          list: act,
+          type: typeString
         });
       }
     };
 
-    const addSetting = (setting, actNumber) => {
-      if(items.value.length === 0){
-        items.value.push({
-          id: 0,
-          title: 'Setting: ' + setting,
-          list: actNumber
-        });
-      } else {
-        items.value.push({
-          id: items.value[items.value.length - 1].id + 1,
-          title: 'Setting: ' + setting,
-          list: actNumber
-        });
-      }
+    const disableAddButton = (item,type,buttonId) => {
+      document.getElementById(buttonId).disabled = item.value.filter((i) => i.type === type).length === 3;
     };
+
+    const checkStatusOfLists = () => {
+      let listOne = getList(1);
+      let listTwo = getList(2);
+      let listThree = getList(3);
+
+      document.getElementById('continueButton').disabled =
+          !((listTwo.filter((i) => i.type === 'setting').length === 1
+                  && listOne.filter((i) => i.type === 'setting').length === 1
+                  && listThree.filter((i) => i.type === 'setting').length === 1) &&
+              (listTwo.filter((i) => i.type === 'timePeriod').length === 1
+                  && listOne.filter((i) => i.type === 'timePeriod').length === 1
+                  && listThree.filter((i) => i.type === 'timePeriod').length === 1) &&
+              (listTwo.filter((i) => i.type === 'characterMoment').length === 1
+                  && listOne.filter((i) => i.type === 'characterMoment').length === 1
+                  && listThree.filter((i) => i.type === 'characterMoment').length === 1));
+
+      document.getElementById('warningMsg').hidden = !document.getElementById('continueButton').disabled;
+    }
 
     return {
       getList,
       startDrag,
       onDrop,
+      onDropDelete,
       addTimePeriod,
       addCharacterMoments,
       addSetting
@@ -227,5 +266,9 @@ export default {
 
 .drag-e:nth-last-of-type(1){
   margin-bottom: 0;
+}
+
+#delete-zone {
+  background-color: red;
 }
 </style>
