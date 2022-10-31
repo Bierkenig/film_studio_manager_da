@@ -63,7 +63,7 @@
               <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
             </select>
             <div>
-              <h3>Topics</h3>
+              <h3>{{ $t('topics') }}</h3>
               <select
                   v-for="index in 3"
                   :key="index"
@@ -74,7 +74,7 @@
                   :disabled="disableSelect(index)"
                   @change="selectTopic($event,index)"
               >
-                <option value="" disabled selected hidden>Topic {{ index }}</option>
+                <option value="" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
                 <option
                     v-for="(it,ind) in this.allTopics"
                     :key="ind"
@@ -82,20 +82,6 @@
                     :disabled="disableTopic(it,index)">{{ it }}</option>
               </select>
             </div>
-            <!--<select
-              id="createScreenplayAgeRating"
-              onfocus="this.size=5;"
-              onblur="this.size=1;"
-              onchange="this.size=1; this.blur();"
-              @change="selectAgeRating($event)"
-            >
-              <option value="" disabled selected hidden>Age Rating</option>
-              <option value="G">3+</option>
-              <option value="PG">6+</option>
-              <option value="PG-13">13+</option>
-              <option value="R">16+</option>
-              <option value="NC-17">18+</option>
-            </select>-->
           </div>
           <button id="createScreenplayButton" class="buttonStyle"
                   :disabled="/*!ageRating ||*/ !genre || !title || !desc || !type || !firstTopic"
@@ -136,7 +122,6 @@ export default {
           {firstTopic: this.firstTopic, secondTopic: this.secondTopic, thirdTopic: this.thirdTopic});
       this.$store.commit('setNewCurrentScreenplay', this.screenplay);
       this.$router.push({name: 'screenplayCharacters'});
-      console.log(this.$store.getters.getCurrentScreenplay);
     },
 
     /*selectAgeRating(event) {
