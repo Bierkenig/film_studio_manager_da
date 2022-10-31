@@ -2,7 +2,7 @@
   <div>
     <div>
       <button id="addCharacterMomentButton" class="buttonStyle" @click="characterMomentButtonClick">{{ $t('addCharacterMoment') }}</button>
-      <button id="addSettingButton" class="buttonStyle" @click="settingButtonClick">{{ $t('addSetting') }}</button>
+      <button id="addSettingButton" class="buttonStyle" @click="settingButtonClick">{{ $t('addLocation') }}</button>
       <button id="addTimePeriodButton" class="buttonStyle" @click="timePeriodButtonClick">{{ $t('addTimePeriod') }}</button>
     </div>
 
@@ -26,6 +26,17 @@
           <h3>custom header</h3>
         </template>
       </character-moments-modal>
+    </transition>
+
+    <transition name="modal">
+      <setting-modal
+          v-if="showSettingModal"
+          @close="showSettingModal = false"
+          @send-setting="addSetting">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </setting-modal>
     </transition>
 
     <div id="dropZones">
@@ -82,15 +93,17 @@
 import { ref } from 'vue';
 import TimePeriodModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/TimePeriodModal";
 import CharacterMomentsModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/CharacterMomentsModal";
+import SettingModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/SettingModal";
 
 
 export default {
   name: "ScreenplayPlot",
-  components: {CharacterMomentsModal, TimePeriodModal},
+  components: {SettingModal, CharacterMomentsModal, TimePeriodModal},
   data(){
     return {
       showTimePeriodModal: false,
-      showCharacterMomentsModal: false
+      showCharacterMomentsModal: false,
+      showSettingModal: false
     }
   },
 
@@ -128,7 +141,6 @@ export default {
           title: 'Time Period: ' + timePeriod,
           list: actNumber
         });
-        //console.log(items.value);
       }
     };
 
@@ -148,12 +160,29 @@ export default {
       }
     };
 
+    const addSetting = (setting, actNumber) => {
+      if(items.value.length === 0){
+        items.value.push({
+          id: 0,
+          title: 'Setting: ' + setting,
+          list: actNumber
+        });
+      } else {
+        items.value.push({
+          id: items.value[items.value.length - 1].id + 1,
+          title: 'Setting: ' + setting,
+          list: actNumber
+        });
+      }
+    };
+
     return {
       getList,
       startDrag,
       onDrop,
       addTimePeriod,
-      addCharacterMoments
+      addCharacterMoments,
+      addSetting
     }
   },
 
@@ -163,7 +192,7 @@ export default {
     },
 
     settingButtonClick(){
-
+      this.showSettingModal = true;
     },
 
     timePeriodButtonClick(){
