@@ -62,6 +62,26 @@
               <option value="Western" :disabled="this.genre === 'Western'">Western</option>
               <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
             </select>
+            <div>
+              <h3>Topics</h3>
+              <select
+                  v-for="index in 3"
+                  :key="index"
+                  :id="'topic' + index"
+                  onfocus="this.size=5;"
+                  onblur="this.size=1;"
+                  onchange="this.size=1; this.blur();"
+                  :disabled="disableSelect(index)"
+                  @change="selectTopic($event,index)"
+              >
+                <option value="" disabled selected hidden>Topic {{ index }}</option>
+                <option
+                    v-for="(it,ind) in this.allTopics"
+                    :key="ind"
+                    :value="it"
+                    :disabled="disableTopic(it,index)">{{ it }}</option>
+              </select>
+            </div>
             <!--<select
               id="createScreenplayAgeRating"
               onfocus="this.size=5;"
@@ -78,7 +98,7 @@
             </select>-->
           </div>
           <button id="createScreenplayButton" class="buttonStyle"
-                  :disabled="/*!ageRating ||*/ !genre || !title || !desc || !type"
+                  :disabled="/*!ageRating ||*/ !genre || !title || !desc || !type || !firstTopic"
                   @click="createScreenplay">
             {{ $t('createScreenplay') }}</button>
         </div>
@@ -101,21 +121,43 @@ export default {
       desc: null,
       //ageRating: null,
       genre: null,
-      subgenre: null
+      subgenre: null,
+      firstTopic: null,
+      secondTopic: null,
+      thirdTopic: null,
+      allTopics: ['AB','CD','EF','GH','IJ'],
     }
   },
 
   methods: {
     createScreenplay() {
-      this.screenplay = new Screenplay(this.$store.getters.getNextScreenplayId, this.title, this.type, this.genre, this.subgenre, /*this.ageRating*/null, null, this.desc, null, null);
+      this.screenplay = new Screenplay(this.$store.getters.getNextScreenplayId, this.title, this.type, this.genre,
+          this.subgenre, /*this.ageRating*/null, null, this.desc, null, null,
+          {firstTopic: this.firstTopic, secondTopic: this.secondTopic, thirdTopic: this.thirdTopic});
       this.$store.commit('setNewCurrentScreenplay', this.screenplay);
-      console.log(this.$store.getters.getCurrentScreenplay)
       this.$router.push({name: 'screenplayCharacters'});
+      console.log(this.$store.getters.getCurrentScreenplay);
     },
 
     /*selectAgeRating(event) {
       this.ageRating = event.target.value;
     },*/
+
+    selectTopic(event,index){
+      switch (index) {
+        case 1:
+          this.firstTopic = event.target.value;
+          break;
+        case 2:
+          this.secondTopic = event.target.value;
+          break;
+        case 3:
+          this.thirdTopic = event.target.value;
+          break;
+        default:
+          break;
+      }
+    },
 
     selectGenre(event) {
       this.genre = event.target.value;
@@ -127,6 +169,24 @@ export default {
 
     selectType(event){
       this.type = event.target.value;
+    },
+
+    disableTopic(value, index){
+      if(index === 2){
+        return value === this.firstTopic;
+      } else if(index === 3){
+        return value === this.firstTopic || value === this.secondTopic;
+      }
+    },
+
+    disableSelect(index){
+      if((index === 2 || index === 3) && this.firstTopic === null){
+        return true;
+      } else if(index === 3 && this.secondTopic === null){
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 }

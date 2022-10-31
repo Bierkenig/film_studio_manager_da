@@ -117,7 +117,6 @@ export default {
       this.characterName = '';
       this.characterAge = 1;
       this.characterGender = null
-      console.log(this.$store.getters.getCurrentScreenplay)
     },
 
     selectGender(event){

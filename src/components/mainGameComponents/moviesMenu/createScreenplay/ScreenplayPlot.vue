@@ -88,7 +88,9 @@
     </div>
 
     <p id="warningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
-    <button id="continueButton" :disabled="true">{{ $t('continue') }}</button>
+    <router-link :to="{name: 'screenplayDetails'}">
+      <button id="continueButton" :disabled="true" @click="clickButton">{{ $t('continue') }}</button>
+    </router-link>
 
     <div
         id="delete-zone"
@@ -102,7 +104,6 @@
 </template>
 
 <script>
-import { ref } from 'vue';
 import TimePeriodModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/TimePeriodModal";
 import CharacterMomentsModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/CharacterMomentsModal";
 import SettingModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/SettingModal";
@@ -115,90 +116,90 @@ export default {
     return {
       showTimePeriodModal: false,
       showCharacterMomentsModal: false,
-      showSettingModal: false
+      showSettingModal: false,
+      items: [],
     }
   },
 
-  setup(){
-    const items = ref([]);
+  methods: {
+    getList(list) {
+      return this.items.filter((item) => item.list == list)
+    },
 
-    const getList = (list) => {
-      return items.value.filter((item) => item.list == list)
-    };
-
-    const startDrag = (event, item) => {
+    startDrag(event, item) {
       event.dataTransfer.dropEffect = 'move';
       event.dataTransfer.effectAllowed = 'move';
       event.dataTransfer.setData('itemID',item.id);
 
       document.getElementById('delete-zone').hidden = false;
-    };
+    },
 
-    const onDrop = (event, list) => {
+    onDrop(event, list) {
       const itemId = event.dataTransfer.getData('itemID');
-      const item = items.value.find((item) => item.id == itemId);
+      const item = this.items.find((item) => item.id == itemId);
       item.list = list;
 
-      checkStatusOfLists();
-    };
+      this.checkStatusOfLists();
+      document.getElementById('delete-zone').hidden = true;
+    },
 
-    const onDropDelete = (event) => {
+    onDropDelete(event) {
       const itemId = event.dataTransfer.getData('itemID');
-      const item = items.value.find((item) => item.id == itemId);
+      const item = this.items.find((item) => item.id == itemId);
 
-      items.value.splice(items.value.indexOf(item),1);
+      this.items.splice(this.items.indexOf(item),1);
       document.getElementById('delete-zone').hidden = true;
 
-      checkStatusOfLists();
-      disableAddButton(items,'timePeriod','addTimePeriodButton');
-      disableAddButton(items,'characterMoment','addCharacterMomentButton');
-      disableAddButton(items,'setting','addSettingButton');
-    };
+      this.checkStatusOfLists();
+      this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
+      this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
+      this.disableAddButton(this.items,'setting','addSettingButton');
+    },
 
-    const addTimePeriod = (timePeriod, actNumber) => {
-      addElementToItems(items,actNumber,timePeriod, 'timePeriod','Time Period: ');
-      disableAddButton(items,'timePeriod','addTimePeriodButton');
-      checkStatusOfLists();
-    };
+    addTimePeriod(timePeriod, actNumber) {
+      this.addElementToItems(this.items,actNumber,timePeriod, 'timePeriod','Time Period: ');
+      this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
+      this.checkStatusOfLists();
+    },
 
-    const addCharacterMoments = (characterMoment, actNumber) => {
-      addElementToItems(items,actNumber,characterMoment, 'characterMoment','Character Moment: ');
-      disableAddButton(items,'characterMoment','addCharacterMomentButton');
-      checkStatusOfLists();
-    };
+    addCharacterMoments(characterMoment, actNumber) {
+      this.addElementToItems(this.items,actNumber,characterMoment, 'characterMoment','Character Moment: ');
+      this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
+      this.checkStatusOfLists();
+    },
 
-    const addSetting = (setting, actNumber) => {
-      addElementToItems(items,actNumber,setting, 'setting', 'Setting: ');
-      disableAddButton(items,'setting','addSettingButton');
-      checkStatusOfLists();
-    };
+    addSetting(setting, actNumber) {
+      this.addElementToItems(this.items,actNumber,setting, 'setting', 'Setting: ');
+      this.disableAddButton(this.items,'setting','addSettingButton');
+      this.checkStatusOfLists();
+    },
 
-    const addElementToItems = (item, act, elementType, typeString, titleString) => {
-      if(item.value.length === 0){
-        item.value.push({
+    addElementToItems(item, act, elementType, typeString, titleString) {
+      if(item.length === 0){
+        item.push({
           id: 0,
           title: titleString + elementType,
           list: act,
           type: typeString
         });
       } else {
-        item.value.push({
-          id: item.value[item.value.length - 1].id + 1,
+        item.push({
+          id: item[item.length - 1].id + 1,
           title: titleString + elementType,
           list: act,
           type: typeString
         });
       }
-    };
+    },
 
-    const disableAddButton = (item,type,buttonId) => {
-      document.getElementById(buttonId).disabled = item.value.filter((i) => i.type === type).length === 3;
-    };
+    disableAddButton(item,type,buttonId)  {
+      document.getElementById(buttonId).disabled = item.filter((i) => i.type === type).length === 3;
+    },
 
-    const checkStatusOfLists = () => {
-      let listOne = getList(1);
-      let listTwo = getList(2);
-      let listThree = getList(3);
+    checkStatusOfLists() {
+      let listOne = this.getList(1);
+      let listTwo = this.getList(2);
+      let listThree = this.getList(3);
 
       document.getElementById('continueButton').disabled =
           !((listTwo.filter((i) => i.type === 'setting').length === 1
@@ -212,20 +213,15 @@ export default {
                   && listThree.filter((i) => i.type === 'characterMoment').length === 1));
 
       document.getElementById('warningMsg').hidden = !document.getElementById('continueButton').disabled;
-    }
+    },
 
-    return {
-      getList,
-      startDrag,
-      onDrop,
-      onDropDelete,
-      addTimePeriod,
-      addCharacterMoments,
-      addSetting
-    }
-  },
+    clickButton() {
+      this.$store.getters.getCurrentScreenplay.addAct1(this.getList(1));
+      this.$store.getters.getCurrentScreenplay.addAct2(this.getList(2));
+      this.$store.getters.getCurrentScreenplay.addAct3(this.getList(3));
+      console.log(this.$store.getters.getCurrentScreenplay);
+    },
 
-  methods: {
     characterMomentButtonClick(){
       this.showCharacterMomentsModal = true;
     },
@@ -238,7 +234,6 @@ export default {
       this.showTimePeriodModal = true;
     },
   }
-
 }
 </script>
 
