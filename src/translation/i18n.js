@@ -33,6 +33,23 @@ i18next
                     library: 'Library',
                     news: 'News',
                     finances: 'Finances',
+                    takeCredit: "Loan",
+                    buyStudio: "Buy",
+                    labelTakeCredit: "Take out a loan",
+                    labelBuyStudio: "Buy a Studio",
+                    descCredit: "Produce and release your own Movie",
+                    descStudio: "Lorem ipsum deine Mum",
+                    fiscalPerformance: {
+                        name: "Fiscal Performance",
+                        area: "Area",
+                        incoming: "Incoming",
+                        outgoing: "Outgoing",
+                        accumulated: "Accumulated",
+                        total: "Total"
+                    },
+                    marketShare: {
+                        name: "Market Share",
+                    },
                     calendar: 'Calendar',
                     streaming: 'Streaming',
                     skipWeek: 'Skip to next week',
@@ -199,6 +216,23 @@ i18next
                     library: 'Bibliothek',
                     news: 'Nachrichten',
                     finances: 'Finanzen',
+                    takeCredit: "Leihen",
+                    buyStudio: "Kaufen",
+                    labelTakeCredit: "Kredit aufnehmen",
+                    labelBuyStudio: "Studio kaufen",
+                    descCredit: "Produzieren und veröffentlichen Sie Ihren eigene Film",
+                    descStudio: "Lorem ipsum deine Mum",
+                    fiscalPerformance: {
+                        name: "Finanzielle Leistungsfähigkeit",
+                        area: "Bereich",
+                        incoming: "Einkommen",
+                        outgoing: "Ausgaben",
+                        accumulated: "Kumuliert",
+                        total: "Gesamt"
+                    },
+                    marketShare: {
+                        name: "Marktanteil",
+                    },
                     calendar: 'Kalender',
                     streaming: 'Streaming',
                     skipWeek: 'Zur nächsten Woche springen',
@@ -350,6 +384,6 @@ i18next
     });
 
 export default function (app) {
-    app.use(I18NextVue, { i18next });
+    app.use(I18NextVue, {i18next});
     return app;
 }
