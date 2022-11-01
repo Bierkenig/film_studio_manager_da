@@ -5,15 +5,23 @@
       <div class="modal-wrapper">
         <div class="modal-container">
 
-          <div class="modal-body">
+          <div class="modal-body" v-if="this.event.length > 0">
             <slot name="body">
-              <fieldset>
-                <legend>Event Details</legend>
+              <h3>Event Details</h3>
+              <div v-for="(it,index) in this.event" :key="index">
+                <details>
+                  <summary style="font-weight: bold">Event: {{ it.title }}</summary>
+                  <p>Start: {{ it.start }}</p>
+                  <p>End: {{ it.end }}</p>
+                </details>
+              </div>
+            </slot>
+          </div>
 
-                {{ event.title }}<br>
-                {{ event.start }}<br>
-                {{ event.end }}
-              </fieldset>
+          <div class="modal-body" v-else>
+            <slot name="body">
+              <h3>Event Details</h3>
+              <p>NO EVENTS</p>
             </slot>
           </div>
 

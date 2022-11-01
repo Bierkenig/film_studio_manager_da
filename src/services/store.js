@@ -37,11 +37,17 @@ export default createStore({
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [],
-        events: [{
+        events: [
+            {
             title: "SOMETHING",
             start: '2023-01-06',
             end: '2023-01-10'
-        }],
+            },
+            {
+            title: "NICHTS",
+            start: '2023-01-07',
+            end: '2023-01-09'
+            }],
         franchises: []
     },
 

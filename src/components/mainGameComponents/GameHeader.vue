@@ -50,6 +50,9 @@ export default {
     onUpdateDate(){
       this.$store.commit('updateCurrentDate');
       //this.addClassByDate(this.$store.getters.getCurrentDate);
+      /*this.$refs.calendar.options.now = this.$store.getters.getCurrentDate;
+      this.$refs.calendar.render()*/
+      //this.$root.calendar.options.now = this.$store.getters.getCurrentDate;
     },
   }
 }
