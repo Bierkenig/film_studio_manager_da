@@ -14,7 +14,7 @@
           <option value="" disabled selected hidden>{{ $t('scope') }}</option>
           <option :value="$t('little')">{{ $t('little') }}</option>
           <option :value="$t('small')">{{ $t('small') }}</option>
-          <option value="normal">Normal</option>
+          <option value="Normal">Normal</option>
           <option :value="$t('large')">{{ $t('large') }}</option>
           <option :value="$t('epic')">{{ $t('epic') }}</option>
         </select>
@@ -99,9 +99,25 @@
         </select>
         <p>{{ $t('overallAgeRating') }}{{ this.ageRatingScala[Math.max(this.selectedViolence, this.selectedCursing, this.selectedLoveScenes)] }}</p>
       </div>
+
+      <h3>{{ $t('screenplayLength') }}</h3>
+      <div>
+        <p>{{ $t('screenplayLengthMsgPart1') }} {{ this.minScreenplayLength }} {{ $t('screenplayLengthMsgPart2') }}</p>
+        <input
+            id="screenplayLength"
+            type="number"
+            v-model="screenplayLength"
+            :max="300"
+            :min="this.minScreenplayLength"/>
+      </div>
     </div>
     <div>
-      <button id="continueButton" :disabled="!selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence || !selectedCursing || !selectedLoveScenes">{{ $t('continue') }}</button>
+      <button
+          id="continueButton"
+          @click="saveDetails"
+          :disabled="!selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
+          || !selectedCursing || !selectedLoveScenes || !screenplayLength
+          || screenplayLength > 300 || screenplayLength < minScreenplayLength">{{ $t('continue') }}</button>
     </div>
   </div>
 </template>
@@ -118,7 +134,17 @@ export default {
       selectedViolence: null,
       selectedCursing: null,
       selectedLoveScenes: null,
+      screenplayLength: null,
+      minScreenplayLength: null,
       ageRatingScala: {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'}
+    }
+  },
+
+  mounted(){
+    if(this.$store.getters.getCurrentScreenplay.getType() === 'Feature'){
+      this.minScreenplayLength = 60;
+    } else {
+      this.minScreenplayLength = 40;
     }
   },
 
@@ -146,6 +172,19 @@ export default {
     selectLoveScenes(event){
       this.selectedLoveScenes = event.target.value;
     },
+
+    saveDetails(){
+      this.$store.getters.getCurrentScreenplay.setScope(this.selectedScope);
+      this.$store.getters.getCurrentScreenplay.setTone(this.selectedTone);
+      this.$store.getters.getCurrentScreenplay.setSpecialEffects(this.selectedSpecialEffects);
+      this.$store.getters.getCurrentScreenplay.setViolence(this.ageRatingScala[this.selectedViolence]);
+      this.$store.getters.getCurrentScreenplay.setCursing(this.ageRatingScala[this.selectedCursing]);
+      this.$store.getters.getCurrentScreenplay.setLoveScenes(this.ageRatingScala[this.selectedLoveScenes]);
+      this.$store.getters.getCurrentScreenplay.setAgeRating(this.ageRatingScala[Math.max(this.selectedViolence, this.selectedCursing, this.selectedLoveScenes)]);
+      this.$store.getters.getCurrentScreenplay.setLength(this.screenplayLength);
+      console.log(this.$store.getters.getCurrentScreenplay);
+      //this.$router.push({name: 'screenplayPlot'});
+    }
   }
 }
 </script>

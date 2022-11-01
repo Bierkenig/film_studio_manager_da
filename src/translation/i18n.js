@@ -172,7 +172,10 @@ i18next
                     passionate: 'Passionate',
                     steamy: 'Steamy',
                     explicit: 'Explicit',
-                    overallAgeRating: 'Overall Age Rating: '
+                    overallAgeRating: 'Overall Age Rating: ',
+                    screenplayLength: 'Screenplay Length',
+                    screenplayLengthMsgPart1: 'The screenplay length must be between',
+                    screenplayLengthMsgPart2: 'and 300 pages! One page equals one minute of screen time!',
                 }
             },
             de: {
@@ -337,7 +340,10 @@ i18next
                     passionate: 'Leidenschaftlich',
                     steamy: 'Heiß',
                     explicit: 'Explizit',
-                    overallAgeRating: 'Allgemeine Altersbeschränkung: '
+                    overallAgeRating: 'Allgemeine Altersbeschränkung: ',
+                    screenplayLength: 'Drehbuchlänge',
+                    screenplayLengthMsgPart1: 'Die Drehbuchlänge muss zwischen',
+                    screenplayLengthMsgPart2: 'und 300 Seiten betragen! Eine Seite entspricht einer Minuten Bildschirmzeit!',
                 }
             }
         }

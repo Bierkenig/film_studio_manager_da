@@ -219,7 +219,6 @@ export default {
       this.$store.getters.getCurrentScreenplay.addAct1(this.getList(1));
       this.$store.getters.getCurrentScreenplay.addAct2(this.getList(2));
       this.$store.getters.getCurrentScreenplay.addAct3(this.getList(3));
-      console.log(this.$store.getters.getCurrentScreenplay);
     },
 
     characterMomentButtonClick(){

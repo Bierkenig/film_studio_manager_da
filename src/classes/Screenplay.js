@@ -15,6 +15,9 @@ export class Screenplay {
         this.topics = topics;
         this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
         this.acts = {act1: [], act2: [], act3: []};
+        this.details = {scope: '', tone: '', specialEffects: ''};
+        this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+        this.length = null;
     }
 
     getId() {
@@ -65,6 +68,23 @@ export class Screenplay {
         return this.topics;
     }
 
+    getDetails(){
+        return this.details;
+    }
+
+    getAgeRatingDetails(){
+        return this.ageRatingDetails;
+    }
+
+    getRoles() {
+        return this.roles;
+    }
+
+    getLength(){
+        return this.length;
+    }
+
+
     setWriter(value){
         this.writer = value;
     }
@@ -76,7 +96,6 @@ export class Screenplay {
     setPrice(value){
         this.price = value;
     }
-
 
     setType(value) {
         this.type = value;
@@ -118,8 +137,36 @@ export class Screenplay {
         this.roles.voiceOver.push(actor);
     }
 
-    getRoles() {
-        return this.roles;
+    setScope(value){
+        this.details.scope = value;
+    }
+
+    setTone(value){
+        this.details.tone = value;
+    }
+
+    setSpecialEffects(value){
+        this.details.specialEffects = value;
+    }
+
+    setViolence(value){
+        this.ageRatingDetails.violence = value;
+    }
+
+    setCursing(value){
+        this.ageRatingDetails.cursing = value;
+    }
+
+    setLoveScenes(value){
+        this.ageRatingDetails.loveScenes = value;
+    }
+
+    setAgeRating(value){
+        this.ageRating = value;
+    }
+
+    setLength(value){
+        this.length = value;
     }
 
     toString() {
