@@ -45,8 +45,12 @@ i18next
                         incoming: "Incoming",
                         outgoing: "Outgoing",
                         accumulated: "Accumulated",
-                        total: "Total"
                     },
+                    production: "Production",
+                    marketing: "Marketing",
+                    loan: "Loan",
+                    cinema: "Cinema",
+                    total: "Total",
                     marketShare: {
                         name: "Market Share",
                     },
@@ -235,6 +239,11 @@ i18next
                         accumulated: "Kumuliert",
                         total: "Gesamt"
                     },
+                    production: "Produktion",
+                    marketing: "Vermarktung",
+                    loan: "Kredit",
+                    cinema: "Kino",
+                    total: "Total",
                     marketShare: {
                         name: "Marktanteil",
                     },

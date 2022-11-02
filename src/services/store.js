@@ -34,7 +34,7 @@ export default createStore({
         ],
         financialPerformance: [
             {
-                date: "May 21st",
+                date: "January 2023",
                 data: {
                     production: {incoming: "-", outgoing: -300000},
                     marketing: {incoming: "-", outgoing: -40000},
@@ -61,8 +61,8 @@ export default createStore({
             }],
         franchises: [],
         otherStudios: [
-            [new Studio('Example Studio 1').getName(), 100],
-            [new Studio('Example Studio 2').getName(), 200],
+            [new Studio('Example Studio 1').getName(), "2023", 100],
+            [new Studio('Example Studio 2').getName(), "2023", 200],
         ],
         //data from database
         allActors: [],
