@@ -64,10 +64,7 @@ export default createStore({
             [new Studio('Example Studio 1').getName(), 100],
             [new Studio('Example Studio 2').getName(), 200],
         ],
-    },
-
-    /** global data loaded from database*/
-    data:{
+        //data from database
         allActors: [],
         allDirectors:[],
         allWriters:[],
@@ -173,6 +170,18 @@ export default createStore({
         getFinancialPerformance(state) {
             return state.financialPerformance;
         },
+
+        getAllActors(state){
+            return state.allActors;
+        },
+
+        getAllDirectors(state){
+            return state.allDirectors;
+        },
+
+        getAllWriters(state){
+            return state.allWriters;
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -358,6 +367,18 @@ export default createStore({
         addCurrentScreenplayVoiceOverCharacter(state, character) {
             state.currentScreenplay.addVoiceOverCharacter(character);
         },
+
+        setAllActors(state, value){
+            state.allActors = value;
+        },
+
+        setAllDirectors(state, value){
+            state.allDirectors = value;
+        },
+
+        setAllWriters(state, value){
+            state.allWriters = value;
+        }
     },
 
     /** Methods that change the application state asynchronously */

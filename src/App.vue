@@ -16,8 +16,6 @@
     <audio id="backgroundMusic" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
     </audio>
-
-    <button @click="test">Test</button>
   </div>
 </template>
 
@@ -32,18 +30,6 @@ export default {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
     }
   },
-
-  methods: {
-    test(){
-      window.ipcRenderer.send('toMain','SELECT first_name FROM actors');
-    }
-  },
-
-  mounted() {
-    window.ipcRenderer.receive('fromMain', (data) => {
-      console.log("DATA VARIABLE: " + data)
-    })
-  }
 }
 </script>
 

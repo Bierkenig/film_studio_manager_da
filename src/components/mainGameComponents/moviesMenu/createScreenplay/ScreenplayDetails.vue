@@ -112,12 +112,14 @@
       </div>
     </div>
     <div>
-      <button
-          id="continueButton"
-          @click="saveDetails"
-          :disabled="!selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
+      <router-link :to="{name: 'hireWriter'}">
+        <button
+            id="continueButton"
+            @click="saveDetails"
+            :disabled="!selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
           || !selectedCursing || !selectedLoveScenes || !screenplayLength
           || screenplayLength > 300 || screenplayLength < minScreenplayLength">{{ $t('continue') }}</button>
+      </router-link>
     </div>
   </div>
 </template>

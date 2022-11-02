@@ -71,7 +71,7 @@ export default {
 
   methods: {
     calcfiscalPeroformance() {
-      let data = this.$store.getters.getFinancialPerformance
+      //let data = this.$store.getters.getFinancialPerformance
 
     },
   },

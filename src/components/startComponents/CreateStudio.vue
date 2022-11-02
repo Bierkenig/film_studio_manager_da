@@ -42,6 +42,9 @@
 <script>
 import {Studio} from "@/classes/Studio";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import Actor from "@/classes/Actor";
+import {Writer} from "@/classes/Writer";
+import {Director} from "@/classes/Director";
 
 export default {
   name: "CreateStudio",
@@ -68,6 +71,35 @@ export default {
   methods: {
     startGame() {
       this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
+
+      let directors = [], writers = [], actors = [];
+      window.ipcRenderer.send('toMain','SELECT * FROM actors');
+      window.ipcRenderer.receive('fromMain', (data) => {
+        if(data.pk_actorID !== undefined){
+          actors.push(new Actor(data.pk_actorID, data.first_name, data.last_name, data.age, data.rating,
+              null, data.salary, data.gender, null, data.depth, data.ethnicity, data.experience,
+              data.nationality, data.performance, data.popularity));
+        }
+      })
+      window.ipcRenderer.send('toMain','SELECT * FROM writer');
+      window.ipcRenderer.receive('fromMain', (data2) => {
+        if(data2.pk_writerID !== undefined){
+          writers.push(new Writer(data2.pk_writerID, data2.first_name, data2.last_name, data2.age, data2.rating,
+              null, data2.salary, data2.gender, null, data2.depth, data2.ethnicity, data2.experience,
+              data2.nationality, data2.performance, data2.popularity));
+        }
+      })
+      window.ipcRenderer.send('toMain','SELECT * FROM directors');
+      window.ipcRenderer.receive('fromMain', (data3) => {
+        if(data3.pk_directorID !== undefined){
+          directors.push(new Director(data3.pk_directorID, data3.first_name, data3.last_name, data3.age, data3.rating,
+              null, data3.salary, data3.gender, null, data3.craft, data3.ethnicity, data3.experience,
+              data3.nationality, data3.performance, data3.popularity));
+        }
+      })
+      this.$store.commit('setAllActors', actors);
+      this.$store.commit('setAllDirectors', directors);
+      this.$store.commit('setAllWriters', writers);
     },
   },
 }
