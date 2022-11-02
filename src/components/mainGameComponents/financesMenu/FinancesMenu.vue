@@ -39,7 +39,7 @@
     </div>
 
     <div id="marketShare">
-      <h3>{{$t('marketShare')}}</h3>
+      <h3>{{$t('marketShare.name')}}</h3>
       <select>
         <!-- TODO for loop with options -->
       </select>
@@ -47,8 +47,13 @@
         <!-- TODO loop Studios -->
       </div>
       <div>
-
+        <pie-chart :data="[['Moin', 100], ['hallo', 200]]"></pie-chart>
       </div>
+    </div>
+
+    <div>
+      <h3>{{$t('financialHistory.name')}}</h3>
+      
     </div>
   </div>
 </template>
@@ -59,7 +64,6 @@ export default {
 
   data() {
     return {
-
     }
   },
 

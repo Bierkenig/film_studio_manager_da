@@ -50,6 +50,9 @@ i18next
                     marketShare: {
                         name: "Market Share",
                     },
+                    financialHistory: {
+                        name: "Financial History"
+                    },
                     calendar: 'Calendar',
                     streaming: 'Streaming',
                     skipWeek: 'Skip to next week',
@@ -234,6 +237,9 @@ i18next
                     },
                     marketShare: {
                         name: "Marktanteil",
+                    },
+                    financialHistory: {
+                        name: "Finanzielle Geschichte"
                     },
                     calendar: 'Kalender',
                     streaming: 'Streaming',
