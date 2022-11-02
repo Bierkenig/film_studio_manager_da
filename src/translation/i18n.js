@@ -193,6 +193,8 @@ i18next
                     screenplayLength: 'Screenplay Length',
                     screenplayLengthMsgPart1: 'The screenplay length must be between',
                     screenplayLengthMsgPart2: 'and 300 pages! One page equals one minute of screen time!',
+                    end: 'End',
+                    no: 'No',
                 }
             },
             de: {
@@ -378,6 +380,8 @@ i18next
                     screenplayLength: 'Drehbuchlänge',
                     screenplayLengthMsgPart1: 'Die Drehbuchlänge muss zwischen',
                     screenplayLengthMsgPart2: 'und 300 Seiten betragen! Eine Seite entspricht einer Minuten Bildschirmzeit!',
+                    end: 'Ende',
+                    no: 'Keine',
                 }
             }
         }

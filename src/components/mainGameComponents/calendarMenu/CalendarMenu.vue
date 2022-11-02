@@ -2,7 +2,6 @@
   <div>
     <FullCalendar
         id="calendar"
-        ref="calendar"
         :options="calendarOptions"/>
 
     <transition name="modal">
@@ -24,7 +23,6 @@ import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
 import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
-//import $ from "jquery";
 
 export default {
   name: 'CalendarMenu',
@@ -48,7 +46,6 @@ export default {
         selectable: true,
         events: this.$store.getters.getEvents,
         dateClick: this.handleClick,
-        now: this.$store.getters.getCurrentDate,
       },
       showModal: false,
       eventProp: Object,
@@ -79,30 +76,13 @@ export default {
 
       this.eventProp = eventsOfDay;
       this.showModal = true;
-    }
+    },
   },
-
-  /*mounted(){
-    function addClassByDate(date) {
-      let dataAttr = getDataAttr(date);
-      $("[data-date='" + dataAttr + "']").addClass("today");
-    }
-
-    function getDataAttr(date) {
-      return date.getFullYear() + "-" + (date.getMonth().toString.length === 2 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "-" + (date.getDate().toString().length === 2 ? date.getDate() : "0" + date.getDate());
-    }
-
-    addClassByDate(this.$store.getters.getCurrentDate);
-  }*/
-
-  mounted() {
-    //this.$root.calendar = this.$refs.calendar;
-  }
 }
 </script>
 
 <style>
-.today {
-  background-color: blue;
+.fc-day-today {
+  background-color: inherit !important;
 }
 </style>

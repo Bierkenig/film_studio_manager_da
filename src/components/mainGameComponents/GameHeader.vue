@@ -25,7 +25,6 @@
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
-import $ from "jquery";
 
 export default {
   name: "GameHeader",
@@ -38,21 +37,8 @@ export default {
   },
 
   methods: {
-    addClassByDate(date) {
-      let dataAttr = this.getDataAttr(date);
-      $("[data-date='" + dataAttr + "']").addClass("today");
-    },
-
-    getDataAttr(date) {
-      return date.getFullYear() + "-" + (date.getMonth().toString.length === 2 ? date.getMonth() + 1 : "0" + (date.getMonth() + 1)) + "-" + (date.getDate().toString().length === 2 ? date.getDate() : "0" + date.getDate());
-    },
-
     onUpdateDate(){
       this.$store.commit('updateCurrentDate');
-      //this.addClassByDate(this.$store.getters.getCurrentDate);
-      /*this.$refs.calendar.options.now = this.$store.getters.getCurrentDate;
-      this.$refs.calendar.render()*/
-      //this.$root.calendar.options.now = this.$store.getters.getCurrentDate;
     },
   }
 }

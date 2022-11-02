@@ -12,7 +12,7 @@
                 <details>
                   <summary style="font-weight: bold">Event: {{ it.title }}</summary>
                   <p>Start: {{ it.start }}</p>
-                  <p>End: {{ it.end }}</p>
+                  <p>{{ $t('end') }}: {{ it.end }}</p>
                 </details>
               </div>
             </slot>
@@ -21,7 +21,7 @@
           <div class="modal-body" v-else>
             <slot name="body">
               <h3>Event Details</h3>
-              <p>NO EVENTS</p>
+              <p>{{ $t('no') }} Events!</p>
             </slot>
           </div>
 
