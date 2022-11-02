@@ -27,7 +27,10 @@
           <th>{{$t('fiscalPerformance.accumulated')}}</th>
         </tr>
         <tr>
-          <!-- TODO get areas from store -->
+          <td>{{}}</td>
+          <td>{{}}</td>
+          <td>{{}}</td>
+          <td>{{}}</td>
         </tr>
         <tr>
           <td>{{$t('total')}}</td>
@@ -43,17 +46,15 @@
       <select>
         <!-- TODO for loop with options -->
       </select>
+      <div v-for="studio in this.$store.getters.getOtherStudios" :key="studio[0]">{{studio[0]}} {{studio[1]}}</div>
       <div>
-        <!-- TODO loop Studios -->
-      </div>
-      <div>
-        <pie-chart :data="[['Moin', 100], ['hallo', 200]]"></pie-chart>
+        <pie-chart :data="this.$store.getters.getOtherStudios"></pie-chart>
       </div>
     </div>
 
     <div>
       <h3>{{$t('financialHistory.name')}}</h3>
-      
+      <!-- list history-->
     </div>
   </div>
 </template>
@@ -64,13 +65,15 @@ export default {
 
   data() {
     return {
+      selectDate: ""
     }
   },
 
   methods: {
     calcfiscalPeroformance() {
+      let data = this.$store.getters.getFinancialPerformance
 
-    }
+    },
   },
 }
 </script>

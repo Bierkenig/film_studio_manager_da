@@ -32,6 +32,18 @@ export default createStore({
                 date: new Date(2022,11,15)
             }
         ],
+        financialPerformance: [
+            {
+                date: "May 21st",
+                data: {
+                    production: {incoming: "-", outgoing: -300000},
+                    marketing: {incoming: "-", outgoing: -40000},
+                    loan: {incoming: "-", outgoing: -30000000},
+                    cinema: {incoming: 33000000, outgoing: -2000000},
+                    streaming: {incoming: 200000, outgoing: -20000000},
+                }
+            }
+        ],
         //movies which are in production
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
@@ -47,7 +59,11 @@ export default createStore({
             start: '2023-01-07',
             end: '2023-01-09'
             }],
-        franchises: []
+        franchises: [],
+        otherStudios: [
+            [new Studio('Example Studio 1').getName(), 100],
+            [new Studio('Example Studio 2').getName(), 200],
+        ],
     },
 
     /** global data loaded from database*/
@@ -148,7 +164,15 @@ export default createStore({
 
         getFranchises(state){
             return state.franchises;
-        }
+        },
+
+        getOtherStudios(state) {
+            return state.otherStudios;
+        },
+
+        getFinancialPerformance(state) {
+            return state.financialPerformance;
+        },
     },
 
     /** Methods that change the application state synchronously */
