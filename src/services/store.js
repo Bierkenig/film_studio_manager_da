@@ -1,13 +1,12 @@
 import {createStore} from "vuex";
 import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
-import {Screenplay} from "@/classes/Screenplay";
 
 export default createStore({
     /** Application state */
     state:{
         screenplays: [],
-        boughtScreenplays: [new Screenplay(1,'Test Screenplay','Feature','Action','Horror','PG',null,'SPASS','2','100')],
+        boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
         balance: 0,
         currentMovieBudget: 0,
