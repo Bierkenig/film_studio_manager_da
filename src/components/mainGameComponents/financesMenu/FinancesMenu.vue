@@ -18,12 +18,7 @@
 
     <div id="fiscalPerformance">
       <h3>{{$t('fiscalPerformance.name')}}</h3>
-      <swiper :slides-per-view="1"
-              :space-between="0"
-              @swiper="selectDate"
-              @slideChange="updateFiscalPerformance">
-        <swiper-slide v-for="element in this.availablePerformanceDates" :key="element">{{element}}</swiper-slide>
-      </swiper>
+
       <table>
         <tr>
           <th>{{$t('fiscalPerformance.area')}}</th>
@@ -58,19 +53,17 @@
   </div>
 </template>
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue'
+//import { Swiper, SwiperSlide } from 'swiper/vue'
 export default {
   name: "FinancesMenu",
 
   components: {
-    Swiper,
-    SwiperSlide,
   },
 
   data() {
     return {
-      selectDate: "",
-      availablePerformanceDates: [],
+      selectDate: "January 2023",
+      availablePerformanceDates: ["1234"],
       availableMarketYears: [],
       fiscalPerformanceData: {
         production: {name: "production", incoming: 0, outgoing: 0, accumulated: 0},
@@ -85,20 +78,62 @@ export default {
 
   methods: {
     updateFiscalPerformance() {
-      //let data = this.$store.getters.getFinancialPerformance
-      //TODO
+      let data = this.$store.getters.getFinancialPerformance
+      data.forEach((el) => {
+        if (el.date.name === this.selectDate) {
+          this.fiscalPerformanceData.production.incoming = el.date.data.production.incoming
+          this.fiscalPerformanceData.production.outgoing = el.date.data.production.outgoing
+          this.fiscalPerformanceData.production.accumulated =
+              Number.isInteger(el.date.data.production.incoming) ? el.date.data.production.incoming : 0 + el.date.data.production.outgoing
+
+          this.fiscalPerformanceData.marketing.incoming = el.date.data.marketing.incoming
+          this.fiscalPerformanceData.marketing.outgoing = el.date.data.marketing.outgoing
+          this.fiscalPerformanceData.marketing.accumulated =
+              Number.isInteger(el.date.data.marketing.incoming) ? el.date.data.marketing.incoming : 0 + el.date.data.marketing.outgoing
+
+          this.fiscalPerformanceData.loan.incoming = el.date.data.loan.incoming
+          this.fiscalPerformanceData.loan.outgoing = el.date.data.loan.outgoing
+          this.fiscalPerformanceData.loan.accumulated =
+              Number.isInteger(el.date.data.loan.incoming) ? el.date.data.loan.incoming : 0 + el.date.data.loan.outgoing
+
+          this.fiscalPerformanceData.cinema.incoming = el.date.data.cinema.incoming
+          this.fiscalPerformanceData.cinema.outgoing = el.date.data.cinema.outgoing
+          this.fiscalPerformanceData.cinema.accumulated =
+              Number.isInteger(el.date.data.cinema.incoming) ? el.date.data.cinema.incoming : 0 + el.date.data.cinema.outgoing
+
+          this.fiscalPerformanceData.streaming.incoming = el.date.data.streaming.incoming
+          this.fiscalPerformanceData.streaming.outgoing = el.date.data.streaming.outgoing
+          this.fiscalPerformanceData.streaming.accumulated =
+              Number.isInteger(el.date.data.streaming.incoming) ? el.date.data.streaming.incoming : 0 + el.date.data.streaming.outgoing
+
+          //total
+          this.fiscalPerformanceData.total.incoming =
+              (Number.isInteger(el.date.data.production.incoming) ? el.date.data.production.incoming : 0) +
+              (Number.isInteger(el.date.data.marketing.incoming) ? el.date.data.marketing.incoming : 0) +
+              (Number.isInteger(el.date.data.loan.incoming) ? el.date.data.loan.incoming : 0) +
+              (Number.isInteger(el.date.data.cinema.incoming) ? el.date.data.cinema.incoming : 0) +
+              (Number.isInteger(el.date.data.streaming.incoming) ? el.date.data.streaming.incoming : 0)
+
+          this.fiscalPerformanceData.total.outgoing =
+              (Number.isInteger(el.date.data.production.outgoing) ? el.date.data.production.outgoing : 0) +
+              (Number.isInteger(el.date.data.marketing.outgoing) ? el.date.data.marketing.outgoing : 0) +
+              (Number.isInteger(el.date.data.loan.outgoing) ? el.date.data.loan.outgoing : 0) +
+              (Number.isInteger(el.date.data.cinema.outgoing) ? el.date.data.cinema.outgoing : 0) +
+              (Number.isInteger(el.date.data.streaming.outgoing) ? el.date.data.streaming.outgoing : 0)
+
+          this.fiscalPerformanceData.total.accumulated = this.fiscalPerformanceData.total.incoming -
+              this.fiscalPerformanceData.total.outgoing
+        }
+      })
     },
   },
 
   mounted() {
-    console.log(this.$store.getters.getOtherStudiosAsString)
-
+    console.log(this.selectDate)
     //fetch financial dates
     let array = this.$store.getters.getFinancialPerformance;
     array.forEach((el) => {
-      Object.keys(el).forEach(key => {
-        if (key === "date") this.availablePerformanceDates.push(el[key])
-      })
+        this.availablePerformanceDates.push(el.date.name)
     })
 
     //fetch other Studio years

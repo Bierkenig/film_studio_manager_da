@@ -34,14 +34,28 @@ export default createStore({
         ],
         financialPerformance: [
             {
-                date: "January 2023",
-                data: {
-                    production: {incoming: "-", outgoing: -300000},
-                    marketing: {incoming: "-", outgoing: -40000},
-                    loan: {incoming: "-", outgoing: -30000000},
-                    cinema: {incoming: 33000000, outgoing: -2000000},
-                    streaming: {incoming: 200000, outgoing: -20000000},
+                date: {
+                    name: "January 2023",
+                    data: {
+                        production: {incoming: "-", outgoing: -300000},
+                        marketing: {incoming: "-", outgoing: -40000},
+                        loan: {incoming: "-", outgoing: -30000000},
+                        cinema: {incoming: 33000000, outgoing: -2000000},
+                        streaming: {incoming: 200000, outgoing: -20000000},
+                    }
                 }
+            },
+            {
+                date: {
+                    name: "February 2023",
+                    data: {
+                        production: {incoming: "-", outgoing: -20000},
+                        marketing: {incoming: "-", outgoing: -30000},
+                        loan: {incoming: "-", outgoing: -30000000},
+                        cinema: {incoming: 33000000, outgoing: -2000000},
+                        streaming: {incoming: 200000, outgoing: -20000000},
+                    }
+                },
             }
         ],
         //movies which are in production
