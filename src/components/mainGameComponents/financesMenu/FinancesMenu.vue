@@ -18,7 +18,9 @@
 
     <div id="fiscalPerformance">
       <h3>{{$t('fiscalPerformance.name')}}</h3>
-
+      <i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
+      <p>{{this.availablePerformanceDates[index]}}</p>
+      <i class="arrow right" @click="updateFiscalPerformance(1)"></i>
       <table>
         <tr>
           <th>{{$t('fiscalPerformance.area')}}</th>
@@ -42,18 +44,21 @@
       </select>
       <div v-for="studio in this.$store.getters.getOtherStudios" :key="studio[0]">{{studio[0]}} {{studio[2]}}</div>
       <div>
-        <pie-chart :data="this.$store.getters.getOtherStudios"></pie-chart>
+        <pie-chart :data="this.otherStudiosPieChart"></pie-chart>
       </div>
     </div>
 
     <div>
       <h3>{{$t('financialHistory.name')}}</h3>
-      <!-- TODO list history-->
+      <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
+        <!-- TODO icon -->
+        <h2>{{$t(el.title)}}</h2>
+        <p>{{$t(el.desc)}}</p>
+      </div>
     </div>
   </div>
 </template>
 <script>
-//import { Swiper, SwiperSlide } from 'swiper/vue'
 export default {
   name: "FinancesMenu",
 
@@ -62,8 +67,9 @@ export default {
 
   data() {
     return {
-      selectDate: "January 2023",
-      availablePerformanceDates: ["1234"],
+      selectDate: "",
+      index: -1,
+      availablePerformanceDates: [],
       availableMarketYears: [],
       fiscalPerformanceData: {
         production: {name: "production", incoming: 0, outgoing: 0, accumulated: 0},
@@ -73,11 +79,14 @@ export default {
         streaming: {name: "streaming", incoming: 0, outgoing: 0, accumulated: 0},
         total: {name: "total", incoming: 0, outgoing: 0, accumulated: 0}
       },
+      otherStudiosPieChart: []
     }
   },
 
   methods: {
-    updateFiscalPerformance() {
+    updateFiscalPerformance(higherLower = 1) {
+      this.index += higherLower
+      this.selectDate = this.availablePerformanceDates[this.index]
       let data = this.$store.getters.getFinancialPerformance
       data.forEach((el) => {
         if (el.date.name === this.selectDate) {
@@ -129,13 +138,11 @@ export default {
   },
 
   mounted() {
-    console.log(this.selectDate)
     //fetch financial dates
     let array = this.$store.getters.getFinancialPerformance;
     array.forEach((el) => {
         this.availablePerformanceDates.push(el.date.name)
     })
-
     //fetch other Studio years
     let studios = this.$store.getters.getOtherStudios
     studios.forEach((el) => {
@@ -144,6 +151,12 @@ export default {
     })
     console.log("available years: " + this.availableMarketYears)
 
+    //set Studios
+    this.otherStudiosPieChart = this.$store.getters.getOtherStudios
+    this.otherStudiosPieChart.forEach((el) => {
+      el.splice(1,1)
+    })
+
     //call the updateFiscalPerformance Method once
     this.updateFiscalPerformance()
   }
@@ -151,5 +164,22 @@ export default {
 </script>
 
 <style scoped>
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
 
 </style>

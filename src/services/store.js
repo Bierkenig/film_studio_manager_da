@@ -78,6 +78,11 @@ export default createStore({
             [new Studio('Example Studio 1').getName(), "2023", 100],
             [new Studio('Example Studio 2').getName(), "2023", 200],
         ],
+        financialHistory: [
+            {title: "financialHistory.event1", desc: "financialHistory.desc1", iconPath: ""},
+            {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
+            {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
+        ],
         //data from database
         allActors: [],
         allDirectors:[],
@@ -195,7 +200,11 @@ export default createStore({
 
         getAllWriters(state){
             return state.allWriters;
-        }
+        },
+
+        getFinancialHistory(state) {
+            return state.financialHistory;
+        },
     },
 
     /** Methods that change the application state synchronously */
