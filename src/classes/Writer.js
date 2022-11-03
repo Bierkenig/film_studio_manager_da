@@ -1,6 +1,6 @@
 export class Writer {
     // TODO JAKOB: genre must be an associative array e.g. genres.action = 50
-    constructor(id, firstName, lastName, age, rating, genres, salary, gender, avatar, depth, ethnicity, experience, nationality, performance, popularity) {
+    constructor(id, firstName, lastName, age, rating, genres, salary, gender, avatar, talent, ethnicity, experience, nationality, performance, popularity) {
         this.id = id
         this.firstName = firstName
         this.lastName = lastName
@@ -9,7 +9,7 @@ export class Writer {
         this.genres = genres
         this.salary = salary
         this.gender = gender
-        this.depth = depth;
+        this.talent = talent;
         this.ethnicity = ethnicity;
         this.experience = experience;
         this.nationality = nationality;
@@ -26,8 +26,8 @@ export class Writer {
         return this.avatar;
     }
 
-    getDepth() {
-        return this.depth;
+    getTalent() {
+        return this.talent;
     }
 
     getEthnicity() {

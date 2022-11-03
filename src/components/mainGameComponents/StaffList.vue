@@ -1,24 +1,14 @@
 <template>
   <div>
     <div id="staffList">
-      <div id="staffListSortBar">
-        <div id="staffListSortByHint">Sort by</div>
-        <div id="staffListSorts">
-          <div id="sortName" class="staffListSorts">
-            <div id="sortNameHint" class="staffListSortTitle">Name</div>↓
-          </div>
-          <div id="sortSalary" class="staffListSorts">
-            <div id="sortSalaryHint" class="staffListSortTitle">Salary</div>↓
-          </div>
-          <div id="sortRating" class="staffListSorts">
-            <div id="sortRatingHint" class="staffListSortTitle">Rating</div>↓
-          </div>
-        </div>
-      </div>
       <div class="staffListScroll">
-        <div v-for="(item, index) in staff" :id="'item' + index" :key="index" class="staffListElement" @click="getStaffInfo(index)">
+        <div v-for="(item, index) in staff" :id="'item' + index" :key="index" class="staffListElement" @click="getStaffInfo(index, item)">
           <div class="staffListElementTitle">
             {{ item.firstName }} {{ item.lastName }}
+          </div>
+          <div class="moreStaffListElementInfo">
+            <div class="staffListElementSalary">$ {{ item.salary }}</div>
+            <div class="staffListElementRating">{{ item.rating }}</div>
           </div>
         </div>
       </div>
@@ -40,19 +30,35 @@ export default {
   data() {
     return {
       lastIndex: null,
-      lastSort: null,
-      countSameLastSort: 1,
     }
   },
 
   methods: {
-    getStaffInfo(index){
+    getStaffInfo(index, staff){
       document.getElementById('item'+index).style.backgroundColor = 'rgb(255, 70, 85)';
       if(this.lastIndex !== null){
-        document.getElementById('item'+this.lastIndex).style.backgroundColor = '#1C222F';
+        document.getElementById('item'+this.lastIndex).style.backgroundColor = 'unset';
       }
       this.lastIndex = index;
+
+      this.$emit('sendStaff',staff);
     },
+
+    roundSalary(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    }
   }
 }
 </script>

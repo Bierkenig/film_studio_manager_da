@@ -184,8 +184,6 @@ export default {
       this.$store.getters.getCurrentScreenplay.setLoveScenes(this.ageRatingScala[this.selectedLoveScenes]);
       this.$store.getters.getCurrentScreenplay.setAgeRating(this.ageRatingScala[Math.max(this.selectedViolence, this.selectedCursing, this.selectedLoveScenes)]);
       this.$store.getters.getCurrentScreenplay.setLength(this.screenplayLength);
-      console.log(this.$store.getters.getCurrentScreenplay);
-      //this.$router.push({name: 'screenplayPlot'});
     }
   }
 }

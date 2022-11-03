@@ -85,7 +85,7 @@ export default {
       window.ipcRenderer.receive('fromMain', (data2) => {
         if(data2.pk_writerID !== undefined){
           writers.push(new Writer(data2.pk_writerID, data2.first_name, data2.last_name, data2.age, data2.rating,
-              null, data2.salary, data2.gender, null, data2.depth, data2.ethnicity, data2.experience,
+              null, data2.salary, data2.gender, null, data2.talent, data2.ethnicity, data2.experience,
               data2.nationality, data2.performance, data2.popularity));
         }
       })

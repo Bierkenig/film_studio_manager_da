@@ -222,6 +222,9 @@ i18next
                     screenplayLengthMsgPart2: 'and 300 pages! One page equals one minute of screen time!',
                     end: 'End',
                     no: 'No',
+                    hireWriter: 'Hire Writer',
+                    salary: 'Salary',
+                    rating: 'Rating',
                 }
             },
             de: {
@@ -437,6 +440,9 @@ i18next
                     screenplayLengthMsgPart2: 'und 300 Seiten betragen! Eine Seite entspricht einer Minuten Bildschirmzeit!',
                     end: 'Ende',
                     no: 'Keine',
+                    hireWriter: 'Autor anheuern',
+                    salary: 'Gehalt',
+                    rating: 'Bewertung',
                 }
             }
         }
