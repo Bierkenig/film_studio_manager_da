@@ -15,8 +15,10 @@ import ScreenplayCharacters from "@/components/mainGameComponents/moviesMenu/cre
 import ScreenplayPlot from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayPlot";
 import ScreenplayDetails from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayDetails";
 import HireWriter from "@/components/mainGameComponents/moviesMenu/createScreenplay/HireWriter";
+import KitchenSink from "@/components/kitchenSink/KitchenSink";
 
 const routes = [
+    { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },
     { name: 'news', path: '/news', component: News, props: true },
     { name: 'movies', path: '/movies', component: Movies, props: true },
     { name: 'library', path: '/library', component: Library, props: true },

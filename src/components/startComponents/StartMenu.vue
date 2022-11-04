@@ -8,6 +8,9 @@
               {{ $t('welcome') }}
             </div>
             <div>
+              <router-link :to="{ name: 'kitchenSink'}">
+                <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
+              </router-link>
               <router-link :to="{ name: 'createStudio'}">
                 <button id="newButton" class="buttonStyle">{{ $t('newStudioButton') }}</button>
               </router-link>
