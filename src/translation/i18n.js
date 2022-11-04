@@ -32,6 +32,11 @@ i18next
                     movies: 'Movies',
                     library: 'Library',
                     news: 'News',
+                    newsData: {
+                        person: "Person",
+                        movie: "Movie",
+                        award: "Award"
+                    },
                     finances: 'Finances',
                     takeCredit: "Loan",
                     buyStudio: "Buy",
@@ -247,6 +252,11 @@ i18next
                     movies: 'Filme',
                     library: 'Bibliothek',
                     news: 'Nachrichten',
+                    newsData: {
+                        person: "Person",
+                        movie: "Film",
+                        award: "Auszeichnung"
+                    },
                     finances: 'Finanzen',
                     takeCredit: "Leihen",
                     buyStudio: "Kaufen",
