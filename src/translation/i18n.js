@@ -35,7 +35,14 @@ i18next
                     newsData: {
                         person: "Person",
                         movie: "Movie",
-                        award: "Award"
+                        award: "Award",
+                        week: "Week",
+                        month: "Month",
+                        year: "Year",
+                        name: "Name",
+                        age: "Age",
+                        gender: "Gender",
+                        values: "Values"
                     },
                     finances: 'Finances',
                     takeCredit: "Loan",
@@ -255,7 +262,14 @@ i18next
                     newsData: {
                         person: "Person",
                         movie: "Film",
-                        award: "Auszeichnung"
+                        award: "Auszeichnung",
+                        week: "Woche",
+                        month: "Month",
+                        year: "Year",
+                        name: "Name",
+                        age: "Alter",
+                        gender: "Geschlecht",
+                        values: "Werte"
                     },
                     finances: 'Finanzen',
                     takeCredit: "Leihen",

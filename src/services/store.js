@@ -2,6 +2,7 @@ import {createStore} from "vuex";
 import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
 import News from "@/classes/News";
+import Award from "@/classes/Award";
 
 export default createStore({
     /** Application state */
@@ -24,7 +25,7 @@ export default createStore({
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [
-            new News('Studio 1235 gegründet', 'hupfigatsch', null, null),
+            new News('Studio 1235 gegründet', 'hupfigatsch', null, new Award('Deine MUm', 'internationalAward')),
             new News('Studio 9876 in Konkurs', 'Bene', null, null),
             new News('Studio 765984 ist geil', 'Danny', null, null)
         ],
