@@ -9,6 +9,7 @@
             :staff="clickedStaff"
             :screenplay="this.$store.getters.getCurrentScreenplay"
             :check-balance="checkBalance"
+            next-location="screenplayInformation"
             type="Writer"
         />
       </div>
