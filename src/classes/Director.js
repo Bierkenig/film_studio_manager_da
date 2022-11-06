@@ -35,6 +35,14 @@ export class Director {
         return this.firstName + ' ' + this.lastName;
     }
 
+    getAge() {
+        return this.age
+    }
+
+    getGender() {
+        return this.gender
+    }
+
     getAvatar() {
         return this.avatar;
     }

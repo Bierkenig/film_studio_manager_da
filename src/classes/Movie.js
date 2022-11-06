@@ -1,15 +1,36 @@
 import {Screenplay} from "./Screenplay";
 import store from "../services/store";
+import {Director} from "@/classes/Director";
 
 export class Movie {
-    constructor(screenplay) {
+    constructor(screenplay, studio, year, earnings) {
+        this.studio = studio
+        this.title = screenplay.getTitle()
         this.screenplay = screenplay;
-        this.director = null;
+        this.director = new Director(0, 'hallo', 'hallo2', null, null, null, null, null, null, null, null, null, null, null, null)
         this.roles = {main: [], support: [], minor: []};
+        this.year = year
+        this.earnings = earnings
+    }
+
+    getStudio() {
+        return this.studio
+    }
+
+    getTitle() {
+        return this.title
     }
 
     getScreenplay() {
         return this.screenplay;
+    }
+
+    getYear() {
+        return this.year
+    }
+
+    getEarnings() {
+        return this.earnings
     }
 
     getDirector() {

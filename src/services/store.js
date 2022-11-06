@@ -3,6 +3,7 @@ import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
 import News from "@/classes/News";
 import Award from "@/classes/Award";
+import Actor from "@/classes/Actor";
 
 export default createStore({
     /** Application state */
@@ -22,12 +23,14 @@ export default createStore({
         soundeffects: true,
         backgroundMusic: true,
         currentDate: new Date("January 1, 2023"),
+        //currentWeek: Math.ceil((((this.currentDate.getTime() - new Date(this.currentDate.getFullYear(), 0, 1).getTime()) / 86400000) + new Date(this.currentDate.getFullYear(), 0, 1).getDay() + 1) / 7),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [
-            new News('Studio 1235 gegründet', 'hupfigatsch', null, new Award('Deine MUm', 'internationalAward')),
-            new News('Studio 9876 in Konkurs', 'Bene', null, null),
-            new News('Studio 765984 ist geil', 'Danny', null, null)
+            new News('Studio 1235 gegründet',
+                new Actor(0, 'Jakob', 'lastName', 23, 23, 350498, 123456, 'male', null, 3, 'arabian', 4, 'austrian', 4, 5),
+                null,
+                new Award('Deine MUm', 'internationalAward')),
         ],
         earnings: [
             {
@@ -90,11 +93,13 @@ export default createStore({
             {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
             {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
         ],
+        allYears: [2023, ],
         //data from database
         allActors: [],
-        allDirectors:[],
-        allWriters:[],
-        allTopics:[],
+        allDirectors: [],
+        allWriters: [],
+        allMovies: [],
+        allAwards: [],
     },
 
     /** Methods that read the application state */
@@ -216,6 +221,18 @@ export default createStore({
 
         getAllTopics(state){
             return state.allTopics;
+        },
+
+        getAllMovies(state) {
+            return state.allMovies
+        },
+
+        getAllYears(state) {
+            return state.allYears
+        },
+
+        getAllAwards(state) {
+            return state.allAwards
         }
     },
 

@@ -1,14 +1,19 @@
 export default class Award {
-    constructor(desc, type) {
+    constructor(desc, type, year) {
         this.desc = desc
         this.type = type
+        this.year = year
     }
 
-    getDesc() {
+    getDescription() {
         return this.desc
     }
 
     getType() {
         return this.type
+    }
+
+    getYear() {
+        return this.year
     }
 }
