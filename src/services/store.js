@@ -94,6 +94,7 @@ export default createStore({
         allActors: [],
         allDirectors:[],
         allWriters:[],
+        allTopics:[],
     },
 
     /** Methods that read the application state */
@@ -212,6 +213,10 @@ export default createStore({
         getFinancialHistory(state) {
             return state.financialHistory;
         },
+
+        getAllTopics(state){
+            return state.allTopics;
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -408,6 +413,10 @@ export default createStore({
 
         setAllWriters(state, value){
             state.allWriters = value;
+        },
+
+        setAllTopics(state, value){
+            state.allTopics = value;
         }
     },
 

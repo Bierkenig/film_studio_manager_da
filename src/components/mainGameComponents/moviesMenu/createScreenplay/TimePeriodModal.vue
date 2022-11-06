@@ -16,24 +16,24 @@
                     @change="selectTimePeriod($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('timePeriod') }}</option>
-                  <option :value="$t('farFuture')">{{ $t('farFuture') }}</option>
-                  <option :value="$t('nearFuture')">{{ $t('nearFuture') }}</option>
-                  <option :value="$t('presentDay')">{{ $t('presentDay') }}</option>
+                  <option value="farFuture">{{ $t('farFuture') }}</option>
+                  <option value="nearFuture">{{ $t('nearFuture') }}</option>
+                  <option value="presentDay">{{ $t('presentDay') }}</option>
                   <option value="90s">90s</option>
                   <option value="80s">80s</option>
                   <option value="70s">70s</option>
                   <option value="60s">60s</option>
-                  <option :value="$t('century20')">{{ $t('century20') }}</option>
-                  <option :value="$t('century19')">{{ $t('century19') }}</option>
-                  <option :value="$t('century18')">{{ $t('century18') }}</option>
-                  <option :value="$t('industrialRevolution')">{{ $t('industrialRevolution') }}</option>
-                  <option :value="$t('the') + ' Renaissance'">{{ $t('the') }} Renaissance</option>
-                  <option :value="$t('highMiddleAges')">{{ $t('highMiddleAges') }}s</option>
-                  <option :value="$t('earlyMiddleAges')">{{ $t('earlyMiddleAges') }}</option>
-                  <option :value="$t('vikingEra')">{{ $t('vikingEra') }}</option>
-                  <option :value="$t('darkAge')">{{ $t('darkAge') }}</option>
-                  <option :value="$t('ancientWorld')">{{ $t('ancientWorld') }}</option>
-                  <option :value="$t('stoneAge')">{{ $t('stoneAge') }}</option>
+                  <option value="century20">{{ $t('century20') }}</option>
+                  <option value="century19">{{ $t('century19') }}</option>
+                  <option value="century18">{{ $t('century18') }}</option>
+                  <option value="industrialRevolution">{{ $t('industrialRevolution') }}</option>
+                  <option value="theRenaissance">{{ $t('the') }} Renaissance</option>
+                  <option value="highMiddleAges">{{ $t('highMiddleAges') }}s</option>
+                  <option value="earlyMiddleAges">{{ $t('earlyMiddleAges') }}</option>
+                  <option value="vikingEra">{{ $t('vikingEra') }}</option>
+                  <option value="darkAge">{{ $t('darkAge') }}</option>
+                  <option value="ancientWorld">{{ $t('ancientWorld') }}</option>
+                  <option value="stoneAge">{{ $t('stoneAge') }}</option>
                 </select>
                 <select
                     id="act"

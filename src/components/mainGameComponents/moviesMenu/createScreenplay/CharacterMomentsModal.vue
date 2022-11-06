@@ -30,38 +30,38 @@
                       @change="selectMoment($event)"
                   >
                     <option value="" disabled selected hidden>{{ $t('moment') }}</option>
-                    <option :value="$t('dies')">{{ $t('dies') }}</option>
-                    <option :value="$t('kills')">{{ $t('kills') }}</option>
-                    <option :value="$t('defies')">{{ $t('defies') }}</option>
-                    <option :value="$t('losesTo')">{{ $t('losesTo') }}</option>
-                    <option :value="$t('escapes')">{{ $t('escapes') }}</option>
-                    <option :value="$t('isCaptured')">{{ $t('isCaptured') }}</option>
-                    <option :value="$t('runsAway')">{{ $t('runsAway') }}</option>
-                    <option :value="$t('isOnAMission')">{{ $t('isOnAMission') }}</option>
-                    <option :value="$t('completesTheMission')">{{ $t('completesTheMission') }}</option>
-                    <option :value="$t('losesSomeoneImportant')">{{ $t('losesSomeoneImportant') }}</option>
-                    <option :value="$t('isAlive')">{{ $t('isAlive') }}</option>
-                    <option :value="$t('helps')">{{ $t('helps') }}</option>
-                    <option :value="$t('sendsOnAMission')">{{ $t('sendsOnAMission') }}</option>
-                    <option :value="$t('fights')">{{ $t('fights') }}</option>
-                    <option :value="$t('letsGo')">{{ $t('letsGo') }}</option>
-                    <option :value="$t('fallsInLoveWith')">{{ $t('fallsInLoveWith') }}</option>
+                    <option value="dies">{{ $t('dies') }}</option>
+                    <option value="kills">{{ $t('kills') }}</option>
+                    <option value="defies">{{ $t('defies') }}</option>
+                    <option value="losesTo">{{ $t('losesTo') }}</option>
+                    <option value="escapes">{{ $t('escapes') }}</option>
+                    <option value="isCaptured">{{ $t('isCaptured') }}</option>
+                    <option value="runsAway">{{ $t('runsAway') }}</option>
+                    <option value="isOnAMission">{{ $t('isOnAMission') }}</option>
+                    <option value="completesTheMission">{{ $t('completesTheMission') }}</option>
+                    <option value="losesSomeoneImportant">{{ $t('losesSomeoneImportant') }}</option>
+                    <option value="isAlive">{{ $t('isAlive') }}</option>
+                    <option value="helps">{{ $t('helps') }}</option>
+                    <option value="sendsOnAMission">{{ $t('sendsOnAMission') }}</option>
+                    <option value="fights">{{ $t('fights') }}</option>
+                    <option value="letsGo">{{ $t('letsGo') }}</option>
+                    <option value="fallsInLoveWith">{{ $t('fallsInLoveWith') }}</option>
                   </select>
                   <select
                       id="characterTwo"
                       onfocus="this.size=5;"
                       onblur="this.size=1;"
                       onchange="this.size=1; this.blur();"
-                      :disabled="selectedMoment === $t('dies') || selectedMoment === $t('escapes') || selectedMoment === $t('isCaptured') ||
-                                  selectedMoment === $t('runsAway') || selectedMoment === $t('isOnAMission') || selectedMoment === $t('completesTheMission') ||
-                                  selectedMoment === $t('losesSomeoneImportant') || selectedMoment === $t('isAlive')"
+                      :disabled="selectedMoment === 'dies' || selectedMoment === 'escapes' || selectedMoment === 'isCaptured' ||
+                                  selectedMoment === 'runsAway' || selectedMoment === 'isOnAMission' || selectedMoment === 'completesTheMission' ||
+                                  selectedMoment === 'losesSomeoneImportant' || selectedMoment === 'isAlive'"
                       @change="selectCharacterTwo($event)"
                   >
                     <option value="" disabled selected hidden>{{ $t('character') }} 2</option>
                     <option
                         v-for="(item, index) in this.allCharacters"
                         :key="index"
-                        :value="item.name"
+                        :value="index"
                         :disabled="selectedCharacterOne === index">{{ item.name }}</option>
                   </select>
                 </div>
@@ -87,10 +87,10 @@
                 {{ $t('close') }}
               </button>
               <button class="modal-default-button" @click="sendCharacterMoments"
-                      :disabled="selectedCharacterOne == null || !selectedMoment || !selectedAct || ((selectedMoment === $t('kills')
-                                  || selectedMoment === $t('defies') || selectedMoment === $t('losesTo') || selectedMoment === $t('helps')
-                                  || selectedMoment === $t('sendsOnAMission') || selectedMoment === $t('fights')
-                                  || selectedMoment === $t('letsGo') || selectedMoment === $t('fallsInLoveWith')) && !selectedCharacterTwo)">
+                      :disabled="selectedCharacterOne == null || !selectedMoment || !selectedAct || ((selectedMoment === 'kills'
+                                  || selectedMoment === 'defies' || selectedMoment === 'losesTo' || selectedMoment === 'helps'
+                                  || selectedMoment === 'sendsOnAMission' || selectedMoment === 'fights'
+                                  || selectedMoment === 'letsGo' || selectedMoment === 'fallsInLoveWith') && !selectedCharacterTwo)">
                 {{ $t('save') }}
               </button>
             </slot>
@@ -146,26 +146,10 @@ export default {
 
     sendCharacterMoments(){
       if(document.getElementById('characterTwo').disabled){
-        this.selectedCharacterTwo = '';
-      }
-
-      if(this.selectedCharacterTwo === ''){
-        this.realMessage += this.selectedMoment;
-      } else if(this.selectedMoment === 'lets ... go'){
-        this.realMessage += 'lets ' + this.selectedCharacterTwo + ' go';
-      } else if(this.selectedMoment === 'lasst ... gehen'){
-        this.realMessage += 'lasst ' + this.selectedCharacterTwo + ' gehen';
-      } else if(this.selectedMoment === 'sends ... on a mission'){
-        this.realMessage += 'sends ' + this.selectedCharacterTwo + ' on a mission';
-      } else if(this.selectedMoment === 'schickt ... auf eine Mission'){
-        this.realMessage += 'schickt ' + this.selectedCharacterTwo + ' auf eine Mission';
-      } else if(this.selectedMoment === 'fordert ... heraus'){
-        this.realMessage += 'fordert ' + this.selectedCharacterTwo + ' heraus';
+        this.$emit('sendCharacterMoments',[this.allCharacters[this.selectedCharacterOne].name, this.selectedMoment, ''], this.selectedAct);
       } else {
-        this.realMessage += this.selectedMoment + ' ' + this.selectedCharacterTwo;
+        this.$emit('sendCharacterMoments',[this.allCharacters[this.selectedCharacterOne].name, this.selectedMoment, this.allCharacters[this.selectedCharacterTwo].name], this.selectedAct);
       }
-
-      this.$emit('sendCharacterMoments',this.realMessage, this.selectedAct);
       this.$emit('close');
     },
 

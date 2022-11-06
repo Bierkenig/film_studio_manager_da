@@ -157,27 +157,48 @@ export default {
     },
 
     addTimePeriod(timePeriod, actNumber) {
-      this.addElementToItems(this.items,actNumber,timePeriod, 'timePeriod','Time Period: ');
+      this.addElementToItems(this.items,actNumber,this.$t(timePeriod), timePeriod,'timePeriod','Time Period: ');
       this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
       this.checkStatusOfLists();
     },
 
     addCharacterMoments(characterMoment, actNumber) {
-      this.addElementToItems(this.items,actNumber,characterMoment, 'characterMoment','Character Moment: ');
+      if(this.items.length === 0){
+        this.items.push({
+          id: 0,
+          characterOne: characterMoment[0],
+          characterMoment: characterMoment[1],
+          characterTwo: characterMoment[2],
+          title: 'Character Moment: ' + this.checkMoment(characterMoment[0],this.$t(characterMoment[1]),characterMoment[2]),
+          list: actNumber,
+          type: 'characterMoment'
+        });
+      } else {
+        this.items.push({
+          id: this.items[this.items.length - 1].id + 1,
+          characterOne: characterMoment[0],
+          characterMoment: characterMoment[1],
+          characterTwo: characterMoment[2],
+          title: 'Character Moment: ' + this.checkMoment(characterMoment[0],this.$t(characterMoment[1]),characterMoment[2]),
+          list: actNumber,
+          type: 'characterMoment'
+        });
+      }
       this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
       this.checkStatusOfLists();
     },
 
     addSetting(setting, actNumber) {
-      this.addElementToItems(this.items,actNumber,setting, 'setting', 'Setting: ');
+      this.addElementToItems(this.items,actNumber,this.$t(setting), setting,'setting', 'Setting: ');
       this.disableAddButton(this.items,'setting','addSettingButton');
       this.checkStatusOfLists();
     },
 
-    addElementToItems(item, act, elementType, typeString, titleString) {
+    addElementToItems(item, act, elementType, element, typeString, titleString) {
       if(item.length === 0){
         item.push({
           id: 0,
+          value: element,
           title: titleString + elementType,
           list: act,
           type: typeString
@@ -185,6 +206,7 @@ export default {
       } else {
         item.push({
           id: item[item.length - 1].id + 1,
+          value: element,
           title: titleString + elementType,
           list: act,
           type: typeString
@@ -213,6 +235,26 @@ export default {
                   && listThree.filter((i) => i.type === 'characterMoment').length === 1));
 
       document.getElementById('warningMsg').hidden = !document.getElementById('continueButton').disabled;
+    },
+
+    checkMoment(chOne, chMoment, chTwo){
+      let realMessage = chOne + ' ';
+      if(chTwo === ''){
+        realMessage += this.$t(chMoment);
+      } else if(chMoment === 'lets ... go') {
+        realMessage += 'lets ' + chTwo + ' go';
+      } else if(chMoment === 'lasst ... gehen'){
+        realMessage += 'lasst ' + chTwo + ' gehen';
+      } else if(chMoment === 'sends ... on a mission') {
+        realMessage += 'sends ' + chTwo + ' on a mission';
+      } else if(chMoment === 'schickt ... auf eine Mission'){
+        realMessage += 'schickt ' + chTwo + ' auf eine Mission';
+      } else if(chMoment === 'fordert ... heraus'){
+        realMessage += 'fordert ' + chTwo + ' heraus';
+      } else {
+        realMessage += chMoment + ' ' + chTwo;
+      }
+      return realMessage;
     },
 
     clickButton() {
