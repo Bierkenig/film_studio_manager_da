@@ -1,0 +1,70 @@
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Medium.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Black.ttf") format("truetype");
+    font-weight: 900;
+}
+
+:root {
+    --fsm-fw-regular: 400;
+    --fsm-fw-medium: 500;
+    --fsm-fw-semibold: 600;
+    --fsm-fw-bold: 700;
+    --fsm-fw-extrabold: 800;
+    --fsm-fw-black: 900;
+
+    --fsm-shadow-color: rgba(14, 24, 34, 0.25);
+    --fsm-white: #E2E2E2;
+    --fsm-pink-1: #FF4655;
+    --fsm-pink-2: #FF3A4D;
+    --fsm-pink-3: #FF264A;
+    --fsm-pink-4: #D11F3D;
+    --fsm-dark-blue-1: #343F57;
+    --fsm-dark-blue-2: #2B3448;
+    --fsm-dark-blue-3: #252D3E;
+    --fsm-dark-blue-4: #1C222F;
+    --fsm-dark-blue-5: #161B25;
+    --fsm-light-blue: #46AEFF;
+    --fsm-light-green: #46FF54;
+    --fsm-light-yellow: #FFED46;
+}
+
+* {
+    color: var(--fsm-white);
+    font-family: 'Maven Pro';
+    font-weight: var(--fsm-fw-medium);
+}
+
+body {
+    margin: 0;
+    background-image: url("../assets/standardBG.svg");
+}
