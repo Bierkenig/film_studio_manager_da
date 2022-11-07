@@ -4,6 +4,7 @@ import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 const path = require('path')
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const saving = require("./saving/Saving");
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -39,7 +40,18 @@ async function createWindow() {
     })
 
   })
+// IPC Saving
+  ipcMain.on('savingData', (event, data) => {
+    saving.save(data[0],data[1]);
+  })
 
+  ipcMain.on('r2mLoading',(event,data) => {
+    event.sender.send('m2rLoading',saving.load(data))
+  })
+
+  ipcMain.on('r2mDeleting', (event,data) => {
+    saving.deleteSaveFile(data)
+  })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode

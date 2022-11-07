@@ -18,6 +18,10 @@
                 <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
               </router-link>
               <button id="exitButton" class="buttonStyle" @click="exit">{{ $t('exitButton') }}</button>
+
+              <button id="saveButton" class="buttonStyle" @click="save">save</button>
+              <button id="deleteButton" class="buttonStyle" @click="deleting">delete</button>
+
             </div>
           </div>
         </div>
@@ -40,6 +44,14 @@ export default {
         close();
       }
     },
+    save(){
+      let slotNr = 3
+      window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
+    },
+    deleting(){
+      let slotNr = 3
+      window.ipcRenderer.send('r2mDeleting', slotNr)
+    }
   },
 }
 </script>

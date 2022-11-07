@@ -1,6 +1,8 @@
 <template>
   <div id="card">
     <h1>{{ $t('noSaving') }}</h1>
+    <button id="loadButton" class="buttonStyle" @click="load">load</button>
+
   </div>
 </template>
 
@@ -10,6 +12,16 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "LoadItem",
   mixins: [soundeffectMixin('button','click')],
+
+  methods: {
+    load(){
+      window.ipcRenderer.send('r2mLoading', 1)
+      window.ipcRenderer.receive('m2rLoading', data => {
+        let saveData = JSON.parse(data).state
+        this.$store.commit("loadFromSave",saveData)
+      })
+    }
+  }
 }
 </script>
 
