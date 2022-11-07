@@ -105,7 +105,6 @@ export default {
       title: null,
       type: null,
       desc: null,
-      //ageRating: null,
       genre: null,
       subgenre: null,
       firstTopic: null,
@@ -114,6 +113,21 @@ export default {
       allTopics: ['AB','CD','EF','GH','IJ'],
     }
   },
+
+  /*this.title = screenplay.title;
+  document.getElementById('createScreenplayType').value = screenplay.type;
+  this.type = screenplay.type;
+  this.desc = screenplay.description;
+  document.getElementById('createScreenplayGenre').value = screenplay.genre;
+  this.genre = screenplay.genre;
+  document.getElementById('createScreenplaySubgenre').value = screenplay.subgenre;
+  this.subgenre = screenplay.subgenre;
+  document.getElementById('topic1').value = screenplay.topics.firstTopic;
+  this.firstTopic = screenplay.topics.firstTopic;
+  document.getElementById('topic2').value = screenplay.topics.secondTopic;
+  this.secondTopic = screenplay.topics.secondTopic;
+  document.getElementById('topic3').value = screenplay.topics.thirdTopic;
+  this.thirdTopic = screenplay.topics.thirdTopic;*/
 
   methods: {
     createScreenplay() {

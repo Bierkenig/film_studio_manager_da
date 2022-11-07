@@ -19,6 +19,7 @@ export class Screenplay {
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         this.length = null;
         this.writingPhase = null;
+        this.rewriting = 3;
     }
 
     getId() {
@@ -87,6 +88,10 @@ export class Screenplay {
 
     getWritingPhase() {
         return this.writingPhase;
+    }
+
+    getRewritingStatus(){
+        return this.rewriting;
     }
 
 
@@ -176,6 +181,10 @@ export class Screenplay {
 
     setWritingPhase(value){
         this.writingPhase = value;
+    }
+
+    subtractRewriting(){
+        this.rewriting = this.rewriting - 1;
     }
 
     toString() {

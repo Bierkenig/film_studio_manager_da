@@ -3,7 +3,9 @@
     <h1>{{ heading }}</h1>
     <div id="screenplayTextSection">
       <div v-for="(it, index) in this.data" :key="index">
-        {{ it.title }}
+        <!--<router-link :to="{name: 'createScreenplay'}">-->
+          {{ it.title }}
+        <!--</router-link>-->
       </div>
     </div>
   </div>

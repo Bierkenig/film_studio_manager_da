@@ -3,7 +3,7 @@
     <h1>{{ $t('news') }}</h1>
     <div id="newsTextSection">
       <div v-for="(it, index) in this.$store.getters.getCurrentNews" :key="index">
-        {{ it }}
+        {{ it._title }}
       </div>
     </div>
   </div>

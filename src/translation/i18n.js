@@ -240,6 +240,10 @@ i18next
                     hireWriter: 'Hire Writer',
                     salary: 'Salary',
                     rating: 'Rating',
+                    writer: 'Writer',
+                    price: 'Price',
+                    roles: 'Roles',
+                    writingPhase: 'Writing Phase'
                 }
             },
             de: {
@@ -473,6 +477,10 @@ i18next
                     hireWriter: 'Autor anheuern',
                     salary: 'Gehalt',
                     rating: 'Bewertung',
+                    writer: 'Autor',
+                    price: 'Preis',
+                    roles: 'Rollen',
+                    writingPhase: 'Schreibphase'
                 }
             }
         }
