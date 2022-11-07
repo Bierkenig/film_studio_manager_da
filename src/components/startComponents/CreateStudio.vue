@@ -72,7 +72,7 @@ export default {
     startGame() {
       this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
 
-      let directors = [], writers = [], actors = [];
+      let directors = [], writers = [], actors = [];// topics = [];
       window.ipcRenderer.send('toMain','SELECT * FROM actors');
       window.ipcRenderer.receive('fromMain', (data) => {
         if(data.pk_actorID !== undefined){
@@ -97,9 +97,19 @@ export default {
               data3.nationality, data3.performance, data3.popularity));
         }
       })
+      /*window.ipcRenderer.send('toMain','SELECT * FROM screenplays');
+      window.ipcRenderer.receive('fromMain',(data4) => {
+        if(data4.pk_directorID === undefined && data4.pk_writerID === undefined && data4.pk_actorID === undefined){
+          console.log(data4);
+        }
+        console.log(data4);
+      })*/
       this.$store.commit('setAllActors', actors);
       this.$store.commit('setAllDirectors', directors);
       this.$store.commit('setAllWriters', writers);
+      //this.$store.commit('setAllTopics',topics);
+
+      //console.log(topics);
     },
   },
 }

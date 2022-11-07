@@ -42,7 +42,10 @@ i18next
                         name: "Name",
                         age: "Age",
                         gender: "Gender",
-                        values: "Values"
+                        values: "Values",
+                        title: "Title",
+                        studio: "Studio",
+                        earnings: "Earnings",
                     },
                     finances: 'Finances',
                     takeCredit: "Loan",
@@ -269,7 +272,10 @@ i18next
                         name: "Name",
                         age: "Alter",
                         gender: "Geschlecht",
-                        values: "Werte"
+                        values: "Werte",
+                        title: "Titel",
+                        studio: "Studio",
+                        earnings: "Einnahmen",
                     },
                     finances: 'Finanzen',
                     takeCredit: "Leihen",

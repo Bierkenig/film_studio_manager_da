@@ -18,6 +18,7 @@ export class Screenplay {
         this.details = {scope: '', tone: '', specialEffects: ''};
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         this.length = null;
+        this.writingPhase = null;
     }
 
     getId() {
@@ -82,6 +83,10 @@ export class Screenplay {
 
     getLength(){
         return this.length;
+    }
+
+    getWritingPhase() {
+        return this.writingPhase;
     }
 
 
@@ -167,6 +172,10 @@ export class Screenplay {
 
     setLength(value){
         this.length = value;
+    }
+
+    setWritingPhase(value){
+        this.writingPhase = value;
     }
 
     toString() {

@@ -3,6 +3,8 @@ import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
 import News from "@/classes/News";
 import Award from "@/classes/Award";
+import Actor from "@/classes/Actor";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default createStore({
     /** Application state */
@@ -25,18 +27,23 @@ export default createStore({
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [
-            new News('Studio 1235 gegründet', 'hupfigatsch', null, new Award('Deine MUm', 'internationalAward')),
-            new News('Studio 9876 in Konkurs', 'Bene', null, null),
-            new News('Studio 765984 ist geil', 'Danny', null, null)
+            new News('Studio 1235 gegründet',
+                new Actor(0, 'Jakob', 'hallo', 23, 23, 350498, 123456, 'male', null, 3, 'arabian', 4, 'austrian', 4, 5),
+                new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
+                new Award('Deine MUm', 'internationalAward')),
+            new News('Benni ist cool',
+                new Actor(1, 'Benni', 'Schmid', 12, 23, 350498, 123456, 'male', null, 3, 'arabian', 4, 'austrian', 4, 5),
+                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
+                new Award('Neuer', 'anderer Award'))
         ],
         earnings: [
             {
                 value: 245000,
-                date: new Date(2022,11,31)
+                date: new Date(2024,0,4)
             },
             {
                 value: 500000,
-                date: new Date(2022,11,15)
+                date: new Date(2023,11,15)
             }
         ],
         financialPerformance: [
@@ -90,10 +97,13 @@ export default createStore({
             {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
             {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
         ],
+        allYears: [2023, 2024, 2025],
         //data from database
         allActors: [],
-        allDirectors:[],
-        allWriters:[],
+        allDirectors: [],
+        allWriters: [],
+        allMovies: [],
+        allAwards: [],
     },
 
     /** Methods that read the application state */
@@ -212,6 +222,22 @@ export default createStore({
         getFinancialHistory(state) {
             return state.financialHistory;
         },
+
+        getAllTopics(state){
+            return state.allTopics;
+        },
+
+        getAllMovies(state) {
+            return state.allMovies
+        },
+
+        getAllYears(state) {
+            return state.allYears
+        },
+
+        getAllAwards(state) {
+            return state.allAwards
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -408,6 +434,10 @@ export default createStore({
 
         setAllWriters(state, value){
             state.allWriters = value;
+        },
+
+        setAllTopics(state, value){
+            state.allTopics = value;
         },
 
         loadFromSave(state, responseData){

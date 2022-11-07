@@ -15,6 +15,7 @@ import ScreenplayCharacters from "@/components/mainGameComponents/moviesMenu/cre
 import ScreenplayPlot from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayPlot";
 import ScreenplayDetails from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayDetails";
 import HireWriter from "@/components/mainGameComponents/moviesMenu/createScreenplay/HireWriter";
+import ScreenplayInformation from "@/components/mainGameComponents/moviesMenu/createScreenplay/ScreenplayInformation";
 
 const routes = [
     { name: 'news', path: '/news', component: News, props: true },
@@ -28,6 +29,7 @@ const routes = [
     { name: 'screenplayPlot', path: '/screenplayPlot', component: ScreenplayPlot, props: true },
     { name: 'screenplayDetails', path: '/screenplayDetails', component: ScreenplayDetails, props: true },
     { name: 'hireWriter', path: '/hireWriter', component: HireWriter, props: true },
+    { name: 'screenplayInformation', path: '/screenplayInformation', component: ScreenplayInformation, props: true },
 
     { name: 'createStudio', path: '/createStudio', component: CreateStudio, props: true },
     { name: 'home', path: '/home', component: Home, props: true },

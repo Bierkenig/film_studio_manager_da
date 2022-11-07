@@ -19,8 +19,10 @@
           <div id="writerDetailsSalaryValue"><div v-show="showDetails">$ {{ staffSalary }}</div><div v-show="!showDetails" class="writerDetailsInvisible">X</div></div>
         </div>
       </div>
-      <router-link :to="{name: 'movies'}">
-        <button id="hireWriterButton" class="buttonStyle" @click="hireWriter" :disabled="checkBalance">{{ $t('hire'+type) }}</button>
+      <router-link :to="{name: this.nextLocation}">
+        <button v-if="type === 'Writer'" id="hireWriterButton" class="buttonStyle" @click="hireWriter" :disabled="checkBalance">{{ $t('hireWriter') }}</button>
+        <button v-if="type === 'Director'" id="hireDirectorButton" class="buttonStyle" @click="hireDirector" :disabled="checkBalance">{{ $t('hireDirector') }}</button>
+        <button v-if="type === 'Actor'" id="hireActorButton" class="buttonStyle" @click="hireActor" :disabled="checkBalance">{{ $t('hireActor') }}</button>
       </router-link>
     </div>
   </div>
@@ -36,7 +38,8 @@ export default {
     staff: Object,
     checkBalance: Boolean,
     screenplay: Screenplay,
-    type: String
+    type: String,
+    nextLocation: String,
   },
 
   data() {
@@ -64,13 +67,23 @@ export default {
   },
 
   methods: {
+    hireActor(){
+      console.log('FUNKTION NOCH NICHT EINGEBAUT')
+    },
+
+    hireDirector(){
+      console.log('FUNKTION NOCH NICHT EINGEBAUT')
+    },
+
     hireWriter(){
       //this.screenplay.setRating(Math.round((this.staff.genres[this.screenplay.getGenre()] * 65 + this.staff.rating * 35) / 100));
       this.screenplay.setWriter(this.staff);
       this.screenplay.setPrice(this.staff.salary);
-      this.$store.commit('addScreenplay', this.screenplay);
-      this.$store.commit('subtractBalance', this.staff.salary);
-      console.log(this.$store.getters.getScreenplays);
+      if(this.screenplay.getType === 'Feature' || this.screenplay.getType === 'Animation'){
+        this.screenplay.setWritingPhase(Math.floor(Math.random() * (18 - 12 + 1) + 12))
+      } else {
+        this.screenplay.setWritingPhase(Math.floor(Math.random() * (14 - 8 + 1) + 8))
+      }
     },
 
     roundSalary(labelValue){

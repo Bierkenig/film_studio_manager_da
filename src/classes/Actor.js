@@ -36,6 +36,14 @@ export default class Actor {
         return this.firstName + ' ' + this.lastName;
     }
 
+    getAge() {
+        return this.age
+    }
+
+    getGender() {
+        return this.gender
+    }
+
     getSalary() {
         return this.salary;
     }

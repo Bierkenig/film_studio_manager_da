@@ -22,6 +22,18 @@ export class Writer {
         return this.firstName + ' ' + this.lastName;
     }
 
+    getAge() {
+        return this.age
+    }
+
+    getGender() {
+        return this.gender
+    }
+
+    getRating() {
+        return this.rating
+    }
+
     getAvatar() {
         return this.avatar;
     }
