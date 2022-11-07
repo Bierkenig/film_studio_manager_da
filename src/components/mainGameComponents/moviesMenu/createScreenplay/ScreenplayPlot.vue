@@ -46,13 +46,25 @@
           @dragenter.prevent
           @dragover.prevent>
         <h2>{{ $t('act1') }}</h2>
-        <div
-            v-for="item in getList(1)"
-            :key="item.id"
-            class="drag-el"
-            draggable="true"
-            @dragstart="startDrag($event, item)">
-          {{ item.title }}
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <div
+              v-for="item in getList(1)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textEn }}
+          </div>
+        </div>
+        <div v-else>
+          <div
+              v-for="item in getList(1)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textDe }}
+          </div>
         </div>
       </div>
       <div
@@ -61,13 +73,25 @@
           @dragenter.prevent
           @dragover.prevent>
         <h2>{{ $t('act2') }}</h2>
-        <div
-            v-for="item in getList(2)"
-            :key="item.id"
-            class="drag-el"
-            draggable="true"
-            @dragstart="startDrag($event, item)">
-          {{ item.title }}
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <div
+              v-for="item in getList(2)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textEn }}
+          </div>
+        </div>
+        <div v-else>
+          <div
+              v-for="item in getList(2)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textDe }}
+          </div>
         </div>
       </div>
       <div
@@ -76,13 +100,25 @@
           @dragenter.prevent
           @dragover.prevent>
         <h2>{{ $t('act3') }}</h2>
-        <div
-            v-for="item in getList(3)"
-            :key="item.id"
-            class="drag-el"
-            draggable="true"
-            @dragstart="startDrag($event, item)">
-          {{ item.title }}
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <div
+              v-for="item in getList(3)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textEn }}
+          </div>
+        </div>
+        <div v-else>
+          <div
+              v-for="item in getList(3)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textDe }}
+          </div>
         </div>
       </div>
     </div>
@@ -107,6 +143,7 @@
 import TimePeriodModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/TimePeriodModal";
 import CharacterMomentsModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/CharacterMomentsModal";
 import SettingModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/SettingModal";
+import {i18next} from '@/translation/i18n'
 
 
 export default {
@@ -157,19 +194,21 @@ export default {
     },
 
     addTimePeriod(timePeriod, actNumber) {
-      this.addElementToItems(this.items,actNumber,this.$t(timePeriod), timePeriod,'timePeriod','Time Period: ');
+      this.addElementToItems(this.items,actNumber,timePeriod, timePeriod,'timePeriod','Time Period: ', 'Zeitspanne: ');
       this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
       this.checkStatusOfLists();
     },
 
     addCharacterMoments(characterMoment, actNumber) {
+      console.log(characterMoment[1]);
       if(this.items.length === 0){
         this.items.push({
           id: 0,
           characterOne: characterMoment[0],
           characterMoment: characterMoment[1],
           characterTwo: characterMoment[2],
-          title: 'Character Moment: ' + this.checkMoment(characterMoment[0],this.$t(characterMoment[1]),characterMoment[2]),
+          textDe: 'Charakter Ereignis: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'de'}),characterMoment[2]),
+          textEn: 'Character Moment: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'en'}),characterMoment[2]),
           list: actNumber,
           type: 'characterMoment'
         });
@@ -179,7 +218,8 @@ export default {
           characterOne: characterMoment[0],
           characterMoment: characterMoment[1],
           characterTwo: characterMoment[2],
-          title: 'Character Moment: ' + this.checkMoment(characterMoment[0],this.$t(characterMoment[1]),characterMoment[2]),
+          textDe: 'Charakter Ereignis: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'de'}),characterMoment[2]),
+          textEn: 'Character Moment: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'en'}),characterMoment[2]),
           list: actNumber,
           type: 'characterMoment'
         });
@@ -189,17 +229,19 @@ export default {
     },
 
     addSetting(setting, actNumber) {
-      this.addElementToItems(this.items,actNumber,this.$t(setting), setting,'setting', 'Setting: ');
+      this.addElementToItems(this.items,actNumber,setting, setting,'setting', 'Setting: ','Ort: ');
       this.disableAddButton(this.items,'setting','addSettingButton');
       this.checkStatusOfLists();
     },
 
-    addElementToItems(item, act, elementType, element, typeString, titleString) {
+    addElementToItems(item, act, elementType, element, typeString, titleStringEn, titleStringDe) {
+      console.log(elementType);
       if(item.length === 0){
         item.push({
           id: 0,
           value: element,
-          title: titleString + elementType,
+          textDe: titleStringDe + i18next.t(elementType,{lng: 'de'}),
+          textEn: titleStringEn + i18next.t(elementType,{lng: 'en'}),
           list: act,
           type: typeString
         });
@@ -207,7 +249,8 @@ export default {
         item.push({
           id: item[item.length - 1].id + 1,
           value: element,
-          title: titleString + elementType,
+          textDe: titleStringDe + i18next.t(elementType,{lng: 'de'}),
+          textEn: titleStringEn + i18next.t(elementType,{lng: 'en'}),
           list: act,
           type: typeString
         });
@@ -240,7 +283,7 @@ export default {
     checkMoment(chOne, chMoment, chTwo){
       let realMessage = chOne + ' ';
       if(chTwo === ''){
-        realMessage += this.$t(chMoment);
+        realMessage += chMoment;
       } else if(chMoment === 'lets ... go') {
         realMessage += 'lets ' + chTwo + ' go';
       } else if(chMoment === 'lasst ... gehen'){

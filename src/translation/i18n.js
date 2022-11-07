@@ -486,6 +486,8 @@ i18next
         }
     });
 
+export {i18next};
+
 export default function (app) {
     app.use(I18NextVue, {i18next});
     return app;

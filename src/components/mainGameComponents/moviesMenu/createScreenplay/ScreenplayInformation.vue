@@ -27,23 +27,45 @@
       </div>
       <div>
         <p>{{ $t('acts') }}</p>
-        <p>{{ $t('act1') }}:</p>
-        <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
-          <p v-for="(item,ind) in it" :key="ind">
-            {{ item.title }}
-          </p>
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <p>{{ $t('act1') }}:</p>
+          <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
+            <p v-for="(item,ind) in it" :key="ind">
+              {{ item.textEn }}
+            </p>
+          </div>
+          <p>{{ $t('act2') }}:</p>
+          <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
+            <p v-for="(item,ind) in it" :key="ind">
+              {{ item.textEn }}
+            </p>
+          </div>
+          <p>{{ $t('act3') }}:</p>
+          <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
+            <p v-for="(item,ind) in it" :key="ind">
+              {{ item.textEn }}
+            </p>
+          </div>
         </div>
-        <p>{{ $t('act2') }}:</p>
-        <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
-          <p v-for="(item,ind) in it" :key="ind">
-            {{ item.title }}
-          </p>
-        </div>
-        <p>{{ $t('act3') }}:</p>
-        <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
-          <p v-for="(item,ind) in it" :key="ind">
-            {{ item.title }}
-          </p>
+        <div v-else>
+          <p>{{ $t('act1') }}:</p>
+          <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
+            <p v-for="(item,ind) in it" :key="ind">
+              {{ item.textDe }}
+            </p>
+          </div>
+          <p>{{ $t('act2') }}:</p>
+          <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
+            <p v-for="(item,ind) in it" :key="ind">
+              {{ item.textDe }}
+            </p>
+          </div>
+          <p>{{ $t('act3') }}:</p>
+          <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
+            <p v-for="(item,ind) in it" :key="ind">
+              {{ item.textDe }}
+            </p>
+          </div>
         </div>
       </div>
       <p>Details: <span v-for="(it,index) in screenplay.details" :key="index">{{ index }}: {{ it }}&nbsp;</span></p>
