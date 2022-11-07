@@ -5,7 +5,7 @@ export default class Award {
         this.year = year
     }
 
-    getDescription() {
+    getDesc() {
         return this.desc
     }
 
