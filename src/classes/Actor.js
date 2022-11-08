@@ -1,6 +1,4 @@
-//class for printing & handling the actors
 export default class Actor {
-    // TODO JAKOB: genre must be an associative array e.g. genres.action = 50
     constructor(id, firstName, lastName, age, rating, genres, salary, gender,
                 avatar, depth, ethnicity, experience, nationality, performance, popularity) {
         this.id = id

@@ -26,7 +26,7 @@
         <option value="values">{{$t('newsData.values')}}</option>
       </select>
       <div v-for="(el, index) in selectedPeople" :key="index">
-        {{el.getFullName()}} / {{el.getSalary()}} / {{el.getGenres()}} / {{el.getAvatar()}} / {{el.getNationality()}} / {{el.getEthnicity()}} / {{el.getPopularity()}}
+        {{el.firstName}} / {{el.lastName}} / {{el.age}} / {{el.salary}} / {{el.genres}} / {{el.avatar}} / {{el.nationality}} / {{el.ethnicity}} / {{el.rating}}
       </div>
     </div>
 
@@ -54,9 +54,6 @@
 </template>
 
 <script>
-import {Movie} from "@/classes/Movie";
-import {Screenplay} from "@/classes/Screenplay";
-import {Studio} from "@/classes/Studio";
 import Award from "@/classes/Award";
 
 export default {
@@ -69,11 +66,10 @@ export default {
       selectedEarnings: "week",
       sortedEarnings: [],
       selectedPerson: "name",
-      allPeople: [],
       selectedPeople: [],
       selectedMovie: "title",
       allMovies: [],
-      selectedYear: this.$store.state.allYears[0],
+      selectedYear: '2023',
       allAwards: [],
       sortedAwards: [],
     }
@@ -81,6 +77,7 @@ export default {
 
   methods: {
     sortEarnings() {
+      console.log(this.$store.getters.getAllActors)
       switch (this.selectedEarnings) {
         case "week":
           this.sortedEarnings = this.$store.getters.getEarnings
@@ -132,90 +129,74 @@ export default {
       }
     },
 
-    //TODO People
     sortPeople() {
-      console.log('Calling People')
       switch (this.selectedPerson) {
         case "name":
           this.selectedPeople.sort((a,b) => {
-            return a.getLastName().toLowerCase().localeCompare(b.getLastName().toLowerCase())
+            return a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase())
           })
           break
         case "age":
           this.selectedPeople.sort((a,b) => {
-            return a.getAge() - b.getAge()
+            return a.age - b.age
           })
           break
         case "gender":
           this.selectedPeople.sort((a,b) => {
-            return a.getGender().toLowerCase().localeCompare(b.getGender().toLowerCase())
+            return a.gender.localeCompare(b.gender)
           })
           break
         case "values":
           this.selectedPeople.sort((a,b) => {
-            return a.getRating() - b.getRating()
+            return a.rating - b.rating
           })
           break
       }
     },
 
     sortMovies() {
-      console.log('Calling Movies')
       switch (this.selectedMovie) {
         case "title":
           this.allMovies.sort((a,b) => {
-            return a.getTitle().toLowerCase().localeCompare(b.getTitle().toLowerCase())
+            return a.title.toLowerCase().localeCompare(b.title.toLowerCase())
           })
           break
         case "year":
           this.allMovies.sort((a,b) => {
-            return a.getYear() - b.getYear()
+            return a.year - b.year
           })
           break
         case "studio":
           this.allMovies.sort((a,b) => {
-            return a.getStudio().toLowerCase().localeCompare(b.getStudio().toLowerCase())
+            return a.studio.name.toLowerCase().localeCompare(b.studio.name.toLowerCase())
           })
           break
         case "earnings":
           this.allMovies.sort((a,b) => {
-            return a.getEarnings() - b.getEarnings()
+            return a.earnings - b.earnings
           })
           break
       }
     },
 
     sortAwards() {
-      console.log('Calling Awards')
-      this.sortedAwards = this.sortedAwards.filter((award) => award.getYear() === this.selectedYear)
+      this.sortedAwards = this.$store.getters.getAllAwards
+      this.sortedAwards = this.sortedAwards.filter((award) => award.year === this.selectedYear)
     },
   },
 
   mounted() {
-    //Call Methods once
+
+    this.selectedPeople = this.$store.state.people
+    this.allMovies.push(this.$store.getters.getAllMovies)
+    this.allAwards.push(this.$store.getters.getAllAwards)
+
+
     this.sortEarnings()
     this.sortNews()
     this.sortPeople()
     this.sortMovies()
     this.sortAwards()
-
-    this.allMovies.push(
-        new Movie(new Screenplay(0, null, null, null, null, null, null, null, null, null, null),
-            new Studio('moin meister'),
-            '2023',
-            23344657))
-
-    this.selectedPeople.push(this.$store.getters.getAllActors)
-    this.selectedPeople.push(this.$store.getters.getAllDirectors)
-    this.selectedPeople.push(this.$store.getters.getAllWriters)
-    /*
-    this.allMovies.push(this.$store.getters.getAllMovies)
-    */
-
-    /*
-    this.allAwards.push(this.$store.getters.getAllAwards)
-     */
-    this.allAwards.push(new Award('Hallo cooler Award', 'international', 2022), new Award('Kein cooler Award', 'international', 2023))
   }
 }
 </script>

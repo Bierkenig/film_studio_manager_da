@@ -72,11 +72,14 @@ export default {
     startGame() {
       this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
 
-      let directors = [], writers = [], actors = [];// topics = [];
+      let directors = [], writers = [], actors = [], people = [];// topics = [];
       window.ipcRenderer.send('toMain','SELECT * FROM actors');
       window.ipcRenderer.receive('fromMain', (data) => {
         if(data.pk_actorID !== undefined){
           actors.push(new Actor(data.pk_actorID, data.first_name, data.last_name, data.age, data.rating,
+              null, data.salary, data.gender, null, data.depth, data.ethnicity, data.experience,
+              data.nationality, data.performance, data.popularity));
+          people.push(new Actor(data.pk_actorID, data.first_name, data.last_name, data.age, data.rating,
               null, data.salary, data.gender, null, data.depth, data.ethnicity, data.experience,
               data.nationality, data.performance, data.popularity));
         }
@@ -87,12 +90,18 @@ export default {
           writers.push(new Writer(data2.pk_writerID, data2.first_name, data2.last_name, data2.age, data2.rating,
               null, data2.salary, data2.gender, null, data2.talent, data2.ethnicity, data2.experience,
               data2.nationality, data2.performance, data2.popularity));
+          people.push(new Writer(data2.pk_writerID, data2.first_name, data2.last_name, data2.age, data2.rating,
+              null, data2.salary, data2.gender, null, data2.talent, data2.ethnicity, data2.experience,
+              data2.nationality, data2.performance, data2.popularity));
         }
       })
       window.ipcRenderer.send('toMain','SELECT * FROM directors');
       window.ipcRenderer.receive('fromMain', (data3) => {
         if(data3.pk_directorID !== undefined){
           directors.push(new Director(data3.pk_directorID, data3.first_name, data3.last_name, data3.age, data3.rating,
+              null, data3.salary, data3.gender, null, data3.craft, data3.ethnicity, data3.experience,
+              data3.nationality, data3.performance, data3.popularity));
+          people.push(new Director(data3.pk_directorID, data3.first_name, data3.last_name, data3.age, data3.rating,
               null, data3.salary, data3.gender, null, data3.craft, data3.ethnicity, data3.experience,
               data3.nationality, data3.performance, data3.popularity));
         }
@@ -107,6 +116,7 @@ export default {
       this.$store.commit('setAllActors', actors);
       this.$store.commit('setAllDirectors', directors);
       this.$store.commit('setAllWriters', writers);
+      this.$store.commit('setPeople', people);
       //this.$store.commit('setAllTopics',topics);
 
       //console.log(topics);
