@@ -54,8 +54,6 @@
 </template>
 
 <script>
-import Award from "@/classes/Award";
-
 export default {
   name: "NewsMenu",
 

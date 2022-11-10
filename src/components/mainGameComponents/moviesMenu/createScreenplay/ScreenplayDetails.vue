@@ -14,7 +14,7 @@
           <option value="" disabled selected hidden>{{ $t('scope') }}</option>
           <option value="little">{{ $t('little') }}</option>
           <option value="small">{{ $t('small') }}</option>
-          <option value="normal">Normal</option>
+          <option value="Normal">Normal</option>
           <option value="large">{{ $t('large') }}</option>
           <option value="epic">{{ $t('epic') }}</option>
         </select>

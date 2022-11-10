@@ -200,7 +200,6 @@ export default {
     },
 
     addCharacterMoments(characterMoment, actNumber) {
-      console.log(characterMoment[1]);
       if(this.items.length === 0){
         this.items.push({
           id: 0,
@@ -235,7 +234,6 @@ export default {
     },
 
     addElementToItems(item, act, elementType, element, typeString, titleStringEn, titleStringDe) {
-      console.log(elementType);
       if(item.length === 0){
         item.push({
           id: 0,

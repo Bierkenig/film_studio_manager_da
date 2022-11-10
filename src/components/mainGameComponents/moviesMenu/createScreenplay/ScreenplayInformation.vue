@@ -15,15 +15,15 @@
       <div>
         <p>{{ $t('roles') }}</p>
         <p>{{ $t('main') }}: </p>
-        <p v-for="(it, index) in screenplay.roles['main']" :key="index">{{ it.name }}, {{ it.gender }}, {{ it.age }}</p>
+        <p v-for="(it, index) in screenplay.roles['main']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
         <p>{{ $t('support') }}: </p>
-        <p v-for="(it, index) in screenplay.roles['support']" :key="index">{{ it.name }}, {{ it.gender }}, {{ it.age }}</p>
+        <p v-for="(it, index) in screenplay.roles['support']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
         <p>Minor: </p>
-        <p v-for="(it, index) in screenplay.roles['minor']" :key="index">{{ it.name }}, {{ it.gender }}, {{ it.age }}</p>
+        <p v-for="(it, index) in screenplay.roles['minor']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
         <p v-if="screenplay.roles['cameo'].length !== 0">Cameo: </p>
-        <p v-for="(it, index) in screenplay.roles['cameo']" :key="index">{{ it.name }}, {{ it.gender }}, {{ it.age }}</p>
+        <p v-for="(it, index) in screenplay.roles['cameo']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
         <p v-if="screenplay.roles['voiceOver'].length !== 0">{{ $t('voiceOver') }}: </p>
-        <p v-for="(it, index) in screenplay.roles['voiceOver']" :key="index">{{ it.name }}, {{ it.gender }}, {{ it.age }}</p>
+        <p v-for="(it, index) in screenplay.roles['voiceOver']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
       </div>
       <div>
         <p>{{ $t('acts') }}</p>
@@ -68,8 +68,8 @@
           </div>
         </div>
       </div>
-      <p>Details: <span v-for="(it,index) in screenplay.details" :key="index">{{ index }}: {{ it }}&nbsp;</span></p>
-      <p>{{ $t('ageRating') }} Details: <span v-for="(it,index) in screenplay.ageRatingDetails" :key="index">{{ index }}: {{ it }}&nbsp;</span></p>
+      <p>Details: <span v-for="(it,index) in screenplay.details" :key="index">{{ $t(index) }}: {{ $t(it) }}&nbsp;</span></p>
+      <p>{{ $t('ageRating') }} Details: <span v-for="(it,index) in screenplay.ageRatingDetails" :key="index">{{ $t(index) }}: {{ it }}&nbsp;</span></p>
       <p>{{ $t('screenplayLength') }}: {{ screenplay.length }}</p>
       <p>{{ $t('writingPhase') }}: {{ screenplay.writingPhase }}</p>
     </div>

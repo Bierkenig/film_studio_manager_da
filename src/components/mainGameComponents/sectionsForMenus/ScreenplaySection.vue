@@ -3,9 +3,9 @@
     <h1>{{ heading }}</h1>
     <div id="screenplayTextSection">
       <div v-for="(it, index) in this.data" :key="index">
-        <!--<router-link :to="{name: 'createScreenplay'}">-->
+        <router-link :to="{name: 'createScreenplay'}">
           {{ it.title }}
-        <!--</router-link>-->
+        </router-link>
       </div>
     </div>
   </div>
@@ -17,8 +17,8 @@ export default {
 
   props: {
     heading: String,
-    data: Object
-  }
+    data: Object,
+  },
 }
 </script>
 
