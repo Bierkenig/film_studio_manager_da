@@ -244,7 +244,8 @@ i18next
                     writer: 'Writer',
                     price: 'Price',
                     roles: 'Roles',
-                    writingPhase: 'Writing Phase'
+                    writingPhase: 'Writing Phase',
+                    save_slot: 'Save-Slot',
                 }
             },
             de: {
@@ -443,7 +444,6 @@ i18next
                     scope: 'Umfang',
                     tone: 'Ton',
                     useOfSpecialEffects: 'Verwendung von Special Effekte',
-                    specialEffects: 'Special Effekte',
                     little: 'Wenig',
                     small: 'Klein',
                     violence: 'Gewalt',
@@ -482,7 +482,8 @@ i18next
                     writer: 'Autor',
                     price: 'Preis',
                     roles: 'Rollen',
-                    writingPhase: 'Schreibphase'
+                    writingPhase: 'Schreibphase',
+                    save_slot: 'Speicherstand'
                 }
             }
         }

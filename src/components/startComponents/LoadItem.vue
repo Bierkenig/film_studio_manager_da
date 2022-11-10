@@ -1,7 +1,8 @@
 <template>
   <div id="card">
     <h1>{{ $t('noSaving') }}</h1>
-    <button id="loadButton" class="buttonStyle" @click="load">load</button>
+    <p>{{$t('save_slot')}}: {{slotNr}}</p>
+    <button id="loadButton" class="buttonStyle" :disabled="disabledButton" @click="load">load</button>
 
   </div>
 </template>
@@ -13,12 +14,46 @@ export default {
   name: "LoadItem",
   mixins: [soundeffectMixin('button','click')],
 
+  props: {
+    slotNr: Number,
+  },
+
+  data(){
+    return {
+      disabledButton: null
+    }
+  },
+
+  mounted() {
+    window.ipcRenderer.send('r2mChecking',this.slotNr)
+    window.ipcRenderer.receive('m2rChecking', data => {
+      console.log(data[0])
+      console.log(this.slotNr)
+        if(data[0] === true){
+          if(data[1] === this.slotNr) {
+            this.disabledButton = false;
+          }
+
+        }
+        else if(data[0] === "error" || data[0] === false) {
+          this.disabledButton = true;
+        }
+    })
+
+  },
+
   methods: {
     load(){
-      window.ipcRenderer.send('r2mLoading', 1)
+      window.ipcRenderer.send('r2mLoading',this.slotNr)
       window.ipcRenderer.receive('m2rLoading', data => {
-        let saveData = JSON.parse(data).state
-        this.$store.commit("loadFromSave",saveData)
+        if(data!==null) {
+          let saveData = data.state
+          this.$store.commit("loadFromSave", saveData)
+        }
+        else{
+          //TODO code hier wenn save-file kaputt ist
+          console.log("Konnte nicht geladen werden - File Corrupted!")
+        }
       })
     }
   }

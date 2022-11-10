@@ -49,8 +49,7 @@ export default {
       window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
     },
     deleting(){
-      let slotNr = 3
-      window.ipcRenderer.send('r2mDeleting', slotNr)
+      window.ipcRenderer.send('r2mDeleting', 3)
     }
   },
 }

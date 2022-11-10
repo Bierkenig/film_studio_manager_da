@@ -48,6 +48,9 @@ async function createWindow() {
   ipcMain.on('r2mLoading',(event,data) => {
     event.sender.send('m2rLoading',saving.load(data))
   })
+  ipcMain.on('r2mChecking',(event,data) => {
+    event.sender.send('m2rChecking',saving.checkIfExists(data))
+  })
 
   ipcMain.on('r2mDeleting', (event,data) => {
     saving.deleteSaveFile(data)
