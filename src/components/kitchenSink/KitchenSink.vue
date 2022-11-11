@@ -4,24 +4,24 @@
       <button id="startMenuButton" class="buttonStyle">Menu</button>
     </router-link>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<background-tile title="Title">TEST</background-tile>' />
-      <background-tile title="Title">TEST</background-tile>
+      <code-view code='<background-tile title="Title">Test</background-tile>' />
+      <background-tile title="Title">Test</background-tile>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button theme="light" size="medium">TEST</custom-button>' />
-      <custom-button theme="light" size="medium">TEST</custom-button>
+      <code-view code='<custom-button theme="light" size="medium">Test</custom-button>' />
+      <custom-button theme="light" size="medium">Test</custom-button>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button theme="dark" size="medium">TEST</custom-button>' />
-      <custom-button theme="dark" size="medium">TEST</custom-button>
+      <code-view code='<custom-button theme="dark" size="medium">Test</custom-button>' />
+      <custom-button theme="dark" size="medium">Test</custom-button>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button theme="light" size="large">TEST</custom-button>' />
-      <custom-button theme="light" size="large">TEST</custom-button>
+      <code-view code='<custom-button theme="light" size="large">Test</custom-button>' />
+      <custom-button theme="light" size="large">Test</custom-button>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button theme="dark" size="large">TEST</custom-button>' />
-      <custom-button theme="dark" size="large">TEST</custom-button>
+      <code-view code='<custom-button theme="dark" size="large">Test</custom-button>' />
+      <custom-button theme="dark" size="large">Test</custom-button>
     </div>
   </div>
 </template>

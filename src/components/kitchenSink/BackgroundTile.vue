@@ -25,6 +25,8 @@ export default {
   box-shadow: 0 0 5px 5px var(--fsm-shadow-color);
   width: 100%;
   box-sizing: border-box;
+  font-weight: var(--fsm-fw-regular);
+  font-size: 22px;
 }
 .backgroundTileTitle {
   color: var(--fsm-pink-1);
