@@ -56,6 +56,11 @@
     --fsm-light-blue: #46AEFF;
     --fsm-light-green: #46FF54;
     --fsm-light-yellow: #FFED46;
+
+    --fsm-max-border-radius: 90px;
+    --fsm-l-border-radius: 25px;
+    --fsm-m-border-radius: 10px;
+    --fsm-s-border-radius: 5px;
 }
 
 * {
