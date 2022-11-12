@@ -10,9 +10,35 @@
 <script>
 export default {
   name: "backgroundTile",
+  data() {
+    return {
+      whiteColor: 'var(--fsm-white)',
+      greyColor: 'var(--fsm-grey-font-color)',
+      colorValue: '',
+    }
+  },
   props: {
     title: String,
-  }
+    contentColor: {
+      type: String,
+      default: 'white',
+      validator(value) {
+        return ['white', 'grey'].includes(value);
+      }
+    }
+  },
+  methods: {
+    setCSSVariables() {
+      if (this.contentColor === 'white') {
+        this.colorValue = this.whiteColor;
+      } else if (this.contentColor === 'grey') {
+        this.colorValue = this.greyColor;
+      }
+    },
+  },
+  mounted() {
+    this.setCSSVariables();
+  },
 }
 </script>
 
@@ -27,12 +53,13 @@ export default {
   box-sizing: border-box;
   font-weight: var(--fsm-fw-regular);
   font-size: 22px;
+  color: v-bind('colorValue');
 }
 
 .backgroundTileTitle {
   color: var(--fsm-pink-1);
   font-weight: var(--fsm-fw-bold);
   font-size: 28px;
-  margin-bottom: var(--fsm-l-border-radius);
+  margin-bottom: 0.25em;
 }
 </style>

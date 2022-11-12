@@ -44,8 +44,9 @@
 
     --fsm-dark-shadow-color: rgba(14, 24, 34, 0.25);
     --fsm-pink-shadow-color: rgba(255, 70, 85, 0.25);
+    --fsm-grey-font-color: rgba(226, 226, 226, 0.5);
 
-    --fsm-white: #E2E2E2;
+    --fsm-white: #E4E4E4;
     --fsm-pink-1: #FF4655;
     --fsm-pink-2: #FF3A4D;
     --fsm-pink-3: #FF264A;

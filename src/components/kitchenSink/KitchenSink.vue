@@ -4,12 +4,16 @@
       <button id="startMenuButton" class="buttonStyle">Menu</button>
     </router-link>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<page-heading heading="Home">Your manager dashboard.</page-heading>' />
+      <code-view code='<page-heading heading="Home">Your manager dashboard.</page-heading>'/>
       <page-heading heading="Home">Your manager dashboard.</page-heading>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<background-tile title="Title">Test</background-tile>'/>
-      <background-tile title="Title">Test</background-tile>
+      <code-view code='<background-tile title="Title" content-color="white">Test</background-tile> (DEFAULT)'/>
+      <code-view code='<background-tile title="Title" content-color="grey">Test</background-tile>'/>
+      <div class="kitchenSinkFlexRow">
+        <background-tile title="Title" content-color="white">Test</background-tile>
+        <background-tile title="Title" content-color="grey">Test</background-tile>
+      </div>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
