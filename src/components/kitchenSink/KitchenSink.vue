@@ -44,8 +44,16 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample) + singleQuote + '/>'"/>
-      <tile-pages-nav :pages='navExample'/>
+      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample) + singleQuote + '>'"/>
+      <code-view code='░░<div>All</div>'/>
+      <code-view code='░░<div>In Production</div>'/>
+      <code-view code='░░<div>Released</div>'/>
+      <code-view code='</tile-pages-nav>'/>
+      <tile-pages-nav :pages='navExample'>
+        <div>All</div>
+        <div>In Production</div>
+        <div>Released</div>
+      </tile-pages-nav>
     </div>
   </div>
 </template>
