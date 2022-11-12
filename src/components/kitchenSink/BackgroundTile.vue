@@ -22,7 +22,7 @@ export default {
   background-image: linear-gradient(var(--fsm-dark-blue-2), var(--fsm-dark-blue-3));
   border-radius: var(--fsm-l-border-radius);
   padding: var(--fsm-l-border-radius);
-  box-shadow: 0 0 5px 5px var(--fsm-shadow-color);
+  box-shadow: 0 0 5px 5px var(--fsm-dark-shadow-color);
   width: 100%;
   box-sizing: border-box;
   font-weight: var(--fsm-fw-regular);

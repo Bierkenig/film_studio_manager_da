@@ -42,7 +42,9 @@
     --fsm-fw-extrabold: 800;
     --fsm-fw-black: 900;
 
-    --fsm-shadow-color: rgba(14, 24, 34, 0.25);
+    --fsm-dark-shadow-color: rgba(14, 24, 34, 0.25);
+    --fsm-pink-shadow-color: rgba(255, 70, 85, 0.25);
+
     --fsm-white: #E2E2E2;
     --fsm-pink-1: #FF4655;
     --fsm-pink-2: #FF3A4D;
@@ -57,8 +59,8 @@
     --fsm-light-green: #46FF54;
     --fsm-light-yellow: #FFED46;
 
-    --fsm-filter-white:invert(98%) sepia(0%) saturate(0%) hue-rotate(218deg) brightness(93%) contrast(93%);
-    --fsm-filter-pink-1: invert(20%) sepia(15%) saturate(1254%) hue-rotate(183deg) brightness(104%) contrast(89%);
+    --fsm-filter-white: invert(98%) sepia(0%) saturate(0%) hue-rotate(218deg) brightness(93%) contrast(93%);
+    --fsm-filter-pink-1: invert(53%) sepia(78%) saturate(5077%) hue-rotate(329deg) brightness(101%) contrast(103%);;
     --fsm-filter-pink-2: invert(35%) sepia(47%) saturate(5367%) hue-rotate(336deg) brightness(108%) contrast(101%);
     --fsm-filter-pink-3: invert(24%) sepia(84%) saturate(3256%) hue-rotate(337deg) brightness(104%) contrast(101%);
     --fsm-filter-pink-4: invert(36%) sepia(64%) saturate(4879%) hue-rotate(331deg) brightness(79%) contrast(111%);

@@ -8,21 +8,31 @@
       <background-tile title="Title">Test</background-tile>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button theme="light" size="medium">Test</custom-button> (DEFAULT)'/>
-      <code-view code='<custom-button theme="dark" size="medium">Test</custom-button>'/>
-      <code-view code='<custom-button theme="light" size="large">Test</custom-button>'/>
-      <code-view code='<custom-button theme="dark" size="large">Test</custom-button>'/>
+      <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
+      <code-view code='<custom-button :dark="true" size="medium">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-button theme="light" size="medium">Test</custom-button>
-        <custom-button theme="dark" size="medium">Test</custom-button>
-        <custom-button theme="light" size="large">Test</custom-button>
-        <custom-button theme="dark" size="large">Test</custom-button>
+        <custom-button :dark="false" size="medium">Test</custom-button>
+        <custom-button :dark="true" size="medium">Test</custom-button>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code="icon" />
+      <code-view code='<custom-button :dark="false" size="large">Test</custom-button>'/>
+      <code-view code='<custom-button :dark="true" size="large">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
-        <icon-button />
+        <custom-button :dark="false" size="large">Test</custom-button>
+        <custom-button :dark="true" size="large">Test</custom-button>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :shadow="false" />'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :shadow="false" />'/>
+      <code-view code='<icon-button icon="movies" size="large" :dark="false" :bg-gradient="true" :shadow="true" />'/>
+      <code-view code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :shadow="false" />'/>
+      <div class="kitchenSinkFlexRow">
+        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :shadow="false"/>
+        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :shadow="false"/>
+        <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :shadow="true"/>
+        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :shadow="false"/>
       </div>
     </div>
   </div>
@@ -44,6 +54,7 @@ export default {
 .kitchenSinkComponentDiv {
   margin: 1em 1em 0 1em;
 }
+
 .kitchenSinkFlexRow {
   display: flex;
   flex-direction: row;

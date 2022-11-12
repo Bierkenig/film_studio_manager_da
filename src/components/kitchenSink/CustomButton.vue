@@ -37,12 +37,9 @@ export default {
         return ['medium', 'large'].includes(value);
       },
     },
-    theme: {
-      type: String,
-      default: 'light',
-      validator(value) {
-        return ['light', 'dark'].includes(value);
-      },
+    dark: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {
@@ -52,9 +49,9 @@ export default {
       } else if (this.size === 'large') {
         this.sizeValues = {...this.sizeLarge};
       }
-      if (this.theme === 'light') {
+      if (!this.dark) {
         this.themeValues = {...this.themeLight};
-      } else if (this.theme === 'dark') {
+      } else {
         this.themeValues = {...this.themeDark};
       }
     },
