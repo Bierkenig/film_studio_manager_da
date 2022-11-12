@@ -90,3 +90,7 @@ body {
     margin: 0;
     background-image: url("../assets/standardBG.svg");
 }
+
+button {
+    color: black;
+}

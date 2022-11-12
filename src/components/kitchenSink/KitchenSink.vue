@@ -43,6 +43,10 @@
         <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :shadow="false"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample) + singleQuote + '/>'"/>
+      <tile-pages-nav :pages='navExample'/>
+    </div>
   </div>
 </template>
 
@@ -52,16 +56,29 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import CodeView from "@/components/kitchenSink/CodeView";
 import IconButton from "@/components/kitchenSink/IconButton";
+import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 
 export default {
   name: "KitchenSink",
-  components: {IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
+  components: {TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
+  data() {
+    return {
+      navExample: ['All', 'In Production', 'Released'],
+      singleQuote: "'",
+      doubleQuote: '"',
+    }
+  }
 }
 </script>
 
 <style scoped>
+#kitchenSinkMainDiv {
+  background-color: var(--fsm-dark-blue-2);
+}
+
 .kitchenSinkComponentDiv {
   margin: 1em 1em 0 1em;
+  padding: 0.5em;
   border: blue 1px solid;
 }
 
