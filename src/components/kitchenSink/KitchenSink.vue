@@ -4,6 +4,10 @@
       <button id="startMenuButton" class="buttonStyle">Menu</button>
     </router-link>
     <div class="kitchenSinkComponentDiv">
+      <code-view code='<page-heading heading="Home">Your manager dashboard.</page-heading>' />
+      <page-heading heading="Home">Your manager dashboard.</page-heading>
+    </div>
+    <div class="kitchenSinkComponentDiv">
       <code-view code='<background-tile title="Title">Test</background-tile>'/>
       <background-tile title="Title">Test</background-tile>
     </div>
@@ -39,6 +43,7 @@
 </template>
 
 <script>
+import PageHeading from "@/components/kitchenSink/PageHeading";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import CodeView from "@/components/kitchenSink/CodeView";
@@ -46,17 +51,19 @@ import IconButton from "@/components/kitchenSink/IconButton";
 
 export default {
   name: "KitchenSink",
-  components: {IconButton, CodeView, CustomButton, BackgroundTile},
+  components: {IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
 }
 </script>
 
 <style scoped>
 .kitchenSinkComponentDiv {
   margin: 1em 1em 0 1em;
+  border: blue 1px solid;
 }
 
 .kitchenSinkFlexRow {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 </style>

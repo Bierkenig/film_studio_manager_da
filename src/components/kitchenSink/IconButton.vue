@@ -78,7 +78,7 @@ export default {
       } else {
         this.themeValues = {...this.themeDark};
       }
-      if (!this.bgGradient)  {
+      if (!this.bgGradient) {
         this.themeValues.bgImage = 'none';
       }
       if (!this.shadow) {
@@ -104,11 +104,13 @@ export default {
   background-image: v-bind('themeValues.bgImage');
   box-shadow: v-bind('themeValues.boxShadow');
 }
+
 .iconButtonSubDiv {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+
 .iconButtonSVG {
   display: flex;
   flex-direction: column;

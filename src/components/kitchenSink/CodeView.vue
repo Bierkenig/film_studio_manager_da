@@ -1,6 +1,6 @@
 <template>
   <div class="codeView">
-    {{code}}
+    {{ code }}
   </div>
 </template>
 

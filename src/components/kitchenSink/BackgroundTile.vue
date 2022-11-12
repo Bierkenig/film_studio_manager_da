@@ -1,10 +1,10 @@
 <template>
-<div class="backgroundTileMainDiv">
-  <div class="backgroundTileTitle">
-    {{title}}
+  <div class="backgroundTileMainDiv">
+    <div class="backgroundTileTitle">
+      {{ title }}
+    </div>
+    <slot/>
   </div>
-  <slot />
-</div>
 </template>
 
 <script>
@@ -28,6 +28,7 @@ export default {
   font-weight: var(--fsm-fw-regular);
   font-size: 22px;
 }
+
 .backgroundTileTitle {
   color: var(--fsm-pink-1);
   font-weight: var(--fsm-fw-bold);
