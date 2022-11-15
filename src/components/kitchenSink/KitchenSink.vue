@@ -32,6 +32,12 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code=''/>
+      <div class="kitchenSinkFlexRow">
+        <custom-icon icon="settings"/>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
       <code-view code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :shadow="false" />'/>
       <code-view code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :shadow="false" />'/>
       <code-view code='<icon-button icon="movies" size="large" :dark="false" :bg-gradient="true" :shadow="true" />'/>
@@ -65,10 +71,11 @@ import CustomButton from "@/components/kitchenSink/CustomButton";
 import CodeView from "@/components/kitchenSink/CodeView";
 import IconButton from "@/components/kitchenSink/IconButton";
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
+import CustomIcon from "@/components/kitchenSink/CustomIcon";
 
 export default {
   name: "KitchenSink",
-  components: {TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
+  components: {CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
   data() {
     return {
       navExample: ['All', 'In Production', 'Released'],
