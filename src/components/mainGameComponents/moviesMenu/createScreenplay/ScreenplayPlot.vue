@@ -124,6 +124,7 @@
     </div>
 
     <p id="warningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
+    <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
     <router-link :to="{name: 'screenplayDetails'}">
       <button id="continueButton" :disabled="true" @click="clickButton">{{ $t('continue') }}</button>
     </router-link>
@@ -155,6 +156,20 @@ export default {
       showCharacterMomentsModal: false,
       showSettingModal: false,
       items: [],
+    }
+  },
+
+  mounted() {
+    if(this.$store.getters.getCurrentScreenplay.getActs().length !== 0){
+      this.$store.getters.getCurrentScreenplay.acts.act1.forEach((i) => this.items.push(i));
+      this.$store.getters.getCurrentScreenplay.acts.act2.forEach((i) => this.items.push(i));
+      this.$store.getters.getCurrentScreenplay.acts.act3.forEach((i) => this.items.push(i));
+
+      this.items.sort((a,b) => a.id - b.id);
+      this.disableAddButton(this.items,'setting','addSettingButton');
+      this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
+      this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
+      this.checkStatusOfLists();
     }
   },
 
@@ -299,9 +314,9 @@ export default {
     },
 
     clickButton() {
-      this.$store.getters.getCurrentScreenplay.addAct1(this.getList(1));
-      this.$store.getters.getCurrentScreenplay.addAct2(this.getList(2));
-      this.$store.getters.getCurrentScreenplay.addAct3(this.getList(3));
+      this.$store.getters.getCurrentScreenplay.setAct1(this.getList(1));
+      this.$store.getters.getCurrentScreenplay.setAct2(this.getList(2));
+      this.$store.getters.getCurrentScreenplay.setAct3(this.getList(3));
     },
 
     characterMomentButtonClick(){
@@ -314,7 +329,12 @@ export default {
 
     timePeriodButtonClick(){
       this.showTimePeriodModal = true;
+      console.log(this.items)
     },
+
+    goBack(){
+      this.$router.push({name: 'screenplayCharacters'})
+    }
   }
 }
 </script>

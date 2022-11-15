@@ -25,6 +25,7 @@
             <div id="castedCharacterDetailsVoiceOverCharactersValue">{{ numberOfVoiceOverCharacters }}/5 - ({{ $t('between05') }})</div>
           </div>
         </div>
+        <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="CharacterDetailsBackButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
         <button id="CharacterDetailsContinueButton" class="buttonStyle" :disabled="numberOfMainCharacters === 0 || numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0" @click="continueCreateMovie">{{ $t('continue') }}</button>
       </div>
       <div id="characterDetails">
@@ -71,6 +72,9 @@
         </div>
         <button id="characterDetailsSaveButton" class="buttonStyle" :disabled="radio === null || !characterGender || !characterName || !characterAge" @click="saveCharacter">{{ $t('saveCharacter') }}</button>
       </div>
+      <div>
+        {{ this.$store.getters.getCurrentScreenplay.roles }}
+      </div>
     </div>
   </div>
 </template>
@@ -83,11 +87,11 @@ export default {
 
   data(){
     return {
-      numberOfMainCharacters: 0,
-      numberOfSupportCharacters: 0,
-      numberOfMinorCharacters: 0,
-      numberOfCameoCharacters: 0,
-      numberOfVoiceOverCharacters: 0,
+      numberOfMainCharacters: this.$store.getters.getCurrentScreenplay.roles.main.length,
+      numberOfSupportCharacters: this.$store.getters.getCurrentScreenplay.roles.support.length,
+      numberOfMinorCharacters: this.$store.getters.getCurrentScreenplay.roles.minor.length,
+      numberOfCameoCharacters: this.$store.getters.getCurrentScreenplay.roles.cameo.length,
+      numberOfVoiceOverCharacters: this.$store.getters.getCurrentScreenplay.roles.voiceOver.length,
       characterName: '',
       characterGender: null,
       characterAge: 1,
@@ -125,6 +129,10 @@ export default {
 
     continueCreateMovie(){
       this.$router.push({name: 'screenplayPlot'});
+    },
+
+    goBack(){
+      this.$router.push({name: 'createScreenplay'})
     }
   }
 }

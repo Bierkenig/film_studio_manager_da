@@ -3,9 +3,8 @@
     <h1>{{ heading }}</h1>
     <div id="screenplayTextSection">
       <div v-for="(it, index) in this.data" :key="index">
-        <router-link :to="{name: 'createScreenplay'}">
-          {{ it.title }}
-        </router-link>
+        {{ it.title }}
+        <button @click="rewrite(it)" :disabled="it.rewriting === 0">TEST</button>
       </div>
     </div>
   </div>
@@ -19,6 +18,14 @@ export default {
     heading: String,
     data: Object,
   },
+
+  methods: {
+    rewrite(element){
+      this.$store.commit('setNewCurrentScreenplay',element)
+      this.$store.getters.getCurrentScreenplay.setRewritingStatus(true);
+      this.$router.push({name: 'createScreenplay'});
+    }
+  }
 }
 </script>
 

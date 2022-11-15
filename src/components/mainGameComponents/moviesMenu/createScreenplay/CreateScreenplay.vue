@@ -13,9 +13,9 @@
               onfocus="this.size=5;"
               onblur="this.size=1;"
               onchange="this.size=1; this.blur();"
-              @change="selectType($event)"
+              v-model="type"
           >
-            <option value="" disabled selected hidden>Type</option>
+            <option :value="null" disabled selected hidden>Type</option>
             <option value="Feature">Feature</option>
             <option value="Indie">Indie</option>
             <option value="Animation">Animation</option>
@@ -26,9 +26,9 @@
               onfocus="this.size=5;"
               onblur="this.size=1;"
               onchange="this.size=1; this.blur();"
-              @change="selectGenre($event)"
+              v-model="genre"
             >
-              <option value="" disabled selected hidden>Genre</option>
+              <option :value="null" disabled selected hidden>Genre</option>
               <option value="Action">Action</option>
               <option value="Comedy">{{ $t('comedy') }}</option>
               <option value="Drama">Drama</option>
@@ -47,9 +47,9 @@
                 onfocus="this.size=5;"
                 onblur="this.size=1;"
                 onchange="this.size=1; this.blur();"
-                @change="selectSubgenre($event)"
+                v-model="subgenre"
             >
-              <option value="" disabled selected hidden>Subgenre</option>
+              <option :value="null" disabled selected hidden>Subgenre</option>
               <option value="Action" :disabled="this.genre === 'Action'">Action</option>
               <option value="Comedy" :disabled="this.genre === 'Comedy'">{{ $t('comedy') }}</option>
               <option value="Drama" :disabled="this.genre === 'Drama'">Drama</option>
@@ -72,9 +72,9 @@
                   onblur="this.size=1;"
                   onchange="this.size=1; this.blur();"
                   :disabled="disableSelect(index)"
-                  @change="selectTopic($event,index)"
+                  v-model="topics[index-1]"
               >
-                <option value="" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
+                <option :value="undefined" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
                 <option
                     v-for="(it,ind) in this.allTopics"
                     :key="ind"
@@ -84,9 +84,10 @@
             </div>
           </div>
           <button id="createScreenplayButton" class="buttonStyle"
-                  :disabled="/*!ageRating ||*/ !genre || !title || !desc || !type || !firstTopic"
+                  :disabled="!genre || !title || !desc || !type || topics[0] === undefined"
                   @click="createScreenplay">
-            {{ $t('createScreenplay') }}</button>
+            {{ $t('continue') }}
+          </button>
         </div>
       </div>
     </div>
@@ -94,94 +95,49 @@
 </template>
 
 <script>
-import {Screenplay} from "@/classes/Screenplay";
 
 export default {
   name: "CreateScreenplay",
 
   data() {
     return {
-      screenplay: null,
-      title: null,
-      type: null,
-      desc: null,
-      genre: null,
-      subgenre: null,
-      firstTopic: null,
-      secondTopic: null,
-      thirdTopic: null,
+      title: this.$store.getters.getCurrentScreenplay.title,
+      type: this.$store.getters.getCurrentScreenplay.type,
+      desc: this.$store.getters.getCurrentScreenplay.description,
+      genre: this.$store.getters.getCurrentScreenplay.genre,
+      subgenre: this.$store.getters.getCurrentScreenplay.subgenre,
+      topics: [this.$store.getters.getCurrentScreenplay.topics.firstTopic,
+        this.$store.getters.getCurrentScreenplay.topics.secondTopic,
+        this.$store.getters.getCurrentScreenplay.topics.thirdTopic],
       allTopics: ['AB','CD','EF','GH','IJ'],
     }
   },
 
-  /*this.title = screenplay.title;
-  document.getElementById('createScreenplayType').value = screenplay.type;
-  this.type = screenplay.type;
-  this.desc = screenplay.description;
-  document.getElementById('createScreenplayGenre').value = screenplay.genre;
-  this.genre = screenplay.genre;
-  document.getElementById('createScreenplaySubgenre').value = screenplay.subgenre;
-  this.subgenre = screenplay.subgenre;
-  document.getElementById('topic1').value = screenplay.topics.firstTopic;
-  this.firstTopic = screenplay.topics.firstTopic;
-  document.getElementById('topic2').value = screenplay.topics.secondTopic;
-  this.secondTopic = screenplay.topics.secondTopic;
-  document.getElementById('topic3').value = screenplay.topics.thirdTopic;
-  this.thirdTopic = screenplay.topics.thirdTopic;*/
-
   methods: {
     createScreenplay() {
-      this.screenplay = new Screenplay(this.$store.getters.getNextScreenplayId, this.title, this.type, this.genre,
-          this.subgenre, /*this.ageRating*/null, null, this.desc, null, null,
-          {firstTopic: this.firstTopic, secondTopic: this.secondTopic, thirdTopic: this.thirdTopic});
-      this.$store.commit('setNewCurrentScreenplay', this.screenplay);
+      this.$store.getters.getCurrentScreenplay.title = this.title;
+      this.$store.getters.getCurrentScreenplay.type = this.type;
+      this.$store.getters.getCurrentScreenplay.description = this.desc;
+      this.$store.getters.getCurrentScreenplay.genre = this.genre;
+      this.$store.getters.getCurrentScreenplay.subgenre = this.subgenre;
+      this.$store.getters.getCurrentScreenplay.topics.firstTopic = this.topics[0];
+      this.$store.getters.getCurrentScreenplay.topics.secondTopic = this.topics[1];
+      this.$store.getters.getCurrentScreenplay.topics.thirdTopic = this.topics[2];
       this.$router.push({name: 'screenplayCharacters'});
-    },
-
-    /*selectAgeRating(event) {
-      this.ageRating = event.target.value;
-    },*/
-
-    selectTopic(event,index){
-      switch (index) {
-        case 1:
-          this.firstTopic = event.target.value;
-          break;
-        case 2:
-          this.secondTopic = event.target.value;
-          break;
-        case 3:
-          this.thirdTopic = event.target.value;
-          break;
-        default:
-          break;
-      }
-    },
-
-    selectGenre(event) {
-      this.genre = event.target.value;
-    },
-
-    selectSubgenre(event) {
-      this.subgenre = event.target.value;
-    },
-
-    selectType(event){
-      this.type = event.target.value;
     },
 
     disableTopic(value, index){
       if(index === 2){
-        return value === this.firstTopic;
+        return value === this.topics[0];
       } else if(index === 3){
-        return value === this.firstTopic || value === this.secondTopic;
+        return value === this.topics[0] || value === this.topics[1];
       }
     },
 
     disableSelect(index){
-      if((index === 2 || index === 3) && this.firstTopic === null){
+      if((index === 2 || index === 3) && this.topics[0] === null){
         return true;
-      } else if(index === 3 && this.secondTopic === null){
+      } else if(index === 3 && this.topics[1] === null){
         return true;
       } else {
         return false;
