@@ -35,6 +35,8 @@
       <code-view code=''/>
       <div class="kitchenSinkFlexRow">
         <custom-icon icon="settings"/>
+        <custom-icon icon="suicide"/>
+        <custom-icon icon="prison"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">

@@ -1,7 +1,6 @@
 <template>
-  <div>
+  <div class="customIcon" ref="customIcon">
     <img class="customIconSrc" ref="customIconSrc" :src="require(`../../assets/icons/${icon}.svg`)" :alt="icon"/>
-    <svg class="customIcon" ref="customIcon" />
   </div>
 </template>
 
@@ -10,17 +9,25 @@ import { Buffer } from 'buffer';
 
 export default {
   name: "CustomIcon",
+  data() {
+    return {
+      svgBG: '',
+    }
+  },
   props: {
     icon: {
       type: String,
       default: 'movies'
+    },
+    size: {
+      type: String,
+      default: '100px'
     }
   },
   methods: {
     async setSVG() {
       let svgCode = await this.getSVGCode();
-      svgCode = svgCode.toString().replaceAll('<svg', '<svg class="inlineSvg"');
-      this.$refs.customIcon.innerHTML = svgCode;
+      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")'
     },
     async getSVGCode() {
       let requestResult = await new Promise((resolve) => {
@@ -51,6 +58,12 @@ export default {
 <style scoped>
 .customIconSrc {
   display: none;
-  /*GRÖSSE FIXEN*******************************************************************************************************/
+}
+
+.customIcon {
+  background-image: v-bind('svgBG');
+  width: v-bind('size');
+  height: v-bind('size');
+  background-size: v-bind('size');
 }
 </style>
