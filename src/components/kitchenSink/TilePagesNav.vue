@@ -76,6 +76,7 @@ export default {
   justify-content: space-between;
   border-radius: var(--fsm-max-border-radius);
   background-color: var(--fsm-dark-blue-4);
+  margin-bottom: var(--fsm-l-border-radius);
 }
 
 .tilePagesNavElement {

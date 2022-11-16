@@ -13,6 +13,10 @@ export default {
   components: {CustomIcon},
   data() {
     return {
+      sizeExtraSmall: {
+        buttonSize: '20px',
+        iconSize: '18px'
+      },
       sizeSmall: {
         buttonSize: '30px',
         iconSize: '15px'
@@ -50,7 +54,7 @@ export default {
       type: String,
       default: 'medium',
       validator(value) {
-        return ['small', 'medium', 'large'].includes(value);
+        return ['extraSmall', 'small', 'medium', 'large'].includes(value);
       }
     },
     dark: {
@@ -72,7 +76,9 @@ export default {
   },
   methods: {
     setCSSVariables() {
-      if (this.size === 'small') {
+      if (this.size === 'extraSmall') {
+        this.sizeValues = {...this.sizeExtraSmall};
+      } else if (this.size === 'small') {
         this.sizeValues = {...this.sizeSmall};
       } else if (this.size === 'medium') {
         this.sizeValues = {...this.sizeMedium};
