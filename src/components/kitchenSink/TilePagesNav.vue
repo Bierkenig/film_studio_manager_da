@@ -6,20 +6,20 @@
            class="tilePagesNavElement"
            @click="refreshPageView(i)"
       >
-        <input :id="'tileNavPage' + i"
-               :ref="'tileNavPage' + i"
-               :value="'tileNavPage' + i"
+        <input :id="'tileNavPage' + i + randomId"
+               :ref="'tileNavPage' + i + randomId"
+               :value="'tileNavPage' + i + randomId"
                v-model="currentPage"
                type="radio"
                :name="'tilePagesNav' + randomId"
                class="tilePagesNavRadioButton"
         />
-        <label :for="'tileNavPage' + i" :id="'tileNavPageLabel' + i" class="tilePagesNavRadioButtonLabel">
+        <label :for="'tileNavPage' + i + randomId" :id="'tileNavPageLabel' + i + randomId" class="tilePagesNavRadioButtonLabel">
           {{ page }}
         </label>
       </div>
     </div>
-    <div id="tilePagesContent" ref="tilePagesContent">
+    <div :id="'tilePagesContent' + randomId" :ref="'tilePagesContent' + randomId">
       <slot/>
     </div>
   </div>
@@ -30,9 +30,9 @@ export default {
   name: "TilePagesNav",
   data() {
     return {
-      currentPage: 'tileNavPage' + 0,
-      selectedGradientBG: 'none',
       randomId: Math.floor(Math.random() * Math.pow(10, 10)),
+      currentPage: null,
+      selectedGradientBG: 'none',
     }
   },
   props: {
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     setupMenu() {
-      let contentPages = this.$refs.tilePagesContent.children;
+      let contentPages = this.$refs['tilePagesContent' + this.randomId].children;
       if (contentPages.length !== this.pages.length) {
         console.error('Number of pages doesn\'t match number of child containers!');
       } else {
@@ -53,9 +53,10 @@ export default {
       if (this.gradient) {
         this.selectedGradientBG = 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-4))';
       }
+      this.currentPage = 'tileNavPage0' + this.randomId;
     },
     refreshPageView(index) {
-      let contentPages = this.$refs.tilePagesContent.children;
+      let contentPages = this.$refs['tilePagesContent' + this.randomId].children;
       for (let i = 0; i < contentPages.length; i++) {
         contentPages[i].style.display = 'none'
       }

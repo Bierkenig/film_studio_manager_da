@@ -112,6 +112,7 @@ export default {
 <style scoped>
 #kitchenSinkMainDiv {
   background-color: var(--fsm-dark-blue-2);
+  padding-bottom: 1em;
 }
 
 .kitchenSinkComponentDiv {
