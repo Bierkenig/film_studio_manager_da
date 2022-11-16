@@ -19,7 +19,8 @@ export class Screenplay {
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         this.length = null;
         this.writingPhase = null;
-        this.rewriting = 3;
+        this.rewritingValue = 3;
+        this.rewritingStatus = false;
     }
 
     getId() {
@@ -115,16 +116,16 @@ export class Screenplay {
         this.subgenre = value;
     }
 
-    addAct1(value) {
-        this.acts.act1.push(value);
+    setAct1(value) {
+        this.acts.act1 = value;
     }
 
-    addAct2(value) {
-        this.acts.act2.push(value);
+    setAct2(value) {
+        this.acts.act2 = value;
     }
 
-    addAct3(value) {
-        this.acts.act3.push(value);
+    setAct3(value) {
+        this.acts.act3 = value;
     }
 
     addMainCharacter(actor) {
@@ -183,8 +184,12 @@ export class Screenplay {
         this.writingPhase = value;
     }
 
+    setRewritingStatus(value){
+        this.rewritingStatus = value;
+    }
+
     subtractRewriting(){
-        this.rewriting = this.rewriting - 1;
+        this.rewritingValue = this.rewritingValue - 1;
     }
 
     toString() {

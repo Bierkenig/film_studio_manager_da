@@ -9,7 +9,7 @@
             onfocus="this.size=5;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            @change="selectScope($event)"
+            v-model="selectedScope"
         >
           <option value="" disabled selected hidden>{{ $t('scope') }}</option>
           <option value="little">{{ $t('little') }}</option>
@@ -24,7 +24,7 @@
             onfocus="this.size=5;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            @change="selectTone($event)"
+            v-model="selectedTone"
         >
           <option value="" disabled selected hidden>{{ $t('tone') }}</option>
           <option value="depressing">{{ $t('depressing') }}</option>
@@ -39,7 +39,7 @@
             onfocus="this.size=5;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            @change="selectSpecialEffects($event)"
+            v-model="selectedSpecialEffects"
         >
           <option value="" disabled selected hidden>{{ $t('useOfSpecialEffects') }}</option>
           <option value="none">{{ $t('none') }}</option>
@@ -58,7 +58,7 @@
             onfocus="this.size=5;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            @change="selectViolence($event)"
+            v-model="selectedViolence"
           >
             <option value="" disabled selected hidden>{{ $t('violence') }}</option>
             <option :value="1">{{ $t('none') }}</option>
@@ -73,7 +73,7 @@
             onfocus="this.size=5;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            @change="selectCursing($event)"
+            v-model="selectedCursing"
         >
           <option value="" disabled selected hidden>{{ $t('cursing') }}</option>
           <option :value="1">{{ $t('none') }}</option>
@@ -88,7 +88,7 @@
             onfocus="this.size=5;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            @change="selectLoveScenes($event)"
+            v-model="selectedLoveScenes"
         >
           <option value="" disabled selected hidden>{{ $t('loveScenes') }}</option>
           <option :value="1">{{ $t('none') }}</option>
@@ -112,6 +112,7 @@
       </div>
     </div>
     <div>
+      <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
       <router-link :to="{name: 'hireWriter'}">
         <button
             id="continueButton"
@@ -130,19 +131,22 @@ export default {
 
   data(){
     return {
-      selectedScope: null,
-      selectedTone: null,
-      selectedSpecialEffects: null,
-      selectedViolence: null,
-      selectedCursing: null,
-      selectedLoveScenes: null,
-      screenplayLength: null,
+      selectedScope: this.$store.getters.getCurrentScreenplay.details.scope,
+      selectedTone: this.$store.getters.getCurrentScreenplay.details.tone,
+      selectedSpecialEffects: this.$store.getters.getCurrentScreenplay.details.specialEffects,
+      selectedViolence: '',
+      selectedCursing: '',
+      selectedLoveScenes: '',
+      screenplayLength: this.$store.getters.getCurrentScreenplay.length,
       minScreenplayLength: null,
       ageRatingScala: {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'}
     }
   },
 
   mounted(){
+    this.selectedViolence = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.violence)
+    this.selectedCursing = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.cursing)
+    this.selectedLoveScenes = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.loveScenes)
     if(this.$store.getters.getCurrentScreenplay.getType() === 'Feature'){
       this.minScreenplayLength = 60;
     } else {
@@ -151,30 +155,6 @@ export default {
   },
 
   methods: {
-    selectScope(event) {
-      this.selectedScope = event.target.value;
-    },
-
-    selectTone(event) {
-      this.selectedTone = event.target.value;
-    },
-
-    selectSpecialEffects(event){
-      this.selectedSpecialEffects = event.target.value;
-    },
-
-    selectViolence(event) {
-      this.selectedViolence = event.target.value;
-    },
-
-    selectCursing(event) {
-      this.selectedCursing = event.target.value;
-    },
-
-    selectLoveScenes(event){
-      this.selectedLoveScenes = event.target.value;
-    },
-
     saveDetails(){
       this.$store.getters.getCurrentScreenplay.setScope(this.selectedScope);
       this.$store.getters.getCurrentScreenplay.setTone(this.selectedTone);
@@ -184,6 +164,10 @@ export default {
       this.$store.getters.getCurrentScreenplay.setLoveScenes(this.ageRatingScala[this.selectedLoveScenes]);
       this.$store.getters.getCurrentScreenplay.setAgeRating(this.ageRatingScala[Math.max(this.selectedViolence, this.selectedCursing, this.selectedLoveScenes)]);
       this.$store.getters.getCurrentScreenplay.setLength(this.screenplayLength);
+    },
+
+    goBack(){
+      this.$router.push({name: 'screenplayPlot'})
     }
   }
 }

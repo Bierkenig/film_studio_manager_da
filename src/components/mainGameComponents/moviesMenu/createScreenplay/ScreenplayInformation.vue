@@ -73,6 +73,7 @@
       <p>{{ $t('screenplayLength') }}: {{ screenplay.length }}</p>
       <p>{{ $t('writingPhase') }}: {{ screenplay.writingPhase }}</p>
     </div>
+    <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
     <router-link :to="{name: 'movies'}">
       <button @click="onButtonClick">Save Screenplay</button>
     </router-link>
@@ -91,9 +92,25 @@ export default {
 
   methods: {
     onButtonClick(){
-      this.$store.commit('addScreenplay', this.screenplay);
-      this.$store.commit('subtractBalance', this.screenplay.price);
-      console.log(this.$store.getters.getScreenplays);
+      let screenplays = this.$store.getters.getScreenplays;
+      let position = -1;
+      for (let i = 0; i < screenplays.length; i++) {
+        if(screenplays[i].id === this.$store.getters.getCurrentScreenplay.id){
+          position = i;
+        }
+      }
+
+      if(position === -1){
+        this.$store.commit('addScreenplay', this.screenplay);
+        this.$store.commit('subtractBalance', this.screenplay.price);
+      } else {
+        this.$store.getters.getCurrentScreenplay.subtractRewriting();
+        this.$store.getters.getCurrentScreenplay.setRewritingStatus(false);
+      }
+    },
+
+    goBack(){
+      this.$router.push({name: 'hireWriter'})
     }
   }
 }
