@@ -9,6 +9,7 @@ export class Screenplay {
         this.writer = writer;
         this.description = description;
         this.rating = rating;
+        this.ratingRange = null;
         this.price = price;
         this.type = type;
         this.subgenre = subgenre;
@@ -92,8 +93,18 @@ export class Screenplay {
     }
 
     getRewritingStatus(){
-        return this.rewriting;
+        return this.rewritingStatus;
     }
+
+    getRewritingValue(){
+        return this.rewritingValue;
+    }
+
+    getRatingRange(){
+        return this.ratingRange;
+    }
+
+
 
 
     setWriter(value){
@@ -190,6 +201,10 @@ export class Screenplay {
 
     subtractRewriting(){
         this.rewritingValue = this.rewritingValue - 1;
+    }
+
+    setRatingRange(value){
+        this.ratingRange = value;
     }
 
     toString() {

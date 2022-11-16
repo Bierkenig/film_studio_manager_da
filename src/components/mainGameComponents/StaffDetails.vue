@@ -10,9 +10,9 @@
           <div v-show="showDetails" id="writerDetailsRatingHint">{{ $t('rating') }}</div>
           <div id="writerDetailsRatingValue">{{ staffRating }}<div v-show="!showDetails" class="writerDetailsInvisible">X</div></div>
         </div>
-        <div id="writerDetailsGenre">
-          <div v-show="showDetails" id="writerDetailsGenreHint">Genre</div>
-          <div id="writerDetailsGenreValue">{{ staffGenre }}<div v-show="!showDetails" class="writerDetailsInvisible">X</div></div>
+        <div id="writerDetailsGenreRating">
+          <div v-show="showDetails" id="writerDetailsGenreRatingHint">Genre Rating</div>
+          <div id="writerDetailsGenreRatingValue">!NOCH ZUM MACHEN!<div v-show="!showDetails" class="writerDetailsInvisible">X</div></div>
         </div>
         <div id="writerDetailsSalary" class="element">
           <div v-show="showDetails" id="writerDetailsSalaryHint">{{ $t('salary') }}</div>
@@ -50,18 +50,25 @@ export default {
       staffGenre: '',
       staffSalary: '',
       staffGender: 'iconPlaceholder',
+      copiedPrice: '',
+      oldWriter: ''
     }
+  },
+
+  mounted() {
+   this.copiedPrice = this.$store.getters.getCurrentScreenplay.price;
+   this.oldWriter = this.$store.getters.getCurrentScreenplay.writer;
   },
 
   watch: {
     staff: function(){
       if (this.staff.length !== 0) {
         this.showDetails = true;
-        this.staffName = this.staff.firstName + ' ' + this.staff.lastName;
-        this.staffRating = this.staff.rating;
+        this.staffName = this.staff._first_name + ' ' + this.staff._last_name;
+        this.staffRating = this.staff._rating;
         //this.staffGenre = this.writer.genres[this.screenplay.getGenre()];
-        this.staffSalary = this.staff.salary;
-        this.staffGender = this.staff.gender.substr(1, this.staff.gender.length - 2);
+        this.staffSalary = this.staff._salary;
+        this.staffGender = this.staff._gender.substr(1, this.staff.gender.length - 2);
       }
     }
   },
@@ -76,13 +83,42 @@ export default {
     },
 
     hireWriter(){
+      console.log(this.copiedPrice);
       //this.screenplay.setRating(Math.round((this.staff.genres[this.screenplay.getGenre()] * 65 + this.staff.rating * 35) / 100));
       this.screenplay.setWriter(this.staff);
-      this.screenplay.setPrice(this.staff.salary);
-      if(this.screenplay.getType === 'Feature' || this.screenplay.getType === 'Animation'){
-        this.screenplay.setWritingPhase(Math.floor(Math.random() * (18 - 12 + 1) + 12))
+      if(this.oldWriter === this.staff){
+        this.screenplay.setPrice(this.copiedPrice + (this.staff._salary/2));
+        this.$store.commit('subtractBalance', (this.staff._salary/2));
       } else {
-        this.screenplay.setWritingPhase(Math.floor(Math.random() * (14 - 8 + 1) + 8))
+        this.screenplay.setPrice(this.copiedPrice + this.staff._salary);
+        this.$store.commit('subtractBalance', this.staff._salary);
+      }
+
+      let betterGenreRating = ((this.staff._rating * 2 + this.staff._talent) / 3);
+      this.screenplay.setRating((betterGenreRating + parseInt(this.staff._performance)) / 2)
+
+      this.screenplay.setRatingRange((Math.ceil(this.screenplay.rating / 10) * 10) - 9 + ' - ' + (Math.ceil(this.screenplay.rating / 10) * 10))
+
+      if(this.screenplay.getType === 'Feature' || this.screenplay.getType === 'Animation'){
+        if(this.staff._rating >= 1 && this.staff._rating <= 25){
+          this.screenplay.setWritingPhase(18)
+        } else if(this.staff._rating >= 26 && this.staff._rating <= 50){
+          this.screenplay.setWritingPhase(16)
+        } else if(this.staff._rating >= 51 && this.staff._rating <= 75){
+          this.screenplay.setWritingPhase(14)
+        } else if(this.staff._rating >= 76 && this.staff._rating <= 100){
+          this.screenplay.setWritingPhase(12)
+        }
+      } else {
+        if(this.staff._rating >= 1 && this.staff._rating <= 25){
+          this.screenplay.setWritingPhase(14)
+        } else if(this.staff._rating >= 26 && this.staff._rating <= 50){
+          this.screenplay.setWritingPhase(12)
+        } else if(this.staff._rating >= 51 && this.staff._rating <= 75){
+          this.screenplay.setWritingPhase(10)
+        } else if(this.staff._rating >= 76 && this.staff._rating <= 100){
+          this.screenplay.setWritingPhase(8)
+        }
       }
     },
 

@@ -1,4 +1,4 @@
-export default class person {
+export default class Person {
     constructor(id, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent,
                 popularity, rating, salary, isActor, isDirector, isWriter) {
         this._id = id;

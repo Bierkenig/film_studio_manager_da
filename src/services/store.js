@@ -102,9 +102,9 @@ export default createStore({
         allActors: [],
         allDirectors: [],
         allWriters: [],
-        people: [],
         allMovies: [],
         allAwards: [],
+        allTopics: [],
     },
 
     /** Methods that read the application state */
@@ -435,10 +435,6 @@ export default createStore({
 
         setAllWriters(state, value){
             state.allWriters = value;
-        },
-
-        setPeople(state, payload) {
-            state.people = payload
         },
 
         setAllTopics(state, value){

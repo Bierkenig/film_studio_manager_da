@@ -7,9 +7,9 @@
       <p>Genre: {{ screenplay.genre }}</p>
       <p>Subgenre: {{ screenplay.subgenre }}</p>
       <p>{{ $t('ageRating') }}: {{ screenplay.ageRating }}</p>
-      <p>{{ $t('writer') }}: {{ screenplay.writer.firstName }} {{ screenplay.writer.lastName }}</p>
+      <p>{{ $t('writer') }}: {{ screenplay.writer._first_name }} {{ screenplay.writer._last_name }}</p>
       <p>{{ $t('description') }}: {{ screenplay.description }}</p>
-      <p>{{ $t('rating') }}: {{ screenplay.rating }}</p>
+      <p>{{ $t('rating') }}: {{ screenplay.ratingRange }}</p>
       <p>{{ $t('price') }}: {{ screenplay.price }}</p>
       <p>{{ $t('topics') }}: <span v-for="(it, index) in screenplay.topics" :key="index">{{ it }}&nbsp;</span></p>
       <div>
@@ -30,41 +30,29 @@
         <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
           <p>{{ $t('act1') }}:</p>
           <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
-            <p v-for="(item,ind) in it" :key="ind">
-              {{ item.textEn }}
-            </p>
+            {{ it.textEn }}
           </div>
           <p>{{ $t('act2') }}:</p>
           <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
-            <p v-for="(item,ind) in it" :key="ind">
-              {{ item.textEn }}
-            </p>
+            {{ it.textEn }}
           </div>
           <p>{{ $t('act3') }}:</p>
           <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
-            <p v-for="(item,ind) in it" :key="ind">
-              {{ item.textEn }}
-            </p>
+            {{ it.textEn }}
           </div>
         </div>
         <div v-else>
           <p>{{ $t('act1') }}:</p>
           <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
-            <p v-for="(item,ind) in it" :key="ind">
-              {{ item.textDe }}
-            </p>
+            {{ it.textDe }}
           </div>
           <p>{{ $t('act2') }}:</p>
           <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
-            <p v-for="(item,ind) in it" :key="ind">
-              {{ item.textDe }}
-            </p>
+            {{ it.textDe }}
           </div>
           <p>{{ $t('act3') }}:</p>
           <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
-            <p v-for="(item,ind) in it" :key="ind">
-              {{ item.textDe }}
-            </p>
+            {{ it.textDe }}
           </div>
         </div>
       </div>
@@ -102,11 +90,11 @@ export default {
 
       if(position === -1){
         this.$store.commit('addScreenplay', this.screenplay);
-        this.$store.commit('subtractBalance', this.screenplay.price);
       } else {
         this.$store.getters.getCurrentScreenplay.subtractRewriting();
         this.$store.getters.getCurrentScreenplay.setRewritingStatus(false);
       }
+      console.log(this.$store.getters.getCurrentScreenplay);
     },
 
     goBack(){

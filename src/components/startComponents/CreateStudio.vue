@@ -42,9 +42,10 @@
 <script>
 import {Studio} from "@/classes/Studio";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
-import Actor from "@/classes/Actor";
+import Person from "@/classes/Person";
+/*import Actor from "@/classes/Actor";
 import {Writer} from "@/classes/Writer";
-import {Director} from "@/classes/Director";
+import {Director} from "@/classes/Director";*/
 
 export default {
   name: "CreateStudio",
@@ -72,54 +73,42 @@ export default {
     startGame() {
       this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
 
-      let directors = [], writers = [], actors = [], people = [];// topics = [];
-      window.ipcRenderer.send('toMain','SELECT * FROM actors');
+      let writers = [], directors = [], actors = [], topics = [];
+      window.ipcRenderer.send('toMain','SELECT * FROM people');
       window.ipcRenderer.receive('fromMain', (data) => {
-        if(data.pk_actorID !== undefined){
-          actors.push(new Actor(data.pk_actorID, data.first_name, data.last_name, data.age, data.rating,
-              null, data.salary, data.gender, null, data.depth, data.ethnicity, data.experience,
-              data.nationality, data.performance, data.popularity));
-          people.push(new Actor(data.pk_actorID, data.first_name, data.last_name, data.age, data.rating,
-              null, data.salary, data.gender, null, data.depth, data.ethnicity, data.experience,
-              data.nationality, data.performance, data.popularity));
+        if(data.isWriter == "true"){
+          writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
+              data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
+              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter))
+        }
+        if(data.isDirector == "true"){
+          directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
+              data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
+              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter))
+        }
+        if(data.isActor == "true"){
+          actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
+              data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
+              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter))
         }
       })
-      window.ipcRenderer.send('toMain','SELECT * FROM writer');
+      window.ipcRenderer.send('toMain','SELECT * FROM topics');
       window.ipcRenderer.receive('fromMain', (data2) => {
-        if(data2.pk_writerID !== undefined){
-          writers.push(new Writer(data2.pk_writerID, data2.first_name, data2.last_name, data2.age, data2.rating,
-              null, data2.salary, data2.gender, null, data2.talent, data2.ethnicity, data2.experience,
-              data2.nationality, data2.performance, data2.popularity));
-          people.push(new Writer(data2.pk_writerID, data2.first_name, data2.last_name, data2.age, data2.rating,
-              null, data2.salary, data2.gender, null, data2.talent, data2.ethnicity, data2.experience,
-              data2.nationality, data2.performance, data2.popularity));
+        if(data2.pk_personID === undefined){
+          topics.push(data2.topicName);
         }
       })
-      window.ipcRenderer.send('toMain','SELECT * FROM directors');
-      window.ipcRenderer.receive('fromMain', (data3) => {
-        if(data3.pk_directorID !== undefined){
-          directors.push(new Director(data3.pk_directorID, data3.first_name, data3.last_name, data3.age, data3.rating,
-              null, data3.salary, data3.gender, null, data3.craft, data3.ethnicity, data3.experience,
-              data3.nationality, data3.performance, data3.popularity));
-          people.push(new Director(data3.pk_directorID, data3.first_name, data3.last_name, data3.age, data3.rating,
-              null, data3.salary, data3.gender, null, data3.craft, data3.ethnicity, data3.experience,
-              data3.nationality, data3.performance, data3.popularity));
-        }
-      })
-      /*window.ipcRenderer.send('toMain','SELECT * FROM screenplays');
-      window.ipcRenderer.receive('fromMain',(data4) => {
-        if(data4.pk_directorID === undefined && data4.pk_writerID === undefined && data4.pk_actorID === undefined){
-          console.log(data4);
-        }
-        console.log(data4);
-      })*/
-      this.$store.commit('setAllActors', actors);
-      this.$store.commit('setAllDirectors', directors);
       this.$store.commit('setAllWriters', writers);
-      this.$store.commit('setPeople', people);
-      //this.$store.commit('setAllTopics',topics);
+      this.$store.commit('setAllDirectors', directors);
+      this.$store.commit('setAllActors', actors);
+      this.$store.commit('setAllTopics',topics);
 
-      //console.log(topics);
+      console.log('Actors: ');
+      console.log(this.$store.getters.getAllActors);
+      console.log('Writers: ');
+      console.log(this.$store.getters.getAllWriters);
+      console.log('Directors: ');
+      console.log(this.$store.getters.getAllDirectors);
     },
   },
 }

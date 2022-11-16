@@ -4,7 +4,7 @@
     <div id="screenplayTextSection">
       <div v-for="(it, index) in this.data" :key="index">
         {{ it.title }}
-        <button @click="rewrite(it)" :disabled="it.rewriting === 0">TEST</button>
+        <button @click="rewrite(it)" :disabled="it.rewritingValue === 0">TEST</button>
       </div>
     </div>
   </div>

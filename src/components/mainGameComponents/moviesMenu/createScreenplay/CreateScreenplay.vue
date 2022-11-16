@@ -109,7 +109,7 @@ export default {
       topics: [this.$store.getters.getCurrentScreenplay.topics.firstTopic,
         this.$store.getters.getCurrentScreenplay.topics.secondTopic,
         this.$store.getters.getCurrentScreenplay.topics.thirdTopic],
-      allTopics: ['AB','CD','EF','GH','IJ'],
+      allTopics: this.$store.getters.getAllTopics,
     }
   },
 
