@@ -33,7 +33,7 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-icon icon="home" size="100px" :dark="false" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="settings" size="100px" :dark="false" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="settings" size="100px" :dark="false" :gradient="false" :shadow="false"/> (DEFAULT)'/>
       <code-view code='<custom-icon icon="suicide" size="100px" :dark="false" :gradient="true" :shadow="false"/>'/>
       <code-view code='<custom-icon icon="movies" size="100px" :dark="true" :gradient="false" :shadow="true"/>'/>
       <code-view code='<custom-icon icon="prison" size="100px" :dark="true" :gradient="false" :shadow="false"/>'/>
@@ -48,15 +48,15 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :shadow="false" />'/>
-      <code-view code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :shadow="false" />'/>
-      <code-view code='<icon-button icon="movies" size="large" :dark="false" :bg-gradient="true" :shadow="true" />'/>
-      <code-view code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :shadow="false" />'/>
+      <code-view code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>'/>
+      <code-view code='<icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>'/>
+      <code-view code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :shadow="false"/>
-        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :shadow="false"/>
-        <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :shadow="true"/>
-        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :shadow="false"/>
+        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
+        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
+        <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>
+        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">

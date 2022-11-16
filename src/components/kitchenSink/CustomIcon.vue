@@ -69,7 +69,6 @@ export default {
         svgCode = svgCode.replaceAll('</svg>',
             '<style>.customShadow{filter: ' + this.themeValues.shadow + '}</style></svg>')
       }
-      console.log(svgCode);
       this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")'
     },
     async getSVGCode() {

@@ -1,14 +1,16 @@
 <template>
   <div class="iconButtonMainDiv">
     <div class="iconButtonSubDiv">
-      <img class="iconButtonSVG" :src="require(`../../assets/icons/${icon}.svg`)" :alt="icon"/>
+      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :dark="!dark" :gradient="iconGradient" :icon="icon" :shadow="false"/>
     </div>
   </div>
 </template>
 
 <script>
+import CustomIcon from "@/components/kitchenSink/CustomIcon";
 export default {
   name: "IconButton",
+  components: {CustomIcon},
   data() {
     return {
       sizeSmall: {
@@ -56,6 +58,10 @@ export default {
       default: false,
     },
     bgGradient: {
+      type: Boolean,
+      default: false,
+    },
+    iconGradient: {
       type: Boolean,
       default: false,
     },
@@ -109,14 +115,5 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.iconButtonSVG {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: v-bind('sizeValues.iconSize');
-  width: v-bind('sizeValues.iconSize');
-  filter: v-bind('themeValues.filter');
 }
 </style>
