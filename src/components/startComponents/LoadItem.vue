@@ -46,13 +46,19 @@ export default {
     load(){
       window.ipcRenderer.send('r2mLoading',this.slotNr)
       window.ipcRenderer.receive('m2rLoading', data => {
-        if(data!==null) {
-          let saveData = data.state
+        if(data[1]==='100') {
+          let saveData = data[0].state
+          this.$store.commit("loadFromSave", saveData)
+          console.log('Save-File was loaded')
+        }
+        else if(data[1] === '101') {
+          console.log('Save-File corrupted - Save State was recovered')
+          let saveData = data[0].state
           this.$store.commit("loadFromSave", saveData)
         }
-        else{
-          //TODO code hier wenn save-file kaputt ist
-          console.log("Konnte nicht geladen werden - File Corrupted!")
+        else if(data[1] === '102'){
+          //TODO code hier wenn save-file kaputt ist - Möglicherweise löschen
+          console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered")
         }
       })
     }
