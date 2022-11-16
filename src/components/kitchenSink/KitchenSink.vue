@@ -8,6 +8,10 @@
       <page-heading heading="Home">Your manager dashboard.</page-heading>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code='<header-info icon="studio">Example Studios</header-info>'/>
+      <header-info icon="studio">Example Studios</header-info>
+    </div>
+    <div class="kitchenSinkComponentDiv">
       <code-view code='<background-tile title="Title" content-color="white">Test</background-tile> (DEFAULT)'/>
       <code-view code='<background-tile title="Title" content-color="grey">Test</background-tile>'/>
       <div class="kitchenSinkFlexRow">
@@ -94,10 +98,11 @@ import CodeView from "@/components/kitchenSink/CodeView";
 import IconButton from "@/components/kitchenSink/IconButton";
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
+import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
 
 export default {
   name: "KitchenSink",
-  components: {CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
+  components: {HeaderInfo, CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
   data() {
     return {
       navExample1: ['All', 'In Production', 'Released'],
