@@ -32,11 +32,19 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code=''/>
+      <code-view code='<custom-icon icon="home" size="100px" :dark="false" :gradient="false" :shadow="true"/>'/>
+      <code-view code='<custom-icon icon="settings" size="100px" :dark="false" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="suicide" size="100px" :dark="false" :gradient="true" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="movies" size="100px" :dark="true" :gradient="false" :shadow="true"/>'/>
+      <code-view code='<custom-icon icon="prison" size="100px" :dark="true" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="ninjas" size="100px" :dark="true" :gradient="true" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-icon icon="settings"/>
-        <custom-icon icon="suicide"/>
-        <custom-icon icon="prison"/>
+        <custom-icon icon="home" size="100px" :dark="false" :gradient="false" :shadow="true"/>
+        <custom-icon icon="settings" size="100px" :dark="false" :gradient="false" :shadow="false"/>
+        <custom-icon icon="suicide" size="100px" :dark="false" :gradient="true" :shadow="false"/>
+        <custom-icon icon="movies" size="100px" :dark="true" :gradient="false" :shadow="true"/>
+        <custom-icon icon="prison" size="100px" :dark="true" :gradient="false" :shadow="false"/>
+        <custom-icon icon="ninjas" size="100px" :dark="true" :gradient="true" :shadow="false"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">

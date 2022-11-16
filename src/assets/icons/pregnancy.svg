@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M20.35 45.05v-9h-5V19.5q0-2.75 1.575-4.25t4.275-1.5q2.7 0 4.225 1.75 1.525 1.75 1.525 4 2.7.3 4.225 2.175Q32.7 23.55 32.7 26.4v9.65h-8.2v9Zm.95-34q-1.75 0-2.975-1.2T17.1 6.9q0-1.8 1.2-3.05 1.2-1.25 3-1.25 1.75 0 2.975 1.25t1.225 3q0 1.8-1.2 3t-3 1.2Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg62"
+   sodipodi:docname="pregnancy.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs66" />
+  <sodipodi:namedview
+     id="namedview64"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg62" />
+  <path
+     id="path60"
+     d="m 20.35,45.05 v -9 h -5 V 19.5 q 0,-2.75 1.575,-4.25 1.575,-1.5 4.275,-1.5 2.7,0 4.225,1.75 1.525,1.75 1.525,4 2.7,0.3 4.225,2.175 Q 32.7,23.55 32.7,26.4 v 9.65 h -8.2 v 9 z m 0.95,-34 q -1.75,0 -2.975,-1.2 Q 17.1,8.65 17.1,6.9 q 0,-1.8 1.2,-3.05 1.2,-1.25 3,-1.25 1.75,0 2.975,1.25 1.225,1.25 1.225,3 0,1.8 -1.2,3 -1.2,1.2 -3,1.2 z" />
+</svg>

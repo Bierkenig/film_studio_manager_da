@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M18.35 44.9v-7.25H1.7v-4.1h16.1q1.95 0 3.325 1.375Q22.5 36.3 22.5 38.25v6.65Zm7.15 0v-6.65q0-1.95 1.375-3.325 1.375-1.375 3.375-1.375H46.3v4.1H29.65v7.25ZM10.1 30.55q-2.7 0-4.6-1.925Q3.6 26.7 3.6 24.05V13.7h40.8v10.35q0 2.65-1.9 4.575-1.9 1.925-4.6 1.925ZM3.6 11.7V7.6h13.85V5.45q0-1 .675-1.675T19.8 3.1h8.4q1 0 1.675.675t.675 1.675V7.6H44.4v4.1Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg21"
+   sodipodi:docname="cooking.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs25" />
+  <sodipodi:namedview
+     id="namedview23"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg21" />
+  <path
+     id="path19"
+     d="M 18.35,44.9 V 37.65 H 1.7 v -4.1 h 16.1 q 1.95,0 3.325,1.375 Q 22.5,36.3 22.5,38.25 v 6.65 z m 7.15,0 v -6.65 q 0,-1.95 1.375,-3.325 Q 28.25,33.55 30.25,33.55 H 46.3 v 4.1 H 29.65 V 44.9 Z M 10.1,30.55 Q 7.4,30.55 5.5,28.625 3.6,26.7 3.6,24.05 V 13.7 h 40.8 v 10.35 q 0,2.65 -1.9,4.575 -1.9,1.925 -4.6,1.925 z M 3.6,11.7 V 7.6 H 17.45 V 5.45 q 0,-1 0.675,-1.675 Q 18.8,3.1 19.8,3.1 h 8.4 q 1,0 1.675,0.675 Q 30.55,4.45 30.55,5.45 V 7.6 H 44.4 v 4.1 z" />
+</svg>

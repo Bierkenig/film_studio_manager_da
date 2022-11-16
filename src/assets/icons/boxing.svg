@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M15.5 44.4q-.95 0-1.475-.55-.525-.55-.525-1.45v-5.9h21.6v5.9q0 .9-.55 1.45-.55.55-1.45.55Zm24.15-28.65V22.1q0 .35-.05.45l-1.65 7.85q-.3 1.2-1.175 1.925-.875.725-2.075.725H13.35q-1.25 0-2.125-.725T10.05 30.4L8.4 22.55q-.05-.1-.05-.45V9.45q0-2 1.35-3.375T13.1 4.7h17.2q2 0 3.375 1.375T35.05 9.45v4.9q.25-.6.75-.9.5-.3 1.25-.3 1.1 0 1.85.725t.75 1.875Zm-22.8 4.3h9.7v-6.7h-9.7Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg39"
+   sodipodi:docname="boxing.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs43" />
+  <sodipodi:namedview
+     id="namedview41"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg39" />
+  <path
+     id="path37"
+     d="m 15.5,44.4 q -0.95,0 -1.475,-0.55 Q 13.5,43.3 13.5,42.4 v -5.9 h 21.6 v 5.9 q 0,0.9 -0.55,1.45 Q 34,44.4 33.1,44.4 Z M 39.65,15.75 v 6.35 q 0,0.35 -0.05,0.45 l -1.65,7.85 q -0.3,1.2 -1.175,1.925 Q 35.9,33.05 34.7,33.05 H 13.35 q -1.25,0 -2.125,-0.725 Q 10.35,31.6 10.05,30.4 L 8.4,22.55 Q 8.35,22.45 8.35,22.1 V 9.45 q 0,-2 1.35,-3.375 Q 11.05,4.7 13.1,4.7 h 17.2 q 2,0 3.375,1.375 1.375,1.375 1.375,3.375 v 4.9 q 0.25,-0.6 0.75,-0.9 0.5,-0.3 1.25,-0.3 1.1,0 1.85,0.725 0.75,0.725 0.75,1.875 z m -22.8,4.3 h 9.7 v -6.7 h -9.7 z" />
+</svg>

@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="m2.6 46.3 10.85-30.35L33.1 35.4Zm26.7-20-2.25-2.25L38.4 12.7q1.8-1.8 4.625-1.825 2.825-.025 4.675 1.775l.85.85-2.3 2.25-.95-.95q-.95-.95-2.225-.975-1.275-.025-2.225.975Zm-9.1-8.85-2.25-2.3 1.25-1.3q1.2-1.15 1.125-2.6-.075-1.45-1.125-2.5l-1.4-1.4 2.3-2.25 1.3 1.3q1.95 2 1.925 4.95-.025 2.95-1.975 4.95Zm4.65 4.4-2.3-2.25 7.15-7.15q.95-.95.925-2.425Q30.6 8.55 29.65 7.6L26.6 4.55l2.3-2.3 3.15 3.15q1.75 1.85 1.8 4.625.05 2.775-1.75 4.575Zm9.05 9.1-2.3-2.3 2.15-2.1q2-2 4.775-2.05 2.775-.05 4.775 1.95L45.85 29l-2.3 2.3-2.6-2.6q-1.15-1.15-2.4-1.15t-2.4 1.15Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg27"
+   sodipodi:docname="party.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs31" />
+  <sodipodi:namedview
+     id="namedview29"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg27" />
+  <path
+     id="path25"
+     d="M 2.6,46.3 13.45,15.95 33.1,35.4 Z M 29.3,26.3 27.05,24.05 38.4,12.7 q 1.8,-1.8 4.625,-1.825 2.825,-0.025 4.675,1.775 l 0.85,0.85 -2.3,2.25 L 45.3,14.8 Q 44.35,13.85 43.075,13.825 41.8,13.8 40.85,14.8 Z m -9.1,-8.85 -2.25,-2.3 1.25,-1.3 Q 20.4,12.7 20.325,11.25 20.25,9.8 19.2,8.75 l -1.4,-1.4 2.3,-2.25 1.3,1.3 q 1.95,2 1.925,4.95 Q 23.3,14.3 21.35,16.3 Z m 4.65,4.4 -2.3,-2.25 7.15,-7.15 Q 30.65,11.5 30.625,10.025 30.6,8.55 29.65,7.6 L 26.6,4.55 28.9,2.25 32.05,5.4 q 1.75,1.85 1.8,4.625 Q 33.9,12.8 32.1,14.6 Z m 9.05,9.1 -2.3,-2.3 2.15,-2.1 q 2,-2 4.775,-2.05 2.775,-0.05 4.775,1.95 l 2.55,2.55 -2.3,2.3 -2.6,-2.6 q -1.15,-1.15 -2.4,-1.15 -1.25,0 -2.4,1.15 z" />
+</svg>

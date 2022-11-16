@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="M33.1 24.1q-2.55-2.25-4.825-4.375-2.275-2.125-4-4.15-1.725-2.025-2.725-3.95-1-1.925-1-3.775 0-2.95 2-4.95t4.95-2q1.45 0 2.9.725t2.7 1.925q1.25-1.2 2.7-1.925Q37.25.9 38.7.9q2.95 0 4.95 2t2 4.95q0 1.85-1 3.775-1 1.925-2.725 3.95-1.725 2.025-4 4.15Q35.65 21.85 33.1 24.1ZM28 46.6l-14.95-4.3V22.95h4.35l12.9 4.9q1.7.6 2.825 2 1.125 1.4 1.125 3.9H29.9q-2.45 0-3.55-.15-1.1-.15-2.6-.6l-3.45-1.15-.85 2.5 4.05 1.35q.95.3 2.55.5 1.6.2 2.95.2h9.8q3.55 0 4.8.825t1.25 2.725v1.55ZM.6 44.95v-22h8.25v22Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg115"
+   sodipodi:docname="romance.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs119" />
+  <sodipodi:namedview
+     id="namedview117"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg115" />
+  <path
+     id="path113"
+     d="M 33.1,24.1 Q 30.55,21.85 28.275,19.725 26,17.6 24.275,15.575 22.55,13.55 21.55,11.625 q -1,-1.925 -1,-3.775 0,-2.95 2,-4.95 2,-2 4.95,-2 1.45,0 2.9,0.725 1.45,0.725 2.7,1.925 1.25,-1.2 2.7,-1.925 1.45,-0.725 2.9,-0.725 2.95,0 4.95,2 2,2 2,4.95 0,1.85 -1,3.775 -1,1.925 -2.725,3.95 -1.725,2.025 -4,4.15 Q 35.65,21.85 33.1,24.1 Z M 28,46.6 13.05,42.3 V 22.95 h 4.35 l 12.9,4.9 q 1.7,0.6 2.825,2 1.125,1.4 1.125,3.9 H 29.9 q -2.45,0 -3.55,-0.15 -1.1,-0.15 -2.6,-0.6 l -3.45,-1.15 -0.85,2.5 4.05,1.35 q 0.95,0.3 2.55,0.5 1.6,0.2 2.95,0.2 h 9.8 q 3.55,0 4.8,0.825 1.25,0.825 1.25,2.725 V 41.5 Z M 0.6,44.95 v -22 h 8.25 v 22 z" />
+</svg>

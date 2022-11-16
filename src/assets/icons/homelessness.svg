@@ -1,10 +1,46 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 48 48" style="enable-background:new 0 0 48 48;" xml:space="preserve">
-<path d="M7.4,40.8v-22H2.1L24,0.9l21.8,17.9h-5.3v3.5h-4.7v-5.6L24,7l-11.9,9.8v19.4h5.3v4.7L7.4,40.8z"/>
-<g>
-	<rect x="19.5" y="32.7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -15.877 32.2807)" width="23.1" height="5.2"/>
-	<rect x="19.5" y="32.7" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 28.0029 82.2103)" width="23.1" height="5.2"/>
+
+<svg
+   version="1.1"
+   id="Ebene_1"
+   x="0px"
+   y="0px"
+   viewBox="0 0 48 48"
+   style="enable-background:new 0 0 48 48;"
+   xml:space="preserve"
+   sodipodi:docname="homelessness.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs28" /><sodipodi:namedview
+   id="namedview26"
+   pagecolor="#505050"
+   bordercolor="#eeeeee"
+   borderopacity="1"
+   inkscape:showpageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#505050"
+   showgrid="false"
+   inkscape:zoom="4.9166667"
+   inkscape:cx="24"
+   inkscape:cy="24.101695"
+   inkscape:window-width="1500"
+   inkscape:window-height="930"
+   inkscape:window-x="-6"
+   inkscape:window-y="-6"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Ebene_1" />
+
+<g
+   id="g23">
+	
+	<path
+   id="rect21"
+   transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 28.0029 82.2103)"
+   d="m 19.5,32.700001 h 23.1 v 5.2 H 19.5 Z m 14.133969,-8.922176 v 23.1 h -5.2 v -23.1 z m 10.216406,-9.06463 15.556498,15.556498 3.747702,-3.747702 -2.828454,28.14312 -28.072409,2.757743 3.747702,-3.747702 -2.474897,-2.474897 3.323434,-3.323434 3.959835,3.959836 15.202942,-1.484939 1.484939,-15.344364 -13.718004,-13.718003 -3.747701,3.747702 -3.323434,-3.323434 z" />
 </g>
 </svg>

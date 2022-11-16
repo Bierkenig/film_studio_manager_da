@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="48" width="48"><path d="m37.95 44.1-5.55-5.6-4.4 4.4-1.9-1.9q-1.35-1.4-1.35-3.3t1.35-3.3l8.5-8.5q1.4-1.35 3.3-1.35t3.3 1.35l1.9 1.9-4.4 4.4 5.55 5.55q.7.7.7 1.7t-.7 1.7l-2.9 2.95q-.7.7-1.7.7t-1.7-.7Zm6.9-31.95-22.8 22.8.8.85q.55 1.3.3 2.725-.25 1.425-1.3 2.475l-1.9 1.9-4.4-4.4L10 44.1q-.7.7-1.675.7-.975 0-1.675-.7L3.7 41.15q-.75-.7-.75-1.7t.75-1.7l5.6-5.55-4.4-4.4 1.85-1.9q1.1-1.05 2.525-1.3 1.425-.25 2.725.35l.85.8 22.8-22.8h9.2ZM13.15 22.2l-10-10.05v-9.2h9.25L22.45 13Z"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg79"
+   sodipodi:docname="war.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs83" />
+  <sodipodi:namedview
+     id="namedview81"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg79" />
+  <path
+     id="path77"
+     d="M 37.95,44.1 32.4,38.5 28,42.9 26.1,41 q -1.35,-1.4 -1.35,-3.3 0,-1.9 1.35,-3.3 l 8.5,-8.5 q 1.4,-1.35 3.3,-1.35 1.9,0 3.3,1.35 l 1.9,1.9 -4.4,4.4 5.55,5.55 q 0.7,0.7 0.7,1.7 0,1 -0.7,1.7 l -2.9,2.95 q -0.7,0.7 -1.7,0.7 -1,0 -1.7,-0.7 z m 6.9,-31.95 -22.8,22.8 0.8,0.85 q 0.55,1.3 0.3,2.725 Q 22.9,39.95 21.85,41 l -1.9,1.9 -4.4,-4.4 L 10,44.1 Q 9.3,44.8 8.325,44.8 7.35,44.8 6.65,44.1 L 3.7,41.15 q -0.75,-0.7 -0.75,-1.7 0,-1 0.75,-1.7 L 9.3,32.2 4.9,27.8 6.75,25.9 Q 7.85,24.85 9.275,24.6 10.7,24.35 12,24.95 l 0.85,0.8 22.8,-22.8 h 9.2 z M 13.15,22.2 3.15,12.15 V 2.95 H 12.4 L 22.45,13 Z" />
+</svg>
