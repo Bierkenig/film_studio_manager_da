@@ -6,6 +6,8 @@
 </template>
 
 <script>
+import { Buffer } from 'buffer';
+
 export default {
   name: "CustomIcon",
   props: {
@@ -16,7 +18,9 @@ export default {
   },
   methods: {
     async setSVG() {
-      this.$refs.customIcon.innerHTML = await this.getSVGCode();
+      let svgCode = await this.getSVGCode();
+      svgCode = svgCode.toString().replaceAll('<svg', '<svg class="inlineSvg"');
+      this.$refs.customIcon.innerHTML = svgCode;
     },
     async getSVGCode() {
       let requestResult = await new Promise((resolve) => {
@@ -35,7 +39,7 @@ export default {
             request.send();
           }
       );
-      return atob(requestResult.substring(26));
+      return Buffer.from(requestResult.substring(26), 'base64');
     },
   },
   mounted() {
