@@ -60,15 +60,27 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample) + singleQuote + '>'"/>
+      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample1) + singleQuote + '>'"/>
       <code-view code='░░<div>All</div>'/>
       <code-view code='░░<div>In Production</div>'/>
       <code-view code='░░<div>Released</div>'/>
       <code-view code='</tile-pages-nav>'/>
-      <tile-pages-nav :pages='navExample'>
+      <tile-pages-nav :pages='navExample1'>
         <div>All</div>
         <div>In Production</div>
         <div>Released</div>
+      </tile-pages-nav>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'true' + singleQuote + '>'"/>
+      <code-view code='░░<div>Movies</div>'/>
+      <code-view code='░░<div>People</div>'/>
+      <code-view code='░░<div>Others</div>'/>
+      <code-view code='</tile-pages-nav>'/>
+      <tile-pages-nav :pages='navExample2' :gradient='true'>
+        <div>Movies</div>
+        <div>People</div>
+        <div>Others</div>
       </tile-pages-nav>
     </div>
   </div>
@@ -88,7 +100,8 @@ export default {
   components: {CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
   data() {
     return {
-      navExample: ['All', 'In Production', 'Released'],
+      navExample1: ['All', 'In Production', 'Released'],
+      navExample2: ['Movies', 'People', 'Others'],
       singleQuote: "'",
       doubleQuote: '"',
     }

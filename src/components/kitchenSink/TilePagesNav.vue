@@ -11,6 +11,7 @@
                :value="'tileNavPage' + i"
                v-model="currentPage"
                type="radio"
+               :name="'tilePagesNav' + randomId"
                class="tilePagesNavRadioButton"
         />
         <label :for="'tileNavPage' + i" :id="'tileNavPageLabel' + i" class="tilePagesNavRadioButtonLabel">
@@ -30,10 +31,16 @@ export default {
   data() {
     return {
       currentPage: 'tileNavPage' + 0,
+      selectedGradientBG: 'none',
+      randomId: Math.floor(Math.random() * Math.pow(10, 10)),
     }
   },
   props: {
     pages: Array,
+    gradient: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {
     setupMenu() {
@@ -42,6 +49,9 @@ export default {
         console.error('Number of pages doesn\'t match number of child containers!');
       } else {
         this.refreshPageView(0);
+      }
+      if (this.gradient) {
+        this.selectedGradientBG = 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-4))';
       }
     },
     refreshPageView(index) {
@@ -91,6 +101,7 @@ export default {
 
 .tilePagesNavRadioButton:checked + .tilePagesNavRadioButtonLabel {
   background-color: var(--fsm-pink-1);
+  background-image: v-bind('selectedGradientBG');
   color: var(--fsm-dark-blue-2);
 }
 </style>
