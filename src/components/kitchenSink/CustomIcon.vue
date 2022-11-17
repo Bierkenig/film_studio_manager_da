@@ -22,6 +22,26 @@ export default {
         gradient: '<stop offset="0%" style="stop-color:#2B3448;stop-opacity:1" /><stop offset="100%" style="stop-color:#252D3E;stop-opacity:1" />',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
+      themeRed: {
+        color: '#FF4655',
+        gradient: '',
+        shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
+      },
+      themeGreen: {
+        color: '#46FF54',
+        gradient: '',
+        shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
+      },
+      themeBlue: {
+        color: '#46AEFF',
+        gradient: '',
+        shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
+      },
+      themeYellow: {
+        color: '#FFED46',
+        gradient: '',
+        shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
+      },
       themeValues: {},
     }
   },
@@ -34,9 +54,12 @@ export default {
       type: String,
       default: '100px'
     },
-    dark: {
-      type: Boolean,
-      default: false,
+    theme: {
+      type: String,
+      default: 'light',
+      validator(value) {
+        return ['light', 'dark', 'red', 'green', 'blue', 'yellow'].includes(value);
+      }
     },
     gradient: {
       type: Boolean,
@@ -55,6 +78,28 @@ export default {
         this.themeValues = {...this.themeDark};
       } else {
         this.themeValues = {...this.themeLight};
+      }
+      switch (this.theme) {
+        case 'light':
+          this.themeValues = {...this.themeLight};
+          break;
+        case 'dark':
+          this.themeValues = {...this.themeDark};
+          break;
+        case 'red':
+          this.themeValues = {...this.themeRed};
+          break;
+        case 'green':
+          this.themeValues = {...this.themeGreen};
+          break;
+        case 'blue':
+          this.themeValues = {...this.themeBlue};
+          break;
+        case 'yellow':
+          this.themeValues = {...this.themeYellow};
+          break;
+        default:
+          throw('Invalid icon theme!');
       }
       if (this.gradient) {
         svgCode = svgCode.replaceAll('<svg', '<svg fill="url(#customColor)"');

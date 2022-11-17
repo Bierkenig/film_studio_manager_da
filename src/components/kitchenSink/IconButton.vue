@@ -1,7 +1,7 @@
 <template>
   <div class="iconButtonMainDiv">
     <div class="iconButtonSubDiv">
-      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :dark="!dark" :gradient="iconGradient" :icon="icon" :shadow="false"/>
+      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :gradient="iconGradient" :icon="icon" :shadow="false"/>
     </div>
   </div>
 </template>
@@ -43,6 +43,7 @@ export default {
       },
       sizeValues: {},
       themeValues: {},
+      iconThemes: ['dark', 'light'],
     }
   },
   props: {

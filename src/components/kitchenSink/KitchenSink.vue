@@ -36,19 +36,27 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-icon icon="home" size="100px" :dark="false" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="settings" size="100px" :dark="false" :gradient="false" :shadow="false"/> (DEFAULT)'/>
-      <code-view code='<custom-icon icon="suicide" size="100px" :dark="false" :gradient="true" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="movies" size="100px" :dark="true" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="prison" size="100px" :dark="true" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="ninjas" size="100px" :dark="true" :gradient="true" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="home" size="80px" theme="light" :gradient="false" :shadow="true"/>'/>
+      <code-view code='<custom-icon icon="settings" size="80px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
+      <code-view code='<custom-icon icon="suicide" size="80px" theme="light" :gradient="true" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="movies" size="80px" theme="dark" :gradient="false" :shadow="true"/>'/>
+      <code-view code='<custom-icon icon="prison" size="80px" theme="dark" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="ninjas" size="80px" theme="dark" :gradient="true" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="simple-tick" size="80px" theme="red" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="rising-chart" size="80px" theme="green" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="rising-chart" size="80px" theme="blue" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="award" size="80px" theme="yellow" :gradient="false" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-icon icon="home" size="100px" :dark="false" :gradient="false" :shadow="true"/>
-        <custom-icon icon="settings" size="100px" :dark="false" :gradient="false" :shadow="false"/>
-        <custom-icon icon="suicide" size="100px" :dark="false" :gradient="true" :shadow="false"/>
-        <custom-icon icon="movies" size="100px" :dark="true" :gradient="false" :shadow="true"/>
-        <custom-icon icon="prison" size="100px" :dark="true" :gradient="false" :shadow="false"/>
-        <custom-icon icon="ninjas" size="100px" :dark="true" :gradient="true" :shadow="false"/>
+        <custom-icon icon="home" size="80px" theme="light" :gradient="false" :shadow="true"/>
+        <custom-icon icon="settings" size="80px" theme="light" :gradient="false" :shadow="false"/>
+        <custom-icon icon="suicide" size="80px" theme="light" :gradient="true" :shadow="false"/>
+        <custom-icon icon="movies" size="80px" theme="dark" :gradient="false" :shadow="true"/>
+        <custom-icon icon="prison" size="80px" theme="dark" :gradient="false" :shadow="false"/>
+        <custom-icon icon="ninjas" size="80px" theme="dark" :gradient="true" :shadow="false"/>
+        <custom-icon icon="simple-tick" size="80px" theme="red" :gradient="false" :shadow="false"/>
+        <custom-icon icon="rising-chart" size="80px" theme="green" :gradient="false" :shadow="false"/>
+        <custom-icon icon="rising-chart" size="80px" theme="blue" :gradient="false" :shadow="false"/>
+        <custom-icon icon="award" size="80px" theme="yellow" :gradient="false" :shadow="false"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
