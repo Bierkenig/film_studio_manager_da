@@ -16,6 +16,7 @@
       <code-view code='<background-tile title="Title" content-color="grey">Test</background-tile>'/>
       <div class="kitchenSinkFlexRow">
         <background-tile title="Title" content-color="white">Test</background-tile>
+        <div class="kitchenSinkSpacer"/>
         <background-tile title="Title" content-color="grey">Test</background-tile>
       </div>
     </div>
@@ -24,6 +25,7 @@
       <code-view code='<custom-button :dark="true" size="medium">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
         <custom-button :dark="false" size="medium">Test</custom-button>
+        <div class="kitchenSinkSpacer"/>
         <custom-button :dark="true" size="medium">Test</custom-button>
       </div>
     </div>
@@ -32,6 +34,7 @@
       <code-view code='<custom-button :dark="true" size="large">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
         <custom-button :dark="false" size="large">Test</custom-button>
+        <div class="kitchenSinkSpacer"/>
         <custom-button :dark="true" size="large">Test</custom-button>
       </div>
     </div>
@@ -97,6 +100,23 @@
         <div>Others</div>
       </tile-pages-nav>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="award"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <event-element type="productionFinished" movieName="Movie Title Name One"/>
+        <div class="kitchenSinkSpacer"/>
+        <event-element type="featureFilm" movieName="Movie Title Name One"/>
+      </div>
+      <div class="kitchenSinkSpacer"/>
+      <div class="kitchenSinkFlexRow">
+        <event-element type="blockbuster" movieName="Movie Title Name One"/>
+        <div class="kitchenSinkSpacer"/>
+        <event-element type="award"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -109,10 +129,11 @@ import IconButton from "@/components/kitchenSink/IconButton";
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
 import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
+import EventElement from "@/components/kitchenSink/EventElement";
 
 export default {
   name: "KitchenSink",
-  components: {HeaderInfo, CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading},
+  components: {HeaderInfo, CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading, EventElement},
   data() {
     return {
       navExample1: ['All', 'In Production', 'Released'],
@@ -140,5 +161,10 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.kitchenSinkSpacer {
+  width: 1em;
+  height: 1em;
 }
 </style>
