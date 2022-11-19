@@ -13,7 +13,10 @@
 export default {
   name: "PageHeading",
   props: {
-    heading: String,
+    heading: {
+      type: String,
+      required: true,
+    },
   },
 }
 </script>

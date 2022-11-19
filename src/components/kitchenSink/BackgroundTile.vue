@@ -18,7 +18,10 @@ export default {
     }
   },
   props: {
-    title: String,
+    title: {
+      type: String,
+      required: true,
+    },
     contentColor: {
       type: String,
       default: 'white',

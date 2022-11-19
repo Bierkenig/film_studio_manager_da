@@ -29,10 +29,22 @@ export default {
   name: "ProductionElement",
   components: {IconButton},
   props: {
-    movieTitle: String,
-    releaseDate: String,
-    status: String,
-    timeLeft: String,
+    movieTitle: {
+      type: String,
+      required: true,
+    },
+    releaseDate: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: true,
+    },
+    timeLeft: {
+      type: String,
+      required: true,
+    },
   },
 }
 </script>

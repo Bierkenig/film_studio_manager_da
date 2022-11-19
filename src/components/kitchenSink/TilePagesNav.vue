@@ -36,7 +36,10 @@ export default {
     }
   },
   props: {
-    pages: Array,
+    pages: {
+      type: Array,
+      required: true,
+    },
     gradient: {
       type: Boolean,
       default: false,
