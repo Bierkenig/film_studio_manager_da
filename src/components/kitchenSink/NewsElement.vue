@@ -38,7 +38,6 @@ export default {
   },
   mounted() {
     this.setSVG();
-    console.log(this.svgBG);
   },
 }
 </script>
