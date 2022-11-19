@@ -30,16 +30,25 @@
             >
               <option :value="null" disabled selected hidden>Genre</option>
               <option value="Action">Action</option>
+              <option value="Adventure">{{ $t('adventure') }}</option>
+              <option value="Biography">{{ $t('biography') }}</option>
               <option value="Comedy">{{ $t('comedy') }}</option>
+              <option value="Crime">{{ $t('crime') }}</option>
+              <option value="Documentary">{{ $t('documentary') }}</option>
               <option value="Drama">Drama</option>
+              <option value="Erotic">{{ $t('erotic') }}</option>
+              <option value="Family">{{ $t('family') }}</option>
               <option value="Fantasy">Fantasy</option>
+              <option value="History">{{ $t('history') }}</option>
               <option value="Horror">Horror</option>
               <option value="Musical">Musical</option>
+              <option value="Mystery">{{ $t('mystery') }}</option>
               <option value="Romance">{{ $t('romance') }}</option>
               <option value="ScienceFiction">Sci-Fi</option>
+              <option value="Sport">Sport</option>
               <option value="Thriller">Thriller</option>
+              <option value="War">{{ $t('war') }}</option>
               <option value="Western">Western</option>
-              <option value="History">{{ $t('history') }}</option>
             </select>
             <select
                 id="createScreenplaySubgenre"
@@ -51,16 +60,25 @@
             >
               <option :value="null" disabled selected hidden>Subgenre</option>
               <option value="Action" :disabled="this.genre === 'Action'">Action</option>
+              <option value="Adventure" :disabled="this.genre === 'Adventure'">{{ $t('adventure') }}</option>
+              <option value="Biography" :disabled="this.genre === 'Biography'">{{ $t('biography') }}</option>
               <option value="Comedy" :disabled="this.genre === 'Comedy'">{{ $t('comedy') }}</option>
+              <option value="Crime" :disabled="this.genre === 'Crime'">{{ $t('crime') }}</option>
+              <option value="Documentary" :disabled="this.genre === 'Documentary'">{{ $t('documentary') }}</option>
               <option value="Drama" :disabled="this.genre === 'Drama'">Drama</option>
+              <option value="Erotic" :disabled="this.genre === 'Erotic'">{{ $t('erotic') }}</option>
+              <option value="Family" :disabled="this.genre === 'Family'">{{ $t('family') }}</option>
               <option value="Fantasy" :disabled="this.genre === 'Fantasy'">Fantasy</option>
+              <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
               <option value="Horror" :disabled="this.genre === 'Horror'">Horror</option>
               <option value="Musical" :disabled="this.genre === 'Musical'">Musical</option>
+              <option value="Mystery" :disabled="this.genre === 'Mystery'">{{ $t('mystery') }}</option>
               <option value="Romance" :disabled="this.genre === 'Romance'">{{ $t('romance') }}</option>
-              <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Science-Fiction</option>
+              <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Sci-Fi</option>
+              <option value="Sport" :disabled="this.genre === 'Sport'">Sport</option>
               <option value="Thriller" :disabled="this.genre === 'Thriller'">Thriller</option>
+              <option value="War" :disabled="this.genre === 'War'">{{ $t('war') }}</option>
               <option value="Western" :disabled="this.genre === 'Western'">Western</option>
-              <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
             </select>
             <div>
               <h3>{{ $t('topics') }}</h3>

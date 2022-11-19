@@ -74,41 +74,54 @@ export default {
       this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
 
       let writers = [], directors = [], actors = [], topics = [];
-      window.ipcRenderer.send('toMain','SELECT * FROM people');
-      window.ipcRenderer.receive('fromMain', (data) => {
+      window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
+      window.ipcRenderer.receive('fromGetPeople', (data) => {
         if(data.isWriter == "true"){
           writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
               data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter))
+              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
         }
         if(data.isDirector == "true"){
           directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
               data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter))
+              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
         }
         if(data.isActor == "true"){
           actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
               data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter))
+              data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
         }
       })
-      window.ipcRenderer.send('toMain','SELECT * FROM topics');
-      window.ipcRenderer.receive('fromMain', (data2) => {
-        if(data2.pk_personID === undefined){
-          topics.push(data2.topicName);
+      window.ipcRenderer.send('toGetTopics','SELECT * FROM topics');
+      window.ipcRenderer.receive('fromGetTopics', (data) => {
+        topics.push(data.topicName);
+      })
+
+      window.ipcRenderer.send('toGetGenreRating','SELECT genreRating.*, g.* FROM genreRating INNER JOIN genre g ON genreRating.fk_pk_genreID = g.pk_genreID');
+      window.ipcRenderer.receive('fromGetGenreRating', (data) => {
+        for (let i = 0; i < writers.length; i++) {
+          if(data.fk_pk_personID === writers[i]._id){
+            writers[i]._genre[data.genreName] = data.number;
+          }
+        }
+
+        for (let i = 0; i < directors.length; i++) {
+          if(data.fk_pk_personID === directors[i]._id){
+            directors[i]._genre[data.genreName] = data.number;
+          }
+        }
+
+        for (let i = 0; i < actors.length; i++) {
+          if(data.fk_pk_personID === actors[i]._id){
+            actors[i]._genre[data.genreName] = data.number;
+          }
         }
       })
+
       this.$store.commit('setAllWriters', writers);
       this.$store.commit('setAllDirectors', directors);
       this.$store.commit('setAllActors', actors);
       this.$store.commit('setAllTopics',topics);
-
-      console.log('Actors: ');
-      console.log(this.$store.getters.getAllActors);
-      console.log('Writers: ');
-      console.log(this.$store.getters.getAllWriters);
-      console.log('Directors: ');
-      console.log(this.$store.getters.getAllDirectors);
     },
   },
 }

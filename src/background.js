@@ -31,14 +31,31 @@ async function createWindow() {
   });
 
   //IPC Main
-  ipcMain.on('toMain', (event, data) => {
+  ipcMain.on('toGetPeople', (event, data) => {
     db.serialize(() => {
       db.each(data, (err, row) => {
         if (err) console.log(err)
-        else event.sender.send('fromMain', row)
+        else event.sender.send('fromGetPeople', row)
       })
     })
+  })
 
+  ipcMain.on('toGetTopics', (event, data) => {
+    db.serialize(() => {
+      db.each(data, (err, row) => {
+        if (err) console.log(err)
+        else event.sender.send('fromGetTopics', row)
+      })
+    })
+  })
+
+  ipcMain.on('toGetGenreRating', (event, data) => {
+    db.serialize(() => {
+      db.each(data, (err, row) => {
+        if (err) console.log(err)
+        else event.sender.send('fromGetGenreRating', row)
+      })
+    })
   })
 // IPC Saving
   ipcMain.on('savingData', (event, data) => {

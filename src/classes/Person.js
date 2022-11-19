@@ -1,6 +1,6 @@
 export default class Person {
     constructor(id, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent,
-                popularity, rating, salary, isActor, isDirector, isWriter) {
+                popularity, rating, salary, isActor, isDirector, isWriter, genre) {
         this._id = id;
         this._avatar = avatar;
         this._first_name = first_name;
@@ -20,6 +20,7 @@ export default class Person {
         this._isActor = isActor;
         this._isDirector = isDirector;
         this._isWriter = isWriter;
+        this._genre = genre;
     }
 
     get id() {
@@ -96,5 +97,10 @@ export default class Person {
 
     get isWriter() {
         return this._isWriter;
+    }
+
+
+    get genre() {
+        return this._genre;
     }
 }

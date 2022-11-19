@@ -329,7 +329,6 @@ export default {
 
     timePeriodButtonClick(){
       this.showTimePeriodModal = true;
-      console.log(this.items)
     },
 
     goBack(){
