@@ -101,7 +101,8 @@ i18next
                         create2: "Create",
                         existing: "Buy a existing Screenplay",
                         pitch: "Pitch an idea",
-                        idea: "Show screenplay infos"
+                        idea: "Show screenplay infos",
+                        continue: "Continue"
                     },
                     hireDirectorSection: {
                         hire: "Hire a Director",
@@ -109,7 +110,7 @@ i18next
                         salary: "Select a salary",
                         offer: "Send offer",
                         decision: "'s decision",
-                        think: "Try to readjust the salary"
+                        think: "Try to readjust the salary or increase the creative control"
                     },
                     calendar: 'Calendar',
                     streaming: 'Streaming',

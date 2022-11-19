@@ -19,7 +19,8 @@ export default class Person {
         this._salary = salary;
         this._isActor = isActor;
         this._isDirector = isDirector;
-        this._isWriter = isWriter;
+        this._isWriter = isWriter
+        this._no = 0
     }
 
     get id() {
@@ -96,5 +97,9 @@ export default class Person {
 
     get isWriter() {
         return this._isWriter;
+    }
+
+    get noCounter() {
+        return this._no;
     }
 }

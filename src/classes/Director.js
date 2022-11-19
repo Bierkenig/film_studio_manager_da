@@ -90,4 +90,8 @@ export class Director {
     noCounter() {
         this.no++
     }
+
+    getNoCounter() {
+        return this.no;
+    }
 }
