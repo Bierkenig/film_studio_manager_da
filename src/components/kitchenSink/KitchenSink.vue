@@ -40,7 +40,8 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-icon icon="home" size="80px" theme="light" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="settings" size="80px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
+      <code-view
+          code='<custom-icon icon="settings" size="80px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
       <code-view code='<custom-icon icon="suicide" size="80px" theme="light" :gradient="true" :shadow="false"/>'/>
       <code-view code='<custom-icon icon="movies" size="80px" theme="dark" :gradient="false" :shadow="true"/>'/>
       <code-view code='<custom-icon icon="prison" size="80px" theme="dark" :gradient="false" :shadow="false"/>'/>
@@ -63,17 +64,26 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view code='<icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>'/>
-      <code-view code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>'/>
+      <code-view
+          code='<icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
+      <code-view
+          code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
+      <code-view
+          code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>'/>
+      <code-view
+          code='<icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>'/>
+      <code-view
+          code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
-        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
+        <icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false"
+                     :shadow="false"/>
+        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false"
+                     :shadow="false"/>
+        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false"
+                     :shadow="false"/>
         <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>
-        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>
+        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true"
+                     :shadow="false"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -89,7 +99,8 @@
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'true' + singleQuote + '>'"/>
+      <code-view
+          :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'true' + singleQuote + '>'"/>
       <code-view code='░░<div>Movies</div>'/>
       <code-view code='░░<div>People</div>'/>
       <code-view code='░░<div>Others</div>'/>
@@ -118,13 +129,17 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>'/>
+      <code-view
+          code='<production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>'/>
       <production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<news-element svg-code="" heading-text="News Heading Text News Heading Text" info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>'/>
-      <code-view code='<news-element :svg-code="examplePoster" heading-text="News Heading Text News Heading Text" info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>'/>
-      <code-view code='<news-element :svg-code="exampleAvatar" heading-text="News Heading Text News Heading Text" info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>'/>
+      <code-view
+          code='<news-element svg-code="" heading-text="News Heading Text News Heading Text" info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>'/>
+      <code-view
+          code='<news-element :svg-code="examplePoster" heading-text="News Heading Text News Heading Text" info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>'/>
+      <code-view
+          code='<news-element :svg-code="exampleAvatar" heading-text="News Heading Text News Heading Text" info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>'/>
       <div class="kitchenSinkFlexRow">
         <news-element svg-code="" heading-text="News Heading Text News Heading Text"
                       info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."
@@ -137,6 +152,16 @@
         <news-element :svg-code="exampleAvatar" heading-text="News Heading Text News Heading Text"
                       info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."
         />
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>
+        <div class="kitchenSinkSpacer"/>
+        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>
+        <div class="kitchenSinkSpacer"/>
+        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>
       </div>
     </div>
   </div>
@@ -154,10 +179,12 @@ import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
 import EventElement from "@/components/kitchenSink/EventElement";
 import ProductionElement from "@/components/kitchenSink/ProductionElement";
 import NewsElement from "@/components/kitchenSink/NewsElement";
+import EarningElement from "@/components/kitchenSink/EarningElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    EarningElement,
     NewsElement,
     ProductionElement,
     HeaderInfo,
