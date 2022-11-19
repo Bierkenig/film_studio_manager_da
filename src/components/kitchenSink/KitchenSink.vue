@@ -117,6 +117,10 @@
         <event-element type="award"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>'/>
+      <production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>
+    </div>
   </div>
 </template>
 
@@ -130,10 +134,13 @@ import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
 import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
 import EventElement from "@/components/kitchenSink/EventElement";
+import ProductionElement from "@/components/kitchenSink/ProductionElement";
 
 export default {
   name: "KitchenSink",
-  components: {HeaderInfo, CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading, EventElement},
+  components: {
+    ProductionElement,
+    HeaderInfo, CustomIcon, TilePagesNav, IconButton, CodeView, CustomButton, BackgroundTile, PageHeading, EventElement},
   data() {
     return {
       navExample1: ['All', 'In Production', 'Released'],
