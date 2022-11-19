@@ -1,5 +1,6 @@
 <template>
   <div class="backgroundTileMainDiv">
+    <icon-button class="backgroundTileIcon" :id="'backgroundTileIcon' + randomId" :icon="icon" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
     <div class="backgroundTileTitle">
       {{ title }}
     </div>
@@ -8,10 +9,13 @@
 </template>
 
 <script>
+import IconButton from "@/components/kitchenSink/IconButton";
 export default {
   name: "backgroundTile",
+  components: {IconButton},
   data() {
     return {
+      randomId: Math.floor(Math.random() * Math.pow(10, 10)),
       whiteColor: 'var(--fsm-white)',
       greyColor: 'var(--fsm-grey-font-color)',
       colorValue: '',
@@ -28,7 +32,11 @@ export default {
       validator(value) {
         return ['white', 'grey'].includes(value);
       }
-    }
+    },
+    icon: {
+      type: String,
+      default: 'open',
+    },
   },
   methods: {
     setCSSVariables() {
@@ -36,6 +44,9 @@ export default {
         this.colorValue = this.whiteColor;
       } else if (this.contentColor === 'grey') {
         this.colorValue = this.greyColor;
+      }
+      if (this.icon !== 'open') {
+        document.getElementById('backgroundTileIcon' + this.randomId).style.display = 'flex';
       }
     },
   },
@@ -57,6 +68,11 @@ export default {
   font-weight: var(--fsm-fw-regular);
   font-size: 22px;
   color: v-bind('colorValue');
+}
+
+.backgroundTileIcon {
+  display: none;
+  float: right;
 }
 
 .backgroundTileTitle {

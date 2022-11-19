@@ -13,11 +13,11 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<background-tile title="Title" content-color="white">Test</background-tile> (DEFAULT)'/>
-      <code-view code='<background-tile title="Title" content-color="grey">Test</background-tile>'/>
+      <code-view code='<background-tile title="Title" content-color="grey" icon="movies">Test</background-tile>'/>
       <div class="kitchenSinkFlexRow">
         <background-tile title="Title" content-color="white">Test</background-tile>
         <div class="kitchenSinkSpacer"/>
-        <background-tile title="Title" content-color="grey">Test</background-tile>
+        <background-tile title="Title" content-color="grey" icon="movies">Test</background-tile>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
