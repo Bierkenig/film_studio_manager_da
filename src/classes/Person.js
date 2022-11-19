@@ -21,6 +21,7 @@ export default class Person {
         this._isDirector = isDirector;
         this._isWriter = isWriter;
         this._genre = genre;
+        this._no = 0;
     }
 
     get id() {
@@ -99,8 +100,11 @@ export default class Person {
         return this._isWriter;
     }
 
-
     get genre() {
         return this._genre;
+    }
+
+    get noCounter() {
+        return this._no;
     }
 }

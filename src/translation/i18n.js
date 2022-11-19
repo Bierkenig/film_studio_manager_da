@@ -92,6 +92,26 @@ i18next
                         november: "November",
                         december: "December",
                     },
+                    buyScreenplaySection: {
+                        buyScreenplay: "Buy a Screenplay",
+                        buy: "Buy",
+                        create: "Create a Screenplay",
+                        expand: "Expand with a Sequel or a Prequel",
+                        new: "Create a new Screenplay",
+                        create2: "Create",
+                        existing: "Buy a existing Screenplay",
+                        pitch: "Pitch an idea",
+                        idea: "Show screenplay infos",
+                        continue: "Continue"
+                    },
+                    hireDirectorSection: {
+                        hire: "Hire a Director",
+                        negotiate: "Negotiate",
+                        salary: "Select a salary",
+                        offer: "Send offer",
+                        decision: "'s decision",
+                        think: "Try to readjust the salary or increase the creative control"
+                    },
                     calendar: 'Calendar',
                     streaming: 'Streaming',
                     skipWeek: 'Skip to next week',

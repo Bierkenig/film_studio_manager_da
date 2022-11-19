@@ -7,6 +7,9 @@
       <movie-section class="inProductionMovies" :heading="$t('inProduction')" :data="this.$store.getters.getCreatedMovies"/>
       <upcoming-events-section class="upcomingEvents"/>
     </div>
+    <router-link to="directorSection">
+      <button>director</button>
+    </router-link>
   </div>
 </template>
 
