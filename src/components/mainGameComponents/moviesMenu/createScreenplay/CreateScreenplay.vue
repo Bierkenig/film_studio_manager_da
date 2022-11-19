@@ -96,8 +96,14 @@
 
 <script>
 
+import Franchises from "@/classes/Franchises";
+
 export default {
   name: "CreateScreenplay",
+
+  props: {
+    franchise: Franchises
+  },
 
   data() {
     return {

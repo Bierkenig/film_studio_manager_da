@@ -105,6 +105,7 @@ export default createStore({
         allMovies: [],
         allAwards: [],
         allTopics: [],
+        allScreenplays: [],
     },
 
     /** Methods that read the application state */
@@ -238,6 +239,10 @@ export default createStore({
 
         getAllAwards(state) {
             return state.allAwards
+        },
+
+        getAllScreenplays(state) {
+            return state.allScreenplays;
         }
     },
 

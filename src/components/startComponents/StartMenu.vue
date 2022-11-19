@@ -21,7 +21,6 @@
 
               <button id="saveButton" class="buttonStyle" @click="save">save</button>
               <button id="deleteButton" class="buttonStyle" @click="deleting">delete</button>
-
             </div>
           </div>
         </div>
@@ -32,7 +31,6 @@
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
-
 export default {
   name: 'StartMenu',
 

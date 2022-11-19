@@ -17,6 +17,11 @@ export class Director {
         this.performance = performance;
         this.popularity = popularity;
         this.avatar = avatar;
+        this.no = 0
+    }
+
+    getId() {
+        return this.id;
     }
 
     getSalary() {
@@ -81,4 +86,8 @@ export class Director {
         return {id: this.id}
     }
 
+    //methods
+    noCounter() {
+        this.no++
+    }
 }
