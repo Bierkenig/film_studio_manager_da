@@ -106,13 +106,13 @@
       <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
       <code-view code='<event-element type="award"/>'/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="productionFinished" movieName="Movie Title Name One"/>
+        <event-element type="productionFinished" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="featureFilm" movieName="Movie Title Name One"/>
+        <event-element type="featureFilm" movieTitle="Movie Title Name One"/>
       </div>
       <div class="kitchenSinkSpacer"/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="blockbuster" movieName="Movie Title Name One"/>
+        <event-element type="blockbuster" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
         <event-element type="award"/>
       </div>

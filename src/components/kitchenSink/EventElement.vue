@@ -38,9 +38,9 @@ export default {
         return ['productionFinished', 'featureFilm', 'blockbuster', 'award'].includes(value);
       }
     },
-    movieName: {
+    movieTitle: {
       type: String,
-      default: 'movieName',
+      default: 'movieTitle',
     }
   },
   methods: {
@@ -49,17 +49,17 @@ export default {
         case 'productionFinished':
           document.getElementById('productionFinishedIcon' + this.randomId).style.display = 'block';
           this.title = 'Production finished';
-          this.description = 'Of the movie "' + this.movieName + '"';
+          this.description = 'Of the movie "' + this.movieTitle + '"';
           break;
         case 'featureFilm':
           document.getElementById('featureFilmIcon' + this.randomId).style.display = 'block';
           this.title = 'Feature Film Release';
-          this.description = 'Of the movie "' + this.movieName + '"';
+          this.description = 'Of the movie "' + this.movieTitle + '"';
           break;
         case 'blockbuster':
           document.getElementById('blockbusterIcon' + this.randomId).style.display = 'block';
           this.title = 'Blockbuster Release';
-          this.description = 'Of the movie "' + this.movieName + '"';
+          this.description = 'Of the movie "' + this.movieTitle + '"';
           break;
         case 'award':
           document.getElementById('awardIcon' + this.randomId).style.display = 'block';
