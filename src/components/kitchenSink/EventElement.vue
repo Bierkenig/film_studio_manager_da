@@ -93,7 +93,7 @@ export default {
 .eventElementMainContent {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .eventElementIcon {
