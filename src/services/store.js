@@ -3,8 +3,8 @@ import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
 import News from "@/classes/News";
 import Award from "@/classes/Award";
-import Actor from "@/classes/Actor";
 import {Screenplay} from "@/classes/Screenplay";
+import Person from "@/classes/Person";
 
 export default createStore({
     /** Application state */
@@ -28,11 +28,11 @@ export default createStore({
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [
             new News('Studio 1235 gegründet',
-                new Actor(0, 'Jakob', 'hallo', 23, 23, 350498, 123456, 'male', null, 3, 'arabian', 4, 'austrian', 4, 5),
+                new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Deine MUm', 'internationalAward')),
             new News('Benni ist cool',
-                new Actor(1, 'Benni', 'Schmid', 12, 23, 350498, 123456, 'male', null, 3, 'arabian', 4, 'austrian', 4, 5),
+                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Neuer', 'anderer Award'))
         ],
