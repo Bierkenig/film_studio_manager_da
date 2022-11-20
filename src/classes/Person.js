@@ -22,7 +22,8 @@ export default class Person {
         this._isWriter = isWriter;
         this._genre = genre;
         this._no = 0;
-        this.finishedScreenplay = finishedScreenplay
+        if (isDirector) this.finishedScreenplay = finishedScreenplay;
+        if (isActor) this.notAvailable = 0;
     }
 
     get id() {

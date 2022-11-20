@@ -17,8 +17,7 @@
     </div>
     <div v-if="show2">{{currentDir._first_name}} {{currentDir._last_name}}{{$t('hireDirectorSection.decision')}}: {{directorDecision ? "yes" : "no"}}</div>
     <div v-if="this.directorDecision === false && show2">{{$t('hireDirectorSection.think')}}</div>
-    <!-- TODO Continue button -->
-    <button v-if="directorDecision === true" @click="this.$router.push({})">{{$t('buyScreenplaySection.continue')}}</button>
+    <button v-if="directorDecision === true" @click="this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
   </div>
 </template>
 
@@ -56,8 +55,7 @@ export default {
       this.salaryRange.step = 1
 
       //set director
-      this.directorControl = (el.popularity + el.experience + el.rating) / 3
-      console.log(this.directorControl)
+      this.directorControl = Math.round((el.popularity + el.experience + el.rating) / 3)
     },
     checkDirector() {
       if (this.directorControlFromUser <= 50) {
@@ -88,7 +86,7 @@ export default {
           this.directorDecision = false
         }
       }
-      this.directorDecision !== true ? this.currentDir._no++ : ""
+      this.directorDecision !== true ? this.currentDir._no++ : this.$store.state.preProduction.hiredDirector = this.currentDir
       if (this.currentDir._no === 3) {
         this.show = false
         this.show2 = false

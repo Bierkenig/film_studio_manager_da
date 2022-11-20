@@ -104,6 +104,13 @@ export default createStore({
         //preProduction
         preProduction: {
             hiredDirector: null,
+            hiredActors: {
+                main: [],
+                support: [],
+                minor: [],
+                cameo: [],
+                voiceOver: [],
+            }
         },
         //data from database
         allActors: [],
