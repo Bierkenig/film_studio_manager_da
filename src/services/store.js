@@ -5,6 +5,7 @@ import News from "@/classes/News";
 import Award from "@/classes/Award";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
+import Franchises from "@/classes/Franchises";
 
 export default createStore({
     /** Application state */
@@ -87,7 +88,8 @@ export default createStore({
             start: '2023-01-07',
             end: '2023-01-09'
             }],
-        franchises: [],
+        franchises: [new Franchises(0, 'Hallo was geht')],
+        currentFranchise: null,
         otherStudios: [
             [new Studio('Example Studio 1').getName(), "2023", 100],
             [new Studio('Example Studio 2').getName(), "2023", 200],
@@ -98,6 +100,11 @@ export default createStore({
             {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
         ],
         allYears: [2023, 2024, 2025],
+
+        //preProduction
+        preProduction: {
+            hiredDirector: null,
+        },
         //data from database
         allActors: [],
         allDirectors: [],
@@ -250,6 +257,10 @@ export default createStore({
 
         getAllDirectorSalary(state) {
             return state.allDirectorSalary;
+        },
+
+        getCurrentFranchise(state) {
+            return state.currentFranchise;
         }
     },
 

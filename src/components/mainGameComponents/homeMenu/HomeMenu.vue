@@ -10,6 +10,9 @@
     <router-link to="directorSection">
       <button>director</button>
     </router-link>
+    <router-link to="screenplaySection">
+      <button>screenplay</button>
+    </router-link>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 import store from "../services/store";
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -22,6 +22,7 @@ export class Screenplay {
         this.writingPhase = null;
         this.rewritingValue = 3;
         this.rewritingStatus = false;
+        this.franchise = franchise
     }
 
     getId() {

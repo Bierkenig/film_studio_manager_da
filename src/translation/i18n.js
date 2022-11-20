@@ -95,14 +95,17 @@ i18next
                     buyScreenplaySection: {
                         buyScreenplay: "Buy a Screenplay",
                         buy: "Buy",
-                        create: "Create a Screenplay",
+                        choose: "Choose",
                         expand: "Expand with a Sequel or a Prequel",
+                        expand2: "Expand",
                         new: "Create a new Screenplay",
                         create2: "Create",
                         existing: "Buy a existing Screenplay",
                         pitch: "Pitch an idea",
                         idea: "Show screenplay infos",
-                        continue: "Continue"
+                        continue: "Continue",
+                        selFran: "Selected Franchise: ",
+                        select: "Select",
                     },
                     hireDirectorSection: {
                         hire: "Hire a Director",

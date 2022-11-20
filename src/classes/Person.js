@@ -1,6 +1,6 @@
 export default class Person {
     constructor(id, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent,
-                popularity, rating, salary, isActor, isDirector, isWriter, genre) {
+                popularity, rating, salary, isActor, isDirector, isWriter, genre, finishedScreenplay = null) {
         this._id = id;
         this._avatar = avatar;
         this._first_name = first_name;
@@ -22,6 +22,7 @@ export default class Person {
         this._isWriter = isWriter;
         this._genre = genre;
         this._no = 0;
+        this.finishedScreenplay = finishedScreenplay
     }
 
     get id() {
@@ -102,9 +103,5 @@ export default class Person {
 
     get genre() {
         return this._genre;
-    }
-
-    get noCounter() {
-        return this._no;
     }
 }
