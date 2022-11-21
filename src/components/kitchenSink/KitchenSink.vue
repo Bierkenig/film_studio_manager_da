@@ -1,4 +1,14 @@
 <template>
+  <div class="kitchenSinkComponentDiv">
+    <code-view code=''/>
+    <div class="kitchenSinkFlexRow">
+      <custom-list-sort />
+      <div class="kitchenSinkSpacer"/>
+      <custom-list-sort />
+      <div class="kitchenSinkSpacer"/>
+      <custom-list-sort />
+    </div>
+  </div>
   <div id="kitchenSinkMainDiv">
     <router-link :to="{ name: 'default'}">
       <button id="startMenuButton" class="buttonStyle">Menu</button>
@@ -174,6 +184,16 @@
         <custom-select :options="exampleOptions" placeholder="Please Select"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<custom-list-sort />'/>
+      <div class="kitchenSinkFlexRow">
+        <custom-list-sort />
+        <div class="kitchenSinkSpacer"/>
+        <custom-list-sort />
+        <div class="kitchenSinkSpacer"/>
+        <custom-list-sort />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -191,10 +211,12 @@ import ProductionElement from "@/components/kitchenSink/ProductionElement";
 import NewsElement from "@/components/kitchenSink/NewsElement";
 import EarningElement from "@/components/kitchenSink/EarningElement";
 import CustomSelect from "@/components/kitchenSink/CustomSelect";
+import CustomListSort from "@/components/kitchenSink/CustomListSort";
 
 export default {
   name: "KitchenSink",
   components: {
+    CustomListSort,
     CustomSelect,
     EarningElement,
     NewsElement,
