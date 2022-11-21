@@ -1,7 +1,7 @@
 import store from "../services/store";
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, scope, franchise = null) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -14,6 +14,7 @@ export class Screenplay {
         this.type = type;
         this.subgenre = subgenre;
         this.topics = topics;
+        //scope = little, small, normal, large, epic
         this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
         this.acts = {act1: [], act2: [], act3: []};
         this.details = {scope: '', tone: '', specialEffects: ''};
@@ -22,6 +23,7 @@ export class Screenplay {
         this.writingPhase = null;
         this.rewritingValue = 3;
         this.rewritingStatus = false;
+        this.franchise = franchise
     }
 
     getId() {

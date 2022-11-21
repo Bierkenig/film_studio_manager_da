@@ -15,7 +15,7 @@
         <option value="movie">{{$t('newsData.movie')}}</option>
         <option value="award">{{$t('newsData.award')}}</option>
       </select>
-      <div v-for="(el, index) in sortedNews" :key="index">{{el.getTitle()}} / {{el.getPerson() === null ? "" : el.getPerson().getLastName()}} / {{el.getMovie() === null ? "" : el.getMovie()}} / {{el.getAward() === null ? "" : el.getAward().getDesc()}}</div>
+      <div v-for="(el, index) in sortedNews" :key="index">{{el.getTitle()}} / {{el.getPerson() === null ? "" : el.getPerson()._first_name / el.getPerson()._last_name}} / {{el.getMovie() === null ? "" : el.getMovie()}} / {{el.getAward() === null ? "" : el.getAward().getDesc()}}</div>
     </div>
 
     <div>
@@ -26,7 +26,7 @@
         <option value="values">{{$t('newsData.values')}}</option>
       </select>
       <div v-for="(el, index) in selectedPeople" :key="index">
-        {{el.firstName}} / {{el.lastName}} / {{el.age}} / {{el.salary}} / {{el.genres}} / {{el.avatar}} / {{el.nationality}} / {{el.ethnicity}} / {{el.rating}}
+        {{el._first_name}} / {{el._last_name}} / {{el.age}} / {{el.salary}} / {{el.genre}} / {{el.avatar}} / {{el.nationality}} / {{el.ethnicity}} / {{el.rating}}
       </div>
     </div>
 
@@ -38,7 +38,7 @@
         <option value="earnings">{{$t('newsData.earnings')}}</option>
       </select>
       <div v-for="(el, index) in allMovies" :key="index">
-        {{el.getScreenplay().getTitle()}} / {{el.getDirector().getFullName()}} / {{el.getScreenplay().getGenre()}} / {{el.getScreenplay().getAgeRating()}} / {{el.getScreenplay().getDescription()}}
+        {{el.getScreenplay().getTitle()}} / {{el.getDirector()._first_name / el.getDirector()._last_name}} / {{el.getScreenplay().getGenre()}} / {{el.getScreenplay().getAgeRating()}} / {{el.getScreenplay().getDescription()}}
       </div>
     </div>
 
@@ -131,7 +131,7 @@ export default {
       switch (this.selectedPerson) {
         case "name":
           this.selectedPeople.sort((a,b) => {
-            return a.lastName.toLowerCase().localeCompare(b.lastName.toLowerCase())
+            return a._last_name.toLowerCase().localeCompare(b._last_name.toLowerCase())
           })
           break
         case "age":
@@ -185,7 +185,7 @@ export default {
 
   mounted() {
 
-    this.selectedPeople = this.$store.state.people
+    this.selectedPeople = this.$store.state.allPeople
     this.allMovies.push(this.$store.getters.getAllMovies)
     this.allAwards.push(this.$store.getters.getAllAwards)
 

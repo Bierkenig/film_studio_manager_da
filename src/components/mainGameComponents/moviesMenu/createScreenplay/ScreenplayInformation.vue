@@ -62,9 +62,7 @@
       <p>{{ $t('writingPhase') }}: {{ screenplay.writingPhase }}</p>
     </div>
     <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
-    <router-link :to="{name: 'movies'}">
-      <button @click="onButtonClick">Save Screenplay</button>
-    </router-link>
+    <button @click="onButtonClick">Save Screenplay</button>
   </div>
 </template>
 
@@ -95,6 +93,13 @@ export default {
         this.$store.getters.getCurrentScreenplay.setRewritingStatus(false);
       }
       console.log(this.$store.getters.getCurrentScreenplay);
+
+      if (this.$store.state.preProduction.isPreProduction) {
+        this.$store.state.preProduction.currentScreenplay = this.screenplay
+        this.$router.push({name: 'directorSection'})
+      } else {
+        this.$router.push({name: 'movies'});
+      }
     },
 
     goBack(){

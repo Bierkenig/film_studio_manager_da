@@ -6,6 +6,7 @@
           <div id="createScreenplayHeader">
             {{ $t('createScreenplay') }}
           </div>
+          <div v-if="this.$store.getters.getCurrentFranchise !== null">{{$t('buyScreenplaySection.selFran')}}{{this.$store.getters.getCurrentFranchise.name}}</div>
           <input id="createScreenplayTitle" v-model="title" :placeholder="$t('movieTitle')" />
           <textarea id="createScreenplayDescription" v-model="desc" :placeholder="$t('description')" />
           <select
@@ -113,15 +114,8 @@
 </template>
 
 <script>
-
-import Franchises from "@/classes/Franchises";
-
 export default {
   name: "CreateScreenplay",
-
-  props: {
-    franchise: Franchises
-  },
 
   data() {
     return {
@@ -137,6 +131,10 @@ export default {
     }
   },
 
+  mounted() {
+    console.log(this.$store.getters.getCurrentScreenplay)
+  },
+
   methods: {
     createScreenplay() {
       this.$store.getters.getCurrentScreenplay.title = this.title;
@@ -147,6 +145,7 @@ export default {
       this.$store.getters.getCurrentScreenplay.topics.firstTopic = this.topics[0];
       this.$store.getters.getCurrentScreenplay.topics.secondTopic = this.topics[1];
       this.$store.getters.getCurrentScreenplay.topics.thirdTopic = this.topics[2];
+      this.$store.getters.getCurrentScreenplay.franchise = this.$store.getters.getCurrentFranchise
       this.$router.push({name: 'screenplayCharacters'});
     },
 
@@ -167,7 +166,7 @@ export default {
         return false;
       }
     }
-  }
+  },
 }
 </script>
 
