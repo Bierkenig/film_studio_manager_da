@@ -491,7 +491,7 @@ export default createStore({
             //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
             Object.keys(state).forEach(key => delete state[key]);
             Object.assign(state, responseData)
-            // state.screenplays = store.state.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             // //state.actors = store.state.actors.map(jsonObject => actors.find(actor => actor.id === jsonObject.id)).filter(actor => actor)

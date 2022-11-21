@@ -1,6 +1,8 @@
 <template>
   <div id="card">
-    <h1>{{ $t('noSaving') }}</h1>
+    <h1 v-if="this.disabledButton">{{ $t('noSaving') }}</h1>
+    <h1 v-else> {{studioName}} </h1>
+    <p> {{date}} </p>
     <p>{{$t('save_slot')}}: {{slotNr}}</p>
     <button id="loadButton" class="buttonStyle" :disabled="disabledButton" @click="load">load</button>
 
@@ -20,24 +22,39 @@ export default {
 
   data(){
     return {
-      disabledButton: null
+      disabledButton: null,
+      date: null,
+      studioName: null
     }
   },
 
   mounted() {
-    window.ipcRenderer.send('r2mChecking',this.slotNr)
+    window.ipcRenderer.send('r2mChecking', this.slotNr)
     window.ipcRenderer.receive('m2rChecking', data => {
       console.log(data[0])
       console.log(this.slotNr)
-        if(data[0] === true){
-          if(data[1] === this.slotNr) {
-            this.disabledButton = false;
-          }
+      if (data[0] === true) {
+        if (data[1] === this.slotNr) {
+          this.disabledButton = false;
+        }
 
+      } else if (data[0] === false && data[1] === this.slotNr) {
+        this.disabledButton = true;
+      }
+    })
+
+    window.ipcRenderer.send('r2mLoading', this.slotNr)
+    window.ipcRenderer.receive('m2rLoading', data => {
+      if(data[0] !== null) {
+        if (data[1] === '100') {
+          if (data[2] === this.slotNr) {
+            console.log(data[0].de_date)
+            this.date = data[0].de_date
+            this.studioName = data[0].state.studio.name
+            console.log("Date eingesetzt")
+          }
         }
-        else if(data[0] === "error" || data[0] === false) {
-          this.disabledButton = true;
-        }
+      }
     })
 
   },
@@ -48,17 +65,21 @@ export default {
       window.ipcRenderer.receive('m2rLoading', data => {
         if(data[1]==='100') {
           let saveData = data[0].state
+          console.log(data[0].en_date)
           this.$store.commit("loadFromSave", saveData)
-          console.log('Save-File was loaded')
+          console.log('Save-File was loaded : ' + data[1])
         }
         else if(data[1] === '101') {
-          console.log('Save-File corrupted - Save State was recovered')
+          console.log('Save-File corrupted - Save State was recovered : ' + data[1])
           let saveData = data[0].state
           this.$store.commit("loadFromSave", saveData)
         }
         else if(data[1] === '102'){
           //TODO code hier wenn save-file kaputt ist - Möglicherweise löschen
-          console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered")
+          console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered : " + data[1])
+        }
+        else if(data[1] === '103'){
+          console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File vom *DATUM* laden? : ' + data[1])
         }
       })
     }

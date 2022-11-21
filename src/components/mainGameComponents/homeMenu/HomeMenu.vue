@@ -13,6 +13,8 @@
     <router-link to="screenplaySection">
       <button>screenplay</button>
     </router-link>
+    <button id="saveButton" class="buttonStyle" @click="save">save</button>
+
   </div>
 </template>
 
@@ -25,7 +27,13 @@ import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMe
 export default {
   name: "HomeMenu",
   mixins: [soundeffectMixin('button','click')],
-  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection}
+  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection},
+  methods: {
+    save() {
+      let slotNr = 1
+      window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
+    }
+  }
 }
 </script>
 
