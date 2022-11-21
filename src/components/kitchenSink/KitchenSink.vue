@@ -1,14 +1,4 @@
 <template>
-  <div class="kitchenSinkComponentDiv">
-    <code-view code=''/>
-    <div class="kitchenSinkFlexRow">
-      <custom-list-sort />
-      <div class="kitchenSinkSpacer"/>
-      <custom-list-sort />
-      <div class="kitchenSinkSpacer"/>
-      <custom-list-sort />
-    </div>
-  </div>
   <div id="kitchenSinkMainDiv">
     <router-link :to="{ name: 'default'}">
       <button id="startMenuButton" class="buttonStyle">Menu</button>
@@ -208,6 +198,11 @@
         <div class="kitchenSinkSpacer"/>
         <info-circle text="13+" :dark="false"/>
       </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>'/>
+      <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>
+    </div>
   </div>
 </template>
 
