@@ -6,7 +6,6 @@ import LoadWindow from "@/components/startComponents/LoadWindow";
 import MainSettings from "@/components/startComponents/MainSettings";
 import News from "@/components/mainGameComponents/newsMenu/NewsMenu";
 import Movies from "@/components/mainGameComponents/moviesMenu/MoviesMenu";
-import Library from "@/components/mainGameComponents/libraryMenu/LibraryMenu";
 import Streaming from "@/components/mainGameComponents/streamingMenu/StreamingMenu";
 import Finances from "@/components/mainGameComponents/financesMenu/FinancesMenu";
 import Calendar from "@/components/mainGameComponents/calendarMenu/CalendarMenu";
@@ -26,7 +25,6 @@ import afterPreProductionPhase from "@/components/mainGameComponents/preProducti
 const routes = [
     { name: 'news', path: '/news', component: News, props: true },
     { name: 'movies', path: '/movies', component: Movies, props: true },
-    { name: 'library', path: '/library', component: Library, props: true },
     { name: 'streaming', path: '/streaming', component: Streaming, props: true },
     { name: 'finances', path: '/finances', component: Finances, props: true },
     { name: 'calendar', path: '/calendar', component: Calendar, props: true },
