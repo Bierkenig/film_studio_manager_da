@@ -12,15 +12,15 @@
     <div v-if="show">
       <div>{{$t('actorSection.salary')}}{{currentActor._first_name}} {{currentActor._last_name}}</div>
       <input type="range" :min="swiper.min" :max="swiper.max" :step="swiper.step" v-model="selectedSalary">
-      <div>{{$t('actorSection.role')}}</div>
-      <input type="radio" name="role" value="main" v-model="selectedRole">
-      <input type="radio" name="role" value="support" v-model="selectedRole">
-      <input type="radio" name="role" value="minor" v-model="selectedRole">
-      <input type="radio" name="role" value="cameo" v-model="selectedRole">
-      <input type="radio" name="role" value="voiceOver" v-model="selectedRole">
+      <div>{{$t('actorSection.character')}}{{this.currentActor._first_name}} {{this.currentActor._last_name}}</div>
+      <select v-model="selectedCharacter">
+        <option v-for="(el, index) in allCharacters" :key="index">
+          {{el}}
+        </option>
+      </select>
       <div>{{$t('actorSection.selected')}}</div>
       <div>{{$t('actorSection.salary2')}}{{selectedSalary}}</div>
-      <div>{{$t('actorSection.role2')}}{{selectedRole}}</div>
+      <div>{{$t('actorSection.character2')}}{{selectedCharacter}}</div>
       <!-- TODO Director Smiley-->
       <div></div>
       <button @click="checkActor">{{$t('actorSection.hire2')}}</button>
@@ -41,10 +41,14 @@ export default {
   data() {
     return {
       actors: this.$store.getters.getAllActors,
-      currentScreenplay: this.$store.getters.getCurrentScreenplay,
+      currentScreenplay: this.$store.state.preProduction.currentScreenplay,
       show: false,
       select: "",
       currentActor: null,
+      selectedCharacter: null,
+      allCharacters: this.currentScreenplay.roles.main.concat(this.currentScreenplay.roles.minor.concat(
+          this.currentScreenplay.roles.support.concat(this.currentScreenplay.roles.cameo.concat(
+              this.currentScreenplay.roles.voiceOver)))),
       currentDirectorControl: this.calcDirectorControl(this.$store.state.preProduction.hiredDirector),
       swiper: {
         min: this.$store.getters.getAllDirectorSalary[this.currentActor.rating - 5 - 1],
@@ -52,7 +56,6 @@ export default {
         step: 1,
       },
       selectedSalary: 0,
-      selectedRole: "",
       actorDecision: false,
       smiley: null,
       last: false,

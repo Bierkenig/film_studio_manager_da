@@ -131,10 +131,11 @@ i18next
                         salary: "Set the salary for ",
                         name: "Name",
                         availability: "Availability",
-                        role: "Select the role in which you want the actor to play",
+                        character: "Select the character which will be played by ",
                         selected: "Selected values: ",
                         salary2: "Salary: ",
-                        role2: "Role: ",
+                        character2: "Character: ",
+                        screenInfos: "Screenplay Infos",
                         hire2: "Hire",
                         decision: "'s decision: ",
                         smiley: "Your hired Director is not totally satisfied with your actor selection. Maybe you reconsider your decision?"

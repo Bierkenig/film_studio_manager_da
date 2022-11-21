@@ -27,13 +27,15 @@
       <div>{{$t('buyScreenplaySection.pitch')}}</div>
       <div v-for="(el, index) in directors" :key="index">
         {{el._first_name}} {{el._last_name}} / {{el.age}} / {{el.rating}}
-        <button @click="showModal = true">{{$t('buyScreenplaySection.idea')}}</button>
-        <!-- TODO modal popup fenster (kann man anscheinend nur stylen)-->
-        <div v-if="el.finishedScreenplay !== null">
-          <div>{{el.finishedScreenplay.title}} / {{el.finishedScreenplay.genre}} / {{el.finishedScreenplay.ageRating}} / {{el.finishedScreenplay.description}}</div>
-          <button @click="this.$store.state.preProduction.currentScreenplay = el">{{$t('buyScreenplaySection.select')}}</button>
-        </div>
+        <button @click="showModal = true; curDir = el">{{$t('buyScreenplaySection.idea')}}</button>
       </div>
+      <transition name="modal">
+        <screenplay-modal v-if="showModal" :el="curDir" @close="showModal = false">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </screenplay-modal>
+      </transition>
     </div>
     <button v-if="this.$store.getters.getCurrentScreenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
   </div>
@@ -41,13 +43,15 @@
 
 <script>
 import {Screenplay} from "@/classes/Screenplay";
+import ScreenplayModal from "@/components/mainGameComponents/preProduction/modals/screenplay-modal";
 
 export default {
   name: "screenplaySection",
-
+  components: {ScreenplayModal},
   data() {
     return {
       screenplays: this.$store.getters.getAllScreenplays,
+      curDir: null,
       boughtScreenplays: this.$store.getters.getBoughtScreenplays,
       owningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       franchises: this.$store.getters.getFranchises,
@@ -79,5 +83,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
