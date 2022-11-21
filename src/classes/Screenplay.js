@@ -15,7 +15,6 @@ export class Screenplay {
         this.subgenre = subgenre;
         this.topics = topics;
         //scope = little, small, normal, large, epic
-        this.scope = scope;
         this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
         this.acts = {act1: [], act2: [], act3: []};
         this.details = {scope: '', tone: '', specialEffects: ''};

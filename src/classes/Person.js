@@ -38,7 +38,7 @@ export default class Person {
         return this._first_name;
     }
 
-    get last_name() {
+    getLastName() {
         return this._last_name;
     }
 

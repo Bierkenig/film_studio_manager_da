@@ -73,7 +73,7 @@ export default {
     startGame() {
       this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
 
-      let writers = [], directors = [], actors = [], topics = [];
+      let writers = [], directors = [], actors = [], topics = [], people = [];
       window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
       window.ipcRenderer.receive('fromGetPeople', (data) => {
         if(data.isWriter == "true"){
@@ -91,6 +91,9 @@ export default {
               data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
               data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
         }
+        people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
+            data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
+            data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
       })
       window.ipcRenderer.send('toGetTopics','SELECT * FROM topics');
       window.ipcRenderer.receive('fromGetTopics', (data) => {
@@ -116,12 +119,19 @@ export default {
             actors[i]._genre[data.genreName] = data.number;
           }
         }
+
+        for (let i = 0; i < people.length; i++) {
+          if(data.fk_pk_personID === people[i]._id) {
+            people[i]._genre[data.genreName] = data.number;
+          }
+        }
       })
 
       this.$store.commit('setAllWriters', writers);
       this.$store.commit('setAllDirectors', directors);
       this.$store.commit('setAllActors', actors);
       this.$store.commit('setAllTopics',topics);
+      this.$store.commit('setAllPeople', people)
     },
   },
 }

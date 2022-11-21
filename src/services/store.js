@@ -103,6 +103,8 @@ export default createStore({
 
         //preProduction
         preProduction: {
+            isPreProduction: false,
+            currentScreenplay: null,
             hiredDirector: null,
             hiredActors: {
                 main: [],
@@ -113,6 +115,7 @@ export default createStore({
             }
         },
         //data from database
+        allPeople: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],
@@ -471,6 +474,9 @@ export default createStore({
             state.allTopics = value;
         },
 
+        setAllPeople(state, payload) {
+            state.allPeople = payload;
+        },
         loadFromSave(state, responseData){
             //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
             Object.keys(state).forEach(key => delete state[key]);

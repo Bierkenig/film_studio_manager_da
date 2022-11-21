@@ -100,7 +100,7 @@ i18next
                         expand2: "Expand",
                         new: "Create a new Screenplay",
                         create2: "Create",
-                        existing: "Buy a existing Screenplay",
+                        existing: "Choose a existing Screenplay",
                         pitch: "Pitch an idea",
                         idea: "Show screenplay infos",
                         continue: "Continue",

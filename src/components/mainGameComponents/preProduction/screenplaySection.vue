@@ -18,9 +18,9 @@
     </div>
     <div>
       <div>{{$t('buyScreenplaySection.existing')}}</div>
-      <div v-for="(el, index) in boughtScreenplays" :key="index">
+      <div v-for="(el, index) in owningScreenplays" :key="index">
         {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer}} / {{el.description}} / {{el.rating}} / {{el.price}}
-        <button @click="this.$store.state.currentScreenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
+        <button @click="this.$store.state.preProduction.currentScreenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
       </div>
     </div>
     <div>
@@ -31,7 +31,7 @@
         <!-- TODO modal popup fenster (kann man anscheinend nur stylen)-->
         <div v-if="el.finishedScreenplay !== null">
           <div>{{el.finishedScreenplay.title}} / {{el.finishedScreenplay.genre}} / {{el.finishedScreenplay.ageRating}} / {{el.finishedScreenplay.description}}</div>
-          <button @click="this.$store.state.currentScreenplay = el">{{$t('buyScreenplaySection.select')}}</button>
+          <button @click="this.$store.state.preProduction.currentScreenplay = el">{{$t('buyScreenplaySection.select')}}</button>
         </div>
       </div>
     </div>
@@ -49,6 +49,7 @@ export default {
     return {
       screenplays: this.$store.getters.getAllScreenplays,
       boughtScreenplays: this.$store.getters.getBoughtScreenplays,
+      owningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       franchises: this.$store.getters.getFranchises,
       directors: this.$store.getters.getAllDirectors,
       showModal: false,
@@ -58,7 +59,9 @@ export default {
   methods: {
     buy(screenplay) {
       this.$store.state.boughtScreenplays.push(screenplay)
-      this.$store.state.balance -= screenplay.price
+      if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0){
+        this.$store.state.balance -= screenplay.price
+      }
     },
 
     goToCreateScreenplay(el){
@@ -68,6 +71,7 @@ export default {
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
+      this.$store.state.preProduction.isPreProduction = true
       this.$router.push({name: 'createScreenplay'});
     }
   }

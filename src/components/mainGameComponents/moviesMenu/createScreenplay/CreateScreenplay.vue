@@ -131,6 +131,10 @@ export default {
     }
   },
 
+  mounted() {
+    console.log(this.$store.getters.getCurrentScreenplay)
+  },
+
   methods: {
     createScreenplay() {
       this.$store.getters.getCurrentScreenplay.title = this.title;
@@ -142,11 +146,7 @@ export default {
       this.$store.getters.getCurrentScreenplay.topics.secondTopic = this.topics[1];
       this.$store.getters.getCurrentScreenplay.topics.thirdTopic = this.topics[2];
       this.$store.getters.getCurrentScreenplay.franchise = this.$store.getters.getCurrentFranchise
-      if (this.$store.getters.getCurrentScreenplay.franchise !== null) {
-        this.$router.push({name: 'directorSection'})
-      } else {
-        this.$router.push({name: 'screenplayCharacters'});
-      }
+      this.$router.push({name: 'screenplayCharacters'});
     },
 
     disableTopic(value, index){
