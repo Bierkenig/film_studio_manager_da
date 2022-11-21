@@ -194,6 +194,20 @@
         <custom-list-sort />
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<info-circle />'/>
+      <code-view code='<info-circle text="13+"/>'/>
+      <code-view code='<info-circle :dark="false"/>'/>
+      <code-view code='<info-circle text="13+" :dark="false"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <info-circle />
+        <div class="kitchenSinkSpacer"/>
+        <info-circle text="13+"/>
+        <div class="kitchenSinkSpacer"/>
+        <info-circle :dark="false"/>
+        <div class="kitchenSinkSpacer"/>
+        <info-circle text="13+" :dark="false"/>
+      </div>
   </div>
 </template>
 
@@ -212,10 +226,14 @@ import NewsElement from "@/components/kitchenSink/NewsElement";
 import EarningElement from "@/components/kitchenSink/EarningElement";
 import CustomSelect from "@/components/kitchenSink/CustomSelect";
 import CustomListSort from "@/components/kitchenSink/CustomListSort";
+import MovieElement from "@/components/kitchenSink/MovieElement";
+import InfoCircle from "@/components/kitchenSink/InfoCircle";
 
 export default {
   name: "KitchenSink",
   components: {
+    InfoCircle,
+    MovieElement,
     CustomListSort,
     CustomSelect,
     EarningElement,
