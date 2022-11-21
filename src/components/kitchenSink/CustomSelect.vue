@@ -49,7 +49,7 @@ select {
   background-repeat: no-repeat;
   background-position-x: 100%;
   background-position-y: 50%;
-  background-size: 15px;
+  background-size: 13px;
   background-origin: content-box;
   border: none;
   border-radius: var(--fsm-s-border-radius);
