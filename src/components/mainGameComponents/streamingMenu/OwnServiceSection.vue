@@ -2,8 +2,8 @@
   <div id="ownServiceSection">
     <h1>Information on own service</h1>
     <div id="ownServiceSectionInformation">
-      <div>Subscribers {{ this.streamingService._subscribers }}</div>
-      <div>Profit {{ this.streamingService._profit }}</div>
+      <div>Subscribers {{ roundBudget(this.streamingService._subscribers) }}</div>
+      <div>Profit {{ roundBudget(this.streamingService._profit) }}</div>
     </div>
     <div>
       Price
@@ -33,7 +33,23 @@ export default {
       if(this.streamingService._price > 0){
         this.streamingService._price = this.streamingService._price - 0.5;
       }
-    }
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

@@ -12,7 +12,7 @@
 
       <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
       <p>{{ studioname }}</p>
-      <p>{{ budget }}</p>
+      <p>{{ roundBudget(budget) }}</p>
       <p>{{ ("0" + this.$store.getters.getCurrentDate.getDate()).slice(-2) }}
         {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
         {{ this.$store.getters.getCurrentDate.getFullYear() }}

@@ -1,26 +1,47 @@
 export default class Person {
     constructor(id, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent,
                 popularity, rating, salary, isActor, isDirector, isWriter, genre, finishedScreenplay = null) {
+        //TYPE -> Integer
         this._id = id;
+        //TYPE -> String
         this._avatar = avatar;
+        //TYPE -> String
         this._first_name = first_name;
+        //TYPE -> String
         this._last_name = last_name;
+        //TYPE -> Integer
         this._age = age;
+        //TYPE -> String
         this._gender = gender;
+        //TYPE -> String
         this._nationality = nationality;
+        //TYPE -> String
         this._ethnicity = ethnicity;
+        //TYPE -> Integer
         this._performance = performance;
+        //TYPE -> Integer
         this._experience = experience;
+        //TYPE -> Integer
         this._depth = depth;
+        //TYPE -> Integer
         this._craft = craft;
+        //TYPE -> String
         this._talent = talent;
+        //TYPE -> Integer
         this._popularity = popularity;
+        //TYPE -> Integer/Float
         this._rating = rating;
+        //TYPE -> String
         this._salary = salary;
+        //TYPE -> String
         this._isActor = isActor;
+        //TYPE -> String
         this._isDirector = isDirector;
+        //TYPE -> String
         this._isWriter = isWriter;
+        //TYPE -> String
         this._genre = genre;
+        //TYPE -> Integer
         this._no = 0;
         if (isDirector) this.finishedScreenplay = finishedScreenplay;
         if (isActor) this.notAvailable = 0;

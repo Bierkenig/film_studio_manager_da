@@ -1,7 +1,10 @@
 export class Character {
     constructor(name, gender, age) {
+        //TYPE -> String
         this.name = name;
+        //TYPE -> String
         this.gender = gender;
+        //TYPE -> Number
         this.age = age;
     }
 

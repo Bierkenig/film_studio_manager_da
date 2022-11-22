@@ -1,8 +1,12 @@
 export class StreamingService {
     constructor(name, price, profit, subscribers) {
+        //TYPE -> String
         this._name = name;
+        //TYPE -> Integer/Float
         this._price = price;
+        //TYPE -> Integer
         this._profit = profit;
+        //TYPE -> Integer
         this._subscribers = subscribers;
     }
 

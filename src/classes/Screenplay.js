@@ -2,27 +2,48 @@ import store from "../services/store";
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, scope, franchise = null) {
+        //TYPE -> Integer
         this.id = id;
+        //TYPE -> String
         this.title = title;
+        //TYPE -> String
         this.genre = genre;
+        //TYPE -> String
         this.ageRating = ageRating;
+        //TYPE -> Writer
         this.writer = writer;
+        //TYPE -> String
         this.description = description;
+        //TYPE -> Integer
         this.rating = rating;
+        //TYPE -> String
         this.ratingRange = null;
+        //TYPE -> Integer
         this.price = price;
+        //TYPE -> String
         this.type = type;
+        //TYPE -> String
         this.subgenre = subgenre;
+        //TYPE -> Object
         this.topics = topics;
         //scope = little, small, normal, large, epic
+        //TYPE -> Object
         this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
+        //TYPE -> Object
         this.acts = {act1: [], act2: [], act3: []};
+        //TYPE -> Object
         this.details = {scope: '', tone: '', specialEffects: ''};
+        //TYPE -> Object
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+        //TYPE -> Integer
         this.length = null;
+        //TYPE -> Integer
         this.writingPhase = null;
+        //TYPE -> Integer
         this.rewritingValue = 3;
+        //TYPE -> Boolean
         this.rewritingStatus = false;
+        //TYPE -> Franchise
         this.franchise = franchise
     }
 
