@@ -221,4 +221,11 @@ export class Screenplay {
         instance.writer = instance.writer ? store.data.allWriters.find(writer => writer.id === instance.writer.id) : null
         return instance
     }
+
+    static transferProperties(from, to, keys) {
+        return keys.reduce((current, key) => {
+            current[key] = from[key]
+            return current
+        }, to)
+    }
 }

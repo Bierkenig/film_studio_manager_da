@@ -45,7 +45,7 @@ export default {
       }
     },
     save(){
-      let slotNr = 3
+      let slotNr = 1
       window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
     },
     deleting(){
