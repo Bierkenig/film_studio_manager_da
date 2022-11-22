@@ -22,6 +22,7 @@
 <script>
 import MenuNav from "@/components/mainGameComponents/MenuNav";
 import GameHeader from "@/components/mainGameComponents/GameHeader";
+import store from "./services/store";
 export default {
   name: 'App',
   components: {GameHeader, MenuNav},
@@ -30,6 +31,12 @@ export default {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
     }
   },
+  created(){
+    setInterval(function() {
+      window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),3])
+      console.log(store);
+    }, 600000);
+  }
 }
 </script>
 

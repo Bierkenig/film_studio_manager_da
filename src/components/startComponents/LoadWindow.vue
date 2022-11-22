@@ -6,6 +6,9 @@
       <load-item :slot-nr="2"/>
       <load-item :slot-nr="3"/>
     </div>
+    <router-link to="/">
+      <button>Back</button>
+    </router-link>
   </div>
 </template>
 

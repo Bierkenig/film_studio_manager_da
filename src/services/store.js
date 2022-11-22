@@ -520,9 +520,25 @@ export default createStore({
 
         loadFromSave(state, responseData){
             //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
-            Object.keys(state).forEach(key => delete state[key]);
-            Object.assign(state, responseData)
-            // state.screenplays = store.state.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+
+            // Object.keys(state).forEach(key => delete state[key]);
+            // Object.assign(state, responseData)
+
+            Screenplay.transferProperties(responseData, state, [
+                "balance",
+                "currentMovieBudget",
+                "currentMovieExpenses",
+                "soundeffects",
+                "backgroundMusic",
+                "currentLanguage",
+                "financialPerformance",
+                "events",
+                "financialHistory",
+                "allYears",
+                "allDirectorSalary"
+            ])
+            console.log(state)
+            //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             // //state.actors = store.state.actors.map(jsonObject => actors.find(actor => actor.id === jsonObject.id)).filter(actor => actor)
@@ -530,7 +546,8 @@ export default createStore({
             // if (store.getters.getStudio(store.state) !== 'NO STUDIO') {
             //     state.studio = Studio.fromJSON(store.state.studio)
             // }
-        }
+        },
+
     },
 
     /** Methods that change the application state asynchronously */

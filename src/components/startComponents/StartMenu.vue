@@ -21,6 +21,8 @@
 
               <button id="saveButton" class="buttonStyle" @click="save">save</button>
               <button id="deleteButton" class="buttonStyle" @click="deleting">delete</button>
+              <button id="autoSave" class="buttonStyle" @click="autoSave">autoSave</button>
+
             </div>
           </div>
         </div>
@@ -43,11 +45,14 @@ export default {
       }
     },
     save(){
-      let slotNr = 3
+      let slotNr = 1
       window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
     },
     deleting(){
       window.ipcRenderer.send('r2mDeleting', 3)
+    },
+    autoSave(){
+      window.ipcRenderer.send('autoSave', [JSON.stringify(this.$store.state),3])
     }
   },
 }
