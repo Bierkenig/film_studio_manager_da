@@ -18,13 +18,14 @@ export default createStore({
         currentMovieExpenses: 0,
         //movies which are still in cinema and generate profit
         createdMovies: [],
+        //muss das ins save file?
         currentMovie: null,
         currentScreenplay: null,
         //TODO: changes
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
-        currentDate: new Date("January 1, 2023"),
+        currentDate: new Date("January 15, 2025"),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [
@@ -518,6 +519,38 @@ export default createStore({
             state.moviesFromOtherStudios.push(movie);
         },
 
+        stateToString(state, reducedState){
+            Screenplay.transferProperties(state, reducedState, [
+                "screenplays",
+                "boughtScreenplays",
+                "studio",
+                "balance",
+                "currentMovieBudget",
+                "currentMovieExpenses",
+                "createdMovies",
+                "logo",
+                "soundeffects",
+                "backgroundMusic",
+                "currentDate",
+                "currentLanguage",
+                "news",
+                "earnings",
+                "financialPerformance",
+                "inProductionMovies",
+                "finishedMovies",
+                "events",
+                "franchises",
+                "otherStudios",
+                "financialHistory",
+                "allYears",
+                "preProduction",
+                "allDirectorSalary",
+                "ownStreamingService"
+            ])
+
+            return reducedState
+        },
+
         loadFromSave(state, responseData){
             //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
 
@@ -535,8 +568,11 @@ export default createStore({
                 "events",
                 "financialHistory",
                 "allYears",
-                "allDirectorSalary"
+                "allDirectorSalary",
+                "logo"
             ])
+
+            state.currentDate = new Date(responseData.currentDate)
             console.log(state)
             //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))

@@ -1,3 +1,4 @@
+import {isHiddenSync} from "hidefile";
 
 const fs = require("fs");
 const hash = require("object-hash");
@@ -28,10 +29,9 @@ export function save(data, slot) {
                 console.log(err2)
             }
         })
-
+        if(!hidefile.isHiddenSync(path.join('.', '.data'))) {
             hidefile.hideSync(path.join('.', '.data'));
-
-
+        }
 
 
         //creates directory if not already existing
@@ -87,6 +87,9 @@ export function save(data, slot) {
 //101 - Save File corrupt - Backup will be used - recovery possible!
 //102 - Backup File corrupt - No recovery!
 //103 - Auto File newer
+//104 - Save & Backup corrupted - Auto Save File exists and could be used
+//105 - No Save File, but Auto Save available
+//106 - No Save File
 export function load(slot){
     let save = null;
     let code = null;
