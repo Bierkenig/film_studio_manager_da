@@ -2,7 +2,8 @@
   <div class="calendarContainer">
     <FullCalendar
         id="calendar"
-        :options="calendarOptions"/>
+        :options="calendarOptions"
+        ref="fullCalendar"/>
 
     <transition name="modal">
       <event-modal v-if="showModal" :event="eventProp" @close="showModal = false">
@@ -26,7 +27,6 @@ import TimeGridPlugin from '@fullcalendar/timegrid'
 import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
-//import DayInformation from "@/components/mainGameComponents/calendarMenu/DayInformation";
 import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
 
 export default {
@@ -54,12 +54,18 @@ export default {
       },
       showModal: false,
       eventProp: Object,
-      //clickedDay: null
     }
   },
 
   computed: {
-    ...mapGetters(["getEvents"])
+    ...mapGetters(["getEvents"]),
+    ...mapGetters({currentDate: 'getCurrentDate'})
+  },
+
+  watch: {
+    currentDate: function(){
+      this.$refs.fullCalendar.calendar.gotoDate(this.currentDate)
+    }
   },
 
   methods: {
@@ -69,8 +75,6 @@ export default {
 
       const offset = yourDate.getTimezoneOffset();
       yourDate = new Date(yourDate.getTime() - (offset*60*1000));
-
-      //this.clickedDay = yourDate;
 
       yourDate = yourDate.toISOString().split('T')[0];
 
