@@ -13,31 +13,34 @@
       <div>{{$t('actorSection.salary')}}{{currentActor._first_name}} {{currentActor._last_name}}</div>
       <input type="range" :min="swiper.min" :max="swiper.max" :step="swiper.step" v-model="selectedSalary">
       <div>{{$t('actorSection.character')}}{{this.currentActor._first_name}} {{this.currentActor._last_name}}</div>
-      <select v-model="selectedCharacter">
-        <option v-for="(el, index) in allCharacters" :key="index">
-          {{el}}
-        </option>
-      </select>
+      <input type="radio" v-model="selectedCharacter" value="main">
+      <input type="radio" v-model="selectedCharacter" value="minor">
+      <input type="radio" v-model="selectedCharacter" value="support">
+      <input type="radio" v-model="selectedCharacter" value="cameo">
+      <input type="radio" v-model="selectedCharacter" value="voiceOver">
       <div>{{$t('actorSection.selected')}}</div>
       <div>{{$t('actorSection.salary2')}}{{selectedSalary}}</div>
       <div>{{$t('actorSection.character2')}}{{selectedCharacter}}</div>
-      <!-- TODO Director Smiley-->
-      <div></div>
+      <div>{{this.smiley}}</div>
       <button @click="checkActor">{{$t('actorSection.hire2')}}</button>
       <div>{{this.currentActor._first_name}} {{this.currentActor._last_name}}{{$t('actorSection.decision')}}{{actorDecision ? "Yes" : "No"}}</div>
-      <!-- TODO Popup modal glaub ich kann man nur stylen-->
-      <transition v-if="last">
-        <div>{{$t('actorSection.smiley')}}</div>
-      </transition>
       <button @click="lastCheck">{{$t('buyScreenplaySection.continue')}}</button>
+      <transition name="modal">
+        <actor-modal v-if="last" @close="last = false" :director="this.$store.state.preProduction.hiredDirector" :smiley="this.smiley">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </actor-modal>
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
+import ActorModal from "@/components/mainGameComponents/preProduction/modals/actor-modal";
 export default {
   name: "actorsSection",
-
+  components: {ActorModal},
   data() {
     return {
       actors: this.$store.getters.getAllActors,
@@ -46,9 +49,6 @@ export default {
       select: "",
       currentActor: null,
       selectedCharacter: null,
-      allCharacters: this.currentScreenplay.roles.main.concat(this.currentScreenplay.roles.minor.concat(
-          this.currentScreenplay.roles.support.concat(this.currentScreenplay.roles.cameo.concat(
-              this.currentScreenplay.roles.voiceOver)))),
       currentDirectorControl: this.calcDirectorControl(this.$store.state.preProduction.hiredDirector),
       swiper: {
         min: this.$store.getters.getAllDirectorSalary[this.currentActor.rating - 5 - 1],
@@ -111,21 +111,21 @@ export default {
     },
 
     hireActor() {
-      switch (this.selectedRole) {
+      switch (this.selectedCharacter) {
         case "main":
-          this.currentScreenplay.addMainCharacter(this.currentActor)
+          this.currentScreenplay.actors.main.push(this.currentActor)
           break
         case "minor":
-          this.currentScreenplay.addMinorCharacter(this.currentActor)
+          this.currentScreenplay.actors.minor.push(this.currentActor)
           break
         case "support":
-          this.currentScreenplay.addSupportCharacter(this.currentActor)
+          this.currentScreenplay.actors.support.push(this.currentActor)
           break
         case "cameo":
-          this.currentScreenplay.addCameoCharacter(this.currentActor)
+          this.currentScreenplay.actors.cameo.push(this.currentActor)
           break
         case "voiceOver":
-          this.currentScreenplay.addVoiceOverCharacter(this.currentActor)
+          this.currentScreenplay.actors.voiceOver.push(this.currentActor)
           break
       }
       this.currentActor.notAvailable++;
@@ -133,6 +133,7 @@ export default {
 
     lastCheck() {
       if (this.smiley === "yellow" || this.smiley === "red") this.last = true
+      else this.$router.push({name: 'budgetSection'})
     }
   }
 }

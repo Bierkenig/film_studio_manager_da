@@ -108,12 +108,14 @@ i18next
                         select: "Select",
                     },
                     hireDirectorSection: {
-                        hire: "Hire a Director",
+                        hire: "Choose a Director with whom you want to negotiate",
                         negotiate: "Negotiate",
-                        salary: "Select a salary",
+                        salary: "Select a salary for ",
+                        control: "Choose the directors creative control",
                         offer: "Send offer",
-                        decision: "'s decision",
-                        think: "Try to readjust the salary or increase the creative control"
+                        decision: "'s decision: ",
+                        think: "Try to readjust the salary or increase the creative control",
+                        declined: " declined your Offers 3 times. Try to negotiate with another Director"
                     },
                     durationSection: {
                         set: "Set Production Phase",
@@ -138,7 +140,8 @@ i18next
                         screenInfos: "Screenplay Infos",
                         hire2: "Hire",
                         decision: "'s decision: ",
-                        smiley: "Your hired Director is not totally satisfied with your actor selection. Maybe you reconsider your decision?"
+                        smiley: "Your hired Director is not totally satisfied with your actor selection. Maybe you reconsider your decision?",
+                        reconsider: "Reconsider",
                     },
                     calendar: 'Calendar',
                     streaming: 'Streaming',

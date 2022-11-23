@@ -1,0 +1,616 @@
+{
+  "en_date": "11/23/2022 08:50:46",
+  "de_date": "23/11/2022 08:50:46",
+  "slot": 3,
+  "warning": "Changing this data could cause the save file to be corrupted and therefore the game data might not be restored!",
+  "type": "auto",
+  "state": {
+    "screenplays": [],
+    "boughtScreenplays": [],
+    "studio": {
+      "name": "NO STUDIO",
+      "year": "2023",
+      "movies": []
+    },
+    "balance": 0,
+    "currentMovieBudget": 0,
+    "currentMovieExpenses": 0,
+    "createdMovies": [],
+    "currentMovie": null,
+    "currentScreenplay": null,
+    "logo": null,
+    "soundeffects": true,
+    "backgroundMusic": true,
+    "currentDate": "2025-01-14T23:00:00.000Z",
+    "currentLanguage": "en",
+    "news": [
+      {
+        "_title": "Studio 1235 gegründet",
+        "_person": {
+          "_id": 0,
+          "_avatar": null,
+          "_first_name": "Jakob",
+          "_last_name": "hallo",
+          "_age": 23,
+          "_gender": "male",
+          "_nationality": "austrian",
+          "_ethnicity": "arabian",
+          "_performance": 4,
+          "_experience": 4,
+          "_depth": 3,
+          "_craft": null,
+          "_talent": null,
+          "_popularity": 5,
+          "_rating": 23,
+          "_salary": 123456,
+          "_isActor": true,
+          "_isDirector": false,
+          "_isWriter": false,
+          "_genre": null,
+          "_no": 0,
+          "notAvailable": 0
+        },
+        "_movie": {
+          "_title": "sa",
+          "_earnings": [],
+          "_screenplay": {
+            "id": 0,
+            "title": "sa",
+            "genre": null,
+            "ageRating": null,
+            "writer": null,
+            "description": null,
+            "rating": null,
+            "ratingRange": null,
+            "price": 123,
+            "type": "cooles",
+            "subgenre": null,
+            "topics": null,
+            "roles": {
+              "main": [],
+              "support": [],
+              "minor": [],
+              "cameo": [],
+              "voiceOver": []
+            },
+            "actors": {
+              "main": [],
+              "support": [],
+              "minor": [],
+              "cameo": [],
+              "voiceOver": []
+            },
+            "acts": {
+              "act1": [],
+              "act2": [],
+              "act3": []
+            },
+            "details": {
+              "scope": "",
+              "tone": "",
+              "specialEffects": ""
+            },
+            "ageRatingDetails": {
+              "violence": "",
+              "cursing": "",
+              "loveScenes": ""
+            },
+            "length": null,
+            "writingPhase": null,
+            "rewritingValue": 3,
+            "rewritingStatus": false,
+            "franchise": null
+          },
+          "_date": {
+            "name": "hallo",
+            "year": "2023",
+            "movies": []
+          },
+          "_owner": 2023,
+          "_contract": 23
+        },
+        "_award": {
+          "desc": "Deine MUm",
+          "type": "internationalAward"
+        }
+      },
+      {
+        "_title": "Benni ist cool",
+        "_person": {
+          "_id": 1,
+          "_avatar": null,
+          "_first_name": "Benni",
+          "_last_name": "Schmid",
+          "_age": 12,
+          "_gender": "male",
+          "_nationality": "austrian",
+          "_ethnicity": "arabian",
+          "_performance": 4,
+          "_experience": 4,
+          "_depth": 3,
+          "_craft": null,
+          "_talent": null,
+          "_popularity": 5,
+          "_rating": 23,
+          "_salary": 123456,
+          "_isActor": true,
+          "_isDirector": false,
+          "_isWriter": false,
+          "_genre": null,
+          "_no": 0,
+          "notAvailable": 0
+        },
+        "_movie": {
+          "_title": "hallo",
+          "_earnings": [],
+          "_screenplay": {
+            "id": 0,
+            "title": "hallo",
+            "genre": null,
+            "ageRating": null,
+            "writer": null,
+            "description": null,
+            "rating": null,
+            "ratingRange": null,
+            "price": 123,
+            "type": "cooles",
+            "subgenre": null,
+            "topics": null,
+            "roles": {
+              "main": [],
+              "support": [],
+              "minor": [],
+              "cameo": [],
+              "voiceOver": []
+            },
+            "actors": {
+              "main": [],
+              "support": [],
+              "minor": [],
+              "cameo": [],
+              "voiceOver": []
+            },
+            "acts": {
+              "act1": [],
+              "act2": [],
+              "act3": []
+            },
+            "details": {
+              "scope": "",
+              "tone": "",
+              "specialEffects": ""
+            },
+            "ageRatingDetails": {
+              "violence": "",
+              "cursing": "",
+              "loveScenes": ""
+            },
+            "length": null,
+            "writingPhase": null,
+            "rewritingValue": 3,
+            "rewritingStatus": false,
+            "franchise": null
+          },
+          "_date": {
+            "name": "hallo",
+            "year": "2023",
+            "movies": []
+          },
+          "_owner": 2023,
+          "_contract": 23
+        },
+        "_award": {
+          "desc": "Neuer",
+          "type": "anderer Award"
+        }
+      }
+    ],
+    "earnings": [
+      {
+        "value": 245000,
+        "date": "2024-01-03T23:00:00.000Z"
+      },
+      {
+        "value": 500000,
+        "date": "2023-12-14T23:00:00.000Z"
+      }
+    ],
+    "financialPerformance": [
+      {
+        "date": {
+          "name": "January 2023",
+          "data": {
+            "production": {
+              "incoming": "-",
+              "outgoing": -300000
+            },
+            "marketing": {
+              "incoming": "-",
+              "outgoing": -40000
+            },
+            "loan": {
+              "incoming": "-",
+              "outgoing": -30000000
+            },
+            "cinema": {
+              "incoming": 33000000,
+              "outgoing": -2000000
+            },
+            "streaming": {
+              "incoming": 200000,
+              "outgoing": -20000000
+            }
+          }
+        }
+      },
+      {
+        "date": {
+          "name": "February 2023",
+          "data": {
+            "production": {
+              "incoming": "-",
+              "outgoing": -20000
+            },
+            "marketing": {
+              "incoming": "-",
+              "outgoing": -30000
+            },
+            "loan": {
+              "incoming": "-",
+              "outgoing": -30000000
+            },
+            "cinema": {
+              "incoming": 33000000,
+              "outgoing": -2000000
+            },
+            "streaming": {
+              "incoming": 200000,
+              "outgoing": -20000000
+            }
+          }
+        }
+      }
+    ],
+    "inProductionMovies": [],
+    "finishedMovies": [],
+    "events": [
+      {
+        "title": "SOMETHING",
+        "start": "2023-01-06",
+        "end": "2023-01-10"
+      },
+      {
+        "title": "NICHTS",
+        "start": "2023-01-07",
+        "end": "2023-01-09"
+      }
+    ],
+    "franchises": [
+      {
+        "id": 0,
+        "name": "Hallo was geht"
+      }
+    ],
+    "currentFranchise": null,
+    "otherStudios": [
+      [
+        "Example Studio 1",
+        "2023",
+        100
+      ],
+      [
+        "Example Studio 2",
+        "2023",
+        200
+      ]
+    ],
+    "financialHistory": [
+      {
+        "title": "financialHistory.event1",
+        "desc": "financialHistory.desc1",
+        "iconPath": ""
+      },
+      {
+        "title": "financialHistory.event2",
+        "desc": "financialHistory.desc2",
+        "iconPath": ""
+      },
+      {
+        "title": "financialHistory.event3",
+        "desc": "financialHistory.desc3",
+        "iconPath": ""
+      }
+    ],
+    "allYears": [
+      2023,
+      2024,
+      2025
+    ],
+    "preProduction": {
+      "isPreProduction": false,
+      "currentScreenplay": null,
+      "hiredDirector": null
+    },
+    "ownStreamingService": null,
+    "allOwningMovies": [
+      {
+        "_title": "TEST3",
+        "_earnings": [],
+        "_screenplay": {
+          "id": 2,
+          "title": "TEST3",
+          "genre": null,
+          "ageRating": null,
+          "writer": null,
+          "description": null,
+          "rating": null,
+          "ratingRange": null,
+          "price": null,
+          "type": null,
+          "subgenre": null,
+          "topics": {},
+          "roles": {
+            "main": [],
+            "support": [],
+            "minor": [],
+            "cameo": [],
+            "voiceOver": []
+          },
+          "actors": {
+            "main": [],
+            "support": [],
+            "minor": [],
+            "cameo": [],
+            "voiceOver": []
+          },
+          "acts": {
+            "act1": [],
+            "act2": [],
+            "act3": []
+          },
+          "details": {
+            "scope": "",
+            "tone": "",
+            "specialEffects": ""
+          },
+          "ageRatingDetails": {
+            "violence": "",
+            "cursing": "",
+            "loveScenes": ""
+          },
+          "length": null,
+          "writingPhase": null,
+          "rewritingValue": 3,
+          "rewritingStatus": false,
+          "franchise": null
+        },
+        "_date": "25.11.2022",
+        "_owner": "MEINS",
+        "_contract": 0
+      }
+    ],
+    "moviesFromOtherStudios": [
+      {
+        "_title": "TEST",
+        "_earnings": [],
+        "_screenplay": {
+          "id": 0,
+          "title": "TEST",
+          "genre": null,
+          "ageRating": null,
+          "writer": null,
+          "description": null,
+          "rating": null,
+          "ratingRange": null,
+          "price": null,
+          "type": null,
+          "subgenre": null,
+          "topics": {},
+          "roles": {
+            "main": [],
+            "support": [],
+            "minor": [],
+            "cameo": [],
+            "voiceOver": []
+          },
+          "actors": {
+            "main": [],
+            "support": [],
+            "minor": [],
+            "cameo": [],
+            "voiceOver": []
+          },
+          "acts": {
+            "act1": [],
+            "act2": [],
+            "act3": []
+          },
+          "details": {
+            "scope": "",
+            "tone": "",
+            "specialEffects": ""
+          },
+          "ageRatingDetails": {
+            "violence": "",
+            "cursing": "",
+            "loveScenes": ""
+          },
+          "length": null,
+          "writingPhase": null,
+          "rewritingValue": 3,
+          "rewritingStatus": false,
+          "franchise": null
+        },
+        "_date": "21.11.2022",
+        "_owner": "Example Studio",
+        "_contract": null
+      },
+      {
+        "_title": "TEST2",
+        "_earnings": [],
+        "_screenplay": {
+          "id": 1,
+          "title": "TEST2",
+          "genre": null,
+          "ageRating": null,
+          "writer": null,
+          "description": null,
+          "rating": null,
+          "ratingRange": null,
+          "price": null,
+          "type": null,
+          "subgenre": null,
+          "topics": {},
+          "roles": {
+            "main": [],
+            "support": [],
+            "minor": [],
+            "cameo": [],
+            "voiceOver": []
+          },
+          "actors": {
+            "main": [],
+            "support": [],
+            "minor": [],
+            "cameo": [],
+            "voiceOver": []
+          },
+          "acts": {
+            "act1": [],
+            "act2": [],
+            "act3": []
+          },
+          "details": {
+            "scope": "",
+            "tone": "",
+            "specialEffects": ""
+          },
+          "ageRatingDetails": {
+            "violence": "",
+            "cursing": "",
+            "loveScenes": ""
+          },
+          "length": null,
+          "writingPhase": null,
+          "rewritingValue": 3,
+          "rewritingStatus": false,
+          "franchise": null
+        },
+        "_date": "23.11.2022",
+        "_owner": "Example Studio",
+        "_contract": null
+      }
+    ],
+    "allPeople": [],
+    "allActors": [],
+    "allDirectors": [],
+    "allWriters": [],
+    "allMovies": [],
+    "allAwards": [],
+    "allTopics": [],
+    "allScreenplays": [],
+    "allDirectorSalary": [
+      11500,
+      13000,
+      14500,
+      16000,
+      17500,
+      19000,
+      20500,
+      22000,
+      23500,
+      25000,
+      27500,
+      30000,
+      32500,
+      35000,
+      37500,
+      40000,
+      42500,
+      45000,
+      47500,
+      50000,
+      55000,
+      60000,
+      65000,
+      70000,
+      75000,
+      80000,
+      85000,
+      90000,
+      95000,
+      100000,
+      115000,
+      130000,
+      145000,
+      160000,
+      175000,
+      190000,
+      205000,
+      220000,
+      235000,
+      250000,
+      275000,
+      300000,
+      325000,
+      350000,
+      375000,
+      400000,
+      425000,
+      450000,
+      475000,
+      500000,
+      550000,
+      600000,
+      650000,
+      700000,
+      750000,
+      800000,
+      850000,
+      900000,
+      950000,
+      1000000,
+      1150000,
+      1300000,
+      1450000,
+      1600000,
+      1750000,
+      1900000,
+      2050000,
+      2200000,
+      2350000,
+      2500000,
+      2750000,
+      3000000,
+      3250000,
+      3500000,
+      3750000,
+      4000000,
+      4250000,
+      4500000,
+      4750000,
+      5000000,
+      5500000,
+      6000000,
+      6500000,
+      7000000,
+      7500000,
+      8000000,
+      8500000,
+      9000000,
+      9500000,
+      10000000,
+      11500000,
+      13000000,
+      14500000,
+      16000000,
+      17500000,
+      19000000,
+      20500000,
+      22000000,
+      23500000,
+      25000000
+    ]
+  },
+  "hash": "6264813055e439a96dc919b9f655e7d1c00fb429"
+}

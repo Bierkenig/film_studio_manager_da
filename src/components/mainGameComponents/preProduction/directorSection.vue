@@ -1,23 +1,33 @@
 <template>
   <div>
-    <div>
-      <div>{{$t('hireDirectorSection.hire')}}</div>
-      <div v-for="(el, index) in directors" :key="index">
-        {{el._first_name}} / {{el._last_name}} / {{el.age}} / {{el.rating}} / {{el.salary}}
-        <button @click="showNegotiation(el)">{{$t('hireDirectorSection.negotiate')}}</button>
+    <div>{{$t('hireDirectorSection.hire')}}</div>
+    <!-- TODO add avatar-->
+    <div v-for="(el, index) in allDirectors" :key="index">
+      {{el._first_name}} | {{el._last_name}} | {{el._age}} | {{el._gender}} | {{el._nationality}} | {{el._ethnicity}} | {{el._craft}} | {{el._rating}} | {{el._salary}}
+      <button @click="calcSalary(el)">{{$t('hireDirectorSection.negotiate')}}</button>
+    </div>
+
+    <div v-if="showNegotiation">
+      <div>
+        <div>{{$t('hireDirectorSection.salary')}} {{this.currentDirector._first_name}} {{this.currentDirector._last_name}}</div>
+        <input type="range" v-model="selectedSalary" :min="salaryRange.min" :max="salaryRange.max" :step="salaryRange.step">
       </div>
+
+      <div>
+        <div>{{$t('hireDirectorSection.control')}}</div>
+        <input type="range" min="1" max="100" step="1" v-model="selectedControl">
+      </div>
+
+      <button v-if="decision !== true" @click="calcDirectorsDecision(); decision2 = true">{{$t('hireDirectorSection.offer')}}</button>
+
+      <div v-if="decision2">{{decision ? this.currentDirector._first_name + " " + this.currentDirector._last_name + $t('hireDirectorSection.decision') + "Yes" : this.currentDirector._first_name + " " + this.currentDirector._last_name + $t('hireDirectorSection.decision') + "No"}}</div>
+
+      <div v-if="decision === false && this.currentDirector._no !== 3 && decision2">{{$t('hireDirectorSection.think')}}</div>
+
+      <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
+
+      <button :disabled="!decision" @click="this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
     </div>
-    <div v-if="show">
-      <div>{{$t('hireDirectorSection.salary')}}</div>
-      <input type="range" :min="this.salaryRange.min" :max="this.salaryRange.max" :step="this.salaryRange.step" v-model="salary">
-      <div>{{salary}}</div>
-      <input type="range" min="0" max="100" step="25" v-model="this.directorControlFromUser">
-      <div>{{directorControlFromUser}}</div>
-      <button @click="checkDirector(); show2 = true" :disabled="directorDecision === true">{{$t('hireDirectorSection.offer')}}</button>
-    </div>
-    <div v-if="show2">{{currentDir._first_name}} {{currentDir._last_name}}{{$t('hireDirectorSection.decision')}}: {{directorDecision ? "yes" : "no"}}</div>
-    <div v-if="this.directorDecision === false && show2">{{$t('hireDirectorSection.think')}}</div>
-    <button v-if="directorDecision === true" @click="this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
   </div>
 </template>
 
@@ -27,71 +37,56 @@ export default {
 
   data() {
     return {
-      directors: this.$store.getters.getAllDirectors,
-      show: false,
-      show2: false,
-      salary: 0,
+      allDirectors: this.$store.getters.getAllDirectors,
+      showNegotiation: false,
+      currentDirector: null,
+      directorsControl: null,
       salaryRange: {
         min: 0,
         max: 1,
-        step: 1,
-        rating: 0
+        step: 1
       },
-      currentDir: null,
-      directorControlFromUser: 0,
-      directorControl: 0,
-      directorDecision: false
+      selectedSalary: 0,
+      selectedControl: 0,
+      decision: false,
+      decision2: false,
     }
   },
 
   methods: {
-    showNegotiation(el) {
-      this.show = true
-      this.currentDir = el
-      //set range input
-      this.salaryRange.rating = el.rating
-      this.salaryRange.min = this.$store.getters.getAllDirectorSalary[el.rating - 5 - 1]
-      this.salaryRange.max = this.$store.getters.getAllDirectorSalary[el.rating + 5 - 1]
-      this.salaryRange.step = 1
+    calcSalary(director) {
+      this.currentDirector = director;
+      this.showNegotiation = true;
+      this.directorsControl = this.currentDirector._popularity + this.currentDirector._experience + this.currentDirector._rating / 3
+      this.salaryRange.min = this.$store.state.allDirectorSalary[director._rating - 1 - 5]
+      this.salaryRange.max = this.$store.state.allDirectorSalary[director._rating - 1 + 5]
+    },
 
-      //set director
-      this.directorControl = Math.round((el.popularity + el.experience + el.rating) / 3)
-    },
-    checkDirector() {
-      if (this.directorControlFromUser <= 50) {
-        if(this.directorControl <= 50) {
-          this.directorDecision = true
-        } else if (this.salary > this.salaryRange.max * 0.6) {
-          let random = Math.round(Math.random() * 10)
-          this.directorDecision = (random > 3)
-        } else {
-          this.directorDecision = false
-        }
-      } else if (this.directorControlFromUser > 50 && this.directorControlFromUser <= 75) {
-        if (this.directorControl > 50 && this.directorControl <= 75) {
-          this.directorDecision = true
-        } else if (this.salary > this.salaryRange.max * 0.6) {
-          let random = Math.round(Math.random() * 100)
-          this.directorDecision = (random <= 50)
-        } else {
-          this.directorDecision = false
-        }
+    calcDirectorsDecision() {
+      const random = Math.round(Math.random() * 10)
+      if (this.selectedControl <= 50 && this.directorsControl <= 50) {
+        this.decision = true
+      } else if (this.selectedControl <= 50 && this.directorsControl > 50 && this.directorsControl <= 75) {
+        if (this.selectedSalary > this.salaryRange.max * 0.8) this.decision = true
+        else this.decision = random > 7
+        if (!this.decision) this.currentDirector._no++;
+      } else if (this.selectedControl <= 50 && this.directorsControl > 75) {
+        if (this.selectedSalary > this.salaryRange.max * 0.8) this.decision = true
+        else this.decision = random > 9
+        if (!this.decision) this.currentDirector._no++;
+      } else if (this.selectedControl > 50 && this.selectedControl <= 75 && this.directorsControl > 75) {
+        if (this.selectedSalary > this.salaryRange.max * 0.8) this.decision = true
+        else this.decision = random > 7
+        if (!this.decision) this.currentDirector._no++;
       } else {
-        if (this.directorControl > 75) {
-          this.directorDecision = true
-        } else if (this.salary > this.salaryRange.max * 0.6) {
-          let random = Math.round(Math.random() * 100)
-          this.directorDecision = (random < 25)
-        } else {
-          this.directorDecision = false
-        }
+        this.decision = true
       }
-      this.directorDecision !== true ? this.currentDir._no++ : this.$store.state.preProduction.hiredDirector = this.currentDir
-      if (this.currentDir._no === 3) {
-        this.show = false
-        this.show2 = false
+      if (this.currentDirector._no === 3) {
+        const index = this.allDirectors.indexOf(this.currentDirector)
+        this.allDirectors.splice(index, 1)
       }
-    },
+      this.decision2 = false;
+    }
   },
 }
 </script>
