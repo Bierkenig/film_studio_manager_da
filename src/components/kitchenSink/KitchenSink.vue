@@ -233,6 +233,14 @@
         <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Limited" :contract-critical="true"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>
+        <div class="kitchenSinkSpacer"/>
+        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -256,10 +264,12 @@ import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
 import InfoLine from "@/components/kitchenSink/InfoLine";
 import StreamingElement from "@/components/kitchenSink/StreamingElement";
+import StreamingCompetitorElement from "@/components/kitchenSink/StreamingCompetitorElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    StreamingCompetitorElement,
     StreamingElement,
     InfoLine,
     ScreenplayElement,
