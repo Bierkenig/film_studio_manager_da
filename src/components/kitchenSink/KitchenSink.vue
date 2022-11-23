@@ -214,6 +214,16 @@
         <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<info-line>Balalalalalalala</info-line>'/>
+      <div class="kitchenSinkFlexRow">
+        <info-line>Balalalalalalala</info-line>
+        <div class="kitchenSinkSpacer"/>
+        <info-line>Balalalalalalala</info-line>
+        <div class="kitchenSinkSpacer"/>
+        <info-line>Balalalalalalala</info-line>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -235,10 +245,12 @@ import CustomListSort from "@/components/kitchenSink/CustomListSort";
 import MovieElement from "@/components/kitchenSink/MovieElement";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
+import InfoLine from "@/components/kitchenSink/InfoLine";
 
 export default {
   name: "KitchenSink",
   components: {
+    InfoLine,
     ScreenplayElement,
     InfoCircle,
     MovieElement,
