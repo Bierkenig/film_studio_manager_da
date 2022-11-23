@@ -43,4 +43,8 @@ export class StreamingService {
     set subscribers(value) {
         this._subscribers = value;
     }
+
+    static fromJSON(jsonObject){
+        return Object.assign(new StreamingService(), jsonObject)
+    }
 }

@@ -33,6 +33,7 @@
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: 'StartMenu',
 
@@ -45,8 +46,12 @@ export default {
       }
     },
     save(){
-      let slotNr = 1
-      window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
+     let slotNr = 1
+      let reducedState = {}
+      this.$store.commit("stateToSave", reducedState)
+      console.log(this.$store.state)
+      console.log(reducedState)
+      window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), slotNr])
     },
     deleting(){
       window.ipcRenderer.send('r2mDeleting', 3)

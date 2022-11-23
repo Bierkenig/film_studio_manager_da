@@ -6,6 +6,7 @@ import Award from "@/classes/Award";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
+import {StreamingService} from "@/classes/StreamingService";
 
 export default createStore({
     /** Application state */
@@ -18,13 +19,14 @@ export default createStore({
         currentMovieExpenses: 0,
         //movies which are still in cinema and generate profit
         createdMovies: [],
+        //muss das ins save file?
         currentMovie: null,
         currentScreenplay: null,
         //TODO: changes
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
-        currentDate: new Date("January 1, 2023"),
+        currentDate: new Date("January 15, 2025"),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [
@@ -37,6 +39,7 @@ export default createStore({
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Neuer', 'anderer Award'))
         ],
+        //nicht fertig
         earnings: [
             {
                 value: 245000,
@@ -47,6 +50,7 @@ export default createStore({
                 date: new Date(2023,11,15)
             }
         ],
+        //nicht fertig
         financialPerformance: [
             {
                 date: {
@@ -77,6 +81,7 @@ export default createStore({
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [],
+        //nicht fertig
         events: [
             {
             title: "SOMETHING",
@@ -87,7 +92,8 @@ export default createStore({
             title: "NICHTS",
             start: '2023-01-07',
             end: '2023-01-09'
-            }],
+            },
+        ],
         franchises: [new Franchises(0, 'Hallo was geht')],
         currentFranchise: null,
         otherStudios: [
@@ -518,6 +524,38 @@ export default createStore({
             state.moviesFromOtherStudios.push(movie);
         },
 
+        stateToSave(state, reducedState){
+            Screenplay.transferProperties(state, reducedState, [
+                "screenplays",
+                "boughtScreenplays",
+                "studio",
+                "balance",
+                "currentMovieBudget",
+                "currentMovieExpenses",
+                "createdMovies",
+                "logo",
+                "soundeffects",
+                "backgroundMusic",
+                "currentDate",
+                "currentLanguage",
+                "news",
+                "earnings",
+                "financialPerformance",
+                "inProductionMovies",
+                "finishedMovies",
+                "events",
+                "franchises",
+                "otherStudios",
+                "financialHistory",
+                "allYears",
+                "preProduction",
+                "allDirectorSalary",
+                "ownStreamingService"
+            ])
+
+            return reducedState
+        },
+
         loadFromSave(state, responseData){
             //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
 
@@ -531,12 +569,39 @@ export default createStore({
                 "soundeffects",
                 "backgroundMusic",
                 "currentLanguage",
-                "financialPerformance",
-                "events",
                 "financialHistory",
                 "allYears",
-                "allDirectorSalary"
+                "allDirectorSalary",
+                "allOwningMovies",
+                "moviesFromOtherStudios",
+                "logo"
             ])
+
+            state.currentDate = new Date(responseData.currentDate)
+            state.ownStreamingService = StreamingService.fromJSON(responseData.ownStreamingService)
+            state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
+            state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            state.boughtScreenplays = responseData.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+
+            /**
+                "studio",
+                //movies nicht fertig
+                "createdMovies",
+                "news",
+                //nicht fertig
+                "earnings",
+                //nicht fertig
+                "events",
+                //nicht fertig
+                "financialPerformance",
+                "inProductionMovies",
+                "finishedMovies",
+                "otherStudios",
+                "preProduction",
+                "allOwningMovies",
+                "moviesFromOtherStudios",
+             **/
+
             console.log(state)
             //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))

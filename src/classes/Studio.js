@@ -11,4 +11,8 @@ export class Studio {
     getName() {
         return this.name;
     }
+    static fromJSON(jsonObject){
+        return Object.assign(new Studio(), jsonObject)
+    }
+
 }
