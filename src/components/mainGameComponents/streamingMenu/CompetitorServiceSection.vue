@@ -1,6 +1,6 @@
 <template>
   <div class="competitorServiceSection">
-    <h1>Competitor Services</h1>
+    <h1>{{ $t('competitorServices') }}</h1>
   </div>
 </template>
 

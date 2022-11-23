@@ -36,9 +36,9 @@
               onfocus="this.size=5;"
               onblur="this.size=1;"
               onchange="this.size=1; this.blur();"
-              @change="selectGender($event)"
+              v-model="characterGender"
           >
-            <option value="" disabled selected hidden>{{ $t('gender') }}</option>
+            <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
             <option value="male">{{ $t('male') }}</option>
             <option value="female">{{ $t('female') }}</option>
             <option value="diverse">{{ $t('diverse') }}</option>
@@ -121,10 +121,6 @@ export default {
       this.characterName = '';
       this.characterAge = 1;
       this.characterGender = null
-    },
-
-    selectGender(event){
-      this.characterGender = event.target.value;
     },
 
     continueCreateMovie(){

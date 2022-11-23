@@ -9,33 +9,20 @@
         </div>
       </div>
     </div>
-    <movie-details
-        id="movieDetailsElement"
-        :check-balance="checkBalance"
-        :movie="selectedMovie"/>
   </div>
 </template>
 
 <script>
-import MovieDetails from "@/components/mainGameComponents/streamingMenu/MovieDetails";
 export default {
   name: "MovieList",
-  components: {MovieDetails},
-  data(){
-    return {
-      movieData: [],
-      lastIndex: null,
-      selectedMovie: null,
-      checkBalance: true
-    }
+
+  props: {
+    movieData: Array
   },
 
-  mounted() {
-    let moviesFromOtherStudios = this.$store.getters.getMoviesFromOtherStudios;
-    for (let i = 0; i < moviesFromOtherStudios.length; i++) {
-      if(moviesFromOtherStudios[i].contract === null){
-        this.movieData.push(moviesFromOtherStudios[i])
-      }
+  data(){
+    return {
+      lastIndex: null,
     }
   },
 
@@ -46,22 +33,13 @@ export default {
         document.getElementById('item' + this.lastIndex).style.backgroundColor = 'unset';
       }
       this.lastIndex = index;
-      this.selectedMovie = movie;
-      this.checkBalance = false; //TODO: Preis für Rechte einfügen
+
+      this.$emit('sendMovie',movie);
     }
   }
 }
 </script>
 
 <style scoped>
-.movieListContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap:8em
-}
 
-#movieDetailsElement {
-  width: 30%;
-}
 </style>

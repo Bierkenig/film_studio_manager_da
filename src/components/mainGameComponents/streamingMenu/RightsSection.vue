@@ -1,9 +1,9 @@
 <template>
   <div class="rightsSection">
-    <h1>Rights</h1>
-    <p>Buy rights to movies from other studios</p>
-    <router-link :to="{name: 'movieList'}">
-      <button>Buy</button>
+    <h1>{{ $t('rights') }}</h1>
+    <p>{{ $t('rightsMsg') }}</p>
+    <router-link :to="{name: 'buyMovieRights'}">
+      <button>{{ $t('buyRights') }}</button>
     </router-link>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Screenplay Information</h1>
+    <h1>{{ $t('screenplay') }} Information</h1>
     <div>
       <p>{{ $t('newsData.title') }}: {{ screenplay.title }}</p>
       <p>Type: {{ screenplay.type }}</p>
@@ -62,7 +62,7 @@
       <p>{{ $t('writingPhase') }}: {{ screenplay.writingPhase }}</p>
     </div>
     <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
-    <button @click="onButtonClick">Save Screenplay</button>
+    <button @click="onButtonClick">{{ $t('saveScreenplay') }}</button>
   </div>
 </template>
 

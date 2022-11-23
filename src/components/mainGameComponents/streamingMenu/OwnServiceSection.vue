@@ -1,12 +1,12 @@
 <template>
   <div id="ownServiceSection">
-    <h1>Information on own service</h1>
+    <h1>{{ $t('ownServiceHeader') }}</h1>
     <div id="ownServiceSectionInformation">
-      <div>Subscribers {{ roundBudget(this.streamingService._subscribers) }}</div>
+      <div>{{ $t('subscribers') }} {{ roundBudget(this.streamingService._subscribers) }}</div>
       <div>Profit {{ roundBudget(this.streamingService._profit) }}</div>
     </div>
     <div>
-      Price
+      {{ $t('price') }}
       <span class="minus" @click="subtractPrice">-</span>
       <span class="num">{{ this.streamingService._price.toFixed(2) }}</span>
       <span class="plus" @click="addPrice">+</span>

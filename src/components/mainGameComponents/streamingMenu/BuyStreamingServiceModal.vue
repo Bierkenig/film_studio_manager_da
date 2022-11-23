@@ -22,7 +22,7 @@
                 {{ $t('close') }}
               </button>
               <button class="modal-default-button"  @click="createService" :disabled="checkBalance || !name">
-                Create Service
+                {{ $t('createService') }}
               </button>
             </slot>
           </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="contentManagementSection">
-    <h1>Content Management</h1>
+    <h1>{{ $t('contentManagement') }}</h1>
     <div v-if="data.length !== 0">
       <select
           id="sortByWhat"
@@ -9,9 +9,9 @@
           onchange="this.size=1; this.blur();"
           v-model="selectedSortByWhat"
       >
-        <option value="" disabled selected hidden>Sort By</option>
-        <option value="Contract">Contract</option>
-        <option value="Owner">Owner</option>
+        <option :value="null" disabled selected hidden>{{ $t('sortBy') }}</option>
+        <option value="Contract">{{ $t('contract') }}</option>
+        <option value="Owner">{{ $t('owner') }}</option>
       </select>
       <select
           id="typeOfSort"
@@ -20,8 +20,8 @@
           onchange="this.size=1; this.blur();"
           v-model="selectedTypeOfSort"
       >
-        <option value="Ascending">Ascending</option>
-        <option value="Descending">Descending</option>
+        <option value="Ascending">{{ $t('ascending') }}</option>
+        <option value="Descending">{{ $t('descending') }}</option>
       </select>
     </div>
     <div class="contentManagementSectionDetails">
@@ -40,28 +40,29 @@ export default {
     return {
       data: this.$store.getters.getAllOwningMovies,
       selectedSortByWhat: null,
-      selectedTypeOfSort: 'Ascending'
+      selectedTypeOfSort: 'Ascending',
     }
   },
 
-  mounted() {
-    this.data.sort((a, b) => a._contract - b._contract)
-    console.log(this.data);
+  watch: {
+    selectedTypeOfSort: function (){
+      this.sortMovieRights();
+    },
+
+    selectedSortByWhat: function (){
+      this.sortMovieRights();
+    }
   },
 
-  watch: {
-    selectedSortByWhat: function (){
+  methods: {
+    sortMovieRights(){
       if(this.selectedSortByWhat === 'Contract' && this.selectedTypeOfSort === 'Ascending'){
-        console.log(this.data)
         this.data.sort((a, b) => a._contract - b._contract)
       } else if(this.selectedSortByWhat === 'Contract' && this.selectedTypeOfSort === 'Descending') {
-        console.log(this.data)
         this.data.sort((a, b) => b._contract - a._contract)
       } else if(this.selectedSortByWhat === 'Owner' && this.selectedTypeOfSort === 'Ascending'){
-        console.log(this.data)
         this.data.sort((a, b) => a._owner.localeCompare(b._owner))
       } else if(this.selectedSortByWhat === 'Owner' && this.selectedTypeOfSort === 'Descending'){
-        console.log(this.data)
         this.data.sort((a, b) => b._owner.localeCompare(a._owner))
       }
     }

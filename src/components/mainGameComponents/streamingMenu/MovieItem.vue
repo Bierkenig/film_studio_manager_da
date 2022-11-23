@@ -8,12 +8,12 @@
       </div>
       <div class="movieItemInformationText">
         <div class="movieItemOwnerContract">
-          <div>Owner</div>
+          <div>{{ $t('owner') }}</div>
           <div>{{movie.owner}}</div>
         </div>
         <div class="movieItemOwnerContract">
-          <div>Contract</div>
-          <div v-if="movie.contract === 0">Unlimited</div>
+          <div>{{ $t('contract') }}</div>
+          <div v-if="movie.contract === 0">{{ $t('unlimited') }}</div>
           <div v-else>{{movie.contract}}</div>
         </div>
       </div>

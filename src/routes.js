@@ -21,10 +21,10 @@ import durationSection from "@/components/mainGameComponents/preProduction/durat
 import actorsSection from "@/components/mainGameComponents/preProduction/actorsSection";
 import budgetSection from "@/components/mainGameComponents/preProduction/budgetSection";
 import afterPreProductionPhase from "@/components/mainGameComponents/preProduction/afterPreProductionPhase";
-import MovieList from "@/components/mainGameComponents/streamingMenu/MovieList";
+import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 
 const routes = [
-    { name: 'movieList', path: '/movieList', component: MovieList, props: true },
+    { name: 'buyMovieRights', path: '/buyMovieRights', component: BuyMovieRights, props: true },
     { name: 'news', path: '/news', component: News, props: true },
     { name: 'movies', path: '/movies', component: Movies, props: true },
     { name: 'streaming', path: '/streaming', component: Streaming, props: true },
