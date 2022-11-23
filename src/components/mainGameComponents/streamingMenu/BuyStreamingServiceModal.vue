@@ -50,7 +50,7 @@ export default {
 
   methods: {
     createService(){
-      this.$store.commit('setOwnStreamingService',new StreamingService('Example Service',0,0,0))
+      this.$store.commit('setOwnStreamingService',new StreamingService('Example Service',1,0,0))
       this.$emit('close');
     }
   }

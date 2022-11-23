@@ -26,7 +26,7 @@ export default createStore({
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
-        currentDate: new Date("January 15, 2025"),
+        currentDate: new Date("January 01, 2023"),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [

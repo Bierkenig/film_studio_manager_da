@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="calendarContainer">
     <FullCalendar
         id="calendar"
         :options="calendarOptions"/>
@@ -11,6 +11,10 @@
         </template>
       </event-modal>
     </transition>
+    <!--<day-information
+        id="dayInformationElement"
+        :event="this.eventProp"
+        :clicked-day="this.clickedDay"/>-->
   </div>
 </template>
 
@@ -22,6 +26,7 @@ import TimeGridPlugin from '@fullcalendar/timegrid'
 import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
+//import DayInformation from "@/components/mainGameComponents/calendarMenu/DayInformation";
 import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
 
 export default {
@@ -49,6 +54,7 @@ export default {
       },
       showModal: false,
       eventProp: Object,
+      //clickedDay: null
     }
   },
 
@@ -63,6 +69,8 @@ export default {
 
       const offset = yourDate.getTimezoneOffset();
       yourDate = new Date(yourDate.getTime() - (offset*60*1000));
+
+      //this.clickedDay = yourDate;
 
       yourDate = yourDate.toISOString().split('T')[0];
 
@@ -85,4 +93,14 @@ export default {
 .fc-day-today {
   background-color: inherit !important;
 }
+
+/*.calendarContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+#dayInformationElement {
+  width: 20%;
+}*/
 </style>

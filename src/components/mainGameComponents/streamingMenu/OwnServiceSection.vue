@@ -26,11 +26,13 @@ export default {
 
   methods: {
     addPrice(){
-      this.streamingService._price = this.streamingService._price + 0.5;
+      if(this.streamingService._price < 100){
+        this.streamingService._price = this.streamingService._price + 0.5;
+      }
     },
 
     subtractPrice(){
-      if(this.streamingService._price > 0){
+      if(this.streamingService._price > 1){
         this.streamingService._price = this.streamingService._price - 0.5;
       }
     },
