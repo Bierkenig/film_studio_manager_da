@@ -177,11 +177,11 @@
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-list-sort />'/>
       <div class="kitchenSinkFlexRow">
-        <custom-list-sort />
+        <custom-list-sort/>
         <div class="kitchenSinkSpacer"/>
-        <custom-list-sort />
+        <custom-list-sort/>
         <div class="kitchenSinkSpacer"/>
-        <custom-list-sort />
+        <custom-list-sort/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -190,7 +190,7 @@
       <code-view code='<info-circle :dark="false"/>'/>
       <code-view code='<info-circle text="13+" :dark="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <info-circle />
+        <info-circle/>
         <div class="kitchenSinkSpacer"/>
         <info-circle text="13+"/>
         <div class="kitchenSinkSpacer"/>
@@ -200,8 +200,19 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>'/>
-      <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>
+      <code-view
+      code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>'/>
+      <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
+      genre="Western" genre-icon="western" budget="$ 9999" earnings="$ 999999"/>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe"/>'/>
+      <code-view code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe"/>
+        <div class="kitchenSinkSpacer"/>
+        <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>
+      </div>
     </div>
   </div>
 </template>
@@ -223,10 +234,12 @@ import CustomSelect from "@/components/kitchenSink/CustomSelect";
 import CustomListSort from "@/components/kitchenSink/CustomListSort";
 import MovieElement from "@/components/kitchenSink/MovieElement";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
+import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    ScreenplayElement,
     InfoCircle,
     MovieElement,
     CustomListSort,
