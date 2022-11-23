@@ -10,25 +10,25 @@
       </div>
       <div class="movieElementInfoElements">
         <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :text="viewers"/>
+          <info-circle class="movieElementInfoCircle" :text="viewers" data-title="Audience Rating"/>
           <div class="movieElementInfoDesc">
             Viewers
           </div>
         </div>
         <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :text="critics"/>
+          <info-circle class="movieElementInfoCircle" :text="critics" data-title="Critics Rating"/>
           <div class="movieElementInfoDesc">
             Critics
           </div>
         </div>
         <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :text="age"/>
+          <info-circle class="movieElementInfoCircle" :text="age" data-title="Age Rating"/>
           <div class="movieElementInfoDesc">
             Age
           </div>
         </div>
         <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :icon="genreIcon"/>
+          <info-circle class="movieElementInfoCircle" :icon="genreIcon" :data-title="genre"/>
           <div class="movieElementInfoDesc">
             Genre
           </div>

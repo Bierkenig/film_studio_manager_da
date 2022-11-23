@@ -82,7 +82,7 @@
 
 * {
     color: var(--fsm-white);
-    font-family: 'Maven Pro';
+    font-family: 'Maven Pro', sans-serif;
     font-weight: var(--fsm-fw-medium);
 
     -webkit-touch-callout: none; /* iOS Safari */
@@ -96,6 +96,29 @@
 body {
     margin: 0;
     background-image: url("../assets/standardBG.svg");
+}
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: ease 0.2s;
+    visibility: visible;
+}
+[data-title]:after {
+    content: attr(data-title);
+    background-color: var(--fsm-dark-blue-2);
+    color: var(--fsm-white);
+    font-weight: var(--fsm-fw-regular);
+    position: absolute;
+    padding: 5px;
+    top: -110%;
+    white-space: nowrap;
+    opacity: 0;
+    border-radius: var(--fsm-s-border-radius);
+    z-index: 99999;
+    visibility: hidden;
+}
+[data-title] {
+    position: relative;
 }
 
 button {
