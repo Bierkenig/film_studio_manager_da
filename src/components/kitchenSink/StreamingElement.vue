@@ -9,7 +9,7 @@
       </div>
       <div class="streamingElementInfoElements">
         <div class="streamingElementInfoElement">
-          <info-circle class="streamingElementInfoCircle" :text="age" data-title="Age Rating"/>
+          <info-circle class="streamingElementInfoCircle" :text="popularity" data-title="Age Rating"/>
           <div class="streamingElementInfoDesc">
             Popularity
           </div>
@@ -54,7 +54,7 @@ export default {
       type: String,
       required: true,
     },
-    age: {
+    popularity: {
       type: String,
       required: true,
     },
