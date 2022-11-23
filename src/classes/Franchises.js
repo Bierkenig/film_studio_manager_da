@@ -5,4 +5,8 @@ export default class Franchises {
         //TYPE -> String
         this.name = name
     }
+
+    static fromJSON(jsonObject){
+        return Object.assign(new Franchises(), jsonObject)
+    }
 }

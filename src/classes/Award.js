@@ -16,4 +16,8 @@ export default class Award {
     getYear() {
         return this.year
     }
+
+    static fromJSON(jsonObject){
+        return Object.assign(new Award(),jsonObject)
+    }
 }

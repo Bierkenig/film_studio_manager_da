@@ -1,4 +1,3 @@
-import {isHiddenSync} from "hidefile";
 
 const fs = require("fs");
 const hash = require("object-hash");
@@ -32,7 +31,6 @@ export function save(data, slot) {
         if(!hidefile.isHiddenSync(path.join('.', '.data'))) {
             hidefile.hideSync(path.join('.', '.data'));
         }
-
 
         //creates directory if not already existing
         fs.mkdir(path.join('.','.data', 'saves', slot.toString()), (err) => {

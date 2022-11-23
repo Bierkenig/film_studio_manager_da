@@ -48,7 +48,7 @@ export default {
     save(){
      let slotNr = 1
       let reducedState = {}
-      this.$store.commit("stateToString", reducedState)
+      this.$store.commit("stateToSave", reducedState)
       console.log(this.$store.state)
       console.log(reducedState)
       window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), slotNr])

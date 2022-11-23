@@ -126,4 +126,9 @@ export default class Person {
     get genre() {
         return this._genre;
     }
+
+    static fromJSON(jsonObject){
+        return Object.assign(new Person(), jsonObject)
+
+    }
 }

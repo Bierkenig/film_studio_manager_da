@@ -1,4 +1,5 @@
-import store from "../services/store";
+import Person from "@/classes/Person";
+import Franchises from "@/classes/Franchises";
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, scope, franchise = null) {
@@ -239,7 +240,8 @@ export class Screenplay {
 
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Screenplay(), jsonObject)
-        instance.writer = instance.writer ? store.data.allWriters.find(writer => writer.id === instance.writer.id) : null
+        instance.writer = Person.fromJSON(jsonObject.writer)
+        instance.franchise = Franchises.fromJSON(jsonObject.franchise)
         return instance
     }
 

@@ -5,7 +5,7 @@ export class Movie {
         this._screenplay = screenplay;
         this._date = date;
         this._owner = owner;
-        // null -> no rights bought, 0 -> unlimited rights (created movie)
+        // null -> no rights bought, 0, -> unlimited rights (created movie)
         this._contract = contract;
     }
 
