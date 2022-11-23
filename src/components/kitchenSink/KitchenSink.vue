@@ -224,6 +224,15 @@
         <info-line>Balalalalalalala</info-line>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited"/>'/>
+      <code-view code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited"/>
+        <div class="kitchenSinkSpacer"/>
+        <streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -246,10 +255,12 @@ import MovieElement from "@/components/kitchenSink/MovieElement";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
 import InfoLine from "@/components/kitchenSink/InfoLine";
+import StreamingElement from "@/components/kitchenSink/StreamingElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    StreamingElement,
     InfoLine,
     ScreenplayElement,
     InfoCircle,

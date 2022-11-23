@@ -61,7 +61,7 @@ import IconButton from "@/components/kitchenSink/IconButton";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
 
 export default {
-  name: "movieElement",
+  name: "MovieElement",
   components: {InfoCircle, IconButton},
   data() {
     return {
