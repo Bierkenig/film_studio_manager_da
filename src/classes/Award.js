@@ -18,6 +18,6 @@ export default class Award {
     }
 
     static fromJSON(jsonObject){
-        return Object.assign(new Award(),jsonObject)
+        return Object.assign(new Award() ,jsonObject)
     }
 }
