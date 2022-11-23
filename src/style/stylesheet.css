@@ -144,6 +144,33 @@ input[type='range']::-webkit-slider-thumb {
     border-radius: var(--fsm-max-border-radius);
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--fsm-dark-blue-4);
+    border-radius: var(--fsm-max-border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--fsm-pink-1);
+    background-image: linear-gradient(var(--fsm-pink-1), var(--fsm-pink-4));
+    border-radius: var(--fsm-max-border-radius);
+}
+
+.verticalScroll {
+    overflow-y: scroll;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.horizontalScroll {
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
 button {
     color: black;
 }

@@ -21,6 +21,16 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code="USAGE: fix size and apply class: verticalScroll"/>
+      <div class="kitchenSinkScrollDiv verticalScroll">
+        <custom-button :dark="true">Scroll Test</custom-button>
+        <custom-button :dark="true">Scroll Test</custom-button>
+        <custom-button :dark="true">Scroll Test</custom-button>
+        <custom-button :dark="true">Scroll Test</custom-button>
+        <custom-button :dark="true">Scroll Test</custom-button>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
       <code-view code='<custom-button :dark="true" size="medium">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
@@ -325,5 +335,10 @@ export default {
 .kitchenSinkSpacer {
   width: 1em;
   height: 1em;
+}
+
+.kitchenSinkScrollDiv {
+  width: 100%;
+  height: 150px;
 }
 </style>
