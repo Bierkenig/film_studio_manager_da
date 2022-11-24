@@ -42,6 +42,11 @@ export default {
         gradient: '',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
+      themeWhite: {
+        color: '#E4E4E4',
+        gradient: '',
+        shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
+      },
       themeValues: {},
     }
   },
@@ -58,7 +63,7 @@ export default {
       type: String,
       default: 'light',
       validator(value) {
-        return ['light', 'dark', 'red', 'green', 'blue', 'yellow'].includes(value);
+        return ['light', 'dark', 'red', 'green', 'blue', 'yellow', 'white'].includes(value);
       }
     },
     gradient: {
@@ -97,6 +102,9 @@ export default {
           break;
         case 'yellow':
           this.themeValues = {...this.themeYellow};
+          break;
+        case 'white':
+          this.themeValues = {...this.themeWhite};
           break;
         default:
           throw('Invalid icon theme!');
