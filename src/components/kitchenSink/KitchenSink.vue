@@ -198,12 +198,15 @@
     <div class="kitchenSinkComponentDiv">
       <code-view code='<info-circle />'/>
       <code-view code='<info-circle text="13+"/>'/>
+      <code-view code='<info-circle text="1" size="30px" alternative-style/>'/>
       <code-view code='<info-circle :dark="false"/>'/>
       <code-view code='<info-circle text="13+" :dark="false"/>'/>
       <div class="kitchenSinkFlexRow">
         <info-circle/>
         <div class="kitchenSinkSpacer"/>
         <info-circle text="13+"/>
+        <div class="kitchenSinkSpacer"/>
+        <info-circle text="1" size="30px" alternative-style/>
         <div class="kitchenSinkSpacer"/>
         <info-circle :dark="false"/>
         <div class="kitchenSinkSpacer"/>
