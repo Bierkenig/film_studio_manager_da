@@ -21,6 +21,7 @@ export default {
       if (this.currentSort >= this.possibleSorts.length) {
         this.currentSort = 0;
       }
+      this.$emit('sort-changed', this.possibleSorts[this.currentSort]);
     },
     setBG() {
       this.buttonBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgBG) + '")';

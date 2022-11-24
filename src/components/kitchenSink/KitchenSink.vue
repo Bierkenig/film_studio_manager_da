@@ -196,13 +196,13 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-list-sort />'/>
+      <code-view code='<custom-list-sort @sort-changed="showSort"/>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-list-sort/>
+        <custom-list-sort @sort-changed="showSort"/>
         <div class="kitchenSinkSpacer"/>
-        <custom-list-sort/>
+        <custom-list-sort @sort-changed="showSort"/>
         <div class="kitchenSinkSpacer"/>
-        <custom-list-sort/>
+        <custom-list-sort @sort-changed="showSort"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -361,6 +361,9 @@ export default {
     },
     showSelected(value) {
       alert('showSelected: ' + value);
+    },
+    showSort(value) {
+      alert('showSort: ' + value);
     },
   },
 }
