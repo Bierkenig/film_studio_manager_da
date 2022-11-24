@@ -6,7 +6,7 @@
         <div class="movieElementTitle">
           {{movieTitle}}
         </div>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
+        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
       </div>
       <div class="movieElementInfoElements">
         <div class="movieElementInfoElement">
@@ -106,6 +106,9 @@ export default {
   methods: {
     setSVG() {
       this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
+    },
+    openButtonClicked() {
+      this.$emit('open-clicked');
     },
   },
   mounted() {

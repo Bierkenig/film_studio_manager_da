@@ -179,7 +179,8 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>'/>
+      <code-view
+          code='<earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
         <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>
         <div class="kitchenSinkSpacer"/>
@@ -229,9 +230,10 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>'/>
+          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9,999"  earnings="$ 999,999" @open-clicked="elementOpened"/>'/>
       <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
-                     genre="Western" genre-icon="western" budget="$ 9999" earnings="$ 999999"/>
+                     genre="Western" genre-icon="western" budget="$ 9,999" earnings="$ 999,999"
+                     @open-clicked="elementOpened"/>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
