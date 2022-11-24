@@ -8,7 +8,7 @@
         {{movieEarnings}}
       </div>
     </div>
-    <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
+    <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
   </div>
 </template>
 
@@ -25,6 +25,11 @@ export default {
     movieEarnings: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    openButtonClicked() {
+      this.$emit('open-clicked');
     },
   },
 }

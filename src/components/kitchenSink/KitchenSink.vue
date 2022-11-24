@@ -42,7 +42,8 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
-      <code-view code='<custom-button :dark="true" size="medium" @clicked="yourFunction">Function Test</custom-button>'/>
+      <code-view
+          code='<custom-button :dark="true" size="medium" @clicked="yourFunction">Function Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
         <custom-button :dark="false" size="medium">Test</custom-button>
         <div class="kitchenSinkSpacer"/>
@@ -60,7 +61,8 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="settings" size="60px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
+      <code-view
+          code='<custom-icon icon="settings" size="60px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
       <code-view code='<custom-icon icon="suicide" size="60px" theme="light" :gradient="true" :shadow="false"/>'/>
       <code-view code='<custom-icon icon="movies" size="60px" theme="dark" :gradient="false" :shadow="true"/>'/>
       <code-view code='<custom-icon icon="prison" size="60px" theme="dark" :gradient="false" :shadow="false"/>'/>
@@ -152,7 +154,8 @@
     <div class="kitchenSinkComponentDiv">
       <code-view
           code='<production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left" @open-clicked="elementOpened"/>'/>
-      <production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left" @open-clicked="elementOpened"/>
+      <production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"
+                          @open-clicked="elementOpened"/>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
@@ -176,17 +179,18 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>'/>
+      <code-view code='<earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
-        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>
+        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>
         <div class="kitchenSinkSpacer"/>
-        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>
+        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>
         <div class="kitchenSinkSpacer"/>
-        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000"/>
+        <earning-element movie-title="Movie Title" movie-earnings="$ 1,000,000" @open-clicked="elementOpened"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>'/>
+      <code-view
+          code='<custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>'/>
       <div class="kitchenSinkFlexRow">
         <custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>
         <div class="kitchenSinkSpacer"/>
@@ -225,17 +229,21 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-      code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>'/>
+          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9999"  earnings="$ 999999"/>'/>
       <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
-      genre="Western" genre-icon="western" budget="$ 9999" earnings="$ 999999"/>
+                     genre="Western" genre-icon="western" budget="$ 9999" earnings="$ 999999"/>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe"/>'/>
-      <code-view code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>'/>
+      <code-view
+          code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe"/>'/>
+      <code-view
+          code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>'/>
       <div class="kitchenSinkFlexRow">
-        <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe"/>
+        <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action"
+                            genre-icon="action" :quality="1" writer="John Doe"/>
         <div class="kitchenSinkSpacer"/>
-        <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>
+        <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars"
+                            genre-icon="cars" :quality="100" writer="Don Joe"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -249,45 +257,62 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited"/>'/>
-      <code-view code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true"/>'/>
+      <code-view
+          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited"/>'/>
+      <code-view
+          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true"/>'/>
       <div class="kitchenSinkFlexRow">
         <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Unlimited"/>
         <div class="kitchenSinkSpacer"/>
-        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Limited" :contract-critical="true"/>
+        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Limited"
+                           :contract-critical="true"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>'/>
+      <code-view
+          code='<streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>'/>
       <div class="kitchenSinkFlexRow">
-        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>
+        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios"
+                                      streaming-service="Example Studios+"/>
         <div class="kitchenSinkSpacer"/>
-        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>
+        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios"
+                                      streaming-service="Example Studios+"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<finance-element area="Area" incoming="Incoming" outgoing="Outgoing" accumulated="Accumulated" :color-incoming="false" :color-outgoing="false" :color-accumulated="false"/>'/>
-      <code-view code='<finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="$ 999,999,999"/>'/>
-      <code-view code='<finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="- $ 999,999,999"/>'/>
-      <finance-element area="Area" incoming="Incoming" outgoing="Outgoing" accumulated="Accumulated" :color-incoming="false" :color-outgoing="false" :color-accumulated="false"/>
+      <code-view
+          code='<finance-element area="Area" incoming="Incoming" outgoing="Outgoing" accumulated="Accumulated" :color-incoming="false" :color-outgoing="false" :color-accumulated="false"/>'/>
+      <code-view
+          code='<finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="$ 999,999,999"/>'/>
+      <code-view
+          code='<finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="- $ 999,999,999"/>'/>
+      <finance-element area="Area" incoming="Incoming" outgoing="Outgoing" accumulated="Accumulated"
+                       :color-incoming="false" :color-outgoing="false" :color-accumulated="false"/>
       <div class="kitchenSinkSpacer"/>
       <finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="$ 999,999,999"/>
       <div class="kitchenSinkSpacer"/>
-      <finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="- $ 999,999,999"/>
+      <finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999"
+                       accumulated="- $ 999,999,999"/>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<market-share-element studio="Studio" sales="Sales" share="Share" change="Change" no-change-color/>'/>
-      <code-view code='<market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>'/>
-      <code-view code='<market-share-element studio="Example Studios" icon="action" icon-theme="green" sales="$ 999,999,999" share="99%" change="-99%"/>'/>
+      <code-view
+          code='<market-share-element studio="Studio" sales="Sales" share="Share" change="Change" no-change-color/>'/>
+      <code-view
+          code='<market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>'/>
+      <code-view
+          code='<market-share-element studio="Example Studios" icon="action" icon-theme="green" sales="$ 999,999,999" share="99%" change="-99%"/>'/>
       <market-share-element studio="Studio" sales="Sales" share="Share" change="Change" no-change-color/>
       <div class="kitchenSinkSpacer"/>
       <market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>
       <div class="kitchenSinkSpacer"/>
-      <market-share-element studio="Example Studios" icon="action" icon-theme="white" sales="$ 999,999,999" share="99%" change="-99%"/>
+      <market-share-element studio="Example Studios" icon="action" icon-theme="white" sales="$ 999,999,999" share="99%"
+                            change="-99%"/>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>'/>
-      <earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>
+      <code-view
+          code='<earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>'/>
+      <earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999"
+                                  studio="Example Studios"/>
     </div>
   </div>
 </template>
