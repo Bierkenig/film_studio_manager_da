@@ -237,15 +237,15 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe"/>'/>
+          code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe" @open-clicked="elementOpened"/>'/>
       <code-view
-          code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe"/>'/>
+          code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe" @open-clicked="elementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
         <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action"
-                            genre-icon="action" :quality="1" writer="John Doe"/>
+                            genre-icon="action" :quality="1" writer="John Doe" @open-clicked="elementOpened"/>
         <div class="kitchenSinkSpacer"/>
         <screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars"
-                            genre-icon="cars" :quality="100" writer="Don Joe"/>
+                            genre-icon="cars" :quality="100" writer="Don Joe" @open-clicked="elementOpened"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
