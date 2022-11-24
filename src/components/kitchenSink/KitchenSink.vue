@@ -31,6 +31,16 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code="USAGE: fix size and apply class: horizontalScroll"/>
+      <div class="kitchenSinkScrollDiv horizontalScroll kitchenSinkFlexRow">
+        <custom-button :dark="true" style="flex-shrink: 0;">Scroll Test</custom-button>
+        <custom-button :dark="true" style="flex-shrink: 0;">Scroll Test</custom-button>
+        <custom-button :dark="true" style="flex-shrink: 0;">Scroll Test</custom-button>
+        <custom-button :dark="true" style="flex-shrink: 0;">Scroll Test</custom-button>
+        <custom-button :dark="true" style="flex-shrink: 0;">Scroll Test</custom-button>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
       <code-view code='<custom-button :dark="true" size="medium">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">

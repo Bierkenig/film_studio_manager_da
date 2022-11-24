@@ -146,6 +146,7 @@ input[type='range']::-webkit-slider-thumb {
 
 ::-webkit-scrollbar {
     width: 10px;
+    height: auto;
 }
 
 ::-webkit-scrollbar-track {
@@ -169,6 +170,11 @@ input[type='range']::-webkit-slider-thumb {
     overflow-x: scroll;
     padding-bottom: 10px;
     box-sizing: border-box;
+}
+
+.horizontalScroll::-webkit-scrollbar {
+    width: auto;
+    height: 10px;
 }
 
 button {
