@@ -111,27 +111,35 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample1) + singleQuote + '>'"/>
-      <code-view code='░░<div>All</div>'/>
-      <code-view code='░░<div>In Production</div>'/>
-      <code-view code='░░<div>Released</div>'/>
+      <code-view code='░░<div>All Div</div>'/>
+      <code-view code='░░<div>In Production Div</div>'/>
+      <code-view code='░░<div>Released Div</div>'/>
       <code-view code='</tile-pages-nav>'/>
+      <code-view code='░░░░░░░░░░░░░░░░░'/>
+      <code-view code='MEANING: pages[0] -> first child-container (<div>All Div</div>)'/>
+      <code-view code='MEANING: pages[1] -> second child-container (<div>In Production Div</div>)'/>
+      <code-view code='RULE: pages.length MUST BE nav-children-count'/>
       <tile-pages-nav :pages='navExample1'>
-        <div>All</div>
-        <div>In Production</div>
-        <div>Released</div>
+        <div>All Div</div>
+        <div>In Production Div</div>
+        <div>Released Div</div>
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
           :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'true' + singleQuote + '>'"/>
-      <code-view code='░░<div>Movies</div>'/>
-      <code-view code='░░<div>People</div>'/>
-      <code-view code='░░<div>Others</div>'/>
+      <code-view code='░░<div>Movies Div</div>'/>
+      <code-view code='░░<div>People Div</div>'/>
+      <code-view code='░░<div>Others Div</div>'/>
       <code-view code='</tile-pages-nav>'/>
+      <code-view code='░░░░░░░░░░░░░░░░░'/>
+      <code-view code='MEANING: pages[0] -> first child-container (<div>Movies Div</div>)'/>
+      <code-view code='MEANING: pages[1] -> second child-container (<div>People Div</div>)'/>
+      <code-view code='RULE: pages.length MUST BE nav-children-count'/>
       <tile-pages-nav :pages='navExample2' :gradient='true'>
-        <div>Movies</div>
-        <div>People</div>
-        <div>Others</div>
+        <div>Movies Div</div>
+        <div>People Div</div>
+        <div>Others Div</div>
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
