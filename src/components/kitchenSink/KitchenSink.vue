@@ -42,11 +42,11 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
-      <code-view code='<custom-button :dark="true" size="medium">Test</custom-button>'/>
+      <code-view code='<custom-button :dark="true" size="medium" @clicked="yourFunction">Function Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
         <custom-button :dark="false" size="medium">Test</custom-button>
         <div class="kitchenSinkSpacer"/>
-        <custom-button :dark="true" size="medium">Test</custom-button>
+        <custom-button :dark="true" size="medium" @clicked="yourFunction">Function Test</custom-button>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -354,7 +354,12 @@ export default {
       singleQuote: "'",
       doubleQuote: '"',
     }
-  }
+  },
+  methods: {
+    yourFunction() {
+      alert('yourFunction has been executed');
+    },
+  },
 }
 </script>
 

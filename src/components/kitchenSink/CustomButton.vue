@@ -1,5 +1,5 @@
 <template>
-  <button class="customButton">
+  <button class="customButton" @click="buttonFunction">
     <slot/>
   </button>
 </template>
@@ -54,6 +54,9 @@ export default {
       } else {
         this.themeValues = {...this.themeDark};
       }
+    },
+    buttonFunction() {
+      this.$emit('clicked');
     },
   },
   mounted() {
