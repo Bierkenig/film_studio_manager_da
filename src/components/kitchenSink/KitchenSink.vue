@@ -262,6 +262,16 @@
       <div class="kitchenSinkSpacer"/>
       <finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="- $ 999,999,999"/>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<market-share-element studio="Studio" sales="Sales" share="Share" change="Change" no-change-color/>'/>
+      <code-view code='<market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>'/>
+      <code-view code='<market-share-element studio="Example Studios" icon="action" icon-theme="green" sales="$ 999,999,999" share="99%" change="-99%"/>'/>
+      <market-share-element studio="Studio" sales="Sales" share="Share" change="Change" no-change-color/>
+      <div class="kitchenSinkSpacer"/>
+      <market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>
+      <div class="kitchenSinkSpacer"/>
+      <market-share-element studio="Example Studios" icon="action" icon-theme="white" sales="$ 999,999,999" share="99%" change="-99%"/>
+    </div>
   </div>
 </template>
 
@@ -287,10 +297,12 @@ import InfoLine from "@/components/kitchenSink/InfoLine";
 import StreamingElement from "@/components/kitchenSink/StreamingElement";
 import StreamingCompetitorElement from "@/components/kitchenSink/StreamingCompetitorElement";
 import FinanceElement from "@/components/kitchenSink/FinanceElement";
+import MarketShareElement from "@/components/kitchenSink/MarketShareElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    MarketShareElement,
     FinanceElement,
     StreamingCompetitorElement,
     StreamingElement,
