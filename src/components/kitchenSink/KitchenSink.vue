@@ -313,9 +313,9 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>'/>
+          code='<earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios" @open-clicked="elementOpened"/>'/>
       <earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999"
-                                  studio="Example Studios"/>
+                                  studio="Example Studios" @open-clicked="elementOpened"/>
     </div>
   </div>
 </template>

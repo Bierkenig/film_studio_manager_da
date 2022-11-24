@@ -7,7 +7,7 @@
           {{movieTitle}}
         </div>
       </div>
-      <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
+      <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
     </div>
     <div class="earningStatisticsElementInfo">
       <div class="earningStatisticsElementInfoBox">
@@ -52,6 +52,11 @@ export default {
     studio: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    openButtonClicked() {
+      this.$emit('open-clicked');
     },
   },
 }
