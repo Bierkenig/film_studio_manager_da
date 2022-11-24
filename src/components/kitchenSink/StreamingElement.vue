@@ -5,7 +5,7 @@
         <div class="streamingElementTitle">
           {{movieTitle}}
         </div>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
+        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
       </div>
       <div class="streamingElementInfoElements">
         <div class="streamingElementInfoElement">
@@ -69,6 +69,11 @@ export default {
     contractCritical: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    openButtonClicked() {
+      this.$emit('open-clicked');
     },
   },
   mounted() {

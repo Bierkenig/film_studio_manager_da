@@ -260,14 +260,15 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited"/>'/>
+          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited" @open-clicked="elementOpened"/>'/>
       <code-view
-          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true"/>'/>
+          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true" @open-clicked="elementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
-        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Unlimited"/>
+        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Unlimited"
+                           @open-clicked="elementOpened"/>
         <div class="kitchenSinkSpacer"/>
         <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Limited"
-                           :contract-critical="true"/>
+                           :contract-critical="true" @open-clicked="elementOpened"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
