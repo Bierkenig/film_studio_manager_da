@@ -251,6 +251,16 @@
         <streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<finance-element area="Area" incoming="Incoming" outgoing="Outgoing" accumulated="Accumulated" :color-incoming="false" :color-outgoing="false" :color-accumulated="false"/>'/>
+      <code-view code='<finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="$ 999,999,999"/>'/>
+      <code-view code='<finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="- $ 999,999,999"/>'/>
+      <finance-element area="Area" incoming="Incoming" outgoing="Outgoing" accumulated="Accumulated" :color-incoming="false" :color-outgoing="false" :color-accumulated="false"/>
+      <div class="kitchenSinkSpacer"/>
+      <finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="$ 999,999,999"/>
+      <div class="kitchenSinkSpacer"/>
+      <finance-element area="Area 51" incoming="$ 999,999,999" outgoing="- $ 999,999,999" accumulated="- $ 999,999,999"/>
+    </div>
   </div>
 </template>
 
@@ -275,10 +285,12 @@ import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
 import InfoLine from "@/components/kitchenSink/InfoLine";
 import StreamingElement from "@/components/kitchenSink/StreamingElement";
 import StreamingCompetitorElement from "@/components/kitchenSink/StreamingCompetitorElement";
+import FinanceElement from "@/components/kitchenSink/FinanceElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    FinanceElement,
     StreamingCompetitorElement,
     StreamingElement,
     InfoLine,
@@ -333,8 +345,8 @@ export default {
 }
 
 .kitchenSinkSpacer {
-  width: 1em;
-  height: 1em;
+  width: 10px;
+  height: 10px;
 }
 
 .kitchenSinkScrollDiv {
