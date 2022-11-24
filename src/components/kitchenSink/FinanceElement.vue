@@ -95,7 +95,6 @@ export default {
 }
 
 .financeElementValue {
-  flex-grow: 1;
   flex-basis: 0;
   display: flex;
   flex-direction: column;
@@ -104,15 +103,22 @@ export default {
   font-weight: var(--fsm-fw-regular);
 }
 
+.financeElementArea {
+  flex-grow: 2;
+}
+
 .financeElementIncoming {
+  flex-grow: 3;
   color: v-bind('incomingColor');
 }
 
 .financeElementOutgoing {
+  flex-grow: 3;
   color: v-bind('outgoingColor');
 }
 
 .financeElementAccumulated {
+  flex-grow: 3;
   color: v-bind('accumulatedColor');
 }
 </style>
