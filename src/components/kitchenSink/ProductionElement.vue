@@ -4,7 +4,7 @@
       <div class="productionElementMovieTitle">
         {{movieTitle}}
       </div>
-      <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>
+      <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
     </div>
     <div class="productionElementInfo">
       <div class="productionElementInfoBox">
@@ -44,6 +44,11 @@ export default {
     timeLeft: {
       type: String,
       required: true,
+    },
+  },
+  methods: {
+    openButtonClicked() {
+      this.$emit('open-clicked');
     },
   },
 }

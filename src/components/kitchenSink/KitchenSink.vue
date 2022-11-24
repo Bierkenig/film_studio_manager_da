@@ -136,7 +136,7 @@
       <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One" hide-open-icon/>'/>
       <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One" hide-open-icon/>'/>
       <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="award" @open-clicked="eventElementOpened"/>'/>
+      <code-view code='<event-element type="award" @open-clicked="elementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
         <event-element type="productionFinished" movieTitle="Movie Title Name One" hide-open-icon/>
         <div class="kitchenSinkSpacer"/>
@@ -146,13 +146,13 @@
       <div class="kitchenSinkFlexRow">
         <event-element type="blockbuster" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="award" @open-clicked="eventElementOpened"/>
+        <event-element type="award" @open-clicked="elementOpened"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>'/>
-      <production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left"/>
+          code='<production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left" @open-clicked="elementOpened"/>'/>
+      <production-element movie-title="Title" release-date="Date" status="Status" time-left="Time left" @open-clicked="elementOpened"/>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
@@ -365,8 +365,8 @@ export default {
     showSort(value) {
       alert('showSort: ' + value);
     },
-    eventElementOpened() {
-      alert('eventElementOpened has been executed');
+    elementOpened() {
+      alert('elementOpened has been executed');
     },
   },
 }
