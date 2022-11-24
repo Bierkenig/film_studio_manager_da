@@ -275,6 +275,10 @@
       <div class="kitchenSinkSpacer"/>
       <market-share-element studio="Example Studios" icon="action" icon-theme="white" sales="$ 999,999,999" share="99%" change="-99%"/>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code=''/>
+      <earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>
+    </div>
   </div>
 </template>
 
@@ -301,10 +305,12 @@ import StreamingElement from "@/components/kitchenSink/StreamingElement";
 import StreamingCompetitorElement from "@/components/kitchenSink/StreamingCompetitorElement";
 import FinanceElement from "@/components/kitchenSink/FinanceElement";
 import MarketShareElement from "@/components/kitchenSink/MarketShareElement";
+import EarningStatisticsElement from "@/components/kitchenSink/EarningStatisticsElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    EarningStatisticsElement,
     MarketShareElement,
     FinanceElement,
     StreamingCompetitorElement,
