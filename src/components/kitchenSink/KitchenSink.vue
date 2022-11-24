@@ -186,13 +186,13 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-select :options="exampleOptions" placeholder="Please Select"/>'/>
+      <code-view code='<custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-select :options="exampleOptions" placeholder="Please Select"/>
+        <custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>
         <div class="kitchenSinkSpacer"/>
-        <custom-select :options="exampleOptions" placeholder="Please Select"/>
+        <custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>
         <div class="kitchenSinkSpacer"/>
-        <custom-select :options="exampleOptions" placeholder="Please Select"/>
+        <custom-select :options="exampleOptions" placeholder="Please Select" @select-change="showSelected"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -358,6 +358,9 @@ export default {
   methods: {
     yourFunction() {
       alert('yourFunction has been executed');
+    },
+    showSelected(value) {
+      alert('showSelected: ' + value);
     },
   },
 }

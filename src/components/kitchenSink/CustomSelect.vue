@@ -1,10 +1,11 @@
 <template>
-  <select class="customSelectMain">
+  <select class="customSelectMain" ref="customSelectMain" @change="sendChange">
     <option selected disabled>{{ placeholder }}</option>
     <option
         v-for="(option, i) in options"
         :key="i"
         class="customSelectOption"
+        :value="option"
     >
       {{ option }}
     </option>
@@ -33,6 +34,9 @@ export default {
   methods: {
     setBG() {
       this.selectBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgBG) + '")';
+    },
+    sendChange() {
+      this.$emit('select-change', this.$refs.customSelectMain.value);
     },
   },
   mounted() {
