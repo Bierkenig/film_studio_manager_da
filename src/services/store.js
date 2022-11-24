@@ -110,7 +110,7 @@ export default createStore({
         //preProduction
         preProduction: {
             isPreProduction: false,
-            currentScreenplay: null,
+            currentScreenplay: new Screenplay(0, 'Screenplay1', 'cool', 'Action', 'Action2', '13', null, 'hallo was geht', 30, 198267, null, 'little'),
             hiredDirector: null,
             hiredActors: {
                 main: [],

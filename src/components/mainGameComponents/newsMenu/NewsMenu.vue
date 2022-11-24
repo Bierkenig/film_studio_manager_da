@@ -38,7 +38,7 @@
         <option value="earnings">{{$t('newsData.earnings')}}</option>
       </select>
       <div v-for="(el, index) in allMovies" :key="index">
-        {{el.getScreenplay().getTitle()}} / {{el.getDirector()._first_name / el.getDirector()._last_name}} / {{el.getScreenplay().getGenre()}} / {{el.getScreenplay().getAgeRating()}} / {{el.getScreenplay().getDescription()}}
+        {{el.screenplay.getTitle()}} / {{el.director._first_name / el.director._last_name}} / {{el.screenplay.getGenre()}} / {{el.screenplay.getAgeRating()}} / {{el.screenplay.getDescription()}}
       </div>
     </div>
 
@@ -75,7 +75,6 @@ export default {
 
   methods: {
     sortEarnings() {
-      console.log(this.$store.getters.getAllActors)
       switch (this.selectedEarnings) {
         case "week":
           this.sortedEarnings = this.$store.getters.getEarnings

@@ -1,6 +1,9 @@
 <template>
   <div>
+    <div>{{$t('durationSection.set')}}</div>
 
+    <input type="range" min="" max="" step="">
+    <div></div>
   </div>
 </template>
 
