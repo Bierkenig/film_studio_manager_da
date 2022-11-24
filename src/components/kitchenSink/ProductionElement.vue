@@ -70,6 +70,9 @@ export default {
 }
 
 .productionElementMovieTitle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-size: 22px;
   font-weight: var(--fsm-fw-regular);
 }
@@ -87,8 +90,6 @@ export default {
   justify-content: space-between;
   box-sizing: border-box;
   height: 30px;
-  font-size: 14px;
-  font-weight: var(--fsm-fw-regular);
   flex-basis: 0;
   flex-grow: 1;
   background-color: var(--fsm-dark-blue-3);
@@ -104,5 +105,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  font-size: 14px;
+  font-weight: var(--fsm-fw-regular);
 }
 </style>

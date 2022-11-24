@@ -276,7 +276,7 @@
       <market-share-element studio="Example Studios" icon="action" icon-theme="white" sales="$ 999,999,999" share="99%" change="-99%"/>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code=''/>
+      <code-view code='<earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>'/>
       <earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999" studio="Example Studios"/>
     </div>
   </div>
