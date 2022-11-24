@@ -28,6 +28,7 @@ export default {
       iconTheme: 'red',
       contentHeight: '30px',
       randomId: Math.floor(Math.random() * Math.pow(10, 10)),
+      openIconDisplay: 'flex',
     }
   },
   props: {
@@ -41,10 +42,17 @@ export default {
     movieTitle: {
       type: String,
       default: 'movieTitle',
-    }
+    },
+    hideOpenIcon: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     setupElement() {
+      if (this.hideOpenIcon) {
+        this.openIconDisplay = 'none';
+      }
       switch (this.type) {
         case 'productionFinished':
           document.getElementById('productionFinishedIcon' + this.randomId).style.display = 'block';
@@ -119,6 +127,7 @@ export default {
 }
 
 .eventElementOpenButton {
+  display: v-bind('openIconDisplay');
   margin: 5px;
 }
 </style>

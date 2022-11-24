@@ -122,14 +122,14 @@
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One" hide-open-icon/>'/>
+      <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One" hide-open-icon/>'/>
       <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
       <code-view code='<event-element type="award"/>'/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="productionFinished" movieTitle="Movie Title Name One"/>
+        <event-element type="productionFinished" movieTitle="Movie Title Name One" hide-open-icon/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="featureFilm" movieTitle="Movie Title Name One"/>
+        <event-element type="featureFilm" movieTitle="Movie Title Name One" hide-open-icon/>
       </div>
       <div class="kitchenSinkSpacer"/>
       <div class="kitchenSinkFlexRow">
