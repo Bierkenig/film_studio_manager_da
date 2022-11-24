@@ -10,7 +10,7 @@
       <div class="eventElementDescription">{{description}}</div>
     </div>
   </div>
-  <icon-button class="eventElementOpenButton" icon="open" size="small" theme="light"/>
+  <icon-button class="eventElementOpenButton" icon="open" size="small" theme="light" @click="openButtonFunction"/>
 </div>
 </template>
 
@@ -77,6 +77,9 @@ export default {
         default:
           throw('Invalid event type!');
       }
+    },
+    openButtonFunction() {
+      this.$emit('open-clicked');
     },
   },
   mounted() {

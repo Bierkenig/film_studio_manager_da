@@ -136,7 +136,7 @@
       <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One" hide-open-icon/>'/>
       <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One" hide-open-icon/>'/>
       <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="award"/>'/>
+      <code-view code='<event-element type="award" @open-clicked="eventElementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
         <event-element type="productionFinished" movieTitle="Movie Title Name One" hide-open-icon/>
         <div class="kitchenSinkSpacer"/>
@@ -146,7 +146,7 @@
       <div class="kitchenSinkFlexRow">
         <event-element type="blockbuster" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="award"/>
+        <event-element type="award" @open-clicked="eventElementOpened"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -364,6 +364,9 @@ export default {
     },
     showSort(value) {
       alert('showSort: ' + value);
+    },
+    eventElementOpened() {
+      alert('eventElementOpened has been executed');
     },
   },
 }
