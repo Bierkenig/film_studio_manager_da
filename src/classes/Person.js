@@ -1,6 +1,6 @@
 export default class Person {
     constructor(id, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent,
-                popularity, rating, salary, isActor, isDirector, isWriter, genre, finishedScreenplay = null) {
+                popularity, rating, salary, isActor, isDirector, isWriter, genre) {
         //TYPE -> Integer
         this._id = id;
         //TYPE -> String
@@ -42,8 +42,7 @@ export default class Person {
         //TYPE -> String
         this._genre = genre;
         //TYPE -> Integer
-        this._no = 0;
-        if (isDirector) this.finishedScreenplay = finishedScreenplay;
+        if (isDirector) this._no = 0;
         if (isActor) this.notAvailable = 0;
     }
 

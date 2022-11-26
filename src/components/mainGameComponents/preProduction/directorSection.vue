@@ -26,7 +26,7 @@
 
       <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
 
-      <button :disabled="!decision" @click="this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+      <button :disabled="!decision" @click="this.$store.state.preProduction.hiredDirector = this.currentDirector ;this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
     </div>
   </div>
 </template>
@@ -57,7 +57,7 @@ export default {
     calcSalary(director) {
       this.currentDirector = director;
       this.showNegotiation = true;
-      this.directorsControl = this.currentDirector._popularity + this.currentDirector._experience + this.currentDirector._rating / 3
+      this.directorsControl = (this.currentDirector._popularity + this.currentDirector._experience + this.currentDirector._rating) / 3
       this.salaryRange.min = this.$store.state.allDirectorSalary[director._rating - 1 - 5]
       this.salaryRange.max = this.$store.state.allDirectorSalary[director._rating - 1 + 5]
     },

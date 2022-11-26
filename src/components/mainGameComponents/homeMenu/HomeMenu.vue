@@ -13,6 +13,9 @@
     <router-link to="screenplaySection">
       <button>screenplay</button>
     </router-link>
+    <router-link to="durationSection">
+      <button>duration</button>
+    </router-link>
     <router-link to="actorSection">
       <button>actor</button>
     </router-link>

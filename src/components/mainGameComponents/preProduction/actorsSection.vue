@@ -21,10 +21,8 @@
       <label for="support">Support</label>
       <input type="radio" value="cameo" id="cameo" v-model="radio">
       <label for="cameo">Cameo</label>
-      <input type="radio" value="voiceOver" id="voiceOver" v-model="radio">
-      <label for="voiceOver">Voice Over</label>
 
-      <button @click="checkActor(); offer = true; this.$store.state.preProduction.mood = Math.round(Math.random() * 2) + 1">{{ $t('actorSection.offer') }}</button>
+      <button @click="checkActor(); offer = true">{{ $t('actorSection.offer') }}</button>
       <div v-if="offer">
         {{
           actorDecision ? currentActor._first_name + " " + currentActor._last_name + $t('actorSection.decision') + "Yes" : currentActor._first_name + " " + currentActor._last_name + $t('actorSection.decision') + "No"
@@ -39,15 +37,6 @@
         {{ $t('actorSection.spots3') }}
       </div>
 
-      <div>{{$t('actorSection.mood')}}</div>
-      <smiley-director></smiley-director>
-
-      <actor-modal v-if="modalTrue">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </actor-modal>
-
       <button v-if="actorDecision" @click="lastCheck" :disabled="!actorDecision">
         {{ $t('actorSection.continue') }}
       </button>
@@ -57,14 +46,11 @@
 </template>
 
 <script>
-import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
-import ActorModal from "@/components/mainGameComponents/preProduction/modals/actor-modal";
 export default {
   name: "actorsSection",
-  components: {ActorModal, SmileyDirector},
   data() {
     return {
-      allActors: this.$store.getters.getAllActors,
+      allActors: this.$store.getters.getAllActors.filter((el) => el.notAvailable < 3),
       currentActor: null,
       actorSalaryRange: {
         min: 0,
@@ -103,7 +89,6 @@ export default {
       let minor = this.$store.state.preProduction.currentScreenplay.roles.minor.length - this.$store.state.preProduction.currentScreenplay.actors.minor.length - 1;
       let support = this.$store.state.preProduction.currentScreenplay.roles.support.length - this.$store.state.preProduction.currentScreenplay.actors.support.length - 1;
       let cameo = this.$store.state.preProduction.currentScreenplay.roles.cameo.length - this.$store.state.preProduction.currentScreenplay.actors.cameo.length - 1;
-      let voiceOver = this.$store.state.preProduction.currentScreenplay.roles.voiceOver.length - this.$store.state.preProduction.currentScreenplay.actors.voiceOver.length - 1;
       switch (this.radio) {
         case "main":
           console.log(this.$store.state.preProduction.currentScreenplay.actors.main.length)
@@ -140,15 +125,6 @@ export default {
             const index = this.allActors.indexOf(this.currentActor)
             this.allActors.splice(index, 1)
             this.spotsLeft = cameo
-          }
-          break
-        case
-        "voiceOver":
-          if (this.$store.state.preProduction.currentScreenplay.actors.voiceOver.length < this.$store.state.preProduction.currentScreenplay.roles.voiceOver.length) {
-            this.$store.state.preProduction.currentScreenplay.actors.voiceOver.push(this.currentActor)
-            const index = this.allActors.indexOf(this.currentActor)
-            this.allActors.splice(index, 1)
-            this.spotsLeft = voiceOver
           }
           break
       }

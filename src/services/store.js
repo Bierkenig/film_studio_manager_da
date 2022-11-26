@@ -112,7 +112,7 @@ export default createStore({
         //preProduction
         preProduction: {
             isPreProduction: false,
-            currentScreenplay: new Screenplay(0, 'Screenplay1', 'feature', 'Action', 'Action2', '13', null, 'hallo was geht', 30, 198267, null, 'little'),
+            currentScreenplay: null,
             hiredDirector: null,
             feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
             indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
@@ -120,6 +120,13 @@ export default createStore({
             outgoings: 0,
             //can be: 2 = fine, 3 = angry and 1 = relaxed
             directorMood: 0,
+            duration: {
+                preProductionLength: 0,
+                productionLength: 0,
+                postProductionLength: 0,
+                releaseDate: 0,
+            },
+            budgetPop: 12,
         },
 
         ownStreamingService: null,

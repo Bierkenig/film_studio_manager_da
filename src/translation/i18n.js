@@ -118,15 +118,13 @@ i18next
                         declined: " declined your Offers 3 times. Try to negotiate with another Director"
                     },
                     durationSection: {
-                        set: "Set the Production Phase of your Movie",
-                        length: "Length",
-                        scope: "Scope",
-                        castSize: "Cast Size",
-                        main: "Main",
-                        minor: "Minor",
-                        support: "Support",
-                        cameo: "Cameo",
-                        voice: "Voice Over",
+                        set: "Set the Pre Production Phase of your Movie",
+                        set2: "Set the Production Phase of your Movie",
+                        set3: "Set the Post Production Phase of your Movie",
+                        confirm: "Confirm",
+                        releaseDate: "Set the release Date for your Production",
+                        continue: "Continue",
+                        choice: "Your choice: "
                     },
                     actorSection: {
                         hire: "Hire Actors for your Movie",
