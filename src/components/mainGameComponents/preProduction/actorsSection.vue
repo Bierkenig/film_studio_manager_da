@@ -24,7 +24,7 @@
       <input type="radio" value="voiceOver" id="voiceOver" v-model="radio">
       <label for="voiceOver">Voice Over</label>
 
-      <button @click="checkActor(); offer = true">{{ $t('actorSection.offer') }}</button>
+      <button @click="checkActor(); offer = true; this.$store.state.preProduction.mood = Math.round(Math.random() * 2) + 1">{{ $t('actorSection.offer') }}</button>
       <div v-if="offer">
         {{
           actorDecision ? currentActor._first_name + " " + currentActor._last_name + $t('actorSection.decision') + "Yes" : currentActor._first_name + " " + currentActor._last_name + $t('actorSection.decision') + "No"
@@ -39,7 +39,16 @@
         {{ $t('actorSection.spots3') }}
       </div>
 
-      <button v-if="actorDecision" @click="this.$router.push({name: 'budgetSection'})" :disabled="!actorDecision">
+      <div>{{$t('actorSection.mood')}}</div>
+      <smiley-director></smiley-director>
+
+      <actor-modal v-if="modalTrue">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </actor-modal>
+
+      <button v-if="actorDecision" @click="lastCheck" :disabled="!actorDecision">
         {{ $t('actorSection.continue') }}
       </button>
     </div>
@@ -48,8 +57,11 @@
 </template>
 
 <script>
+import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
+import ActorModal from "@/components/mainGameComponents/preProduction/modals/actor-modal";
 export default {
   name: "actorsSection",
+  components: {ActorModal, SmileyDirector},
   data() {
     return {
       allActors: this.$store.getters.getAllActors,
@@ -64,6 +76,7 @@ export default {
       radio: "",
       offer: false,
       spotsLeft: "",
+      modalTrue: false
     }
   },
 
@@ -139,7 +152,13 @@ export default {
           }
           break
       }
-      console.log(this.$store.state.preProduction.currentScreenplay.actors)
+    },
+
+    lastCheck() {
+      let mood = this.$store.state.preProduction.mood
+      if (mood === 2 || mood === 3) {
+        this.modalTrue = true
+      }
     }
   }
 }

@@ -29,7 +29,7 @@ export class Screenplay {
         this.topics = topics;
         //scope = little, small, normal, large, epic
         //TYPE -> Object
-        this.roles = {main: [12,13,44], support: [12], minor: [12], cameo: [12, 12], voiceOver: [12, 28, 1]};
+        this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
         //TYPE -> Object
         this.actors = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
         //TYPE -> Object

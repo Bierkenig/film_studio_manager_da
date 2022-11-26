@@ -3,12 +3,15 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
+
           <div class="modal-body">
             <slot name="body">
-              <div>{{$t('actorSection.smiley')}}</div>
-              <div>{{smiley}}</div>
-              <button @click="$emit('close')">{{$t('actorSection.reconsider')}}</button>
-              <button @click="this.$router.push({name: 'budgetSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+              <h3>{{$t('actorSection.important')}}</h3>
+              <div>{{$t('actorSection.notHappy')}}</div>
+              <smiley-director></smiley-director>
+              <div>{{$t('actorSection.goingOn')}}</div>
+              <button @click="$emit('close')">{{$t('actorSection.close')}}</button>
+              <button @click="this.$router.push({name: 'budgetSection'})">{{$t('actorSection.continue')}}</button>
             </slot>
           </div>
         </div>
@@ -18,15 +21,10 @@
 </template>
 
 <script>
-import Person from "@/classes/Person";
-
+import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
 export default {
-  name: "screenplay-modal",
-
-  props: {
-    director: Person,
-    smiley: String,
-  }
+  name: "actor-modal",
+  components: {SmileyDirector}
 }
 </script>
 
@@ -90,4 +88,5 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 </style>
