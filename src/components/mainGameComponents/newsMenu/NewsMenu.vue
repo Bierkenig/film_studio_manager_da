@@ -54,8 +54,12 @@
 </template>
 
 <script>
+import financeMixin from "@/mixins/financeMixin";
+
 export default {
   name: "NewsMenu",
+
+  mixins: [financeMixin()],
 
   data() {
     return {

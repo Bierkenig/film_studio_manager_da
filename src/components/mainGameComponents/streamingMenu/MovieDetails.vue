@@ -38,7 +38,7 @@
       </select>
 
       <router-link :to="{name: 'streaming'}">
-        <button id="buyMovieRightButton" class="buttonStyle" @click="buyRights" :disabled="checkBalance || selectedContract === 0 || !movie">{{ $t('buyRights') }}</button>
+        <button id="buyMovieRightButton" class="buttonStyle" @click="buyRights" :disabled="checkBalance || !selectedContract || !movie">{{ $t('buyRights') }}</button>
       </router-link>
       <button id="buyMovieRightBackButton" class="buttonStyle" @click="this.$router.push({name: 'streaming'})">{{ $t('back') }}</button>
     </div>

@@ -12,12 +12,6 @@
 export default {
   name: "RightsSection",
 
-  data(){
-    return {
-      showMovieRightsModal: false
-    }
-  },
-
   methods: {
     buyRights(movie){
       this.$store.commit('addOwningMovie', movie)

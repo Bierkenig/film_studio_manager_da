@@ -16,9 +16,9 @@
       <div id="leftSide">
         <own-service-section class="ownServiceSectionTag"/>
         <rights-section class="rightsSectionTag"/>
+        <competitor-service-section class="competitorServiceSectionTag"/>
       </div>
       <content-management-section class="contentManagementSectionTag"/>
-      <competitor-service-section class="competitorServiceSectionTag"/>
     </div>
   </div>
 </template>
@@ -29,8 +29,12 @@ import RightsSection from "@/components/mainGameComponents/streamingMenu/RightsS
 import ContentManagementSection from "@/components/mainGameComponents/streamingMenu/ContentManagementSection";
 import CompetitorServiceSection from "@/components/mainGameComponents/streamingMenu/CompetitorServiceSection";
 import BuyStreamingServiceModal from "@/components/mainGameComponents/streamingMenu/BuyStreamingServiceModal";
+import financeMixin from "@/mixins/financeMixin";
 export default {
   name: "StreamingMenu",
+
+  mixins: [financeMixin()],
+
   components: {
     BuyStreamingServiceModal,
     CompetitorServiceSection, ContentManagementSection, RightsSection, OwnServiceSection},
@@ -72,10 +76,6 @@ export default {
 }
 
 .contentManagementSectionTag {
-  width: 40%;
-}
-
-.competitorServiceSectionTag {
-  width: 30%;
+  width: 70%;
 }
 </style>

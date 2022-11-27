@@ -28,10 +28,14 @@ import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
 import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
+import financeMixin from "@/mixins/financeMixin";
 
 export default {
   name: 'CalendarMenu',
   components: {EventModal, FullCalendar},
+
+  mixins: [financeMixin()],
+
   data(){
     return{
       calendarOptions: {

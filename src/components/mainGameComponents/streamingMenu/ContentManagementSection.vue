@@ -12,6 +12,7 @@
         <option :value="null" disabled selected hidden>{{ $t('sortBy') }}</option>
         <option value="Contract">{{ $t('contract') }}</option>
         <option value="Owner">{{ $t('owner') }}</option>
+        <option value="Popularity">{{ $t('popularity') }}</option>
       </select>
       <select
           id="typeOfSort"
@@ -64,7 +65,11 @@ export default {
         this.data.sort((a, b) => a._owner.localeCompare(b._owner))
       } else if(this.selectedSortByWhat === 'Owner' && this.selectedTypeOfSort === 'Descending'){
         this.data.sort((a, b) => b._owner.localeCompare(a._owner))
-      }
+      } /*else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
+        this.data.sort((a, b) => a._popularity.localeCompare(b._owner))
+      } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending'){
+        this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
+      }*/
     }
   }
 }
@@ -79,7 +84,9 @@ export default {
 
 .contentManagementSectionDetails {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
   color: white;
 }
 </style>

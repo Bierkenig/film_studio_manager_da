@@ -36,6 +36,7 @@ export default {
 
 <style scoped>
 .movieItemContainer {
+  flex: 0 0 30%;
   background-color: #2c3e50;
 }
 

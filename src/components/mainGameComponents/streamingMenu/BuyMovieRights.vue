@@ -1,4 +1,5 @@
 <template>
+  <!--TODO: Preis für Rechte einbauen-->
   <div>
     {{ $t('buyRights') }}
     <div id="buyMovieRightsBackground">

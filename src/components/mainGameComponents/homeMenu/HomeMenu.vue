@@ -24,9 +24,11 @@ import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSe
 import MovieSection from "@/components/mainGameComponents/sectionsForMenus/MovieSection";
 import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
 import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
+import financeMixin from "@/mixins/financeMixin";
 export default {
   name: "HomeMenu",
-  mixins: [soundeffectMixin('button','click')],
+
+  mixins: [soundeffectMixin('button','click'), financeMixin()],
   components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection},
   methods: {
     save() {

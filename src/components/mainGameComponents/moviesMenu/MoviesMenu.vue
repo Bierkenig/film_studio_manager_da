@@ -14,9 +14,12 @@ import MovieSection from "@/components/mainGameComponents/sectionsForMenus/Movie
 import ScreenplaySection from "@/components/mainGameComponents/sectionsForMenus/ScreenplaySection";
 import FranchisesSection from "@/components/mainGameComponents/sectionsForMenus/FranchisesSection";
 import {Screenplay} from "@/classes/Screenplay";
+import financeMixin from "@/mixins/financeMixin";
 export default {
   name: "MoviesMenu",
   components:{FranchisesSection, ScreenplaySection, MovieSection},
+
+  mixins: [financeMixin()],
 
   data(){
     return{

@@ -121,6 +121,9 @@ export default createStore({
             }
         },
 
+        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
+            new StreamingService('TUV Studio',1,0,0,'TU'),
+            new StreamingService('HUA Studio',1,0,0,'HU')],
         ownStreamingService: null,
         //movies which you are owning (created, bought rights, bought movies)
         allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, null,
@@ -129,10 +132,13 @@ export default createStore({
         //movies from other studios (no rights have been bought yet, non-owning movies)
         moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, null,
             null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022','Example Studio',null),
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022','Example Studio2',null),
             new Movie(new Screenplay(1, 'TEST2', null, null,
                 null,null, null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022','Example Studio',null)],
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022','Example Studio1',null),
+            new Movie(new Screenplay(3, 'TEST3', null, null,
+                null,null, null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','Example Studio3',null)],
 
 
 
@@ -305,6 +311,10 @@ export default createStore({
 
         getMoviesFromOtherStudios(state) {
             return state.moviesFromOtherStudios;
+        },
+
+        getStreamingServicesFromOtherStudios(state){
+            return state.streamingServicesFromOtherStudios;
         }
     },
 
@@ -522,6 +532,10 @@ export default createStore({
 
         addMoviesFromOtherStudios(state, movie){
             state.moviesFromOtherStudios.push(movie);
+        },
+
+        addStreamingServicesFromOtherStudios(state, service){
+            state.streamingServicesFromOtherStudios.push(service)
         },
 
         stateToSave(state, reducedState){

@@ -320,6 +320,10 @@ i18next
                     competitorServices: 'Competitor Services',
                     createService: 'Create Servce',
                     saveScreenplay: 'Save Screenplay',
+                    popularity: 'Popularity',
+                    viewServices: 'View Services',
+                    competitorMsg: 'View the statistics of other services.',
+                    changes: 'Changes',
                 }
             },
             de: {
@@ -584,6 +588,10 @@ i18next
                     competitorServices: 'Gegnerische Streaming Services',
                     createService: 'Streaming Service erstellen',
                     saveScreenplay: 'Drehbuch speichern',
+                    popularity: 'Bekanntheit',
+                    viewServices: 'Services anzeigen',
+                    competitorMsg: 'Zeig die Statistiken von anderen Services an!',
+                    changes: 'Umsatz',
                 }
             }
         }
