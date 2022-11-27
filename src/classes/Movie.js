@@ -9,12 +9,6 @@ export class Movie {
         this._contract = contract;
         this.director = director;
         //TYPE -> Object
-        this.hype = {
-            cast: this.createCastHype(),
-            technical: this.createTechnicalHype(),
-            budget: this.createBudgetHype(),
-            total: this.createTotal(),
-        }
     }
 
 
