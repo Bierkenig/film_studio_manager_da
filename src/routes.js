@@ -20,7 +20,6 @@ import directorSection from "@/components/mainGameComponents/preProduction/direc
 import durationSection from "@/components/mainGameComponents/preProduction/durationSection";
 import actorsSection from "@/components/mainGameComponents/preProduction/actorsSection";
 import budgetSection from "@/components/mainGameComponents/preProduction/budgetSection";
-import afterPreProductionPhase from "@/components/mainGameComponents/preProduction/afterPreProductionPhase";
 import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
 
@@ -49,7 +48,6 @@ const routes = [
     { name: 'durationSection', path: '/durationSection', component: durationSection, props: true},
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
-    { name: 'afterPreProductionPhase', path: '/afterPreProductionPhase', component: afterPreProductionPhase, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },
 ]

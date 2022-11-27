@@ -6,12 +6,12 @@
 
           <div class="modal-body">
             <slot name="body">
-              <legend>{{ $t('actorSection.screenInfos') }}</legend>
-              <!--<div>{{el.finishedScreenplay.title}} / {{el.finishedScreenplay.genre}} / {{el.finishedScreenplay.ageRating}} / {{el.finishedScreenplay.description}}</div>-->
-              <button @click="this.$store.state.preProduction.currentScreenplay = el">
-                {{ $t('buyScreenplaySection.select') }}
-              </button>
-              <button @click="$emit('close')">{{ $t('close') }}</button>
+              <h3>{{$t('actorSection.important')}}</h3>
+              <div>{{$t('actorSection.notHappy')}}</div>
+              <smiley-director></smiley-director>
+              <div>{{$t('actorSection.goingOn')}}</div>
+              <button @click="$emit('close')">{{$t('actorSection.close')}}</button>
+              <button @click="this.$router.push({name: 'budgetSection'})">{{$t('actorSection.continue')}}</button>
             </slot>
           </div>
         </div>
@@ -21,14 +21,10 @@
 </template>
 
 <script>
-import Person from "@/classes/Person";
-
+import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
 export default {
-  name: "screenplay-modal",
-
-  props: {
-    el: Person
-  }
+  name: "actor-modal",
+  components: {SmileyDirector}
 }
 </script>
 
@@ -92,4 +88,5 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 </style>

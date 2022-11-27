@@ -31,6 +31,8 @@ export class Screenplay {
         //TYPE -> Object
         this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
         //TYPE -> Object
+        this.actors = {main: [], support: [], minor: [], cameo: []};
+        //TYPE -> Object
         this.acts = {act1: [], act2: [], act3: []};
         //TYPE -> Object
         this.details = {scope: '', tone: '', specialEffects: ''};
