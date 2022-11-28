@@ -13,11 +13,11 @@ export default {
   props: {
     svgCode: {
       type: String,
-      default: '100px'
+      required: true
     },
     size: {
       type: String,
-      required: true
+      default: '100px'
     },
   },
   methods: {
