@@ -44,8 +44,6 @@ export default class Person {
         //TYPE -> Integer
         if (isDirector) this._no = 0;
         if (isActor) this.notAvailable = 0;
-
-        this.finishedScreenplay = finishedScreenplay
     }
 
     get id() {
