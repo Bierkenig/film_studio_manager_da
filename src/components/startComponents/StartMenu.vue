@@ -21,9 +21,9 @@
                 <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
               </router-link>
 
-              <router-link :to="{ name: 'editorInput' }">
-                <button id="editorButton" class="buttonStyle"> editor </button>
-              </router-link>
+<!--              <router-link :to="{ name: 'editorInput' }">-->
+<!--                <button id="editorButton" class="buttonStyle"> editor </button>-->
+<!--              </router-link>-->
 
                 <button id="exitButton" class="buttonStyle" @click="exit">{{ $t('exitButton') }}</button>
 

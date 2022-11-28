@@ -22,7 +22,7 @@ import actorsSection from "@/components/mainGameComponents/preProduction/actorsS
 import budgetSection from "@/components/mainGameComponents/preProduction/budgetSection";
 import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
-import editorInput from "@/components/DB-Editor/editorInput";
+// import editorInput from "@/components/DB-Editor/editorInput";
 import KitchenSink from "@/components/kitchenSink/KitchenSink";
 
 const routes = [
@@ -52,7 +52,7 @@ const routes = [
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
 
-    { name: 'editorInput', path: '/editorInput', component: editorInput, props: true},
+    // { name: 'editorInput', path: '/editorInput', component: editorInput, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },
 ]
