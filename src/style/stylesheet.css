@@ -1,0 +1,182 @@
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Medium.ttf") format("truetype");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Maven Pro';
+    src: url("../assets/fonts/Maven_Pro/MavenPro-Black.ttf") format("truetype");
+    font-weight: 900;
+}
+
+:root {
+    --fsm-fw-regular: 400;
+    --fsm-fw-medium: 500;
+    --fsm-fw-semibold: 600;
+    --fsm-fw-bold: 700;
+    --fsm-fw-extrabold: 800;
+    --fsm-fw-black: 900;
+
+    --fsm-dark-shadow-color: rgba(14, 24, 34, 0.25);
+    --fsm-pink-shadow-color: rgba(255, 70, 85, 0.1);
+    --fsm-grey-font-color: rgba(226, 226, 226, 0.5);
+
+    --fsm-white: #E4E4E4;
+    --fsm-pink-1: #FF4655;
+    --fsm-pink-2: #FF3A4D;
+    --fsm-pink-3: #FF264A;
+    --fsm-pink-4: #D11F3D;
+    --fsm-dark-blue-1: #343F57;
+    --fsm-dark-blue-2: #2B3448;
+    --fsm-dark-blue-3: #252D3E;
+    --fsm-dark-blue-4: #1C222F;
+    --fsm-dark-blue-5: #161B25;
+    --fsm-light-blue: #46AEFF;
+    --fsm-light-green: #46FF54;
+    --fsm-light-yellow: #FFED46;
+
+    --fsm-filter-white: invert(98%) sepia(0%) saturate(0%) hue-rotate(218deg) brightness(93%) contrast(93%);
+    --fsm-filter-pink-1: invert(53%) sepia(78%) saturate(5077%) hue-rotate(329deg) brightness(101%) contrast(103%);;
+    --fsm-filter-pink-2: invert(35%) sepia(47%) saturate(5367%) hue-rotate(336deg) brightness(108%) contrast(101%);
+    --fsm-filter-pink-3: invert(24%) sepia(84%) saturate(3256%) hue-rotate(337deg) brightness(104%) contrast(101%);
+    --fsm-filter-pink-4: invert(36%) sepia(64%) saturate(4879%) hue-rotate(331deg) brightness(79%) contrast(111%);
+    --fsm-filter-dark-blue-1: invert(21%) sepia(47%) saturate(405%) hue-rotate(182deg) brightness(92%) contrast(89%);
+    --fsm-filter-dark-blue-2: invert(17%) sepia(42%) saturate(476%) hue-rotate(183deg) brightness(93%) contrast(90%);
+    --fsm-filter-dark-blue-3: invert(13%) sepia(8%) saturate(2816%) hue-rotate(183deg) brightness(93%) contrast(86%);
+    --fsm-filter-dark-blue-4: invert(10%) sepia(24%) saturate(947%) hue-rotate(183deg) brightness(92%) contrast(91%);
+    --fsm-filter-dark-blue-5: invert(6%) sepia(8%) saturate(4354%) hue-rotate(182deg) brightness(86%) contrast(88%);
+    --fsm-filter-light-blue: invert(63%) sepia(14%) saturate(7437%) hue-rotate(183deg) brightness(103%) contrast(103%);
+    --fsm-filter-light-green: invert(87%) sepia(17%) saturate(1923%) hue-rotate(60deg) brightness(106%) contrast(116%);
+    --fsm-filter-light-yellow: invert(63%) sepia(14%) saturate(7437%) hue-rotate(183deg) brightness(103%) contrast(103%);
+
+    --fsm-max-border-radius: 90px;
+    --fsm-l-border-radius: 25px;
+    --fsm-m-border-radius: 10px;
+    --fsm-s-border-radius: 5px;
+}
+
+* {
+    color: var(--fsm-white);
+    font-family: 'Maven Pro', sans-serif;
+    font-weight: var(--fsm-fw-medium);
+
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    background-image: url("../assets/standardBG.svg");
+}
+
+[data-title]:hover:after {
+    opacity: 1;
+    transition: ease 0.2s;
+    visibility: visible;
+}
+[data-title]:after {
+    content: attr(data-title);
+    background-color: var(--fsm-dark-blue-2);
+    color: var(--fsm-white);
+    font-weight: var(--fsm-fw-regular);
+    position: absolute;
+    padding: 5px;
+    top: -110%;
+    white-space: nowrap;
+    opacity: 0;
+    border-radius: var(--fsm-s-border-radius);
+    z-index: 99999;
+    visibility: hidden;
+}
+[data-title] {
+    position: relative;
+}
+
+input[type='range'] {
+    overflow: hidden;
+    -webkit-appearance: none;
+    background-color: var(--fsm-dark-blue-4);
+    margin: 0;
+    border-radius: var(--fsm-max-border-radius);
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+    height: 10px;
+    -webkit-appearance: none;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 10px;
+    width: 10px;
+    cursor: default;
+    background: var(--fsm-pink-1);
+    box-shadow: -9999px 0 0 9994px var(--fsm-pink-1);
+    border-radius: var(--fsm-max-border-radius);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: auto;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--fsm-dark-blue-4);
+    border-radius: var(--fsm-max-border-radius);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--fsm-pink-1);
+    background-image: linear-gradient(var(--fsm-pink-1), var(--fsm-pink-4));
+    border-radius: var(--fsm-max-border-radius);
+}
+
+.verticalScroll {
+    overflow-y: scroll;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.horizontalScroll {
+    overflow-x: scroll;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.horizontalScroll::-webkit-scrollbar {
+    width: auto;
+    height: 10px;
+}
+
+button {
+    color: black;
+}

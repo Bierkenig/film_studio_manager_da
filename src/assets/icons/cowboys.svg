@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="640px"
+   height="640px"
+   viewBox="0 -64 640 640"
+   version="1.1"
+   id="svg60"
+   sodipodi:docname="cowboys.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs64" />
+  <sodipodi:namedview
+     id="namedview62"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="0.36875"
+     inkscape:cx="320"
+     inkscape:cy="321.35593"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg60" />
+  <path
+     id="path58"
+     d="M 490,296.9 C 480.51,239.51 450.51,64 392.3,64 c -14,0 -26.49,5.93 -37,14 a 58.21,58.21 0 0 1 -70.58,0 c -10.51,-8 -23,-14 -37,-14 -58.2,0 -88.2,175.47 -97.71,232.88 38.8,12.59 93.72,23.12 169.99,23.12 76.27,0 131.23,-10.51 170,-23.1 z m 142.9,-37.18 a 16,16 0 0 0 -19.75,1.5 C 612.15,262.12 511.88,352 319.99,352 129.17,352 27.77,262.06 26.75,261.16 A 16,16 0 0 0 1,278.53 C 1.73,280.55 78.32,480 320,480 561.68,480 638.27,280.55 639,278.53 a 16,16 0 0 0 -6.09,-18.81 z" />
+</svg>

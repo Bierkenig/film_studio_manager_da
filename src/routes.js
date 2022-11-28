@@ -23,8 +23,10 @@ import budgetSection from "@/components/mainGameComponents/preProduction/budgetS
 import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
 import editorInput from "@/components/DB-Editor/editorInput";
+import KitchenSink from "@/components/kitchenSink/KitchenSink";
 
 const routes = [
+    { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },
     { name: 'viewServices', path: '/viewServices', component: ViewServices, props: true },
     { name: 'buyMovieRights', path: '/buyMovieRights', component: BuyMovieRights, props: true },
     { name: 'news', path: '/news', component: News, props: true },

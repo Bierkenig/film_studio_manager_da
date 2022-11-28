@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="640px"
+   height="640px"
+   viewBox="0 -64 640 640"
+   version="1.1"
+   id="svg34"
+   sodipodi:docname="faith.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs38" />
+  <sodipodi:namedview
+     id="namedview36"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="0.36875"
+     inkscape:cx="320"
+     inkscape:cy="321.35593"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg34" />
+  <path
+     id="path32"
+     d="m 272,191.91 c -17.6,0 -32,14.4 -32,32 v 80 c 0,8.84 -7.16,16 -16,16 -8.84,0 -16,-7.16 -16,-16 v -76.55 c 0,-17.39 4.72,-34.47 13.69,-49.39 L 299.44,48.38 c 9.09,-15.16 4.19,-34.81 -10.97,-43.91 -14.45,-8.67 -32.72,-4.3 -42.3,9.21 -0.2,0.23 -0.62,0.21 -0.79,0.48 L 128.12,190.06 C 117.56,205.9 112,224.31 112,243.29 v 80.23 L 21.88,353.56 A 31.974,31.974 0 0 0 0,383.91 v 96 c 0,10.82 8.52,32 32,32 2.69,0 5.41,-0.34 8.06,-1.03 L 219.25,464.26 C 269.16,449.99 304,403.8 304,351.91 v -128 c 0,-17.6 -14.4,-32 -32,-32 z M 618.12,353.64 528,323.6 v -80.23 c 0,-18.98 -5.56,-37.39 -16.12,-53.23 L 394.62,14.25 c -0.18,-0.27 -0.59,-0.24 -0.79,-0.48 -9.58,-13.51 -27.85,-17.88 -42.3,-9.21 -15.16,9.09 -20.06,28.75 -10.97,43.91 l 77.75,129.59 c 8.97,14.92 13.69,32 13.69,49.39 V 304 c 0,8.84 -7.16,16 -16,16 -8.84,0 -16,-7.16 -16,-16 v -80 c 0,-17.6 -14.4,-32 -32,-32 -17.6,0 -32,14.4 -32,32 v 128 c 0,51.89 34.84,98.08 84.75,112.34 l 179.19,46.62 c 2.66,0.69 5.38,1.03 8.06,1.03 23.48,0 32,-21.18 32,-32 v -96 c 0,-13.77 -8.81,-25.99 -21.88,-30.35 z" />
+</svg>
