@@ -325,6 +325,10 @@
       <earning-statistics-element list-number="1" movie-title="Movie Title" opening="$ 99,999,999" total="$ 999,999,999"
                                   studio="Example Studios" @open-clicked="elementOpened"/>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<avatar-element :svg-code="exampleAvatar" size="100px"/>'/>
+      <avatar-element :svg-code="exampleAvatar" size="100px"/>
+    </div>
   </div>
 </template>
 
@@ -352,10 +356,12 @@ import StreamingCompetitorElement from "@/components/kitchenSink/StreamingCompet
 import FinanceElement from "@/components/kitchenSink/FinanceElement";
 import MarketShareElement from "@/components/kitchenSink/MarketShareElement";
 import EarningStatisticsElement from "@/components/kitchenSink/EarningStatisticsElement";
+import AvatarElement from "@/components/kitchenSink/AvatarElement";
 
 export default {
   name: "KitchenSink",
   components: {
+    AvatarElement,
     EarningStatisticsElement,
     MarketShareElement,
     FinanceElement,
