@@ -7,6 +7,7 @@ import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
+import Earnings from "@/classes/Earnings";
 
 export default createStore({
     /** Application state */
@@ -604,24 +605,19 @@ export default createStore({
             state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
             state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             state.boughtScreenplays = responseData.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
-
+            state.studio = Studio.fromJSON(responseData.studio)
+            state.createdMovies = responseData.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.news = responseData.news.map(jsonObject => News.fromJSON(jsonObject))
+            state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
+            state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
+            state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
             /**
-                "studio",
-                //movies nicht fertig
-                "createdMovies",
-                "news",
-                //nicht fertig
-                "earnings",
-                //nicht fertig
                 "events",
-                //nicht fertig
                 "financialPerformance",
-                "inProductionMovies",
-                "finishedMovies",
-                "otherStudios",
                 "preProduction",
-                "allOwningMovies",
-                "moviesFromOtherStudios",
              **/
 
             console.log(state)

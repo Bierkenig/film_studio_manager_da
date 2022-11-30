@@ -1,3 +1,8 @@
+import {Screenplay} from "@/classes/Screenplay";
+import Person from "@/classes/Person";
+import Earnings from "@/classes/Earnings";
+import {Studio} from "@/classes/Studio";
+
 export class Movie {
     constructor(screenplay, date, owner, contract, director) {
         this._title = screenplay.title
@@ -99,5 +104,16 @@ export class Movie {
 
     createTotal() {
         return (this.createCastHype() * 50 + this.createTechnicalHype() * 35 + this.createBudgetHype() * 15) / 100
+    }
+
+    static fromJSON(jsonObject){
+        let instance = Object.assign(new Movie(), jsonObject)
+        instance.owner = Studio.fromJSON(jsonObject.owner)
+        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        instance.date = new Date(jsonObject.date)
+        instance.director = Person.fromJSON(jsonObject.director)
+        instance.earnings = jsonObject.earnings.map(object => Earnings.fromJSON(object))
+
+        return instance;
     }
 }

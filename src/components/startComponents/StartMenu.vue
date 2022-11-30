@@ -8,6 +8,9 @@
               {{ $t('welcome') }}
             </div>
             <div>
+              <router-link :to="{ name: 'kitchenSink'}">
+                <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
+              </router-link>
               <router-link :to="{ name: 'createStudio'}">
                 <button id="newButton" class="buttonStyle">{{ $t('newStudioButton') }}</button>
               </router-link>
@@ -17,7 +20,12 @@
               <router-link :to="{ name: 'mainSettings'}">
                 <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
               </router-link>
-              <button id="exitButton" class="buttonStyle" @click="exit">{{ $t('exitButton') }}</button>
+
+<!--              <router-link :to="{ name: 'editorInput' }">-->
+<!--                <button id="editorButton" class="buttonStyle"> editor </button>-->
+<!--              </router-link>-->
+
+                <button id="exitButton" class="buttonStyle" @click="exit">{{ $t('exitButton') }}</button>
 
               <button id="saveButton" class="buttonStyle" @click="save">save</button>
               <button id="deleteButton" class="buttonStyle" @click="deleting">delete</button>

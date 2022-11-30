@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   width="48"
+   version="1.1"
+   id="svg70"
+   sodipodi:docname="feminism.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs74" />
+  <sodipodi:namedview
+     id="namedview72"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="4.9166667"
+     inkscape:cx="24"
+     inkscape:cy="24.101695"
+     inkscape:window-width="1500"
+     inkscape:window-height="930"
+     inkscape:window-x="-6"
+     inkscape:window-y="-6"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg70" />
+  <path
+     id="path68"
+     d="m 21.65,43.4 v -4 h -4 V 35 h 4 V 30.55 Q 17.5,29.75 14.825,26.5 12.15,23.25 12.15,19 q 0,-4.95 3.475,-8.4 Q 19.1,7.15 24,7.15 q 4.9,0 8.375,3.45 3.475,3.45 3.475,8.4 0,4.25 -2.675,7.5 -2.675,3.25 -6.825,4.05 V 35 h 4 v 4.4 h -4 v 4 z M 24,26.15 q 3,0 5.075,-2.075 Q 31.15,22 31.15,19 31.15,16 29.075,13.925 27,11.85 24,11.85 q -3,0 -5.075,2.075 Q 16.85,16 16.85,19 q 0,3 2.075,5.075 Q 21,26.15 24,26.15 Z" />
+</svg>

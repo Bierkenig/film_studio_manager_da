@@ -1,3 +1,5 @@
+import {Movie} from "@/classes/Movie";
+
 export class Studio {
     constructor(name, year = "2023") {
         //TYPE -> String
@@ -11,8 +13,11 @@ export class Studio {
     getName() {
         return this.name;
     }
+
     static fromJSON(jsonObject){
-        return Object.assign(new Studio(), jsonObject)
+        let instance =  Object.assign(new Studio(), jsonObject)
+        instance.movies = jsonObject.movies.map(object => Movie.fromJSON(object))
+        return instance
     }
 
 }

@@ -78,6 +78,15 @@ async function createWindow() {
     saving.autoSave(data[0], data[1])
   })
 
+  ipcMain.on('editPeople',(event,data) => {
+    db.serialize(() => {
+      db.each(data, (err, row) => {
+        if (err) console.log(err)
+        else event.sender.send('sendPeople', row)
+      })
+    })
+  })
+
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)

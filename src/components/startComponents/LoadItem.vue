@@ -79,6 +79,7 @@ export default {
           console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered : " + data[1])
         }
         else if(data[1] === '103'){
+          //TODO Popup für User entscheidung ob neues oder altes File + Falls Noch kein save vorhanden Auto benutzen?
           console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File von' + this.date + 'laden? : ' + data[1])
         }
       })
