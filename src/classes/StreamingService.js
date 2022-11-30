@@ -1,5 +1,5 @@
 export class StreamingService {
-    constructor(name, price, profit, subscribers, owner, lastCheckedDate) {
+    constructor(name, price, profit, subscribers, owner, foundationDate) {
         //TYPE -> String
         this._name = name;
         //TYPE -> Integer/Float
@@ -11,7 +11,8 @@ export class StreamingService {
         //TYPE -> String
         this._owner = owner;
         //TYPE -> Date, for costs and revenues per month
-        this._lastCheckedDate = lastCheckedDate;
+        this._foundationDate = foundationDate;
+        this._lastCheckedDate = foundationDate;
         this._marketShare = 0;
         this._changes = 0;
     }
