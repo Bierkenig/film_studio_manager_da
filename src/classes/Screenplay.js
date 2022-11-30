@@ -48,6 +48,20 @@ export class Screenplay {
         this.rewritingStatus = false;
         //TYPE -> Franchise
         this.franchise = franchise
+        //TYPE -> Integer
+        if (this.actors.main.length > 0 && this.actors.minor.length > 0 && this.actors.cameo > 0 && this.actors.support > 0) this.morale = this.getCastMorale()
+    }
+
+    getCastMorale() {
+        let morale = 0
+        let counter = 0
+        Object.keys(this.actors).forEach(key => {
+            this.actors[key].forEach(person => {
+                morale += person.morale
+                counter++
+            })
+        })
+        return morale / counter
     }
 
     getId() {

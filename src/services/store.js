@@ -8,6 +8,7 @@ import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
+import Event from "@/classes/Event";
 
 export default createStore({
     /** Application state */
@@ -78,23 +79,12 @@ export default createStore({
                 },
             }
         ],
-        //movies which are in production
+        //movies which are in currentProduction
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [],
         //nicht fertig
-        events: [
-            {
-            title: "SOMETHING",
-            start: '2023-01-06',
-            end: '2023-01-10'
-            },
-            {
-            title: "NICHTS",
-            start: '2023-01-07',
-            end: '2023-01-09'
-            },
-        ],
+        happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [new Franchises(0, 'Hallo was geht')],
         currentFranchise: null,
         otherStudios: [
@@ -114,7 +104,7 @@ export default createStore({
         preProduction: {
             isPreProduction: false,
             currentScreenplay: null,
-            hiredDirector: null,
+            hiredDirector: new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,null,5,null,5,23,123456,false,true,false,null),
             feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
             indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
             animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
@@ -127,6 +117,22 @@ export default createStore({
                 postProductionLength: 0,
                 releaseDate: 0,
             },
+            budget: {
+                production: 0,
+                extras: 0,
+                cinematography: 0,
+                sound: 0,
+                editing: 0,
+                score: 0,
+                set: 0,
+                stunts: 0,
+                costume: 0,
+                makeup: 0,
+                vfx: 0,
+                sfx: 0,
+                problemBudget: 0,
+            },
+            quality: 0,
             budgetPop: 12,
         },
 
@@ -472,7 +478,7 @@ export default createStore({
         },
 
         addEvent(state, event){
-            state.events.push(event);
+            state.happeningEvents.push(event);
         },
 
         changeCurrentLanguage(state, value){
