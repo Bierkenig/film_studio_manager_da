@@ -7,6 +7,23 @@
       <movie-section class="inProductionMovies" :heading="$t('inProduction')" :data="this.$store.getters.getCreatedMovies"/>
       <upcoming-events-section class="upcomingEvents"/>
     </div>
+    <router-link to="directorSection">
+      <button>director</button>
+    </router-link>
+    <router-link to="screenplaySection">
+      <button>screenplay</button>
+    </router-link>
+    <router-link to="durationSection">
+      <button>duration</button>
+    </router-link>
+    <router-link to="actorSection">
+      <button>actor</button>
+    </router-link>
+    <router-link to="budgetSection">
+      <button>budget</button>
+    </router-link>
+    <button id="saveButton" class="buttonStyle" @click="save">save</button>
+
   </div>
 </template>
 
@@ -16,10 +33,18 @@ import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSe
 import MovieSection from "@/components/mainGameComponents/sectionsForMenus/MovieSection";
 import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
 import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
+import financeMixin from "@/mixins/financeMixin";
 export default {
   name: "HomeMenu",
-  mixins: [soundeffectMixin('button','click')],
-  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection}
+
+  mixins: [soundeffectMixin('button','click'), financeMixin()],
+  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection},
+  methods: {
+    save() {
+      let slotNr = 1
+      window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
+    }
+  }
 }
 </script>
 

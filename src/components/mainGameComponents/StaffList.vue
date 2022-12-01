@@ -4,11 +4,12 @@
       <div class="staffListScroll">
         <div v-for="(item, index) in staff" :id="'item' + index" :key="index" class="staffListElement" @click="getStaffInfo(index, item)">
           <div class="staffListElementTitle">
-            {{ item.firstName }} {{ item.lastName }}
+            {{ item._first_name }} {{ item._last_name }}
           </div>
           <div class="moreStaffListElementInfo">
-            <div class="staffListElementSalary">$ {{ item.salary }}</div>
-            <div class="staffListElementRating">{{ item.rating }}</div>
+            <div class="staffListElementSalary">$ {{ item._salary }}</div>
+            <div class="staffListElementRating">{{ item._rating }}</div>
+            <!--<div class="staffListElementGenreRating">{{ item._rating }}</div>-->
           </div>
         </div>
       </div>

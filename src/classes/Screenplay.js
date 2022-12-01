@@ -1,23 +1,53 @@
-import store from "../services/store";
+import Person from "@/classes/Person";
+import Franchises from "@/classes/Franchises";
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, scope, franchise = null) {
+        //TYPE -> Integer
         this.id = id;
+        //TYPE -> String
         this.title = title;
+        //TYPE -> String
         this.genre = genre;
+        //TYPE -> String
         this.ageRating = ageRating;
+        //TYPE -> Writer
         this.writer = writer;
+        //TYPE -> String
         this.description = description;
+        //TYPE -> Integer
         this.rating = rating;
+        //TYPE -> String
+        this.ratingRange = null;
+        //TYPE -> Integer
         this.price = price;
+        //TYPE -> String
         this.type = type;
+        //TYPE -> String
         this.subgenre = subgenre;
+        //TYPE -> Object
         this.topics = topics;
+        //scope = little, small, normal, large, epic
+        //TYPE -> Object [Character]
         this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
+        //TYPE -> Object [Persons]
+        this.actors = {main: [], support: [], minor: [], cameo: []};
+        //TYPE -> Object
         this.acts = {act1: [], act2: [], act3: []};
+        //TYPE -> Object
         this.details = {scope: '', tone: '', specialEffects: ''};
+        //TYPE -> Object
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+        //TYPE -> Integer
         this.length = null;
+        //TYPE -> Integer
+        this.writingPhase = null;
+        //TYPE -> Integer
+        this.rewritingValue = 3;
+        //TYPE -> Boolean
+        this.rewritingStatus = false;
+        //TYPE -> Franchise
+        this.franchise = franchise
     }
 
     getId() {
@@ -84,6 +114,24 @@ export class Screenplay {
         return this.length;
     }
 
+    getWritingPhase() {
+        return this.writingPhase;
+    }
+
+    getRewritingStatus(){
+        return this.rewritingStatus;
+    }
+
+    getRewritingValue(){
+        return this.rewritingValue;
+    }
+
+    getRatingRange(){
+        return this.ratingRange;
+    }
+
+
+
 
     setWriter(value){
         this.writer = value;
@@ -105,16 +153,16 @@ export class Screenplay {
         this.subgenre = value;
     }
 
-    addAct1(value) {
-        this.acts.act1.push(value);
+    setAct1(value) {
+        this.acts.act1 = value;
     }
 
-    addAct2(value) {
-        this.acts.act2.push(value);
+    setAct2(value) {
+        this.acts.act2 = value;
     }
 
-    addAct3(value) {
-        this.acts.act3.push(value);
+    setAct3(value) {
+        this.acts.act3 = value;
     }
 
     addMainCharacter(actor) {
@@ -169,6 +217,22 @@ export class Screenplay {
         this.length = value;
     }
 
+    setWritingPhase(value){
+        this.writingPhase = value;
+    }
+
+    setRewritingStatus(value){
+        this.rewritingStatus = value;
+    }
+
+    subtractRewriting(){
+        this.rewritingValue = this.rewritingValue - 1;
+    }
+
+    setRatingRange(value){
+        this.ratingRange = value;
+    }
+
     toString() {
         return "Screenplay (name: " + this.title + ", type: " + this.type + ", genre: " + this.genre + ", subgenre: " + this.subgenre + ", age rating: " + this.ageRating +
             ",\nwriter: " + this.writer +
@@ -178,7 +242,15 @@ export class Screenplay {
 
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Screenplay(), jsonObject)
-        instance.writer = instance.writer ? store.data.allWriters.find(writer => writer.id === instance.writer.id) : null
+        instance.writer = Person.fromJSON(jsonObject.writer)
+        instance.franchise = Franchises.fromJSON(jsonObject.franchise)
         return instance
+    }
+
+    static transferProperties(from, to, keys) {
+        return keys.reduce((current, key) => {
+            current[key] = from[key]
+            return current
+        }, to)
     }
 }

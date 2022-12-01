@@ -4,6 +4,7 @@
     <div id="screenplayTextSection">
       <div v-for="(it, index) in this.data" :key="index">
         {{ it.title }}
+        <button @click="rewrite(it)" :disabled="it.rewritingValue === 0">TEST</button>
       </div>
     </div>
   </div>
@@ -15,7 +16,15 @@ export default {
 
   props: {
     heading: String,
-    data: Object
+    data: Object,
+  },
+
+  methods: {
+    rewrite(element){
+      this.$store.commit('setNewCurrentScreenplay',element)
+      this.$store.getters.getCurrentScreenplay.setRewritingStatus(true);
+      this.$router.push({name: 'createScreenplay'});
+    }
   }
 }
 </script>

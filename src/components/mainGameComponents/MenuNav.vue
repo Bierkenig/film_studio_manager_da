@@ -6,9 +6,6 @@
     <router-link to="movies">
       <button id="moviesButton" class="buttonStyle" @click="focusButton('moviesButton')">{{ $t('movies') }}</button>
     </router-link>
-    <router-link to="library">
-      <button id="libraryButton" class="buttonStyle" @click="focusButton('libraryButton')">{{ $t('library') }}</button>
-    </router-link>
     <router-link to="streaming">
       <button id="streamingButton" class="buttonStyle" @click="focusButton('streamingButton')">Streaming</button>
     </router-link>

@@ -6,6 +6,7 @@
           <div id="createScreenplayHeader">
             {{ $t('createScreenplay') }}
           </div>
+          <div v-if="this.$store.getters.getCurrentFranchise !== null">{{$t('buyScreenplaySection.selFran')}}{{this.$store.getters.getCurrentFranchise.name}}</div>
           <input id="createScreenplayTitle" v-model="title" :placeholder="$t('movieTitle')" />
           <textarea id="createScreenplayDescription" v-model="desc" :placeholder="$t('description')" />
           <select
@@ -13,9 +14,9 @@
               onfocus="this.size=5;"
               onblur="this.size=1;"
               onchange="this.size=1; this.blur();"
-              @change="selectType($event)"
+              v-model="type"
           >
-            <option value="" disabled selected hidden>Type</option>
+            <option :value="null" disabled selected hidden>Type</option>
             <option value="Feature">Feature</option>
             <option value="Indie">Indie</option>
             <option value="Animation">Animation</option>
@@ -26,20 +27,29 @@
               onfocus="this.size=5;"
               onblur="this.size=1;"
               onchange="this.size=1; this.blur();"
-              @change="selectGenre($event)"
+              v-model="genre"
             >
-              <option value="" disabled selected hidden>Genre</option>
+              <option :value="null" disabled selected hidden>Genre</option>
               <option value="Action">Action</option>
+              <option value="Adventure">{{ $t('adventure') }}</option>
+              <option value="Biography">{{ $t('biography') }}</option>
               <option value="Comedy">{{ $t('comedy') }}</option>
+              <option value="Crime">{{ $t('crime') }}</option>
+              <option value="Documentary">{{ $t('documentary') }}</option>
               <option value="Drama">Drama</option>
+              <option value="Erotic">{{ $t('erotic') }}</option>
+              <option value="Family">{{ $t('family') }}</option>
               <option value="Fantasy">Fantasy</option>
+              <option value="History">{{ $t('history') }}</option>
               <option value="Horror">Horror</option>
               <option value="Musical">Musical</option>
+              <option value="Mystery">{{ $t('mystery') }}</option>
               <option value="Romance">{{ $t('romance') }}</option>
               <option value="ScienceFiction">Sci-Fi</option>
+              <option value="Sport">Sport</option>
               <option value="Thriller">Thriller</option>
+              <option value="War">{{ $t('war') }}</option>
               <option value="Western">Western</option>
-              <option value="History">{{ $t('history') }}</option>
             </select>
             <select
                 id="createScreenplaySubgenre"
@@ -47,20 +57,29 @@
                 onfocus="this.size=5;"
                 onblur="this.size=1;"
                 onchange="this.size=1; this.blur();"
-                @change="selectSubgenre($event)"
+                v-model="subgenre"
             >
-              <option value="" disabled selected hidden>Subgenre</option>
+              <option :value="null" disabled selected hidden>Subgenre</option>
               <option value="Action" :disabled="this.genre === 'Action'">Action</option>
+              <option value="Adventure" :disabled="this.genre === 'Adventure'">{{ $t('adventure') }}</option>
+              <option value="Biography" :disabled="this.genre === 'Biography'">{{ $t('biography') }}</option>
               <option value="Comedy" :disabled="this.genre === 'Comedy'">{{ $t('comedy') }}</option>
+              <option value="Crime" :disabled="this.genre === 'Crime'">{{ $t('crime') }}</option>
+              <option value="Documentary" :disabled="this.genre === 'Documentary'">{{ $t('documentary') }}</option>
               <option value="Drama" :disabled="this.genre === 'Drama'">Drama</option>
+              <option value="Erotic" :disabled="this.genre === 'Erotic'">{{ $t('erotic') }}</option>
+              <option value="Family" :disabled="this.genre === 'Family'">{{ $t('family') }}</option>
               <option value="Fantasy" :disabled="this.genre === 'Fantasy'">Fantasy</option>
+              <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
               <option value="Horror" :disabled="this.genre === 'Horror'">Horror</option>
               <option value="Musical" :disabled="this.genre === 'Musical'">Musical</option>
+              <option value="Mystery" :disabled="this.genre === 'Mystery'">{{ $t('mystery') }}</option>
               <option value="Romance" :disabled="this.genre === 'Romance'">{{ $t('romance') }}</option>
-              <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Science-Fiction</option>
+              <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Sci-Fi</option>
+              <option value="Sport" :disabled="this.genre === 'Sport'">Sport</option>
               <option value="Thriller" :disabled="this.genre === 'Thriller'">Thriller</option>
+              <option value="War" :disabled="this.genre === 'War'">{{ $t('war') }}</option>
               <option value="Western" :disabled="this.genre === 'Western'">Western</option>
-              <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
             </select>
             <div>
               <h3>{{ $t('topics') }}</h3>
@@ -72,9 +91,9 @@
                   onblur="this.size=1;"
                   onchange="this.size=1; this.blur();"
                   :disabled="disableSelect(index)"
-                  @change="selectTopic($event,index)"
+                  v-model="topics[index-1]"
               >
-                <option value="" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
+                <option :value="undefined" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
                 <option
                     v-for="(it,ind) in this.allTopics"
                     :key="ind"
@@ -84,9 +103,10 @@
             </div>
           </div>
           <button id="createScreenplayButton" class="buttonStyle"
-                  :disabled="/*!ageRating ||*/ !genre || !title || !desc || !type || !firstTopic"
+                  :disabled="!genre || !title || !desc || !type || topics[0] === undefined"
                   @click="createScreenplay">
-            {{ $t('createScreenplay') }}</button>
+            {{ $t('continue') }}
+          </button>
         </div>
       </div>
     </div>
@@ -94,86 +114,59 @@
 </template>
 
 <script>
-import {Screenplay} from "@/classes/Screenplay";
-
 export default {
   name: "CreateScreenplay",
 
   data() {
     return {
-      screenplay: null,
-      title: null,
-      type: null,
-      desc: null,
-      //ageRating: null,
-      genre: null,
-      subgenre: null,
-      firstTopic: null,
-      secondTopic: null,
-      thirdTopic: null,
-      allTopics: ['AB','CD','EF','GH','IJ'],
+      title: this.$store.getters.getCurrentScreenplay.title,
+      type: this.$store.getters.getCurrentScreenplay.type,
+      desc: this.$store.getters.getCurrentScreenplay.description,
+      genre: this.$store.getters.getCurrentScreenplay.genre,
+      subgenre: this.$store.getters.getCurrentScreenplay.subgenre,
+      topics: [this.$store.getters.getCurrentScreenplay.topics.firstTopic,
+        this.$store.getters.getCurrentScreenplay.topics.secondTopic,
+        this.$store.getters.getCurrentScreenplay.topics.thirdTopic],
+      allTopics: this.$store.getters.getAllTopics,
     }
+  },
+
+  mounted() {
+    console.log(this.$store.getters.getCurrentScreenplay)
   },
 
   methods: {
     createScreenplay() {
-      this.screenplay = new Screenplay(this.$store.getters.getNextScreenplayId, this.title, this.type, this.genre,
-          this.subgenre, /*this.ageRating*/null, null, this.desc, null, null,
-          {firstTopic: this.firstTopic, secondTopic: this.secondTopic, thirdTopic: this.thirdTopic});
-      this.$store.commit('setNewCurrentScreenplay', this.screenplay);
+      this.$store.getters.getCurrentScreenplay.title = this.title;
+      this.$store.getters.getCurrentScreenplay.type = this.type;
+      this.$store.getters.getCurrentScreenplay.description = this.desc;
+      this.$store.getters.getCurrentScreenplay.genre = this.genre;
+      this.$store.getters.getCurrentScreenplay.subgenre = this.subgenre;
+      this.$store.getters.getCurrentScreenplay.topics.firstTopic = this.topics[0];
+      this.$store.getters.getCurrentScreenplay.topics.secondTopic = this.topics[1];
+      this.$store.getters.getCurrentScreenplay.topics.thirdTopic = this.topics[2];
+      this.$store.getters.getCurrentScreenplay.franchise = this.$store.getters.getCurrentFranchise
       this.$router.push({name: 'screenplayCharacters'});
-    },
-
-    /*selectAgeRating(event) {
-      this.ageRating = event.target.value;
-    },*/
-
-    selectTopic(event,index){
-      switch (index) {
-        case 1:
-          this.firstTopic = event.target.value;
-          break;
-        case 2:
-          this.secondTopic = event.target.value;
-          break;
-        case 3:
-          this.thirdTopic = event.target.value;
-          break;
-        default:
-          break;
-      }
-    },
-
-    selectGenre(event) {
-      this.genre = event.target.value;
-    },
-
-    selectSubgenre(event) {
-      this.subgenre = event.target.value;
-    },
-
-    selectType(event){
-      this.type = event.target.value;
     },
 
     disableTopic(value, index){
       if(index === 2){
-        return value === this.firstTopic;
+        return value === this.topics[0];
       } else if(index === 3){
-        return value === this.firstTopic || value === this.secondTopic;
+        return value === this.topics[0] || value === this.topics[1];
       }
     },
 
     disableSelect(index){
-      if((index === 2 || index === 3) && this.firstTopic === null){
+      if((index === 2 || index === 3) && this.topics[0] === null){
         return true;
-      } else if(index === 3 && this.secondTopic === null){
+      } else if(index === 3 && this.topics[1] === null){
         return true;
       } else {
         return false;
       }
     }
-  }
+  },
 }
 </script>
 

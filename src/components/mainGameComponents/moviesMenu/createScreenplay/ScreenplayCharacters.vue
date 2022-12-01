@@ -25,6 +25,7 @@
             <div id="castedCharacterDetailsVoiceOverCharactersValue">{{ numberOfVoiceOverCharacters }}/5 - ({{ $t('between05') }})</div>
           </div>
         </div>
+        <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="CharacterDetailsBackButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
         <button id="CharacterDetailsContinueButton" class="buttonStyle" :disabled="numberOfMainCharacters === 0 || numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0" @click="continueCreateMovie">{{ $t('continue') }}</button>
       </div>
       <div id="characterDetails">
@@ -35,9 +36,9 @@
               onfocus="this.size=5;"
               onblur="this.size=1;"
               onchange="this.size=1; this.blur();"
-              @change="selectGender($event)"
+              v-model="characterGender"
           >
-            <option value="" disabled selected hidden>{{ $t('gender') }}</option>
+            <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
             <option value="male">{{ $t('male') }}</option>
             <option value="female">{{ $t('female') }}</option>
             <option value="diverse">{{ $t('diverse') }}</option>
@@ -71,6 +72,9 @@
         </div>
         <button id="characterDetailsSaveButton" class="buttonStyle" :disabled="radio === null || !characterGender || !characterName || !characterAge" @click="saveCharacter">{{ $t('saveCharacter') }}</button>
       </div>
+      <div>
+        {{ this.$store.getters.getCurrentScreenplay.roles }}
+      </div>
     </div>
   </div>
 </template>
@@ -83,11 +87,11 @@ export default {
 
   data(){
     return {
-      numberOfMainCharacters: 0,
-      numberOfSupportCharacters: 0,
-      numberOfMinorCharacters: 0,
-      numberOfCameoCharacters: 0,
-      numberOfVoiceOverCharacters: 0,
+      numberOfMainCharacters: this.$store.getters.getCurrentScreenplay.roles.main.length,
+      numberOfSupportCharacters: this.$store.getters.getCurrentScreenplay.roles.support.length,
+      numberOfMinorCharacters: this.$store.getters.getCurrentScreenplay.roles.minor.length,
+      numberOfCameoCharacters: this.$store.getters.getCurrentScreenplay.roles.cameo.length,
+      numberOfVoiceOverCharacters: this.$store.getters.getCurrentScreenplay.roles.voiceOver.length,
       characterName: '',
       characterGender: null,
       characterAge: 1,
@@ -119,12 +123,12 @@ export default {
       this.characterGender = null
     },
 
-    selectGender(event){
-      this.characterGender = event.target.value;
-    },
-
     continueCreateMovie(){
       this.$router.push({name: 'screenplayPlot'});
+    },
+
+    goBack(){
+      this.$router.push({name: 'createScreenplay'})
     }
   }
 }

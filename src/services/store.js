@@ -1,6 +1,13 @@
 import {createStore} from "vuex";
 import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
+import News from "@/classes/News";
+import Award from "@/classes/Award";
+import {Screenplay} from "@/classes/Screenplay";
+import Person from "@/classes/Person";
+import Franchises from "@/classes/Franchises";
+import {StreamingService} from "@/classes/StreamingService";
+import Earnings from "@/classes/Earnings";
 
 export default createStore({
     /** Application state */
@@ -13,25 +20,38 @@ export default createStore({
         currentMovieExpenses: 0,
         //movies which are still in cinema and generate profit
         createdMovies: [],
+        //muss das ins save file?
         currentMovie: null,
         currentScreenplay: null,
         //TODO: changes
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
-        currentDate: new Date("January 1, 2023"),
+        currentDate: new Date("January 01, 2023"),
         currentLanguage: 'en',
-        news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
+        //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
+        news: [
+            new News('Studio 1235 gegründet',
+                new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
+                new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
+                new Award('Deine MUm', 'internationalAward')),
+            new News('Benni ist cool',
+                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
+                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
+                new Award('Neuer', 'anderer Award'))
+        ],
+        //nicht fertig
         earnings: [
             {
                 value: 245000,
-                date: new Date(2022,11,31)
+                date: new Date(2024,0,4)
             },
             {
                 value: 500000,
-                date: new Date(2022,11,15)
+                date: new Date(2023,11,15)
             }
         ],
+        //nicht fertig
         financialPerformance: [
             {
                 date: {
@@ -62,6 +82,7 @@ export default createStore({
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [],
+        //nicht fertig
         events: [
             {
             title: "SOMETHING",
@@ -72,8 +93,10 @@ export default createStore({
             title: "NICHTS",
             start: '2023-01-07',
             end: '2023-01-09'
-            }],
-        franchises: [],
+            },
+        ],
+        franchises: [new Franchises(0, 'Hallo was geht')],
+        currentFranchise: null,
         otherStudios: [
             [new Studio('Example Studio 1').getName(), "2023", 100],
             [new Studio('Example Studio 2').getName(), "2023", 200],
@@ -83,10 +106,63 @@ export default createStore({
             {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
             {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
         ],
+        allYears: [2023, 2024, 2025],
+
+        //movie State
+        movieState: "",
+        //preProduction
+        preProduction: {
+            isPreProduction: false,
+            currentScreenplay: null,
+            hiredDirector: null,
+            feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
+            indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
+            animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
+            outgoings: 0,
+            //can be: 2 = fine, 3 = angry and 1 = relaxed
+            directorMood: 0,
+            duration: {
+                preProductionLength: 0,
+                productionLength: 0,
+                postProductionLength: 0,
+                releaseDate: 0,
+            },
+            budgetPop: 12,
+        },
+
+        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
+            new StreamingService('TUV Studio',1,0,0,'TU'),
+            new StreamingService('HUA Studio',1,0,0,'HU')],
+        ownStreamingService: null,
+        //movies which you are owning (created, bought rights, bought movies)
+        allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
+        //movies from other studios (no rights have been bought yet, non-owning movies)
+        moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022','Example Studio2',null),
+            new Movie(new Screenplay(1, 'TEST2', null, null,
+                null,null, null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022','Example Studio1',null),
+            new Movie(new Screenplay(3, 'TEST3', null, null,
+                null,null, null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','Example Studio3',null)],
+
+
+
         //data from database
+        allPeople: [],
         allActors: [],
-        allDirectors:[],
-        allWriters:[],
+        allDirectors: [],
+        allWriters: [],
+        allMovies: [],
+        allAwards: [],
+        allTopics: [],
+        allScreenplays: [],
+
+        //salary
+        allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000],
     },
 
     /** Methods that read the application state */
@@ -205,6 +281,50 @@ export default createStore({
         getFinancialHistory(state) {
             return state.financialHistory;
         },
+
+        getAllTopics(state){
+            return state.allTopics;
+        },
+
+        getAllMovies(state) {
+            return state.allMovies
+        },
+
+        getAllYears(state) {
+            return state.allYears
+        },
+
+        getAllAwards(state) {
+            return state.allAwards
+        },
+
+        getAllScreenplays(state) {
+            return state.allScreenplays;
+        },
+
+        getAllDirectorSalary(state) {
+            return state.allDirectorSalary;
+        },
+
+        getOwnStreamingService(state) {
+            return state.ownStreamingService;
+        },
+
+        getCurrentFranchise(state) {
+            return state.currentFranchise;
+        },
+
+        getAllOwningMovies(state) {
+            return state.allOwningMovies;
+        },
+
+        getMoviesFromOtherStudios(state) {
+            return state.moviesFromOtherStudios;
+        },
+
+        getStreamingServicesFromOtherStudios(state){
+            return state.streamingServicesFromOtherStudios;
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -401,7 +521,116 @@ export default createStore({
 
         setAllWriters(state, value){
             state.allWriters = value;
-        }
+        },
+
+        setAllTopics(state, value){
+            state.allTopics = value;
+        },
+
+        setOwnStreamingService(state, value){
+            state.ownStreamingService = value;
+        },
+
+        setAllPeople(state, payload) {
+            state.allPeople = payload;
+        },
+
+        addOwningMovie(state, movie){
+            state.allOwningMovies.push(movie);
+        },
+
+        addMoviesFromOtherStudios(state, movie){
+            state.moviesFromOtherStudios.push(movie);
+        },
+
+        addStreamingServicesFromOtherStudios(state, service){
+            state.streamingServicesFromOtherStudios.push(service)
+        },
+
+        stateToSave(state, reducedState){
+            Screenplay.transferProperties(state, reducedState, [
+                "screenplays",
+                "boughtScreenplays",
+                "studio",
+                "balance",
+                "currentMovieBudget",
+                "currentMovieExpenses",
+                "createdMovies",
+                "logo",
+                "soundeffects",
+                "backgroundMusic",
+                "currentDate",
+                "currentLanguage",
+                "news",
+                "earnings",
+                "financialPerformance",
+                "inProductionMovies",
+                "finishedMovies",
+                "events",
+                "franchises",
+                "otherStudios",
+                "financialHistory",
+                "allYears",
+                "preProduction",
+                "allDirectorSalary",
+                "ownStreamingService"
+            ])
+
+            return reducedState
+        },
+
+        loadFromSave(state, responseData){
+            //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
+
+            // Object.keys(state).forEach(key => delete state[key]);
+            // Object.assign(state, responseData)
+
+            Screenplay.transferProperties(responseData, state, [
+                "balance",
+                "currentMovieBudget",
+                "currentMovieExpenses",
+                "soundeffects",
+                "backgroundMusic",
+                "currentLanguage",
+                "financialHistory",
+                "allYears",
+                "allDirectorSalary",
+                "allOwningMovies",
+                "moviesFromOtherStudios",
+                "logo"
+            ])
+
+            state.currentDate = new Date(responseData.currentDate)
+            state.ownStreamingService = StreamingService.fromJSON(responseData.ownStreamingService)
+            state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
+            state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            state.boughtScreenplays = responseData.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            state.studio = Studio.fromJSON(responseData.studio)
+            state.createdMovies = responseData.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.news = responseData.news.map(jsonObject => News.fromJSON(jsonObject))
+            state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
+            state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
+            state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+            /**
+                "events",
+                "financialPerformance",
+                "preProduction",
+             **/
+
+            console.log(state)
+            //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            // //state.actors = store.state.actors.map(jsonObject => actors.find(actor => actor.id === jsonObject.id)).filter(actor => actor)
+            // state.currentMovie = store.state.currentMovie ? Movie.fromJSON(store.state.currentMovie) : null
+            // if (store.getters.getStudio(store.state) !== 'NO STUDIO') {
+            //     state.studio = Studio.fromJSON(store.state.studio)
+            // }
+        },
+
     },
 
     /** Methods that change the application state asynchronously */

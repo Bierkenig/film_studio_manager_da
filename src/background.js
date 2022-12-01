@@ -4,6 +4,7 @@ import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 const path = require('path')
 const isDevelopment = process.env.NODE_ENV !== 'production'
+const saving = require("./saving/Saving");
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -30,16 +31,61 @@ async function createWindow() {
   });
 
   //IPC Main
-  ipcMain.on('toMain', (event, data) => {
+  ipcMain.on('toGetPeople', (event, data) => {
     db.serialize(() => {
       db.each(data, (err, row) => {
         if (err) console.log(err)
-        else event.sender.send('fromMain', row)
+        else event.sender.send('fromGetPeople', row)
       })
     })
-
   })
 
+  ipcMain.on('toGetTopics', (event, data) => {
+    db.serialize(() => {
+      db.each(data, (err, row) => {
+        if (err) console.log(err)
+        else event.sender.send('fromGetTopics', row)
+      })
+    })
+  })
+
+  ipcMain.on('toGetGenreRating', (event, data) => {
+    db.serialize(() => {
+      db.each(data, (err, row) => {
+        if (err) console.log(err)
+        else event.sender.send('fromGetGenreRating', row)
+      })
+    })
+  })
+// IPC Saving
+  ipcMain.on('savingData', (event, data) => {
+    saving.save(data[0],data[1]);
+  })
+
+  ipcMain.on('r2mLoading',(event,data) => {
+    event.sender.send('m2rLoading',saving.load(data))
+  })
+
+  ipcMain.on('r2mChecking',(event,data) => {
+    event.sender.send('m2rChecking',saving.checkIfExists(data))
+  })
+
+  ipcMain.on('r2mDeleting', (event,data) => {
+    saving.deleteSaveFile(data)
+  })
+
+  ipcMain.on('autoSave',(event,data) => {
+    saving.autoSave(data[0], data[1])
+  })
+
+  ipcMain.on('editPeople',(event,data) => {
+    db.serialize(() => {
+      db.each(data, (err, row) => {
+        if (err) console.log(err)
+        else event.sender.send('sendPeople', row)
+      })
+    })
+  })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode

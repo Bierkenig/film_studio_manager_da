@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="calendarContainer">
     <FullCalendar
         id="calendar"
-        :options="calendarOptions"/>
+        :options="calendarOptions"
+        ref="fullCalendar"/>
 
     <transition name="modal">
       <event-modal v-if="showModal" :event="eventProp" @close="showModal = false">
@@ -11,6 +12,10 @@
         </template>
       </event-modal>
     </transition>
+    <!--<day-information
+        id="dayInformationElement"
+        :event="this.eventProp"
+        :clicked-day="this.clickedDay"/>-->
   </div>
 </template>
 
@@ -23,10 +28,14 @@ import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
 import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
+import financeMixin from "@/mixins/financeMixin";
 
 export default {
   name: 'CalendarMenu',
   components: {EventModal, FullCalendar},
+
+  mixins: [financeMixin()],
+
   data(){
     return{
       calendarOptions: {
@@ -53,7 +62,14 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getEvents"])
+    ...mapGetters(["getEvents"]),
+    ...mapGetters({currentDate: 'getCurrentDate'})
+  },
+
+  watch: {
+    currentDate: function(){
+      this.$refs.fullCalendar.calendar.gotoDate(this.currentDate)
+    }
   },
 
   methods: {
@@ -85,4 +101,14 @@ export default {
 .fc-day-today {
   background-color: inherit !important;
 }
+
+/*.calendarContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+#dayInformationElement {
+  width: 20%;
+}*/
 </style>

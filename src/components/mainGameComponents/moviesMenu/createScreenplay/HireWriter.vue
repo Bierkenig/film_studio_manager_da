@@ -9,8 +9,10 @@
             :staff="clickedStaff"
             :screenplay="this.$store.getters.getCurrentScreenplay"
             :check-balance="checkBalance"
+            next-location="screenplayInformation"
             type="Writer"
         />
+        <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
       </div>
     </div>
   </div>
@@ -31,10 +33,21 @@ export default {
     }
   },
 
+  mounted() {
+    if(this.$store.getters.getCurrentScreenplay.price !== null){
+      this.clickedStaff = this.$store.getters.getCurrentScreenplay.writer;
+      this.checkBalance = (this.$store.getters.getBalance - parseInt(this.$store.getters.getCurrentScreenplay.writer.salary)) < 0;
+    }
+  },
+
   methods: {
     receiveStaff: function (staff){
       this.clickedStaff = staff;
       this.checkBalance = (this.$store.getters.getBalance - parseInt(staff.salary)) < 0;
+    },
+
+    goBack(){
+      this.$router.push({name: 'screenplayDetails'})
     }
   }
 }

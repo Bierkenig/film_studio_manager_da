@@ -2,10 +2,13 @@
   <div>
     <h1>{{ $t('loadHeader') }}</h1>
     <div id="savingsBox">
-      <load-item/>
-      <load-item/>
-      <load-item/>
+      <load-item :slot-nr="1"/>
+      <load-item :slot-nr="2"/>
+      <load-item :slot-nr="3"/>
     </div>
+    <router-link to="/">
+      <button>Back</button>
+    </router-link>
   </div>
 </template>
 

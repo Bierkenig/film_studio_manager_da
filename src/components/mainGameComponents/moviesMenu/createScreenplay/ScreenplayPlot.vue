@@ -46,13 +46,25 @@
           @dragenter.prevent
           @dragover.prevent>
         <h2>{{ $t('act1') }}</h2>
-        <div
-            v-for="item in getList(1)"
-            :key="item.id"
-            class="drag-el"
-            draggable="true"
-            @dragstart="startDrag($event, item)">
-          {{ item.title }}
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <div
+              v-for="item in getList(1)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textEn }}
+          </div>
+        </div>
+        <div v-else>
+          <div
+              v-for="item in getList(1)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textDe }}
+          </div>
         </div>
       </div>
       <div
@@ -61,13 +73,25 @@
           @dragenter.prevent
           @dragover.prevent>
         <h2>{{ $t('act2') }}</h2>
-        <div
-            v-for="item in getList(2)"
-            :key="item.id"
-            class="drag-el"
-            draggable="true"
-            @dragstart="startDrag($event, item)">
-          {{ item.title }}
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <div
+              v-for="item in getList(2)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textEn }}
+          </div>
+        </div>
+        <div v-else>
+          <div
+              v-for="item in getList(2)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textDe }}
+          </div>
         </div>
       </div>
       <div
@@ -76,18 +100,31 @@
           @dragenter.prevent
           @dragover.prevent>
         <h2>{{ $t('act3') }}</h2>
-        <div
-            v-for="item in getList(3)"
-            :key="item.id"
-            class="drag-el"
-            draggable="true"
-            @dragstart="startDrag($event, item)">
-          {{ item.title }}
+        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+          <div
+              v-for="item in getList(3)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textEn }}
+          </div>
+        </div>
+        <div v-else>
+          <div
+              v-for="item in getList(3)"
+              :key="item.id"
+              class="drag-el"
+              draggable="true"
+              @dragstart="startDrag($event, item)">
+            {{ item.textDe }}
+          </div>
         </div>
       </div>
     </div>
 
     <p id="warningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
+    <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
     <router-link :to="{name: 'screenplayDetails'}">
       <button id="continueButton" :disabled="true" @click="clickButton">{{ $t('continue') }}</button>
     </router-link>
@@ -107,6 +144,7 @@
 import TimePeriodModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/TimePeriodModal";
 import CharacterMomentsModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/CharacterMomentsModal";
 import SettingModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/SettingModal";
+import {i18next} from '@/translation/i18n'
 
 
 export default {
@@ -118,6 +156,20 @@ export default {
       showCharacterMomentsModal: false,
       showSettingModal: false,
       items: [],
+    }
+  },
+
+  mounted() {
+    if(this.$store.getters.getCurrentScreenplay.getActs().length !== 0){
+      this.$store.getters.getCurrentScreenplay.acts.act1.forEach((i) => this.items.push(i));
+      this.$store.getters.getCurrentScreenplay.acts.act2.forEach((i) => this.items.push(i));
+      this.$store.getters.getCurrentScreenplay.acts.act3.forEach((i) => this.items.push(i));
+
+      this.items.sort((a,b) => a.id - b.id);
+      this.disableAddButton(this.items,'setting','addSettingButton');
+      this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
+      this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
+      this.checkStatusOfLists();
     }
   },
 
@@ -157,35 +209,61 @@ export default {
     },
 
     addTimePeriod(timePeriod, actNumber) {
-      this.addElementToItems(this.items,actNumber,timePeriod, 'timePeriod','Time Period: ');
+      this.addElementToItems(this.items,actNumber,timePeriod, timePeriod,'timePeriod','Time Period: ', 'Zeitspanne: ');
       this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
       this.checkStatusOfLists();
     },
 
     addCharacterMoments(characterMoment, actNumber) {
-      this.addElementToItems(this.items,actNumber,characterMoment, 'characterMoment','Character Moment: ');
+      if(this.items.length === 0){
+        this.items.push({
+          id: 0,
+          characterOne: characterMoment[0],
+          characterMoment: characterMoment[1],
+          characterTwo: characterMoment[2],
+          textDe: 'Charakter Ereignis: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'de'}),characterMoment[2]),
+          textEn: 'Character Moment: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'en'}),characterMoment[2]),
+          list: actNumber,
+          type: 'characterMoment'
+        });
+      } else {
+        this.items.push({
+          id: this.items[this.items.length - 1].id + 1,
+          characterOne: characterMoment[0],
+          characterMoment: characterMoment[1],
+          characterTwo: characterMoment[2],
+          textDe: 'Charakter Ereignis: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'de'}),characterMoment[2]),
+          textEn: 'Character Moment: ' + this.checkMoment(characterMoment[0],i18next.t(characterMoment[1],{lng: 'en'}),characterMoment[2]),
+          list: actNumber,
+          type: 'characterMoment'
+        });
+      }
       this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
       this.checkStatusOfLists();
     },
 
     addSetting(setting, actNumber) {
-      this.addElementToItems(this.items,actNumber,setting, 'setting', 'Setting: ');
+      this.addElementToItems(this.items,actNumber,setting, setting,'setting', 'Setting: ','Ort: ');
       this.disableAddButton(this.items,'setting','addSettingButton');
       this.checkStatusOfLists();
     },
 
-    addElementToItems(item, act, elementType, typeString, titleString) {
+    addElementToItems(item, act, elementType, element, typeString, titleStringEn, titleStringDe) {
       if(item.length === 0){
         item.push({
           id: 0,
-          title: titleString + elementType,
+          value: element,
+          textDe: titleStringDe + i18next.t(elementType,{lng: 'de'}),
+          textEn: titleStringEn + i18next.t(elementType,{lng: 'en'}),
           list: act,
           type: typeString
         });
       } else {
         item.push({
           id: item[item.length - 1].id + 1,
-          title: titleString + elementType,
+          value: element,
+          textDe: titleStringDe + i18next.t(elementType,{lng: 'de'}),
+          textEn: titleStringEn + i18next.t(elementType,{lng: 'en'}),
           list: act,
           type: typeString
         });
@@ -215,10 +293,30 @@ export default {
       document.getElementById('warningMsg').hidden = !document.getElementById('continueButton').disabled;
     },
 
+    checkMoment(chOne, chMoment, chTwo){
+      let realMessage = chOne + ' ';
+      if(chTwo === ''){
+        realMessage += chMoment;
+      } else if(chMoment === 'lets ... go') {
+        realMessage += 'lets ' + chTwo + ' go';
+      } else if(chMoment === 'lasst ... gehen'){
+        realMessage += 'lasst ' + chTwo + ' gehen';
+      } else if(chMoment === 'sends ... on a mission') {
+        realMessage += 'sends ' + chTwo + ' on a mission';
+      } else if(chMoment === 'schickt ... auf eine Mission'){
+        realMessage += 'schickt ' + chTwo + ' auf eine Mission';
+      } else if(chMoment === 'fordert ... heraus'){
+        realMessage += 'fordert ' + chTwo + ' heraus';
+      } else {
+        realMessage += chMoment + ' ' + chTwo;
+      }
+      return realMessage;
+    },
+
     clickButton() {
-      this.$store.getters.getCurrentScreenplay.addAct1(this.getList(1));
-      this.$store.getters.getCurrentScreenplay.addAct2(this.getList(2));
-      this.$store.getters.getCurrentScreenplay.addAct3(this.getList(3));
+      this.$store.getters.getCurrentScreenplay.setAct1(this.getList(1));
+      this.$store.getters.getCurrentScreenplay.setAct2(this.getList(2));
+      this.$store.getters.getCurrentScreenplay.setAct3(this.getList(3));
     },
 
     characterMomentButtonClick(){
@@ -232,6 +330,10 @@ export default {
     timePeriodButtonClick(){
       this.showTimePeriodModal = true;
     },
+
+    goBack(){
+      this.$router.push({name: 'screenplayCharacters'})
+    }
   }
 }
 </script>

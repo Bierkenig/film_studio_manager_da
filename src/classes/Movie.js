@@ -1,66 +1,119 @@
-import {Screenplay} from "./Screenplay";
-import store from "../services/store";
+import {Screenplay} from "@/classes/Screenplay";
+import Person from "@/classes/Person";
+import Earnings from "@/classes/Earnings";
+import {Studio} from "@/classes/Studio";
 
 export class Movie {
-    constructor(screenplay) {
-        this.screenplay = screenplay;
-        this.director = null;
-        this.roles = {main: [], support: [], minor: []};
+    constructor(screenplay, date, owner, contract, director) {
+        this._title = screenplay.title
+        this._earnings = []
+        this._screenplay = screenplay;
+        this._date = date;
+        this._owner = owner;
+        // null -> no rights bought, 0, -> unlimited rights (created movie)
+        this._contract = contract;
+        this.director = director;
+        //TYPE -> Object
     }
 
-    getScreenplay() {
-        return this.screenplay;
+
+    get screenplay() {
+        return this._screenplay;
     }
 
-    getDirector() {
-        return this.director;
+    set screenplay(value) {
+        this._screenplay = value;
     }
 
-    setDirector(value) {
-        this.director = value;
+    get date() {
+        return this._date;
     }
 
-    getRoles() {
-        return this.roles;
+    set date(value) {
+        this._date = value;
     }
 
-    addMainCharacter(actor) {
-        this.roles.main.push(actor);
+    get owner() {
+        return this._owner;
     }
 
-    addSupportCharacter(actor) {
-        this.roles.support.push(actor);
+    set owner(value) {
+        this._owner = value;
     }
 
-    addMinorCharacter(actor) {
-        this.roles.minor.push(actor);
+    get contract() {
+        return this._contract;
     }
 
-    toString() {
-        let castString = '';
-        for (let rolesKey in this.roles) {
-            for (let actorKey in this.roles[rolesKey]) {
-                if (castString !== '') {
-                    castString += ', ';
-                }
-                castString += this.roles[rolesKey][actorKey].getFirstName() + ' ' + this.roles[rolesKey][actorKey].getLastName();
-            }
+    set contract(value) {
+        this._contract = value;
+    }
+
+    get title() {
+        return this._title;
+    }
+
+    set title(value) {
+        this._title = value;
+    }
+
+    get earnings() {
+        return this._earnings;
+    }
+
+    set earnings(value) {
+        this._earnings = value;
+    }
+
+    createCastHype() {
+        let mainPop;
+        let supportPop;
+        let minorCameoPop;
+        this.screenplay.actors.main.forEach((el) => {
+            mainPop += el._popularity
+        })
+        this.screenplay.actors.support.forEach((el) => {
+            supportPop += el._popularity
+        })
+        this.screenplay.actors.minor.forEach((el) => {
+            minorCameoPop += el._popularity
+        })
+        this.screenplay.actors.cameo.forEach((el) => {
+            minorCameoPop += el._popularity
+        })
+        return ((mainPop / this.screenplay.actors.main.length) * 50) +
+            ((supportPop / this.screenplay.actors.support.length) * 35) +
+            ((minorCameoPop / (this.screenplay.actors.minor.length + this.screenplay.actors.cameo.length)) * 15) / 100
+    }
+
+    createTechnicalHype() {
+        return (this.director._popularity * 75 + this.screenplay.writer._popularity * 25) / 100
+    }
+
+    createBudgetHype() {
+        if (this.$store.state.preProduction.budgetPop === 0) {
+            return 100;
+        } else if (this.$store.state.preProduction.budgetPop === 1) {
+            return 50;
+        } else if (this.$store.state.preProduction.budgetPop === 2) {
+            return 25;
+        } else if (this.$store.state.preProduction.budgetPop === 3) {
+            return 5;
         }
-        return 'Screenplay: ' + this.screenplay.toString() + ', Director: ' + this.director + ', Cast: ' + castString;
+    }
+
+    createTotal() {
+        return (this.createCastHype() * 50 + this.createTechnicalHype() * 35 + this.createBudgetHype() * 15) / 100
     }
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Movie(), jsonObject)
+        instance.owner = Studio.fromJSON(jsonObject.owner)
+        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        instance.date = new Date(jsonObject.date)
+        instance.director = Person.fromJSON(jsonObject.director)
+        instance.earnings = jsonObject.earnings.map(object => Earnings.fromJSON(object))
 
-        instance.screenplay = instance.screenplay? Screenplay.fromJSON(instance.screenplay) : null
-        instance.director = instance.director? store.data.allDirectors.find(director => director.id === instance.director.id) : null
-        instance.roles.main = this.rolesFromJSON(instance.roles.main)
-        instance.roles.minor = this.rolesFromJSON(instance.roles.minor)
-        instance.roles.support = this.rolesFromJSON(instance.roles.support)
-        return instance
-    }
-
-    static rolesFromJSON(jsonArray){
-        return jsonArray.map(jsonObject => store.data.allActors.find(actor => actor.id === jsonObject.id)).filter(actor => actor)
+        return instance;
     }
 }
