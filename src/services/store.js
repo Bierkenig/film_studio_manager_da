@@ -13,6 +13,9 @@ import Event from "@/classes/Event";
 export default createStore({
     /** Application state */
     state:{
+        //TODO slot bei spiel start setzen
+        slot: null,
+        hasEditedDB: false,
         screenplays: [],
         boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
@@ -166,6 +169,9 @@ export default createStore({
         allAwards: [],
         allTopics: [],
         allScreenplays: [],
+
+        //editor
+        editPerson: null,
 
         //salary
         allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000],
@@ -330,6 +336,10 @@ export default createStore({
 
         getStreamingServicesFromOtherStudios(state){
             return state.streamingServicesFromOtherStudios;
+        },
+
+        getSlot(state){
+            return state.slot
         }
     },
 
@@ -555,6 +565,8 @@ export default createStore({
 
         stateToSave(state, reducedState){
             Screenplay.transferProperties(state, reducedState, [
+                "slot",
+                "hasEditedDB",
                 "screenplays",
                 "boughtScreenplays",
                 "studio",
@@ -586,12 +598,13 @@ export default createStore({
         },
 
         loadFromSave(state, responseData){
-            //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
 
             // Object.keys(state).forEach(key => delete state[key]);
             // Object.assign(state, responseData)
 
             Screenplay.transferProperties(responseData, state, [
+                "slot",
+                "hasEditedDB",
                 "balance",
                 "currentMovieBudget",
                 "currentMovieExpenses",
@@ -636,6 +649,10 @@ export default createStore({
             //     state.studio = Studio.fromJSON(store.state.studio)
             // }
         },
+
+        setSlot(state, payload){
+            state.slot = payload
+        }
 
     },
 
