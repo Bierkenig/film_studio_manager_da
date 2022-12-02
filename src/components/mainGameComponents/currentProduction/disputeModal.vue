@@ -23,7 +23,7 @@
               <div>{{$t('dispute.extend')}}</div>
 
               <button @click="this.$store.state.preProduction.budget.production *= 1.25; ">{{$t('dispute.yes')}}</button>
-              <button @click="this.$store.state.preProduction.quality - 15">{{$t('dispute.no')}}</button>
+              <button @click="this.$store.state.currentMovie.quality - 15">{{$t('dispute.no')}}</button>
             </div>
 
             <div v-if="fire2">
@@ -33,7 +33,7 @@
               <div>{{$t('dispute.extend')}}</div>
 
               <button @click="this.$store.state.preProduction.budget.production *= 1.25; ">{{$t('dispute.yes')}}</button>
-              <button @click="this.$store.state.preProduction.quality - 15">{{$t('dispute.no')}}</button>
+              <button @click="this.$store.state.currentMovie.quality - 15">{{$t('dispute.no')}}</button>
             </div>
           </slot>
         </div>

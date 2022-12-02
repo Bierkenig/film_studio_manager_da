@@ -218,6 +218,63 @@ i18next
                         stop: "Stop shooting",
                         extend: "Extend Production",
                     },
+                    options: {
+                        message: "Your Production has ended",
+                        message2: "Do you want to continue with the Post Production or cancel the Movie",
+                        cancel: "Cancel your current Movie",
+                        continue: "Continue with the Post Production",
+                    },
+                    postProduction: {
+                        msg: "More Time for VFX",
+                        qst: "Do you want to give more time for vfx?",
+                        yes: "Yes",
+                        no: "No",
+                        save: "Save"
+                    },
+                    test: {
+                        msg: "Test screening with audience",
+                        change: "The age rating changed due to test screening with the audience",
+                        change2: "The age rating changed due to your Director",
+                        age: "Age rating changed from ",
+                        age2: "Your Director changed the age rating from ",
+                        to: " to ",
+                    },
+                    changeActor: {
+                        h3: "Change of Actor",
+                        msg: "One of your actors has been changed",
+                        new: "New actor: ",
+                        reshoot: "Your Movie has to be reshot",
+                        budget: "Your budget is increasing by: ",
+                        hype: "Your hype decreases by: ",
+                        ignore: "Ignore the change",
+                        accept: "Accept",
+                        ignore2: "Ignoring this Issue increases the risk of failure"
+                    },
+                    changeEnding: {
+                        h3: "Change of Ending",
+                        ending: "Your ending has to be changed",
+                        qst: "Do you want to ignore it and increase the risk of failure or reshoot the ending which decreases the hype and increases the budget",
+                        budget: "Budget increases by: 10%",
+                        hype: "Hype decreases by: 5%",
+                        ignore: "Ignore",
+                        reshoot: "Reshoot",
+                    },
+                    reeditingDirector: {
+                        h3: "Reediting by Director",
+                        msg: "Do you want to reedit the movie by the director?",
+                        reedit: "Reedit",
+                        ignore: "Ignore",
+                        hype: "Hype increases by: 5%",
+                        quality: "Quality will drop by: 10%",
+                        save: "Save"
+                    },
+                    finalCut: {
+                        h3: "Final cut by director",
+                        msg: "Your Director doesn't want to do the final cut",
+                        ignore: "Ignoring it will cause a higher risk of failure",
+                        accept: "Accept",
+                        ignore2: "Ignore"
+                    },
                     calendar: 'Calendar',
                     streaming: 'Streaming',
                     skipWeek: 'Skip to next week',

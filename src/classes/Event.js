@@ -10,7 +10,13 @@ export default class Event {
     }
 
     calcCauseForBreakdowns() {
-        //TODO need calc
-        return this.causesForBreakdowns[Math.round(Math.random() * 3)]
+        const random = Math.round(Math.random() * 9)
+        if (random <= 1) {
+            return this.causesForBreakdowns[0]
+        } else if (random > 1 && random <= 5) {
+            return  this.causesForBreakdowns[1]
+        } else if (random > 5 && random <= 9) {
+            return this.causesForBreakdowns[2]
+        }
     }
 }

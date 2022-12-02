@@ -15,7 +15,8 @@ export class Movie {
         this.director = director;
         //TYPE -> Integer
         this.popularity = popularity
-        this.quality = 0
+        this.quality = 100
+        this.riskOfFailure = 0
         if (this.director instanceof Person && this._screenplay instanceof Screenplay) this.hype = this.createTotal()
     }
 

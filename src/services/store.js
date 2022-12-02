@@ -135,7 +135,6 @@ export default createStore({
                 sfx: 0,
                 problemBudget: 0,
             },
-            quality: 0,
             budgetPop: 12,
         },
 
