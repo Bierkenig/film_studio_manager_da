@@ -210,6 +210,17 @@ i18next
                         no: "No",
                         set: "Set the new Budget"
                     },
+                    productionNotFinished: {
+                        fin: "Production not finished",
+                        cause1: "Cause: Production was set to minimal",
+                        cause2: "Cause: Production Budget was set to low",
+                        cause3: "Cause: Problems occurred on and off the set",
+                        options: "Your options",
+                        option1: "Stop shooting, but your quality drop by 15%",
+                        option2: "Resume shooting, but your budget will increase by 20% and your hype drops by 5%",
+                        stop: "Stop shooting",
+                        resume: "Resume shooting"
+                    },
                     notDone: {
                         desc: "Not done with the Shot",
                         happened: "Due to problems production has been delayed and and Post production phase cannot begin",
@@ -274,6 +285,17 @@ i18next
                         ignore: "Ignoring it will cause a higher risk of failure",
                         accept: "Accept",
                         ignore2: "Ignore"
+                    },
+                    marketingSection: {
+                        interest: "Interested Groups",
+                        children: "Children",
+                        teenager: "Teenager",
+                        adult: "Adults",
+                        trailer: "Trailers",
+                        add: "Add trailer",
+                        scope: "Your Screenplay Scope: ",
+                        champaign: "Marketing champaign",
+
                     },
                     calendar: 'Calendar',
                     streaming: 'Streaming',

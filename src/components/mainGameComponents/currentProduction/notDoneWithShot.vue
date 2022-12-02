@@ -41,7 +41,7 @@ export default {
               + this.$store.state.preProduction.budget.editing + this.$store.state.preProduction.budget.score
               + this.$store.state.preProduction.budget.set + this.$store.state.preProduction.budget.stunts
               + this.$store.state.preProduction.budget.costume + this.$store.state.preProduction.budget.makeup
-              + this.$store.state.preProduction.budget.sfx + this.$store.state.preProduction.budget.vfx) * 0.20
+              + this.$store.state.preProduction.budget.sfx + this.$store.state.preProduction.budget.vfx) * 0.2
     }
   }
 }
