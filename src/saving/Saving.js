@@ -74,7 +74,7 @@ export function save(data, slot) {
         })
 
     })
-
+    //createDBForSlot();
     //autoSave(JSON.stringify(data),slot);
 }
 
@@ -85,8 +85,8 @@ export function save(data, slot) {
 //101 - Save File corrupt - Backup will be used - recovery possible!
 //102 - Backup File corrupt - No recovery!
 //103 - Auto File newer
-//104 - Save & Backup corrupted - Auto Save File exists and could be used
-//105 - No Save File, but Auto Save available
+//104 - Save & Backup corrupted - Auto Save File exists and could be used - Abuseable
+//105 - No Save File, but Auto Save available - Not Needed right now
 //106 - No Save File
 export function load(slot){
     let save = null;
@@ -235,6 +235,8 @@ export function getSaveDate(slot) {
     return null
 }
 
+//TODO remove underscore from file
+//TODO use auto save when both save files are corrupted
 export function autoSave(data, slot) {
     data = JSON.parse(data)
 
@@ -301,4 +303,10 @@ export function autoSave(data, slot) {
             });
         });
     }
+}
+
+
+export function createDBForSlot(){
+    fs.copyFileSync('src/DB/database/fsm.db','.data/database')
+
 }

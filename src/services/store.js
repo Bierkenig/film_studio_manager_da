@@ -8,10 +8,14 @@ import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
+import Event from "@/classes/Event";
 
 export default createStore({
     /** Application state */
     state:{
+        //TODO slot bei spiel start setzen
+        slot: null,
+        hasEditedDB: false,
         screenplays: [],
         boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
@@ -78,23 +82,12 @@ export default createStore({
                 },
             }
         ],
-        //movies which are in production
+        //movies which are in currentProduction
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [],
         //nicht fertig
-        events: [
-            {
-            title: "SOMETHING",
-            start: '2023-01-06',
-            end: '2023-01-10'
-            },
-            {
-            title: "NICHTS",
-            start: '2023-01-07',
-            end: '2023-01-09'
-            },
-        ],
+        happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [new Franchises(0, 'Hallo was geht')],
         currentFranchise: null,
         otherStudios: [
@@ -114,7 +107,7 @@ export default createStore({
         preProduction: {
             isPreProduction: false,
             currentScreenplay: null,
-            hiredDirector: null,
+            hiredDirector: new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,null,5,null,5,23,123456,false,true,false,null),
             feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
             indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
             animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
@@ -126,6 +119,21 @@ export default createStore({
                 productionLength: 0,
                 postProductionLength: 0,
                 releaseDate: 0,
+            },
+            budget: {
+                production: 0,
+                extras: 0,
+                cinematography: 0,
+                sound: 0,
+                editing: 0,
+                score: 0,
+                set: 0,
+                stunts: 0,
+                costume: 0,
+                makeup: 0,
+                vfx: 0,
+                sfx: 0,
+                problemBudget: 0,
             },
             budgetPop: 12,
         },
@@ -160,6 +168,9 @@ export default createStore({
         allAwards: [],
         allTopics: [],
         allScreenplays: [],
+
+        //editor
+        editPerson: null,
 
         //salary
         allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000],
@@ -324,6 +335,10 @@ export default createStore({
 
         getStreamingServicesFromOtherStudios(state){
             return state.streamingServicesFromOtherStudios;
+        },
+
+        getSlot(state){
+            return state.slot
         }
     },
 
@@ -472,7 +487,7 @@ export default createStore({
         },
 
         addEvent(state, event){
-            state.events.push(event);
+            state.happeningEvents.push(event);
         },
 
         changeCurrentLanguage(state, value){
@@ -549,6 +564,8 @@ export default createStore({
 
         stateToSave(state, reducedState){
             Screenplay.transferProperties(state, reducedState, [
+                "slot",
+                "hasEditedDB",
                 "screenplays",
                 "boughtScreenplays",
                 "studio",
@@ -580,12 +597,13 @@ export default createStore({
         },
 
         loadFromSave(state, responseData){
-            //TODO unsicher und nicht optimal eingefügt, muss ausgebessert werden siehe auskommentierte lines
 
             // Object.keys(state).forEach(key => delete state[key]);
             // Object.assign(state, responseData)
 
             Screenplay.transferProperties(responseData, state, [
+                "slot",
+                "hasEditedDB",
                 "balance",
                 "currentMovieBudget",
                 "currentMovieExpenses",
@@ -630,6 +648,10 @@ export default createStore({
             //     state.studio = Studio.fromJSON(store.state.studio)
             // }
         },
+
+        setSlot(state, payload){
+            state.slot = payload
+        }
 
     },
 

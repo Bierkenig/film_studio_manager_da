@@ -22,9 +22,10 @@ import actorsSection from "@/components/mainGameComponents/preProduction/actorsS
 import budgetSection from "@/components/mainGameComponents/preProduction/budgetSection";
 import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
-// import editorInput from "@/components/DB-Editor/editorInput";
+import EditorInput from "@/components/DB-Editor/EditorInput";
 import KitchenSink from "@/components/kitchenSink/KitchenSink";
-
+import PersonEdit from "@/components/DB-Editor/Entities/PersonEdit";
+import SelectSlotWindow from "@/components/startComponents/SelectSlotWindow";
 const routes = [
     { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },
     { name: 'viewServices', path: '/viewServices', component: ViewServices, props: true },
@@ -44,6 +45,8 @@ const routes = [
     { name: 'createStudio', path: '/createStudio', component: CreateStudio, props: true },
     { name: 'home', path: '/home', component: Home, props: true },
     { name: 'loadWindow', path: '/loadings', component: LoadWindow, props: true },
+    { name: 'SelectSlotWindow', path: '/SelectSlotWindow', component: SelectSlotWindow, props: true },
+
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
 
     { name: 'screenplaySection', path: '/screenplaySection', component: screenplaySection, props: true},
@@ -52,7 +55,8 @@ const routes = [
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
 
-    // { name: 'editorInput', path: '/editorInput', component: editorInput, props: true},
+    { name: 'editorInput', path: '/editorInput', component: EditorInput, props: true},
+    { name: 'PersonEdit', path: '/PersonEdit', component: PersonEdit, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },
 ]

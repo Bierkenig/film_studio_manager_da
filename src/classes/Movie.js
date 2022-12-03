@@ -4,7 +4,7 @@ import Earnings from "@/classes/Earnings";
 import {Studio} from "@/classes/Studio";
 
 export class Movie {
-    constructor(screenplay, date, owner, contract, director) {
+    constructor(screenplay, date, owner, contract, director, popularity = 0) {
         this._title = screenplay.title
         this._earnings = []
         this._screenplay = screenplay;
@@ -13,7 +13,11 @@ export class Movie {
         // null -> no rights bought, 0, -> unlimited rights (created movie)
         this._contract = contract;
         this.director = director;
-        //TYPE -> Object
+        //TYPE -> Integer
+        this.popularity = popularity
+        this.quality = 100
+        this.riskOfFailure = 0
+        if (this.director instanceof Person && this._screenplay instanceof Screenplay) this.hype = this.createTotal()
     }
 
 
