@@ -82,7 +82,8 @@ async function createWindow() {
     db.serialize(() => {
       db.each(data, (err, row) => {
         if (err) console.log(err)
-        else event.sender.send('sendPeople', row)
+        console.log(row)
+        //else event.sender.send('sendPeople', row)
       })
     })
   })

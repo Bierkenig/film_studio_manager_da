@@ -2,7 +2,7 @@
   <div>
     <div>{{$t('budgetSection.overall')}}</div>
 
-    <div>{{$t('budgetSection.production')}}</div>
+    <div>{{$t('budgetSection.currentProduction')}}</div>
     <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value">
     <div>{{production.value}}</div>
 
@@ -193,10 +193,19 @@ export default {
     },
 
     calcSum() {
-      this.$store.state.preProduction.outgoings = parseInt(this.production.value) + parseInt(this.extras.value) + parseInt(this.cinematography.value) +
-          parseInt(this.sound.value) + parseInt(this.editing.value) + parseInt(this.score.value) + parseInt(this.set.value) +
-          parseInt(this.stunts.value) + parseInt(this.costume.value) + parseInt(this.makeup.value) + parseInt(this.sfx.value) +
-          parseInt(this.vfx.value)
+      this.$store.state.preProduction.budget.production = parseInt(this.production.value)
+      this.$store.state.preProduction.budget.extras = parseInt(this.extras.value)
+      this.$store.state.preProduction.budget.cinematography = parseInt(this.cinematography.value)
+      this.$store.state.preProduction.budget.sound = parseInt(this.sound.value)
+      this.$store.state.preProduction.budget.editing = parseInt(this.editing.value)
+      this.$store.state.preProduction.budget.score = parseInt(this.score.value)
+      this.$store.state.preProduction.budget.set = parseInt(this.set.value)
+      this.$store.state.preProduction.budget.stunts = parseInt(this.stunts.value)
+      this.$store.state.preProduction.budget.costume = parseInt(this.costume.value)
+      this.$store.state.preProduction.budget.makeup = parseInt(this.makeup.value)
+      this.$store.state.preProduction.budget.sfx = parseInt(this.sfx.value)
+      this.$store.state.preProduction.budget.vfx = parseInt(this.vfx.value)
+
 
       const max = this.production.max + this.extras.max + this.cinematography.max + this.sound.max + this.editing.max + this.score.max + this.set.max
       + this.stunts.max + this.costume.max + this.makeup.max + this.sfx.max + this.vfx.max

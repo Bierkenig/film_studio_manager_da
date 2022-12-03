@@ -2,9 +2,11 @@
   <div>
     <div id="container">
       <news-section class="news"/>
-      <movie-section class="releasedMovies" :heading="$t('releasedMovie')" :data="this.$store.getters.getCreatedMovies"/>
+      <movie-section class="releasedMovies" :heading="$t('releasedMovie')"
+                     :data="this.$store.getters.getCreatedMovies"/>
       <earnings-section class="earnings"/>
-      <movie-section class="inProductionMovies" :heading="$t('inProduction')" :data="this.$store.getters.getCreatedMovies"/>
+      <movie-section class="inProductionMovies" :heading="$t('inProduction')"
+                     :data="this.$store.getters.getCreatedMovies"/>
       <upcoming-events-section class="upcomingEvents"/>
     </div>
     <router-link to="directorSection">
@@ -22,8 +24,10 @@
     <router-link to="budgetSection">
       <button>budget</button>
     </router-link>
+    <router-link to="EditorInput">
+      <button>editor</button>
+    </router-link>
     <button id="saveButton" class="buttonStyle" @click="save">save</button>
-
   </div>
 </template>
 
@@ -37,14 +41,14 @@ import financeMixin from "@/mixins/financeMixin";
 export default {
   name: "HomeMenu",
 
-  mixins: [soundeffectMixin('button','click'), financeMixin()],
+  mixins: [soundeffectMixin('button', 'click'), financeMixin()],
   components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection},
   methods: {
     save() {
       let slotNr = 1
       window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
     }
-  }
+  },
 }
 </script>
 

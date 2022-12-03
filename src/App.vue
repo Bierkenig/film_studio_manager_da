@@ -28,7 +28,7 @@ import store from "./services/store";
 export default {
   name: 'App',
   components: {GameHeader, MenuNav},
-  data(){
+  data() {
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
     }

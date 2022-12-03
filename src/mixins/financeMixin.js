@@ -16,6 +16,8 @@ export default function financeMixin(){
                             console.log(sum + '$ abgezogen!');
                         } else if (sum > 0) {
                             console.log(sum + '$ erhalten!');
+                        } else {
+                            console.log('0$');
                         }
 
                         this.$store.getters.getOwnStreamingService._lastCheckedDate = new Date(

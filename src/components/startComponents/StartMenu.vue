@@ -38,6 +38,15 @@
               <router-link :to="{ name: 'kitchenSink'}">
                 <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
               </router-link>
+              <router-link :to="{ name: 'createStudio'}">
+                <button id="newButton" class="buttonStyle">{{ $t('newStudioButton') }}</button>
+              </router-link>
+              <router-link :to="{ name: 'loadWindow'}">
+                <button id="loadButton" class="buttonStyle">{{ $t('loadButton') }}</button>
+              </router-link>
+              <router-link :to="{ name: 'SelectSlotWindow'}">
+                <button id="slotButton" class="buttonStyle">Select Slot</button>
+              </router-link>
               <router-link :to="{ name: 'mainSettings'}">
                 <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
               </router-link>
@@ -73,15 +82,14 @@ export default {
       }
     },
     save(){
-     let slotNr = 1
       let reducedState = {}
       this.$store.commit("stateToSave", reducedState)
       console.log(this.$store.state)
       console.log(reducedState)
-      window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), slotNr])
+      window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), this.$store.getters.getSlot])
     },
     deleting(){
-      window.ipcRenderer.send('r2mDeleting', 3)
+      window.ipcRenderer.send('r2mDeleting', this.$store.getters.getSlot)
     },
     autoSave(){
       window.ipcRenderer.send('autoSave', [JSON.stringify(this.$store.state),3])
