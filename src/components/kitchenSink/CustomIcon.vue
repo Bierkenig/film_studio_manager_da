@@ -74,42 +74,49 @@ export default {
       type: Boolean,
       default: false,
     },
+    invertTheme: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     async setSVG() {
       let svgCode = (await this.getSVGCode()).toString();
       svgCode = svgCode.replaceAll(/<!-- .*-->/gm, '');
-      if (this.dark) {
-        this.themeValues = {...this.themeDark};
-      } else {
-        this.themeValues = {...this.themeLight};
-      }
-      switch (this.theme) {
-        case 'light':
+      if (this.invertTheme) {
+        if (this.theme === 'dark') {
           this.themeValues = {...this.themeLight};
-          break;
-        case 'dark':
+        } else {
           this.themeValues = {...this.themeDark};
-          break;
-        case 'red':
-          this.themeValues = {...this.themeRed};
-          break;
-        case 'green':
-          this.themeValues = {...this.themeGreen};
-          break;
-        case 'blue':
-          this.themeValues = {...this.themeBlue};
-          break;
-        case 'yellow':
-          this.themeValues = {...this.themeYellow};
-          break;
-        case 'white':
-          this.themeValues = {...this.themeWhite};
-          break;
-        default:
-          throw('Invalid icon theme!');
+        }
+      } else {
+        switch (this.theme) {
+          case 'light':
+            this.themeValues = {...this.themeLight};
+            break;
+          case 'dark':
+            this.themeValues = {...this.themeDark};
+            break;
+          case 'red':
+            this.themeValues = {...this.themeRed};
+            break;
+          case 'green':
+            this.themeValues = {...this.themeGreen};
+            break;
+          case 'blue':
+            this.themeValues = {...this.themeBlue};
+            break;
+          case 'yellow':
+            this.themeValues = {...this.themeYellow};
+            break;
+          case 'white':
+            this.themeValues = {...this.themeWhite};
+            break;
+          default:
+            throw('Invalid icon theme!');
+        }
       }
-      if (this.gradient) {
+      if (this.gradient && !this.invertTheme) {
         svgCode = svgCode.replaceAll('<svg', '<svg fill="url(#customColor)"');
         svgCode = svgCode.replaceAll('</svg>',
             '<defs><linearGradient id="customColor" x1="0%" y1="0%" x2="0%" y2="100%">'
@@ -122,7 +129,7 @@ export default {
         svgCode = svgCode.replaceAll('</svg>',
             '<style>.customShadow{filter: ' + this.themeValues.shadow + '}</style></svg>')
       }
-      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")'
+      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")';
     },
     async getSVGCode() {
       let requestResult = await new Promise((resolve) => {
@@ -146,6 +153,11 @@ export default {
   },
   mounted() {
     this.setSVG();
+  },
+  watch: {
+    invertTheme: function() {
+      this.setSVG();
+    }
   },
 }
 </script>
