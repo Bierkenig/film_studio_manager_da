@@ -1,33 +1,41 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
-      <router-link to="mainSettings">
-        <button id="settingsButton" class="buttonStyle">{{ $t('settings') }}</button>
-      </router-link>
+      <page-heading :heading="pageName">Your manager dashboard.</page-heading>
 
-      <div>
+      <!--<div>
         <h2>{{ $t(pageName) }}</h2>
         <p>{{ $t('managerDashboard') }}</p>
+      </div>-->
+
+      <div class="headerBoxStudioInformation">
+        <!--<img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
+        <p>{{ studioname }}</p>-->
+        <header-info icon="studio">{{ studioname }}</header-info>
+        <p>{{ roundBudget(budget) }}</p>
+        <p>{{ ("0" + this.$store.getters.getCurrentDate.getDate()).slice(-2) }}
+          {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
+          {{ this.$store.getters.getCurrentDate.getFullYear() }}
+        </p>
       </div>
 
-      <img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
-      <p>{{ studioname }}</p>
-      <p>{{ roundBudget(budget) }}</p>
-      <p>{{ ("0" + this.$store.getters.getCurrentDate.getDate()).slice(-2) }}
-        {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
-        {{ this.$store.getters.getCurrentDate.getFullYear() }}
-      </p>
-
-      <button id="skipWeekButton" @click="onUpdateDate">{{ $t('skipWeek') }}</button>
+      <p class="headerBoxHiddenElement"></p>
+      <settings-header id="headerBoxSettingHeader"/>
+      <!--<custom-button :dark="false" size="small" @click="onUpdateDate">{{ $t('skipWeek') }}</custom-button>-->
     </div>
   </div>
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import PageHeading from "@/components/kitchenSink/PageHeading";
+import SettingsHeader from "@/components/startComponents/SettingsHeader";
+import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
+//import CustomButton from "@/components/kitchenSink/CustomButton";
 
 export default {
   name: "GameHeader",
+  components: {HeaderInfo, SettingsHeader, PageHeading, /*CustomButton*/},
   mixins: [soundeffectMixin('button','click')],
 
   props: {
@@ -61,16 +69,36 @@ export default {
 </script>
 
 <style scoped>
-#headerBox, .headerSectionBox {
+.headerSectionBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.headerBoxStudioInformation {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  gap: 30px;
   text-align: center;
-  gap: 3em;
 }
 
 img {
   height: 50px;
   width: 50px;
+}
+
+#headerBoxSettingHeader {
+  position: absolute;
+  float: right;
+  right: 100px;
+}
+
+.headerBoxHiddenElement {
+  width: 167px;
 }
 </style>

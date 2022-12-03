@@ -1,39 +1,60 @@
 <template>
   <div id="createStudioMainDiv">
     <div id="createStudioSubDiv">
-      <div id="createStudioBackground">
-        <div id="createStudioBox">
-          <h1 id="createStudioHeading">
-            {{ $t('createStudioHeader') }}
-          </h1>
-          <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
-          <div id="radioBox">
-            <div id="budgetHint">
-              Budget
+      <div>
+        <icon-button
+            id="createStudioBackButton"
+            icon="escape"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="false"
+            :shadow="false"
+            @click="goBack()"/>
+        <settings-header id="createStudioSettingHeader"/>
+      </div>
+      <div class="createStudioBackground">
+        <h1 class="createStudioHeading">
+          {{ $t('createStudioHeader') }}
+        </h1>
+        <div class="createStudioBox">
+          <div class="createStudioBoxInnerElement">
+            <label id="createStudioNameLabel" for="createStudioName">Studio Namee</label>
+            <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
+            <div id="radioBox">
+              <div id="budgetHint">
+                Budget
+              </div>
+              <div>
+                <input id="hard" v-model="budget" type="radio" class="radioButton" value="25000000" />
+                <label for="hard" class="labelRadio">{{ $t('hard') }} - $ 25 M</label>
+              </div>
+              <div>
+                <input id="medium" v-model="budget" type="radio" class="radioButton" value="100000000" />
+                <label for="medium" class="labelRadio">Normal - $ 100 M</label>
+              </div>
+              <div>
+                <input id="easy" v-model="budget" type="radio" class="radioButton" value="500000000" />
+                <label for="easy" class="labelRadio">{{ $t('easy') }} - $ 500 M</label>
+              </div>
             </div>
-            <div>
-              <input id="hard" v-model="budget" type="radio" class="radioButton" value="25000000" />
-              <label for="hard" class="labelRadio">{{ $t('hard') }} - $ 25 M</label>
-            </div>
-            <div>
-              <input id="medium" v-model="budget" type="radio" class="radioButton" value="100000000" />
-              <label for="medium" class="labelRadio">Normal - $ 100 M</label>
-            </div>
-            <div>
-              <input id="easy" v-model="budget" type="radio" class="radioButton" value="500000000" />
-              <label for="easy" class="labelRadio">{{ $t('easy') }} - $ 500 M</label>
+            <div id="chooseLogoBox">
+              <div v-for="(img,index) in this.logoImages" :key="index">
+                <input v-model="chosenLogo" type="radio" class="logoRadioButton" :value="img.imgSource">
+                <img :src="img.imgSource" :alt="'Logo' + index" style="width: 50px; height: 50px">
+              </div>
             </div>
           </div>
-          <div id="chooseLogoBox">
-            <div v-for="(img,index) in this.logoImages" :key="index">
-              <input v-model="chosenLogo" type="radio" class="logoRadioButton" :value="img.imgSource">
-              <img :src="img.imgSource" :alt="'Logo' + index" style="width: 50px; height: 50px">
-            </div>
-          </div>
-          <router-link :to="{ name: 'home' }">
-            <button id="startButton" class="buttonStyle" :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null" @click="startGame">{{ $t('createStudioButton') }}</button>
-          </router-link>
         </div>
+        <h1 class="createStudioHeading" id="createStudioModificationHeading">
+          Modifications
+        </h1>
+        <div class="createStudioBox">
+          <div class="createStudioBoxInnerElement" id="createStudioBoxModificationInformation">
+            <div>Do you want to use the current modified database or the default?</div>
+          </div>
+        </div>
+        <custom-button id="createStudioContinueButton" :dark="false" size="medium" :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null" @clicked="startGame">{{ $t('createStudioButton') }}</custom-button>
       </div>
     </div>
   </div>
@@ -43,13 +64,17 @@
 import {Studio} from "@/classes/Studio";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
+import SettingsHeader from "@/components/startComponents/SettingsHeader";
+import IconButton from "@/components/kitchenSink/IconButton";
+import CustomButton from "@/components/kitchenSink/CustomButton";
+//import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 /*import Actor from "@/classes/Actor";
 import {Writer} from "@/classes/Writer";
 import {Director} from "@/classes/Director";*/
 
 export default {
   name: "CreateStudio",
-
+  components: {CustomButton, IconButton, SettingsHeader},
   mixins: [soundeffectMixin('button','click')],
 
   data() {
@@ -131,12 +156,86 @@ export default {
       this.$store.commit('setAllDirectors', directors);
       this.$store.commit('setAllActors', actors);
       this.$store.commit('setAllTopics',topics);
-      this.$store.commit('setAllPeople', people)
+      this.$store.commit('setAllPeople', people);
+
+      this.$router.push({name: 'home'})
     },
+
+    test(){
+      console.log(this.budget)
+    },
+
+    goBack(){
+      this.$router.push({name: 'default'})
+    }
   },
 }
 </script>
 
 <style scoped>
+#createStudioMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
+.createStudioHeading {
+  margin: 0 !important;
+  font-weight: var(--fsm-fw-bold);
+  color: var(--fsm-pink-1);
+}
+
+.createStudioBackground {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  width: 350px;
+  height: 500px;
+  padding: 10px 20px 10px 20px;
+}
+
+.createStudioBox {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  margin-top: 10px;
+}
+
+#createStudioSettingHeader {
+  position: absolute;
+  float: right;
+  right: 100px;
+  top: 20px;
+}
+
+#createStudioBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+.createStudioBoxInnerElement {
+  margin-left: 20px;
+  padding-top: 20px;
+}
+
+#createStudioName {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
+  border-style: none;
+  height: 30px;
+  width: 80%;
+  margin-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+#createStudioModificationHeading {
+  margin-top: 10px !important;
+}
+
+#createStudioBoxModificationInformation {
+  padding-top: 10px !important;
+}
 </style>

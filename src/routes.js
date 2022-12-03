@@ -24,6 +24,7 @@ import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMov
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
 // import editorInput from "@/components/DB-Editor/editorInput";
 import KitchenSink from "@/components/kitchenSink/KitchenSink";
+//import CalendarView from "@/components/mainGameComponents/calendarMenu/CalendarView";
 
 const routes = [
     { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },

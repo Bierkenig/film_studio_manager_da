@@ -85,14 +85,28 @@ export default createStore({
         //nicht fertig
         events: [
             {
-            title: "SOMETHING",
-            start: '2023-01-06',
-            end: '2023-01-10'
+                title: "SOMETHING",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'productionFinished'
             },
             {
-            title: "NICHTS",
-            start: '2023-01-07',
-            end: '2023-01-09'
+                title: "NICHTS",
+                start: '2023-01-07',
+                end: '2023-01-08',
+                type: 'featureFilm'
+            },
+            {
+                title: "ALLES",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'blockbuster'
+            },
+            {
+                title: "VIELLEICHT",
+                start: '2023-01-07',
+                end: '2023-01-08',
+                type: 'award'
             },
         ],
         franchises: [new Franchises(0, 'Hallo was geht')],
@@ -468,7 +482,15 @@ export default createStore({
 
         updateCurrentDate(state){
             let lastDate = state.currentDate;
+            /*if(lastDate.getDate() == 22){
+                if (lastDate.getMonth() == 11) {
+                    state.currentDate = new Date(lastDate.getFullYear() + 1, 0, 1);
+                } else {
+                    state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 1);
+                }
+            } else {*/
             state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+7);
+            //}
         },
 
         addEvent(state, event){
@@ -615,9 +637,9 @@ export default createStore({
             state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
             /**
-                "events",
-                "financialPerformance",
-                "preProduction",
+             "events",
+             "financialPerformance",
+             "preProduction",
              **/
 
             console.log(state)

@@ -5,13 +5,15 @@
         :options="calendarOptions"
         ref="fullCalendar"/>
 
-    <transition name="modal">
+    <day-events id="dayEventsElement" :event="this.eventProp" :clicked-day="this.clickedDay"/>
+
+    <!--<transition name="modal">
       <event-modal v-if="showModal" :event="eventProp" @close="showModal = false">
         <template v-slot:header>
           <h3>custom header</h3>
         </template>
       </event-modal>
-    </transition>
+    </transition>-->
     <!--<day-information
         id="dayInformationElement"
         :event="this.eventProp"
@@ -27,12 +29,13 @@ import TimeGridPlugin from '@fullcalendar/timegrid'
 import InteractionPlugin from '@fullcalendar/interaction'
 import ListPlugin from '@fullcalendar/list'
 import {mapGetters} from 'vuex'
-import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
+//import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
 import financeMixin from "@/mixins/financeMixin";
+import DayEvents from "@/components/mainGameComponents/calendarMenu/DayEvents";
 
 export default {
   name: 'CalendarMenu',
-  components: {EventModal, FullCalendar},
+  components: {DayEvents, FullCalendar},
 
   mixins: [financeMixin()],
 
@@ -44,9 +47,9 @@ export default {
         initialDate: this.$store.getters.getCurrentDate,
         locale: this.$store.getters.getCurrentLanguage,
         headerToolbar: {
-          start: 'prev',
-          center: 'title',
-          end: 'next'
+          start: 'prev title next',
+          center: '',
+          end: ''
         },
         height: 550,
         validRange: {
@@ -54,10 +57,12 @@ export default {
         },
         selectable: true,
         events: this.$store.getters.getEvents,
+        eventContent: this.checkEvent,
         dateClick: this.handleClick,
       },
       showModal: false,
       eventProp: Object,
+      clickedDay: null,
     }
   },
 
@@ -90,9 +95,26 @@ export default {
         }
       }
 
+      this.clickedDay = arg.date;
       this.eventProp = eventsOfDay;
       this.showModal = true;
     },
+
+    checkEvent(arg){
+      if(arg.event._def.extendedProps.type === 'productionFinished'){
+        arg.backgroundColor = '#FF4655';
+        arg.borderColor = '#FF4655';
+      } else if(arg.event._def.extendedProps.type === 'featureFilm'){
+        arg.backgroundColor = '#46FF54';
+        arg.borderColor = '#46FF54';
+      } else if(arg.event._def.extendedProps.type === 'blockbuster'){
+        arg.backgroundColor = '#46AEFF';
+        arg.borderColor = '#46AEFF';
+      } else if(arg.event._def.extendedProps.type === 'award'){
+        arg.backgroundColor = '#FFED46';
+        arg.borderColor = '#FFED46';
+      }
+    }
   },
 }
 </script>
@@ -102,13 +124,43 @@ export default {
   background-color: inherit !important;
 }
 
-/*.calendarContainer {
-  display: flex;
-  flex-direction: row;
-  gap: 1em;
+.fc-day, .fc-prev-button {
+  background-color: var(--fsm-dark-blue-4);
 }
 
-#dayInformationElement {
-  width: 20%;
-}*/
+.fc-day-other {
+  background-color: var(--fsm-dark-blue-5);
+}
+
+.fc td, .fc th {
+  border: 5px solid var(--fsm-dark-blue-3);
+}
+
+.fc-scrollgrid {
+  border: none !important;
+}
+
+.fc-toolbar-chunk {
+  display: flex;
+  flex-direction: row;
+  background-color: #1C222F;
+}
+
+#calendar {
+  background-color: var(--fsm-dark-blue-3);
+  width: 70%;
+  padding: 1em;
+  border-radius: var(--fsm-m-border-radius);
+}
+
+#dayEventsElement {
+  width: 30%;
+}
+
+.calendarContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 </style>

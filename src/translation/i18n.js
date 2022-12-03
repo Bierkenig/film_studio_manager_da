@@ -15,8 +15,8 @@ i18next
             en: {
                 translation: {
                     welcome: 'Welcome!',
-                    newStudioButton: 'New Studio',
-                    loadButton: 'Savings',
+                    newGameButton: 'New Game',
+                    loadButton: 'Load Game',
                     exitButton: 'Exit Game',
                     settings: 'Settings',
                     languages: 'Languages',
@@ -350,7 +350,7 @@ i18next
             de: {
                 translation: {
                     welcome: 'Willkommen!',
-                    newStudioButton: 'Neues Spiel',
+                    newGameButton: 'Neues Spiel',
                     loadButton: 'Spiel laden',
                     exitButton: 'Spiel verlassen',
                     settings: 'Einstellungen',
