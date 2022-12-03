@@ -1,7 +1,7 @@
 <template>
   <div class="iconButtonMainDiv">
     <div class="iconButtonSubDiv">
-      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :gradient="iconGradient" :icon="icon" :shadow="false"/>
+      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :gradient="iconGradient" :icon="icon" :shadow="false" :invert-theme="invertTheme"/>
     </div>
   </div>
 </template>
@@ -74,6 +74,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    invertTheme: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     setCSSVariables() {
@@ -101,6 +105,15 @@ export default {
   },
   mounted() {
     this.setCSSVariables();
+  },
+  watch: {
+    invertTheme: function() {
+      if (this.dark && this.invertTheme || !this.dark && !this.invertTheme) {
+        this.themeValues = {...this.themeLight};
+      } else {
+        this.themeValues = {...this.themeDark};
+      }
+    }
   },
 }
 </script>

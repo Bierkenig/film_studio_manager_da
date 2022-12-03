@@ -92,7 +92,7 @@
       <code-view
           code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
       <code-view
-          code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>'/>
+          code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
       <code-view
           code='<icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>'/>
       <code-view
@@ -103,7 +103,7 @@
         <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false"
                      :shadow="false"/>
         <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false"
-                     :shadow="false"/>
+                     :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>
         <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>
         <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true"
                      :shadow="false"/>
@@ -395,6 +395,7 @@ export default {
       exampleOptions: ['Option 1', 'Option 2', 'Option 3'],
       singleQuote: "'",
       doubleQuote: '"',
+      invertThemeTest: false,
     }
   },
   methods: {

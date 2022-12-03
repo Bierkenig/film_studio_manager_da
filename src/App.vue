@@ -11,11 +11,11 @@
     <menu-nav
         v-show="this.showOnPage.includes(this.$route.name)"
         page-name="calendar"
-      />
+    />
 
-<!--    <audio id="backgroundMusic" autoplay loop>-->
-<!--      <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">-->
-<!--    </audio>-->
+    <!--    <audio id="backgroundMusic" autoplay loop>-->
+    <!--      <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">-->
+    <!--    </audio>-->
   </div>
 </template>
 
@@ -26,7 +26,7 @@ import store from "./services/store";
 export default {
   name: 'App',
   components: {GameHeader, MenuNav},
-  data(){
+  data() {
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
     }
