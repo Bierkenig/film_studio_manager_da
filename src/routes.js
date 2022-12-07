@@ -22,10 +22,13 @@ import actorsSection from "@/components/mainGameComponents/preProduction/actorsS
 import budgetSection from "@/components/mainGameComponents/preProduction/budgetSection";
 import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
-import EditorInput from "@/components/DB-Editor/EditorInput";
+import WriterOutput from "@/components/DB-Editor/Entities/WriterOutput";
 import KitchenSink from "@/components/kitchenSink/KitchenSink";
 import PersonEdit from "@/components/DB-Editor/Entities/PersonEdit";
 import SelectSlotWindow from "@/components/startComponents/SelectSlotWindow";
+import Editor from "@/components/DB-Editor/Editor";
+
+
 const routes = [
     { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },
     { name: 'viewServices', path: '/viewServices', component: ViewServices, props: true },
@@ -55,7 +58,8 @@ const routes = [
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
 
-    { name: 'editorInput', path: '/editorInput', component: EditorInput, props: true},
+    { name: 'Editor', path: '/Editor', component: Editor, props: true},
+    { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},
     { name: 'PersonEdit', path: '/PersonEdit', component: PersonEdit, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },

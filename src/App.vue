@@ -33,9 +33,16 @@ export default {
   },
   created(){
     setInterval(function() {
-      window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),3])
-      console.log(store);
+      //window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),store.getters.getSlot])
+  if(store.getters.getSlot !== null){
+    let reducedState = {}
+    store.commit("stateToSave", reducedState)
+    window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), store.getters.getSlot])
+    console.log(store);
+  }
     }, 600000);
+
+
   }
 }
 </script>

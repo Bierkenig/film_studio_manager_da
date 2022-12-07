@@ -24,7 +24,7 @@
     <router-link to="budgetSection">
       <button>budget</button>
     </router-link>
-    <router-link to="EditorInput">
+    <router-link to="Editor">
       <button>editor</button>
     </router-link>
     <button id="saveButton" class="buttonStyle" @click="save">save</button>
@@ -45,8 +45,9 @@ export default {
   components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection},
   methods: {
     save() {
-      let slotNr = 1
-      window.ipcRenderer.send('savingData', [JSON.stringify(this.$store.state), slotNr])
+      let reducedState = {}
+      this.$store.commit("stateToSave", reducedState)
+      window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), this.$store.getters.getSlot])
     }
   },
 }
