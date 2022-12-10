@@ -89,24 +89,29 @@ export default createStore({
         //nicht fertig
         events: [
             {
+                id: 1,
                 title: "SOMETHING",
                 start: '2023-01-06',
                 end: '2023-01-07',
-                type: 'productionFinished'
+                type: 'productionFinished',
+                imageUrl: '../assets/icons/action.svg'
             },
             {
+                id: 2,
                 title: "NICHTS",
                 start: '2023-01-07',
                 end: '2023-01-08',
                 type: 'featureFilm'
             },
             {
+                id: 3,
                 title: "ALLES",
                 start: '2023-01-06',
                 end: '2023-01-07',
                 type: 'blockbuster'
             },
             {
+                id: 4,
                 title: "VIELLEICHT",
                 start: '2023-01-07',
                 end: '2023-01-08',

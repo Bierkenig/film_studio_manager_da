@@ -5,6 +5,15 @@
         <div id="startMenuBox">
           <div id="startMenu">
             <settings-header id="startMenuSettingHeader"/>
+            <icon-button
+                id="startMenuCloseButton"
+                icon="simple-arrow-right"
+                size="medium"
+                :dark="true"
+                :bg-gradient="true"
+                :icon-gradient="false"
+                :shadow="false"
+                @click="exit"/>
             <div id="heading">
               <img src="../../assets/FSM_Logo.svg" alt="Logo FSM"/>
               <div id="headline">Film Studio<br>Manager</div>
@@ -25,7 +34,7 @@
               <!--<router-link :to="{ name: 'editorInput' }" style="text-decoration: none; color: inherit">-->
               <button id="editorButton" class="startMenuButton">
                 <custom-icon size="40px"/>
-                editor
+                Database
               </button>
               <!--</router-link>-->
             </div>
@@ -69,10 +78,11 @@
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
 import SettingsHeader from "@/components/startComponents/SettingsHeader";
+import IconButton from "@/components/kitchenSink/IconButton";
 
 export default {
   name: 'StartMenu',
-  components: {SettingsHeader, CustomIcon},
+  components: {SettingsHeader, CustomIcon, IconButton},
   mixins: [soundeffectMixin('button','click')],
 
   methods: {
@@ -144,6 +154,13 @@ export default {
 }
 
 #startMenuSettingHeader {
+  position: absolute;
+  float: right;
+  right: 180px;
+  top: 20px;
+}
+
+#startMenuCloseButton {
   position: absolute;
   float: right;
   right: 100px;

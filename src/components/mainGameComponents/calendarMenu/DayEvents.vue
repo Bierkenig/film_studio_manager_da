@@ -2,8 +2,8 @@
   <div class="dayEventsContainer">
     <div>
       <h3 id="dateHeader" v-if="clickedDay !== null">{{ clickedDay.toDateString() }}</h3>
-      <div id="dayEventsAllItems" v-if="event.length !== 0">
-        <event-element v-for="(it, index) in allEventsOnDay" :key="index" :type="it.type" movie-title="Movie Title Name One" hide-open-icon/>
+      <div id="dayEventsAllItems" v-if="event.length !== 0" >
+        <event-element v-for="it in event" :key="it.id" :type="it.type" movie-title="Movie Title Name One" hide-open-icon/>
       </div>
       <div id="dayEventsNoEventsMessage" v-else>
         <div>No Events on this day!</div>
@@ -23,15 +23,9 @@ export default {
     clickedDay: Date
   },
 
-  data(){
-    return {
-      allEventsOnDay: Object
-    }
-  },
-
   watch: {
-    event: function(){
-      this.allEventsOnDay = this.event;
+    clickedDay: function(){
+
     }
   }
 }

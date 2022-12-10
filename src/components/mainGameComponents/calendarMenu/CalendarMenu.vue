@@ -63,6 +63,8 @@ export default {
       showModal: false,
       eventProp: Object,
       clickedDay: null,
+      lastClickedDay: null,
+      counter: 0
     }
   },
 
@@ -95,15 +97,26 @@ export default {
         }
       }
 
+      if(arg !== this.lastClickedDay && this.lastClickedDay !== null){
+        this.lastClickedDay.dayEl.style.borderStyle = 'none';
+      }
+      arg.dayEl.style.border = '4px solid #ff4655'
+      arg.dayEl.style.boxShadow = 'rgba(255, 58, 77, 0.5)'
+
       this.clickedDay = arg.date;
+      this.lastClickedDay = arg;
       this.eventProp = eventsOfDay;
       this.showModal = true;
     },
 
     checkEvent(arg){
       if(arg.event._def.extendedProps.type === 'productionFinished'){
-        arg.backgroundColor = '#FF4655';
-        arg.borderColor = '#FF4655';
+       arg.backgroundColor = '#FF4655';
+       arg.borderColor = '#FF4655';
+       // arg.backgroundColor = 'inherit';
+       // arg.borderRight = 'none';
+       // element.find("div.fc-content").prepend("<img src='" + event.imageurl +"' width='12' height='12'>");
+
       } else if(arg.event._def.extendedProps.type === 'featureFilm'){
         arg.backgroundColor = '#46FF54';
         arg.borderColor = '#46FF54';
@@ -124,8 +137,13 @@ export default {
   background-color: inherit !important;
 }
 
-.fc-day, .fc-prev-button {
+.fc-day {
   background-color: var(--fsm-dark-blue-4);
+}
+
+.fc-button {
+  background-color: var(--fsm-dark-blue-4) !important;
+  border-style: none !important;
 }
 
 .fc-day-other {
@@ -133,17 +151,49 @@ export default {
 }
 
 .fc td, .fc th {
-  border: 5px solid var(--fsm-dark-blue-3);
+  border-style: none;
+  border-radius: var(--fsm-m-border-radius);
+  /*border-collapse: separate;
+  border-spacing: 10px; /* cellspacing */
+}
+
+.fc table {
+  border-collapse: separate;
+  border-spacing: 10px; /* cellspacing*/
+}
+
+.fc td {
+  border-spacing: 0 !important;
+  border-collapse: unset !important;
 }
 
 .fc-scrollgrid {
   border: none !important;
 }
 
+.fc-scroller {
+  overflow: hidden !important;
+}
+
+.fc-scroller-liquid-absolute {
+  overflow: hidden scroll !important;
+}
+
+.fc-col-header-cell {
+  text-align: center;
+  height: 30px;
+  align-items: center;
+}
+
 .fc-toolbar-chunk {
   display: flex;
   flex-direction: row;
   background-color: #1C222F;
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.fc-toolbar {
+  margin-left: 20px;
 }
 
 #calendar {
@@ -151,6 +201,10 @@ export default {
   width: 70%;
   padding: 1em;
   border-radius: var(--fsm-m-border-radius);
+}
+
+.fc {
+  min-height: 100%;
 }
 
 #dayEventsElement {

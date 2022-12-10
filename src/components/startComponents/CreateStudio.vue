@@ -4,14 +4,13 @@
       <div>
         <icon-button
             id="createStudioBackButton"
-            icon="escape"
+            icon="simple-arrow-left"
             size="medium"
             :dark="true"
             :bg-gradient="true"
             :icon-gradient="false"
             :shadow="false"
             @click="goBack()"/>
-        <settings-header id="createStudioSettingHeader"/>
       </div>
       <div class="createStudioBackground">
         <h1 class="createStudioHeading">
@@ -19,7 +18,7 @@
         </h1>
         <div class="createStudioBox">
           <div class="createStudioBoxInnerElement">
-            <label id="createStudioNameLabel" for="createStudioName">Studio Namee</label>
+            <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
             <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
             <div id="radioBox">
               <div id="budgetHint">
@@ -64,7 +63,7 @@
 import {Studio} from "@/classes/Studio";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
-import SettingsHeader from "@/components/startComponents/SettingsHeader";
+//import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 //import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
@@ -74,7 +73,7 @@ import {Director} from "@/classes/Director";*/
 
 export default {
   name: "CreateStudio",
-  components: {CustomButton, IconButton, SettingsHeader},
+  components: {CustomButton, IconButton},
   mixins: [soundeffectMixin('button','click')],
 
   data() {
@@ -188,10 +187,12 @@ export default {
 }
 
 .createStudioBackground {
+  display: flex;
+  flex-direction: column;
+
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
   width: 350px;
-  height: 500px;
   padding: 10px 20px 10px 20px;
 }
 
@@ -228,7 +229,12 @@ export default {
   width: 80%;
   margin-top: 10px;
   padding-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+#createStudioName:focus {
+  outline: none;
+
 }
 
 #createStudioModificationHeading {
@@ -237,5 +243,9 @@ export default {
 
 #createStudioBoxModificationInformation {
   padding-top: 10px !important;
+}
+
+#createStudioContinueButton {
+  margin-top: 20px;
 }
 </style>

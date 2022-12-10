@@ -5,10 +5,11 @@
           id="homeButton"
           icon="home"
           size="medium"
-          :dark="highlightButton['homeButton']"
+          :dark="false"
           :bg-gradient="true"
           :icon-gradient="true"
           :shadow="false"
+          :invertTheme="highlightButton['homeButton']"
           @click="focusButton('homeButton')"/>
     </router-link>
     <router-link to="movies">
@@ -16,10 +17,11 @@
           id="moviesButton"
           icon="movies"
           size="medium"
-          :dark="highlightButton['moviesButton']"
+          :dark="true"
           :bg-gradient="true"
           :icon-gradient="true"
           :shadow="false"
+          :invertTheme="highlightButton['moviesButton']"
           @click="focusButton('moviesButton')"/>
     </router-link>
     <router-link to="streaming">
@@ -27,10 +29,11 @@
           id="streamingButton"
           icon="streaming"
           size="medium"
-          :dark="highlightButton['streamingButton']"
+          :dark="true"
           :bg-gradient="true"
           :icon-gradient="true"
           :shadow="false"
+          :invertTheme="highlightButton['streamingButton']"
           @click="focusButton('streamingButton')"/>
     </router-link>
     <router-link to="news">
@@ -38,10 +41,11 @@
           id="newsButton"
           icon="news"
           size="medium"
-          :dark="highlightButton['newsButton']"
+          :dark="true"
           :bg-gradient="true"
           :icon-gradient="true"
           :shadow="false"
+          :invertTheme="highlightButton['newsButton']"
           @click="focusButton('newsButton')"/>
     </router-link>
     <router-link to="finances">
@@ -49,10 +53,11 @@
           id="financesButton"
           icon="money"
           size="medium"
-          :dark="highlightButton['financesButton']"
+          :dark="true"
           :bg-gradient="true"
           :icon-gradient="true"
           :shadow="false"
+          :invertTheme="highlightButton['financesButton']"
           @click="focusButton('financesButton')"/>
     </router-link>
     <router-link to="calendar">
@@ -60,10 +65,11 @@
           id="calendarButton"
           icon="calendar"
           size="medium"
-          :dark="highlightButton['calendarButton']"
+          :dark="true"
           :bg-gradient="true"
           :icon-gradient="true"
           :shadow="false"
+          :invertTheme="highlightButton['calendarButton']"
           @click="focusButton('calendarButton')"/>
     </router-link>
   </div>
@@ -86,12 +92,12 @@ export default {
     return {
       lastButton: 'homeButton',
       highlightButton: {
-        'homeButton': true,
-        'moviesButton': true,
-        'streamingButton': true,
-        'newsButton': true,
-        'financesButton': true,
-        'calendarButton': true,
+        'homeButton': false,
+        'moviesButton': false,
+        'streamingButton': false,
+        'newsButton': false,
+        'financesButton': false,
+        'calendarButton': false,
       }
     }
   },
@@ -104,8 +110,16 @@ export default {
 
   methods: {
     focusButton(name){
-      this.highlightButton[name] = false;
-      this.highlightButton[this.lastButton] = true;
+      if(name === 'homeButton'){
+        this.highlightButton[name] = false;
+      } else {
+        this.highlightButton[name] = true;
+      }
+      if(this.lastButton === 'homeButton'){
+        this.highlightButton[this.lastButton] = true;
+      } else {
+        this.highlightButton[this.lastButton] = false;
+      }
       this.lastButton = name;
     }
   }
