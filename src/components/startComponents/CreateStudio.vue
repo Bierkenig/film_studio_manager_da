@@ -22,25 +22,27 @@
             <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
             <div id="radioBox">
               <div id="budgetHint">
-                Budget
+                Studio Budget
               </div>
-              <div>
-                <input id="hard" v-model="budget" type="radio" class="radioButton" value="25000000" />
-                <label for="hard" class="labelRadio">{{ $t('hard') }} - $ 25 M</label>
-              </div>
-              <div>
-                <input id="medium" v-model="budget" type="radio" class="radioButton" value="100000000" />
-                <label for="medium" class="labelRadio">Normal - $ 100 M</label>
-              </div>
-              <div>
-                <input id="easy" v-model="budget" type="radio" class="radioButton" value="500000000" />
-                <label for="easy" class="labelRadio">{{ $t('easy') }} - $ 500 M</label>
-              </div>
+              <budget-select id="budgetSelectElement" @send-budget-value="setSelectedBudget"/>
             </div>
             <div id="chooseLogoBox">
-              <div v-for="(img,index) in this.logoImages" :key="index">
-                <input v-model="chosenLogo" type="radio" class="logoRadioButton" :value="img.imgSource">
-                <img :src="img.imgSource" :alt="'Logo' + index" style="width: 50px; height: 50px">
+              <div id="logoHint">
+                Studio Logo
+              </div>
+              <div class="selectLogoElement">
+                <div v-for="i in 10" :key="i">
+                  <icon-button
+                      class="availableIconsElements"
+                      :icon="icon[i-1]"
+                      size="small"
+                      :dark="true"
+                      :bg-gradient="true"
+                      :icon-gradient="false"
+                      :shadow="false"
+                      :invertTheme="iconSelected[i-1]"
+                      @click="selectIcon(i)"/>
+                </div>
               </div>
             </div>
           </div>
@@ -50,10 +52,26 @@
         </h1>
         <div class="createStudioBox">
           <div class="createStudioBoxInnerElement" id="createStudioBoxModificationInformation">
-            <div>Do you want to use the current modified database or the default?</div>
+            <div id="createStudioBoxText">Do you want to use the current modified database or the default?</div>
+          </div>
+          <div class="createStudioBoxDatabaseSelection">
+            <div>
+              <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="current">
+              <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">Current</label>
+            </div>
+
+            <div>
+              <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="default">
+              <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">Default</label>
+            </div>
           </div>
         </div>
-        <custom-button id="createStudioContinueButton" :dark="false" size="medium" :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null" @clicked="startGame">{{ $t('createStudioButton') }}</custom-button>
+        <custom-button
+            id="createStudioContinueButton"
+            :dark="false"
+            size="medium"
+            :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === ''"
+            @clicked="startGame">{{ $t('createStudioButton') }}</custom-button>
       </div>
     </div>
   </div>
@@ -63,34 +81,23 @@
 import {Studio} from "@/classes/Studio";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
-//import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton";
-//import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
-/*import Actor from "@/classes/Actor";
-import {Writer} from "@/classes/Writer";
-import {Director} from "@/classes/Director";*/
+import BudgetSelect from "@/components/startComponents/BudgetSelect";
 
 export default {
   name: "CreateStudio",
-  components: {CustomButton, IconButton},
+  components: {BudgetSelect, CustomButton, IconButton},
   mixins: [soundeffectMixin('button','click')],
 
   data() {
     return {
       name: '',
-      budget: "100000000",
-      logoImages: [
-        {
-          imgSource: [require("../../assets/logo.png")],
-          index: 1
-        },
-        {
-          imgSource: [require("../../assets/Logo-v2.png")],
-          index: 2
-        }
-      ],
-      chosenLogo: null
+      budget: "250000000",
+      chosenLogo: null,
+      databaseType: "default",
+      iconSelected: [false,false,false,false,false,false,false,false,false,false],
+      icon: ['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
     }
   },
   methods: {
@@ -166,6 +173,22 @@ export default {
 
     goBack(){
       this.$router.push({name: 'default'})
+    },
+
+    setSelectedBudget(value){
+      this.budget = value;
+      console.log(value)
+    },
+
+    selectIcon(index){
+      for (let i = 0; i < this.iconSelected.length; i++) {
+        if(i === (index - 1)){
+          this.iconSelected[index - 1] = true;
+        } else {
+          this.iconSelected[i] = false;
+        }
+      }
+      this.chosenLogo = this.icon[index - 1];
     }
   },
 }
@@ -191,7 +214,7 @@ export default {
   flex-direction: column;
 
   background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
+  border-radius: var(--fsm-l-border-radius);
   width: 350px;
   padding: 10px 20px 10px 20px;
 }
@@ -200,13 +223,6 @@ export default {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   margin-top: 10px;
-}
-
-#createStudioSettingHeader {
-  position: absolute;
-  float: right;
-  right: 100px;
-  top: 20px;
 }
 
 #createStudioBackButton {
@@ -234,7 +250,6 @@ export default {
 
 #createStudioName:focus {
   outline: none;
-
 }
 
 #createStudioModificationHeading {
@@ -245,7 +260,73 @@ export default {
   padding-top: 10px !important;
 }
 
+#createStudioBoxText {
+  color: #848891;
+}
+
 #createStudioContinueButton {
   margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#budgetSelectElement {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.selectLogoElement {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  position: relative;
+  width: 70%;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.availableIconsElements {
+  margin-top: 10px;
+  flex: 0 1 calc(20% - 8px);
+}
+
+.createStudioBoxDatabaseSelection {
+  margin-top: 10px;
+  margin-left: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.databaseLabel {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+input[type='radio']:after {
+  top: -2px;
+  left: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  position: relative;
+  background-color: #1C222F;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 5px solid #252D3E;
+}
+
+input[type='radio']:checked:after {
+  top: -2px;
+  left: -3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  position: relative;
+  background-color: #FF3A4D;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 5px solid #252D3E;
 }
 </style>

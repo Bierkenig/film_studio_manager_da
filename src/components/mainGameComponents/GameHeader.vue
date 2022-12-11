@@ -11,7 +11,7 @@
       <div class="headerBoxStudioInformation">
         <!--<img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
         <p>{{ studioname }}</p>-->
-        <header-info icon="studio">{{ studioname }}</header-info>
+        <header-info :icon="this.$store.getters.getCurrentLogo">{{ studioname }}</header-info>
         <p>{{ roundBudget(budget) }}</p>
         <p>{{ ("0" + this.$store.getters.getCurrentDate.getDate()).slice(-2) }}
           {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},

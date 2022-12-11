@@ -25,9 +25,11 @@
 import MenuNav from "@/components/mainGameComponents/MenuNav";
 import GameHeader from "@/components/mainGameComponents/GameHeader";
 import store from "./services/store";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: 'App',
   components: {GameHeader, MenuNav},
+  mixins: [soundeffectMixin('button','click')],
   data() {
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
