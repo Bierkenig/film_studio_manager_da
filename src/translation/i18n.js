@@ -53,7 +53,7 @@ i18next
                     buyStudio: "Buy",
                     labelTakeCredit: "Take out a loan",
                     labelBuyStudio: "Buy a Studio",
-                    descCredit: "Produce and release your own Movie",
+                    descCredit: "Produce and releaseSection your own Movie",
                     descStudio: "Lorem ipsum deine Mum",
                     fiscalPerformance: {
                         name: "Fiscal Performance",
@@ -123,7 +123,7 @@ i18next
                         set2: "Set the Production Phase of your Movie",
                         set3: "Set the Post Production Phase of your Movie",
                         confirm: "Confirm",
-                        releaseDate: "Set the release Date for your Production",
+                        releaseDate: "Set the releaseSection Date for your Production",
                         continue: "Continue",
                         choice: "Your choice: "
                     },
@@ -271,11 +271,11 @@ i18next
                         reshoot: "Reshoot",
                     },
                     reeditingDirector: {
-                        h3: "Reediting by Director",
-                        msg: "Do you want to reedit the movie by the director?",
+                        h3: "Reediting of the Movie",
+                        msg: "Do you want to reedit the movie?",
                         reedit: "Reedit",
                         ignore: "Ignore",
-                        hype: "Hype increases by: 5%",
+                        quality2: "Quality increases by: 5%",
                         quality: "Quality will drop by: 10%",
                         save: "Save"
                     },
@@ -295,7 +295,21 @@ i18next
                         add: "Add trailer",
                         scope: "Your Screenplay Scope: ",
                         champaign: "Marketing champaign",
-
+                        print: "Print affects all Interest Groups equally",
+                        poster: "Enter the amount of Posters you want to advertise",
+                        ads: "Enter the amount of Ads you want to advertise in newspapers and magazines",
+                        price: "Sum: ",
+                        internet: "Internet affects children and teenagers",
+                        social: "Do you want to use social networks",
+                        video: "Do you want to use video campaigns",
+                        commercials: "Commercials affects adults",
+                        start: "Start Marketing"
+                    },
+                    release: {
+                        releaseOptions: "Release Options",
+                        cinema: "Cinema release",
+                        cinRe: "Select the cinema release in weeks",
+                        negotiate: "Negotiate the cinemas percentage take"
                     },
                     calendar: 'Calendar',
                     streaming: 'Streaming',

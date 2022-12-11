@@ -138,6 +138,10 @@ export default createStore({
             budgetPop: 12,
         },
 
+        marketing: {
+
+        },
+
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
             new StreamingService('TUV Studio',1,0,0,'TU'),
             new StreamingService('HUA Studio',1,0,0,'HU')],

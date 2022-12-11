@@ -12,7 +12,7 @@
             <div>{{$t('changeEnding.hype')}}</div>
 
             <button class="modal-default-button" @click="reshootEnding(); $emit('close')">{{$t('changeEnding.reshoot')}}</button>
-            <button class="modal-default-button" @click="this.$store.state.currentMovie.riskOfFailure += 10; $emit('close')">{{$t('changeEnding.ignore')}}</button>
+            <button class="modal-default-button" @click="$emit('close')">{{$t('changeEnding.ignore')}}</button>
           </slot>
         </div>
       </div>
@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: "eventModal",
+  name: "changeEnding",
 
   data() {
     return {

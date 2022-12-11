@@ -11,7 +11,7 @@
             <button class="modal-default-button" @click="bool2 = true; bool = false">{{$t('reeditingDirector.ignore')}}</button>
 
             <div v-if="bool">
-              {{$t('reeditingDirector.hype')}}
+              {{$t('reeditingDirector.quality2')}}
             </div>
 
             <div v-if="bool2">
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "eventModal",
+  name: "reeditingDirector",
 
   data() {
     return {
@@ -42,7 +42,7 @@ export default {
       if (this.bool) {
         this.$store.state.currentMovie.hype += this.$store.state.currentMovie.hype * 0.05
       } else if (this.bool2) {
-        this.$store.state.currentMovie.quality -= 10
+        this.$store.state.currentMovie.quality *= 0.9
       }
     },
   }

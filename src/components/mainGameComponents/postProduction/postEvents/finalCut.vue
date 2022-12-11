@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: "eventModal",
+  name: "finalCut",
 
   data() {
     return {
@@ -30,7 +30,7 @@ export default {
 
   methods: {
     accept() {
-
+      //TODO comply
     },
   }
 }
