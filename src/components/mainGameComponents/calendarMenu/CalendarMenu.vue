@@ -103,6 +103,7 @@ export default {
       arg.dayEl.style.border = '4px solid #ff4655'
       arg.dayEl.style.boxShadow = 'rgba(255, 58, 77, 0.5)'
 
+
       this.clickedDay = arg.date;
       this.lastClickedDay = arg;
       this.eventProp = eventsOfDay;
@@ -144,6 +145,7 @@ export default {
 .fc-button {
   background-color: var(--fsm-dark-blue-4) !important;
   border-style: none !important;
+  box-shadow: none !important
 }
 
 .fc-day-other {
@@ -194,6 +196,10 @@ export default {
 
 .fc-toolbar {
   margin-left: 20px;
+}
+
+.fc-highlight {
+  display: none;
 }
 
 #calendar {
