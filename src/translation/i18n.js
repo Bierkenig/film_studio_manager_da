@@ -309,7 +309,23 @@ i18next
                         releaseOptions: "Release Options",
                         cinema: "Cinema release",
                         cinRe: "Select the cinema release in weeks",
-                        negotiate: "Negotiate the cinemas percentage take"
+                        negotiate: "Cinemas percentage take",
+                        short: "Opening week take is higher",
+                        long: "Opening week take is lower",
+                        risk1: "Risk of losing to much money on the get go",
+                        risk2: "Risk of losing on money later because of screening costs",
+
+                        timeSlots: "Negotiate time slots with cinemas",
+                        more: "More slots → higher costs but more income",
+                        less: "Less slots → lower costs but less income",
+                        earnings: "Earnings",
+                        dvd: "DVD / Bluray",
+
+                        streaming: "Streaming",
+                        own: "Release it on you own Streaming Service",
+                        sell: "Sell it to another Service",
+                        offers: "Offers",
+
                     },
                     calendar: 'Calendar',
                     streaming: 'Streaming',
