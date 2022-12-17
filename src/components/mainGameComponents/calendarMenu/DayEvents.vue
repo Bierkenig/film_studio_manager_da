@@ -1,43 +1,53 @@
 <template>
   <div class="dayEventsContainer">
-    <div>
-      <h3 id="dateHeader" v-if="clickedDay !== null">{{ clickedDay.toDateString() }}</h3>
-      <div id="dayEventsAllItems" v-if="event.length !== 0" >
-        <event-element v-for="it in event" :key="it.id" :type="it.type" movie-title="Movie Title Name One" hide-open-icon/>
+    <div class="dayEventsInnerContainer">
+      <div v-if="clickedDay !== null">
+        <h3 class="dateHeader" v-if="clickedDay !== null">
+          {{ clickedDay.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+        </h3>
+        <div id="dayEventsAllItems" v-if="event.length !== 0" >
+          <event-element v-for="it in event" :key="it.id" :type="it.type" :movie-title="it.movie" hide-open-icon/>
+        </div>
+        <div class="dayEventsNoEventsMessage" v-else>
+          <div>{{ $t('noEventsMsg') }}</div>
+        </div>
       </div>
-      <div id="dayEventsNoEventsMessage" v-else>
-        <div>No Events on this day!</div>
+      <div v-else>
+        <h3 class="dateHeader" >
+          {{ $t('dateInformation') }}
+        </h3>
+        <div class="dayEventsNoEventsMessage">
+          <div>{{ $t('emptyDateInformation') }}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 import EventElement from "@/components/kitchenSink/EventElement";
+
 export default {
   name: "DayEvents",
   components: {EventElement},
   props: {
     event: Object,
-    clickedDay: Date
+    clickedDay: Date,
   },
-
-  watch: {
-    clickedDay: function(){
-
-    }
-  }
 }
 </script>
 
 <style scoped>
-.dayEventsContainer {
+.dayEventsInnerContainer {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
+
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
 }
 
-#dateHeader {
+.dateHeader {
   margin-left: 20px;
   font-weight: var(--fsm-fw-bold);
   color: var(--fsm-pink-1);
@@ -51,7 +61,7 @@ export default {
   margin-left: 20px;
 }
 
-#dayEventsNoEventsMessage {
+.dayEventsNoEventsMessage {
   text-align: center;
 }
 </style>

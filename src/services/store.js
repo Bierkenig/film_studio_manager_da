@@ -90,33 +90,46 @@ export default createStore({
         events: [
             {
                 id: 1,
-                title: "SOMETHING",
+                movie: "SOMETHING",
                 start: '2023-01-06',
                 end: '2023-01-07',
                 type: 'productionFinished',
-                imageUrl: '../assets/icons/action.svg'
             },
             {
                 id: 2,
-                title: "NICHTS",
+                movie: "NICHTS",
                 start: '2023-01-07',
                 end: '2023-01-08',
                 type: 'featureFilm'
             },
             {
                 id: 3,
-                title: "ALLES",
+                movie: "ALLES",
                 start: '2023-01-06',
                 end: '2023-01-07',
                 type: 'blockbuster'
             },
             {
                 id: 4,
-                title: "VIELLEICHT",
+                movie: "VIELLEICHT",
                 start: '2023-01-07',
                 end: '2023-01-08',
                 type: 'award'
             },
+            {
+                id: 5,
+                movie: "SOMETHING",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'featureFilm',
+            },
+            {
+                id: 6,
+                movie: "SOMETHING",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'award',
+            }
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [new Franchises(0, 'Hallo was geht')],

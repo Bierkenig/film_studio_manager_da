@@ -32,6 +32,7 @@ import {mapGetters} from 'vuex'
 //import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
 import financeMixin from "@/mixins/financeMixin";
 import DayEvents from "@/components/mainGameComponents/calendarMenu/DayEvents";
+import {i18next} from "@/translation/i18n";
 
 export default {
   name: 'CalendarMenu',
@@ -45,6 +46,7 @@ export default {
         plugins: [DayGridPlugin, InteractionPlugin, ListPlugin, TimeGridPlugin],
         initialView: 'dayGridMonth',
         initialDate: this.$store.getters.getCurrentDate,
+        firstDay: 1,
         locale: this.$store.getters.getCurrentLanguage,
         headerToolbar: {
           start: 'prev title next',
@@ -79,6 +81,11 @@ export default {
     }
   },
 
+  mounted(){
+    document.getElementsByClassName('fc-next-button')[0].setAttribute('data-title',i18next.t('nextMonth'));
+    document.getElementsByClassName('fc-prev-button')[0].setAttribute('data-title',i18next.t('previousMonth'));
+  },
+
   methods: {
     handleClick(arg) {
       let eventsOfDay = [];
@@ -99,9 +106,14 @@ export default {
 
       if(arg !== this.lastClickedDay && this.lastClickedDay !== null){
         this.lastClickedDay.dayEl.style.borderStyle = 'none';
+        this.lastClickedDay.dayEl.children[0].children[0].children[0].style.color = 'inherit';
+        this.lastClickedDay.dayEl.children[0].children[0].children[0].style.fontWeight = 'var(--fsm-fw-medium)';
       }
-      arg.dayEl.style.border = '4px solid #ff4655'
-      arg.dayEl.style.boxShadow = 'rgba(255, 58, 77, 0.5)'
+      arg.dayEl.style.border = '4px solid var(--fsm-pink-1)'
+      //arg.dayEl.style.boxShadow = 'rgba(255, 58, 77, 0.5)'
+
+      arg.dayEl.children[0].children[0].children[0].style.color = 'var(--fsm-pink-1)';
+      arg.dayEl.children[0].children[0].children[0].style.fontWeight = 'var(--fsm-fw-bold)';
 
 
       this.clickedDay = arg.date;
@@ -111,22 +123,29 @@ export default {
     },
 
     checkEvent(arg){
-      if(arg.event._def.extendedProps.type === 'productionFinished'){
-       arg.backgroundColor = '#FF4655';
-       arg.borderColor = '#FF4655';
-       // arg.backgroundColor = 'inherit';
-       // arg.borderRight = 'none';
-       // element.find("div.fc-content").prepend("<img src='" + event.imageurl +"' width='12' height='12'>");
+      arg.backgroundColor = 'inherit';
+      arg.borderColor = 'var(--fsm-dark-blue-4)';
 
+      if(arg.event._def.extendedProps.type === 'productionFinished'){
+        return {html: '<img ' +
+              ' class="eventIconElements productionFinishedEvents"' +
+              ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
+              ' alt="productionFinishedIcon"/>'}
       } else if(arg.event._def.extendedProps.type === 'featureFilm'){
-        arg.backgroundColor = '#46FF54';
-        arg.borderColor = '#46FF54';
+        return {html: '<img ' +
+              ' class="eventIconElements featureFilmEvents"' +
+              ' src="' + require('../../../assets/icons/rising-chart.svg') + '" ' +
+              ' alt="featureFilmIcon"/>'}
       } else if(arg.event._def.extendedProps.type === 'blockbuster'){
-        arg.backgroundColor = '#46AEFF';
-        arg.borderColor = '#46AEFF';
+        return {html: '<img ' +
+              ' class="eventIconElements blockbusterEvents"' +
+              ' src="' + require('../../../assets/icons/rising-chart.svg') + '" ' +
+              ' alt="blockbusterIcon"/>'}
       } else if(arg.event._def.extendedProps.type === 'award'){
-        arg.backgroundColor = '#FFED46';
-        arg.borderColor = '#FFED46';
+        return {html: '<img ' +
+              ' class="eventIconElements awardEvents"' +
+              ' src="' + require('../../../assets/icons/award.svg') + '" ' +
+              ' alt="awardIcon"/>'}
       }
     }
   },
@@ -148,8 +167,8 @@ export default {
   box-shadow: none !important
 }
 
-.fc-day-other {
-  background-color: var(--fsm-dark-blue-5);
+.fc-day-other, .fc-day-disabled {
+  background-color: var(--fsm-dark-blue-5) !important;
 }
 
 .fc td, .fc th {
@@ -167,6 +186,7 @@ export default {
 .fc td {
   border-spacing: 0 !important;
   border-collapse: unset !important;
+  overflow: hidden;
 }
 
 .fc-scrollgrid {
@@ -223,4 +243,33 @@ export default {
   gap: 20px;
 }
 
+.fc-daygrid-day-events {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 5px 5px;
+}
+
+.eventIconElements {
+  width: var(--fsm-l-border-radius);
+  height: var(--fsm-l-border-radius);
+  border-radius: var(--fsm-l-border-radius);
+  padding: 5px
+}
+
+.awardEvents {
+  background-color: var(--fsm-light-yellow)
+}
+
+.blockbusterEvents {
+  background-color: var(--fsm-light-blue)
+}
+
+.featureFilmEvents {
+  background-color: var(--fsm-light-green)
+}
+
+.productionFinishedEvents {
+  background-color: var(--fsm-pink-1)
+}
 </style>

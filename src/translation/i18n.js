@@ -485,6 +485,11 @@ i18next
                     modificationsMsg: 'Do you want to use the current modified database or the default?',
                     modified: 'Modified',
                     default: 'Default',
+                    nextMonth: 'Next month',
+                    previousMonth: 'Previous month',
+                    noEventsMsg: 'No Events on this day',
+                    emptyDateInformation: 'No day has been selected yet',
+                    dateInformation: 'Information of one day'
                 }
             },
             de: {
@@ -827,6 +832,11 @@ i18next
                     modificationsMsg: 'Wollen Sie die Standard Version der Datenbank verwenden oder die individuelle Version?',
                     modified: 'Individuell',
                     default: 'Standard',
+                    nextMonth: 'Nächstes Monat',
+                    previousMonth: 'Voriges Monat',
+                    noEventsMsg: 'Keine Events an diesem Tag',
+                    emptyDateInformation: 'Es wurde noch kein Tag ausgewählt',
+                    dateInformation: 'Information vom Tag'
                 }
             }
         }
