@@ -86,8 +86,8 @@ export default {
     return {
       onSettingButtonClicked: false,
       showOnPage: ['default'],
-      soundEffectStatus: this.$store.getters.getSoundeffectStatus,
-      backgroundMusicStatus: this.$store.getters.getMusicStatus,
+      soundEffectStatus: this.$store.getters.getCurrentStatusOfSoundeffect,
+      backgroundMusicStatus: this.$store.getters.getCurrentStatusOfBackgroundMusic,
       language: this.$store.getters.getCurrentLanguage,
     }
   },

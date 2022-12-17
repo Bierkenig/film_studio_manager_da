@@ -489,7 +489,8 @@ i18next
                     previousMonth: 'Previous month',
                     noEventsMsg: 'No Events on this day',
                     emptyDateInformation: 'No day has been selected yet',
-                    dateInformation: 'Information of one day'
+                    dateInformation: 'Information of one day',
+                    database: 'Database',
                 }
             },
             de: {
@@ -836,7 +837,8 @@ i18next
                     previousMonth: 'Voriges Monat',
                     noEventsMsg: 'Keine Events an diesem Tag',
                     emptyDateInformation: 'Es wurde noch kein Tag ausgewählt',
-                    dateInformation: 'Information vom Tag'
+                    dateInformation: 'Information vom Tag',
+                    database: 'Datenbank',
                 }
             }
         }

@@ -34,7 +34,7 @@
               <!--<router-link :to="{ name: 'editorInput' }" style="text-decoration: none; color: inherit">-->
               <button id="editorButton" class="startMenuButton">
                 <custom-icon size="40px"/>
-                Database
+                {{ $t('database') }}
               </button>
               <!--</router-link>-->
             </div>

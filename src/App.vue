@@ -11,13 +11,13 @@
 
     <menu-nav
         class="menuNavComponent"
-        v-show="this.showOnPage.includes(this.$route.name)"
+        v-if="this.showOnPage.includes(this.$route.name)"
         page-name="calendar"
     />
 
-    <!--<audio id="backgroundMusic" autoplay loop>
+    <audio id="backgroundMusic" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
-    </audio>-->
+    </audio>
   </div>
 </template>
 

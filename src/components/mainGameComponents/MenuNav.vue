@@ -104,9 +104,10 @@ export default {
 
   mixins: [soundeffectMixin('button','click')],
 
-  computed() {
-    //this.highlightButton['homeButton'] = false;
-    console.log(this.lastButton);
+  mounted() {
+    this.highlightButton['homeButton'] = false;
+    this.highlightButton[this.lastButton] = false;
+    this.lastButton = 'homeButton';
   },
 
   methods: {
@@ -121,6 +122,8 @@ export default {
       } else {
         this.highlightButton[this.lastButton] = false;
       }
+
+      console.log(this.highlightButton)
       this.lastButton = name;
     }
   }
