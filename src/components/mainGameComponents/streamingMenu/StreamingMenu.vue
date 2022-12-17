@@ -20,6 +20,9 @@
       </div>
       <content-management-section class="contentManagementSectionTag"/>
     </div>
+    <div v-else id="streamingMenuEmptyMessage">
+      NO STREAMING SERVICE HAS BEEN CREATED YET
+    </div>
   </div>
 </template>
 

@@ -5,21 +5,23 @@
           v-if="this.showOnPage.includes(this.$route.name)"
           icon="musical"
           size="small"
-          :dark="true"
+          :dark="false"
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
-          @click="getMusicStatus"
+          :invertTheme="!backgroundMusicStatus"
+          @click="changeMusicStatus"
       />
       <icon-button
           v-if="this.showOnPage.includes(this.$route.name)"
           icon="star"
           size="small"
-          :dark="true"
+          :dark="false"
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
-          @click="getSoundeffectStatus"
+          :invertTheme="!soundEffectStatus"
+          @click="changeSoundeffectStatus"
       />
       <icon-button
           v-if="this.showOnPage.includes(this.$route.name)"
@@ -28,15 +30,17 @@
           :dark="true"
           :bg-gradient="true"
           :icon-gradient="false"
-          :shadow="false"/>
+          :shadow="false"
+          @click="changeLanguage"/>
       <icon-button
           v-if="!this.showOnPage.includes(this.$route.name)"
-          icon="internet"
+          icon="save"
           size="small"
           :dark="true"
           :bg-gradient="true"
           :icon-gradient="false"
-          :shadow="false"/>
+          :shadow="false"
+          @click="save"/>
           <!--TODO: @click="" zum Speichern einfügen-->
       <icon-button
           v-if="!this.showOnPage.includes(this.$route.name)"
@@ -73,6 +77,7 @@
 
 <script>
 import IconButton from "@/components/kitchenSink/IconButton";
+import i18next from "i18next";
 export default {
   name: "SettingsHeader",
   components: {IconButton},
@@ -80,7 +85,10 @@ export default {
   data(){
     return {
       onSettingButtonClicked: false,
-      showOnPage: ['default']
+      showOnPage: ['default'],
+      soundEffectStatus: this.$store.getters.getSoundeffectStatus,
+      backgroundMusicStatus: this.$store.getters.getMusicStatus,
+      language: this.$store.getters.getCurrentLanguage,
     }
   },
 
@@ -97,20 +105,40 @@ export default {
       }
     },
 
-    getMusicStatus(){
-      this.musicStatus = document.getElementById('musicToggle').checked
-      this.$store.commit('setCurrentBackgroundMusic',document.getElementById('musicToggle').checked);
-      if(this.musicStatus){
+    changeMusicStatus(){
+      this.backgroundMusicStatus = !this.backgroundMusicStatus;
+      this.$store.commit('setCurrentBackgroundMusic',this.backgroundMusicStatus);
+      if(this.backgroundMusicStatus){
         document.getElementById('backgroundMusic').play();
       } else {
         document.getElementById('backgroundMusic').pause();
       }
     },
 
-    getSoundeffectStatus(){
-      this.soundeffectStatus = document.getElementById('soundeffectToggle').checked
-      this.$store.commit('setCurrentSoundeffect',document.getElementById('soundeffectToggle').checked);
+    changeSoundeffectStatus(){
+      this.soundEffectStatus = !this.soundEffectStatus;
+      this.$store.commit('setCurrentSoundeffect',this.soundEffectStatus);
     },
+
+    changeLanguage(){
+      let language = ['en','de']
+      for (let i = 0; i < language.length; i++) {
+        if(this.language !== language[i]){
+          this.language = language[i];
+          break;
+        }
+      }
+      i18next.changeLanguage(this.language)
+      this.$store.commit('changeCurrentLanguage',i18next.language);
+    },
+
+    save(){
+      let reducedState = {}
+      this.$store.commit("stateToSave", reducedState)
+      console.log(this.$store.state)
+      console.log(reducedState)
+      window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), this.$store.getters.getSlot])
+    }
   }
 }
 </script>

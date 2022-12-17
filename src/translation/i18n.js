@@ -481,6 +481,10 @@ i18next
                     viewServices: 'View Services',
                     competitorMsg: 'View the statistics of other services.',
                     changes: 'Changes',
+                    modifications: 'Modifications',
+                    modificationsMsg: 'Do you want to use the current modified database or the default?',
+                    modified: 'Modified',
+                    default: 'Default',
                 }
             },
             de: {
@@ -819,6 +823,10 @@ i18next
                     viewServices: 'Services anzeigen',
                     competitorMsg: 'Zeig die Statistiken von anderen Services an!',
                     changes: 'Umsatz',
+                    modifications: 'Änderungen',
+                    modificationsMsg: 'Wollen Sie die Standard Version der Datenbank verwenden oder die individuelle Version?',
+                    modified: 'Individuell',
+                    default: 'Standard',
                 }
             }
         }

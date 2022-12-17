@@ -8,8 +8,11 @@
              class="budgetSelectPageRadioButton"
              @change="sendBudgetValue"
       />
-      <label :for="'budgetSelectPage' + i" :id="'budgetSelectPageLabel' + i" class="budgetSelectPageRadioButtonLabel">
-        {{ budgetLabels[i-1] }}
+      <label v-if="$i18next.language === 'en'" :for="'budgetSelectPage' + i" :id="'budgetSelectPageLabel' + i" class="budgetSelectPageRadioButtonLabel">
+        {{ budgetLabelsEn[i-1] }}
+      </label>
+      <label v-else :for="'budgetSelectPage' + i" :id="'budgetSelectPageLabel' + i" class="budgetSelectPageRadioButtonLabel">
+        {{ budgetLabelsDe[i-1] }}
       </label>
     </div>
   </div>
@@ -23,7 +26,8 @@ export default {
     return {
       budget: "250000000",
       budgetValues: ["50000000","250000000", "1000000000"],
-      budgetLabels: ["50 Million", "250 Million", "1 Billion"],
+      budgetLabelsEn: ["50 Million", "250 Million", "1 Billion"],
+      budgetLabelsDe: ["50 Millionen", "250 Millionen", "1 Milliarde"],
     }
   },
 

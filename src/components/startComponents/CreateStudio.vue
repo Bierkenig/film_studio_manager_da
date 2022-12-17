@@ -48,21 +48,21 @@
           </div>
         </div>
         <h1 class="createStudioHeading" id="createStudioModificationHeading">
-          Modifications
+          {{ $t('modifications') }}
         </h1>
         <div class="createStudioBox">
           <div class="createStudioBoxInnerElement" id="createStudioBoxModificationInformation">
-            <div id="createStudioBoxText">Do you want to use the current modified database or the default?</div>
+            <div id="createStudioBoxText">{{ $t('modificationsMsg') }}</div>
           </div>
           <div class="createStudioBoxDatabaseSelection">
             <div>
               <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="current">
-              <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">Current</label>
+              <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">{{ $t('modified') }}</label>
             </div>
 
             <div>
               <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="default">
-              <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">Default</label>
+              <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">{{ $t('default') }}</label>
             </div>
           </div>
         </div>
@@ -234,6 +234,7 @@ export default {
 
 .createStudioBoxInnerElement {
   margin-left: 20px;
+  margin-right: 20px;
   padding-top: 20px;
 }
 
@@ -271,7 +272,6 @@ export default {
 
 #budgetSelectElement {
   margin-top: 10px;
-  margin-right: 20px;
 }
 
 .selectLogoElement {

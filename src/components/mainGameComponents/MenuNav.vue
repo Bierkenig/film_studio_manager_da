@@ -104,8 +104,9 @@ export default {
 
   mixins: [soundeffectMixin('button','click')],
 
-  mounted() {
+  computed() {
     //this.highlightButton['homeButton'] = false;
+    console.log(this.lastButton);
   },
 
   methods: {
