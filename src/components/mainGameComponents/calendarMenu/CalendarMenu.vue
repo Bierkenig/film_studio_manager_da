@@ -105,15 +105,15 @@ export default {
       }
 
       if(arg !== this.lastClickedDay && this.lastClickedDay !== null){
-        this.lastClickedDay.dayEl.style.borderStyle = 'none';
+        this.lastClickedDay.dayEl.style.boxShadow = 'none';
         this.lastClickedDay.dayEl.children[0].children[0].children[0].style.color = 'inherit';
         this.lastClickedDay.dayEl.children[0].children[0].children[0].style.fontWeight = 'var(--fsm-fw-medium)';
       }
-      arg.dayEl.style.border = '4px solid var(--fsm-pink-1)'
-      //arg.dayEl.style.boxShadow = 'rgba(255, 58, 77, 0.5)'
+      arg.dayEl.style.boxShadow = 'inset 0px 0px 0px 4px var(--fsm-pink-1)'
 
       arg.dayEl.children[0].children[0].children[0].style.color = 'var(--fsm-pink-1)';
       arg.dayEl.children[0].children[0].children[0].style.fontWeight = 'var(--fsm-fw-bold)';
+      arg.dayEl.children[0].children[0].children[0].style.float = 'left'
 
 
       this.clickedDay = arg.date;
@@ -174,8 +174,6 @@ export default {
 .fc td, .fc th {
   border-style: none;
   border-radius: var(--fsm-m-border-radius);
-  /*border-collapse: separate;
-  border-spacing: 10px; /* cellspacing */
 }
 
 .fc table {
@@ -207,6 +205,10 @@ export default {
   align-items: center;
 }
 
+.fc-daygrid-day-frame {
+  padding: 5px;
+}
+
 .fc-toolbar-chunk {
   display: flex;
   flex-direction: row;
@@ -222,15 +224,18 @@ export default {
   display: none;
 }
 
+.fc-daygrid-day-events {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0 0 5px 3px;
+}
+
 #calendar {
   background-color: var(--fsm-dark-blue-3);
   width: 70%;
   padding: 1em;
   border-radius: var(--fsm-m-border-radius);
-}
-
-.fc {
-  min-height: 100%;
 }
 
 #dayEventsElement {
@@ -241,13 +246,6 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 20px;
-}
-
-.fc-daygrid-day-events {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 0 0 5px 5px;
 }
 
 .eventIconElements {
