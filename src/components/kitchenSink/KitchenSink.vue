@@ -12,7 +12,7 @@
       <header-info icon="studio">Example Studios</header-info>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<background-tile title="Title" content-color="white">Test</background-tile> (DEFAULT)'/>
+      <code-view code='<background-tile title="Title" content-color="white">Test</background-tile>'/>
       <code-view code='<background-tile title="Title" content-color="grey" icon="movies">Test</background-tile>'/>
       <div class="kitchenSinkFlexRow">
         <background-tile title="Title" content-color="white">Test</background-tile>
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
+      <code-view code='<custom-button :dark="false" size="medium">Test</custom-button>'/>
       <code-view
           code='<custom-button :dark="true" size="medium" @clicked="yourFunction">Function Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
@@ -62,51 +62,47 @@
     <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>'/>
       <code-view
-          code='<custom-icon icon="settings" size="60px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
-      <code-view code='<custom-icon icon="suicide" size="60px" theme="light" :gradient="true" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="movies" size="60px" theme="dark" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="prison" size="60px" theme="dark" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="ninjas" size="60px" theme="dark" :gradient="true" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="simple-tick" size="60px" theme="red" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="green" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="blue" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="award" size="60px" theme="yellow" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="action" size="60px" theme="white" :gradient="false" :shadow="false"/>'/>
+          code='<custom-icon icon="settings" size="60px" theme="light" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="suicide" size="60px" theme="light" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="movies" size="60px" theme="dark"" :shadow="true"/>'/>
+      <code-view code='<custom-icon icon="prison" size="60px" theme="dark"" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="ninjas" size="60px" theme="dark" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="simple-tick" size="60px" theme="red" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="green" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="blue" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="award" size="60px" theme="yellow" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="action" size="60px" theme="white" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>
-        <custom-icon icon="settings" size="60px" theme="light" :gradient="false" :shadow="false"/>
-        <custom-icon icon="suicide" size="60px" theme="light" :gradient="true" :shadow="false"/>
-        <custom-icon icon="movies" size="60px" theme="dark" :gradient="false" :shadow="true"/>
-        <custom-icon icon="prison" size="60px" theme="dark" :gradient="false" :shadow="false"/>
-        <custom-icon icon="ninjas" size="60px" theme="dark" :gradient="true" :shadow="false"/>
-        <custom-icon icon="simple-tick" size="60px" theme="red" :gradient="false" :shadow="false"/>
-        <custom-icon icon="rising-chart" size="60px" theme="green" :gradient="false" :shadow="false"/>
-        <custom-icon icon="rising-chart" size="60px" theme="blue" :gradient="false" :shadow="false"/>
-        <custom-icon icon="award" size="60px" theme="yellow" :gradient="false" :shadow="false"/>
-        <custom-icon icon="action" size="60px" theme="white" :gradient="false" :shadow="false"/>
+        <custom-icon icon="home" size="60px" theme="light" :shadow="true"/>
+        <custom-icon icon="settings" size="60px" theme="light" :shadow="false"/>
+        <custom-icon icon="suicide" size="60px" theme="light" :shadow="false"/>
+        <custom-icon icon="movies" size="60px" theme="dark" :shadow="true"/>
+        <custom-icon icon="prison" size="60px" theme="dark" :shadow="false"/>
+        <custom-icon icon="ninjas" size="60px" theme="dark" :shadow="false"/>
+        <custom-icon icon="simple-tick" size="60px" theme="red" :shadow="false"/>
+        <custom-icon icon="rising-chart" size="60px" theme="green" :shadow="false"/>
+        <custom-icon icon="rising-chart" size="60px" theme="blue" :shadow="false"/>
+        <custom-icon icon="award" size="60px" theme="yellow" :shadow="false"/>
+        <custom-icon icon="action" size="60px" theme="white" :shadow="false"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code='<icon-button icon="plus" size="extraSmall" :dark="false" :shadow="false"/>'/>
+      <code-view code='<icon-button icon="open" size="small" :dark="false" :shadow="false"/>'/>
       <code-view
-          code='<icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view
-          code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view
-          code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
-      <code-view
-          code='<icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>'/>
-      <code-view
-          code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>'/>
+          code='<icon-button icon="settings" size="large" :dark="true" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
+      <code-view code='<icon-button icon="home" size="large" :dark="false" :shadow="true"/>'/>
+      <code-view code='<icon-button icon="movies" size="medium" :dark="true" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false"
+        <icon-button icon="plus" size="extraSmall" :dark="false"
                      :shadow="false"/>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false"
+        <icon-button icon="open" size="small" :dark="false"
                      :shadow="false"/>
-        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false"
-                     :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>
-        <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>
-        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true"
-                     :shadow="false"/>
+        <icon-button icon="settings" size="large" :dark="true"
+                     :shadow="true" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>
+        <icon-button icon="home" size="large" :dark="false" :shadow="true"/>
+        <icon-button icon="movies" size="medium" :dark="true"
+                     :shadow="true"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -127,7 +123,7 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'true' + singleQuote + '>'"/>
+          :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'false' + singleQuote + '>'"/>
       <code-view code='░░<div>Movies Div</div>'/>
       <code-view code='░░<div>People Div</div>'/>
       <code-view code='░░<div>Others Div</div>'/>
@@ -136,7 +132,7 @@
       <code-view code='MEANING: pages[0] -> first child-container (<div>Movies Div</div>)'/>
       <code-view code='MEANING: pages[1] -> second child-container (<div>People Div</div>)'/>
       <code-view code='RULE: pages.length MUST BE nav-children-count'/>
-      <tile-pages-nav :pages='navExample2' :gradient='true'>
+      <tile-pages-nav :pages='navExample2' :gradient='false'>
         <div>Movies Div</div>
         <div>People Div</div>
         <div>Others Div</div>

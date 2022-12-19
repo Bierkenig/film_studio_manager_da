@@ -1,7 +1,7 @@
 <template>
   <div class="iconButtonMainDiv">
     <div class="iconButtonSubDiv">
-      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :gradient="iconGradient" :icon="icon" :shadow="false" :invert-theme="invertTheme"/>
+      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :icon="icon" :shadow="false" :invert-theme="invertTheme"/>
     </div>
   </div>
 </template>
@@ -32,13 +32,13 @@ export default {
       themeLight: {
         filter: 'var(--fsm-filter-dark-blue-3)',
         bgColor: 'var(--fsm-pink-1)',
-        bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-4))',
+        bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-2))',
         boxShadow: '0 0 5px 5px var(--fsm-pink-shadow-color)'
       },
       themeDark: {
         filter: 'var(--fsm-filter-pink-1)',
         bgColor: 'var(--fsm-dark-blue-2)',
-        bgImage: 'linear-gradient(var(--fsm-dark-blue-2), var(--fsm-dark-blue-3))',
+        bgImage: 'none',
         boxShadow: '0 0 5px 5px var(--fsm-dark-shadow-color)'
       },
       sizeValues: {},
@@ -64,11 +64,7 @@ export default {
     },
     bgGradient: {
       type: Boolean,
-      default: false,
-    },
-    iconGradient: {
-      type: Boolean,
-      default: false,
+      default: true,
     },
     shadow: {
       type: Boolean,
@@ -112,6 +108,9 @@ export default {
         this.themeValues = {...this.themeLight};
       } else {
         this.themeValues = {...this.themeDark};
+      }
+      if (!this.shadow) {
+        this.themeValues.boxShadow = 'none'
       }
     }
   },

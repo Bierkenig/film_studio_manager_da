@@ -13,41 +13,34 @@ export default {
     return {
       svgBG: '',
       themeLight: {
-        color: '#FF4655',
-        gradient: '<stop offset="0%" style="stop-color:#FF4655;stop-opacity:1" /><stop offset="100%" style="stop-color:#D11F3D;stop-opacity:1" />',
+        gradient: '<stop offset="0%" style="stop-color:#FF3A4D;stop-opacity:1" /><stop offset="100%" style="stop-color:#FF264A;stop-opacity:1" />',
         shadow: 'drop-shadow(0 0 3px rgba(255, 70, 85, 0.5))',
       },
       themeDark: {
         color: '#252D3E',
-        gradient: '<stop offset="0%" style="stop-color:#2B3448;stop-opacity:1" /><stop offset="100%" style="stop-color:#252D3E;stop-opacity:1" />',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
       themeRed: {
-        color: '#FF4655',
-        gradient: '',
+        color: '#FF3A4D',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
       themeGreen: {
         color: '#46FF54',
-        gradient: '',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
       themeBlue: {
         color: '#46AEFF',
-        gradient: '',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
       themeYellow: {
         color: '#FFED46',
-        gradient: '',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
       themeWhite: {
         color: '#E4E4E4',
-        gradient: '',
         shadow: 'drop-shadow(0 0 3px rgba(14, 24, 34, 0.25))',
       },
-      themeValues: {},
+      themeValues: { color: '', gradient: '', shadow: '' },
     }
   },
   props: {
@@ -65,10 +58,6 @@ export default {
       validator(value) {
         return ['light', 'dark', 'red', 'green', 'blue', 'yellow', 'white'].includes(value);
       }
-    },
-    gradient: {
-      type: Boolean,
-      default: false,
     },
     shadow: {
       type: Boolean,
@@ -116,7 +105,7 @@ export default {
             throw('Invalid icon theme!');
         }
       }
-      if (this.gradient && !this.invertTheme) {
+      if (this.theme === 'light' && !this.invertTheme || this.theme === 'dark' && this.invertTheme) {
         svgCode = svgCode.replaceAll('<svg', '<svg fill="url(#customColor)"');
         svgCode = svgCode.replaceAll('</svg>',
             '<defs><linearGradient id="customColor" x1="0%" y1="0%" x2="0%" y2="100%">'

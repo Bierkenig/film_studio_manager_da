@@ -18,7 +18,7 @@ export default {
         fontWeight: 'var(--fsm-fw-regular)'
       },
       themeLight: {
-        bgColor: 'var(--fsm-pink-1)',
+        bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-2))',
         fontColor: 'var(--fsm-dark-blue-3)'
       },
       themeDark: {
@@ -26,7 +26,7 @@ export default {
         fontColor: 'var(--fsm-pink-1)'
       },
       sizeValues: {},
-      themeValues: {},
+      themeValues: { bgImage: 'none', bgColor: 'none' },
     }
   },
   props: {
@@ -72,6 +72,7 @@ export default {
   padding: 0.25em;
   width: 100%;
   background-color: v-bind('themeValues.bgColor');
+  background-image: v-bind('themeValues.bgImage');
   color: v-bind('themeValues.fontColor');
   font-size: v-bind('sizeValues.fontSize');
   font-weight: v-bind('sizeValues.fontWeight');
