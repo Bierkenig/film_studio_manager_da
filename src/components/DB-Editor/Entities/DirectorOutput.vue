@@ -1,5 +1,5 @@
 <template>
-  <div v-for="(el, index) in allWriters" :key="index">
+  <div v-for="(el, index) in allDirectors" :key="index">
     <avatar-element :svg-code="el._avatar"/>
     {{ el._first_name }}
     {{ el._last_name }}
@@ -20,7 +20,7 @@
     {{ el._isWriter }}
     {{ el._genre }}
     <router-link :to="{ name: 'PersonEdit'}">
-    <button id="editButton" class="buttonStyle" @click="edit(el)" >Edit</button>
+      <button id="editButton" class="buttonStyle" @click="edit(el)" >Edit</button>
     </router-link>
     <button id="deleteButton" class="buttonStyle" @click="deletePerson(el)">Delete</button>
   </div>
@@ -31,11 +31,11 @@
 <script>
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
 export default {
-  name: "PeopleOutput",
+  name: "DirectorOutput",
   components: {AvatarElement},
   data(){
     return {
-      allWriters: this.$store.state.allWriters,
+      allDirectors: this.$store.state.allDirectors,
     };
   },
 

@@ -24,9 +24,6 @@
     <router-link to="budgetSection">
       <button>budget</button>
     </router-link>
-    <router-link to="Editor">
-      <button>editor</button>
-    </router-link>
     <button id="saveButton" class="buttonStyle" @click="save">save</button>
   </div>
 </template>

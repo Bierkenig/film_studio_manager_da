@@ -182,8 +182,6 @@ export function deleteSaveFile(slot) {
         console.log('not existing')
     }
 
-    fs.copyFileSync('src/DB/database/fsm.db', './.data/database/fsm_custom' + slot.toString() + '.db')
-
 }
 
 export function checkIfExists(slot){
@@ -308,7 +306,7 @@ export function autoSave(data, slot) {
 }
 
 
-export function createDBForSlot(){
-    fs.copyFileSync('src/DB/database/fsm.db','.data/database')
+export function resetDB(slot){
+    fs.copyFileSync('src/DB/database/fsm.db', './.data/database/fsm_custom' + slot.toString() + '.db')
 
 }

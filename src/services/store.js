@@ -13,9 +13,10 @@ import Event from "@/classes/Event";
 export default createStore({
     /** Application state */
     state:{
-        //TODO slot bei spiel start setzen
         slot: null,
-        hasEditedDB: false,
+        dbCustomName1: null,
+        dbCustomName2: null,
+        dbCustomName3: null,
         screenplays: [],
         boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
@@ -655,6 +656,18 @@ export default createStore({
 
         setSlot(state, payload){
             state.slot = payload
+        },
+
+        setDBCustomName(state, name, slot){
+            if(slot === 1){
+                state.dbCustomName1 = name
+            }
+            else if(slot === 2){
+                state.dbCustomName2 = name
+            }
+            else{
+                state.dbCustomName2  = name
+            }
         }
 
     },

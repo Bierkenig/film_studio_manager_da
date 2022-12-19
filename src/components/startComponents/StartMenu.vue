@@ -33,6 +33,9 @@
               <button id="saveButton" class="buttonStyle" @click="save">save</button>
               <button id="deleteButton" class="buttonStyle" @click="deleting">delete</button>
               <button id="autoSave" class="buttonStyle" @click="autoSave">autoSave</button>
+              <router-link to="SelectDBWindow">
+                <button>editor</button>
+              </router-link>
 
             </div>
           </div>

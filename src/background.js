@@ -111,6 +111,10 @@ async function createWindow() {
         console.log(dbPath)
     })
 
+    ipcMain.on('resetDB', (event, data) => {
+        saving.resetDB(data)
+    })
+
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)

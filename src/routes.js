@@ -27,6 +27,9 @@ import KitchenSink from "@/components/kitchenSink/KitchenSink";
 import PersonEdit from "@/components/DB-Editor/Entities/PersonEdit";
 import SelectSlotWindow from "@/components/startComponents/SelectSlotWindow";
 import Editor from "@/components/DB-Editor/Editor";
+import DirectorOutput from "@/components/DB-Editor/Entities/DirectorOutput";
+import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
+import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
 
 
 const routes = [
@@ -49,6 +52,8 @@ const routes = [
     { name: 'home', path: '/home', component: Home, props: true },
     { name: 'loadWindow', path: '/loadings', component: LoadWindow, props: true },
     { name: 'SelectSlotWindow', path: '/SelectSlotWindow', component: SelectSlotWindow, props: true },
+    { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true },
+
 
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
 
@@ -60,6 +65,9 @@ const routes = [
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},
+    { name: 'DirectorOutput', path: '/DirectorOutput', component: DirectorOutput, props: true},
+    { name: 'ActorOutput', path: '/ActorOutput', component: ActorOutput, props: true},
+
     { name: 'PersonEdit', path: '/PersonEdit', component: PersonEdit, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },
