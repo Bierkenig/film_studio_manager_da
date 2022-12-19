@@ -4,7 +4,6 @@
       <div id="startMenuBackground">
         <div id="startMenuBox">
           <div id="startMenu">
-            <settings-header id="startMenuSettingHeader"/>
             <icon-button
                 id="startMenuCloseButton"
                 icon="simple-arrow-right"
@@ -14,6 +13,7 @@
                 :icon-gradient="false"
                 :shadow="false"
                 @click="exit"/>
+            <settings-header id="startMenuSettingHeader"/>
             <div id="heading">
               <img src="../../assets/FSM_Logo.svg" alt="Logo FSM"/>
               <div id="headline">Film Studio<br>Manager</div>
@@ -27,7 +27,7 @@
               </router-link>
               <router-link :to="{ name: 'loadWindow'}" style="text-decoration: none; color: inherit">
                 <button id="loadButton" class="startMenuButton">
-                  <custom-icon size="40px"/>
+                  <custom-icon size="40px" icon="save"/>
                   {{ $t('loadButton') }}
                 </button>
               </router-link>
@@ -156,14 +156,14 @@ export default {
 #startMenuSettingHeader {
   position: absolute;
   float: right;
-  right: 180px;
+  right: 100px;
   top: 20px;
 }
 
 #startMenuCloseButton {
   position: absolute;
-  float: right;
-  right: 100px;
+  float: left;
+  left: 100px;
   top: 20px;
 }
 </style>
