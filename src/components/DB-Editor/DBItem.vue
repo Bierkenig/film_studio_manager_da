@@ -4,7 +4,6 @@
     <!-- -->
     <button id="selectButton" class="buttonStyle" @click="select">Edit</button>
     <button id="deleteButton" class="buttonStyle" @click="reset">Reset</button>
-    <button id="renameButton" class="buttonStyle" @click="rename">Rename</button>
 
   </div>
 </template>
