@@ -1,55 +1,52 @@
 <template>
   <div class="movieElementMainDiv">
-    <div class="movieElementImage"/>
-    <div class="movieElementInfo">
+    <div class="movieElementHead">
       <div class="movieElementHeading">
+        <div class="movieElementImage"/>
         <div class="movieElementTitle">
-          {{movieTitle}}
+          {{ movieTitle }}
         </div>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
       </div>
-      <div class="movieElementInfoElements">
-        <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :text="viewers" data-title="Audience Rating"/>
-          <div class="movieElementInfoDesc">
-            Viewers
+      <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"
+                   @click="openButtonClicked"/>
+    </div>
+    <div class="movieElementInfo">
+      <div class="movieElementInfoElements1">
+        <div class="movieElementReleaseInfoBox">
+          <div class="movieElementReleaseInfo">
+            <div class="movieElementInfoBoxIcon">
+              <custom-icon size="16px" theme="light" :shadow="true"/>
+            </div>
+            <div class="movieElementReleaseLabel">
+              Release
+            </div>
+          </div>
+          <div class="movieElementReleaseValue">
+            {{ release }}
           </div>
         </div>
-        <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :text="critics" data-title="Critics Rating"/>
-          <div class="movieElementInfoDesc">
-            Critics
-          </div>
-        </div>
-        <div class="movieElementInfoElement">
-          <info-circle class="movieElementInfoCircle" :text="age" data-title="Age Rating"/>
-          <div class="movieElementInfoDesc">
-            Age
-          </div>
-        </div>
-        <div class="movieElementInfoElement">
+        <div class="movieElementInfoCircles1">
           <info-circle class="movieElementInfoCircle" :icon="genreIcon" :data-title="genre"/>
-          <div class="movieElementInfoDesc">
-            Genre
-          </div>
+          <info-circle class="movieElementInfoCircle" :text="age" data-title="Age Rating"/>
         </div>
-        <div class="movieElementFinancialInfo">
-          <div class="movieElementBudgetInfo">
-            <div class="movieElementBudgetLabel">
-              Budget
-            </div>
-            <div class="movieElementBudgetValue">
-              {{budget}}
-            </div>
-          </div>
+      </div>
+      <div class="movieElementInfoElements2">
+        <div class="movieElementEarningsInfoBox">
           <div class="movieElementEarningsInfo">
+            <div class="movieElementInfoBoxIcon">
+              <custom-icon size="16px" theme="light" :shadow="true"/>
+            </div>
             <div class="movieElementEarningsLabel">
               Earnings
             </div>
-            <div class="movieElementEarningsValue">
-              {{earnings}}
-            </div>
           </div>
+          <div class="movieElementEarningsValue">
+            {{ earnings }}
+          </div>
+        </div>
+        <div class="movieElementInfoCircles2">
+          <info-circle class="movieElementInfoCircle" :text="viewers" data-title="Audience Rating"/>
+          <info-circle class="movieElementInfoCircle" :text="critics" data-title="Critics Rating"/>
         </div>
       </div>
     </div>
@@ -59,10 +56,11 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 
 export default {
   name: "MovieElement",
-  components: {InfoCircle, IconButton},
+  components: {CustomIcon, InfoCircle, IconButton},
   data() {
     return {
       svgBG: '',
@@ -94,7 +92,7 @@ export default {
       type: String,
       required: true,
     },
-    budget: {
+    release: {
       type: String,
       required: true,
     },
@@ -120,96 +118,108 @@ export default {
 <style scoped>
 .movieElementMainDiv {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
   box-sizing: border-box;
-  height: 130px;
+  height: 210px;
   padding: 10px;
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   width: 100%;
 }
 
+.movieElementHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.movieElementHeading {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .movieElementImage {
-  height: 100%;
+  height: 90px;
   border-radius: var(--fsm-s-border-radius);
   margin-right: 10px;
-  flex-basis: 80px;
+  flex-basis: 70px;
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
   background-image: v-bind('svgBG');
-  background-size: 80px;
+  background-size: 70px;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .movieElementInfo {
-  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.movieElementHeading {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 10px;
-}
-
 .movieElementTitle {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-size: 22px;
   font-weight: var(--fsm-fw-regular);
   margin-right: 10px;
 }
 
-.movieElementInfoElements {
-  flex-grow: 1;
+.movieElementInfoElements1, .movieElementInfoElements2 {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-}
-
-.movieElementInfoElement {
-  text-align: center;
-  width: fit-content;
-}
-
-.movieElementInfoCircle {
-  margin: 10px;
-}
-
-.movieElementInfoDesc {
-  font-size: 12px;
-  font-weight: var(--fsm-fw-regular);
-}
-
-.movieElementFinancialInfo {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
-.movieElementBudgetInfo, .movieElementEarningsInfo {
+.movieElementInfoElements1 {
+  margin-bottom: 10px;
+}
+
+.movieElementEarningsInfoBox, .movieElementReleaseInfoBox {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0 10px 0 10px;
-  margin: 10px 0 0 10px;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-s-border-radius);
-  box-sizing: border-box;
 }
 
-.movieElementBudgetLabel, .movieElementEarningsLabel, .movieElementBudgetValue, .movieElementEarningsValue {
+.movieElementEarningsInfo, .movieElementReleaseInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.movieElementInfoBoxIcon {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 14px;
+  margin-right: 10px;
+}
+
+.movieElementEarningsLabel, .movieElementEarningsValue, .movieElementReleaseLabel, .movieElementReleaseValue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 16px;
   font-weight: var(--fsm-fw-regular);
+}
+
+.movieElementInfoCircles1, .movieElementInfoCircles2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.movieElementInfoCircle {
+  margin-left: 10px;
 }
 </style>

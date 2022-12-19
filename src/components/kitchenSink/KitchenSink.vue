@@ -234,10 +234,16 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9,999"  earnings="$ 999,999" @open-clicked="elementOpened"/>'/>
-      <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
-                     genre="Western" genre-icon="western" budget="$ 9,999" earnings="$ 999,999"
-                     @open-clicked="elementOpened"/>
+          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" release="13 Sep, 2222" earnings="$ 999,999" @open-clicked="elementOpened"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" earnings="$ 999,999"
+                       @open-clicked="elementOpened"/>
+        <div class="kitchenSinkSpacer"/>
+        <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" earnings="$ 999,999"
+                       @open-clicked="elementOpened"/>
+      </div>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
