@@ -35,7 +35,7 @@ export default {
     },
     icon: {
       type: String,
-      default: 'open',
+      default: 'placeholder',
     },
   },
   methods: {
@@ -45,7 +45,7 @@ export default {
       } else if (this.contentColor === 'grey') {
         this.colorValue = this.greyColor;
       }
-      if (this.icon !== 'open') {
+      if (this.icon !== 'placeholder') {
         document.getElementById('backgroundTileIcon' + this.randomId).style.display = 'flex';
       }
     },

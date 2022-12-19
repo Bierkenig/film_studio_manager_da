@@ -46,7 +46,7 @@ export default {
   props: {
     icon: {
       type: String,
-      default: 'movies'
+      default: 'placeholder'
     },
     size: {
       type: String,
