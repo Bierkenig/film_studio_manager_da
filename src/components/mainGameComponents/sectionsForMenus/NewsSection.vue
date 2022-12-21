@@ -1,8 +1,18 @@
 <template>
   <div id="newsSection">
     <h1>{{ $t('news') }}</h1>
+
+    <div>
+      <select
+        v-model="selectedSortType">
+        <option value="People">People</option>
+        <option value="Movies">Movies</option>
+        <option value="Studios">Studios</option>
+      </select>
+    </div>
+
     <div id="newsTextSection">
-      <div v-for="(it, index) in this.$store.getters.getCurrentNews" :key="index">
+      <div v-for="(it, index) in this.data" :key="index">
         {{ it._title }}
       </div>
     </div>
@@ -12,6 +22,34 @@
 <script>
 export default {
   name: "NewsSection",
+
+  data(){
+    return {
+      data: [],
+      selectedSortType: 'Movies',
+    }
+  },
+
+  mounted() {
+    let sourceData = this.$store.getters.getCurrentNews;
+    for (let i = 0; i < sourceData.length; i++) {
+      if(sourceData[i]._type === this.selectedSortType){
+        this.data.push(sourceData[i])
+      }
+    }
+  },
+
+  watch: {
+    selectedSortType() {
+      this.data = []
+      let sourceData = this.$store.getters.getCurrentNews;
+      for (let i = 0; i < sourceData.length; i++) {
+        if(sourceData[i]._type === this.selectedSortType){
+          this.data.push(sourceData[i])
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -24,10 +62,8 @@ export default {
 }
 
 #newsTextSection {
-  margin: 3em;
   background-color: #2c3e50;
   overflow-y: scroll;
-  width: 80%;
 }
 
 /* width */

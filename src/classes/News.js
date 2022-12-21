@@ -3,11 +3,12 @@ import Award from "@/classes/Award";
 import {Movie} from "@/classes/Movie";
 
 export default class News {
-    constructor(title, person = null, movie = null, award = null) {
+    constructor(title, person = null, movie = null, award = null, type) {
         this._title = title;
         this._person = person;
         this._movie = movie;
         this._award = award;
+        this._type = type;
     }
 
 
@@ -25,6 +26,11 @@ export default class News {
 
     getAward() {
         return this._award;
+    }
+
+
+    getType() {
+        return this._type;
     }
 
     static fromJSON(jsonObject){

@@ -9,6 +9,7 @@ import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
+import CalendarEvents from "@/classes/CalendarEvents";
 
 export default createStore({
     /** Application state */
@@ -39,21 +40,23 @@ export default createStore({
             new News('Studio 1235 gegründet',
                 new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Deine MUm', 'internationalAward')),
+                new Award('Deine MUm', 'internationalAward'),
+                'Studios'),
             new News('Benni ist cool',
                 new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'))
+                new Award('Neuer', 'anderer Award'),
+                'People')
         ],
         //nicht fertig
         earnings: [
             {
                 value: 245000,
-                date: new Date(2024,0,4)
+                date: new Date(2022,11,25)
             },
             {
                 value: 500000,
-                date: new Date(2023,11,15)
+                date: new Date(2023,0,15)
             }
         ],
         //nicht fertig
@@ -88,6 +91,14 @@ export default createStore({
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [],
         //nicht fertig
+        calendarEvents: [
+            new CalendarEvents('SOMETHING', new Date('2023-01-06'),new Date('2023-01-07'),'productionFinished'),
+            new CalendarEvents('NICHTS', new Date('2023-01-07'),new Date('2023-01-08'),'featureFilm'),
+            new CalendarEvents('ALLES', new Date('2023-01-06'),new Date('2023-01-07'),'blockbuster'),
+            new CalendarEvents('VIELLEICHT', new Date('2023-01-07'),new Date('2023-01-08'),'award'),
+            new CalendarEvents('SOMETHING', new Date('2023-01-06'),new Date('2023-01-07'),'featureFilm'),
+            new CalendarEvents('SOMETHING', new Date('2023-01-06'),new Date('2023-01-07'),'award')
+        ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [new Franchises(0, 'Hallo was geht')],
         currentFranchise: null,
@@ -258,8 +269,8 @@ export default createStore({
             return state.currentDate;
         },
 
-        getEvents(state){
-            return state.events;
+        getCalendarEvents(state){
+            return state.calendarEvents;
         },
 
         getCurrentLanguage(state){
@@ -489,6 +500,10 @@ export default createStore({
         updateCurrentDate(state){
             let lastDate = state.currentDate;
             state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+7);
+        },
+
+        addCalendarEvent(state, calendarEvent){
+            state.calendarEvents.push(calendarEvent)
         },
 
         addEvent(state, event){

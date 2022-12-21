@@ -1,14 +1,15 @@
 <template>
   <div>
     <div id="container">
-      <news-section class="news"/>
+      <upcoming-events-section class="upcomingEvents"/>
       <movie-section class="releasedMovies" :heading="$t('releasedMovie')"
                      :data="this.$store.getters.getCreatedMovies"/>
-      <earnings-section class="earnings"/>
-      <movie-section class="inProductionMovies" :heading="$t('inProduction')"
-                     :data="this.$store.getters.getCreatedMovies"/>
-      <upcoming-events-section class="upcomingEvents"/>
+      <div id="homeMenuRightSide">
+        <news-section class="news"/>
+        <earnings-section class="earnings"/>
+      </div>
     </div>
+
     <router-link to="directorSection">
       <button>director</button>
     </router-link>
@@ -58,7 +59,21 @@ export default {
   gap: 3em;
 }
 
-.news, .releasedMovies, .earnings {
-  width: 30%;
+.upcomingEvents, #homeMenuRightSide {
+  width: 20%;
+}
+
+.releasedMovies {
+  width: 50%;
+}
+
+.news, .earnings {
+  height: 50%;
+}
+
+#homeMenuRightSide {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 </style>
