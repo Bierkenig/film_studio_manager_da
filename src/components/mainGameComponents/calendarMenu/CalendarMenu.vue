@@ -58,7 +58,7 @@ export default {
           start: '2023-01-01'
         },
         selectable: true,
-        events: this.$store.getters.getEvents,
+        events: this.$store.getters.getCalendarEvents,
         eventContent: this.checkEvent,
         dateClick: this.handleClick,
       },
@@ -71,7 +71,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getEvents"]),
+    ...mapGetters(["getCalendarEvents"]),
     ...mapGetters({currentDate: 'getCurrentDate'})
   },
 
@@ -96,11 +96,11 @@ export default {
 
       yourDate = yourDate.toISOString().split('T')[0];
 
-      for(const [index] in this.$store.getters.getEvents){
-        let start = this.$store.getters.getEvents[index].start;
-        let end = this.$store.getters.getEvents[index].end;
+      for(const [index] in this.$store.getters.getCalendarEvents){
+        let start = this.$store.getters.getCalendarEvents[index].start;
+        let end = this.$store.getters.getCalendarEvents[index].end;
         if (yourDate >= start && yourDate < end) {
-          eventsOfDay.push(this.$store.getters.getEvents[index]);
+          eventsOfDay.push(this.$store.getters.getCalendarEvents[index]);
         }
       }
 
