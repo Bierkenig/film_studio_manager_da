@@ -1,23 +1,22 @@
 <template>
-  <div>
-    <button id="createMovieButton">{{ $t('createMovie') }}</button>
-    <button id="createScreenplayButton" @click="goToCreateScreenplay">{{ $t('createScreenplay') }}</button>
-    <button id="buyScreenplayButton">{{ $t('buyScreenplay') }}</button>
-    <movie-section class="finishedMovies" :heading="$t('finishedMovies')" :data="this.$store.getters.getFinishedMovies"/>
-    <screenplay-section class="owningScreenplays" :heading="$t('owningScreenplays')" :data="allOwningScreenplays"/>
-    <franchises-section class="franchises"/>
+  <div id="moviesMenuContainer">
+    <div class="moviesMenuActionContainer">
+      <action-section headline="createScreenplay" info-text="createMovieInfoText" button-text="create"/>
+      <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open"/>
+      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open"/>
+    </div>
+    <movies-section class="actionSectionMoviesSection" headline="producedMovies"/>
   </div>
 </template>
 
 <script>
-import MovieSection from "@/components/mainGameComponents/sectionsForMenus/MovieSection";
-import ScreenplaySection from "@/components/mainGameComponents/sectionsForMenus/ScreenplaySection";
-import FranchisesSection from "@/components/mainGameComponents/sectionsForMenus/FranchisesSection";
 import {Screenplay} from "@/classes/Screenplay";
 import financeMixin from "@/mixins/financeMixin";
+import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection";
+import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
 export default {
   name: "MoviesMenu",
-  components:{FranchisesSection, ScreenplaySection, MovieSection},
+  components:{MoviesSection, ActionSection},
 
   mixins: [financeMixin()],
 
@@ -39,5 +38,20 @@ export default {
 </script>
 
 <style scoped>
+#moviesMenuContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px
+}
 
+.moviesMenuActionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  gap: 10px;
+}
+
+.actionSectionMoviesSection {
+  width: 70%;
+}
 </style>

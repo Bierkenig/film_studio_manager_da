@@ -1,18 +1,17 @@
 <template>
   <div id="earningSection">
     <h1>{{ $t('earnings') }}</h1>
-    <!--<div>
-      <div>
-        <input id="week" v-model="timeEarnings" type="radio" class="time" value="week" v-on:change="changeEarnings"/>
-        <label for="week" class="labelRadio">{{ $t('week') }}</label>
-      </div>
-      <div>
-        <input id="month" v-model="timeEarnings" type="radio" class="time" value="month" v-on:change="changeEarnings"/>
-        <label for="month" class="labelRadio">{{ $t('month') }}</label>
-      </div>
-    </div>-->
+
+    <div>
+      <select
+          v-model="selectedTime">
+        <option value="Week">{{ $t('week') }}</option>
+        <option value="Month">{{ $t('month') }}</option>
+      </select>
+    </div>
+
     <div id="earningTextSection">
-      <div v-for="(it, index) in this.$store.getters.getEarnings.sort(function(a,b)
+      <div v-for="(it, index) in this.showEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
            :key="index">
         {{ it.value }}
@@ -27,25 +26,37 @@ export default {
 
   data(){
     return {
-      //showEarnings: [],
-      timeEarnings: "week",
+      showEarnings: [],
+      selectedTime: "Week",
     }
   },
 
-  /*methods: {
+  watch: {
+    selectedTime(){
+      this.changeEarnings();
+    }
+  },
+
+  methods: {
     getLastWeeksDate() {
       const now = this.$store.getters.getCurrentDate;
 
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() - 7);
     },
 
+    getLastMonthDate() {
+      const now = this.$store.getters.getCurrentDate;
+
+      return new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+    },
+
     changeEarnings(){
       let allEarning = this.$store.getters.getEarnings;
       this.showEarnings = allEarning.filter(item => {
-        if(this.timeEarnings === 'week'){
+        if(this.selectedTime === 'Week'){
           return item.date > this.getLastWeeksDate();
         } else {
-          return item.date < this.getLastWeeksDate();
+          return item.date > this.getLastMonthDate();
         }
       });
     }
@@ -53,7 +64,7 @@ export default {
 
   mounted() {
     this.changeEarnings();
-  }*/
+  }
 }
 </script>
 
@@ -66,10 +77,8 @@ export default {
 }
 
 #earningTextSection {
-  margin: 3em;
   background-color: #2c3e50;
   overflow-y: scroll;
-  width: 80%;
 }
 
 /* width */

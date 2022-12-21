@@ -296,7 +296,7 @@ export function autoSave(data, slot) {
                     if (file.substr(4, 4) > 1001) {
                         fs.unlink(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4).toString() + '_' + slot.toString() + '.json'), function (err) {
                             if (err) return console.log(err);
-                            console.log('auto files ' + file.substr(4, 4) + ' deleted successfully');
+                            console.log('auto file ' + file.substr(4, 4) + ' deleted successfully');
                         })
                     }
                 }
@@ -306,7 +306,7 @@ export function autoSave(data, slot) {
 }
 
 
-export function createDBForSlot(){
-    fs.copyFileSync('src/DB/database/fsm.db','.data/database')
+export function resetDB(slot){
+    fs.copyFileSync('src/DB/database/fsm.db', './.data/database/fsm_custom' + slot.toString() + '.db')
 
 }

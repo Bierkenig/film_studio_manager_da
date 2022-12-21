@@ -13,9 +13,10 @@ import Event from "@/classes/Event";
 export default createStore({
     /** Application state */
     state:{
-        //TODO slot bei spiel start setzen
         slot: null,
-        hasEditedDB: false,
+        dbCustomName1: null,
+        dbCustomName2: null,
+        dbCustomName3: null,
         screenplays: [],
         boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
@@ -38,13 +39,13 @@ export default createStore({
             new News('Studio 1235 gegründet',
                 new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                'People'),
+                new Award('Deine MUm', 'internationalAward'),
+                'Studios'),
             new News('Benni ist cool',
                 new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Neuer', 'anderer Award'),
-                'Studios')
+                'People')
         ],
         //nicht fertig
         earnings: [
@@ -87,7 +88,9 @@ export default createStore({
         //movies which are in currentProduction
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [],
+        finishedMovies: [new Movie(new Screenplay(2, 'HIHIHI', null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
         //nicht fertig
         calendarEvents: [
             {
@@ -182,6 +185,10 @@ export default createStore({
                 problemBudget: 0,
             },
             budgetPop: 12,
+        },
+
+        marketing: {
+
         },
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
@@ -544,6 +551,10 @@ export default createStore({
             state.calendarEvents.push(calendarEvent)
         },
 
+        addCalendarEvent(state, calendarEvent){
+            state.calendarEvents.push(calendarEvent)
+        },
+
         addEvent(state, event){
             state.happeningEvents.push(event);
         },
@@ -709,6 +720,18 @@ export default createStore({
 
         setSlot(state, payload){
             state.slot = payload
+        },
+
+        setDBCustomName(state, name, slot){
+            if(slot === 1){
+                state.dbCustomName1 = name
+            }
+            else if(slot === 2){
+                state.dbCustomName2 = name
+            }
+            else{
+                state.dbCustomName2  = name
+            }
         }
 
     },

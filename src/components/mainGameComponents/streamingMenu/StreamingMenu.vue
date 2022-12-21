@@ -18,7 +18,7 @@
         <rights-section class="rightsSectionTag"/>
         <competitor-service-section class="competitorServiceSectionTag"/>
       </div>
-      <content-management-section class="contentManagementSectionTag"/>
+      <movies-section class="moviesSectionTag" headline="contentManagement"/>
     </div>
     <div v-else id="streamingMenuEmptyMessage">
       NO STREAMING SERVICE HAS BEEN CREATED YET
@@ -29,7 +29,7 @@
 <script>
 import OwnServiceSection from "@/components/mainGameComponents/streamingMenu/OwnServiceSection";
 import RightsSection from "@/components/mainGameComponents/streamingMenu/RightsSection";
-import ContentManagementSection from "@/components/mainGameComponents/streamingMenu/ContentManagementSection";
+import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
 import CompetitorServiceSection from "@/components/mainGameComponents/streamingMenu/CompetitorServiceSection";
 import BuyStreamingServiceModal from "@/components/mainGameComponents/streamingMenu/BuyStreamingServiceModal";
 import financeMixin from "@/mixins/financeMixin";
@@ -40,7 +40,7 @@ export default {
 
   components: {
     BuyStreamingServiceModal,
-    CompetitorServiceSection, ContentManagementSection, RightsSection, OwnServiceSection},
+    CompetitorServiceSection, MoviesSection, RightsSection, OwnServiceSection},
 
   data(){
     return {
@@ -78,7 +78,7 @@ export default {
   gap: 2em;
 }
 
-.contentManagementSectionTag {
+.moviesSectionTag {
   width: 70%;
 }
 </style>

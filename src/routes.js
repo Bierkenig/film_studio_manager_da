@@ -22,11 +22,15 @@ import actorsSection from "@/components/mainGameComponents/preProduction/actorsS
 import budgetSection from "@/components/mainGameComponents/preProduction/budgetSection";
 import BuyMovieRights from "@/components/mainGameComponents/streamingMenu/BuyMovieRights";
 import ViewServices from "@/components/mainGameComponents/streamingMenu/ViewServices";
-import EditorInput from "@/components/DB-Editor/EditorInput";
+import WriterOutput from "@/components/DB-Editor/Entities/WriterOutput";
 import KitchenSink from "@/components/kitchenSink/KitchenSink";
-//import CalendarView from "@/components/mainGameComponents/calendarMenu/CalendarView";
 import PersonEdit from "@/components/DB-Editor/Entities/PersonEdit";
 import SelectSlotWindow from "@/components/startComponents/SelectSlotWindow";
+import Editor from "@/components/DB-Editor/Editor";
+import DirectorOutput from "@/components/DB-Editor/Entities/DirectorOutput";
+import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
+import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
+
 
 const routes = [
     { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },
@@ -48,6 +52,8 @@ const routes = [
     { name: 'home', path: '/home', component: Home, props: true },
     { name: 'loadWindow', path: '/loadings', component: LoadWindow, props: true },
     { name: 'SelectSlotWindow', path: '/SelectSlotWindow', component: SelectSlotWindow, props: true },
+    { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true },
+
 
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
 
@@ -57,7 +63,11 @@ const routes = [
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
 
-    { name: 'editorInput', path: '/editorInput', component: EditorInput, props: true},
+    { name: 'Editor', path: '/Editor', component: Editor, props: true},
+    { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},
+    { name: 'DirectorOutput', path: '/DirectorOutput', component: DirectorOutput, props: true},
+    { name: 'ActorOutput', path: '/ActorOutput', component: ActorOutput, props: true},
+
     { name: 'PersonEdit', path: '/PersonEdit', component: PersonEdit, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },

@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  name: "eventModal",
+  name: "vfxSection",
 
   data() {
     return {
@@ -39,7 +39,7 @@ export default {
     },
 
     denyMore() {
-      this.$store.state.currentMovie.quality -= 10
+      this.$store.state.currentMovie.quality *= 0.9
     }
   }
 }
