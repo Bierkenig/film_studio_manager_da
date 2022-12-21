@@ -30,24 +30,25 @@ export default {
     }
   },
 
-  mounted() {
-    let sourceData = this.$store.getters.getCurrentNews;
-    for (let i = 0; i < sourceData.length; i++) {
-      if(sourceData[i]._type === this.selectedSortType){
-        this.data.push(sourceData[i])
-      }
-    }
-  },
-
-  watch: {
-    selectedSortType() {
-      this.data = []
+  methods: {
+    loadData(){
       let sourceData = this.$store.getters.getCurrentNews;
       for (let i = 0; i < sourceData.length; i++) {
         if(sourceData[i]._type === this.selectedSortType){
           this.data.push(sourceData[i])
         }
       }
+    }
+  },
+
+  mounted() {
+    this.loadData();
+  },
+
+  watch: {
+    selectedSortType() {
+      this.data = []
+      this.loadData();
     }
   }
 }
