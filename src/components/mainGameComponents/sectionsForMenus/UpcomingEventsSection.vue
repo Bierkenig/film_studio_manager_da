@@ -62,13 +62,12 @@ export default {
     let nextMonth = this.getNextMonthDate;
 
     for (let i = 0; i < sourceData.length; i++) {
-      if(sourceData[i].start === today){
+      let dateCheck = new Date(sourceData[i].start);
+      if(dateCheck === today){
         this.todayEvents.push(sourceData[i])
-      } else if (sourceData[i].start > today
-          && sourceData[i].start < nextWeek()){
+      } else if (dateCheck > today && dateCheck < nextWeek()){
         this.weekEvents.push(sourceData[i])
-      } else if (sourceData[i].start >= nextWeek()
-          && sourceData[i].start < nextMonth()){
+      } else if (dateCheck >= nextWeek() && dateCheck < nextMonth()){
         this.monthEvents.push(sourceData[i])
       }
     }

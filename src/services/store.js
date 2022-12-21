@@ -9,7 +9,6 @@ import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
-import CalendarEvents from "@/classes/CalendarEvents";
 
 export default createStore({
     /** Application state */
@@ -92,12 +91,48 @@ export default createStore({
         finishedMovies: [],
         //nicht fertig
         calendarEvents: [
-            new CalendarEvents('SOMETHING', new Date('2023-01-06'),new Date('2023-01-07'),'productionFinished'),
-            new CalendarEvents('NICHTS', new Date('2023-01-07'),new Date('2023-01-08'),'featureFilm'),
-            new CalendarEvents('ALLES', new Date('2023-01-06'),new Date('2023-01-07'),'blockbuster'),
-            new CalendarEvents('VIELLEICHT', new Date('2023-01-07'),new Date('2023-01-08'),'award'),
-            new CalendarEvents('SOMETHING', new Date('2023-01-06'),new Date('2023-01-07'),'featureFilm'),
-            new CalendarEvents('SOMETHING', new Date('2023-01-06'),new Date('2023-01-07'),'award')
+            {
+                id: 1,
+                movie: "SOMETHING",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'productionFinished',
+            },
+            {
+                id: 2,
+                movie: "NICHTS",
+                start: '2023-01-07',
+                end: '2023-01-08',
+                type: 'featureFilm'
+            },
+            {
+                id: 3,
+                movie: "ALLES",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'blockbuster'
+            },
+            {
+                id: 4,
+                movie: "VIELLEICHT",
+                start: '2023-01-07',
+                end: '2023-01-08',
+                type: 'award'
+            },
+            {
+                id: 5,
+                movie: "SOMETHING",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'featureFilm',
+            },
+            {
+                id: 6,
+                movie: "SOMETHING",
+                start: '2023-01-06',
+                end: '2023-01-07',
+                type: 'award',
+            }
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [new Franchises(0, 'Hallo was geht')],
