@@ -88,7 +88,9 @@ export default createStore({
         //movies which are in currentProduction
         inProductionMovies: [],
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [],
+        finishedMovies: [new Movie(new Screenplay(2, 'HIHIHI', null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
         //nicht fertig
         calendarEvents: [
             {

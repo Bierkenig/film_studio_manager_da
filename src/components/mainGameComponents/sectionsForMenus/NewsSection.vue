@@ -5,8 +5,8 @@
     <div>
       <select
         v-model="selectedSortType">
-        <option value="People">People</option>
-        <option value="Movies">Movies</option>
+        <option value="People">{{ $t('people') }}</option>
+        <option value="Movies">{{ $t('movies') }}</option>
         <option value="Studios">Studios</option>
       </select>
     </div>

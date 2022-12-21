@@ -1,13 +1,13 @@
 <template>
   <div id="projectsSection">
-    <h1>Projects</h1>
+    <h1>{{ $t('projects') }}</h1>
 
     <div>
       <select
           v-model="selectedProjectsType">
-        <option value="All">All</option>
-        <option value="Screenplays">Screenplays</option>
-        <option value="Productions">Productions</option>
+        <option value="All">{{ $t('all') }}</option>
+        <option value="Screenplays">{{ $t('screenplays') }}</option>
+        <option value="Productions">{{ $t('productions') }}</option>
       </select>
     </div>
 
