@@ -4,16 +4,22 @@
     <h1 v-else> {{studioName}} </h1>
     <p> {{date}} </p>
     <p>{{$t('save_slot')}}: {{slotNr}}</p>
-    <button id="loadButton" class="buttonStyle" :disabled="disabledButton" @click="load">load</button>
-
+    <custom-button
+        id="loadButton"
+        :dark="false"
+        size="small"
+        :disabled="disabledButton"
+        @clicked="load">{{ $t('loadButton') }}</custom-button>
   </div>
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import CustomButton from "@/components/kitchenSink/CustomButton";
 
 export default {
   name: "LoadItem",
+  components: {CustomButton},
   mixins: [soundeffectMixin('button','click')],
 
   props: {
@@ -90,9 +96,16 @@ export default {
 
 <style scoped>
 #card {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  border-radius: 5px;
-  padding: 2em;
+  padding: 0 20px 20px 20px;
+}
+
+#loadButton:disabled,
+#loadButton[disabled]{
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
 }
 </style>
