@@ -12,7 +12,20 @@
                 :bg-gradient="true"
                 :icon-gradient="false"
                 :shadow="false"
-                @click="exit"/>
+                @click="showCloseModal = true"/>
+
+            <transition name="modal">
+              <close-modal
+                  v-if="showCloseModal"
+                  headline="closeGame"
+                  @back="showCloseModal = false"
+                  @close="exit">
+                <template v-slot:header>
+                  <h3>custom header</h3>
+                </template>
+              </close-modal>
+            </transition>
+
             <settings-header id="startMenuSettingHeader"/>
             <div id="heading">
               <img src="../../assets/FSM_Logo.svg" alt="Logo FSM"/>
@@ -82,18 +95,24 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
 import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import IconButton from "@/components/kitchenSink/IconButton";
+import CloseModal from "@/components/mainGameComponents/CloseModal";
 
 export default {
   name: 'StartMenu',
-  components: {SettingsHeader, CustomIcon, IconButton},
+  components: {CloseModal, SettingsHeader, CustomIcon, IconButton},
   mixins: [soundeffectMixin('button','click')],
+
+  data(){
+    return {
+      showCloseModal: false,
+    }
+  },
 
   methods: {
     exit() {
-      if (confirm("Close Window?")) {
-        close();
-      }
+      close();
     },
+
     save(){
       let reducedState = {}
       this.$store.commit("stateToSave", reducedState)

@@ -538,6 +538,10 @@ i18next
                     createMovieInfoText: 'Produce new movies from existing scripts or buy new.',
                     listOfSourcesInfoText: 'View your own sources or buy them from your competitors.',
                     listOfFranchisesInfoText: 'View your own franchises or buy them from your competitors.',
+                    closeGame: 'Close Game',
+                    goBackMenu: 'Back to start menu',
+                    closeGameMsg: 'Do you want to close the game?',
+                    goBackMenuMsg: 'Do you want to go backt to start menu?',
                 }
             },
             de: {
@@ -903,6 +907,10 @@ i18next
                     createMovieInfoText: 'Erstelle neue Filme von bestehenden Drehbüchern oder kaufe Filme.',
                     listOfSourcesInfoText: 'Sieh dir deine eigenen Quellen an oder kaufe welche von anderen Studios.',
                     listOfFranchisesInfoText: 'Sieh dir deine eigenen Franchises an oder kaufe welche von anderen Studios.',
+                    closeGame: 'Spiel beenden',
+                    goBackMenu: 'Zurück zu Startmenü',
+                    closeGameMsg: 'Wollen Sie das Spiel wirklich beenden?',
+                    goBackMenuMsg: 'Wollen Sie zum Startmenü zurück?',
                 }
             }
         }

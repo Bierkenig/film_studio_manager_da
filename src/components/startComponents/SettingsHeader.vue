@@ -50,8 +50,21 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
-          @click="goToStartMenu"
+          @click="showMenuModal = true"
       />
+
+      <transition name="modal">
+        <menu-modal
+            v-if="showMenuModal"
+            headline="goBackMenu"
+            @back="showMenuModal = false"
+            @close="goToStartMenu">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </menu-modal>
+      </transition>
+
       <icon-button
           v-if="!this.showOnPage.includes(this.$route.name)"
           icon="simple-arrow-right"
@@ -60,8 +73,20 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
-          @click="exit"
+          @click="showCloseModal = true"
       />
+
+      <transition name="modal">
+        <close-modal
+            v-if="showCloseModal"
+            headline="closeGame"
+            @back="showCloseModal = false"
+            @close="exit">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </close-modal>
+      </transition>
     </div>
     <icon-button
         icon="settings"
@@ -78,9 +103,11 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton";
 import i18next from "i18next";
+import CloseModal from "@/components/mainGameComponents/CloseModal";
+import MenuModal from "@/components/mainGameComponents/CloseModal";
 export default {
   name: "SettingsHeader",
-  components: {IconButton},
+  components: {CloseModal, MenuModal, IconButton},
 
   data(){
     return {
@@ -89,20 +116,18 @@ export default {
       soundEffectStatus: this.$store.getters.getCurrentStatusOfSoundeffect,
       backgroundMusicStatus: this.$store.getters.getCurrentStatusOfBackgroundMusic,
       language: this.$store.getters.getCurrentLanguage,
+      showCloseModal: false,
+      showMenuModal: false,
     }
   },
 
   methods: {
     goToStartMenu(){
-      if (confirm("Go to start menu?")) {
-        this.$router.push({name: 'default'});
-      }
+      this.$router.push({name: 'default'});
     },
 
     exit() {
-      if (confirm("Close Window?")) {
-        close();
-      }
+      close();
     },
 
     changeMusicStatus(){
