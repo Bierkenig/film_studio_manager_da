@@ -2,8 +2,8 @@
   <div>
     <div id="container">
       <upcoming-events-section class="upcomingEvents"/>
-      <movie-section class="releasedMovies" :heading="$t('releasedMovie')"
-                     :data="this.$store.getters.getCreatedMovies"/>
+      <projects-section class="projectsSection"/>
+
       <div id="homeMenuRightSide">
         <news-section class="news"/>
         <earnings-section class="earnings"/>
@@ -32,15 +32,15 @@
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSection";
-import MovieSection from "@/components/mainGameComponents/sectionsForMenus/MovieSection";
 import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
 import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
 import financeMixin from "@/mixins/financeMixin";
+import ProjectsSection from "@/components/mainGameComponents/sectionsForMenus/ProjectsSection";
 export default {
   name: "HomeMenu",
 
   mixins: [soundeffectMixin('button', 'click'), financeMixin()],
-  components: {UpcomingEventsSection, EarningsSection, MovieSection, NewsSection},
+  components: {ProjectsSection, UpcomingEventsSection, EarningsSection, NewsSection},
   methods: {
     save() {
       let reducedState = {}
@@ -63,7 +63,7 @@ export default {
   width: 20%;
 }
 
-.releasedMovies {
+.projectsSection {
   width: 50%;
 }
 
@@ -74,6 +74,6 @@ export default {
 #homeMenuRightSide {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
 }
 </style>

@@ -3,21 +3,21 @@
     <h1>{{ $t('upcomingEvents') }}</h1>
 
     <div>
-      <h2>Today</h2>
+      <h2>{{ $t('today') }}</h2>
       <div v-for="(it,index) in todayEvents" :key="index">
         {{ it.movie }}
       </div>
     </div>
 
     <div>
-      <h2>This Week</h2>
+      <h2>{{ $t('thisWeek') }}</h2>
       <div v-for="(it,index) in weekEvents" :key="index">
       {{ it.movie }}
       </div>
     </div>
 
     <div>
-      <h2>This Month</h2>
+      <h2>{{ $t('thisMonth') }}</h2>
       <div v-for="(it,index) in monthEvents" :key="index">
         {{ it.movie }}
       </div>
