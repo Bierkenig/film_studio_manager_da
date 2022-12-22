@@ -34,7 +34,7 @@ export default {
   components: {SmileyDirector},
   data() {
     return {
-      scope: this.$store.state.preProduction.currentScreenplay.details.scope,
+      scope: this.$store.state.preProduction.screenplay.details.scope,
       preProduction: 0,
       production: 0,
       postProduction: 0,
@@ -107,10 +107,10 @@ export default {
     },
 
     setStoreWeeks() {
-      this.$store.state.preProduction.duration.releaseDate = this.releaseDateInput;
-      this.$store.state.preProduction.duration.preProductionLength = this.preProduction
-      this.$store.state.preProduction.duration.productionLength = this.production
-      this.$store.state.preProduction.duration.postProductionLength = this.postProduction
+      this.$store.state.preProduction.releaseDate = this.releaseDateInput;
+      this.$store.state.preProduction.preProductionLength = this.preProduction
+      this.$store.state.preProduction.productionLength = this.production
+      this.$store.state.preProduction.postProductionLength = this.postProduction
     }
   }
 }

@@ -85,16 +85,16 @@ export default {
     },
 
     setActors() {
-      let main = this.$store.state.preProduction.currentScreenplay.roles.main.length - this.$store.state.preProduction.currentScreenplay.actors.main.length - 1;
-      let minor = this.$store.state.preProduction.currentScreenplay.roles.minor.length - this.$store.state.preProduction.currentScreenplay.actors.minor.length - 1;
-      let support = this.$store.state.preProduction.currentScreenplay.roles.support.length - this.$store.state.preProduction.currentScreenplay.actors.support.length - 1;
-      let cameo = this.$store.state.preProduction.currentScreenplay.roles.cameo.length - this.$store.state.preProduction.currentScreenplay.actors.cameo.length - 1;
+      let main = this.$store.state.preProduction.screenplay.roles.main.length - this.$store.state.preProduction.screenplay.actors.main.length - 1;
+      let minor = this.$store.state.preProduction.screenplay.roles.minor.length - this.$store.state.preProduction.screenplay.actors.minor.length - 1;
+      let support = this.$store.state.preProduction.screenplay.roles.support.length - this.$store.state.preProduction.screenplay.actors.support.length - 1;
+      let cameo = this.$store.state.preProduction.screenplay.roles.cameo.length - this.$store.state.preProduction.screenplay.actors.cameo.length - 1;
       switch (this.radio) {
         case "main":
-          console.log(this.$store.state.preProduction.currentScreenplay.actors.main.length)
-          console.log(this.$store.state.preProduction.currentScreenplay.roles.main.length)
-          if (this.$store.state.preProduction.currentScreenplay.actors.main.length < this.$store.state.preProduction.currentScreenplay.roles.main.length) {
-            this.$store.state.preProduction.currentScreenplay.actors.main.push(this.currentActor)
+          console.log(this.$store.state.preProduction.screenplay.actors.main.length)
+          console.log(this.$store.state.preProduction.screenplay.roles.main.length)
+          if (this.$store.state.preProduction.screenplay.actors.main.length < this.$store.state.preProduction.screenplay.roles.main.length) {
+            this.$store.state.preProduction.screenplay.actors.main.push(this.currentActor)
             const index = this.allActors.indexOf(this.currentActor)
             this.allActors.splice(index, 1)
             this.spotsLeft = main
@@ -102,8 +102,8 @@ export default {
           break
         case
         "minor":
-          if (this.$store.state.preProduction.currentScreenplay.actors.minor.length < this.$store.state.preProduction.currentScreenplay.roles.minor.length) {
-            this.$store.state.preProduction.currentScreenplay.actors.minor.push(this.currentActor)
+          if (this.$store.state.preProduction.screenplay.actors.minor.length < this.$store.state.preProduction.screenplay.roles.minor.length) {
+            this.$store.state.preProduction.screenplay.actors.minor.push(this.currentActor)
             const index = this.allActors.indexOf(this.currentActor)
             this.allActors.splice(index, 1)
             this.spotsLeft = minor
@@ -111,8 +111,8 @@ export default {
           break
         case
         "support":
-          if (this.$store.state.preProduction.currentScreenplay.actors.support.length < this.$store.state.preProduction.currentScreenplay.roles.support.length) {
-            this.$store.state.preProduction.currentScreenplay.actors.support.push(this.currentActor)
+          if (this.$store.state.preProduction.screenplay.actors.support.length < this.$store.state.preProduction.screenplay.roles.support.length) {
+            this.$store.state.preProduction.screenplay.actors.support.push(this.currentActor)
             const index = this.allActors.indexOf(this.currentActor)
             this.allActors.splice(index, 1)
             this.spotsLeft = support
@@ -120,8 +120,8 @@ export default {
           break
         case
         "cameo":
-          if (this.$store.state.preProduction.currentScreenplay.actors.cameo.length < this.$store.state.preProduction.currentScreenplay.roles.cameo.length) {
-            this.$store.state.preProduction.currentScreenplay.actors.cameo.push(this.currentActor)
+          if (this.$store.state.preProduction.screenplay.actors.cameo.length < this.$store.state.preProduction.screenplay.roles.cameo.length) {
+            this.$store.state.preProduction.screenplay.actors.cameo.push(this.currentActor)
             const index = this.allActors.indexOf(this.currentActor)
             this.allActors.splice(index, 1)
             this.spotsLeft = cameo

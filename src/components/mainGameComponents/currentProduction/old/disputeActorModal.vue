@@ -47,30 +47,30 @@ export default {
   methods: {
     fireOneActor() {
       if(this.actor1._first_name === this.input) {
-        Object.keys(this.$store.state.preProduction.currentScreenplay.actors).forEach((key) => {
-          this.$store.state.preProduction.currentScreenplay.actors[key]
-              .splice(this.$store.state.preProduction.currentScreenplay.actors[key].indexOf(this.actor1))
+        Object.keys(this.$store.state.preProduction.screenplay.actors).forEach((key) => {
+          this.$store.state.preProduction.screenplay.actors[key]
+              .splice(this.$store.state.preProduction.screenplay.actors[key].indexOf(this.actor1))
         })
       } else if (this.actor2._first_name === this.input) {
-        Object.keys(this.$store.state.preProduction.currentScreenplay.actors).forEach((key) => {
-          this.$store.state.preProduction.currentScreenplay.actors[key]
-              .splice(this.$store.state.preProduction.currentScreenplay.actors[key].indexOf(this.actor2))
+        Object.keys(this.$store.state.preProduction.screenplay.actors).forEach((key) => {
+          this.$store.state.preProduction.screenplay.actors[key]
+              .splice(this.$store.state.preProduction.screenplay.actors[key].indexOf(this.actor2))
         })
       }
       this.$store.state.currentMovie.popularity -= 15
-      this.$store.state.preProduction.currentScreenplay.morale += 5
+      this.$store.state.preProduction.screenplay.morale += 5
     },
     fireBothActors() {
-      Object.keys(this.$store.state.preProduction.currentScreenplay.actors).forEach((key) => {
-        this.$store.state.preProduction.currentScreenplay.actors[key]
-            .splice(this.$store.state.preProduction.currentScreenplay.actors[key].indexOf(this.actor2))
+      Object.keys(this.$store.state.preProduction.screenplay.actors).forEach((key) => {
+        this.$store.state.preProduction.screenplay.actors[key]
+            .splice(this.$store.state.preProduction.screenplay.actors[key].indexOf(this.actor2))
       })
-      Object.keys(this.$store.state.preProduction.currentScreenplay.actors).forEach((key) => {
-        this.$store.state.preProduction.currentScreenplay.actors[key]
-            .splice(this.$store.state.preProduction.currentScreenplay.actors[key].indexOf(this.actor1))
+      Object.keys(this.$store.state.preProduction.screenplay.actors).forEach((key) => {
+        this.$store.state.preProduction.screenplay.actors[key]
+            .splice(this.$store.state.preProduction.screenplay.actors[key].indexOf(this.actor1))
       })
       this.$store.state.currentMovie.popularity -= 15
-      this.$store.state.preProduction.currentScreenplay.morale += 5
+      this.$store.state.preProduction.screenplay.morale += 5
     }
   }
 }

@@ -9,6 +9,7 @@ import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
+import PreProduction from "@/classes/PreProduction";
 
 export default createStore({
     /** Application state */
@@ -151,43 +152,14 @@ export default createStore({
         //movie State
         movieState: "",
         //preProduction
-        preProduction: {
-            isPreProduction: false,
-            currentScreenplay: null,
-            hiredDirector: new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,null,5,null,5,23,123456,false,true,false,null),
-            feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
-            indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
-            animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
-            outgoings: 0,
-            //can be: 2 = fine, 3 = angry and 1 = relaxed
-            directorMood: 0,
-            duration: {
-                preProductionLength: 0,
-                productionLength: 0,
-                postProductionLength: 0,
-                releaseDate: 0,
-            },
-            budget: {
-                production: 0,
-                extras: 0,
-                cinematography: 0,
-                sound: 0,
-                editing: 0,
-                score: 0,
-                set: 0,
-                stunts: 0,
-                costume: 0,
-                makeup: 0,
-                vfx: 0,
-                sfx: 0,
-                problemBudget: 0,
-            },
-            budgetPop: 12,
-        },
+        feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
+        indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
+        animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
+        //FOR TESTING ->
+        preProduction: new PreProduction(),
 
-        marketing: {
-
-        },
+        //Production
+        production: null,
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
             new StreamingService('TUV Studio',1,0,0,'TU'),

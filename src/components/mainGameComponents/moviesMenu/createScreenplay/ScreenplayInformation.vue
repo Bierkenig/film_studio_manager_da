@@ -67,6 +67,8 @@
 </template>
 
 <script>
+import PreProduction from "@/classes/PreProduction";
+
 export default {
   name: "ScreenplayInformation",
 
@@ -94,8 +96,8 @@ export default {
       }
       console.log(this.$store.getters.getCurrentScreenplay);
 
-      if (this.$store.state.preProduction.isPreProduction) {
-        this.$store.state.preProduction.currentScreenplay = this.screenplay
+      if (this.$store.state.preProduction instanceof PreProduction) {
+        this.$store.state.preProduction.screenplay = this.screenplay
         this.$router.push({name: 'directorSection'})
       } else {
         this.$router.push({name: 'movies'});

@@ -69,13 +69,13 @@ export default {
       if (payload === "director") {
         this.$store.state.preProduction.hiredDirector = null
       } else {
-        Object.keys(this.$store.state.preProduction.currentScreenplay.actors).forEach((key) => {
-          this.$store.state.preProduction.currentScreenplay.actors[key]
-              .splice(this.$store.state.preProduction.currentScreenplay.actors[key].indexOf(this.actor))
+        Object.keys(this.$store.state.preProduction.screenplay.actors).forEach((key) => {
+          this.$store.state.preProduction.screenplay.actors[key]
+              .splice(this.$store.state.preProduction.screenplay.actors[key].indexOf(this.actor))
         })
-        console.log(this.$store.state.preProduction.currentScreenplay.actors)
+        console.log(this.$store.state.preProduction.screenplay.actors)
       }
-      this.$store.state.preProduction.currentScreenplay.morale -= 5
+      this.$store.state.preProduction.screenplay.morale -= 5
     },
   }
 }

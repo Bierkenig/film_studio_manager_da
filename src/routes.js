@@ -30,6 +30,8 @@ import Editor from "@/components/DB-Editor/Editor";
 import DirectorOutput from "@/components/DB-Editor/Entities/DirectorOutput";
 import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
 import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
+import continueProduction from "@/components/mainGameComponents/currentProduction/old/continueProduction";
+import eventModal from "@/components/mainGameComponents/currentProduction/old/eventModal";
 
 
 const routes = [
@@ -57,11 +59,18 @@ const routes = [
 
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
 
+    //PreProduction
     { name: 'screenplaySection', path: '/screenplaySection', component: screenplaySection, props: true},
     { name: 'directorSection', path: '/directorSection', component: directorSection, props: true},
     { name: 'durationSection', path: '/durationSection', component: durationSection, props: true},
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
+
+    //Production
+    { name: 'continueProduction', path: '/continueProduction', component: continueProduction, props: true},
+
+    //PostProduction
+
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},

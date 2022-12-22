@@ -68,9 +68,9 @@ export default {
   components: {SmileyDirector},
   data() {
     return {
-      screenplayType: this.$store.state.preProduction.currentScreenplay.type,
-      screenplayScope: this.$store.state.preProduction.currentScreenplay.details.scope,
-      screenplaySpecial: this.$store.state.preProduction.currentScreenplay.details.specialEffects,
+      screenplayType: this.$store.state.preProduction.screenplay.type,
+      screenplayScope: this.$store.state.preProduction.screenplay.details.scope,
+      screenplaySpecial: this.$store.state.preProduction.screenplay.details.specialEffects,
       featureList: this.$store.state.preProduction.feature,
       indieList: this.$store.state.preProduction.indie,
       animatedList: this.$store.state.preProduction.animated,
