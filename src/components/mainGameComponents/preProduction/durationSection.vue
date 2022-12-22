@@ -14,6 +14,7 @@
 
     <button @click="calcStartDate(); disabled = false">{{$t('durationSection.confirm')}}</button>
 
+    <!-- TODO set to higher than prod phase -> change to date input -->
     <div>{{$t('durationSection.releaseDate')}}</div>
     <input type="range" :min="releaseDate.min" :max="releaseDate.max" step="1" v-model="releaseDateInput">
 

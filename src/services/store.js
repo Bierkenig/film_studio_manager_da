@@ -27,7 +27,6 @@ export default createStore({
         //movies which are still in cinema and generate profit
         createdMovies: [],
         //muss das ins save file?
-        currentMovie: null,
         currentScreenplay: null,
         //TODO: changes
         logo: null,

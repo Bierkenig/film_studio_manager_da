@@ -168,12 +168,18 @@ i18next
                         cancel: "Cancel Movie",
                     },
                     productionEvents: {
+                        optionA: "Option A",
+                        optionB: "Option B",
+                        specify: "Extend the duration by",
+                        close: "Close",
+                        date: "Specify a new release Date",
+                        check: "Check",
                         weather: {
                             problem: "Due to bad weather conditions the production cannot be resumed",
-                            optionA1: "Build another set on a different location",
+                            optionA: "Build another set on a different location",
                             consequenceA: "Set budget increases by 10%",
-                            optionB1: "Wait until it is possible to shoot again",
-                            consequenceB: "Production halted by 4 weeks"
+                            optionB: "Wait until it is possible to shoot again",
+                            consequenceB1: "Production halted by 4 weeks"
                         },
                         castMember: {
                             problem: "A main cast member makes to much problems on and off the production",
@@ -182,7 +188,7 @@ i18next
                             consequenceA2: "Hire replacement",
                             consequenceA3: "Director’s morale goes up according to director’s overall rating",
                             optionB: "Do not replace cast member",
-                            consequenceB: "Director’s morale goes down according to director’s overall rating",
+                            consequenceB1: "Director’s morale goes down according to director’s overall rating",
                         },
                         budgetForCostumes: {
                             problem: "There is not enough budget for costumes and make-up",
@@ -262,117 +268,6 @@ i18next
                             consequenceB1: "Hype goes down by 10%",
                             consequenceB2: "Production halted for 8 weeks",
                         },
-                    },
-                    dispute: {
-                        dispute: "Dispute",
-                        happened: "What happened: ",
-                        dispute2: "There is a Dispute between ",
-                        and: " and ",
-                        fire: "Fire Actor",
-                        fire2: "Fire Director",
-                        nothing: "Do nothing",
-                        hire: "Hire a new Director",
-                        hire2: "Hire a new Actor",
-                        extend: "Do you want to extend the production budget by 25%",
-                        yes: "Yes",
-                        no: "No",
-                        one: "Fire one Actor",
-                        both: "Fire both Actors",
-                        fire3: "Fire",
-                    },
-                    budgetProblems: {
-                        budget: "Budgetary Issues",
-                        happened: "What happened: Allocated budget was not enough",
-                        increase: "You need to increase the different budget Sections",
-                        select: "Select the new Budget for the different Sections",
-                        set: "Set the new Budget"
-                    },
-                    illnessInjuries: {
-                        illness: "Illness",
-                        injuries: "Injuries",
-                        dropped1: "An Actor dropped out due to illness",
-                        dropped2: "An Actor dropped out due to injuries",
-                        production: "Production stopped",
-                        allocate: "Do you want to allocate more budget?",
-                        yes: "Yes",
-                        no: "No",
-                        set: "Set the new Budget"
-                    },
-                    productionNotFinished: {
-                        fin: "Production not finished",
-                        cause1: "Cause: Production was set to minimal",
-                        cause2: "Cause: Production Budget was set to low",
-                        cause3: "Cause: Problems occurred on and off the set",
-                        options: "Your options",
-                        option1: "Stop shooting, but your quality drop by 15%",
-                        option2: "Resume shooting, but your budget will increase by 20% and your hype drops by 5%",
-                        stop: "Stop shooting",
-                        resume: "Resume shooting"
-                    },
-                    notDone: {
-                        desc: "Not done with the Shot",
-                        happened: "Due to problems production has been delayed and and Post production phase cannot begin",
-                        shot: "Stop shooting, but your Quality drops by 20%",
-                        prod: "Extend the Production, but your hype drop by 5% and your costs increase by 20%",
-                        stop: "Stop shooting",
-                        extend: "Extend Production",
-                    },
-                    options: {
-                        message: "Your Production has ended",
-                        message2: "Do you want to continue with the Post Production or cancel the Movie",
-                        cancel: "Cancel your current Movie",
-                        continue: "Continue with the Post Production",
-                    },
-                    postProduction: {
-                        msg: "More Time for VFX",
-                        qst: "Do you want to give more time for vfx?",
-                        yes: "Yes",
-                        no: "No",
-                        save: "Save"
-                    },
-                    test: {
-                        msg: "Test screening with audience",
-                        change: "The age rating changed due to test screening with the audience",
-                        change2: "The age rating changed due to your Director",
-                        age: "Age rating changed from ",
-                        age2: "Your Director changed the age rating from ",
-                        to: " to ",
-                    },
-                    changeActor: {
-                        h3: "Change of Actor",
-                        msg: "One of your actors has been changed",
-                        new: "New actor: ",
-                        reshoot: "Your Movie has to be reshot",
-                        budget: "Your budget is increasing by: ",
-                        hype: "Your hype decreases by: ",
-                        ignore: "Ignore the change",
-                        accept: "Accept",
-                        ignore2: "Ignoring this Issue increases the risk of failure"
-                    },
-                    changeEnding: {
-                        h3: "Change of Ending",
-                        ending: "Your ending has to be changed",
-                        qst: "Do you want to ignore it and increase the risk of failure or reshoot the ending which decreases the hype and increases the budget",
-                        budget: "Budget increases by: 10%",
-                        hype: "Hype decreases by: 5%",
-                        ignore: "Ignore",
-                        reshoot: "Reshoot",
-                    },
-                    reeditingDirector: {
-                        h3: "Reediting of the Movie",
-                        msg: "Do you want to reedit the movie?",
-                        reedit: "Reedit",
-                        ignore: "Ignore",
-                        quality2: "Quality increases by: 5%",
-                        quality: "Quality will drop by: 10%",
-                        save: "Save"
-                    },
-                    finalCut: {
-                        h3: "Final cut by director",
-                        msg: "Your Director doesn't want to do the final cut",
-                        ignore: "Ignoring it will cause a higher risk of failure",
-                        accept: "Accept",
-                        ignore2: "Ignore"
                     },
                     marketingSection: {
                         interest: "Interested Groups",

@@ -2,9 +2,11 @@ import {Studio} from "@/classes/Studio";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
+import {Movie} from "@/classes/Movie";
 
 export default class PreProduction {
     constructor() {
+        this.movie = new Movie(this.screenplay, null, null, null, this.hiredDirector)
         this.screenplay = null
         this.hiredDirector = null
         this.outgoings = 0
@@ -12,6 +14,7 @@ export default class PreProduction {
         this.productionLength = 0
         this.postProductionLength = 0
         this.releaseDate = 0
+        this.startDate = new Date()
         this.budget = {
             production: 0,
                 extras: 0,
@@ -40,5 +43,12 @@ export default class PreProduction {
         instance.earnings = jsonObject.earnings.map(object => Earnings.fromJSON(object))
 
         return instance;
+    }
+
+    getWholeBudget() {
+        return this.budget.production + this.budget.extras +
+            this.budget.cinematography + this.budget.sound + this.budget.editing + this.budget.score +
+            this.budget.set + this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
+            this.budget.sfx
     }
 }

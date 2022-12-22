@@ -43,7 +43,7 @@ export default class Person {
         this._genre = genre;
         //TYPE -> Integer
         if (isDirector) this._no = 0; this.morale = this.calcDirectorMorale()
-        if (isActor) this.notAvailable = 0; this.morale = this.calcActorMorale()
+        if (isActor) this.notAvailable = 0; this.actorMorale = this.calcActorMorale()
     }
 
     calcDirectorMorale() {
