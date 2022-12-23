@@ -908,7 +908,7 @@ i18next
                     listOfSourcesInfoText: 'Sieh dir deine eigenen Quellen an oder kaufe welche von anderen Studios.',
                     listOfFranchisesInfoText: 'Sieh dir deine eigenen Franchises an oder kaufe welche von anderen Studios.',
                     closeGame: 'Spiel beenden',
-                    goBackMenu: 'Zurück zu Startmenü',
+                    goBackMenu: 'Zurück zum Startmenü',
                     closeGameMsg: 'Wollen Sie das Spiel wirklich beenden?',
                     goBackMenuMsg: 'Wollen Sie zum Startmenü zurück?',
                 }

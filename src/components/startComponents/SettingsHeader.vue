@@ -57,8 +57,8 @@
         <menu-modal
             v-if="showMenuModal"
             headline="goBackMenu"
-            @back="showMenuModal = false"
-            @close="goToStartMenu">
+            @backToStartmenu="goToStartMenu"
+            @close="showMenuModal = false">
           <template v-slot:header>
             <h3>custom header</h3>
           </template>
@@ -80,8 +80,8 @@
         <close-modal
             v-if="showCloseModal"
             headline="closeGame"
-            @back="showCloseModal = false"
-            @close="exit">
+            @closeGame="exit"
+            @close="showCloseModal = false">
           <template v-slot:header>
             <h3>custom header</h3>
           </template>

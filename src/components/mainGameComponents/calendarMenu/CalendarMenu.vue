@@ -83,7 +83,9 @@ export default {
 
   mounted(){
     document.getElementsByClassName('fc-next-button')[0].setAttribute('data-title',i18next.t('nextMonth'));
+    document.getElementsByClassName('fc-next-button')[0].removeAttribute('title');
     document.getElementsByClassName('fc-prev-button')[0].setAttribute('data-title',i18next.t('previousMonth'));
+    document.getElementsByClassName('fc-prev-button')[0].removeAttribute('title');
   },
 
   methods: {
@@ -246,6 +248,7 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 20px;
+  height: 100%;
 }
 
 .eventIconElements {

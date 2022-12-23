@@ -18,16 +18,23 @@
 
           <div class="modal-footer closeModalFooter">
             <slot name="footer">
+                <custom-button
+                    v-if="headline === 'closeGame'"
+                    class="modal-default-button"
+                    :dark="false"
+                    size="small"
+                    @clicked="$emit('closeGame')">{{ $t('closeGame') }}</custom-button>
+                <custom-button
+                    v-else
+                    class="modal-default-button"
+                    :dark="false"
+                    size="small"
+                    @clicked="$emit('backToStartmenu')">{{ $t('goBackMenu') }}</custom-button>
               <custom-button
                   class="modal-default-button"
                   :dark="false"
                   size="small"
                   @clicked="$emit('close')">{{ $t('close') }}</custom-button>
-              <custom-button
-                  class="modal-default-button"
-                  :dark="false"
-                  size="small"
-                  @clicked="$emit('back')">{{ $t('back') }}</custom-button>
             </slot>
           </div>
         </div>

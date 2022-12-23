@@ -18,8 +18,8 @@
               <close-modal
                   v-if="showCloseModal"
                   headline="closeGame"
-                  @back="showCloseModal = false"
-                  @close="exit">
+                  @closeGame="exit"
+                  @close="showCloseModal = false">
                 <template v-slot:header>
                   <h3>custom header</h3>
                 </template>

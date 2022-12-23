@@ -10,6 +10,7 @@
           :icon-gradient="true"
           :shadow="false"
           :invertTheme="highlightButton['homeButton']"
+          :data-title="$t('home')"
           @click="focusButton('homeButton')"/>
     </router-link>
     <router-link to="movies">
@@ -22,6 +23,7 @@
           :icon-gradient="true"
           :shadow="false"
           :invertTheme="highlightButton['moviesButton']"
+          :data-title="$t('movies')"
           @click="focusButton('moviesButton')"/>
     </router-link>
     <router-link to="streaming">
@@ -34,6 +36,7 @@
           :icon-gradient="true"
           :shadow="false"
           :invertTheme="highlightButton['streamingButton']"
+          data-title="Streaming"
           @click="focusButton('streamingButton')"/>
     </router-link>
     <router-link to="news">
@@ -46,6 +49,7 @@
           :icon-gradient="true"
           :shadow="false"
           :invertTheme="highlightButton['newsButton']"
+          :data-title="$t('news')"
           @click="focusButton('newsButton')"/>
     </router-link>
     <router-link to="finances">
@@ -58,6 +62,7 @@
           :icon-gradient="true"
           :shadow="false"
           :invertTheme="highlightButton['financesButton']"
+          :data-title="$t('finances')"
           @click="focusButton('financesButton')"/>
     </router-link>
     <router-link to="calendar">
@@ -70,6 +75,7 @@
           :icon-gradient="true"
           :shadow="false"
           :invertTheme="highlightButton['calendarButton']"
+          :data-title="$t('calendar')"
           @click="focusButton('calendarButton')"/>
     </router-link>
   </div>
