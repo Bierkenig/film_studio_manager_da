@@ -58,12 +58,13 @@ export default {
 
     let sourceData = this.$store.getters.getCalendarEvents;
     let today = this.$store.getters.getCurrentDate;
+    today.setHours(1,0,0)
     let nextWeek = this.getNextWeeksDate;
     let nextMonth = this.getNextMonthDate;
 
     for (let i = 0; i < sourceData.length; i++) {
       let dateCheck = new Date(sourceData[i].start);
-      if(dateCheck === today){
+      if(dateCheck.getTime() === today.getTime()){
         this.todayEvents.push(sourceData[i])
       } else if (dateCheck > today && dateCheck < nextWeek()){
         this.weekEvents.push(sourceData[i])

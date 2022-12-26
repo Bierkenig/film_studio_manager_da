@@ -1,15 +1,27 @@
 <template>
   <div id="card">
-    <h1 v-if="this.disabledButton">{{ $t('noSaving') }}</h1>
-    <h1 v-else> {{studioName}} </h1>
-    <p> {{date}} </p>
-    <p>{{$t('save_slot')}}: {{slotNr}}</p>
-    <custom-button
-        id="loadButton"
-        :dark="false"
-        size="small"
-        :disabled="disabledButton"
-        @clicked="load">{{ $t('loadButton') }}</custom-button>
+    <div v-if="this.disabledButton">
+      <h2 id="loadItemNoSavingsHeader">Slot {{slotNr}}</h2>
+    </div>
+    <div v-else>
+      <h2 id="loadItemSaveHeader">{{studioName}}</h2>
+      <div id="loadItemDateInfo">
+        <div id="loadItemDateInfoHeader">{{ $t('date') }}</div>
+        <div id="loadItemDateInfoValue">{{date}}</div>
+      </div>
+      <div id="loadItemButtonContainer">
+        <custom-button
+            id="loadButton"
+            :dark="false"
+            size="small"
+            :disabled="disabledButton"
+            @clicked="load">{{ $t('loadButton') }}</custom-button>
+        <custom-button
+            id="deleteButton"
+            :dark="true"
+            size="small">{{ $t('delete') }}</custom-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -96,16 +108,43 @@ export default {
 
 <style scoped>
 #card {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
   transition: 0.3s;
-  padding: 0 20px 20px 20px;
+  padding: 1px 20px 20px 20px;
 }
 
 #loadButton:disabled,
 #loadButton[disabled]{
   background-color: var(--fsm-white);
   color: var(--fsm-dark-blue-1);
+}
+
+#loadItemNoSavingsHeader {
+  color: #848891;
+}
+
+#loadItemButtonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+#loadItemDateInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 5px 10px 5px;
+  border-radius: var(--fsm-m-border-radius);
+  background-color: var(--fsm-dark-blue-4);
+}
+
+#loadItemDateInfoHeader {
+  margin-left: 10px;
+}
+
+#loadItemDateInfoValue {
+  margin-right: 10px;
 }
 </style>

@@ -1,22 +1,49 @@
 <template>
   <div id="card">
+    <div v-if="this.disabledButton">
+      <h2 id="slotItemNoSavingsHeader">Slot {{slotNr}}</h2>
+    </div>
+    <div v-else>
+      <h2 id="slotItemSaveHeader">{{studioName}}</h2>
+      <div id="slotItemDateInfo">
+        <div id="slotItemDateInfoHeader">{{ $t('date') }}</div>
+        <div id="slotItemDateInfoValue">{{date}}</div>
+      </div>
+    </div>
+    <div id="slotItemButtonContainer">
+      <custom-button
+          id="selectButton"
+          :dark="false"
+          size="small"
+          :disabled="!disabledButton"
+          @clicked="select">{{ $t('buyScreenplaySection.select') }}</custom-button>
+      <custom-button
+          id="deleteButton"
+          :dark="true"
+          size="small"
+          :disabled="disabledButton"
+          @clicked="deleting">{{ $t('delete') }}</custom-button>
+    </div>
+  </div>
+  <!--<div id="card">
     <h1 v-if="this.disabledButton">{{ $t('noSaving') }}</h1>
     <h1 v-else> {{studioName}} </h1>
     <p> {{date}} </p>
     <p>{{$t('save_slot')}}: {{slotNr}}</p>
-    <!-- -->
     <button id="selectButton" class="buttonStyle" :disabled="!disabledButton" @click="select">Select</button>
     <button id="loadButton" class="buttonStyle" :disabled="disabledButton" @click="deleting">Delete</button>
 
 
-  </div>
+  </div>-->
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "SlotItem",
+  components: {CustomButton},
   mixins: [soundeffectMixin('button', 'click')],
 
   props: {
@@ -89,9 +116,45 @@ export default {
 
 <style scoped>
 #card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
   transition: 0.3s;
-  border-radius: 5px;
-  padding: 2em;
+  padding: 1px 20px 20px 20px;
+}
+
+#selectButton:disabled,
+#deleteButton:disabled,
+#selectButton[disabled],
+#deleteButton[disabled]{
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
+}
+
+#slotItemNoSavingsHeader {
+  color: #848891;
+}
+
+#slotItemButtonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+#slotItemDateInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px 5px 10px 5px;
+  border-radius: var(--fsm-m-border-radius);
+  background-color: var(--fsm-dark-blue-4);
+}
+
+#slotItemDateInfoHeader {
+  margin-left: 10px;
+}
+
+#slotItemDateInfoValue {
+  margin-right: 10px;
 }
 </style>

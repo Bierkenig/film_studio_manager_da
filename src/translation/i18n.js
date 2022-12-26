@@ -542,6 +542,7 @@ i18next
                     goBackMenu: 'Back to start menu',
                     closeGameMsg: 'Do you want to close the game?',
                     goBackMenuMsg: 'Do you want to go backt to start menu?',
+                    delete: 'Delete',
                 }
             },
             de: {
@@ -911,6 +912,7 @@ i18next
                     goBackMenu: 'Zurück zum Startmenü',
                     closeGameMsg: 'Wollen Sie das Spiel wirklich beenden?',
                     goBackMenuMsg: 'Wollen Sie zum Startmenü zurück?',
+                    delete: 'Löschen',
                 }
             }
         }

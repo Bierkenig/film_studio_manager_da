@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="loadWindowMainDiv">
     <div>
       <icon-button
           id="loadWindowBackButton"
@@ -12,12 +12,13 @@
           @click="goBack()"/>
     </div>
 
-    <h1 id="loadWindowHeader">{{ $t('loadHeader') }}</h1>
-
     <div id="savingsBox">
-      <load-item class="savingsBoxLoadItem" :slot-nr="1"/>
-      <load-item class="savingsBoxLoadItem" :slot-nr="2"/>
-      <load-item class="savingsBoxLoadItem" :slot-nr="3"/>
+      <h1 id="loadWindowHeader">{{ $t('loadButton') }}</h1>
+      <div id="loadWindowSaveItems">
+        <load-item class="savingsBoxLoadItem" :slot-nr="1"/>
+        <load-item class="savingsBoxLoadItem" :slot-nr="2"/>
+        <load-item class="savingsBoxLoadItem" :slot-nr="3"/>
+      </div>
     </div>
   </div>
 </template>
@@ -41,17 +42,12 @@ export default {
 </script>
 
 <style scoped>
-#savingsBox {
+#loadWindowMainDiv {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 40px;
   min-height: 100vh;
-}
-
-.savingsBoxLoadItem {
-  width: 100%;
 }
 
 #loadWindowBackButton {
@@ -62,11 +58,25 @@ export default {
 }
 
 #loadWindowHeader {
-  position: absolute;
-  top: 15px;
-  color: var(--fsm-pink-1);
+  margin: 0 !important;
   font-weight: var(--fsm-fw-bold);
-  left: 50%;
-  transform: translate(-50%, 0);
+  color: var(--fsm-pink-1);
+}
+
+#savingsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
+  width: 350px;
+  padding: 10px 20px 20px 20px;
+}
+
+#loadWindowSaveItems {
+  display: flex;
+  flex-direction: column;
+  gap: 15px
 }
 </style>

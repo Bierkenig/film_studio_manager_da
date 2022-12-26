@@ -110,7 +110,7 @@ export default {
     },
 
     goBack(){
-      this.$router.push({name: 'default'})
+      this.$router.push({name: 'SelectSlotWindow'})
     },
 
     setSelectedBudget(value){
