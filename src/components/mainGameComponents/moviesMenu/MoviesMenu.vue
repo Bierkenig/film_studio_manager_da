@@ -1,11 +1,11 @@
 <template>
   <div id="moviesMenuContainer">
     <div class="moviesMenuActionContainer">
-      <action-section headline="createScreenplay" info-text="createMovieInfoText" button-text="create"/>
-      <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open"/>
-      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open"/>
+      <action-section headline="createScreenplay" info-text="createMovieInfoText" button-text="create" icon="action"/>
+      <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open" icon="baseball"/>
+      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open" icon="settings"/>
     </div>
-    <movies-section class="actionSectionMoviesSection" headline="producedMovies"/>
+    <movies-section class="moviesMenuMoviesSection" headline="producedMovies"/>
   </div>
 </template>
 
@@ -41,17 +41,17 @@ export default {
 #moviesMenuContainer {
   display: flex;
   flex-direction: row;
-  gap: 10px
+  gap: 20px
 }
 
 .moviesMenuActionContainer {
   display: flex;
   flex-direction: column;
   width: 30%;
-  gap: 10px;
+  gap: 20px;
 }
 
-.actionSectionMoviesSection {
+.moviesMenuMoviesSection {
   width: 70%;
 }
 </style>

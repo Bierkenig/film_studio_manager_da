@@ -1,9 +1,10 @@
 <template>
   <div class="moviesSection">
     <h1>{{ $t(headline) }}</h1>
-    <div v-if="data.length !== 0">
+    <div v-if="data.length !== 0" id="moviesSectionSelectDiv">
       <select
           id="sortByWhat"
+          class="moviesSectionSelect"
           onfocus="this.size=5;"
           onblur="this.size=1;"
           onchange="this.size=1; this.blur();"
@@ -19,6 +20,7 @@
       </select>
       <select
           id="typeOfSort"
+          class="moviesSectionSelect"
           onfocus="this.size=5;"
           onblur="this.size=1;"
           onchange="this.size=1; this.blur();"
@@ -29,16 +31,41 @@
       </select>
     </div>
     <div class="moviesSectionDetails">
-      <movie-item v-for="(it,index) in data" :key="index" :movie="it"/>
+      <movie-element
+          class="moviesSectionMovieElement"
+          v-for="(it,index) in data"
+          :key="index"
+          :movie-title="it._title"
+          viewers="99"
+          critics="99"
+          age="+13"
+          genre="Comedy"
+          genre-icon="comedy"
+          budget="$ 9,999"
+          earnings="$ 999,999"/>
+      <!--<movie-element
+          v-for="(it,index) in data"
+          :key="index"
+          :movie-title="it._title"
+          viewers="99"
+          critics="99"
+          :age="it._screenplay.ageRating.match('[+][0-9]+')"
+          :genre="it._screenplay.genre"
+          :genre-icon="it._screenplay.genre.toLowerCase()"
+          budget="$ 9,999"
+          earnings="$ 999,999"/>
+          @open-clicked="elementOpened"/>-->
+
+      <!--<movie-item v-for="(it,index) in data" :key="index" :movie="it"/>-->
     </div>
   </div>
 </template>
 
 <script>
-import MovieItem from "@/components/mainGameComponents/streamingMenu/MovieItem";
+import MovieElement from "@/components/kitchenSink/MovieElement.vue";
 export default {
   name: "MoviesSection",
-  components: {MovieItem},
+  components: {MovieElement},
 
   props: {
     headline: String
@@ -111,15 +138,42 @@ export default {
 <style scoped>
 .moviesSection {
   justify-content: center;
-  background-color: black;
-  color: white;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
+  padding: 0 20px 20px 20px;
+}
+
+.moviesSection h1 {
+  font-weight: var(--fsm-fw-bold);
+  color: var(--fsm-pink-1);
 }
 
 .moviesSectionDetails {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  color: white;
+  margin-top: 15px;
+  gap: 15px;
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.moviesSectionMovieElement {
+  margin-right: 10px;
+}
+
+#moviesSectionSelectDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.moviesSectionSelect {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+  border-style: none;
+  font-size: 15px;
+  padding: 7px;
+  outline: none;
 }
 </style>
