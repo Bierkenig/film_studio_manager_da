@@ -184,32 +184,69 @@ export function deleteSaveFile(slot) {
 
 }
 
+// export function checkIfExists(slot){
+//     console.log("check")
+//         try{
+//             fs.statSync(path.join('.','.data' ,'saves', slot.toString(), 'save.json'))
+//         }
+//         catch(e){
+//             console.log("no file")
+//             return [false, slot]
+//         }
+//         console.log("exists")
+//         return [true, slot]
+// }
 export function checkIfExists(slot){
     console.log("check")
-        try{
-            fs.statSync(path.join('.','.data' ,'saves', slot.toString(), 'save.json'))
-        }
-        catch(e){
-            console.log("no file")
-            return [false, slot]
-        }
-        console.log("exists")
-        return [true, slot]
+    const filePath = path.join('.','.data' ,'saves', slot.toString(), 'save.json');
+    let result;
+
+    try{
+        fs.statSync(filePath);
+        result = [true, slot];
+    }
+    catch(e){
+        result = [false, slot];
+    }
+
+    console.log(result[0] ? "exists" : "no file");
+    return result;
 }
+
 
 //If file exists returns true/false
 //If no file return null (can't work on unused slot)
+// export function checkFileStatus(slot, type){
+//     if(checkIfExists(slot)[0] && type === 'default') {
+//         let save = JSON.parse(fs.readFileSync(path.join('.','.data' ,'saves', slot.toString(), 'save.json')).toString());
+//         return hash(save.state) === save.hash;
+//     }
+//     else if(checkIfExists(slot)[0] && type === 'backup'){
+//         let save = JSON.parse(fs.readFileSync(path.join('.','.data','recovery', 'b' + slot.toString() + '.json')).toString());
+//         return hash(save.state) === save.hash;
+//     }
+//     else{
+//         return false
+//     }
+// }
 export function checkFileStatus(slot, type){
-    if(checkIfExists(slot)[0] && type === 'default') {
-        let save = JSON.parse(fs.readFileSync(path.join('.','.data' ,'saves', slot.toString(), 'save.json')).toString());
+    if(checkIfExists(slot)[0]) {
+        let saveFileLocation;
+        if(type === 'default'){
+            saveFileLocation = path.join('.','.data' ,'saves', slot.toString(), 'save.json');
+        }
+        else if(type === 'backup'){
+            saveFileLocation = path.join('.','.data','recovery', 'b' + slot.toString() + '.json');
+        }
+        else{
+            return false;
+        }
+
+        let save = JSON.parse(fs.readFileSync(saveFileLocation).toString());
         return hash(save.state) === save.hash;
     }
-    else if(checkIfExists(slot)[0] && type === 'backup'){
-        let save = JSON.parse(fs.readFileSync(path.join('.','.data','recovery', 'b' + slot.toString() + '.json')).toString());
-        return hash(save.state) === save.hash;
-    }
-    else{
-        return false
+    else {
+        return false;
     }
 }
 
