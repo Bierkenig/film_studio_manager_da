@@ -108,6 +108,7 @@ export default {
     deleting(){
       window.ipcRenderer.send('r2mDeleting', this.slotNr)
       this.init()
+      this.init()
       this.date = null
     }
   }

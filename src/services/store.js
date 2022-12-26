@@ -17,7 +17,9 @@ export default createStore({
         dbCustomName1: null,
         dbCustomName2: null,
         dbCustomName3: null,
-        screenplays: [],
+        screenplays: [new Screenplay(2, 'HIHIHI', "Feature", "Action",
+            "Romantic","13+", "Bendedikt Smartus", "L", "100", "500000",
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined})],
         boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
         balance: 0,
@@ -96,8 +98,8 @@ export default createStore({
             {
                 id: 1,
                 movie: "SOMETHING",
-                start: '2023-01-06',
-                end: '2023-01-07',
+                start: '2023-01-01',
+                end: '2023-01-02',
                 type: 'productionFinished',
             },
             {

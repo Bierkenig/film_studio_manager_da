@@ -1,34 +1,35 @@
 <template>
   <div id="eventsSection">
-    <h1>{{ $t('upcomingEvents') }}</h1>
+    <h1 id="eventHeading">{{ $t('upcomingEvents') }}</h1>
 
     <div>
       <h2>{{ $t('today') }}</h2>
       <div v-for="(it,index) in todayEvents" :key="index">
-        {{ it.movie }}
+        <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
 
     <div>
       <h2>{{ $t('thisWeek') }}</h2>
       <div v-for="(it,index) in weekEvents" :key="index">
-      {{ it.movie }}
+        <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
 
     <div>
       <h2>{{ $t('thisMonth') }}</h2>
       <div v-for="(it,index) in monthEvents" :key="index">
-        {{ it.movie }}
+        <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import EventElement from "@/components/kitchenSink/EventElement";
 export default {
   name: "UpcomingEventsSection",
-
+  components: {EventElement},
   data(){
     return {
       todayEvents: [],
@@ -81,7 +82,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: black;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
   color: white;
+}
+
+#eventHeading{
+  font-size: 28px;
+  color: var(--fsm-pink-1)
 }
 </style>

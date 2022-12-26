@@ -57,15 +57,15 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 3em;
+
 }
 
 .upcomingEvents, #homeMenuRightSide {
-  width: 20%;
+  width: 25%;
 }
 
 .projectsSection {
-  width: 50%;
+  width: 45%;
 }
 
 .news, .earnings {
