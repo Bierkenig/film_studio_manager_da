@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <transition v-if="showBuyModal" name="modal">
+  <div class="streamingMenuMainDiv">
+    <!--<transition v-if="showBuyModal" name="modal">
       <buy-streaming-service-modal
           v-if="showBuyModal"
           @close="showBuyModal = false"
@@ -10,7 +10,7 @@
           <h3>custom header</h3>
         </template>
       </buy-streaming-service-modal>
-    </transition>
+    </transition>-->
 
     <div v-if="this.$store.getters.getOwnStreamingService !== null" class="streamingMenuContainer">
       <div id="leftSide">
@@ -18,10 +18,24 @@
         <rights-section class="rightsSectionTag"/>
         <competitor-service-section class="competitorServiceSectionTag"/>
       </div>
-      <content-management-section class="contentManagementSectionTag"/>
+      <movies-section class="moviesSectionTag" headline="contentManagement"/>
     </div>
-    <div v-else id="streamingMenuEmptyMessage">
-      NO STREAMING SERVICE HAS BEEN CREATED YET
+    <div v-else class="streamingMenuEmptyMessageMainDiv">
+      <div class="streamingMenuEmptyMessage">
+        <h2 id="streamingMenuEmptyHeader">Create Streaming Service</h2>
+        <div class="streamingMenuNameInputDiv">
+          <label id="streamingServiceNameLabel" for="streamingServiceName">Name</label>
+          <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" placeholder="Name">
+        </div>
+        <custom-button
+            id="streamingMenuCreateButton"
+            :dark="false"
+            size="small"
+            :disabled="checkBalance || !name"
+            @click="createService">
+          {{ $t('createService') }}
+        </custom-button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,23 +43,27 @@
 <script>
 import OwnServiceSection from "@/components/mainGameComponents/streamingMenu/OwnServiceSection";
 import RightsSection from "@/components/mainGameComponents/streamingMenu/RightsSection";
-import ContentManagementSection from "@/components/mainGameComponents/streamingMenu/ContentManagementSection";
+import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
 import CompetitorServiceSection from "@/components/mainGameComponents/streamingMenu/CompetitorServiceSection";
-import BuyStreamingServiceModal from "@/components/mainGameComponents/streamingMenu/BuyStreamingServiceModal";
+//import BuyStreamingServiceModal from "@/components/mainGameComponents/streamingMenu/BuyStreamingServiceModal";
 import financeMixin from "@/mixins/financeMixin";
+import {StreamingService} from "@/classes/StreamingService";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 export default {
   name: "StreamingMenu",
 
   mixins: [financeMixin()],
 
   components: {
-    BuyStreamingServiceModal,
-    CompetitorServiceSection, ContentManagementSection, RightsSection, OwnServiceSection},
+    CustomButton,
+    //BuyStreamingServiceModal,
+    CompetitorServiceSection, MoviesSection, RightsSection, OwnServiceSection},
 
   data(){
     return {
       showBuyModal: true,
       checkBalance: true,
+      name: ''
     }
   },
 
@@ -55,6 +73,14 @@ export default {
     }
     //TODO: auf 10 Milliarden ändern
     this.checkBalance = (this.$store.getters.getBalance - 10000000) < 0;
+  },
+
+  methods: {
+    createService(){
+      this.$store.commit('setOwnStreamingService',new StreamingService('Example Service',1,0,1000000,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
+      //TODO: auf 10 Milliarden ändern
+      this.$store.commit('subtractBalance', 10000000)
+    }
   }
 }
 </script>
@@ -78,7 +104,50 @@ export default {
   gap: 2em;
 }
 
-.contentManagementSectionTag {
+.moviesSectionTag {
   width: 70%;
+}
+
+.streamingMenuEmptyMessageMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.streamingMenuEmptyMessage {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
+  width: 30%;
+  padding: 5px 20px 20px 20px;
+}
+
+#streamingMenuEmptyHeader {
+  text-align: center;
+  font-weight: var(--fsm-fw-bold);
+  color: var(--fsm-pink-1);
+}
+
+#streamingServiceName {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+  border-style: none;
+  height: 30px;
+  margin: 10px 0 20px 0;
+  padding-left: 10px;
+}
+
+#streamingServiceName:focus {
+  outline: none;
+}
+
+.streamingMenuNameInputDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+#streamingMenuCreateButton:disabled,
+#streamingMenuCreateButton[disabled]{
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
 }
 </style>

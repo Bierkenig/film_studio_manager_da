@@ -12,14 +12,27 @@
                 :bg-gradient="true"
                 :icon-gradient="false"
                 :shadow="false"
-                @click="exit"/>
+                @click="showCloseModal = true"/>
+
+            <transition name="modal">
+              <close-modal
+                  v-if="showCloseModal"
+                  headline="closeGame"
+                  @closeGame="exit"
+                  @close="showCloseModal = false">
+                <template v-slot:header>
+                  <h3>custom header</h3>
+                </template>
+              </close-modal>
+            </transition>
+
             <settings-header id="startMenuSettingHeader"/>
             <div id="heading">
               <img src="../../assets/FSM_Logo.svg" alt="Logo FSM"/>
               <div id="headline">Film Studio<br>Manager</div>
             </div>
             <div id="startMenuButtonContainer">
-              <router-link :to="{ name: 'createStudio'}" style="text-decoration: none; color: inherit">
+              <router-link :to="{ name: 'SelectSlotWindow'}" style="text-decoration: none; color: inherit">
                 <button id="newButton" class="startMenuButton">
                   <custom-icon size="40px"/>
                   {{ $t('newGameButton') }}
@@ -41,6 +54,10 @@
 
             <router-link :to="{ name: 'kitchenSink'}">
               <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
+            </router-link>
+
+            <router-link :to="{ name: 'SelectSlotWindow'}">
+              <button id="slotButton" class="buttonStyle">Select Slot</button>
             </router-link>
 
             <!--<div>
@@ -65,6 +82,9 @@
               <button id="saveButton" class="buttonStyle" @click="save">save</button>
               <button id="deleteButton" class="buttonStyle" @click="deleting">delete</button>
               <button id="autoSave" class="buttonStyle" @click="autoSave">autoSave</button>
+              <router-link to="SelectDBWindow">
+                <button>editor</button>
+              </router-link>
 
             </div>-->
           </div>
@@ -79,18 +99,24 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
 import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import IconButton from "@/components/kitchenSink/IconButton";
+import CloseModal from "@/components/mainGameComponents/CloseModal";
 
 export default {
   name: 'StartMenu',
-  components: {SettingsHeader, CustomIcon, IconButton},
+  components: {CloseModal, SettingsHeader, CustomIcon, IconButton},
   mixins: [soundeffectMixin('button','click')],
+
+  data(){
+    return {
+      showCloseModal: false,
+    }
+  },
 
   methods: {
     exit() {
-      if (confirm("Close Window?")) {
-        close();
-      }
+      close();
     },
+
     save(){
       let reducedState = {}
       this.$store.commit("stateToSave", reducedState)

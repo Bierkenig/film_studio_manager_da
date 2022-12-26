@@ -73,8 +73,9 @@ export default {
       // window.ipcRenderer.receive('m2rLoading', data => {
       //
       // })
-      //TODO db path ändern
-      //TODO weiterleiten & save ausführen
+      window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom1.db")
+
+      this.$router.push({name: 'createStudio'})
     },
 
     deleting(){
