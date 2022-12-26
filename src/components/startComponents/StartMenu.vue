@@ -32,7 +32,7 @@
               <div id="headline">Film Studio<br>Manager</div>
             </div>
             <div id="startMenuButtonContainer">
-              <router-link :to="{ name: 'createStudio'}" style="text-decoration: none; color: inherit">
+              <router-link :to="{ name: 'SelectSlotWindow'}" style="text-decoration: none; color: inherit">
                 <button id="newButton" class="startMenuButton">
                   <custom-icon size="40px"/>
                   {{ $t('newGameButton') }}

@@ -1,94 +1,103 @@
 <template>
   <div id="menuNavContainer">
-    <router-link to="home">
-      <icon-button
-          id="homeButton"
-          icon="home"
-          size="medium"
-          :dark="false"
-          :bg-gradient="true"
-          :icon-gradient="true"
-          :shadow="false"
-          :invertTheme="highlightButton['homeButton']"
-          :data-title="$t('home')"
-          @click="focusButton('homeButton')"/>
-    </router-link>
-    <router-link to="movies">
-      <icon-button
-          id="moviesButton"
-          icon="movies"
-          size="medium"
-          :dark="true"
-          :bg-gradient="true"
-          :icon-gradient="true"
-          :shadow="false"
-          :invertTheme="highlightButton['moviesButton']"
-          :data-title="$t('movies')"
-          @click="focusButton('moviesButton')"/>
-    </router-link>
-    <router-link to="streaming">
-      <icon-button
-          id="streamingButton"
-          icon="streaming"
-          size="medium"
-          :dark="true"
-          :bg-gradient="true"
-          :icon-gradient="true"
-          :shadow="false"
-          :invertTheme="highlightButton['streamingButton']"
-          data-title="Streaming"
-          @click="focusButton('streamingButton')"/>
-    </router-link>
-    <router-link to="news">
-      <icon-button
-          id="newsButton"
-          icon="news"
-          size="medium"
-          :dark="true"
-          :bg-gradient="true"
-          :icon-gradient="true"
-          :shadow="false"
-          :invertTheme="highlightButton['newsButton']"
-          :data-title="$t('news')"
-          @click="focusButton('newsButton')"/>
-    </router-link>
-    <router-link to="finances">
-      <icon-button
-          id="financesButton"
-          icon="money"
-          size="medium"
-          :dark="true"
-          :bg-gradient="true"
-          :icon-gradient="true"
-          :shadow="false"
-          :invertTheme="highlightButton['financesButton']"
-          :data-title="$t('finances')"
-          @click="focusButton('financesButton')"/>
-    </router-link>
-    <router-link to="calendar">
-      <icon-button
-          id="calendarButton"
-          icon="calendar"
-          size="medium"
-          :dark="true"
-          :bg-gradient="true"
-          :icon-gradient="true"
-          :shadow="false"
-          :invertTheme="highlightButton['calendarButton']"
-          :data-title="$t('calendar')"
-          @click="focusButton('calendarButton')"/>
-    </router-link>
+    <p style="width: 15%"></p>
+    <div id="menuNavButtonContainer">
+      <router-link to="home">
+        <icon-button
+            id="homeButton"
+            icon="home"
+            size="medium"
+            :dark="false"
+            :bg-gradient="true"
+            :icon-gradient="true"
+            :shadow="false"
+            :invertTheme="highlightButton['homeButton']"
+            :data-title="$t('home')"
+            @click="focusButton('homeButton')"/>
+      </router-link>
+      <router-link to="movies">
+        <icon-button
+            id="moviesButton"
+            icon="movies"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="true"
+            :shadow="false"
+            :invertTheme="highlightButton['moviesButton']"
+            :data-title="$t('movies')"
+            @click="focusButton('moviesButton')"/>
+      </router-link>
+      <router-link to="streaming">
+        <icon-button
+            id="streamingButton"
+            icon="streaming"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="true"
+            :shadow="false"
+            :invertTheme="highlightButton['streamingButton']"
+            data-title="Streaming"
+            @click="focusButton('streamingButton')"/>
+      </router-link>
+      <router-link to="news">
+        <icon-button
+            id="newsButton"
+            icon="news"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="true"
+            :shadow="false"
+            :invertTheme="highlightButton['newsButton']"
+            :data-title="$t('news')"
+            @click="focusButton('newsButton')"/>
+      </router-link>
+      <router-link to="finances">
+        <icon-button
+            id="financesButton"
+            icon="money"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="true"
+            :shadow="false"
+            :invertTheme="highlightButton['financesButton']"
+            :data-title="$t('finances')"
+            @click="focusButton('financesButton')"/>
+      </router-link>
+      <router-link to="calendar">
+        <icon-button
+            id="calendarButton"
+            icon="calendar"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="true"
+            :shadow="false"
+            :invertTheme="highlightButton['calendarButton']"
+            :data-title="$t('calendar')"
+            @click="focusButton('calendarButton')"/>
+      </router-link>
+    </div>
+    <custom-button
+        id="menuNavSkipButton"
+        :dark="false"
+        size="medium"
+        @click="onUpdateDate">{{ $t('skipWeek') }}</custom-button>
   </div>
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import IconButton from "@/components/kitchenSink/IconButton";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "MenuNav",
 
-  components: {IconButton},
+  components: {CustomButton, IconButton},
 
   props:{
     pageName: String,
@@ -131,7 +140,11 @@ export default {
 
       console.log(this.highlightButton)
       this.lastButton = name;
-    }
+    },
+
+    onUpdateDate(){
+      this.$store.commit('updateCurrentDate');
+    },
   }
 }
 </script>
@@ -140,8 +153,19 @@ export default {
 #menuNavContainer {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  gap: 1em;
+  justify-content: space-between;
   margin-top: 1em;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+#menuNavButtonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+#menuNavSkipButton {
+  width: 15%;
 }
 </style>
