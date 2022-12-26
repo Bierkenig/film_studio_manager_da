@@ -1,52 +1,43 @@
 <template>
   <div id="projectsSection">
-    <h1>{{ $t('projects') }}</h1>
+    <h1 id="projectHeading">{{ $t('projects') }}</h1>
 
     <div>
-      <select
-          v-model="selectedProjectsType">
-        <option value="All">{{ $t('all') }}</option>
-        <option value="Screenplays">{{ $t('screenplays') }}</option>
-        <option value="Productions">{{ $t('productions') }}</option>
-      </select>
+      <tile-pages-nav :pages='["All","Screenplays","Productions"]' :gradient='true'>
+        <div>
+          <div v-for="(it, index) in this.all" :key="index">
+            {{ it.title }}
+          </div>
+        </div>
+        <div>
+          <div v-for="(it, index) in this.screenplays" :key="index">
+            <screenplay-element :screenplay-title="it.title"  :age="it.ageRating" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer" />
+          </div>
+        </div>
+        <div>
+          <div v-for="(it, index) in this.productions" :key="index">
+            {{ it.title }}
+          </div>
+        </div>
+      </tile-pages-nav>
     </div>
-
-    <div id="projectsTextSection">
-      <div v-for="(it, index) in this.data" :key="index">
-        {{ it.title }}
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
+import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
+import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
+
 export default {
   name: "ProjectsSection",
-
-  data(){
+  components: {ScreenplayElement, TilePagesNav},
+  data() {
     return {
-      selectedProjectsType: 'All',
-      createdScreenplays: this.$store.getters.getScreenplays,
-      productionMovies: this.$store.getters.getInProductionMovies,
-      data: []
+      all: this.$store.getters.getScreenplays.concat(this.$store.getters.getInProductionMovies),
+      screenplays: this.$store.getters.getScreenplays,
+      productions: this.$store.getters.getInProductionMovies
     }
   },
-
-  mounted() {
-    this.data = this.createdScreenplays.concat(this.productionMovies);
-  },
-
-  watch: {
-    selectedProjectsType() {
-      if(this.selectedProjectsType === 'All'){
-        this.data = this.createdScreenplays.concat(this.productionMovies);
-      } else if(this.selectedProjectsType === 'Screenplays'){
-        this.data = this.createdScreenplays;
-      } else if(this.selectedProjectsType === 'Productions'){
-        this.data = this.productionMovies;
-      }
-    }
-  }
 }
 </script>
 
@@ -54,8 +45,9 @@ export default {
 #projectsSection {
   display: flex;
   justify-content: center;
-  background-color: black;
+  background-color: var(--fsm-dark-blue-3);
   color: white;
+  border-radius: var(--fsm-l-border-radius);
 }
 
 #projects {
@@ -63,6 +55,10 @@ export default {
   background-color: #2c3e50;
   overflow-y: scroll;
   width: 80%;
+}
+#projectHeading{
+  font-size: 28px;
+  color: var(--fsm-pink-1)
 }
 
 /* width */
