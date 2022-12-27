@@ -1,6 +1,16 @@
 <template>
   <div id="actionSectionContainer">
-    <h2 class="actionSectionHeader">{{ $t(headline) }}</h2>
+    <div id="actionSectionHeaderContainer">
+      <h2 class="actionSectionHeader">{{ $t(headline) }}</h2>
+      <icon-button
+          id="actionSectionHeaderIcon"
+          :icon="icon"
+          size="medium"
+          :dark="false"
+          :bg-gradient="true"
+          :icon-gradient="false"
+          :shadow="false"/>
+    </div>
     <div class="actionSectionInfoText">
       {{ $t(infoText) }}
     </div>
@@ -16,14 +26,16 @@
 <script>
 import {Screenplay} from "@/classes/Screenplay";
 import CustomButton from "@/components/kitchenSink/CustomButton";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 
 export default {
   name: "ActionSection",
-  components: {CustomButton},
+  components: {IconButton, CustomButton},
   props: {
     headline: String,
     infoText: String,
     buttonText: String,
+    icon: String
   },
 
   methods: {
@@ -57,12 +69,27 @@ export default {
   padding: 0 20px 20px 20px;
 }
 
+#actionSectionHeaderContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#actionSectionHeaderIcon {
+  margin-top: 20px;
+}
+
 .actionSectionInfoText {
   color: #848891;
+  width: 75%;
 }
 
 .actionSectionHeader {
   font-weight: var(--fsm-fw-bold);
   color: var(--fsm-pink-1);
+}
+
+.actionButton {
+  margin-top: 15px;
 }
 </style>
