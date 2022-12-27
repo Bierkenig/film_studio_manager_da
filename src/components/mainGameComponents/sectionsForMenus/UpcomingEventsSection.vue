@@ -3,22 +3,22 @@
     <h1 id="eventHeading">{{ $t('upcomingEvents') }}</h1>
 
     <div>
-      <h2>{{ $t('today') }}</h2>
-      <div v-for="(it,index) in todayEvents" :key="index">
+      <h2 class="date">{{ $t('today') }}</h2>
+      <div class="event" v-for="(it,index) in todayEvents" :key="index">
         <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
 
     <div>
-      <h2>{{ $t('thisWeek') }}</h2>
-      <div v-for="(it,index) in weekEvents" :key="index">
+      <h2 class="date">{{ $t('thisWeek') }}</h2>
+      <div class="event" v-for="(it,index) in weekEvents" :key="index">
         <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
 
     <div>
-      <h2>{{ $t('thisMonth') }}</h2>
-      <div v-for="(it,index) in monthEvents" :key="index">
+      <h2 class="date">{{ $t('thisMonth') }}</h2>
+      <div class="event" v-for="(it,index) in monthEvents" :key="index">
         <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
@@ -81,7 +81,6 @@ export default {
 #eventsSection {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-l-border-radius);
   color: white;
@@ -89,6 +88,19 @@ export default {
 
 #eventHeading{
   font-size: 28px;
-  color: var(--fsm-pink-1)
+  color: var(--fsm-pink-1);
+  margin-top: 0.7em;
+  margin-left: 0.7em;
+  margin-bottom: 0
+}
+
+.date{
+  margin-left: 0.7em
+}
+
+.event{
+  margin-left:0.7em;
+  margin-right:0.7em;
+  margin-top: 0.7em
 }
 </style>

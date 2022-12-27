@@ -1,38 +1,53 @@
 <template>
   <div id="earningSection">
-    <h1>{{ $t('earnings') }}</h1>
+    <h1 id="earningsHeading">{{ $t('earnings') }}</h1>
+
+    <!--    <div>-->
+    <!--      <select-->
+    <!--          v-model="selectedTime">-->
+    <!--        <option value="Week">{{ $t('week') }}</option>-->
+    <!--        <option value="Month">{{ $t('month') }}</option>-->
+    <!--      </select>-->
+    <!--    </div>-->
 
     <div>
-      <select
-          v-model="selectedTime">
-        <option value="Week">{{ $t('week') }}</option>
-        <option value="Month">{{ $t('month') }}</option>
-      </select>
-    </div>
-
-    <div id="earningTextSection">
-      <div v-for="(it, index) in this.showEarnings.sort(function(a,b)
+      <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
+        <div class="earningTextSection verticalScroll">
+          <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
-           :key="index">
-        {{ it.value }}
-      </div>
+               :key="index">
+            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+          </div>
+        </div>
+        <div class="earningTextSection verticalScroll">
+          <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
+            {return new Date(b.date) - new Date(a.date);})"
+               :key="index">
+            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+          </div>
+        </div>
+      </tile-pages-nav>
     </div>
   </div>
 </template>
 
 <script>
+import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
+import EarningElement from "@/components/kitchenSink/EarningElement";
+
 export default {
   name: "EarningsSection",
-
-  data(){
+  components: {EarningElement, TilePagesNav},
+  data() {
     return {
-      showEarnings: [],
+      weekEarnings: [],
+      monthEarnings: [],
       selectedTime: "Week",
     }
   },
 
   watch: {
-    selectedTime(){
+    selectedTime() {
       this.changeEarnings();
     }
   },
@@ -50,35 +65,52 @@ export default {
       return new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
     },
 
-    changeEarnings(){
+    changeEarnings() {
       let allEarning = this.$store.getters.getEarnings;
-      this.showEarnings = allEarning.filter(item => {
-        if(this.selectedTime === 'Week'){
-          return item.date > this.getLastWeeksDate();
-        } else {
-          return item.date > this.getLastMonthDate();
-        }
+      this.weekEarnings = allEarning.filter(item => {
+        return item.date > this.getLastWeeksDate();
       });
-    }
-  },
 
+      this.monthEarnings = allEarning.filter(item => {
+        return item.date > this.getLastMonthDate();
+      });
+    },
+  },
   mounted() {
     this.changeEarnings();
   }
 }
+
 </script>
 
 <style scoped>
 #earningSection {
   display: flex;
-  justify-content: center;
-  background-color: black;
+  flex-direction: column;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
   color: white;
 }
 
-#earningTextSection {
-  background-color: #2c3e50;
+.earningTextSection {
+  width: 100%;
   overflow-y: scroll;
+}
+
+#earningsHeading {
+  font-size: 28px;
+  color: var(--fsm-pink-1);
+  margin-top: 0.7em;
+  margin-left: 0.7em;
+  margin-bottom: 0
+}
+
+.earningElement {
+  margin-bottom: 5px;
+}
+
+.earningNavigation {
+  margin: 15px
 }
 
 /* width */

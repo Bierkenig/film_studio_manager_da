@@ -32,7 +32,8 @@ i18next
                     home: 'Home',
                     movies: 'Movies',
                     library: 'Library',
-                    news: 'Latest News',
+                    news: 'News',
+                    news2: 'Latest News',
                     newsData: {
                         person: "Person",
                         movie: "Movie",
@@ -331,7 +332,7 @@ i18next
                     streaming: 'Streaming',
                     skipWeek: 'Skip to next week',
                     releasedMovie: 'Released Movies',
-                    earnings: 'Earnings',
+                    earnings: 'Latest Earnings',
                     week: 'Week',
                     month: 'Month',
                     inProduction: 'In Production',
@@ -566,6 +567,7 @@ i18next
                     movies: 'Filme',
                     library: 'Bibliothek',
                     news: 'Nachrichten',
+                    news2: 'Nachrichten',
                     newsData: {
                         person: "Person",
                         movie: "Film",
