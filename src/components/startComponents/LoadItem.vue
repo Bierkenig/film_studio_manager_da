@@ -19,7 +19,8 @@
         <custom-button
             id="deleteButton"
             :dark="true"
-            size="small">{{ $t('delete') }}</custom-button>
+            size="small"
+            @clicked="deleting">{{ $t('delete') }}</custom-button>
       </div>
     </div>
   </div>
@@ -47,45 +48,50 @@ export default {
   },
 
   mounted() {
-    window.ipcRenderer.send('r2mChecking', this.slotNr)
-    window.ipcRenderer.receive('m2rChecking', data => {
-      console.log(data[0])
-      console.log(this.slotNr)
-      if (data[0] === true) {
-        if (data[1] === this.slotNr) {
-          this.disabledButton = false;
-        }
-
-      } else if (data[0] === false && data[1] === this.slotNr) {
-        this.disabledButton = true;
-      }
-    })
-
-    window.ipcRenderer.send('r2mLoading', this.slotNr)
-    window.ipcRenderer.receive('m2rLoading', data => {
-      if(data[0] !== null) {
-        if (data[1] === '100') {
-          if (data[2] === this.slotNr) {
-            console.log(data[0].de_date)
-            this.date = data[0].de_date
-            this.studioName = data[0].state.studio.name
-            console.log("Date eingesetzt")
-          }
-        }
-      }
-    })
-
+  this.init()
   },
 
   methods: {
+    init(){
+      window.ipcRenderer.send('r2mChecking', this.slotNr)
+      window.ipcRenderer.receive('m2rChecking', data => {
+        console.log(data[0])
+        console.log(this.slotNr)
+        if (data[0] === true) {
+          if (data[1] === this.slotNr) {
+            this.disabledButton = false;
+          }
+
+        } else if (data[0] === false && data[1] === this.slotNr) {
+          this.disabledButton = true;
+        }
+      })
+
+      window.ipcRenderer.send('r2mLoading', this.slotNr)
+      window.ipcRenderer.receive('m2rLoading', data => {
+        if(data[0] !== null) {
+          if (data[1] === '100') {
+            if (data[2] === this.slotNr) {
+              console.log(data[0].de_date)
+              this.date = data[0].de_date
+              this.studioName = data[0].state.studio.name
+              console.log("Date eingesetzt")
+            }
+          }
+        }
+      })
+    },
+
     load(){
       window.ipcRenderer.send('r2mLoading',this.slotNr)
       window.ipcRenderer.receive('m2rLoading', data => {
         if(data[1]==='100') {
           let saveData = data[0].state
+          console.log(saveData)
           console.log(data[0].en_date)
           this.$store.commit("loadFromSave", saveData)
           console.log('Save-File was loaded : ' + data[1])
+
         }
         else if(data[1] === '101') {
           console.log('Save-File corrupted - Save State was recovered : ' + data[1])
@@ -101,6 +107,13 @@ export default {
           console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File von' + this.date + 'laden? : ' + data[1])
         }
       })
+    },
+
+    async deleting(){
+      window.ipcRenderer.send('r2mDeleting', this.slotNr)
+      await new Promise(resolve => setTimeout(resolve, 20))
+      this.init()
+      this.date = null
     }
   }
 }

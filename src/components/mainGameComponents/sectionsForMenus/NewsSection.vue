@@ -1,41 +1,69 @@
 <template>
   <div id="newsSection">
-    <h1>{{ $t('news') }}</h1>
+    <h1 id="newsHeading">{{ $t('news2') }}</h1>
 
-    <div>
-      <select
-        v-model="selectedSortType">
-        <option value="People">{{ $t('people') }}</option>
-        <option value="Movies">{{ $t('movies') }}</option>
-        <option value="Studios">Studios</option>
-      </select>
-    </div>
+    <!--    <div>-->
+    <!--      <select-->
+    <!--        v-model="selectedSortType">-->
+    <!--        <option value="People">{{ $t('people') }}</option>-->
+    <!--        <option value="Movies">{{ $t('movies') }}</option>-->
+    <!--        <option value="Studios">Studios</option>-->
+    <!--      </select>-->
+    <!--    </div>-->
 
-    <div id="newsTextSection">
-      <div v-for="(it, index) in this.data" :key="index">
-        {{ it._title }}
+    <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
+
+      <div class="newsTextSection">
+        <div v-for="(it, index) in this.peopleNews" :key="index">
+          <news-element svg-code="" :heading-text="it._title"
+                        info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+        </div>
       </div>
-    </div>
+
+      <div class="newsTextSection">
+        <div v-for="(it, index) in this.movieNews" :key="index">
+          <news-element svg-code="" :heading-text="it._title"
+                        info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+        </div>
+      </div>
+
+      <div class="newsTextSection">
+        <div v-for="(it, index) in this.studioNews" :key="index">
+          <news-element svg-code="" :heading-text="it._title"
+                        info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+        </div>
+      </div>
+    </tile-pages-nav>
   </div>
 </template>
 
 <script>
+import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
+import NewsElement from "@/components/kitchenSink/NewsElement";
+
 export default {
   name: "NewsSection",
-
-  data(){
+  components: {NewsElement, TilePagesNav},
+  data() {
     return {
-      data: [],
-      selectedSortType: 'Movies',
+      peopleNews: [],
+      movieNews: [],
+      studioNews: [],
     }
   },
 
   methods: {
-    loadData(){
+    loadData() {
       let sourceData = this.$store.getters.getCurrentNews;
       for (let i = 0; i < sourceData.length; i++) {
-        if(sourceData[i]._type === this.selectedSortType){
-          this.data.push(sourceData[i])
+        if (sourceData[i]._type === 'People') {
+          this.peopleNews.push(sourceData[i])
+        }
+        if (sourceData[i]._type === 'Movies'){
+          this.movieNews.push(sourceData[i])
+        }
+        if (sourceData[i]._type === 'Studios'){
+          this.studioNews.push(sourceData[i])
         }
       }
     }
@@ -57,14 +85,26 @@ export default {
 <style scoped>
 #newsSection {
   display: flex;
-  justify-content: center;
-  background-color: black;
+  flex-direction: column;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
   color: white;
 }
 
-#newsTextSection {
-  background-color: #2c3e50;
+#newsHeading {
+  font-size: 28px;
+  color: var(--fsm-pink-1);
+  margin-top: 0.7em;
+  margin-left: 0.7em;
+  margin-bottom: 0
+}
+
+.newsTextSection {
   overflow-y: scroll;
+}
+
+.newsNavigation {
+  margin: 15px
 }
 
 /* width */

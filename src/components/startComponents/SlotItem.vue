@@ -105,9 +105,9 @@ export default {
       this.$router.push({name: 'createStudio'})
     },
 
-    deleting(){
+    async deleting(){
       window.ipcRenderer.send('r2mDeleting', this.slotNr)
-      this.init()
+      await new Promise(resolve => setTimeout(resolve, 20))
       this.init()
       this.date = null
     }

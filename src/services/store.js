@@ -88,9 +88,12 @@ export default createStore({
             }
         ],
         //movies which are in currentProduction
-        inProductionMovies: [],
+        inProductionMovies: [new Movie(new Screenplay(2, 'FILM', null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
+
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [new Movie(new Screenplay(2, 'HIHIHI', null, null,
+        finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, null,
             null,null, null, null, null, null,
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
         //nicht fertig
@@ -119,8 +122,8 @@ export default createStore({
             {
                 id: 4,
                 movie: "VIELLEICHT",
-                start: '2023-01-07',
-                end: '2023-01-08',
+                start: '2023-01-28',
+                end: '2023-01-29',
                 type: 'award'
             },
             {
@@ -636,7 +639,6 @@ export default createStore({
         stateToSave(state, reducedState){
             Screenplay.transferProperties(state, reducedState, [
                 "slot",
-                "hasEditedDB",
                 "screenplays",
                 "boughtScreenplays",
                 "studio",
@@ -700,9 +702,9 @@ export default createStore({
             state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
             state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
-            state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+            //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
+            // state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            // state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
             /**
              "events",
              "financialPerformance",

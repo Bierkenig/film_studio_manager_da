@@ -29,7 +29,7 @@
             <settings-header id="startMenuSettingHeader"/>
             <div id="heading">
               <img src="../../assets/FSM_Logo.svg" alt="Logo FSM"/>
-              <div id="headline">Film Studio<br>Manager</div>
+              <div id="headline">Film Studio <hr style="height:0px; visibility:hidden; margin:-15px" /> Manager</div>
             </div>
             <div id="startMenuButtonContainer">
               <router-link :to="{ name: 'SelectSlotWindow'}" style="text-decoration: none; color: inherit">
@@ -191,5 +191,9 @@ export default {
   float: left;
   left: 100px;
   top: 20px;
+}
+
+br {
+  line-height: 1000%;
 }
 </style>

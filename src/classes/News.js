@@ -35,9 +35,9 @@ export default class News {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new News(), jsonObject)
-        instance.person = Person.fromJSON(jsonObject.person)
-        instance.award = Award.fromJSON(jsonObject.award)
-        instance.movie = Movie.fromJSON(jsonObject.movie)
+        instance._person = Person.fromJSON(jsonObject._person)
+        instance._award = Award.fromJSON(jsonObject._award)
+        instance._movie = Movie.fromJSON(jsonObject._movie)
         return instance
     }
 }
