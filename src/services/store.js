@@ -639,7 +639,6 @@ export default createStore({
         stateToSave(state, reducedState){
             Screenplay.transferProperties(state, reducedState, [
                 "slot",
-                "hasEditedDB",
                 "screenplays",
                 "boughtScreenplays",
                 "studio",
@@ -703,9 +702,9 @@ export default createStore({
             state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
             state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
-            state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+            //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
+            // state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            // state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
             /**
              "events",
              "financialPerformance",
