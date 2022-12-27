@@ -1,133 +1,173 @@
 <template>
-  <div>
+  <div id="screenplayPlotMainDiv">
+    <div id="screenplayPlotBackground">
+      <h1 class="screenplayPlotHeader">Screenplay Plot</h1>
+
+      <div>
+        <transition name="modal">
+          <time-period-modal
+              v-if="showTimePeriodModal"
+              @close="showTimePeriodModal = false"
+              @send-time-period="addTimePeriod">
+            <template v-slot:header>
+              <h3>custom header</h3>
+            </template>
+          </time-period-modal>
+        </transition>
+
+        <transition name="modal">
+          <character-moments-modal
+              v-if="showCharacterMomentsModal"
+              @close="showCharacterMomentsModal = false"
+              @send-character-moments="addCharacterMoments">
+            <template v-slot:header>
+              <h3>custom header</h3>
+            </template>
+          </character-moments-modal>
+        </transition>
+
+        <transition name="modal">
+          <setting-modal
+              v-if="showSettingModal"
+              @close="showSettingModal = false"
+              @send-setting="addSetting">
+            <template v-slot:header>
+              <h3>custom header</h3>
+            </template>
+          </setting-modal>
+        </transition>
+      </div>
+
+      <div id="dropZones">
+        <div
+            class="drop-zone"
+            @drop="onDrop($event,1)"
+            @dragenter.prevent
+            @dragover.prevent>
+          <h2 class="screenplayPlotHeader">{{ $t('act1') }}</h2>
+          <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+            <div
+                v-for="item in getList(1)"
+                :key="item.id"
+                class="drag-el"
+                draggable="true"
+                @dragstart="startDrag($event, item)">
+              {{ item.textEn }}
+            </div>
+          </div>
+          <div v-else>
+            <div
+                v-for="item in getList(1)"
+                :key="item.id"
+                class="drag-el"
+                draggable="true"
+                @dragstart="startDrag($event, item)">
+              {{ item.textDe }}
+            </div>
+          </div>
+        </div>
+        <div
+            class="drop-zone"
+            @drop="onDrop($event,2)"
+            @dragenter.prevent
+            @dragover.prevent>
+          <h2 class="screenplayPlotHeader">{{ $t('act2') }}</h2>
+          <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+            <div
+                v-for="item in getList(2)"
+                :key="item.id"
+                class="drag-el"
+                draggable="true"
+                @dragstart="startDrag($event, item)">
+              {{ item.textEn }}
+            </div>
+          </div>
+          <div v-else>
+            <div
+                v-for="item in getList(2)"
+                :key="item.id"
+                class="drag-el"
+                draggable="true"
+                @dragstart="startDrag($event, item)">
+              {{ item.textDe }}
+            </div>
+          </div>
+        </div>
+        <div
+            class="drop-zone"
+            @drop="onDrop($event,3)"
+            @dragenter.prevent
+            @dragover.prevent>
+          <h2 class="screenplayPlotHeader">{{ $t('act3') }}</h2>
+          <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+            <div
+                v-for="item in getList(3)"
+                :key="item.id"
+                class="drag-el"
+                draggable="true"
+                @dragstart="startDrag($event, item)">
+              {{ item.textEn }}
+            </div>
+          </div>
+          <div v-else>
+            <div
+                v-for="item in getList(3)"
+                :key="item.id"
+                class="drag-el"
+                draggable="true"
+                @dragstart="startDrag($event, item)">
+              {{ item.textDe }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p id="screenplayPlotWarningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
+
+      <div id="screenplayPlotButtonDiv">
+        <div id="screenplayPlotButtonInnerDiv">
+          <custom-button
+              id="addCharacterMomentButton"
+              class="screenplayPlotAddButtons"
+              :dark="false"
+              size="small"
+              @clicked="characterMomentButtonClick">{{ $t('addCharacterMoment') }}</custom-button>
+          <custom-button
+              id="addSettingButton"
+              class="screenplayPlotAddButtons"
+              :dark="false"
+              size="small"
+              @clicked="settingButtonClick">{{ $t('addLocation') }}</custom-button>
+          <custom-button
+              id="addTimePeriodButton"
+              class="screenplayPlotAddButtons"
+              :dark="false"
+              size="small"
+              @clicked="timePeriodButtonClick">{{ $t('addTimePeriod') }}</custom-button>
+        </div>
+      </div>
+    </div>
+
     <div>
-      <button id="addCharacterMomentButton" class="buttonStyle" @click="characterMomentButtonClick">{{ $t('addCharacterMoment') }}</button>
-      <button id="addSettingButton" class="buttonStyle" @click="settingButtonClick">{{ $t('addLocation') }}</button>
-      <button id="addTimePeriodButton" class="buttonStyle" @click="timePeriodButtonClick">{{ $t('addTimePeriod') }}</button>
+      <icon-button
+          v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
+          id="screenplayPlotBackButton"
+          icon="simple-arrow-left"
+          size="medium"
+          :dark="true"
+          :bg-gradient="true"
+          :icon-gradient="false"
+          :shadow="false"
+          @click="goBack"/>
+      <router-link :to="{name: 'hireWriter'}">
+        <custom-button
+            id="screenplayPlotContinueButton"
+            :dark="false"
+            size="medium"
+            :disabled="true"
+            @clicked="clickButton">{{ $t('continue')}}</custom-button>
+      </router-link>
     </div>
-
-    <transition name="modal">
-      <time-period-modal
-          v-if="showTimePeriodModal"
-          @close="showTimePeriodModal = false"
-          @send-time-period="addTimePeriod">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </time-period-modal>
-    </transition>
-
-    <transition name="modal">
-      <character-moments-modal
-          v-if="showCharacterMomentsModal"
-          @close="showCharacterMomentsModal = false"
-          @send-character-moments="addCharacterMoments">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </character-moments-modal>
-    </transition>
-
-    <transition name="modal">
-      <setting-modal
-          v-if="showSettingModal"
-          @close="showSettingModal = false"
-          @send-setting="addSetting">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </setting-modal>
-    </transition>
-
-    <div id="dropZones">
-      <div
-          class="drop-zone"
-          @drop="onDrop($event,1)"
-          @dragenter.prevent
-          @dragover.prevent>
-        <h2>{{ $t('act1') }}</h2>
-        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
-          <div
-              v-for="item in getList(1)"
-              :key="item.id"
-              class="drag-el"
-              draggable="true"
-              @dragstart="startDrag($event, item)">
-            {{ item.textEn }}
-          </div>
-        </div>
-        <div v-else>
-          <div
-              v-for="item in getList(1)"
-              :key="item.id"
-              class="drag-el"
-              draggable="true"
-              @dragstart="startDrag($event, item)">
-            {{ item.textDe }}
-          </div>
-        </div>
-      </div>
-      <div
-          class="drop-zone"
-          @drop="onDrop($event,2)"
-          @dragenter.prevent
-          @dragover.prevent>
-        <h2>{{ $t('act2') }}</h2>
-        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
-          <div
-              v-for="item in getList(2)"
-              :key="item.id"
-              class="drag-el"
-              draggable="true"
-              @dragstart="startDrag($event, item)">
-            {{ item.textEn }}
-          </div>
-        </div>
-        <div v-else>
-          <div
-              v-for="item in getList(2)"
-              :key="item.id"
-              class="drag-el"
-              draggable="true"
-              @dragstart="startDrag($event, item)">
-            {{ item.textDe }}
-          </div>
-        </div>
-      </div>
-      <div
-          class="drop-zone"
-          @drop="onDrop($event,3)"
-          @dragenter.prevent
-          @dragover.prevent>
-        <h2>{{ $t('act3') }}</h2>
-        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
-          <div
-              v-for="item in getList(3)"
-              :key="item.id"
-              class="drag-el"
-              draggable="true"
-              @dragstart="startDrag($event, item)">
-            {{ item.textEn }}
-          </div>
-        </div>
-        <div v-else>
-          <div
-              v-for="item in getList(3)"
-              :key="item.id"
-              class="drag-el"
-              draggable="true"
-              @dragstart="startDrag($event, item)">
-            {{ item.textDe }}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <p id="warningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
-    <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
-    <router-link :to="{name: 'screenplayDetails'}">
-      <button id="continueButton" :disabled="true" @click="clickButton">{{ $t('continue') }}</button>
-    </router-link>
 
     <div
         id="delete-zone"
@@ -145,11 +185,13 @@ import TimePeriodModal from "@/components/mainGameComponents/moviesMenu/createSc
 import CharacterMomentsModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/CharacterMomentsModal";
 import SettingModal from "@/components/mainGameComponents/moviesMenu/createScreenplay/SettingModal";
 import {i18next} from '@/translation/i18n'
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 
 
 export default {
   name: "ScreenplayPlot",
-  components: {SettingModal, CharacterMomentsModal, TimePeriodModal},
+  components: {IconButton, CustomButton, SettingModal, CharacterMomentsModal, TimePeriodModal},
   data(){
     return {
       showTimePeriodModal: false,
@@ -279,7 +321,7 @@ export default {
       let listTwo = this.getList(2);
       let listThree = this.getList(3);
 
-      document.getElementById('continueButton').disabled =
+      document.getElementById('screenplayPlotContinueButton').disabled =
           !((listTwo.filter((i) => i.type === 'setting').length === 1
                   && listOne.filter((i) => i.type === 'setting').length === 1
                   && listThree.filter((i) => i.type === 'setting').length === 1) &&
@@ -290,7 +332,7 @@ export default {
                   && listOne.filter((i) => i.type === 'characterMoment').length === 1
                   && listThree.filter((i) => i.type === 'characterMoment').length === 1));
 
-      document.getElementById('warningMsg').hidden = !document.getElementById('continueButton').disabled;
+      document.getElementById('screenplayPlotWarningMsg').hidden = !document.getElementById('screenplayPlotContinueButton').disabled;
     },
 
     checkMoment(chOne, chMoment, chTwo){
@@ -332,30 +374,55 @@ export default {
     },
 
     goBack(){
-      this.$router.push({name: 'screenplayCharacters'})
+      this.$router.push({name: 'newScreenplay'})
     }
   }
 }
 </script>
 
 <style scoped>
+#screenplayPlotMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#screenplayPlotBackground {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  width: 100%;
+}
+
 #dropZones {
   display: flex;
   flex-direction: row;
   gap: 3em;
+  width: 100%;
 }
 
 .drop-zone {
-  width: 50%;
-  margin: 50px auto;
-  background-color: #42b983;
-  padding: 10px;
+  width: 100%;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-bottom: 25px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 0 10px 10px 10px;
   min-height: 10px;
 }
 
+.screenplayPlotHeader {
+  margin-top: 10px !important;
+  text-align: center;
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+}
+
 .drag-el {
-  background-color: brown;
-  color: white;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
   padding: 5px;
   margin-bottom: 10px;
 }
@@ -366,5 +433,49 @@ export default {
 
 #delete-zone {
   background-color: red;
+}
+
+#screenplayPlotButtonDiv {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+#screenplayPlotButtonInnerDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  width: 50%;
+}
+
+.screenplayPlotAddButtons:disabled,
+#screenplayPlotContinueButton:disabled,
+#screenplayPlotContinueButton[disabled],
+.screenplayPlotAddButtons[disabled]{
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
+}
+
+#screenplayPlotWarningMsg {
+  text-align: center;
+  margin-top: 0 !important;
+}
+
+#screenplayPlotBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+#screenplayPlotContinueButton {
+  position: absolute;
+  float: right;
+  right: 100px;
+  bottom: 20px;
+  width: 15%;
 }
 </style>

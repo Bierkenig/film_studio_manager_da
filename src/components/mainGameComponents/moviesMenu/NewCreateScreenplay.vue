@@ -15,17 +15,17 @@
       <div class="createScreenplayBackground">
         <div>
           <h2 class="createScreenplayHeading">
-            General
+            {{ $t('general') }}
           </h2>
           <div class="createScreenplayBox">
             <div class="createScreenplayBoxInnerElement">
               <div>
-                <label id="createScreenplayNameLabel" for="createScreenplayName">Movie Name</label>
-                <input id="createScreenplayName" v-model="title" type="text" placeholder='Example Screenplay Title' />
+                <label id="createScreenplayNameLabel" for="createScreenplayName">{{ $t('newsData.movie') }} Name</label>
+                <input id="createScreenplayName" v-model="title" type="text" :placeholder="$t('screenplay') + ' ' + $t('newsData.title')" />
               </div>
               <div>
-                <label id="createScreenplayDescriptionLabel" for="createScreenplayDescription">Description</label>
-                <input id="createScreenplayDescription" v-model="desc" type="text" placeholder='Screenplay Description' />
+                <label id="createScreenplayDescriptionLabel" for="createScreenplayDescription">{{ $t('description') }}</label>
+                <input id="createScreenplayDescription" v-model="desc" type="text" :placeholder="$t('screenplay') + ' ' + $t('description')" />
               </div>
               <div id="radioBox">
                 <div id="typeHint">
@@ -112,7 +112,7 @@
               </div>
               <div id="radioBox">
                 <div id="typeHint">
-                  Topics
+                  {{ $t('topics') }}
                 </div>
                 <div id="createScreenplayTopicsSelect">
                   <select
@@ -146,19 +146,19 @@
             <div class="createScreenplayBoxInnerElement">
               <div id="scopeBox">
                 <div id="scopeHint">
-                  Scope
+                  {{ $t('scope') }}
                 </div>
                 <value-select id="scopeSelectElement" :type="selectedScope" :value-array="['Little','Small','Normal','Large','Epic']" type-of-values="Scope" @send-value="setSelectedScope"/>
               </div>
               <div id="toneBox">
                 <div id="toneHint">
-                  Tone
+                  {{ $t('tone') }}
                 </div>
                 <value-select id="toneSelectElement" :type="selectedTone" :value-array="['Depressing','Dark','Realistic','Upbeat','Lighthearted']" type-of-values="Tone" @send-value="setSelectedTone"/>
               </div>
               <div id="specialEffectsBox">
                 <div id="specialEffectsHint">
-                  Special Effects
+                  {{ $t('useOfSpecialEffects') }}
                 </div>
                 <value-select id="specialEffectsSelectElement" :type="selectedSpecialEffects" :value-array="['None','Some','Medium','Lots','Spectacle']" type-of-values="SpecialEffects" @send-value="setSelectedSpecialEffects"/>
               </div>
@@ -167,25 +167,25 @@
         </div>
         <div>
           <h2 class="createScreenplayHeading">
-            Age Rating
+            {{ $t('ageRating') }}
           </h2>
           <div class="createScreenplayBox">
             <div class="createScreenplayBoxInnerElement">
               <div id="violenceBox">
                 <div id="violenceHint">
-                  Violence
+                  {{ $t('violence') }}
                 </div>
                 <value-select id="violenceSelectElement" :type="selectedViolence" :value-array="['None','Mild','Intensive','Graphical','Realistic']" type-of-values="Violence" @send-value="setSelectedViolence"/>
               </div>
               <div id="cursingBox">
                 <div id="cursingHint">
-                  Cursing
+                  {{ $t('cursing') }}
                 </div>
                 <value-select id="cursingSelectElement" :type="selectedCursing" :value-array="['None','Mild','Strong','Crude','Offensive']" type-of-values="Cursing" @send-value="setSelectedCursing"/>
               </div>
               <div id="loveScenesEffectsBox">
                 <div id="loveScenesEffectsHint">
-                  Love Scenes
+                  {{ $t('loveScenes') }}
                 </div>
                 <value-select id="loveScenesSelectElement" :type="selectedLoveScenes" :value-array="['None','Suitable','Passionate','Steamy','Explicit']" type-of-values="LoveScenes" @send-value="setSelectedLoveScenes"/>
               </div>
@@ -194,7 +194,7 @@
         </div>
         <div>
           <h2 class="createScreenplayHeading">
-            Characters
+            {{ $t('character') }}
           </h2>
           <div class="createScreenplayBox">
             <div class="createScreenplayBoxInnerElement">
@@ -261,7 +261,7 @@
                   :dark="false"
                   size="small"
                   :disabled="characterName === '' || characterGender === null || characterRole === null"
-                  @clicked="saveCharacter">Add</custom-button>
+                  @clicked="saveCharacter">{{ $t('add') }}</custom-button>
             </div>
           </div>
         </div>
@@ -273,7 +273,7 @@
             || !selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
             || !selectedCursing || !selectedLoveScenes || numberOfMainCharacters === 0 ||
             numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0"
-            @clicked="continueCreateScreenplay">Continue</custom-button>
+            @clicked="continueCreateScreenplay">{{ $t('continue')}}</custom-button>
       </div>
     </div>
   </div>

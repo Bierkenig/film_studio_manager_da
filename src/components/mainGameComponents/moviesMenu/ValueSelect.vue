@@ -1,15 +1,24 @@
 <template>
   <div class="typeSelectPagesNavBarMainDiv">
     <div v-for="i in valueArray.length" :key="i" class="typeSelectPagesNavElement">
-      <input :id="'typeSelectPage' + typeOfValues + i"
+      <input v-if="typeOfValues === 'Scope' || typeOfValues === 'Tone' || typeOfValues === 'SpecialEffects' || typeOfValues === 'ScreenplayType'"
+             :id="'typeSelectPage' + typeOfValues + i"
              :value="valueArray[i-1]"
              v-model="selectedType"
              type="radio"
              class="typeSelectPageRadioButton"
              @change="sendValue"
       />
+      <input v-else
+             :id="'typeSelectPage' + typeOfValues + i"
+             :value="numberArray[i-1]"
+             v-model="selectedType"
+             type="radio"
+             class="typeSelectPageRadioButton"
+             @change="sendValue"
+      />
       <label :for="'typeSelectPage' + typeOfValues + i" :id="'typeSelectPageLabel' + typeOfValues + i" class="typeSelectPageRadioButtonLabel">
-        {{ valueArray[i-1] }}
+        {{ $t(valueArray[i-1].toLowerCase()) }}
       </label>
     </div>
   </div>
@@ -28,12 +37,8 @@ export default {
   data(){
     return {
       selectedType: this.type,
+      numberArray: [1,2,3,4,5]
     }
-  },
-
-  mounted() {
-    console.log(this.type);
-    console.log(this.valueArray);
   },
 
   methods: {
