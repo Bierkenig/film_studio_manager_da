@@ -46,14 +46,17 @@ export default {
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
         this.$router.push({name: 'createScreenplay'});
       } else if(this.headline === 'createMovie'){
-        //TODO: add function for create movie
-        console.log('ADD FUNCTION IN CODE')
+        this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){
         //TODO: add function for list sources
         console.log('ADD FUNCTION IN CODE')
       } else if(this.headline === 'listOfFranchises'){
         //TODO: add function for list franchises
         console.log('ADD FUNCTION IN CODE')
+        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
+        this.$router.push({name: 'newScreenplay'});
       }
     }
   }
