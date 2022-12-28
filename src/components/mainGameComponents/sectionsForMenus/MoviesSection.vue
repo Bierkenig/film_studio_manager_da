@@ -2,7 +2,10 @@
   <div class="moviesSection">
     <h1>{{ $t(headline) }}</h1>
     <div v-if="data.length !== 0" id="moviesSectionSelectDiv">
-      <select
+      <custom-select v-if="headline === 'contentManagement'" :options="['Contract','Owner','Popularity']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+      <custom-select v-if="headline === 'producedMovies'" :options="['Year','Earnings','Quality']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+      <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
+      <!--<select
           id="sortByWhat"
           class="moviesSectionSelect"
           onfocus="this.size=5;"
@@ -29,6 +32,17 @@
         <option value="Ascending">{{ $t('ascending') }}</option>
         <option value="Descending">{{ $t('descending') }}</option>
       </select>
+      <select
+          id="typeOfSort"
+          class="moviesSectionSelect"
+          onfocus="this.size=5;"
+          onblur="this.size=1;"
+          onchange="this.size=1; this.blur();"
+          v-model="selectedTypeOfSort"
+      >
+        <option value="Ascending">{{ $t('ascending') }}</option>
+        <option value="Descending">{{ $t('descending') }}</option>
+      </select>-->
     </div>
     <div class="moviesSectionDetails">
       <movie-element
@@ -63,9 +77,11 @@
 
 <script>
 import MovieElement from "@/components/kitchenSink/MovieElement.vue";
+import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
+import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
 export default {
   name: "MoviesSection",
-  components: {MovieElement},
+  components: {CustomListSort, CustomSelect, MovieElement},
 
   props: {
     headline: String
@@ -89,7 +105,7 @@ export default {
     }
   },
 
-  watch: {
+  /*watch: {
     selectedTypeOfSort: function (){
       this.sortMovieRights();
     },
@@ -97,9 +113,19 @@ export default {
     selectedSortByWhat: function (){
       this.sortMovieRights();
     }
-  },
+  },*/
 
   methods: {
+    setSelectedSortByWhat(arg){
+      this.selectedSortByWhat = arg;
+      this.sortMovieRights();
+    },
+
+    setSelectedTypeOfSort(arg){
+      this.selectedTypeOfSort = arg;
+      this.sortMovieRights();
+    },
+
     sortMovieRights(){
       if(this.headline === 'producedMovies'){
         /*if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Ascending'){
@@ -166,6 +192,7 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 15px;
+  width: 40%;
 }
 
 .moviesSectionSelect {

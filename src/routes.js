@@ -30,9 +30,12 @@ import Editor from "@/components/DB-Editor/Editor";
 import DirectorOutput from "@/components/DB-Editor/Entities/DirectorOutput";
 import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
 import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
+import NewCreateScreenplay from "@/components/mainGameComponents/moviesMenu/NewCreateScreenplay.vue";
 
 
 const routes = [
+    { name: 'newScreenplay', path: '/newScreenplay', component: NewCreateScreenplay, props: true },
+
     { name: 'kitchenSink', path: '/kitchenSink', component: KitchenSink, props: true },
     { name: 'viewServices', path: '/viewServices', component: ViewServices, props: true },
     { name: 'buyMovieRights', path: '/buyMovieRights', component: BuyMovieRights, props: true },

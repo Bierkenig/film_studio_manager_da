@@ -544,6 +544,16 @@ i18next
                     closeGameMsg: 'Do you want to close the game?',
                     goBackMenuMsg: 'Do you want to go backt to start menu?',
                     delete: 'Delete',
+                    general: 'General',
+                    add: 'Add',
+                    description: 'Description',
+                    animation: 'Animation',
+                    feature: 'Feature',
+                    indie: 'Indie',
+                    normal: 'Normal',
+                    mild: 'Mild',
+                    lighthearted: 'Lighthearted',
+                    suitable: 'Suitable'
                 }
             },
             de: {
@@ -915,6 +925,10 @@ i18next
                     closeGameMsg: 'Wollen Sie das Spiel wirklich beenden?',
                     goBackMenuMsg: 'Wollen Sie zum Startmenü zurück?',
                     delete: 'Löschen',
+                    general: 'Generell',
+                    add: 'Hinzufügen',
+                    lighthearted: 'Unbeschwert',
+                    suitable: 'Geeignet'
                 }
             }
         }

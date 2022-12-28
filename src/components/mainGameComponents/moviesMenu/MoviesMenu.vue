@@ -1,7 +1,7 @@
 <template>
   <div id="moviesMenuContainer">
     <div class="moviesMenuActionContainer">
-      <action-section headline="createScreenplay" info-text="createMovieInfoText" button-text="create" icon="action"/>
+      <action-section headline="createMovie" info-text="createMovieInfoText" button-text="create" icon="movies"/>
       <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open" icon="baseball"/>
       <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open" icon="settings"/>
     </div>

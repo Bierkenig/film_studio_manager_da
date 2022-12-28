@@ -3,7 +3,7 @@ import Franchises from "@/classes/Franchises";
 import {Character} from "@/classes/Character";
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, scope, franchise = null) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null) {
         //TYPE -> Integer
         this.id = id;
         //TYPE -> String
