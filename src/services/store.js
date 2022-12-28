@@ -708,7 +708,6 @@ export default createStore({
                  *                 "franchises",
                  *                 "otherStudios",
                  *                 "movieState",
-                 *                 "preProduction",
                  *                 "marketing",
                  *                 "streamingServicesFromOtherStudios",
                  *                 "ownStreamingService",
@@ -729,15 +728,28 @@ export default createStore({
             state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
             state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+
             //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
             // state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             // state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
             /**
              "events",
              "financialPerformance",
-             "preProduction",
              **/
 
+            state.preProduction = Screenplay.objectMapPerProperty(responseData.preProduction,{
+                isPreProduction: value => value,
+                currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
+                hiredDirector: obj => obj && Person.fromJSON(obj),
+                feature: value => value,
+                indie: value => value,
+                animated: value => value,
+                outgoings: value => value,
+                directorMood: value => value,
+                duration: value => value,
+                budget: value => value ,
+                budgetPop: value => value,
+            })
             console.log(state)
             //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))

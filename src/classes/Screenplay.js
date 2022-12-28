@@ -257,7 +257,8 @@ export class Screenplay {
         let instance = Object.assign(new Screenplay(), jsonObject)
         instance.writer = Person.fromJSON(jsonObject.writer)
         instance.franchise = Franchises.fromJSON(jsonObject.franchise)
-        instance.roles = this.objectMap(jsonObject.roles, characters => characters.map(entry => Character.fromJSON(entry)))
+        instance.roles = this.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
+        instance.actors = this.objectMap(jsonObject.actors, actors => actors.map(actor => Person.fromJSON(actor)))
         return instance
     }
 
@@ -271,8 +272,14 @@ export class Screenplay {
     static objectMap(obj, fn) {
         return Object.fromEntries(
             Object.entries(obj).map(
-                ([k, v], i) => [k, fn(v, k, i)]
+                ([key, value]) => [key, fn(value, key)]
             )
         )
+    }
+
+    static objectMapPerProperty(obj,mappingFunctions){
+        return this.objectMap(mappingFunctions, (mappingFunction, key) => {
+            return mappingFunction(obj[key])
+        })
     }
 }
