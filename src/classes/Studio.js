@@ -15,8 +15,8 @@ export class Studio {
     }
 
     static fromJSON(jsonObject){
-        let instance =  Object.assign(new Studio(), jsonObject)
-        instance.movies = jsonObject.movies.map(object => Movie.fromJSON(object))
+        let instance = Object.assign(new Studio(), jsonObject)
+        instance.movies = jsonObject.movies?.map(object => Movie.fromJSON(object)) || []
         return instance
     }
 

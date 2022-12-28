@@ -14,9 +14,6 @@ export default createStore({
     /** Application state */
     state:{
         slot: null,
-        dbCustomName1: null,
-        dbCustomName2: null,
-        dbCustomName3: null,
         screenplays: [new Screenplay(2, 'HIHIHI', "Feature", "Action",
             "Romantic","13+", "Bendedikt Smartus", "L", "100", "500000",
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined})],
@@ -90,12 +87,12 @@ export default createStore({
         //movies which are in currentProduction
         inProductionMovies: [new Movie(new Screenplay(2, 'FILM', null, null,
             null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
 
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, null,
             null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
         //nicht fertig
         calendarEvents: [
             {
@@ -203,17 +200,17 @@ export default createStore({
         //movies which you are owning (created, bought rights, bought movies)
         allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, null,
             null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
         //movies from other studios (no rights have been bought yet, non-owning movies)
         moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, null,
             null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022','Example Studio2',null),
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022',new Studio("Example Studio 2"),null),
             new Movie(new Screenplay(1, 'TEST2', null, null,
                 null,null, null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022','Example Studio1',null),
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022',new Studio("Example Studio 1"),null),
             new Movie(new Screenplay(3, 'TEST3', null, null,
                 null,null, null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','Example Studio3',null)],
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("Example Studio 1"),null)],
 
 
 
@@ -656,14 +653,20 @@ export default createStore({
                 "financialPerformance",
                 "inProductionMovies",
                 "finishedMovies",
-                "events",
+                "calendarEvents",
+                "happeningEvent",
                 "franchises",
                 "otherStudios",
                 "financialHistory",
                 "allYears",
+                "movieState",
                 "preProduction",
+                "marketing",
+                "streamingServicesFromOtherStudios",
+                "ownStreamingService",
+                "allOwningMovies",
+                "moviesFromOtherStudios",
                 "allDirectorSalary",
-                "ownStreamingService"
             ])
 
             return reducedState
@@ -676,7 +679,6 @@ export default createStore({
 
             Screenplay.transferProperties(responseData, state, [
                 "slot",
-                "hasEditedDB",
                 "balance",
                 "currentMovieBudget",
                 "currentMovieExpenses",
@@ -689,6 +691,31 @@ export default createStore({
                 "allOwningMovies",
                 "moviesFromOtherStudios",
                 "logo"
+
+                /**
+                 *
+                 *                 "screenplays",
+                 *                 "boughtScreenplays",
+                 *                 "studio",
+                 *                 "createdMovies",
+                 *                 "news",
+                 *                 "earnings",
+                 *                 "financialPerformance",
+                 *                 "inProductionMovies",
+                 *                 "finishedMovies",
+                 *                 "calendarEvents",
+                 *                 "happeningEvent",
+                 *                 "franchises",
+                 *                 "otherStudios",
+                 *                 "movieState",
+                 *                 "preProduction",
+                 *                 "marketing",
+                 *                 "streamingServicesFromOtherStudios",
+                 *                 "ownStreamingService",
+                 *                 "allOwningMovies",
+                 *                 "moviesFromOtherStudios",
+                 */
+
             ])
 
             state.currentDate = new Date(responseData.currentDate)

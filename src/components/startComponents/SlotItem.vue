@@ -78,6 +78,7 @@ export default {
       }
     })
 
+      //TODO use getName & getDate instead
     window.ipcRenderer.send('r2mLoading', this.slotNr)
     window.ipcRenderer.receive('m2rLoading', data => {
       if (data[0] !== null) {
