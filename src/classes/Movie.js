@@ -1,7 +1,7 @@
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
-//import {Studio} from "@/classes/Studio";
+import {Studio} from "@/classes/Studio";
 
 export class Movie {
     constructor(screenplay, date, owner, contract, director, popularity = {children: 0, teenager: 0, adult: 0}) {
@@ -113,7 +113,7 @@ export class Movie {
     static fromJSON(jsonObject){
         let instance = Object.assign(new Movie(), jsonObject)
         //TODO Cannot create Studio from String
-        //instance._owner = Studio.fromJSON(jsonObject._owner)
+        instance._owner = Studio.fromJSON(jsonObject._owner)
         instance._screenplay = Screenplay.fromJSON(jsonObject._screenplay)
         instance._date = new Date(jsonObject._date)
         instance.director = Person.fromJSON(jsonObject.director)

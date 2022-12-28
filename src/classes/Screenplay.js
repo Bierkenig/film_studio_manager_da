@@ -1,5 +1,6 @@
 import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
+import {Character} from "@/classes/Character";
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null) {
@@ -92,7 +93,7 @@ export class Screenplay {
         return this.rating;
     }
 
-    getPrice(){
+    getPrice() {
         return this.price;
     }
 
@@ -104,19 +105,19 @@ export class Screenplay {
         return this.subgenre;
     }
 
-    getActs(){
+    getActs() {
         return this.acts;
     }
 
-    getTopics(){
+    getTopics() {
         return this.topics;
     }
 
-    getDetails(){
+    getDetails() {
         return this.details;
     }
 
-    getAgeRatingDetails(){
+    getAgeRatingDetails() {
         return this.ageRatingDetails;
     }
 
@@ -124,7 +125,7 @@ export class Screenplay {
         return this.roles;
     }
 
-    getLength(){
+    getLength() {
         return this.length;
     }
 
@@ -132,30 +133,28 @@ export class Screenplay {
         return this.writingPhase;
     }
 
-    getRewritingStatus(){
+    getRewritingStatus() {
         return this.rewritingStatus;
     }
 
-    getRewritingValue(){
+    getRewritingValue() {
         return this.rewritingValue;
     }
 
-    getRatingRange(){
+    getRatingRange() {
         return this.ratingRange;
     }
 
 
-
-
-    setWriter(value){
+    setWriter(value) {
         this.writer = value;
     }
 
-    setRating(value){
+    setRating(value) {
         this.rating = value;
     }
 
-    setPrice(value){
+    setPrice(value) {
         this.price = value;
     }
 
@@ -199,51 +198,51 @@ export class Screenplay {
         this.roles.voiceOver.push(actor);
     }
 
-    setScope(value){
+    setScope(value) {
         this.details.scope = value;
     }
 
-    setTone(value){
+    setTone(value) {
         this.details.tone = value;
     }
 
-    setSpecialEffects(value){
+    setSpecialEffects(value) {
         this.details.specialEffects = value;
     }
 
-    setViolence(value){
+    setViolence(value) {
         this.ageRatingDetails.violence = value;
     }
 
-    setCursing(value){
+    setCursing(value) {
         this.ageRatingDetails.cursing = value;
     }
 
-    setLoveScenes(value){
+    setLoveScenes(value) {
         this.ageRatingDetails.loveScenes = value;
     }
 
-    setAgeRating(value){
+    setAgeRating(value) {
         this.ageRating = value;
     }
 
-    setLength(value){
+    setLength(value) {
         this.length = value;
     }
 
-    setWritingPhase(value){
+    setWritingPhase(value) {
         this.writingPhase = value;
     }
 
-    setRewritingStatus(value){
+    setRewritingStatus(value) {
         this.rewritingStatus = value;
     }
 
-    subtractRewriting(){
+    subtractRewriting() {
         this.rewritingValue = this.rewritingValue - 1;
     }
 
-    setRatingRange(value){
+    setRatingRange(value) {
         this.ratingRange = value;
     }
 
@@ -258,6 +257,8 @@ export class Screenplay {
         let instance = Object.assign(new Screenplay(), jsonObject)
         instance.writer = Person.fromJSON(jsonObject.writer)
         instance.franchise = Franchises.fromJSON(jsonObject.franchise)
+        instance.roles = this.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
+        instance.actors = this.objectMap(jsonObject.actors, actors => actors.map(actor => Person.fromJSON(actor)))
         return instance
     }
 
@@ -266,5 +267,19 @@ export class Screenplay {
             current[key] = from[key]
             return current
         }, to)
+    }
+
+    static objectMap(obj, fn) {
+        return Object.fromEntries(
+            Object.entries(obj).map(
+                ([key, value]) => [key, fn(value, key)]
+            )
+        )
+    }
+
+    static objectMapPerProperty(obj,mappingFunctions){
+        return this.objectMap(mappingFunctions, (mappingFunction, key) => {
+            return mappingFunction(obj[key])
+        })
     }
 }
