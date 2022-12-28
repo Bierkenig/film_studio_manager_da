@@ -1,6 +1,6 @@
 <template>
-  <div>
-    {{ $t('hireWriter') }}
+  <div id="hireWriterMainDiv">
+    <h1 id="hireWriterHeader">{{ $t('hireWriter') }}</h1>
     <div id="hireWriterBackground">
       <staff-list id="hireWriterList" :staff="data" @sendStaff="receiveStaff"/>
       <div id="hireWriterDetailsVertical">
@@ -12,7 +12,16 @@
             next-location="screenplayInformation"
             type="Writer"
         />
-        <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
+        <icon-button
+            v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
+            id="hireWriterBackButton"
+            icon="simple-arrow-left"
+            size="medium"
+            :dark="true"
+            :bg-gradient="true"
+            :icon-gradient="false"
+            :shadow="false"
+            @click="goBack"/>
       </div>
     </div>
   </div>
@@ -21,9 +30,10 @@
 <script>
 import StaffList from "@/components/mainGameComponents/StaffList";
 import StaffDetails from '@/components/mainGameComponents/StaffDetails';
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 export default {
   name: "HireWriter",
-  components: {StaffList, StaffDetails},
+  components: {IconButton, StaffList, StaffDetails},
 
   data() {
     return {
@@ -47,17 +57,41 @@ export default {
     },
 
     goBack(){
-      this.$router.push({name: 'screenplayDetails'})
+      this.$router.push({name: 'screenplayPlot'})
     }
   }
 }
 </script>
 
 <style scoped>
+#hireWriterMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 #hireWriterBackground {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap: 10em;
+  gap: 35px;
+}
+
+#hireWriterBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+#hireWriterHeader {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
 }
 </style>

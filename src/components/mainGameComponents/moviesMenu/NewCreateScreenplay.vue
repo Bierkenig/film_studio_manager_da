@@ -12,7 +12,7 @@
             :shadow="false"
             @click="goBack()"/>
       </div>
-      <div class="createScreenplayBackground">
+      <div class="createScreenplayBackground verticalScroll">
         <div>
           <h2 class="createScreenplayHeading">
             {{ $t('general') }}
@@ -201,7 +201,7 @@
               <div id="characterBox">
                 <div id="createScreenplayCharacterLeftSection">
                   <div id="createScreenplayCharacterLeftSectionInnerBox">
-                    <div id="createScreenplayCharacterLeftSectionInnerBoxElements">
+                    <div id="createScreenplayCharacterLeftSectionInnerBoxElements" class="verticalScroll">
                       <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
                         <div>{{ it.name }}</div>
                         <div>{{ $t('main') }}</div>
@@ -468,7 +468,6 @@ export default {
   width: 600px;
   height: 750px;
   padding: 10px 20px 10px 20px;
-  overflow-y: scroll;
 }
 
 /*Back Button Design*/
@@ -620,8 +619,6 @@ input[type='radio']:checked:after {
   gap: 10px;
   height: 160px;
   width: 90%;
-  overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 #createScreenplayCharacterAddButton {

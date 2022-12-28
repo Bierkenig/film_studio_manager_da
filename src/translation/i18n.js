@@ -555,6 +555,8 @@ i18next
                     lighthearted: 'Lighthearted',
                     suitable: 'Suitable',
                     deleteItem: 'Delete Item',
+                    nationality: 'Nationality',
+                    experience: 'Experience',
                 }
             },
             de: {
@@ -931,6 +933,8 @@ i18next
                     lighthearted: 'Unbeschwert',
                     suitable: 'Geeignet',
                     deleteItem: 'Element löschen',
+                    nationality: 'Nationalität',
+                    experience: 'Erfahrung',
                 }
             }
         }

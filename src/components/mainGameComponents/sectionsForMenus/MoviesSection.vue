@@ -44,7 +44,7 @@
         <option value="Descending">{{ $t('descending') }}</option>
       </select>-->
     </div>
-    <div class="moviesSectionDetails">
+    <div class="moviesSectionDetails verticalScroll">
       <movie-element
           class="moviesSectionMovieElement"
           v-for="(it,index) in data"
@@ -52,9 +52,9 @@
           :movie-title="it._title"
           viewers="99"
           critics="99"
-          age="+13"
-          genre="Comedy"
-          genre-icon="comedy"
+          :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]"
+          :genre="it._screenplay.genre"
+          :genre-icon="it._screenplay.genre.toLowerCase()"
           budget="$ 9,999"
           earnings="$ 999,999"/>
       <!--<movie-element
@@ -181,11 +181,6 @@ export default {
   margin-top: 15px;
   gap: 15px;
   height: 400px;
-  overflow-y: scroll;
-}
-
-.moviesSectionMovieElement {
-  margin-right: 10px;
 }
 
 #moviesSectionSelectDiv {
@@ -193,14 +188,5 @@ export default {
   flex-direction: row;
   gap: 15px;
   width: 40%;
-}
-
-.moviesSectionSelect {
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-s-border-radius);
-  border-style: none;
-  font-size: 15px;
-  padding: 7px;
-  outline: none;
 }
 </style>

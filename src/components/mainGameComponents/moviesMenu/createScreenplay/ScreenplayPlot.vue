@@ -158,7 +158,7 @@
             <div>{{ this.minScreenplayLength }}</div>
             <input type="range" :min="this.minScreenplayLength" :max="300" :step="1"
                    v-model="screenplayLength" style="outline: none" @change="checkStatusOfLists">
-            <div>30s0</div>
+            <div>300</div>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ export default createStore({
     state:{
         slot: null,
         screenplays: [new Screenplay(2, 'HIHIHI', "Feature", "Action",
-            "Romantic","13+", "Bendedikt Smartus", "L", "100", "500000",
+            "Romantic","PG / +13", "Bendedikt Smartus", "L", "100", "500000",
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined})],
         boughtScreenplays: [],
         studio: new Studio('NO STUDIO'),
@@ -85,14 +85,26 @@ export default createStore({
             }
         ],
         //movies which are in currentProduction
-        inProductionMovies: [new Movie(new Screenplay(2, 'FILM', null, null,
-            null,null, null, null, null, null,
+        inProductionMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Western',
+            null,'NC-17 / +18', null, null, null, null,
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
 
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, null,
-            null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Action',
+            null,"PG / +13", null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+            new Movie(new Screenplay(2, 'HIHIHI', null, 'Comedy',
+                null,'NC-17 / +18', null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+            new Movie(new Screenplay(2, 'HIHIHI', null, 'Western',
+                null,"PG / +13", null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+            new Movie(new Screenplay(2, 'HIHIHI', null, 'War',
+                null,"PG / +13", null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+            new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
+                null,"PG / +13", null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
         //nicht fertig
         calendarEvents: [
             {
@@ -198,18 +210,18 @@ export default createStore({
             new StreamingService('HUA Studio',1,0,0,'HU')],
         ownStreamingService: null,
         //movies which you are owning (created, bought rights, bought movies)
-        allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, null,
-            null,null, null, null, null, null,
+        allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, 'Action',
+            null,"PG / +13", null, null, null, null,
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
         //movies from other studios (no rights have been bought yet, non-owning movies)
-        moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, null,
-            null,null, null, null, null, null,
+        moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, 'Comedy',
+            null,"PG / +13", null, null, null, null,
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022',new Studio("Example Studio 2"),null),
-            new Movie(new Screenplay(1, 'TEST2', null, null,
-                null,null, null, null, null, null,
+            new Movie(new Screenplay(1, 'TEST2', null, 'Western',
+                null,"PG / +13", null, null, null, null,
                 {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022',new Studio("Example Studio 1"),null),
-            new Movie(new Screenplay(3, 'TEST3', null, null,
-                null,null, null, null, null, null,
+            new Movie(new Screenplay(3, 'TEST3', null, 'War',
+                null,"PG / +13", null, null, null, null,
                 {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("Example Studio 1"),null)],
 
 

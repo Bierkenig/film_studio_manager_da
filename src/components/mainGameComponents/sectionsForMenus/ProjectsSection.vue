@@ -7,21 +7,21 @@
         <div>
           <div v-for="(it, index) in this.all" :key="index">
             <div v-if="it.earnings === undefined">
-              <screenplay-element svg-code="" :screenplay-title="it.title" :age="it.ageRating" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer" />
+              <screenplay-element svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" />
             </div>
             <div v-else>
-              <movie-element svg-code="" :movie-title="it._title" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
+              <movie-element svg-code="" :movie-title="it._title" viewers="99" critics="99" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
             </div>
             </div>
           </div>
         <div>
           <div v-for="(it, index) in this.screenplays" :key="index">
-            <screenplay-element svg-code="" :screenplay-title="it.title"  :age="it.ageRating" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer" />
+            <screenplay-element svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" />
           </div>
         </div>
         <div>
           <div v-for="(it, index) in this.productions" :key="index">
-            <movie-element svg-code="" :movie-title="it._title" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
+            <movie-element svg-code="" :movie-title="it._title" viewers="99" critics="99" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
           </div>
         </div>
       </tile-pages-nav>
@@ -40,7 +40,7 @@ export default {
     return {
       all: this.$store.getters.getScreenplays.concat(this.$store.getters.getInProductionMovies),
       screenplays: this.$store.getters.getScreenplays,
-      productions: this.$store.getters.getInProductionMovies
+      productions: this.$store.getters.getInProductionMovies,
     }
   },
 }
