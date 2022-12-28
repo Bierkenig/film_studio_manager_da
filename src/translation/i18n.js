@@ -553,7 +553,8 @@ i18next
                     normal: 'Normal',
                     mild: 'Mild',
                     lighthearted: 'Lighthearted',
-                    suitable: 'Suitable'
+                    suitable: 'Suitable',
+                    deleteItem: 'Delete Item',
                 }
             },
             de: {
@@ -928,7 +929,8 @@ i18next
                     general: 'Generell',
                     add: 'Hinzufügen',
                     lighthearted: 'Unbeschwert',
-                    suitable: 'Geeignet'
+                    suitable: 'Geeignet',
+                    deleteItem: 'Element löschen',
                 }
             }
         }

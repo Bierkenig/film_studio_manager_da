@@ -6,10 +6,11 @@
 
           <div class="modal-body">
             <slot name="body">
-              <fieldset>
-                <legend>{{ $t('timePeriod') }}</legend>
+              <h2 class="timePeriodModalHeader">{{ $t('timePeriod') }}</h2>
+              <div id="timePeriodModalSelectSection">
                 <select
                     id="timePeriod"
+                    class="timePeriodModalSelect"
                     onfocus="this.size=5;"
                     onblur="this.size=1;"
                     onchange="this.size=1; this.blur();"
@@ -37,6 +38,7 @@
                 </select>
                 <select
                     id="act"
+                    class="timePeriodModalSelect"
                     onfocus="this.size=5;"
                     onblur="this.size=1;"
                     onchange="this.size=1; this.blur();"
@@ -47,18 +49,23 @@
                   <option :value="2">{{ $t('act2') }}</option>
                   <option :value="3">{{ $t('act3') }}</option>
                 </select>
-              </fieldset>
+              </div>
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer timePeriodModalFooter">
             <slot name="footer">
-              <button class="modal-default-button" @click="$emit('close')">
-                {{ $t('close') }}
-              </button>
-              <button class="modal-default-button" @click="sendTimePeriod" :disabled="!selectedTimePeriod || !selectedAct">
-                {{ $t('save') }}
-              </button>
+              <custom-button
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  :disabled="!selectedTimePeriod || !selectedAct"
+                  @clicked="sendTimePeriod">{{ $t('save') }}</custom-button>
+              <custom-button
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  @clicked="$emit('close')">{{ $t('close') }}</custom-button>
             </slot>
           </div>
         </div>
@@ -68,8 +75,11 @@
 </template>
 
 <script>
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "TimePeriodModal",
+  components: {CustomButton},
 
   data(){
     return {
@@ -116,9 +126,9 @@ export default {
 .modal-container {
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
+  padding: 5px 30px 20px 30px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
@@ -150,10 +160,53 @@ export default {
   opacity: 0;
 }
 
+.timePeriodModalFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px
+}
+
+.timePeriodModalHeader {
+  font-weight: var(--fsm-fw-bold) !important;
+  color: var(--fsm-pink-1) !important;
+}
+
+.timePeriodModalSelect {
+  margin-top: 10px;
+  font-size: 15px;
+  padding: 0.25em;
+  border-radius: 10px;
+  position: relative;
+  background-color: var(--fsm-dark-blue-4);
+  display: inline-block;
+  visibility: visible;
+  border-style: none;
+  outline: none;
+}
+
+#timePeriodModalSelectSection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .modal-enter-active .modal-container,
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+option:disabled,
+option[disabled]{
+  color: #848891;
+  border-radius: var(--fsm-s-border-radius);
+}
+
+.modal-default-button:disabled,
+.modal-default-button[disabled] {
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
 }
 
 </style>

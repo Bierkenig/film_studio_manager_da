@@ -201,25 +201,27 @@
               <div id="characterBox">
                 <div id="createScreenplayCharacterLeftSection">
                   <div id="createScreenplayCharacterLeftSectionInnerBox">
-                    <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
-                      <div>{{ it.name }}</div>
-                      <div>{{ $t('main') }}</div>
-                    </div>
-                    <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.support" :key="index">
-                      <div>{{ it.name }}</div>
-                      <div>{{ $t('support') }}</div>
-                    </div>
-                    <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.minor" :key="index">
-                      <div>{{ it.name }}</div>
-                      <div>Minor</div>
-                    </div>
-                    <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.cameo" :key="index">
-                      <div>{{ it.name }}</div>
-                      <div>Cameo</div>
-                    </div>
-                    <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.voiceOver" :key="index">
-                      <div>{{ it.name }}</div>
-                      <div>{{ $t('voiceOver') }}</div>
+                    <div id="createScreenplayCharacterLeftSectionInnerBoxElements">
+                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
+                        <div>{{ it.name }}</div>
+                        <div>{{ $t('main') }}</div>
+                      </div>
+                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.support" :key="index">
+                        <div>{{ it.name }}</div>
+                        <div>{{ $t('support') }}</div>
+                      </div>
+                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.minor" :key="index">
+                        <div>{{ it.name }}</div>
+                        <div>Minor</div>
+                      </div>
+                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.cameo" :key="index">
+                        <div>{{ it.name }}</div>
+                        <div>Cameo</div>
+                      </div>
+                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.voiceOver" :key="index">
+                        <div>{{ it.name }}</div>
+                        <div>{{ $t('voiceOver') }}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -248,11 +250,11 @@
                       v-model="characterRole"
                   >
                     <option :value="null" disabled selected hidden>{{ $t('castAs') }}</option>
-                    <option value="main" :disabled="numberOfMainCharacters === 5">{{ $t('main') }}</option>
-                    <option value="support" :disabled="numberOfSupportCharacters === 5">{{ $t('support') }}</option>
-                    <option value="minor" :disabled="numberOfMinorCharacters === 5">Minor</option>
-                    <option value="cameo" :disabled="numberOfCameoCharacters === 5">Cameo</option>
-                    <option value="voiceOver" :disabled="numberOfVoiceOverCharacters === 5">{{ $t('voiceOver') }}</option>
+                    <option value="main" :disabled="numberOfMainCharacters === 3">{{ $t('main') }}</option>
+                    <option value="support" :disabled="numberOfSupportCharacters === 3">{{ $t('support') }}</option>
+                    <option value="minor" :disabled="numberOfMinorCharacters === 3">Minor</option>
+                    <option value="cameo" :disabled="numberOfCameoCharacters === 3">Cameo</option>
+                    <option value="voiceOver" :disabled="numberOfVoiceOverCharacters === 3">{{ $t('voiceOver') }}</option>
                   </select>
                 </div>
               </div>
@@ -609,8 +611,17 @@ input[type='radio']:checked:after {
   flex-direction: column;
   align-items: center;
   padding-top: 10px;
-  padding-bottom: 10px;
   gap: 10px;
+}
+
+#createScreenplayCharacterLeftSectionInnerBoxElements {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 160px;
+  width: 90%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #createScreenplayCharacterAddButton {
@@ -639,11 +650,15 @@ input[type='radio']:checked:after {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 5px 10px 5px 10px;
   width: 85%;
-  height: 25px;
   background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+}
+
+option:disabled,
+option[disabled]{
+  color: #848891;
   border-radius: var(--fsm-s-border-radius);
 }
 </style>

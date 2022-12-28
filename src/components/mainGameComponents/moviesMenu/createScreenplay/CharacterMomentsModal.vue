@@ -6,93 +6,99 @@
 
           <div class="modal-body">
             <slot name="body">
-              <fieldset>
-                <legend>{{ $t('characterMoments') }}</legend>
-                <div>
-                  <select
-                      id="characterOne"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
-                      @change="selectCharacterOne($event)"
-                  >
-                    <option value="" disabled selected hidden>{{ $t('character') }} 1</option>
-                    <option
-                        v-for="(item, index) in this.allCharacters"
-                        :key="index"
-                        :value="index">{{ item.name }}</option>
-                  </select>
-                  <select
-                      id="characterMoment"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
-                      @change="selectMoment($event)"
-                  >
-                    <option value="" disabled selected hidden>{{ $t('moment') }}</option>
-                    <option value="dies">{{ $t('dies') }}</option>
-                    <option value="kills">{{ $t('kills') }}</option>
-                    <option value="defies">{{ $t('defies') }}</option>
-                    <option value="losesTo">{{ $t('losesTo') }}</option>
-                    <option value="escapes">{{ $t('escapes') }}</option>
-                    <option value="isCaptured">{{ $t('isCaptured') }}</option>
-                    <option value="runsAway">{{ $t('runsAway') }}</option>
-                    <option value="isOnAMission">{{ $t('isOnAMission') }}</option>
-                    <option value="completesTheMission">{{ $t('completesTheMission') }}</option>
-                    <option value="losesSomeoneImportant">{{ $t('losesSomeoneImportant') }}</option>
-                    <option value="isAlive">{{ $t('isAlive') }}</option>
-                    <option value="helps">{{ $t('helps') }}</option>
-                    <option value="sendsOnAMission">{{ $t('sendsOnAMission') }}</option>
-                    <option value="fights">{{ $t('fights') }}</option>
-                    <option value="letsGo">{{ $t('letsGo') }}</option>
-                    <option value="fallsInLoveWith">{{ $t('fallsInLoveWith') }}</option>
-                  </select>
-                  <select
-                      id="characterTwo"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
-                      :disabled="selectedMoment === 'dies' || selectedMoment === 'escapes' || selectedMoment === 'isCaptured' ||
-                                  selectedMoment === 'runsAway' || selectedMoment === 'isOnAMission' || selectedMoment === 'completesTheMission' ||
-                                  selectedMoment === 'losesSomeoneImportant' || selectedMoment === 'isAlive'"
-                      @change="selectCharacterTwo($event)"
-                  >
-                    <option value="" disabled selected hidden>{{ $t('character') }} 2</option>
-                    <option
-                        v-for="(item, index) in this.allCharacters"
-                        :key="index"
-                        :value="index"
-                        :disabled="selectedCharacterOne === index">{{ item.name }}</option>
-                  </select>
-                </div>
+              <h2 class="characterMomentHeader">{{ $t('characterMoments') }}</h2>
+              <div id="characterMomentPersonDiv">
                 <select
-                    id="act"
+                    id="characterOne"
+                    class="characterMomentSelect"
                     onfocus="this.size=5;"
                     onblur="this.size=1;"
                     onchange="this.size=1; this.blur();"
-                    @change="selectAct($event)"
+                    @change="selectCharacterOne($event)"
                 >
-                  <option value="" disabled selected hidden>{{ $t('acts') }}</option>
-                  <option :value="1">{{ $t('act1') }}</option>
-                  <option :value="2">{{ $t('act2') }}</option>
-                  <option :value="3">{{ $t('act3') }}</option>
+                  <option value="" disabled selected hidden>{{ $t('character') }} 1</option>
+                  <option
+                      v-for="(item, index) in this.allCharacters"
+                      :key="index"
+                      :value="index">{{ item.name }}</option>
                 </select>
-              </fieldset>
+                <select
+                    id="characterMoment"
+                    class="characterMomentSelect"
+                    onfocus="this.size=5;"
+                    onblur="this.size=1;"
+                    onchange="this.size=1; this.blur();"
+                    @change="selectMoment($event)"
+                >
+                  <option value="" disabled selected hidden>{{ $t('moment') }}</option>
+                  <option value="dies">{{ $t('dies') }}</option>
+                  <option value="kills">{{ $t('kills') }}</option>
+                  <option value="defies">{{ $t('defies') }}</option>
+                  <option value="losesTo">{{ $t('losesTo') }}</option>
+                  <option value="escapes">{{ $t('escapes') }}</option>
+                  <option value="isCaptured">{{ $t('isCaptured') }}</option>
+                  <option value="runsAway">{{ $t('runsAway') }}</option>
+                  <option value="isOnAMission">{{ $t('isOnAMission') }}</option>
+                  <option value="completesTheMission">{{ $t('completesTheMission') }}</option>
+                  <option value="losesSomeoneImportant">{{ $t('losesSomeoneImportant') }}</option>
+                  <option value="isAlive">{{ $t('isAlive') }}</option>
+                  <option value="helps">{{ $t('helps') }}</option>
+                  <option value="sendsOnAMission">{{ $t('sendsOnAMission') }}</option>
+                  <option value="fights">{{ $t('fights') }}</option>
+                  <option value="letsGo">{{ $t('letsGo') }}</option>
+                  <option value="fallsInLoveWith">{{ $t('fallsInLoveWith') }}</option>
+                </select>
+                <select
+                    id="characterTwo"
+                    class="characterMomentSelect"
+                    onfocus="this.size=5;"
+                    onblur="this.size=1;"
+                    onchange="this.size=1; this.blur();"
+                    :disabled="selectedMoment === 'dies' || selectedMoment === 'escapes' || selectedMoment === 'isCaptured' ||
+                                selectedMoment === 'runsAway' || selectedMoment === 'isOnAMission' || selectedMoment === 'completesTheMission' ||
+                                selectedMoment === 'losesSomeoneImportant' || selectedMoment === 'isAlive'"
+                    @change="selectCharacterTwo($event)"
+                >
+                  <option value="" disabled selected hidden>{{ $t('character') }} 2</option>
+                  <option
+                      v-for="(item, index) in this.allCharacters"
+                      :key="index"
+                      :value="index"
+                      :disabled="selectedCharacterOne === index">{{ item.name }}</option>
+                </select>
+              </div>
+              <select
+                  id="act"
+                  class="characterMomentSelect"
+                  onfocus="this.size=5;"
+                  onblur="this.size=1;"
+                  onchange="this.size=1; this.blur();"
+                  @change="selectAct($event)"
+              >
+                <option value="" disabled selected hidden>{{ $t('acts') }}</option>
+                <option :value="1">{{ $t('act1') }}</option>
+                <option :value="2">{{ $t('act2') }}</option>
+                <option :value="3">{{ $t('act3') }}</option>
+              </select>
             </slot>
           </div>
 
-          <div class="modal-footer">
+          <div class="modal-footer characterMomentFooter">
             <slot name="footer">
-              <button class="modal-default-button" @click="$emit('close')">
-                {{ $t('close') }}
-              </button>
-              <button class="modal-default-button" @click="sendCharacterMoments"
-                      :disabled="selectedCharacterOne == null || !selectedMoment || !selectedAct || ((selectedMoment === 'kills'
+              <custom-button
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  :disabled="selectedCharacterOne == null || !selectedMoment || !selectedAct || ((selectedMoment === 'kills'
                                   || selectedMoment === 'defies' || selectedMoment === 'losesTo' || selectedMoment === 'helps'
                                   || selectedMoment === 'sendsOnAMission' || selectedMoment === 'fights'
-                                  || selectedMoment === 'letsGo' || selectedMoment === 'fallsInLoveWith') && !selectedCharacterTwo)">
-                {{ $t('save') }}
-              </button>
+                                  || selectedMoment === 'letsGo' || selectedMoment === 'fallsInLoveWith') && !selectedCharacterTwo)"
+                  @clicked="sendCharacterMoments">{{ $t('save') }}</custom-button>
+              <custom-button
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  @clicked="$emit('close')">{{ $t('close') }}</custom-button>
             </slot>
           </div>
         </div>
@@ -103,8 +109,11 @@
 
 <script>
 
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "CharacterMomentsModal",
+  components: {CustomButton},
 
   data(){
     return {
@@ -181,9 +190,9 @@ export default {
 .modal-container {
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
+  padding: 5px 30px 20px 30px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
@@ -221,4 +230,53 @@ export default {
   transform: scale(1.1);
 }
 
+.characterMomentSelect {
+  margin-top: 10px;
+  font-size: 15px;
+  padding: 0.25em;
+  width: 30%;
+  border-radius: 10px;
+  position: relative;
+  background-color: var(--fsm-dark-blue-4);
+  display: inline-block;
+  visibility: visible;
+  border-style: none;
+  outline: none;
+}
+
+.characterMomentFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px
+}
+
+.characterMomentHeader {
+  font-weight: var(--fsm-fw-bold) !important;
+  color: var(--fsm-pink-1) !important;
+}
+
+#characterMomentPersonDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+option:disabled,
+option[disabled]{
+  color: #848891;
+  border-radius: var(--fsm-s-border-radius);
+}
+
+.modal-default-button:disabled,
+.modal-default-button[disabled] {
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
+}
+
+#act {
+  width: 100%;
+}
 </style>
