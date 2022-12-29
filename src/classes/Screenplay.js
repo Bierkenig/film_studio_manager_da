@@ -1,6 +1,7 @@
 import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
 import {Character} from "@/classes/Character";
+import DataUtil from "@/classes/DataUtil"
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null) {
@@ -257,29 +258,9 @@ export class Screenplay {
         let instance = Object.assign(new Screenplay(), jsonObject)
         instance.writer = Person.fromJSON(jsonObject.writer)
         instance.franchise = Franchises.fromJSON(jsonObject.franchise)
-        instance.roles = this.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
-        instance.actors = this.objectMap(jsonObject.actors, actors => actors.map(actor => Person.fromJSON(actor)))
+        instance.roles = DataUtil.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
+        instance.actors = DataUtil.objectMap(jsonObject.actors, actors => actors.map(actor => Person.fromJSON(actor)))
         return instance
     }
 
-    static transferProperties(from, to, keys) {
-        return keys.reduce((current, key) => {
-            current[key] = from[key]
-            return current
-        }, to)
-    }
-
-    static objectMap(obj, fn) {
-        return Object.fromEntries(
-            Object.entries(obj).map(
-                ([key, value]) => [key, fn(value, key)]
-            )
-        )
-    }
-
-    static objectMapPerProperty(obj,mappingFunctions){
-        return this.objectMap(mappingFunctions, (mappingFunction, key) => {
-            return mappingFunction(obj[key])
-        })
-    }
 }

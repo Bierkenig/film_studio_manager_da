@@ -9,6 +9,7 @@ import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
+import DataUtil from "@/classes/DataUtil";
 
 export default createStore({
     /** Application state */
@@ -646,7 +647,7 @@ export default createStore({
         },
 
         stateToSave(state, reducedState){
-            Screenplay.transferProperties(state, reducedState, [
+            DataUtil.transferProperties(state, reducedState, [
                 "slot",
                 "screenplays",
                 "boughtScreenplays",
@@ -689,7 +690,7 @@ export default createStore({
             // Object.keys(state).forEach(key => delete state[key]);
             // Object.assign(state, responseData)
 
-            Screenplay.transferProperties(responseData, state, [
+            DataUtil.transferProperties(responseData, state, [
                 "slot",
                 "balance",
                 "currentMovieBudget",
@@ -698,6 +699,7 @@ export default createStore({
                 "backgroundMusic",
                 "currentLanguage",
                 "financialHistory",
+                "financialPerformance",
                 "allYears",
                 "allDirectorSalary",
                 "allOwningMovies",
@@ -706,25 +708,18 @@ export default createStore({
 
                 /**
                  *
-                 *                 "screenplays",
-                 *                 "boughtScreenplays",
-                 *                 "studio",
-                 *                 "createdMovies",
                  *                 "news",
                  *                 "earnings",
-                 *                 "financialPerformance",
-                 *                 "inProductionMovies",
-                 *                 "finishedMovies",
                  *                 "calendarEvents",
                  *                 "happeningEvent",
-                 *                 "franchises",
+                 *                 //Store Daten falsch
                  *                 "otherStudios",
+                 *                 //Store Daten leer
                  *                 "movieState",
+                 *                 //Store Daten leer
                  *                 "marketing",
                  *                 "streamingServicesFromOtherStudios",
                  *                 "ownStreamingService",
-                 *                 "allOwningMovies",
-                 *                 "moviesFromOtherStudios",
                  */
 
             ])
@@ -742,14 +737,14 @@ export default createStore({
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
 
             //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
-            // state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            // state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
             /**
              "events",
              "financialPerformance",
              **/
 
-            state.preProduction = Screenplay.objectMapPerProperty(responseData.preProduction,{
+            state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
                 isPreProduction: value => value,
                 currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
                 hiredDirector: obj => obj && Person.fromJSON(obj),
