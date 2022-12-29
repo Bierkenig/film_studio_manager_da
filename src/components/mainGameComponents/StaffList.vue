@@ -66,9 +66,9 @@ export default {
       } else if(this.selectedSortByWhat === 'Rating' && this.selectedTypeOfSort === 'Descending'){
         this.data.sort((a, b) => b._rating - a._rating)
       } else if(this.selectedSortByWhat === 'Salary' && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => a._salary - b._salary)
+        this.data.sort((a, b) => parseInt(a._salary.replaceAll('.','')) - parseInt(b._salary.replaceAll('.','')))
       } else if(this.selectedSortByWhat === 'Salary' && this.selectedTypeOfSort === 'Descending'){
-        this.data.sort((a, b) => b._salary - a._salary)
+        this.data.sort((a,b) => parseInt(b._salary.replaceAll('.','')) - parseInt(a._salary.replaceAll('.','')))
       }
     },
 
