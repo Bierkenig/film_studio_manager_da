@@ -194,6 +194,7 @@ export default {
         this.staffGenre = this.staff._genre[this.$store.getters.getCurrentScreenplay.genre];
         this.staffSalary = parseInt(this.staff._salary.replaceAll('.',''));
         this.staffGender = this.staff._gender;
+        console.log(this.staffSalary)
       }
     }
   },

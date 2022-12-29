@@ -1,74 +1,264 @@
 <template>
-  <div>
-    <h1>{{ $t('screenplay') }} Information</h1>
-    <div>
-      <p>{{ $t('newsData.title') }}: {{ screenplay.title }}</p>
-      <p>Type: {{ screenplay.type }}</p>
-      <p>Genre: {{ screenplay.genre }}</p>
-      <p>Subgenre: {{ screenplay.subgenre }}</p>
-      <p>{{ $t('ageRating') }}: {{ screenplay.ageRating }}</p>
-      <p>{{ $t('writer') }}: {{ screenplay.writer._first_name }} {{ screenplay.writer._last_name }}</p>
-      <p>{{ $t('description') }}: {{ screenplay.description }}</p>
-      <p>{{ $t('rating') }}: {{ screenplay.ratingRange }}</p>
-      <p>{{ $t('price') }}: {{ screenplay.price }}</p>
-      <p>{{ $t('topics') }}: <span v-for="(it, index) in screenplay.topics" :key="index">{{ it }}&nbsp;</span></p>
+  <div id="screenplayInformationMainDiv">
+    <div id="screenplayInformationBackground">
       <div>
-        <p>{{ $t('roles') }}</p>
-        <p>{{ $t('main') }}: </p>
-        <p v-for="(it, index) in screenplay.roles['main']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
-        <p>{{ $t('support') }}: </p>
-        <p v-for="(it, index) in screenplay.roles['support']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
-        <p>Minor: </p>
-        <p v-for="(it, index) in screenplay.roles['minor']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
-        <p v-if="screenplay.roles['cameo'].length !== 0">Cameo: </p>
-        <p v-for="(it, index) in screenplay.roles['cameo']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
-        <p v-if="screenplay.roles['voiceOver'].length !== 0">{{ $t('voiceOver') }}: </p>
-        <p v-for="(it, index) in screenplay.roles['voiceOver']" :key="index">{{ it.name }}, {{ $t(it.gender) }}, {{ it.age }}</p>
-      </div>
-      <div>
-        <p>{{ $t('acts') }}</p>
-        <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
-          <p>{{ $t('act1') }}:</p>
-          <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
-            {{ it.textEn }}
+        <h1 id="screenplayInformationHeader">{{ $t('screenplay') }} Information</h1>
+        <div id="screenplayInformationInfoContainer" class="verticalScroll">
+          <p id="screenplayInformationTitle">{{ screenplay.title }}</p>
+          <div class="screenplayInformationTextDiv">
+            <div class="screenplayInformationText">
+              <div>
+                Type:
+              </div>
+              <div>
+                {{ screenplay.type }}
+              </div>
+            </div>
+            <div class="screenplayInformationText">
+              <div>
+                Genre:
+              </div>
+              <div>
+                {{ screenplay.genre }}
+              </div>
+            </div>
+            <div class="screenplayInformationText">
+              <div>
+                Subgenre:
+              </div>
+              <div v-if="screenplay.subgenre">
+                {{ screenplay.subgenre }}
+              </div>
+              <div v-else>
+                _____
+              </div>
+            </div>
           </div>
-          <p>{{ $t('act2') }}:</p>
-          <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
-            {{ it.textEn }}
+          <div class="screenplayInformationTextDiv">
+            <div class="screenplayInformationText">
+              <div>
+                {{ $t('ageRating') }}:
+              </div>
+              <div>
+                {{ RegExp('\\+\\d+$').exec(screenplay.ageRating)[0] }}
+              </div>
+            </div>
+            <div class="screenplayInformationText">
+              <div>
+                {{ $t('writer') }}:
+              </div>
+              <div>
+                {{ screenplay.writer._first_name }} {{ screenplay.writer._last_name }}
+              </div>
+            </div>
+            <div class="screenplayInformationText">
+              <div>
+                {{ $t('description') }}:
+              </div>
+              <div>
+                {{ screenplay.description }}
+              </div>
+            </div>
           </div>
-          <p>{{ $t('act3') }}:</p>
-          <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
-            {{ it.textEn }}
+          <div class="screenplayInformationTextDiv">
+            <div class="screenplayInformationText">
+              <div>
+                {{ $t('rating') }}:
+              </div>
+              <div>
+                {{ screenplay.ratingRange }}
+              </div>
+            </div>
+            <div class="screenplayInformationText">
+              <div>
+                {{ $t('price') }}:
+              </div>
+              <div>
+                {{ roundSalary(screenplay.price) }}
+              </div>
+            </div>
+            <div class="screenplayInformationText">
+              <div>
+                {{ $t('topics') }}:
+              </div>
+              <div id="screenplayInformationTopicsContainer">
+                <div v-for="(it, index) in screenplay.topics" :key="index">
+                  {{ it }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="screenplayInformationSubHeader">{{ $t('roles') }}</p>
+            <div>
+              <div class="screenplayInformationRoleDiv">
+                <div class="screenplayInformationRoleInfo">{{ $t('main') }}</div>
+                <div class="screenplayInformationRoleInfo">{{ $t('support') }}</div>
+                <div class="screenplayInformationRoleInfo">Minor</div>
+              </div>
+              <div class="screenplayInformationTextDiv">
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['main']" :key="index">
+                    {{ it.name }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['support']" :key="index">
+                    {{ it.name }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['minor']" :key="index">
+                    {{ it.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="screenplayInformationRoleSecondDiv">
+              <div class="screenplayInformationRoleDiv">
+                <div v-if="screenplay.roles['cameo'].length !== 0" class="screenplayInformationRoleInfo">Cameo</div>
+                <div v-if="screenplay.roles['voiceOver'].length !== 0" class="screenplayInformationRoleInfo">{{ $t('voiceOver') }}</div>
+              </div>
+              <div class="screenplayInformationTextDiv">
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['cameo']" :key="index">
+                    {{ it.name }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['voiceOver']" :key="index">
+                    {{ it.name }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="screenplayInformationSubHeader">{{ $t('acts') }}</p>
+            <div v-if="this.$store.getters.getCurrentLanguage === 'en'">
+              <div class="screenplayInformationRoleDiv">
+                <div class="screenplayInformationRoleInfo">{{ $t('act1') }}</div>
+                <div class="screenplayInformationRoleInfo">{{ $t('act2') }}</div>
+                <div class="screenplayInformationRoleInfo">{{ $t('act3') }}</div>
+              </div>
+              <div class="screenplayInformationTextDiv">
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.acts['act1']" :key="index">
+                    {{ it.textEn }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.acts['act2']" :key="index">
+                    {{ it.textEn }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.acts['act3']" :key="index">
+                    {{ it.textEn }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="screenplayInformationRoleDiv">
+                <div class="screenplayInformationRoleInfo">{{ $t('act1') }}</div>
+                <div class="screenplayInformationRoleInfo">{{ $t('act2') }}</div>
+                <div class="screenplayInformationRoleInfo">{{ $t('act3') }}</div>
+              </div>
+              <div class="screenplayInformationTextDiv">
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.acts['act1']" :key="index">
+                    {{ it.textDe }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.acts['act2']" :key="index">
+                    {{ it.textDe }}
+                  </div>
+                </div>
+                <div class="screenplayInformationRoleNameContainer">
+                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.acts['act3']" :key="index">
+                    {{ it.textDe }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="screenplayInformationSubHeader">Details</p>
+            <div class="screenplayInformationTextDiv">
+              <div v-for="(it,index) in screenplay.details" :key="index" class="screenplayInformationText">
+                <div >
+                  {{ $t(index) }}
+                </div>
+                <div>
+                  {{ $t(it) }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="screenplayInformationSubHeader">{{ $t('ageRating') }} Details</p>
+            <div class="screenplayInformationTextDiv">
+              <div v-for="(it,index) in screenplay.ageRatingDetails" :key="index" class="screenplayInformationText">
+                <div >
+                  {{ $t(index) }}
+                </div>
+                <div>
+                  {{ RegExp('\\+\\d+$').exec(it)[0] }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="screenplayInformationSubHeader">More</p>
+            <div class="screenplayInformationTextDiv">
+              <div class="screenplayInformationText">
+                <div >
+                  {{ $t('screenplayLength') }}
+                </div>
+                <div>
+                  {{ screenplay.length }}
+                </div>
+              </div>
+              <div class="screenplayInformationText">
+                <div >
+                  {{ $t('writingPhase') }}
+                </div>
+                <div>
+                  {{ screenplay.writingPhase }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div v-else>
-          <p>{{ $t('act1') }}:</p>
-          <div v-for="(it, index) in screenplay.acts['act1']" :key="index">
-            {{ it.textDe }}
-          </div>
-          <p>{{ $t('act2') }}:</p>
-          <div v-for="(it, index) in screenplay.acts['act2']" :key="index">
-            {{ it.textDe }}
-          </div>
-          <p>{{ $t('act3') }}:</p>
-          <div v-for="(it, index) in screenplay.acts['act3']" :key="index">
-            {{ it.textDe }}
-          </div>
-        </div>
       </div>
-      <p>Details: <span v-for="(it,index) in screenplay.details" :key="index">{{ $t(index) }}: {{ $t(it) }}&nbsp;</span></p>
-      <p>{{ $t('ageRating') }} Details: <span v-for="(it,index) in screenplay.ageRatingDetails" :key="index">{{ $t(index) }}: {{ it }}&nbsp;</span></p>
-      <p>{{ $t('screenplayLength') }}: {{ screenplay.length }}</p>
-      <p>{{ $t('writingPhase') }}: {{ screenplay.writingPhase }}</p>
     </div>
-    <button v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus" id="backButton" class="buttonStyle" @click="goBack">{{ $t('back') }}</button>
-    <button @click="onButtonClick">{{ $t('saveScreenplay') }}</button>
+    <icon-button
+        v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
+        id="screenplayInformationBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="goBack"/>
+    <custom-button
+        id="screenplayInformationContinueButton"
+        :dark="false"
+        size="medium"
+        @clicked="onButtonClick">{{ $t('saveScreenplay') }}</custom-button>
   </div>
 </template>
 
 <script>
+import IconButton from "@/components/kitchenSink/IconButton.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "ScreenplayInformation",
+  components: {CustomButton, IconButton},
 
   data(){
     return {
@@ -104,13 +294,131 @@ export default {
 
     goBack(){
       this.$router.push({name: 'hireWriter'})
-    }
+    },
+
+    roundSalary(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>
 
 <style scoped>
-* {
+#screenplayInformationMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#screenplayInformationHeader {
   text-align: center;
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+}
+
+#screenplayInformationBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+#screenplayInformationContinueButton {
+  position: absolute;
+  float: right;
+  right: 100px;
+  bottom: 20px;
+  width: 15%;
+}
+
+#screenplayInformationBackground {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  height: 750px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+#screenplayInformationInfoContainer {
+  height: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#screenplayInformationTitle {
+  text-align: center;
+  font-weight: var(--fsm-fw-bold);
+  font-size: 24px;
+}
+
+.screenplayInformationTextDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  gap: 15px;
+}
+
+.screenplayInformationText {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  width: 100%;
+}
+
+.screenplayInformationSubHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 20px;
+}
+
+.screenplayInformationRoleDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+.screenplayInformationRoleInfo {
+  width: 100%;
+}
+
+.screenplayInformationRoleNameContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+#screenplayInformationRoleSecondDiv {
+  margin-top: 15px;
+}
+
+#screenplayInformationTopicsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 </style>
