@@ -1,7 +1,7 @@
 <template>
   <div id="eventsSection">
     <h1 id="eventHeading">{{ $t('upcomingEvents') }}</h1>
-
+<div class="scroll verticalScroll">
     <div>
       <h2 class="date">{{ $t('today') }}</h2>
       <div class="event" v-for="(it,index) in todayEvents" :key="index">
@@ -22,6 +22,7 @@
         <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
       </div>
     </div>
+</div>
   </div>
 </template>
 
@@ -98,9 +99,11 @@ export default {
   margin-left: 0.7em
 }
 
+.scroll{
+  height: 700px;
+}
+
 .event{
-  margin-left:0.7em;
-  margin-right:0.7em;
-  margin-top: 0.7em
+  margin: 0.7em
 }
 </style>

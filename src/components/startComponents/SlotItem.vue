@@ -59,15 +59,15 @@ export default {
   },
 
   mounted() {
-   this.init()
+    this.init()
   },
 
   methods: {
     init(){
     window.ipcRenderer.send('r2mChecking', this.slotNr)
     window.ipcRenderer.receive('m2rChecking', data => {
-      console.log(data[0])
-      console.log(this.slotNr)
+      // console.log(data[0])
+      // console.log(this.slotNr)
       if (data[0] === true) {
         if (data[1] === this.slotNr) {
           this.disabledButton = false;
@@ -81,8 +81,11 @@ export default {
       //TODO use getName & getDate instead
     window.ipcRenderer.send('r2mLoading', this.slotNr)
     window.ipcRenderer.receive('m2rLoading', data => {
+      console.log(data[0])
       if (data[0] !== null) {
-        if (data[1] === '100') {
+        console.log("not null")
+        if (data[1] === '100' || data[1] === '101' || data[1] === '103') {
+          console.log("code === 100")
           if (data[2] === this.slotNr) {
             console.log(data[0].de_date)
             this.date = data[0].de_date

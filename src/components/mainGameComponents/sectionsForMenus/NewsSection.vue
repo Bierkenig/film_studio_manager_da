@@ -10,30 +10,33 @@
     <!--        <option value="Studios">Studios</option>-->
     <!--      </select>-->
     <!--    </div>-->
+    <div class="scroll verticalScroll">
 
     <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
 
-      <div class="newsTextSection">
-        <div v-for="(it, index) in this.peopleNews" :key="index">
-          <news-element svg-code="" :heading-text="it._title"
-                        info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+        <div class="newsTextSection">
+          <div v-for="(it, index) in this.peopleNews" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+          </div>
         </div>
-      </div>
 
-      <div class="newsTextSection">
-        <div v-for="(it, index) in this.movieNews" :key="index">
-          <news-element svg-code="" :heading-text="it._title"
-                        info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+        <div class="newsTextSection">
+          <div v-for="(it, index) in this.movieNews" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+          </div>
         </div>
-      </div>
 
-      <div class="newsTextSection">
-        <div v-for="(it, index) in this.studioNews" :key="index">
-          <news-element svg-code="" :heading-text="it._title"
-                        info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+        <div class="newsTextSection">
+          <div v-for="(it, index) in this.studioNews" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+          </div>
         </div>
-      </div>
+
     </tile-pages-nav>
+    </div>
   </div>
 </template>
 
@@ -59,10 +62,10 @@ export default {
         if (sourceData[i]._type === 'People') {
           this.peopleNews.push(sourceData[i])
         }
-        if (sourceData[i]._type === 'Movies'){
+        if (sourceData[i]._type === 'Movies') {
           this.movieNews.push(sourceData[i])
         }
-        if (sourceData[i]._type === 'Studios'){
+        if (sourceData[i]._type === 'Studios') {
           this.studioNews.push(sourceData[i])
         }
       }
@@ -88,7 +91,6 @@ export default {
   flex-direction: column;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-l-border-radius);
-  color: white;
 }
 
 #newsHeading {
@@ -100,7 +102,10 @@ export default {
 }
 
 .newsTextSection {
-  overflow-y: scroll;
+}
+
+.scroll{
+  height:250px;
 }
 
 .newsNavigation {
