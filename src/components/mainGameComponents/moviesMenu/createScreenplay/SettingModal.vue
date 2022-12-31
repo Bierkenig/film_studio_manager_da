@@ -11,9 +11,6 @@
                 <select
                     id="location"
                     class="settingModalSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     @change="selectSetting($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('location') }}</option>
@@ -53,9 +50,6 @@
                 <select
                     id="act"
                     class="settingModalSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     @change="selectAct($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('acts') }}</option>

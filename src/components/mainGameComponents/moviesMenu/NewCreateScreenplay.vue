@@ -3,6 +3,7 @@
     <div id="createScreenplaySubDiv">
       <div>
         <icon-button
+            v-if="this.$router.options.history.state.back !== '/screenplaySummary'"
             id="createScreenplayBackButton"
             icon="simple-arrow-left"
             size="medium"
@@ -50,9 +51,6 @@
                   <select
                       class="createScreenplaySelect"
                       id="createScreenplayGenre"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
                       v-model="genre"
                   >
                     <option :value="null" disabled selected hidden>Genre</option>
@@ -81,9 +79,6 @@
                       class="createScreenplaySelect"
                       id="createScreenplaySubgenre"
                       :disabled="!this.genre"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
                       v-model="subgenre"
                   >
                     <option :value="null" disabled selected hidden>Subgenre</option>
@@ -120,9 +115,6 @@
                       v-for="index in 3"
                       :key="index"
                       :id="'topic' + index"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
                       :disabled="disableSelect(index)"
                       v-model="topics[index-1]"
                   >
@@ -231,9 +223,6 @@
                   <select
                       class="createScreenplaySelect"
                       id="createScreenplayCharacterGender"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
                       v-model="characterGender"
                   >
                     <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
@@ -244,9 +233,6 @@
                   <select
                       class="createScreenplaySelect"
                       id="createScreenplayCharacterRole"
-                      onfocus="this.size=5;"
-                      onblur="this.size=1;"
-                      onchange="this.size=1; this.blur();"
                       v-model="characterRole"
                   >
                     <option :value="null" disabled selected hidden>{{ $t('castAs') }}</option>
@@ -308,9 +294,9 @@ export default {
       selectedTone: this.$store.getters.getCurrentScreenplay.details.tone,
       selectedSpecialEffects: this.$store.getters.getCurrentScreenplay.details.specialEffects,
 
-      selectedViolence: '',
-      selectedCursing: '',
-      selectedLoveScenes: '',
+      selectedViolence: this.$store.getters.getCurrentScreenplay.ageRatingDetails.violence,
+      selectedCursing: this.$store.getters.getCurrentScreenplay.ageRatingDetails.cursing,
+      selectedLoveScenes: this.$store.getters.getCurrentScreenplay.ageRatingDetails.loveScenes,
       ageRatingScala: {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'},
 
       screenplayLength: this.$store.getters.getCurrentScreenplay.length,
@@ -330,9 +316,9 @@ export default {
   },
 
   mounted(){
-    this.selectedViolence = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.violence)
-    this.selectedCursing = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.cursing)
-    this.selectedLoveScenes = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.loveScenes)
+    this.selectedViolence = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.violence);
+    this.selectedCursing = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.cursing);
+    this.selectedLoveScenes = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.$store.getters.getCurrentScreenplay.ageRatingDetails.loveScenes);
 
     if(this.$store.getters.getCurrentScreenplay.getType() === 'Feature'){
       this.minScreenplayLength = 60;

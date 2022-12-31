@@ -106,7 +106,7 @@ export default {
     this.$store.commit('setAllDirectors', directors);
     this.$store.commit('setAllActors', actors);
     this.$store.commit('setAllTopics',topics);
-    this.$store.commit('setAllPeople', people)
+    this.$store.commit('setAllPeople', people);
   }
 }
 </script>

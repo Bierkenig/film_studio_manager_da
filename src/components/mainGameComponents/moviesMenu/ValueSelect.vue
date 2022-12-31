@@ -37,7 +37,15 @@ export default {
   data(){
     return {
       selectedType: this.type,
-      numberArray: [1,2,3,4,5]
+      numberArray: [1,2,3,4,5],
+      ageRatingScala: {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'},
+    }
+  },
+
+  mounted() {
+    if(this.type === 'G / +3' || this.type === 'PG / +7' || this.type === 'PG-13 / +13' || this.type === 'R / +16' ||
+        this.type === 'NC-17 / +18') {
+      this.selectedType = Object.keys(this.ageRatingScala).find(key => this.ageRatingScala[key] === this.type);
     }
   },
 

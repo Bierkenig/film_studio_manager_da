@@ -11,9 +11,6 @@
                 <select
                     id="timePeriod"
                     class="timePeriodModalSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     @change="selectTimePeriod($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('timePeriod') }}</option>
@@ -39,9 +36,6 @@
                 <select
                     id="act"
                     class="timePeriodModalSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     @change="selectAct($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('acts') }}</option>

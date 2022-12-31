@@ -10,25 +10,25 @@
     <!--        <option value="Studios">Studios</option>-->
     <!--      </select>-->
     <!--    </div>-->
-    <div class="scroll verticalScroll">
+    <div>
 
     <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
 
-        <div class="newsTextSection">
+        <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.peopleNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
                           info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
           </div>
         </div>
 
-        <div class="newsTextSection">
+        <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.movieNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
                           info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
           </div>
         </div>
 
-        <div class="newsTextSection">
+        <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.studioNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
                           info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
@@ -105,7 +105,7 @@ export default {
 }
 
 .scroll{
-  height:250px;
+  height:150px;
 }
 
 .newsNavigation {

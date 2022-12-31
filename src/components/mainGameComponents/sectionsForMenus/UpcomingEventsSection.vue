@@ -100,7 +100,7 @@ export default {
 }
 
 .scroll{
-  height: 700px;
+  height: 520px;
 }
 
 .event{

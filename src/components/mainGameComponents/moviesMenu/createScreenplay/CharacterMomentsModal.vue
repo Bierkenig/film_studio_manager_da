@@ -11,9 +11,6 @@
                 <select
                     id="characterOne"
                     class="characterMomentSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     @change="selectCharacterOne($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('character') }} 1</option>
@@ -25,9 +22,6 @@
                 <select
                     id="characterMoment"
                     class="characterMomentSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     @change="selectMoment($event)"
                 >
                   <option value="" disabled selected hidden>{{ $t('moment') }}</option>
@@ -51,9 +45,6 @@
                 <select
                     id="characterTwo"
                     class="characterMomentSelect"
-                    onfocus="this.size=5;"
-                    onblur="this.size=1;"
-                    onchange="this.size=1; this.blur();"
                     :disabled="selectedMoment === 'dies' || selectedMoment === 'escapes' || selectedMoment === 'isCaptured' ||
                                 selectedMoment === 'runsAway' || selectedMoment === 'isOnAMission' || selectedMoment === 'completesTheMission' ||
                                 selectedMoment === 'losesSomeoneImportant' || selectedMoment === 'isAlive'"
@@ -70,9 +61,6 @@
               <select
                   id="act"
                   class="characterMomentSelect"
-                  onfocus="this.size=5;"
-                  onblur="this.size=1;"
-                  onchange="this.size=1; this.blur();"
                   @change="selectAct($event)"
               >
                 <option value="" disabled selected hidden>{{ $t('acts') }}</option>

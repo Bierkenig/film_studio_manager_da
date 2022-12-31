@@ -44,7 +44,7 @@ export default {
         this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
             null,null, null, null, null, null,
             {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
-        this.$router.push({name: 'createScreenplay'});
+        this.$router.push({name: 'newScreenplay'});
       } else if(this.headline === 'createMovie'){
         this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){
@@ -53,10 +53,6 @@ export default {
       } else if(this.headline === 'listOfFranchises'){
         //TODO: add function for list franchises
         console.log('ADD FUNCTION IN CODE')
-        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
-            null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
-        this.$router.push({name: 'newScreenplay'});
       }
     }
   }
