@@ -244,9 +244,9 @@ export default createStore({
 
         },
 
-        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
-            new StreamingService('TUV Studio',1,0,0,'TU'),
-            new StreamingService('HUA Studio',1,0,0,'HU')],
+        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,'AS',new Date("January 25, 2023")),
+            new StreamingService('TUV Studio',1,0,0,10,'TU',new Date("January 24, 2023")),
+            new StreamingService('HUA Studio',1,0,0,10,'HU',new Date("January 23, 2023"))],
         ownStreamingService: null,
         //movies which you are owning (created, bought rights, bought movies)
         allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, 'Action',

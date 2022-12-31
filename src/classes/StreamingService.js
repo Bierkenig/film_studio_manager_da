@@ -1,5 +1,5 @@
 export class StreamingService {
-    constructor(name, price, profit, subscribers, owner, foundationDate) {
+    constructor(name, price, profit, subscribers, popularity, owner, foundationDate) {
         //TYPE -> String
         this._name = name;
         //TYPE -> Integer/Float
@@ -8,6 +8,8 @@ export class StreamingService {
         this._profit = profit;
         //TYPE -> Integer
         this._subscribers = subscribers;
+        //TYPE -> Integer
+        this._popularity = popularity;
         //TYPE -> String
         this._owner = owner;
         //TYPE -> Date, for costs and revenues per month

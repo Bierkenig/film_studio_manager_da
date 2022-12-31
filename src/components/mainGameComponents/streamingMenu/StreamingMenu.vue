@@ -15,8 +15,9 @@
     <div v-if="this.$store.getters.getOwnStreamingService !== null" class="streamingMenuContainer">
       <div id="leftSide">
         <own-service-section class="ownServiceSectionTag"/>
-        <rights-section class="rightsSectionTag"/>
-        <competitor-service-section class="competitorServiceSectionTag"/>
+        <action-section headline="buyStreamingRights" info-text="buyStreamingRightsInfoText" button-text="buyScreenplaySection.buy" icon="movies"/>
+        <!--<rights-section class="rightsSectionTag"/>
+        <competitor-service-section class="competitorServiceSectionTag"/>-->
       </div>
       <movies-section class="moviesSectionTag" headline="contentManagement"/>
     </div>
@@ -42,22 +43,24 @@
 
 <script>
 import OwnServiceSection from "@/components/mainGameComponents/streamingMenu/OwnServiceSection";
-import RightsSection from "@/components/mainGameComponents/streamingMenu/RightsSection";
+//import RightsSection from "@/components/mainGameComponents/streamingMenu/RightsSection";
 import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
-import CompetitorServiceSection from "@/components/mainGameComponents/streamingMenu/CompetitorServiceSection";
+//import CompetitorServiceSection from "@/components/mainGameComponents/streamingMenu/CompetitorServiceSection";
 //import BuyStreamingServiceModal from "@/components/mainGameComponents/streamingMenu/BuyStreamingServiceModal";
 import financeMixin from "@/mixins/financeMixin";
 import {StreamingService} from "@/classes/StreamingService";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
 export default {
   name: "StreamingMenu",
 
   mixins: [financeMixin()],
 
   components: {
+    ActionSection,
     CustomButton,
     //BuyStreamingServiceModal,
-    CompetitorServiceSection, MoviesSection, RightsSection, OwnServiceSection},
+    MoviesSection, OwnServiceSection},
 
   data(){
     return {
@@ -77,7 +80,7 @@ export default {
 
   methods: {
     createService(){
-      this.$store.commit('setOwnStreamingService',new StreamingService('Example Service',1,0,1000000,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
+      this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,1000000,10,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       //TODO: auf 10 Milliarden ändern
       this.$store.commit('subtractBalance', 10000000)
     }
@@ -92,7 +95,7 @@ export default {
   gap: 1em;
 }
 
-.ownServiceSectionTag, .rightsSectionTag {
+.ownServiceSectionTag {
   display: flex;
   flex-direction: column;
 }
@@ -101,7 +104,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 30%;
-  gap: 2em;
+  gap: 15px;
 }
 
 .moviesSectionTag {

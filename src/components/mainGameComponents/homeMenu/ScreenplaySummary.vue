@@ -86,7 +86,7 @@
         </div>
       </div>
       <div>
-        <h2 class="screenplaySummaryHeading">Characters</h2>
+        <h2 class="screenplaySummaryHeading">{{ $t('characters') }}</h2>
         <div id="screenplaySummaryInformationContainer">
           <div id="screenplaySummaryCharacterContainer" class="verticalScroll">
             <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['main']" :key="index">
@@ -94,10 +94,10 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                Character {{ index + 1 }}
+                {{ $t('character') }} {{ index + 1 }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
-                Main Role
+                {{ $t('main') }} {{ $t('role') }}
               </div>
             </div>
             <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['support']" :key="index">
@@ -105,10 +105,10 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                Character {{ index + 1 }}
+                {{ $t('character') }} {{ index + 1 }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
-                Support Role
+                {{ $t('support') }} {{ $t('role') }}
               </div>
             </div>
             <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['minor']" :key="index">
@@ -116,10 +116,10 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                Character {{ index + 1 }}
+                {{ $t('character') }} {{ index + 1 }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
-                Minor Role
+                Minor {{ $t('role') }}
               </div>
             </div>
             <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['cameo']" :key="index">
@@ -127,10 +127,10 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                Character {{ index + 1 }}
+                {{ $t('character') }} {{ index + 1 }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
-                Cameo Role
+                Cameo {{ $t('role') }}
               </div>
             </div>
             <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['voiceOver']" :key="index">
@@ -138,10 +138,10 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                Character {{ index + 1 }}
+                {{ $t('character') }} {{ index + 1 }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
-                Voice Over Role
+                {{ $t('voiceOver') }} {{ $t('role') }}
               </div>
             </div>
           </div>
@@ -151,7 +151,7 @@
             :dark="false"
             size="small"
             :disabled="this.$store.getters.getCurrentScreenplay.rewritingValue === 0"
-            @clicked="rewrite">Rewrite</custom-button>
+            @clicked="rewrite">{{ $t('rewrite') }}</custom-button>
       </div>
     </div>
   </div>

@@ -48,11 +48,11 @@ export default {
       } else if(this.headline === 'createMovie'){
         this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){
-        //TODO: add function for list sources
-        console.log('ADD FUNCTION IN CODE')
+        this.$router.push({name: 'sourcesList'});
       } else if(this.headline === 'listOfFranchises'){
-        //TODO: add function for list franchises
-        console.log('ADD FUNCTION IN CODE')
+        this.$router.push({name: 'franchisesList'});
+      } else if(this.headline === 'buyStreamingRights'){
+        this.$router.push({name: 'buyMovieRights'});
       }
     }
   }

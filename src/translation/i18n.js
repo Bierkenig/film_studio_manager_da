@@ -557,6 +557,11 @@ i18next
                     deleteItem: 'Delete Item',
                     nationality: 'Nationality',
                     experience: 'Experience',
+                    characters: 'Characters',
+                    role: 'Role',
+                    rewrite: 'Rewrite',
+                    buyStreamingRights: 'Buy Streaming Rights',
+                    buyStreamingRightsInfoText: 'Buy rights to movies from other studios.',
                 }
             },
             de: {
@@ -935,6 +940,11 @@ i18next
                     deleteItem: 'Element löschen',
                     nationality: 'Nationalität',
                     experience: 'Erfahrung',
+                    characters: 'Charaktere',
+                    role: 'Rolle',
+                    rewrite: 'Umschreiben',
+                    buyStreamingRights: 'Streamingrechte kaufen',
+                    buyStreamingRightsInfoText: 'Kaufe Rechte für Filme von anderen Studios.',
                 }
             }
         }

@@ -32,9 +32,14 @@ import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
 import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
 import NewCreateScreenplay from "@/components/mainGameComponents/moviesMenu/NewCreateScreenplay.vue";
 import ScreenplaySummary from "@/components/mainGameComponents/homeMenu/ScreenplaySummary.vue";
+import FranchisesList from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesList.vue";
+import SourcesList from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesList.vue";
 
 
 const routes = [
+    { name: 'franchisesList', path: '/franchisesList', component: FranchisesList, props: true },
+    { name: 'sourcesList', path: '/sourcesList', component: SourcesList, props: true },
+
     { name: 'screenplaySummary', path: '/screenplaySummary', component: ScreenplaySummary, props: true },
     { name: 'newScreenplay', path: '/newScreenplay', component: NewCreateScreenplay, props: true },
 

@@ -22,14 +22,25 @@
       </div>
     </div>
     <button v-if="this.$store.state.preProduction.currentScreenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+    <icon-button
+        id="screenplaySectionBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="goBack"/>
   </div>
 </template>
 
 <script>
 import {Screenplay} from "@/classes/Screenplay";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 
 export default {
   name: "screenplaySection",
+  components: {IconButton},
   data() {
     return {
       screenplays: this.$store.getters.getAllScreenplays,
@@ -56,10 +67,24 @@ export default {
       }
       this.$store.state.preProduction.isPreProduction = true
       this.$router.push({name: 'createScreenplay'});
+    },
+
+    goBack(){
+      this.$router.push({name: 'movies'})
     }
   }
 }
 </script>
 
 <style scoped>
+#screenplaySectionBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+* {
+  text-align: center;
+}
 </style>
