@@ -30,8 +30,7 @@ import Editor from "@/components/DB-Editor/Editor";
 import DirectorOutput from "@/components/DB-Editor/Entities/DirectorOutput";
 import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
 import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
-import continueProduction from "@/components/mainGameComponents/currentProduction/old/continueProduction";
-import eventModal from "@/components/mainGameComponents/currentProduction/old/eventModal";
+import prodEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal";
 
 
 const routes = [
@@ -67,7 +66,7 @@ const routes = [
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
 
     //Production
-    { name: 'continueProduction', path: '/continueProduction', component: continueProduction, props: true},
+    { name: 'prodEventModal', path: '/prodEventModal', component: prodEventModal, props: true},
 
     //PostProduction
 

@@ -10,6 +10,7 @@ import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
 import PreProduction from "@/classes/PreProduction";
+import Production from "@/classes/Production";
 
 export default createStore({
     /** Application state */
@@ -160,7 +161,9 @@ export default createStore({
         preProduction: new PreProduction(),
 
         //Production
-        production: null,
+        production: new Production(4),
+
+        //PostProduction
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
             new StreamingService('TUV Studio',1,0,0,'TU'),

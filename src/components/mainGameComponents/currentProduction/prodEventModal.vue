@@ -88,46 +88,45 @@ export default {
         case "castMember":
           this.$store.state.preProduction.movie.hype *= 0.85
           this.recast = true
-          //TODO directors morale
-          this.$store.state.preProduction.hiredDirector.morale += 1
+          this.calcDireMorale(true)
           break
         case "budgetForCostumes":
           this.$store.state.preProduction.budget.costume *= 1.1
-          this.$store.state.preProduction.hiredDirector.morale += 1
-          this.crewMoraleGoesUp(1)
+          this.calcDireMorale(true)
+          this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "equipment":
           this.$store.state.preProduction.budget.cinematography *= 1.1
-          this.$store.state.preProduction.hiredDirector.morale += 1
-          this.crewMoraleGoesUp(1)
+          this.calcDireMorale(true)
+          this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "budget":
           this.$store.state.preProduction.budget.production *= 1.1
-          this.$store.state.preProduction.hiredDirector.morale += 1
-          this.crewMoraleGoesUp(1)
+          this.calcDireMorale(true)
+          this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "breakdown":
           this.$store.state.preProduction.budget.set *= 1.1
-          this.$store.state.preProduction.hiredDirector.morale += 1
-          this.crewMoraleGoesUp(1)
+          this.calcDireMorale(true)
+          this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "duration":
-          this.$store.state.preProduction.hiredDirector.morale += 1
+          this.calcDireMorale(true)
           this.weeks = true
-          this.crewMoraleGoesUp(1)
+          this.crewMoraleGoes(1)
           break
         case "directorLeaves":
-          this.$store.state.preProduction.hiredDirector.morale += 1
+          this.calcDireMorale(true)
           this.$store.state.preProduction.hiredDirector.salary *= 1.25
           this.$emit('close')
           break
         case "changes":
-          this.$store.state.preProduction.hiredDirector.morale += 1
-          this.crewMoraleGoesUp(1)
+          this.calcDireMorale(true)
+          this.crewMoraleGoes(1)
           this.$store.state.preProduction.budget.problemBudget += this.$store.state.preProduction.getWholeBudget() * 0.1
           this.$emit('close')
           break
@@ -142,35 +141,57 @@ export default {
     bOption() {
       switch (this.type) {
         case "weather":
-
+          this.$store.state.production.haltedStartDate = this.$store.state.currentDate
+          this.$store.state.production.haltedDuration += 4
+          //TODO set release Date 4 Weeks later
           break
         case "castMember":
-
+          this.calcDireMorale(false)
           break
         case "budgetForCostumes":
-
+          this.calcDireMorale(false)
+          this.crewMoraleGoes(-1)
           break
         case "equipment":
-
+          this.calcDireMorale(false)
+          this.crewMoraleGoes(-1)
           break
         case "budget":
-
+          this.calcDireMorale(false)
+          this.crewMoraleGoes(-1)
           break
         case "breakdown":
-
+          this.calcDireMorale(false)
+          this.crewMoraleGoes(-1)
           break
         case "duration":
-
+          this.calcDireMorale(false)
           break
         case "directorLeaves":
-
+          this.$store.state.preProduction.movie.hype *= 0.75
+          //TODO hiring director !!!!!
+          this.crewMoraleGoes(-1)
+          //TODO hiring cast member
           break
         case "changes":
-
+          this.calcDireMorale(false)
+          this.crewMoraleGoes(-1)
           break
         case "injured":
-
+          this.$store.state.preProduction.movie.hype *= 0.90
+          if (this.$store.state.production.haltedStartDate === null) this.$store.state.production.haltedStartDate = this.$store.state.currentDate
+          this.$store.state.production.haltedDuration += 4
           break
+      }
+    },
+
+    calcDireMorale(trueFalse) {
+      if (this.dirRating > 75) {
+        if (!trueFalse) this.$store.state.preProduction.hiredDirector.morale -= 3
+      } else if (this.dirRating > 50 && this.dirRating <= 75) {
+        if (!trueFalse) this.$store.state.preProduction.hiredDirector.morale -= 2
+      } else if (this.dirRating <= 50) {
+        if (!trueFalse) this.$store.state.preProduction.hiredDirector.morale -= 1
       }
     },
 
@@ -187,9 +208,7 @@ export default {
       }
     },
 
-
-
-    crewMoraleGoesUp(up) {
+    crewMoraleGoes(up) {
       this.$store.state.preProduction.screenplay.actors.main.forEach((el) => {
         el.actorMorale += up
       })

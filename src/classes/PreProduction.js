@@ -2,11 +2,10 @@ import {Studio} from "@/classes/Studio";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
-import {Movie} from "@/classes/Movie";
 
 export default class PreProduction {
     constructor() {
-        this.movie = new Movie(this.screenplay, null, null, null, this.hiredDirector)
+        this.movie = null
         this.screenplay = null
         this.hiredDirector = null
         this.outgoings = 0
