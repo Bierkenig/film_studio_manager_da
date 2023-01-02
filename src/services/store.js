@@ -103,19 +103,19 @@ export default createStore({
         //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Action',
             null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
             new Movie(new Screenplay(2, 'HIHIHI', null, 'Comedy',
                 null,'NC-17 / +18', null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
             new Movie(new Screenplay(2, 'HIHIHI', null, 'Western',
                 null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
             new Movie(new Screenplay(2, 'HIHIHI', null, 'War',
                 null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0),
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
             new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
                 null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022','MEINS',0)],
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
         //nicht fertig
         calendarEvents: [
             {
@@ -244,9 +244,9 @@ export default createStore({
 
         },
 
-        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,'AS',new Date("January 25, 2023")),
-            new StreamingService('TUV Studio',1,0,0,10,'TU',new Date("January 24, 2023")),
-            new StreamingService('HUA Studio',1,0,0,10,'HU',new Date("January 23, 2023"))],
+        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,new Studio('AS'),new Date("January 25, 2023")),
+            new StreamingService('TUV Studio',1,0,0,10,new Studio('TU'),new Date("January 24, 2023")),
+            new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
         ownStreamingService: null,
         //movies which you are owning (created, bought rights, bought movies)
         allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, 'Action',
@@ -758,6 +758,7 @@ export default createStore({
                  *                 "marketing",
                  *                 "streamingServicesFromOtherStudios",
                  *                 "ownStreamingService",
+                 *                 preProduction
                  */
 
             ])
