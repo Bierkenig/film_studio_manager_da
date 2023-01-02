@@ -53,10 +53,10 @@ export default {
           center: '',
           end: ''
         },
-        height: 550,
         validRange: {
           start: '2023-01-01'
         },
+        contentHeight: 400,
         selectable: true,
         events: this.$store.getters.getCalendarEvents,
         eventContent: this.checkEvent,
@@ -156,7 +156,7 @@ export default {
 
 <style>
 .fc-day-today {
-  background-color: inherit !important;
+  background-color: var(--fsm-dark-blue-4) !important;
 }
 
 .fc-day {
@@ -248,7 +248,7 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 20px;
-  height: 100%;
+  margin-top: 15px;
 }
 
 .eventIconElements {

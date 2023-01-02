@@ -41,7 +41,8 @@ export default {
 #moviesMenuContainer {
   display: flex;
   flex-direction: row;
-  gap: 20px
+  gap: 20px;
+  margin-top: 15px;
 }
 
 .moviesMenuActionContainer {

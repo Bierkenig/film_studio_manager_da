@@ -27,6 +27,7 @@ import GameHeader from "@/components/mainGameComponents/GameHeader";
 import store from "./services/store";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
+import {Character} from "@/classes/Character";
 
 export default {
   name: 'App',
@@ -40,12 +41,12 @@ export default {
   created(){
     setInterval(function() {
       //window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),store.getters.getSlot])
-  if(store.getters.getSlot !== null){
-    let reducedState = {}
-    store.commit("stateToSave", reducedState)
-    window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), store.getters.getSlot])
-    console.log(store);
-  }
+      if(store.getters.getSlot !== null){
+        let reducedState = {}
+        store.commit("stateToSave", reducedState)
+        window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), store.getters.getSlot])
+        console.log(store);
+      }
     }, 600000);
 
     let writers = [], directors = [], actors = [], topics = [], people = [];
@@ -107,6 +108,188 @@ export default {
     this.$store.commit('setAllActors', actors);
     this.$store.commit('setAllTopics',topics);
     this.$store.commit('setAllPeople', people);
+
+    this.$store.getters.getBoughtScreenplays[0].setRatingRange('61 - 70');
+    this.$store.getters.getBoughtScreenplays[0].addMainCharacter(new Character('Woodie','male',18));
+    this.$store.getters.getBoughtScreenplays[0].addSupportCharacter(new Character('Buzz','male',16));
+    this.$store.getters.getBoughtScreenplays[0].addMinorCharacter(new Character('Andy','male',25));
+    this.$store.getters.getBoughtScreenplays[0].setAct1({
+      id: 0,
+      characterOne: 'Woodie',
+      characterMoment: 'dies',
+      characterTwo: '',
+      textDe: 'Charakter Ereignis: Woodie stirbt',
+      textEn: 'Character Moment: Woodie dies',
+      list: '1',
+      type: 'characterMoment'
+    },
+        {
+          id: 1,
+          value: 'undefined',
+          textDe: 'Ort: Unbestimmt',
+          textEn: 'Setting: Undefined',
+          list: '1',
+          type: 'setting'
+        },
+        {
+          id: 2,
+          value: 'presentDay',
+          textDe: 'Zeitspanne: Gegenwart',
+          textEn: 'Time Period: Present Day',
+          list: '1',
+          type: 'timePeriod'
+        });
+    this.$store.getters.getBoughtScreenplays[0].setAct2({
+          id: 3,
+          characterOne: 'Buzz',
+          characterMoment: 'dies',
+          characterTwo: '',
+          textDe: 'Charakter Ereignis: Buzz stirbt',
+          textEn: 'Character Moment: Buzz dies',
+          list: '2',
+          type: 'characterMoment'
+        },
+        {
+          id: 4,
+          value: 'undefined',
+          textDe: 'Ort: Unbestimmt',
+          textEn: 'Setting: Undefined',
+          list: '2',
+          type: 'setting'
+        },
+        {
+          id: 5,
+          value: 'presentDay',
+          textDe: 'Zeitspanne: Gegenwart',
+          textEn: 'Time Period: Present Day',
+          list: '2',
+          type: 'timePeriod'
+        });
+    this.$store.getters.getBoughtScreenplays[0].setAct3({
+          id: 6,
+          characterOne: 'Andy',
+          characterMoment: 'dies',
+          characterTwo: '',
+          textDe: 'Charakter Ereignis: Andy stirbt',
+          textEn: 'Character Moment: Andy dies',
+          list: '3',
+          type: 'characterMoment'
+        },
+        {
+          id: 7,
+          value: 'undefined',
+          textDe: 'Ort: Unbestimmt',
+          textEn: 'Setting: Undefined',
+          list: '3',
+          type: 'setting'
+        },
+        {
+          id: 8,
+          value: 'presentDay',
+          textDe: 'Zeitspanne: Gegenwart',
+          textEn: 'Time Period: Present Day',
+          list: '3',
+          type: 'timePeriod'
+        });
+    this.$store.getters.getScreenplays[0].setScope('Little');
+    this.$store.getters.getScreenplays[0].setTone('Dark');
+    this.$store.getters.getScreenplays[0].setSpecialEffects('Medium');
+    this.$store.getters.getScreenplays[0].setViolence('G / +3');
+    this.$store.getters.getScreenplays[0].setCursing('G / +3');
+    this.$store.getters.getScreenplays[0].setLoveScenes('G / +3');
+    this.$store.getters.getScreenplays[0].setLength('152');
+    this.$store.getters.getScreenplays[0].setWritingPhase(14);
+
+    this.$store.getters.getScreenplays[0].setRatingRange('61 - 70');
+    this.$store.getters.getScreenplays[0].addMainCharacter(new Character('Woodie','male',18));
+    this.$store.getters.getScreenplays[0].addSupportCharacter(new Character('Buzz','male',16));
+    this.$store.getters.getScreenplays[0].addMinorCharacter(new Character('Andy','male',25));
+    this.$store.getters.getScreenplays[0].setAct1({
+          id: 0,
+          characterOne: 'Woodie',
+          characterMoment: 'dies',
+          characterTwo: '',
+          textDe: 'Charakter Ereignis: Woodie stirbt',
+          textEn: 'Character Moment: Woodie dies',
+          list: '1',
+          type: 'characterMoment'
+        },
+        {
+          id: 1,
+          value: 'undefined',
+          textDe: 'Ort: Unbestimmt',
+          textEn: 'Setting: Undefined',
+          list: '1',
+          type: 'setting'
+        },
+        {
+          id: 2,
+          value: 'presentDay',
+          textDe: 'Zeitspanne: Gegenwart',
+          textEn: 'Time Period: Present Day',
+          list: '1',
+          type: 'timePeriod'
+        });
+    this.$store.getters.getScreenplays[0].setAct2({
+          id: 3,
+          characterOne: 'Buzz',
+          characterMoment: 'dies',
+          characterTwo: '',
+          textDe: 'Charakter Ereignis: Buzz stirbt',
+          textEn: 'Character Moment: Buzz dies',
+          list: '2',
+          type: 'characterMoment'
+        },
+        {
+          id: 4,
+          value: 'undefined',
+          textDe: 'Ort: Unbestimmt',
+          textEn: 'Setting: Undefined',
+          list: '2',
+          type: 'setting'
+        },
+        {
+          id: 5,
+          value: 'presentDay',
+          textDe: 'Zeitspanne: Gegenwart',
+          textEn: 'Time Period: Present Day',
+          list: '2',
+          type: 'timePeriod'
+        });
+    this.$store.getters.getScreenplays[0].setAct3({
+          id: 6,
+          characterOne: 'Andy',
+          characterMoment: 'dies',
+          characterTwo: '',
+          textDe: 'Charakter Ereignis: Andy stirbt',
+          textEn: 'Character Moment: Andy dies',
+          list: '3',
+          type: 'characterMoment'
+        },
+        {
+          id: 7,
+          value: 'undefined',
+          textDe: 'Ort: Unbestimmt',
+          textEn: 'Setting: Undefined',
+          list: '3',
+          type: 'setting'
+        },
+        {
+          id: 8,
+          value: 'presentDay',
+          textDe: 'Zeitspanne: Gegenwart',
+          textEn: 'Time Period: Present Day',
+          list: '3',
+          type: 'timePeriod'
+        });
+    this.$store.getters.getScreenplays[0].setScope('Little');
+    this.$store.getters.getScreenplays[0].setTone('Dark');
+    this.$store.getters.getScreenplays[0].setSpecialEffects('Medium');
+    this.$store.getters.getScreenplays[0].setViolence('G / +3');
+    this.$store.getters.getScreenplays[0].setCursing('G / +3');
+    this.$store.getters.getScreenplays[0].setLoveScenes('G / +3');
+    this.$store.getters.getScreenplays[0].setLength('152');
+    this.$store.getters.getScreenplays[0].setWritingPhase(14);
   }
 }
 </script>
@@ -134,7 +317,10 @@ html, body {
 }
 
 .routerViewContainer {
+  display: flex;
+  flex-direction: column;
   margin-right: 100px;
   margin-left: 100px;
+  flex: 1;
 }
 </style>

@@ -57,6 +57,8 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   gap: 15px;
+  flex: 1;
+  margin-top: 15px;
 }
 
 .upcomingEvents, #homeMenuRightSide {

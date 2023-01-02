@@ -13,255 +13,257 @@
             :shadow="false"
             @click="goBack()"/>
       </div>
-      <div class="createScreenplayBackground verticalScroll">
-        <div>
-          <h2 class="createScreenplayHeading">
-            {{ $t('general') }}
-          </h2>
-          <div class="createScreenplayBox">
-            <div class="createScreenplayBoxInnerElement">
-              <div>
-                <label id="createScreenplayNameLabel" for="createScreenplayName">{{ $t('newsData.movie') }} Name</label>
-                <input id="createScreenplayName" v-model="title" type="text" :placeholder="$t('screenplay') + ' ' + $t('newsData.title')" />
-              </div>
-              <div>
-                <label id="createScreenplayDescriptionLabel" for="createScreenplayDescription">{{ $t('description') }}</label>
-                <input id="createScreenplayDescription" v-model="desc" type="text" :placeholder="$t('screenplay') + ' ' + $t('description')" />
-              </div>
-              <div id="radioBox">
-                <div id="typeHint">
-                  Type
+      <div class="createScreenplayBackground">
+        <div class="verticalScroll">
+          <div>
+            <h2 class="createScreenplayHeading">
+              {{ $t('general') }}
+            </h2>
+            <div class="createScreenplayBox">
+              <div class="createScreenplayBoxInnerElement">
+                <div>
+                  <label id="createScreenplayNameLabel" for="createScreenplayName">{{ $t('newsData.movie') }} Name</label>
+                  <input id="createScreenplayName" v-model="title" type="text" :placeholder="$t('screenplay') + ' ' + $t('newsData.title')" />
                 </div>
-                <value-select id="typeSelectElement" :type="type" :value-array="['Animation','Feature','Indie']" type-of-values="ScreenplayType" @send-value="setSelectedType"/>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h2 class="createScreenplayHeading">
-            Story
-          </h2>
-          <div class="createScreenplayBox">
-            <div class="createScreenplayBoxInnerElement">
-              <div id="radioBox">
-                <div id="typeHint">
-                  Genre
+                <div>
+                  <label id="createScreenplayDescriptionLabel" for="createScreenplayDescription">{{ $t('description') }}</label>
+                  <input id="createScreenplayDescription" v-model="desc" type="text" :placeholder="$t('screenplay') + ' ' + $t('description')" />
                 </div>
-                <div id="createScreenplayGenreSelect">
-                  <select
-                      class="createScreenplaySelect"
-                      id="createScreenplayGenre"
-                      v-model="genre"
-                  >
-                    <option :value="null" disabled selected hidden>Genre</option>
-                    <option value="Action">Action</option>
-                    <option value="Adventure">{{ $t('adventure') }}</option>
-                    <option value="Biography">{{ $t('biography') }}</option>
-                    <option value="Comedy">{{ $t('comedy') }}</option>
-                    <option value="Crime">{{ $t('crime') }}</option>
-                    <option value="Documentary">{{ $t('documentary') }}</option>
-                    <option value="Drama">Drama</option>
-                    <option value="Erotic">{{ $t('erotic') }}</option>
-                    <option value="Family">{{ $t('family') }}</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="History">{{ $t('history') }}</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Musical">Musical</option>
-                    <option value="Mystery">{{ $t('mystery') }}</option>
-                    <option value="Romance">{{ $t('romance') }}</option>
-                    <option value="ScienceFiction">Sci-Fi</option>
-                    <option value="Sport">Sport</option>
-                    <option value="Thriller">Thriller</option>
-                    <option value="War">{{ $t('war') }}</option>
-                    <option value="Western">Western</option>
-                  </select>
-                  <select
-                      class="createScreenplaySelect"
-                      id="createScreenplaySubgenre"
-                      :disabled="!this.genre"
-                      v-model="subgenre"
-                  >
-                    <option :value="null" disabled selected hidden>Subgenre</option>
-                    <option value="Action" :disabled="this.genre === 'Action'">Action</option>
-                    <option value="Adventure" :disabled="this.genre === 'Adventure'">{{ $t('adventure') }}</option>
-                    <option value="Biography" :disabled="this.genre === 'Biography'">{{ $t('biography') }}</option>
-                    <option value="Comedy" :disabled="this.genre === 'Comedy'">{{ $t('comedy') }}</option>
-                    <option value="Crime" :disabled="this.genre === 'Crime'">{{ $t('crime') }}</option>
-                    <option value="Documentary" :disabled="this.genre === 'Documentary'">{{ $t('documentary') }}</option>
-                    <option value="Drama" :disabled="this.genre === 'Drama'">Drama</option>
-                    <option value="Erotic" :disabled="this.genre === 'Erotic'">{{ $t('erotic') }}</option>
-                    <option value="Family" :disabled="this.genre === 'Family'">{{ $t('family') }}</option>
-                    <option value="Fantasy" :disabled="this.genre === 'Fantasy'">Fantasy</option>
-                    <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
-                    <option value="Horror" :disabled="this.genre === 'Horror'">Horror</option>
-                    <option value="Musical" :disabled="this.genre === 'Musical'">Musical</option>
-                    <option value="Mystery" :disabled="this.genre === 'Mystery'">{{ $t('mystery') }}</option>
-                    <option value="Romance" :disabled="this.genre === 'Romance'">{{ $t('romance') }}</option>
-                    <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Sci-Fi</option>
-                    <option value="Sport" :disabled="this.genre === 'Sport'">Sport</option>
-                    <option value="Thriller" :disabled="this.genre === 'Thriller'">Thriller</option>
-                    <option value="War" :disabled="this.genre === 'War'">{{ $t('war') }}</option>
-                    <option value="Western" :disabled="this.genre === 'Western'">Western</option>
-                  </select>
-                </div>
-              </div>
-              <div id="radioBox">
-                <div id="typeHint">
-                  {{ $t('topics') }}
-                </div>
-                <div id="createScreenplayTopicsSelect">
-                  <select
-                      class="createScreenplaySelect"
-                      v-for="index in 3"
-                      :key="index"
-                      :id="'topic' + index"
-                      :disabled="disableSelect(index)"
-                      v-model="topics[index-1]"
-                  >
-                    <option :value="undefined" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
-                    <option
-                        v-for="(it,ind) in this.allTopics"
-                        :key="ind"
-                        :value="it"
-                        :disabled="disableTopic(it,index)">{{ it }}</option>
-                  </select>
+                <div id="radioBox">
+                  <div id="typeHint">
+                    Type
+                  </div>
+                  <value-select id="typeSelectElement" :type="type" :value-array="['Animation','Feature','Indie']" type-of-values="ScreenplayType" @send-value="setSelectedType"/>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h2 class="createScreenplayHeading">
-            Details
-          </h2>
-          <div class="createScreenplayBox">
-            <div class="createScreenplayBoxInnerElement">
-              <div id="scopeBox">
-                <div id="scopeHint">
-                  {{ $t('scope') }}
+          <div class="createScreenplaySubcontainer">
+            <h2 class="createScreenplayHeading">
+              Story
+            </h2>
+            <div class="createScreenplayBox">
+              <div class="createScreenplayBoxInnerElement">
+                <div id="radioBox">
+                  <div id="typeHint">
+                    Genre
+                  </div>
+                  <div id="createScreenplayGenreSelect">
+                    <select
+                        class="createScreenplaySelect"
+                        id="createScreenplayGenre"
+                        v-model="genre"
+                    >
+                      <option :value="null" disabled selected hidden>Genre</option>
+                      <option value="Action">Action</option>
+                      <option value="Adventure">{{ $t('adventure') }}</option>
+                      <option value="Biography">{{ $t('biography') }}</option>
+                      <option value="Comedy">{{ $t('comedy') }}</option>
+                      <option value="Crime">{{ $t('crime') }}</option>
+                      <option value="Documentary">{{ $t('documentary') }}</option>
+                      <option value="Drama">Drama</option>
+                      <option value="Erotic">{{ $t('erotic') }}</option>
+                      <option value="Family">{{ $t('family') }}</option>
+                      <option value="Fantasy">Fantasy</option>
+                      <option value="History">{{ $t('history') }}</option>
+                      <option value="Horror">Horror</option>
+                      <option value="Musical">Musical</option>
+                      <option value="Mystery">{{ $t('mystery') }}</option>
+                      <option value="Romance">{{ $t('romance') }}</option>
+                      <option value="ScienceFiction">Sci-Fi</option>
+                      <option value="Sport">Sport</option>
+                      <option value="Thriller">Thriller</option>
+                      <option value="War">{{ $t('war') }}</option>
+                      <option value="Western">Western</option>
+                    </select>
+                    <select
+                        class="createScreenplaySelect"
+                        id="createScreenplaySubgenre"
+                        :disabled="!this.genre"
+                        v-model="subgenre"
+                    >
+                      <option :value="null" disabled selected hidden>Subgenre</option>
+                      <option value="Action" :disabled="this.genre === 'Action'">Action</option>
+                      <option value="Adventure" :disabled="this.genre === 'Adventure'">{{ $t('adventure') }}</option>
+                      <option value="Biography" :disabled="this.genre === 'Biography'">{{ $t('biography') }}</option>
+                      <option value="Comedy" :disabled="this.genre === 'Comedy'">{{ $t('comedy') }}</option>
+                      <option value="Crime" :disabled="this.genre === 'Crime'">{{ $t('crime') }}</option>
+                      <option value="Documentary" :disabled="this.genre === 'Documentary'">{{ $t('documentary') }}</option>
+                      <option value="Drama" :disabled="this.genre === 'Drama'">Drama</option>
+                      <option value="Erotic" :disabled="this.genre === 'Erotic'">{{ $t('erotic') }}</option>
+                      <option value="Family" :disabled="this.genre === 'Family'">{{ $t('family') }}</option>
+                      <option value="Fantasy" :disabled="this.genre === 'Fantasy'">Fantasy</option>
+                      <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
+                      <option value="Horror" :disabled="this.genre === 'Horror'">Horror</option>
+                      <option value="Musical" :disabled="this.genre === 'Musical'">Musical</option>
+                      <option value="Mystery" :disabled="this.genre === 'Mystery'">{{ $t('mystery') }}</option>
+                      <option value="Romance" :disabled="this.genre === 'Romance'">{{ $t('romance') }}</option>
+                      <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Sci-Fi</option>
+                      <option value="Sport" :disabled="this.genre === 'Sport'">Sport</option>
+                      <option value="Thriller" :disabled="this.genre === 'Thriller'">Thriller</option>
+                      <option value="War" :disabled="this.genre === 'War'">{{ $t('war') }}</option>
+                      <option value="Western" :disabled="this.genre === 'Western'">Western</option>
+                    </select>
+                  </div>
                 </div>
-                <value-select id="scopeSelectElement" :type="selectedScope" :value-array="['Little','Small','Normal','Large','Epic']" type-of-values="Scope" @send-value="setSelectedScope"/>
-              </div>
-              <div id="toneBox">
-                <div id="toneHint">
-                  {{ $t('tone') }}
+                <div id="radioBox">
+                  <div id="typeHint">
+                    {{ $t('topics') }}
+                  </div>
+                  <div id="createScreenplayTopicsSelect">
+                    <select
+                        class="createScreenplaySelect"
+                        v-for="index in 3"
+                        :key="index"
+                        :id="'topic' + index"
+                        :disabled="disableSelect(index)"
+                        v-model="topics[index-1]"
+                    >
+                      <option :value="undefined" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
+                      <option
+                          v-for="(it,ind) in this.allTopics"
+                          :key="ind"
+                          :value="it"
+                          :disabled="disableTopic(it,index)">{{ it }}</option>
+                    </select>
+                  </div>
                 </div>
-                <value-select id="toneSelectElement" :type="selectedTone" :value-array="['Depressing','Dark','Realistic','Upbeat','Lighthearted']" type-of-values="Tone" @send-value="setSelectedTone"/>
-              </div>
-              <div id="specialEffectsBox">
-                <div id="specialEffectsHint">
-                  {{ $t('useOfSpecialEffects') }}
-                </div>
-                <value-select id="specialEffectsSelectElement" :type="selectedSpecialEffects" :value-array="['None','Some','Medium','Lots','Spectacle']" type-of-values="SpecialEffects" @send-value="setSelectedSpecialEffects"/>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h2 class="createScreenplayHeading">
-            {{ $t('ageRating') }}
-          </h2>
-          <div class="createScreenplayBox">
-            <div class="createScreenplayBoxInnerElement">
-              <div id="violenceBox">
-                <div id="violenceHint">
-                  {{ $t('violence') }}
+          <div class="createScreenplaySubcontainer">
+            <h2 class="createScreenplayHeading">
+              Details
+            </h2>
+            <div class="createScreenplayBox">
+              <div class="createScreenplayBoxInnerElement">
+                <div id="scopeBox">
+                  <div id="scopeHint">
+                    {{ $t('scope') }}
+                  </div>
+                  <value-select id="scopeSelectElement" :type="selectedScope" :value-array="['Little','Small','Normal','Large','Epic']" type-of-values="Scope" @send-value="setSelectedScope"/>
                 </div>
-                <value-select id="violenceSelectElement" :type="selectedViolence" :value-array="['None','Mild','Intensive','Graphical','Realistic']" type-of-values="Violence" @send-value="setSelectedViolence"/>
-              </div>
-              <div id="cursingBox">
-                <div id="cursingHint">
-                  {{ $t('cursing') }}
+                <div id="toneBox">
+                  <div id="toneHint">
+                    {{ $t('tone') }}
+                  </div>
+                  <value-select id="toneSelectElement" :type="selectedTone" :value-array="['Depressing','Dark','Realistic','Upbeat','Lighthearted']" type-of-values="Tone" @send-value="setSelectedTone"/>
                 </div>
-                <value-select id="cursingSelectElement" :type="selectedCursing" :value-array="['None','Mild','Strong','Crude','Offensive']" type-of-values="Cursing" @send-value="setSelectedCursing"/>
-              </div>
-              <div id="loveScenesEffectsBox">
-                <div id="loveScenesEffectsHint">
-                  {{ $t('loveScenes') }}
+                <div id="specialEffectsBox">
+                  <div id="specialEffectsHint">
+                    {{ $t('useOfSpecialEffects') }}
+                  </div>
+                  <value-select id="specialEffectsSelectElement" :type="selectedSpecialEffects" :value-array="['None','Some','Medium','Lots','Spectacle']" type-of-values="SpecialEffects" @send-value="setSelectedSpecialEffects"/>
                 </div>
-                <value-select id="loveScenesSelectElement" :type="selectedLoveScenes" :value-array="['None','Suitable','Passionate','Steamy','Explicit']" type-of-values="LoveScenes" @send-value="setSelectedLoveScenes"/>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <h2 class="createScreenplayHeading">
-            {{ $t('character') }}
-          </h2>
-          <div class="createScreenplayBox">
-            <div class="createScreenplayBoxInnerElement">
-              <div id="characterBox">
-                <div id="createScreenplayCharacterLeftSection">
-                  <div id="createScreenplayCharacterLeftSectionInnerBox">
-                    <div id="createScreenplayCharacterLeftSectionInnerBoxElements" class="verticalScroll">
-                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
-                        <div>{{ it.name }}</div>
-                        <div>{{ $t('main') }}</div>
-                      </div>
-                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.support" :key="index">
-                        <div>{{ it.name }}</div>
-                        <div>{{ $t('support') }}</div>
-                      </div>
-                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.minor" :key="index">
-                        <div>{{ it.name }}</div>
-                        <div>Minor</div>
-                      </div>
-                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.cameo" :key="index">
-                        <div>{{ it.name }}</div>
-                        <div>Cameo</div>
-                      </div>
-                      <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.voiceOver" :key="index">
-                        <div>{{ it.name }}</div>
-                        <div>{{ $t('voiceOver') }}</div>
+          <div class="createScreenplaySubcontainer">
+            <h2 class="createScreenplayHeading">
+              {{ $t('ageRating') }}
+            </h2>
+            <div class="createScreenplayBox">
+              <div class="createScreenplayBoxInnerElement">
+                <div id="violenceBox">
+                  <div id="violenceHint">
+                    {{ $t('violence') }}
+                  </div>
+                  <value-select id="violenceSelectElement" :type="selectedViolence" :value-array="['None','Mild','Intensive','Graphical','Realistic']" type-of-values="Violence" @send-value="setSelectedViolence"/>
+                </div>
+                <div id="cursingBox">
+                  <div id="cursingHint">
+                    {{ $t('cursing') }}
+                  </div>
+                  <value-select id="cursingSelectElement" :type="selectedCursing" :value-array="['None','Mild','Strong','Crude','Offensive']" type-of-values="Cursing" @send-value="setSelectedCursing"/>
+                </div>
+                <div id="loveScenesEffectsBox">
+                  <div id="loveScenesEffectsHint">
+                    {{ $t('loveScenes') }}
+                  </div>
+                  <value-select id="loveScenesSelectElement" :type="selectedLoveScenes" :value-array="['None','Suitable','Passionate','Steamy','Explicit']" type-of-values="LoveScenes" @send-value="setSelectedLoveScenes"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="createScreenplaySubcontainer">
+            <h2 class="createScreenplayHeading">
+              {{ $t('character') }}
+            </h2>
+            <div class="createScreenplayBox">
+              <div class="createScreenplayBoxInnerElement">
+                <div id="characterBox">
+                  <div id="createScreenplayCharacterLeftSection">
+                    <div id="createScreenplayCharacterLeftSectionInnerBox">
+                      <div id="createScreenplayCharacterLeftSectionInnerBoxElements" class="verticalScroll">
+                        <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
+                          <div>{{ it.name }}</div>
+                          <div>{{ $t('main') }}</div>
+                        </div>
+                        <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.support" :key="index">
+                          <div>{{ it.name }}</div>
+                          <div>{{ $t('support') }}</div>
+                        </div>
+                        <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.minor" :key="index">
+                          <div>{{ it.name }}</div>
+                          <div>Minor</div>
+                        </div>
+                        <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.cameo" :key="index">
+                          <div>{{ it.name }}</div>
+                          <div>Cameo</div>
+                        </div>
+                        <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.voiceOver" :key="index">
+                          <div>{{ it.name }}</div>
+                          <div>{{ $t('voiceOver') }}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div id="createScreenplayCharacterRightSection">
+                    <input id="createScreenplayCharacterName" v-model="characterName" :placeholder="$t('character') + ' Name'" />
+                    <input id="createScreenplayCharacterAge" type="number" v-model="characterAge" :placeholder="$t('character') + $t('age')" min="1" max="99" />
+                    <select
+                        class="createScreenplaySelect"
+                        id="createScreenplayCharacterGender"
+                        v-model="characterGender"
+                    >
+                      <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
+                      <option value="male">{{ $t('male') }}</option>
+                      <option value="female">{{ $t('female') }}</option>
+                      <option value="diverse">{{ $t('diverse') }}</option>
+                    </select>
+                    <select
+                        class="createScreenplaySelect"
+                        id="createScreenplayCharacterRole"
+                        v-model="characterRole"
+                    >
+                      <option :value="null" disabled selected hidden>{{ $t('castAs') }}</option>
+                      <option value="main" :disabled="numberOfMainCharacters === 3">{{ $t('main') }}</option>
+                      <option value="support" :disabled="numberOfSupportCharacters === 3">{{ $t('support') }}</option>
+                      <option value="minor" :disabled="numberOfMinorCharacters === 3">Minor</option>
+                      <option value="cameo" :disabled="numberOfCameoCharacters === 3">Cameo</option>
+                      <option value="voiceOver" :disabled="numberOfVoiceOverCharacters === 3">{{ $t('voiceOver') }}</option>
+                    </select>
+                  </div>
                 </div>
-                <div id="createScreenplayCharacterRightSection">
-                  <input id="createScreenplayCharacterName" v-model="characterName" :placeholder="$t('character') + ' Name'" />
-                  <input id="createScreenplayCharacterAge" type="number" v-model="characterAge" :placeholder="$t('character') + $t('age')" min="1" max="99" />
-                  <select
-                      class="createScreenplaySelect"
-                      id="createScreenplayCharacterGender"
-                      v-model="characterGender"
-                  >
-                    <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
-                    <option value="male">{{ $t('male') }}</option>
-                    <option value="female">{{ $t('female') }}</option>
-                    <option value="diverse">{{ $t('diverse') }}</option>
-                  </select>
-                  <select
-                      class="createScreenplaySelect"
-                      id="createScreenplayCharacterRole"
-                      v-model="characterRole"
-                  >
-                    <option :value="null" disabled selected hidden>{{ $t('castAs') }}</option>
-                    <option value="main" :disabled="numberOfMainCharacters === 3">{{ $t('main') }}</option>
-                    <option value="support" :disabled="numberOfSupportCharacters === 3">{{ $t('support') }}</option>
-                    <option value="minor" :disabled="numberOfMinorCharacters === 3">Minor</option>
-                    <option value="cameo" :disabled="numberOfCameoCharacters === 3">Cameo</option>
-                    <option value="voiceOver" :disabled="numberOfVoiceOverCharacters === 3">{{ $t('voiceOver') }}</option>
-                  </select>
-                </div>
+                <custom-button
+                    id="createScreenplayCharacterAddButton"
+                    :dark="false"
+                    size="small"
+                    :disabled="characterName === '' || characterGender === null || characterRole === null"
+                    @clicked="saveCharacter">{{ $t('add') }}</custom-button>
               </div>
-              <custom-button
-                  id="createScreenplayCharacterAddButton"
-                  :dark="false"
-                  size="small"
-                  :disabled="characterName === '' || characterGender === null || characterRole === null"
-                  @clicked="saveCharacter">{{ $t('add') }}</custom-button>
             </div>
           </div>
-        </div>
-        <custom-button
-            id="createScreenplayContinueButton"
-            :dark="false"
-            size="medium"
-            :disabled="!genre || !title || !desc || !type || topics[0] === undefined
+          <custom-button
+              id="createScreenplayContinueButton"
+              :dark="false"
+              size="medium"
+              :disabled="!genre || !title || !desc || !type || topics[0] === undefined
             || !selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
             || !selectedCursing || !selectedLoveScenes || numberOfMainCharacters === 0 ||
             numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0"
-            @clicked="continueCreateScreenplay">{{ $t('continue')}}</custom-button>
+              @clicked="continueCreateScreenplay">{{ $t('continue')}}</custom-button>
+        </div>
       </div>
     </div>
   </div>
@@ -443,6 +445,10 @@ export default {
   color: var(--fsm-pink-1);
 }
 
+.createScreenplaySubcontainer {
+  margin-top: 15px;
+}
+
 /*Background Design*/
 .createScreenplayBackground {
   display: flex;
@@ -452,7 +458,7 @@ export default {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-l-border-radius);
   width: 600px;
-  height: 750px;
+  height: 650px;
   padding: 10px 20px 10px 20px;
 }
 

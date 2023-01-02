@@ -45,10 +45,6 @@ export default {
   },
 
   methods: {
-    onUpdateDate(){
-      this.$store.commit('updateCurrentDate');
-    },
-
     roundBudget(labelValue){
       return Math.abs(Number(labelValue)) >= 1.0e+9
 

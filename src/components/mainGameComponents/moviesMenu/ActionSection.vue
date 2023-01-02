@@ -50,7 +50,10 @@ export default {
       } else if(this.headline === 'listOfSources'){
         this.$router.push({name: 'sourcesList'});
       } else if(this.headline === 'listOfFranchises'){
-        this.$router.push({name: 'franchisesList'});
+        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
+            null,null, null, null, null, null,
+            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
+        this.$router.push({name: 'newScreenplay'});
       } else if(this.headline === 'buyStreamingRights'){
         this.$router.push({name: 'buyMovieRights'});
       }
