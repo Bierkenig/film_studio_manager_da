@@ -74,6 +74,7 @@ const routes = [
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
+    { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true},
     { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},
     { name: 'DirectorOutput', path: '/DirectorOutput', component: DirectorOutput, props: true},
     { name: 'ActorOutput', path: '/ActorOutput', component: ActorOutput, props: true},

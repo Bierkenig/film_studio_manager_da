@@ -44,12 +44,12 @@
                   {{ $t('loadButton') }}
                 </button>
               </router-link>
-              <!--<router-link :to="{ name: 'editorInput' }" style="text-decoration: none; color: inherit">-->
+              <router-link :to="{ name: 'SelectDBWindow' }" style="text-decoration: none; color: inherit">
               <button id="editorButton" class="startMenuButton">
                 <custom-icon size="40px"/>
                 {{ $t('database') }}
               </button>
-              <!--</router-link>-->
+              </router-link>
             </div>
 
             <router-link :to="{ name: 'kitchenSink'}">
