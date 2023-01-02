@@ -187,11 +187,11 @@ export default {
 
     calcDireMorale(trueFalse) {
       if (this.dirRating > 75) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.morale -= 3
+        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 3
       } else if (this.dirRating > 50 && this.dirRating <= 75) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.morale -= 2
+        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 2
       } else if (this.dirRating <= 50) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.morale -= 1
+        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 1
       }
     },
 

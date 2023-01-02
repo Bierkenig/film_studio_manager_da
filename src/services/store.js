@@ -160,6 +160,11 @@ export default createStore({
         //FOR TESTING ->
         preProduction: new PreProduction(),
 
+        preProductionEvents: {
+            actorWhoWantsToDropOut: null,
+            directorWithDispute: null,
+        },
+
         //Production
         production: new Production(4),
 

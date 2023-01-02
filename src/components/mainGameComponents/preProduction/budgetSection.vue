@@ -50,22 +50,18 @@
     <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value">
     <div>{{vfx.value}}</div>
 
-    <!-- Setting Smiley-->
-    <smiley-director></smiley-director>
 
     <button @click="calcSum(); disabled = false">{{$t('budgetSection.button')}}</button>
 
     <div>{{this.$store.state.preProduction.outgoings}}</div>
 
-    <button :disabled="disabled" @click="this.$store.state.movieState = 'preProduction' ;this.$router.push({name: 'afterPreProductionPhase'})">{{$t('budgetSection.continue')}}</button>
+    <button :disabled="disabled" @click="this.$router.push({name: 'actorSection'})">{{$t('budgetSection.continue')}}</button>
   </div>
 </template>
 
 <script>
-import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
 export default {
   name: "budgetSection",
-  components: {SmileyDirector},
   data() {
     return {
       screenplayType: this.$store.state.preProduction.screenplay.type,
@@ -206,16 +202,6 @@ export default {
       this.$store.state.preProduction.budget.sfx = parseInt(this.sfx.value)
       this.$store.state.preProduction.budget.vfx = parseInt(this.vfx.value)
 
-
-      const max = this.production.max + this.extras.max + this.cinematography.max + this.sound.max + this.editing.max + this.score.max + this.set.max
-      + this.stunts.max + this.costume.max + this.makeup.max + this.sfx.max + this.vfx.max
-      //set Director Smiley
-      if (this.$store.state.preProduction.outgoings / 12 < max / 12)  {
-        this.$store.state.preProduction.hiredDirector._no++;
-      }
-
-
-      //set budget Pop TODO sfx & vfx extra
       switch (this.screenplayScope) {
         case "little":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.01, (this.production.max - this.production.min)*0.2)) this.$store.state.preProduction.budgetPop--;
