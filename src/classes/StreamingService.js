@@ -1,3 +1,5 @@
+import {Studio} from "@/classes/Studio";
+
 export class StreamingService {
     constructor(name, price, profit, subscribers, popularity, owner, foundationDate) {
         //TYPE -> String
@@ -78,6 +80,10 @@ export class StreamingService {
     }
 
     static fromJSON(jsonObject){
-        return Object.assign(new StreamingService(), jsonObject)
+        let instance =  Object.assign(new StreamingService(), jsonObject)
+        instance._owner = Studio.fromJSON(jsonObject._owner)
+        instance._foundationDate = new Date(jsonObject._foundationDate)
+        instance._lastCheckedDate = new Date(jsonObject._lastCheckedDate)
+        return instance;
     }
 }
