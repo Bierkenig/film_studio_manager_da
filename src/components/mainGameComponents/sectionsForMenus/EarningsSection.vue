@@ -12,14 +12,14 @@
 
     <div>
       <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
-        <div class="earningTextSection verticalScroll">
+        <div class="earningTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
                :key="index">
             <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
           </div>
         </div>
-        <div class="earningTextSection verticalScroll">
+        <div class="earningTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
                :key="index">
@@ -105,6 +105,9 @@ export default {
   margin-bottom: 0
 }
 
+.scroll {
+  height:255px
+}
 .earningElement {
   margin-bottom: 5px;
 }
@@ -130,7 +133,6 @@ export default {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(226, 226, 226);
   border-radius: 20px;
 }
 </style>

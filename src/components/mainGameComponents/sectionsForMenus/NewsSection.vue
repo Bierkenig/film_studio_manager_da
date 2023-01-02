@@ -16,21 +16,21 @@
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.peopleNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
+            <news-element class="newsElement" svg-code="" :heading-text="it._title"
                           info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
           </div>
         </div>
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.movieNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
+            <news-element class="newsElement" svg-code="" :heading-text="it._title"
                           info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
           </div>
         </div>
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.studioNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
+            <news-element class="newsElement" svg-code="" :heading-text="it._title"
                           info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
           </div>
         </div>
@@ -102,10 +102,16 @@ export default {
 }
 
 .newsTextSection {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
+.newsElement{
+  margin-bottom: 10px;
+}
 .scroll{
-  height:150px;
+  height:250px;
 }
 
 .newsNavigation {
@@ -129,7 +135,6 @@ export default {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(226, 226, 226);
   border-radius: 20px;
 }
 

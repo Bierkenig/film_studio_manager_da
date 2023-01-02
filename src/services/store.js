@@ -74,6 +74,30 @@ export default createStore({
             {
                 value: 500000,
                 date: new Date(2023,0,15)
+            },
+            {
+                value: 245000,
+                date: new Date(2022,11,25)
+            },
+            {
+                value: 500000,
+                date: new Date(2023,0,15)
+            },
+            {
+                value: 245000,
+                date: new Date(2022,11,25)
+            },
+            {
+                value: 500000,
+                date: new Date(2023,0,15)
+            },
+            {
+                value: 245000,
+                date: new Date(2022,11,25)
+            },
+            {
+                value: 500000,
+                date: new Date(2023,0,15)
             }
         ],
         //nicht fertig
@@ -750,22 +774,16 @@ export default createStore({
                 "allDirectorSalary",
                 "allOwningMovies",
                 "moviesFromOtherStudios",
-                "logo"
+                "logo",
+                "calenderEvents"
 
                 /**
-                 *
-                 *                 "news",
-                 *                 "earnings",
-                 *                 "calendarEvents",
-                 *                 "happeningEvent",
                  *                 //Store Daten falsch
                  *                 "otherStudios",
                  *                 //Store Daten leer
                  *                 "movieState",
                  *                 //Store Daten leer
                  *                 "marketing",
-                 *                 "streamingServicesFromOtherStudios",
-                 *                 "ownStreamingService",
                  *                 preProduction
                  */
 
@@ -773,6 +791,7 @@ export default createStore({
 
             state.currentDate = new Date(responseData.currentDate)
             state.ownStreamingService = StreamingService.fromJSON(responseData.ownStreamingService)
+            state.streamingServicesFromOtherStudios = responseData.streamingServicesFromOtherStudios.map(jsonObject => StreamingService.fromJSON(jsonObject))
             state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
             state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             state.boughtScreenplays = responseData.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
@@ -782,14 +801,11 @@ export default createStore({
             state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
             state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-
+            state.happeningEvent = Event.fromJSON(responseData.happeningEvent)
             //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
             state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
-            /**
-             "events",
-             "financialPerformance",
-             **/
+
 
             state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
                 isPreProduction: value => value,

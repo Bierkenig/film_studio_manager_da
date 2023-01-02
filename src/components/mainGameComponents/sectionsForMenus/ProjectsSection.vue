@@ -7,21 +7,21 @@
         <div class="projectsSectionElement">
           <div v-for="(it, index) in this.all" :key="index">
             <div v-if="it.earnings === undefined">
-              <screenplay-element svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
+              <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
             </div>
             <div v-else>
-              <movie-element svg-code="" :movie-title="it._title" viewers="99" critics="99" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
+              <movie-element class="projectsElement" svg-code="" :movie-title="it._title" viewers="99" critics="99" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
             </div>
             </div>
           </div>
         <div class="projectsSectionElement">
           <div v-for="(it, index) in this.screenplays" :key="index">
-            <screenplay-element svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
+            <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
           </div>
         </div>
         <div class="projectsSectionElement">
           <div v-for="(it, index) in this.productions" :key="index">
-            <movie-element svg-code="" :movie-title="it._title" viewers="99" critics="99" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
+            <movie-element class="projectsElement" svg-code="" :movie-title="it._title" viewers="99" critics="99" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" budget="$ 9,999" earnings="$ 999,999" @open-clicked="elementOpened"/>
           </div>
         </div>
       </tile-pages-nav>
@@ -75,6 +75,9 @@ export default {
   margin-bottom: 0
 }
 
+.projectsElement{
+  margin-bottom: 10px;
+}
 #projectsNavigation{
   margin: 15px;
 }
