@@ -92,7 +92,7 @@ export default {
 .streamingMenuContainer {
   display: flex;
   flex-direction: row;
-  gap: 1em;
+  gap: 20px;
   flex: 1;
   margin-top: 15px;
 }

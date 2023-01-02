@@ -180,7 +180,7 @@ export default {
   flex-wrap: wrap;
   margin-top: 15px;
   gap: 15px;
-  height: 400px;
+  height: 500px;
 }
 
 #moviesSectionSelectDiv {

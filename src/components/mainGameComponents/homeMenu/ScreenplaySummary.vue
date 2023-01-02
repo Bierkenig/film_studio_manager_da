@@ -75,9 +75,7 @@
                 </div>
                 <div>
                   <span v-for="(it, index) in screenplayTopics" :key="index" class="screenplaySummaryTopicValues">
-                    {{ it }}<span v-if="(screenplayTopics['firstTopic'] !== undefined && screenplayTopics['secondTopic'] !== undefined) ||
-                                        (screenplayTopics['secondTopic'] !== undefined && screenplayTopics['thirdTopic'] !== undefined) ||
-                                        (screenplayTopics['firstTopic'] !== undefined && screenplayTopics['thirdTopic'] !== undefined)">, </span>
+                    {{ it }}<span v-if="index !== screenplayTopics.length - 1">, </span>
                   </span>
                 </div>
               </div>
@@ -175,10 +173,20 @@ export default {
       screenplayType: this.$store.getters.getCurrentScreenplay.type,
       screenplayPrice: this.$store.getters.getCurrentScreenplay.price,
       screenplayRating: this.$store.getters.getCurrentScreenplay.rating,
-      screenplayTopics: this.$store.getters.getCurrentScreenplay.topics,
+      screenplayTopics: [],
       screenplayRoles: this.$store.getters.getCurrentScreenplay.roles,
       screenplayWriter: this.$store.getters.getCurrentScreenplay.writer._first_name + ' ' + this.$store.getters.getCurrentScreenplay.writer._last_name,
     }
+  },
+
+  mounted() {
+    let allTopics = this.$store.getters.getCurrentScreenplay.topics;
+
+    Object.values(allTopics).forEach((i) => {
+      if(i !== null) {
+        this.screenplayTopics.push(i);
+      }
+    })
   },
 
   methods: {

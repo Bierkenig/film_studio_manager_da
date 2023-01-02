@@ -3,11 +3,13 @@ import Award from "@/classes/Award";
 import {Movie} from "@/classes/Movie";
 
 export default class News {
-    constructor(title, person = null, movie = null, award = null, type) {
+    constructor(title, person = null, movie = null, award = null, studio = null, description, type) {
         this._title = title;
         this._person = person;
         this._movie = movie;
         this._award = award;
+        this._studio = studio;
+        this._description = description;
         this._type = type;
     }
 
@@ -28,6 +30,13 @@ export default class News {
         return this._award;
     }
 
+    getStudio() {
+        return this._studio;
+    }
+
+    getDescription() {
+        return this._description;
+    }
 
     getType() {
         return this._type;
