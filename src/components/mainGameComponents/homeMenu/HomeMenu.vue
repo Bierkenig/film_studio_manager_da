@@ -54,10 +54,9 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 15px;
   flex: 1;
+  flex-direction: row;
+  gap: 15px;
   margin-top: 15px;
 }
 

@@ -19,4 +19,11 @@ export default class Event {
             return this.causesForBreakdowns[2]
         }
     }
+
+    static fromJSON(jsonObject) {
+        let instance = Object.assign(new Event(), jsonObject)
+        instance.start = new Date(jsonObject.start)
+        instance.end = new Date(jsonObject.end)
+        return instance;
+    }
 }

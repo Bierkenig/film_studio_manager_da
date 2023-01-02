@@ -103,10 +103,16 @@ export default {
 
 .newsTextSection {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
+.newsElement{
+  margin-bottom: 10px;
+}
 .scroll{
-  height:150px;
+  height:250px;
 }
 
 .newsNavigation {
@@ -130,7 +136,6 @@ export default {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(226, 226, 226);
   border-radius: 20px;
 }
 

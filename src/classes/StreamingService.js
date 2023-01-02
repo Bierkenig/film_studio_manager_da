@@ -12,7 +12,7 @@ export class StreamingService {
         this._subscribers = subscribers;
         //TYPE -> Integer
         this._popularity = popularity;
-        //TYPE -> String
+        //TYPE -> Studio
         this._owner = owner;
         //TYPE -> Date, for costs and revenues per month
         this._foundationDate = foundationDate;
