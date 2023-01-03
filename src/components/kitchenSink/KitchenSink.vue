@@ -247,6 +247,19 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
+          code='<project-element project-title="Project Title" :svg-code="examplePoster" age="13+" genre="Western" genre-icon="western" release="13 Sep, 2222" status="Production" @open-clicked="elementOpened"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <project-element project-title="Project Title" :svg-code="examplePoster" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" status="Production"
+                       @open-clicked="elementOpened"/>
+        <div class="kitchenSinkSpacer"/>
+        <project-element project-title="Project Title" :svg-code="examplePoster" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" status="Production"
+                       @open-clicked="elementOpened"/>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view
           code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe" @open-clicked="elementOpened"/>'/>
       <code-view
           code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="6+" genre="Cars" genre-icon="cars" :quality="100" writer="Don Joe" @open-clicked="elementOpened"/>'/>
@@ -359,10 +372,12 @@ import FinanceElement from "@/components/kitchenSink/FinanceElement";
 import MarketShareElement from "@/components/kitchenSink/MarketShareElement";
 import EarningStatisticsElement from "@/components/kitchenSink/EarningStatisticsElement";
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
+import ProjectElement from "@/components/kitchenSink/ProjectElement.vue";
 
 export default {
   name: "KitchenSink",
   components: {
+    ProjectElement,
     AvatarElement,
     EarningStatisticsElement,
     MarketShareElement,
