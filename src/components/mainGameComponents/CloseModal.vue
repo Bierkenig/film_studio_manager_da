@@ -1,18 +1,20 @@
 <template>
   <div>
     <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
+      <div class="modal-wrapper" @click="$emit('close')">
+        <div class="modal-container" @click.stop="">
 
           <div class="modal-body">
             <slot name="body">
               <h2 class="closeModalHeader">{{ $t(headline) }}</h2>
+              <!--
               <div v-if="headline === 'closeGame'">
                 {{ $t('closeGameMsg') }}
               </div>
               <div v-if="headline === 'goBackMenu'">
                 {{ $t('goBackMenuMsg') }}
               </div>
+              -->
             </slot>
           </div>
 
@@ -23,18 +25,21 @@
                     class="modal-default-button"
                     :dark="false"
                     size="small"
-                    @clicked="$emit('closeGame')">{{ $t('closeGame') }}</custom-button>
+                    style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                    @clicked="$emit('closeGame')">{{ $t('closeGame') }} </custom-button>
                 <custom-button
                     v-else
                     class="modal-default-button"
                     :dark="false"
                     size="small"
-                    @clicked="$emit('backToStartmenu')">{{ $t('goBackMenu') }}</custom-button>
+                    style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                    @clicked="$emit('backToStartmenu')">{{ $t('startMenu') }}</custom-button>
               <custom-button
                   class="modal-default-button"
                   :dark="false"
                   size="small"
-                  @clicked="$emit('close')">{{ $t('close') }}</custom-button>
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('close')">{{ $t('resume') }}</custom-button>
             </slot>
           </div>
         </div>
@@ -85,6 +90,7 @@ export default {
 
 .modal-body {
   margin: 20px 0;
+  text-align: center;
 }
 
 /*
@@ -115,6 +121,10 @@ export default {
 
 .closeModalHeader {
   font-weight: var(--fsm-fw-bold) !important;
+  /*
   color: var(--fsm-pink-1) !important;
+  */
+  color: white
+
 }
 </style>

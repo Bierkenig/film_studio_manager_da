@@ -2,6 +2,7 @@
   <div class="settingHeaderContainer">
     <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
       <icon-button
+          class="button"
           v-if="this.showOnPage.includes(this.$route.name)"
           icon="musical"
           size="small"
@@ -13,6 +14,7 @@
           @click="changeMusicStatus"
       />
       <icon-button
+          class="button"
           v-if="this.showOnPage.includes(this.$route.name)"
           icon="star"
           size="small"
@@ -24,6 +26,7 @@
           @click="changeSoundeffectStatus"
       />
       <icon-button
+          class="button"
           v-if="this.showOnPage.includes(this.$route.name)"
           icon="journalism"
           size="small"
@@ -33,6 +36,7 @@
           :shadow="false"
           @click="changeLanguage"/>
       <icon-button
+          class="button"
           v-if="!this.showOnPage.includes(this.$route.name)"
           icon="save"
           size="small"
@@ -40,9 +44,11 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
+          :data-title="$t('saving')"
           @click="save"/>
           <!--TODO: @click="" zum Speichern einfügen-->
       <icon-button
+          class="button"
           v-if="!this.showOnPage.includes(this.$route.name)"
           icon="home"
           size="small"
@@ -50,6 +56,7 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
+          :data-title="$t('goBackMenu')"
           @click="showMenuModal = true"
       />
 
@@ -66,6 +73,7 @@
       </transition>
 
       <icon-button
+          class="button"
           v-if="!this.showOnPage.includes(this.$route.name)"
           icon="simple-arrow-right"
           size="small"
@@ -73,6 +81,7 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
+          :data-title="$t('closeGame')"
           @click="showCloseModal = true"
       />
 
@@ -89,6 +98,7 @@
       </transition>
     </div>
     <icon-button
+        class="button"
         icon="settings"
         size="medium"
         :dark="true"
@@ -179,7 +189,10 @@ export default {
 #settingHeaderIndividualOptions {
   display: flex;
   flex-direction: row;
-  gap: 5px;
   margin-right: 10px;
+}
+
+.button{
+  margin-left: 5px;
 }
 </style>

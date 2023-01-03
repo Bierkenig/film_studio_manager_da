@@ -1,7 +1,7 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
-      <page-heading :heading="pageName">Your manager dashboard.</page-heading>
+      <page-heading :heading="pageName">{{ $t('managerDashboard') }}</page-heading>
 
       <!--<div>
         <h2>{{ $t(pageName) }}</h2>
