@@ -45,10 +45,10 @@
                 </button>
               </router-link>
               <router-link :to="{ name: 'SelectDBWindow' }" style="text-decoration: none; color: inherit">
-              <button id="editorButton" class="startMenuButton">
-                <custom-icon size="40px"/>
-                {{ $t('database') }}
-              </button>
+                <button id="editorButton" class="startMenuButton">
+                  <custom-icon size="40px"/>
+                  {{ $t('database') }}
+                </button>
               </router-link>
             </div>
 

@@ -48,21 +48,29 @@ export default createStore({
                 new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Deine MUm', 'internationalAward'),
+                null,
+                'AS',
                 'Studios'),
             new News('Benni ist cool',
                 new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Neuer', 'anderer Award'),
+                null,
+                'AS',
                 'People'),
             new News('Benni ist cool',
                 new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Neuer', 'anderer Award'),
+                null,
+                'AS',
                 'People'),
             new News('Benni ist cool',
                 new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
                 new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
                 new Award('Neuer', 'anderer Award'),
+                null,
+                'AS',
                 'People')
         ],
         //nicht fertig
@@ -147,6 +155,9 @@ export default createStore({
                 {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
             new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
                 null,"PG / +13", null, null, null, null,
+                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
+            new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
+                null,"PG / +13", null, null, null, null,
                 {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
         //nicht fertig
         calendarEvents: [
@@ -224,10 +235,7 @@ export default createStore({
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [new Franchises(0, 'Hallo was geht')],
         currentFranchise: null,
-        otherStudios: [
-            [new Studio('Example Studio 1').getName(), "2023", 100],
-            [new Studio('Example Studio 2').getName(), "2023", 200],
-        ],
+        otherStudios: [],
         financialHistory: [
             {title: "financialHistory.event1", desc: "financialHistory.desc1", iconPath: ""},
             {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
@@ -295,6 +303,8 @@ export default createStore({
                 null,"PG / +13", null, null, null, null,
                 {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("Example Studio 1"),null)],
 
+        studioNames: ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
+            "Pictures", "Emberlight Films", "Sandstorm Productions", "Greenlight Films", "Incandescent Pictures", "Velvet Vision Studio", "Luna Productions", "Terra studios", "Roaring 20s Productions", "Heart of Life Studios", "Maze Pictures", "Radiant Pictures"],
 
 
         //data from database

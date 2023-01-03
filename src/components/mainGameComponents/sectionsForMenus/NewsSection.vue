@@ -16,22 +16,22 @@
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.peopleNews" :key="index">
-            <news-element class="newsElement" svg-code="" :heading-text="it._title"
-                          info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description"/>
           </div>
         </div>
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.movieNews" :key="index">
-            <news-element class="newsElement" svg-code="" :heading-text="it._title"
-                          info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description"/>
           </div>
         </div>
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.studioNews" :key="index">
-            <news-element class="newsElement" svg-code="" :heading-text="it._title"
-                          info-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ut labore et dolore magna aliqua."/>
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description"/>
           </div>
         </div>
 
@@ -102,6 +102,7 @@ export default {
 }
 
 .newsTextSection {
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
