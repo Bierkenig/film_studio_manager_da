@@ -151,20 +151,20 @@
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One" hide-open-icon/>'/>
-      <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One" hide-open-icon/>'/>
-      <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="award" @open-clicked="elementOpened"/>'/>
+      <code-view code='<event-element type="productionFinished" movieTitle="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="featureFilm" movieTitle="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>'/>
+      <code-view code='<event-element type="award" @open-clicked="elementOpened" status="open"/>'/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="productionFinished" movieTitle="Movie Title Name One" hide-open-icon/>
+        <event-element type="productionFinished" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="featureFilm" movieTitle="Movie Title Name One" hide-open-icon/>
+        <event-element type="featureFilm" movieTitle="Movie Title Name One"/>
       </div>
       <div class="kitchenSinkSpacer"/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="blockbuster" movieTitle="Movie Title Name One"/>
+        <event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="award" @open-clicked="elementOpened"/>
+        <event-element type="award" @open-clicked="elementOpened" status="open"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">

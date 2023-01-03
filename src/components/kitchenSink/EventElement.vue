@@ -10,7 +10,8 @@
       <div class="eventElementDescription">{{description}}</div>
     </div>
   </div>
-  <icon-button class="eventElementOpenButton" icon="open" size="small" theme="light" @click="openButtonFunction"/>
+  <icon-button class="eventElementOpenButton" icon="arrow-right" size="small" theme="light" @click="openButtonFunction"/>
+  <icon-button class="eventElementDoneButton" icon="simple-tick" size="small" :disabled="true"/>
 </div>
 </template>
 
@@ -28,7 +29,8 @@ export default {
       iconTheme: 'red',
       contentHeight: '30px',
       randomId: Math.floor(Math.random() * Math.pow(10, 10)),
-      openIconDisplay: 'flex',
+      openIconDisplay: 'none',
+      doneIconDisplay: 'none',
     }
   },
   props: {
@@ -43,16 +45,17 @@ export default {
       type: String,
       default: 'movieTitle',
     },
-    hideOpenIcon: {
-      type: Boolean,
-      default: false,
+    status: {
+      type: String,
+      default: 'none',
+      validator(value) {
+        return ['none', 'open', 'done'].includes(value);
+      }
     },
   },
   methods: {
     setupElement() {
-      if (this.hideOpenIcon) {
-        this.openIconDisplay = 'none';
-      }
+      this.updateStatus();
       switch (this.type) {
         case 'productionFinished':
           document.getElementById('productionFinishedIcon' + this.randomId).style.display = 'block';
@@ -81,9 +84,34 @@ export default {
     openButtonFunction() {
       this.$emit('open-clicked');
     },
+    updateStatus() {
+      switch (this.status) {
+        case 'none':
+          this.openIconDisplay = 'none';
+          this.doneIconDisplay = 'none';
+          break;
+        case 'open':
+          this.openIconDisplay = 'flex';
+          this.doneIconDisplay = 'none';
+          break;
+        case 'done':
+          this.openIconDisplay = 'none';
+          this.doneIconDisplay = 'flex';
+          break;
+        default:
+          this.openIconDisplay = 'none';
+          this.doneIconDisplay = 'none';
+          break;
+      }
+    },
   },
   mounted() {
     this.setupElement();
+  },
+  watch: {
+    status: function() {
+      this.updateStatus();
+    }
   },
 }
 </script>
@@ -131,6 +159,11 @@ export default {
 
 .eventElementOpenButton {
   display: v-bind('openIconDisplay');
+  margin: 5px;
+}
+
+.eventElementDoneButton {
+  display: v-bind('doneIconDisplay');
   margin: 5px;
 }
 </style>
