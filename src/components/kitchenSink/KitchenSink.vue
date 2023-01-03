@@ -98,8 +98,9 @@
     <div class="kitchenSinkComponentDiv">
       <code-view code='<icon-button icon="plus" size="extraSmall" :dark="false" :shadow="false"/>'/>
       <code-view code='<icon-button icon="open" size="small" :dark="false" :shadow="false"/>'/>
-      <code-view
-          code='<icon-button icon="settings" size="large" :dark="true" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="true" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="true" :disabled="invertThemeTest" :shadow="true"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="false" :disabled="invertThemeTest" :shadow="true"/>'/>
       <code-view code='<icon-button icon="home" size="large" :dark="false" :shadow="true"/>'/>
       <code-view code='<icon-button icon="movies" size="medium" :dark="true" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
@@ -109,6 +110,8 @@
                      :shadow="false"/>
         <icon-button icon="settings" size="large" :dark="true"
                      :shadow="true" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>
+        <icon-button icon="settings" size="large" :dark="true" :disabled="invertThemeTest" :shadow="true"/>
+        <icon-button icon="settings" size="large" :dark="false" :disabled="invertThemeTest" :shadow="true"/>
         <icon-button icon="home" size="large" :dark="false" :shadow="true"/>
         <icon-button icon="movies" size="medium" :dark="true"
                      :shadow="true"/>

@@ -1,7 +1,7 @@
 <template>
   <div class="iconButtonMainDiv">
     <div class="iconButtonSubDiv">
-      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :icon="icon" :shadow="false" :invert-theme="invertTheme"/>
+      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :icon="icon" :shadow="false" :invert-theme="invertIconTheme"/>
     </div>
   </div>
 </template>
@@ -30,20 +30,24 @@ export default {
         iconSize: '47px'
       },
       themeLight: {
-        filter: 'var(--fsm-filter-dark-blue-3)',
         bgColor: 'var(--fsm-pink-1)',
         bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-2))',
         boxShadow: '0 0 5px 5px var(--fsm-pink-shadow-color)'
       },
       themeDark: {
-        filter: 'var(--fsm-filter-pink-1)',
         bgColor: 'var(--fsm-dark-blue-2)',
         bgImage: 'none',
         boxShadow: '0 0 5px 5px var(--fsm-dark-shadow-color)'
       },
+      themeDisabled: {
+        bgColor: 'var(--fsm-dark-blue-2)',
+        bgImage: 'none',
+        boxShadow: 'none'
+      },
       sizeValues: {},
       themeValues: {},
       iconThemes: ['dark', 'light'],
+      invertIconTheme: false,
     }
   },
   props: {
@@ -74,6 +78,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     setCSSVariables() {
@@ -97,6 +105,15 @@ export default {
       if (!this.shadow) {
         this.themeValues.boxShadow = 'none'
       }
+      this.invertIconTheme = this.invertTheme;
+    },
+    applyAbilityStyle() {
+      if (this.disabled) {
+        this.themeValues = {...this.themeDisabled};
+        this.invertIconTheme = this.dark;
+      } else {
+        this.setCSSVariables();
+      }
     },
   },
   mounted() {
@@ -104,15 +121,21 @@ export default {
   },
   watch: {
     invertTheme: function() {
-      if (this.dark && this.invertTheme || !this.dark && !this.invertTheme) {
-        this.themeValues = {...this.themeLight};
-      } else {
-        this.themeValues = {...this.themeDark};
+      if (!this.disabled) {
+        if (this.dark && this.invertTheme || !this.dark && !this.invertTheme) {
+          this.themeValues = {...this.themeLight};
+        } else {
+          this.themeValues = {...this.themeDark};
+        }
+        if (!this.shadow) {
+          this.themeValues.boxShadow = 'none'
+        }
+        this.invertIconTheme = this.invertTheme;
       }
-      if (!this.shadow) {
-        this.themeValues.boxShadow = 'none'
-      }
-    }
+    },
+    disabled: function () {
+      this.applyAbilityStyle();
+    },
   },
 }
 </script>
