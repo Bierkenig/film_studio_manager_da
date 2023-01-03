@@ -19,7 +19,7 @@ export default {
       },
       sizeSmall: {
         buttonSize: '30px',
-        iconSize: '15px'
+        iconSize: '20px'
       },
       sizeMedium: {
         buttonSize: '60px',
@@ -118,6 +118,7 @@ export default {
   },
   mounted() {
     this.setCSSVariables();
+    this.applyAbilityStyle();
   },
   watch: {
     invertTheme: function() {
