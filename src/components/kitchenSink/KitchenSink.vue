@@ -271,14 +271,6 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>'/>
-      <div class="kitchenSinkFlexRow">
-        <streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>
-        <div class="kitchenSinkSpacer"/>
-        <streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>
-      </div>
-    </div>
-    <div class="kitchenSinkComponentDiv">
       <code-view
           code='<screenplay-element screenplay-title="Screenplay Title" :svg-code="examplePoster" age="13+" genre="Action" genre-icon="action" :quality="1" writer="John Doe" @open-clicked="elementOpened"/>'/>
       <code-view
@@ -302,16 +294,19 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view
-          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited" @open-clicked="elementOpened"/>'/>
-      <code-view
-          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true" @open-clicked="elementOpened"/>'/>
+      <code-view code='<streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>'/>
       <div class="kitchenSinkFlexRow">
-        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Unlimited"
-                           @open-clicked="elementOpened"/>
+        <streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>
         <div class="kitchenSinkSpacer"/>
-        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Limited"
-                           :contract-critical="true" @open-clicked="elementOpened"/>
+        <streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<streaming-element :svg-code="examplePoster" streaming-title="Titleeeeeeee" :popularity="50" contract="99 Months" @open-clicked="elementOpened"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <streaming-element :svg-code="examplePoster" streaming-title="Titleeeeeeee" :popularity="50" contract="99 Months" @open-clicked="elementOpened"/>
+        <div class="kitchenSinkSpacer"/>
+        <streaming-element :svg-code="examplePoster" streaming-title="Titleeeeeeee" :popularity="50" contract="99 Months" @open-clicked="elementOpened"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
