@@ -310,14 +310,12 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view
-          code='<streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>'/>
+      <code-view code='<streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+"/>'/>
+      <code-view code='<streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+" icon-theme="blue"/>'/>
       <div class="kitchenSinkFlexRow">
-        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios"
-                                      streaming-service="Example Studios+"/>
+        <streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+"/>
         <div class="kitchenSinkSpacer"/>
-        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios"
-                                      streaming-service="Example Studios+"/>
+        <streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+" icon-theme="blue"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">

@@ -5,22 +5,20 @@
         <div class="streamingCompetitorElementTitle">
           {{ streamingService }}
         </div>
+        <custom-icon class="streamingCompetitorElementIcon" :icon="icon" size="40px" :theme="iconTheme"/>
       </div>
       <div class="streamingCompetitorElementInfoElements">
         <div class="streamingCompetitorElementMoreInfo">
-          <div class="streamingCompetitorElementOwnerInfo">
-            <div class="streamingCompetitorElementOwnerLabel">
-              Owner
+          <div class="streamingCompetitorElementSubscribersInfo">
+            <div class="streamingCompetitorElementSubscribersLabelContainer">
+              <div class="streamingCompetitorElementSubscribersIcon">
+                <custom-icon size="16px" theme="light" :shadow="true"/>
+              </div>
+              <div class="streamingCompetitorElementSubscribersLabel">
+                Subscribers
+              </div>
             </div>
-            <div class="streamingCompetitorElementOwnerName">
-              {{ owner }}
-            </div>
-          </div>
-          <div class="streamingCompetitorElementContractInfo">
-            <div class="streamingCompetitorElementContractLabel">
-              Subscribers
-            </div>
-            <div class="streamingCompetitorElementContractValue">
+            <div class="streamingCompetitorElementSubscribersValue">
               {{ subscribers }}
             </div>
           </div>
@@ -31,8 +29,11 @@
 </template>
 
 <script>
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+
 export default {
   name: "StreamingCompetitorElement",
+  components: {CustomIcon},
   data() {
     return {
       contractColor: 'var(--fsm-white)',
@@ -43,9 +44,15 @@ export default {
       type: String,
       required: true,
     },
-    owner: {
+    icon: {
       type: String,
       required: true,
+    },
+    iconTheme: {
+      default: 'red',
+      validator(value) {
+        return ['red', 'green', 'blue', 'yellow', 'white'].includes(value);
+      }
     },
     subscribers: {
       type: String,
@@ -61,7 +68,6 @@ export default {
   flex-direction: row;
   justify-content: flex-start;
   box-sizing: border-box;
-  height: 130px;
   padding: 10px;
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
@@ -83,6 +89,9 @@ export default {
 
 .streamingCompetitorElementTitle {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   font-size: 22px;
   font-weight: var(--fsm-fw-regular);
   margin-right: 10px;
@@ -102,24 +111,37 @@ export default {
   justify-content: space-between;
 }
 
-.streamingCompetitorElementOwnerInfo, .streamingCompetitorElementContractInfo {
+.streamingCompetitorElementSubscribersInfo {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 40px;
   padding: 0 10px 0 10px;
-  margin: 10px 0 0 0;
+  margin-top: 10px;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-s-border-radius);
   box-sizing: border-box;
 }
 
-.streamingCompetitorElementOwnerLabel, .streamingCompetitorElementContractLabel,
-.streamingCompetitorElementOwnerName, .streamingCompetitorElementContractValue {
+.streamingCompetitorElementSubscribersLabelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.streamingCompetitorElementSubscribersIcon {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 14px;
+  margin-right: 10px;
+}
+
+.streamingCompetitorElementSubscribersLabel, .streamingCompetitorElementSubscribersValue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 16px;
   font-weight: var(--fsm-fw-regular);
 }
 </style>
