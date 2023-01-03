@@ -25,6 +25,10 @@ export default {
         bgColor: 'var(--fsm-dark-blue-4)',
         fontColor: 'var(--fsm-pink-1)'
       },
+      themeDisabled: {
+        bgColor: 'var(--fsm-dark-blue-3)',
+        fontColor: 'var(--fsm-dark-blue-4)'
+      },
       sizeValues: {},
       themeValues: { bgImage: 'none', bgColor: 'none' },
     }
@@ -41,6 +45,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {
     setCSSVariables() {
@@ -56,11 +64,25 @@ export default {
       }
     },
     buttonFunction() {
-      this.$emit('clicked');
+      if (!this.disabled) {
+        this.$emit('clicked');
+      }
+    },
+    applyAbilityStyle() {
+      if (this.disabled) {
+        this.themeValues = {...this.themeDisabled};
+      } else {
+        this.setCSSVariables();
+      }
     },
   },
   mounted() {
     this.setCSSVariables();
+  },
+  watch: {
+    disabled: function () {
+      this.applyAbilityStyle();
+    }
   },
 }
 </script>

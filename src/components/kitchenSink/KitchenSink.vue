@@ -60,6 +60,15 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code='<custom-button :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>'/>
+      <code-view code='<custom-button size="large" :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>'/>
+      <div class="kitchenSinkFlexRow">
+        <custom-button :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>
+        <div class="kitchenSinkSpacer"/>
+        <custom-button size="large" :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
       <code-view code='<custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>'/>
       <code-view
           code='<custom-icon icon="settings" size="60px" theme="light" :shadow="false"/>'/>
