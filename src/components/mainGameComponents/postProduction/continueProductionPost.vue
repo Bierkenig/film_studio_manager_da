@@ -1,25 +1,15 @@
 <template>
-  <div class="modal-mask">
-    <div class="modal-wrapper">
-      <div class="modal-container">
-        <div class="modal-body">
-          <slot name="body">
-            <h3>{{$t('reeditingDirector.h3')}}</h3>
-            <div>{{$t('reeditingDirector.msg')}}</div>
-
-            <button class="modal-default-button" @click="bool = true; bool2 = false">{{$t('reeditingDirector.reedit')}}</button>
-            <button class="modal-default-button" @click="bool2 = true; bool = false">{{$t('reeditingDirector.ignore')}}</button>
-
-            <div v-if="bool">
-              {{$t('reeditingDirector.quality2')}}
-            </div>
-
-            <div v-if="bool2">
-              {{$t('reeditingDirector.quality')}}
-            </div>
-
-            <button class="modal-default-button" @click="saveState()">{{$t('reeditingDirector.save')}}</button>
-          </slot>
+  <div>
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-body">
+            <slot name="body">
+              <div>{{$t('continueProduction.qst')}}</div>
+              <button class="modal-default-button" @click="$emit('close')">{{$t('continueProduction.continue')}}</button>
+              <button class="modal-default-button" @click="cancelMovie()">{{$t('continueProduction.cancel')}}</button>
+            </slot>
+          </div>
         </div>
       </div>
     </div>
@@ -28,23 +18,14 @@
 
 <script>
 export default {
-  name: "reeditingDirector",
-
-  data() {
-    return {
-      bool: false,
-      bool2: false
-    }
-  },
+  name: "pre-production-event",
 
   methods: {
-    saveState() {
-      if (this.bool) {
-        this.$store.state.currentMovie.hype += this.$store.state.currentMovie.hype * 0.05
-      } else if (this.bool2) {
-        this.$store.state.currentMovie.quality *= 0.9
-      }
-    },
+    cancelMovie() {
+      const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
+      this.$store.state.inProductionMovies.slice(index, 1)
+      this.$emit('close')
+    }
   }
 }
 </script>
@@ -109,4 +90,5 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+
 </style>

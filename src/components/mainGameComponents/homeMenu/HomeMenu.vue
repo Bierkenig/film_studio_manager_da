@@ -9,23 +9,6 @@
         <earnings-section class="earnings"/>
       </div>
     </div>
-
-<!--    <router-link to="directorSection">-->
-<!--      <button>director</button>-->
-<!--    </router-link>-->
-<!--    <router-link to="screenplaySection">-->
-<!--      <button>screenplay</button>-->
-<!--    </router-link>-->
-<!--    <router-link to="durationSection">-->
-<!--      <button>duration</button>-->
-<!--    </router-link>-->
-<!--    <router-link to="actorSection">-->
-<!--      <button>actor</button>-->
-<!--    </router-link>-->
-<!--    <router-link to="budgetSection">-->
-<!--      <button>budget</button>-->
-<!--    </router-link>-->
-<!--    <button id="saveButton" class="buttonStyle" @click="save">save</button>-->
   </div>
 </template>
 

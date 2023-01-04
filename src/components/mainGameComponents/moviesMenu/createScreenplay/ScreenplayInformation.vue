@@ -255,6 +255,7 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import PreProduction from "@/classes/PreProduction";
 
 export default {
   name: "ScreenplayInformation",
@@ -284,8 +285,8 @@ export default {
       }
       console.log(this.$store.getters.getCurrentScreenplay);
 
-      if (this.$store.state.preProduction.isPreProduction) {
-        this.$store.state.preProduction.currentScreenplay = this.screenplay
+      if (this.$store.state.currentMovie._preProduction instanceof PreProduction) {
+        this.$store.state.currentMovie._preProduction.screenplay = this.screenplay
         this.$router.push({name: 'directorSection'})
       } else {
         this.$router.push({name: 'movies'});

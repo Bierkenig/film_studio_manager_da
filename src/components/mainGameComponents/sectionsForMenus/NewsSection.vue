@@ -17,21 +17,21 @@
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.peopleNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description"/>
+                          :info-text="it._description" class="newsElement"/>
           </div>
         </div>
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.movieNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description"/>
+                          :info-text="it._description" class="newsElement"/>
           </div>
         </div>
 
         <div class="newsTextSection scroll verticalScroll">
           <div v-for="(it, index) in this.studioNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description"/>
+                          :info-text="it._description" class="newsElement"/>
           </div>
         </div>
 

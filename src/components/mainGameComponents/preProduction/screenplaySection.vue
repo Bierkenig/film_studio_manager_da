@@ -18,10 +18,11 @@
       <div>{{$t('buyScreenplaySection.existing')}}</div>
       <div v-for="(el, index) in owningScreenplays" :key="index">
         {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer._first_name}} | {{el.writer._last_name}} / {{el.description}} / {{el.rating}} / {{el.price}}
-        <button @click="this.$store.state.preProduction.currentScreenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
+        <button @click="this.$store.state.currentMovie._preProduction.screenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
       </div>
     </div>
-    <button v-if="this.$store.state.preProduction.currentScreenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+    <button v-if="this.$store.state.currentMovie._preProduction.screenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+
     <icon-button
         id="screenplaySectionBackButton"
         icon="simple-arrow-left"
@@ -54,7 +55,7 @@ export default {
     buy(screenplay) {
       this.$store.state.boughtScreenplays.push(screenplay)
       if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0){
-        this.$store.state.balance -= screenplay.price
+        this.$store.commit('subtractBalance',screenplay.price);
       }
     },
 
@@ -65,8 +66,7 @@ export default {
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
-      this.$store.state.preProduction.isPreProduction = true
-      this.$router.push({name: 'createScreenplay'});
+      this.$router.push({name: 'newScreenplay'});
     },
 
     goBack(){

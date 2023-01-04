@@ -2,7 +2,6 @@ import {createStore} from "vuex";
 import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
 import News from "@/classes/News";
-import Award from "@/classes/Award";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
@@ -26,15 +25,14 @@ export default createStore({
                 'true','true','true', [{'Action':92,'Adventure':80,'Biography':19,'Comdey':55,'Crime':12,'Documentary':52,'Drama':62,'Erotic':52,
     'Family':23,'Fantasy':20,'History':25,'Horror':65,'Musical':23,'Mystery':95,'Romance':75,'Science Fiction':41, 'Sport':25,'Thriller':25,'War':56,'Western':78}]),
 'Ein Film von Spielzeugen, die eine fantastische Reise um die Welt erleben und einiges durchmachen müssen',65.8,
-    2500000,{firstTopic: 'Family',secondTopic: 'Adventure',thirdTopic: null},null)],
-        studio: new Studio('NO STUDIO'),
-        balance: 0,
+    2500000,{firstTopic: 'Family',secondTopic: 'Adventure',thirdTopic: null},null, true)],
+        studio: null,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
+        currentMovie: null,
         //movies which are still in cinema and generate profit
         createdMovies: [],
         //muss das ins save file?
-        currentMovie: null,
         currentScreenplay: null,
         //TODO: changes
         logo: null,
@@ -43,36 +41,7 @@ export default createStore({
         currentDate: new Date("January 01, 2023"),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
-        news: [
-            new News('Studio 1235 gegründet',
-                new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Deine MUm', 'internationalAward'),
-                null,
-                'AS',
-                'Studios'),
-            new News('Benni ist cool',
-                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                null,
-                'AS',
-                'People'),
-            new News('Benni ist cool',
-                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                null,
-                'AS',
-                'People'),
-            new News('Benni ist cool',
-                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                null,
-                'AS',
-                'People')
-        ],
+        news: [],
         //nicht fertig
         earnings: [
             {
@@ -136,29 +105,10 @@ export default createStore({
             }
         ],
         //movies which are in currentProduction
-        inProductionMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Western',
-            null,'NC-17 / +18', null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        inProductionMovies: [],
 
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Action',
-            null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Comedy',
-                null,'NC-17 / +18', null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Western',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'War',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        finishedMovies: [],
         //nicht fertig
         calendarEvents: [
             {
@@ -230,6 +180,7 @@ export default createStore({
                 start: '2023-01-28',
                 end: '2023-01-29',
                 type: 'award',
+
             },
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
@@ -246,42 +197,13 @@ export default createStore({
         //movie State
         movieState: "",
         //preProduction
-        preProduction: {
-            isPreProduction: false,
-            currentScreenplay: null,
-            hiredDirector: new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,null,5,null,5,23,123456,false,true,false,null),
-            feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
-            indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
-            animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
-            outgoings: 0,
-            //can be: 2 = fine, 3 = angry and 1 = relaxed
-            directorMood: 0,
-            duration: {
-                preProductionLength: 0,
-                productionLength: 0,
-                postProductionLength: 0,
-                releaseDate: 0,
-            },
-            budget: {
-                production: 0,
-                extras: 0,
-                cinematography: 0,
-                sound: 0,
-                editing: 0,
-                score: 0,
-                set: 0,
-                stunts: 0,
-                costume: 0,
-                makeup: 0,
-                vfx: 0,
-                sfx: 0,
-                problemBudget: 0,
-            },
-            budgetPop: 12,
-        },
+        feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
+        indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
+        animation: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
 
-        marketing: {
-
+        preProductionEvents: {
+            actorWhoWantsToDropOut: null,
+            directorWithDispute: null,
         },
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,new Studio('AS'),new Date("January 25, 2023")),
@@ -289,19 +211,9 @@ export default createStore({
             new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
         ownStreamingService: null,
         //movies which you are owning (created, bought rights, bought movies)
-        allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, 'Action',
-            null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        allOwningMovies: [],
         //movies from other studios (no rights have been bought yet, non-owning movies)
-        moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, 'Comedy',
-            null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022',new Studio("Example Studio 2"),null),
-            new Movie(new Screenplay(1, 'TEST2', null, 'Western',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022',new Studio("Example Studio 1"),null),
-            new Movie(new Screenplay(3, 'TEST3', null, 'War',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("Example Studio 1"),null)],
+        moviesFromOtherStudios: [],
 
         studioNames: ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
             "Pictures", "Emberlight Films", "Sandstorm Productions", "Greenlight Films", "Incandescent Pictures", "Velvet Vision Studio", "Luna Productions", "Terra studios", "Roaring 20s Productions", "Heart of Life Studios", "Maze Pictures", "Radiant Pictures"],
@@ -335,7 +247,7 @@ export default createStore({
         },
 
         getBalance(state) {
-            return state.balance;
+            return state.studio.budget;
         },
 
         getCurrentMovieBudget(state) {
@@ -499,28 +411,27 @@ export default createStore({
         //TODO: changes
         createStudio(state, payload) {
             state.studio = payload.studio;
-            state.balance = payload.budget;
             state.logo = payload.logo;
         },
 
         addBalance(state, value) {
-            state.balance += parseInt(value);
+            state.studio.budget += parseInt(value);
         },
 
         subtractBalance(state, value) {
-            if (parseInt(value) > state.balance) {
+            if (parseInt(value) > state.studio.budget) {
                 throw "BALANCE TOO LOW";
             } else {
-                state.balance -= parseInt(value);
+                state.studio.budget -= parseInt(value);
             }
         },
 
         subtractMovieExpensesFromBalance(state) {
             let expenses = state.currentMovieExpenses + state.currentMovieBudget;
-            if (parseInt(expenses) > state.balance) {
+            if (parseInt(expenses) > state.studio.budget) {
                 throw "BALANCE TOO LOW";
             } else {
-                state.balance -= parseInt(expenses);
+                state.studio.budget -= parseInt(expenses);
             }
         },
 

@@ -4,13 +4,15 @@
       <div class="modal-container">
         <div class="modal-body">
           <slot name="body">
-            <h3>{{ $t('finalCut.h3') }}</h3>
-
-            <div>{{ $t('finalCut.msg') }}</div>
-
-            <div v-if="bool">{{$t('finalCut.ignore')}}</div>
-            <button @click="accept()">{{$t('finalCut.accept')}}</button>
-            <button @click="bool === true ? this.$store.state.currentMovie.riskOfFailure += 10 && $emit('close') : bool = true">{{$t('finalCut.ignore2')}}</button>
+            <h3>{{$t('postProductionEvents.testScreening.title')}}</h3>
+            <button class="modal-default-button" @click="feedbacks = true">{{$t('postProductionEvents.testScreening.run')}}</button>
+            <div v-if="feedbacks">
+              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.soundTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.vfxTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
+            </div>
           </slot>
         </div>
       </div>
@@ -20,18 +22,18 @@
 
 <script>
 export default {
-  name: "finalCut",
+  name: "reeditingDirector",
 
   data() {
     return {
-      bool: false
+      feedbacks: false
     }
   },
 
   methods: {
-    accept() {
-      //TODO comply
-    },
+    buildFeedbacks() {
+
+    }
   }
 }
 </script>

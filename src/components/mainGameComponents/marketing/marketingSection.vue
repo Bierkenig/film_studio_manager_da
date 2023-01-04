@@ -82,7 +82,7 @@ export default {
       this.$store.state.currentMovie.popularity.teenager *= ((100 - this.teenager) + 100) / 100
       this.$store.state.currentMovie.popularity.adult *= ((100 - this.adult) + 100) / 100
 
-      this.$store.state.balance -= (this.posters.price + this.ads.price + this.social.price + this.videoCampaign.price + this.commercials.price)
+      this.$store.commit('subtractBalance',this.posters.price + this.ads.price + this.social.price + this.videoCampaign.price + this.commercials.price)
     },
 
     calcPricePrint() {

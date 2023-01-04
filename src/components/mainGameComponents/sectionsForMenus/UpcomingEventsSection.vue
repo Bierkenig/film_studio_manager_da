@@ -1,28 +1,29 @@
 <template>
   <div id="eventsSection">
     <h1 id="eventHeading">{{ $t('upcomingEvents') }}</h1>
-<div class="scroll verticalScroll">
-    <div>
-      <h2 class="date">{{ $t('today') }}</h2>
-      <div class="event" v-for="(it,index) in todayEvents" :key="index">
-        <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
-      </div>
-    </div>
 
-    <div>
-      <h2 class="date">{{ $t('thisWeek') }}</h2>
-      <div class="event" v-for="(it,index) in weekEvents" :key="index">
-        <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
-      </div>
-    </div>
+    <div class="scroll verticalScroll">
+        <div>
+          <h2 class="date">{{ $t('today') }}</h2>
+          <div class="event" v-for="(it,index) in todayEvents" :key="index">
+            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+          </div>
+        </div>
 
-    <div>
-      <h2 class="date">{{ $t('thisMonth') }}</h2>
-      <div class="event" v-for="(it,index) in monthEvents" :key="index">
-        <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
-      </div>
+        <div>
+          <h2 class="date">{{ $t('thisWeek') }}</h2>
+          <div class="event" v-for="(it,index) in weekEvents" :key="index">
+            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+          </div>
+        </div>
+
+        <div>
+          <h2 class="date">{{ $t('thisMonth') }}</h2>
+          <div class="event" v-for="(it,index) in monthEvents" :key="index">
+            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+          </div>
+        </div>
     </div>
-</div>
   </div>
 </template>
 

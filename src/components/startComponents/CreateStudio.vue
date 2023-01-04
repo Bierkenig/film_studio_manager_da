@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     startGame() {
-      this.$store.commit('createStudio', {studio: new Studio(this.name), budget: parseInt(this.budget), logo: this.chosenLogo});
+      this.$store.commit('createStudio', {studio: new Studio(this.name,"2023",parseInt(this.budget),0), logo: this.chosenLogo});
       this.$router.push({name: 'home'})
     },
 

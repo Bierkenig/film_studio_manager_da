@@ -113,7 +113,7 @@ export default {
     this.$store.getters.getBoughtScreenplays[0].addMainCharacter(new Character('Woodie','male',18));
     this.$store.getters.getBoughtScreenplays[0].addSupportCharacter(new Character('Buzz','male',16));
     this.$store.getters.getBoughtScreenplays[0].addMinorCharacter(new Character('Andy','male',25));
-    this.$store.getters.getBoughtScreenplays[0].setAct1({
+    this.$store.getters.getBoughtScreenplays[0].setAct1([{
       id: 0,
       characterOne: 'Woodie',
       characterMoment: 'dies',
@@ -138,8 +138,8 @@ export default {
           textEn: 'Time Period: Present Day',
           list: '1',
           type: 'timePeriod'
-        });
-    this.$store.getters.getBoughtScreenplays[0].setAct2({
+        }]);
+    this.$store.getters.getBoughtScreenplays[0].setAct2([{
           id: 3,
           characterOne: 'Buzz',
           characterMoment: 'dies',
@@ -164,8 +164,8 @@ export default {
           textEn: 'Time Period: Present Day',
           list: '2',
           type: 'timePeriod'
-        });
-    this.$store.getters.getBoughtScreenplays[0].setAct3({
+        }]);
+    this.$store.getters.getBoughtScreenplays[0].setAct3([{
           id: 6,
           characterOne: 'Andy',
           characterMoment: 'dies',
@@ -190,21 +190,21 @@ export default {
           textEn: 'Time Period: Present Day',
           list: '3',
           type: 'timePeriod'
-        });
-    this.$store.getters.getScreenplays[0].setScope('Little');
-    this.$store.getters.getScreenplays[0].setTone('Dark');
-    this.$store.getters.getScreenplays[0].setSpecialEffects('Medium');
-    this.$store.getters.getScreenplays[0].setViolence('G / +3');
-    this.$store.getters.getScreenplays[0].setCursing('G / +3');
-    this.$store.getters.getScreenplays[0].setLoveScenes('G / +3');
-    this.$store.getters.getScreenplays[0].setLength('152');
-    this.$store.getters.getScreenplays[0].setWritingPhase(14);
+        }]);
+    this.$store.getters.getBoughtScreenplays[0].setScope('Little');
+    this.$store.getters.getBoughtScreenplays[0].setTone('Dark');
+    this.$store.getters.getBoughtScreenplays[0].setSpecialEffects('Medium');
+    this.$store.getters.getBoughtScreenplays[0].setViolence('G / +3');
+    this.$store.getters.getBoughtScreenplays[0].setCursing('G / +3');
+    this.$store.getters.getBoughtScreenplays[0].setLoveScenes('G / +3');
+    this.$store.getters.getBoughtScreenplays[0].setLength('152');
+    this.$store.getters.getBoughtScreenplays[0].setWritingPhase(14);
 
     this.$store.getters.getScreenplays[0].setRatingRange('61 - 70');
     this.$store.getters.getScreenplays[0].addMainCharacter(new Character('Woodie','male',18));
     this.$store.getters.getScreenplays[0].addSupportCharacter(new Character('Buzz','male',16));
     this.$store.getters.getScreenplays[0].addMinorCharacter(new Character('Andy','male',25));
-    this.$store.getters.getScreenplays[0].setAct1({
+    this.$store.getters.getScreenplays[0].setAct1([{
           id: 0,
           characterOne: 'Woodie',
           characterMoment: 'dies',
@@ -229,8 +229,8 @@ export default {
           textEn: 'Time Period: Present Day',
           list: '1',
           type: 'timePeriod'
-        });
-    this.$store.getters.getScreenplays[0].setAct2({
+        }]);
+    this.$store.getters.getScreenplays[0].setAct2([{
           id: 3,
           characterOne: 'Buzz',
           characterMoment: 'dies',
@@ -255,8 +255,8 @@ export default {
           textEn: 'Time Period: Present Day',
           list: '2',
           type: 'timePeriod'
-        });
-    this.$store.getters.getScreenplays[0].setAct3({
+        }]);
+    this.$store.getters.getScreenplays[0].setAct3([{
           id: 6,
           characterOne: 'Andy',
           characterMoment: 'dies',
@@ -281,7 +281,7 @@ export default {
           textEn: 'Time Period: Present Day',
           list: '3',
           type: 'timePeriod'
-        });
+        }]);
     this.$store.getters.getScreenplays[0].setScope('Little');
     this.$store.getters.getScreenplays[0].setTone('Dark');
     this.$store.getters.getScreenplays[0].setSpecialEffects('Medium');

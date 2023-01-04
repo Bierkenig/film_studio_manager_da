@@ -1,8 +1,8 @@
 <template>
   <div>
     <div>{{$t('hireDirectorSection.hire')}}</div>
-    <!-- TODO add avatar-->
     <div v-for="(el, index) in allDirectors" :key="index">
+      <avatar-element :svg-code="el._avatar"/>
       {{el._first_name}} | {{el._last_name}} | {{el._age}} | {{el._gender}} | {{el._nationality}} | {{el._ethnicity}} | {{el._craft}} | {{el._rating}} | {{el._salary}}
       <button @click="calcSalary(el)">{{$t('hireDirectorSection.negotiate')}}</button>
     </div>
@@ -11,11 +11,7 @@
       <div>
         <div>{{$t('hireDirectorSection.salary')}} {{this.currentDirector._first_name}} {{this.currentDirector._last_name}}</div>
         <input type="range" v-model="selectedSalary" :min="salaryRange.min" :max="salaryRange.max" :step="salaryRange.step">
-      </div>
-
-      <div>
-        <div>{{$t('hireDirectorSection.control')}}</div>
-        <input type="range" min="1" max="100" step="1" v-model="selectedControl">
+        <div>{{selectedSalary}}</div>
       </div>
 
       <button v-if="decision !== true" @click="calcDirectorsDecision(); decision2 = true">{{$t('hireDirectorSection.offer')}}</button>
@@ -26,15 +22,16 @@
 
       <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
 
-      <button :disabled="!decision" @click="this.$store.state.preProduction.hiredDirector = this.currentDirector ;this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+      <button :disabled="!decision" @click="this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector ;this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
     </div>
   </div>
 </template>
 
 <script>
+import AvatarElement from "@/components/kitchenSink/AvatarElement";
 export default {
   name: "directorSection",
-
+  components: {AvatarElement},
   data() {
     return {
       allDirectors: this.$store.getters.getAllDirectors,
@@ -47,10 +44,13 @@ export default {
         step: 1
       },
       selectedSalary: 0,
-      selectedControl: 0,
       decision: false,
       decision2: false,
     }
+  },
+
+  mounted() {
+    this.selectedSalary = this.salaryRange.min
   },
 
   methods: {
@@ -58,34 +58,23 @@ export default {
       this.currentDirector = director;
       this.showNegotiation = true;
       this.directorsControl = (this.currentDirector._popularity + this.currentDirector._experience + this.currentDirector._rating) / 3
-      this.salaryRange.min = this.$store.state.allDirectorSalary[director._rating - 1 - 5]
-      this.salaryRange.max = this.$store.state.allDirectorSalary[director._rating - 1 + 5]
+      this.salaryRange.min = this.$store.state.allDirectorSalary[director._rating - 1 - 3]
+      this.salaryRange.max = this.$store.state.allDirectorSalary[director._rating - 1 + 3]
     },
 
     calcDirectorsDecision() {
-      const random = Math.round(Math.random() * 10)
-      if (this.selectedControl <= 50 && this.directorsControl <= 50) {
-        this.decision = true
-      } else if (this.selectedControl <= 50 && this.directorsControl > 50 && this.directorsControl <= 75) {
-        if (this.selectedSalary > this.salaryRange.max * 0.8) this.decision = true
-        else this.decision = random > 7
-        if (!this.decision) this.currentDirector._no++;
-      } else if (this.selectedControl <= 50 && this.directorsControl > 75) {
-        if (this.selectedSalary > this.salaryRange.max * 0.8) this.decision = true
-        else this.decision = random > 9
-        if (!this.decision) this.currentDirector._no++;
-      } else if (this.selectedControl > 50 && this.selectedControl <= 75 && this.directorsControl > 75) {
-        if (this.selectedSalary > this.salaryRange.max * 0.8) this.decision = true
-        else this.decision = random > 7
-        if (!this.decision) this.currentDirector._no++;
-      } else {
-        this.decision = true
+      if (this.directorsControl <= 50) {
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.3;
+      } else if (this.directorsControl > 50 && this.directorsControl < 75) {
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.625;
+      } else if (this.directorsControl >= 75) {
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.75;
       }
+
       if (this.currentDirector._no === 3) {
         const index = this.allDirectors.indexOf(this.currentDirector)
         this.allDirectors.splice(index, 1)
       }
-      this.decision2 = false;
     }
   },
 }
