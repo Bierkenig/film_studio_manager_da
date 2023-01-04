@@ -4,14 +4,14 @@ import News from "@/classes/News";
 
 export default function simulate(){
     console.log('Simulation works')
-    createStudios()
+    createStudios();
 }
 
 function createStudios(){
-    let randomNumber = Prob();
-    if(randomNumber >= 11){
+    let num = randomNumber(0.85);
+    if(num === 1){
         let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
-        let newStudio = new Studio(studioName,store.getters.getCurrentDate.getFullYear());
+        let newStudio = new Studio(studioName,store.getters.getCurrentDate.getFullYear(),50000000,0);
         store.getters.getOtherStudios.push(newStudio);
         let newsTitle = newStudio.getName() + ' gegründet';
         let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
@@ -19,9 +19,6 @@ function createStudios(){
     }
 }
 
-function Prob(){
-    var rnd = Math.random(),
-        rnd2 = Math.random();
-    if(rnd<0.9) return (1 + Math.floor(1000 * rnd2)/100);
-    else return (11 + Math.floor(1000 * rnd2)/100);
+function randomNumber(probability){
+    return Math.random() < probability ? 0 : 1;
 }

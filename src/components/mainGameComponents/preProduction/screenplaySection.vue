@@ -54,7 +54,7 @@ export default {
     buy(screenplay) {
       this.$store.state.boughtScreenplays.push(screenplay)
       if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0){
-        this.$store.state.balance -= screenplay.price
+        this.$store.commit('subtractBalance',screenplay.price);
       }
     },
 

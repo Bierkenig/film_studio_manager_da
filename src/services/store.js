@@ -26,9 +26,8 @@ export default createStore({
                 'true','true','true', [{'Action':92,'Adventure':80,'Biography':19,'Comdey':55,'Crime':12,'Documentary':52,'Drama':62,'Erotic':52,
     'Family':23,'Fantasy':20,'History':25,'Horror':65,'Musical':23,'Mystery':95,'Romance':75,'Science Fiction':41, 'Sport':25,'Thriller':25,'War':56,'Western':78}]),
 'Ein Film von Spielzeugen, die eine fantastische Reise um die Welt erleben und einiges durchmachen müssen',65.8,
-    2500000,{firstTopic: 'Family',secondTopic: 'Adventure',thirdTopic: null},null)],
-        studio: new Studio('NO STUDIO'),
-        balance: 0,
+    2500000,{firstTopic: 'Family',secondTopic: 'Adventure',thirdTopic: null},null, true)],
+        studio: null,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
         //movies which are still in cinema and generate profit
@@ -230,6 +229,7 @@ export default createStore({
                 start: '2023-01-28',
                 end: '2023-01-29',
                 type: 'award',
+
             },
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
@@ -335,7 +335,7 @@ export default createStore({
         },
 
         getBalance(state) {
-            return state.balance;
+            return state.studio.budget;
         },
 
         getCurrentMovieBudget(state) {
@@ -499,28 +499,27 @@ export default createStore({
         //TODO: changes
         createStudio(state, payload) {
             state.studio = payload.studio;
-            state.balance = payload.budget;
             state.logo = payload.logo;
         },
 
         addBalance(state, value) {
-            state.balance += parseInt(value);
+            state.studio.budget += parseInt(value);
         },
 
         subtractBalance(state, value) {
-            if (parseInt(value) > state.balance) {
+            if (parseInt(value) > state.studio.budget) {
                 throw "BALANCE TOO LOW";
             } else {
-                state.balance -= parseInt(value);
+                state.studio.budget -= parseInt(value);
             }
         },
 
         subtractMovieExpensesFromBalance(state) {
             let expenses = state.currentMovieExpenses + state.currentMovieBudget;
-            if (parseInt(expenses) > state.balance) {
+            if (parseInt(expenses) > state.studio.budget) {
                 throw "BALANCE TOO LOW";
             } else {
-                state.balance -= parseInt(expenses);
+                state.studio.budget -= parseInt(expenses);
             }
         },
 

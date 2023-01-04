@@ -4,7 +4,7 @@ import {Character} from "@/classes/Character";
 import DataUtil from "@/classes/DataUtil"
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false) {
         //TYPE -> Integer
         this.id = id;
         //TYPE -> String
@@ -50,6 +50,8 @@ export class Screenplay {
         this.rewritingStatus = false;
         //TYPE -> Franchise
         this.franchise = franchise
+        //TYPE -> Boolean
+        this.bought = bought;
         //TYPE -> Integer
         if (this.actors.main.length > 0 && this.actors.minor.length > 0 && this.actors.cameo > 0 && this.actors.support > 0) this.morale = this.getCastMorale()
     }
@@ -146,6 +148,14 @@ export class Screenplay {
         return this.ratingRange;
     }
 
+    getBoughtStatus() {
+        return this.bought;
+    }
+
+
+    setBoughtStatus(value) {
+        this.bought = value;
+    }
 
     setWriter(value) {
         this.writer = value;
