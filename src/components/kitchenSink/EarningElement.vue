@@ -8,15 +8,12 @@
         {{movieEarnings}}
       </div>
     </div>
-    <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
   </div>
 </template>
 
 <script>
-import IconButton from "@/components/kitchenSink/IconButton";
 export default {
   name: "EarningElement",
-  components: {IconButton},
   props: {
     movieTitle: {
       type: String,
@@ -54,7 +51,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   font-size: 16px;
-  margin-right: 10px;
 }
 
 .earningElementMovieTitle {
