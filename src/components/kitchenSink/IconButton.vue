@@ -1,7 +1,7 @@
 <template>
   <div class="iconButtonMainDiv">
     <div class="iconButtonSubDiv">
-      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :gradient="iconGradient" :icon="icon" :shadow="false" :invert-theme="invertTheme"/>
+      <custom-icon class="iconButtonSVG" ref="iconButtonSVG" :size="sizeValues.iconSize" :theme="iconThemes[dark ? 1 : 0]" :icon="icon" :shadow="false" :invert-theme="invertIconTheme"/>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
       },
       sizeSmall: {
         buttonSize: '30px',
-        iconSize: '15px'
+        iconSize: '20px'
       },
       sizeMedium: {
         buttonSize: '60px',
@@ -30,26 +30,30 @@ export default {
         iconSize: '47px'
       },
       themeLight: {
-        filter: 'var(--fsm-filter-dark-blue-3)',
         bgColor: 'var(--fsm-pink-1)',
-        bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-4))',
+        bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-2))',
         boxShadow: '0 0 5px 5px var(--fsm-pink-shadow-color)'
       },
       themeDark: {
-        filter: 'var(--fsm-filter-pink-1)',
         bgColor: 'var(--fsm-dark-blue-2)',
-        bgImage: 'linear-gradient(var(--fsm-dark-blue-2), var(--fsm-dark-blue-3))',
+        bgImage: 'none',
         boxShadow: '0 0 5px 5px var(--fsm-dark-shadow-color)'
+      },
+      themeDisabled: {
+        bgColor: 'var(--fsm-dark-blue-2)',
+        bgImage: 'none',
+        boxShadow: 'none'
       },
       sizeValues: {},
       themeValues: {},
       iconThemes: ['dark', 'light'],
+      invertIconTheme: false,
     }
   },
   props: {
     icon: {
       type: String,
-      default: 'movies',
+      default: 'placeholder',
     },
     size: {
       type: String,
@@ -64,17 +68,17 @@ export default {
     },
     bgGradient: {
       type: Boolean,
-      default: false,
-    },
-    iconGradient: {
-      type: Boolean,
-      default: false,
+      default: true,
     },
     shadow: {
       type: Boolean,
       default: false,
     },
     invertTheme: {
+      type: Boolean,
+      default: false,
+    },
+    disabled: {
       type: Boolean,
       default: false,
     },
@@ -101,19 +105,38 @@ export default {
       if (!this.shadow) {
         this.themeValues.boxShadow = 'none'
       }
+      this.invertIconTheme = this.invertTheme;
+    },
+    applyAbilityStyle() {
+      if (this.disabled) {
+        this.themeValues = {...this.themeDisabled};
+        this.invertIconTheme = this.dark;
+      } else {
+        this.setCSSVariables();
+      }
     },
   },
   mounted() {
     this.setCSSVariables();
+    this.applyAbilityStyle();
   },
   watch: {
     invertTheme: function() {
-      if (this.dark && this.invertTheme || !this.dark && !this.invertTheme) {
-        this.themeValues = {...this.themeLight};
-      } else {
-        this.themeValues = {...this.themeDark};
+      if (!this.disabled) {
+        if (this.dark && this.invertTheme || !this.dark && !this.invertTheme) {
+          this.themeValues = {...this.themeLight};
+        } else {
+          this.themeValues = {...this.themeDark};
+        }
+        if (!this.shadow) {
+          this.themeValues.boxShadow = 'none'
+        }
+        this.invertIconTheme = this.invertTheme;
       }
-    }
+    },
+    disabled: function () {
+      this.applyAbilityStyle();
+    },
   },
 }
 </script>

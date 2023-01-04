@@ -1,45 +1,50 @@
 <template>
-  <div class="streamingElementMainDiv">
-    <div class="streamingElementHead">
-      <div class="streamingElementHeading">
-        <div class="streamingElementImage"/>
-        <div class="streamingElementTitle">
-          {{ streamingTitle }}
+  <div class="projectElementMainDiv">
+    <div class="projectElementHead">
+      <div class="projectElementHeading">
+        <div class="projectElementImage"/>
+        <div class="projectElementTitle">
+          {{ projectTitle }}
         </div>
       </div>
       <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"
                    @click="openButtonClicked"/>
     </div>
-    <div class="streamingElementInfo">
-      <div class="streamingElementInfoElements1">
-        <div class="streamingElementPopularityInfoBox">
-          <div class="streamingElementPopularityInfo">
-            <div class="streamingElementInfoBoxIcon">
+    <div class="projectElementInfo">
+      <div class="projectElementInfoElements1">
+        <div class="projectElementReleaseInfoBox">
+          <div class="projectElementReleaseInfo">
+            <div class="projectElementInfoBoxIcon">
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
-            <div class="streamingElementPopularityLabel">
-              Popularity
+            <div class="projectElementReleaseLabel">
+              Release
             </div>
           </div>
-          <div class="streamingElementPopularityValueContainer">
-            <input class="streamingElementPopularityValue" type="range" min="1" max="100" step="1"
-                   :value="popularity" disabled>
+          <div class="projectElementReleaseValue">
+            {{ release }}
           </div>
         </div>
+        <div class="projectElementInfoCircles1">
+          <info-circle class="projectElementInfoCircle" :icon="genreIcon" :data-title="genre"/>
+        </div>
       </div>
-      <div class="streamingElementInfoElements2">
-        <div class="streamingElementContractInfoBox">
-          <div class="streamingElementContractInfo">
-            <div class="streamingElementInfoBoxIcon">
+      <div class="projectElementInfoElements2">
+        <div class="projectElementEarningsInfoBox">
+          <div class="projectElementEarningsInfo">
+            <div class="projectElementInfoBoxIcon">
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
-            <div class="streamingElementContractLabel">
-              Contract
+            <div class="projectElementEarningsLabel">
+              Status
             </div>
           </div>
-          <div class="streamingElementContractValue">
-            {{ contract }}
+          <div class="projectElementEarningsValue">
+            {{ status }}
           </div>
+        </div>
+        <div class="projectElementInfoCircles2">
+          <info-circle class="projectElementInfoCircle" :text="age" data-title="Age Rating"/>
         </div>
       </div>
     </div>
@@ -48,11 +53,12 @@
 
 <script>
 import IconButton from "@/components/kitchenSink/IconButton";
+import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 
 export default {
-  name: "StreamingElement",
-  components: {CustomIcon, IconButton},
+  name: "ProjectElement",
+  components: {CustomIcon, InfoCircle, IconButton},
   data() {
     return {
       svgBG: '',
@@ -60,15 +66,27 @@ export default {
   },
   props: {
     svgCode: String,
-    streamingTitle: {
+    projectTitle: {
       type: String,
       required: true,
     },
-    popularity: {
-      type: Number,
+    age: {
+      type: String,
       required: true,
     },
-    contract: {
+    genre: {
+      type: String,
+      required: true,
+    },
+    genreIcon: {
+      type: String,
+      required: true,
+    },
+    release: {
+      type: String,
+      required: true,
+    },
+    status: {
       type: String,
       required: true,
     },
@@ -88,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-.streamingElementMainDiv {
+.projectElementMainDiv {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -100,21 +118,21 @@ export default {
   width: 100%;
 }
 
-.streamingElementHead {
+.projectElementHead {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
 }
 
-.streamingElementHeading {
+.projectElementHeading {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.streamingElementImage {
+.projectElementImage {
   height: 90px;
   border-radius: var(--fsm-s-border-radius);
   margin-right: 10px;
@@ -128,13 +146,13 @@ export default {
   background-repeat: no-repeat;
 }
 
-.streamingElementInfo {
+.projectElementInfo {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.streamingElementTitle {
+.projectElementTitle {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
@@ -144,18 +162,17 @@ export default {
   margin-right: 10px;
 }
 
-.streamingElementInfoElements1, .streamingElementInfoElements2 {
+.projectElementInfoElements1, .projectElementInfoElements2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 40px;
 }
 
-.streamingElementInfoElements1 {
+.projectElementInfoElements1 {
   margin-bottom: 10px;
 }
 
-.streamingElementContractInfoBox, .streamingElementPopularityInfoBox {
+.projectElementEarningsInfoBox, .projectElementReleaseInfoBox {
   flex-grow: 1;
   display: flex;
   flex-direction: row;
@@ -165,20 +182,20 @@ export default {
   border-radius: var(--fsm-s-border-radius);
 }
 
-.streamingElementContractInfo, .streamingElementPopularityInfo {
+.projectElementEarningsInfo, .projectElementReleaseInfo {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.streamingElementInfoBoxIcon {
+.projectElementInfoBoxIcon {
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-right: 10px;
 }
 
-.streamingElementContractLabel, .streamingElementContractValue, .streamingElementPopularityLabel, .streamingElementPopularityValueContainer {
+.projectElementEarningsLabel, .projectElementEarningsValue, .projectElementReleaseLabel, .projectElementReleaseValue {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -186,11 +203,13 @@ export default {
   font-weight: var(--fsm-fw-regular);
 }
 
-.streamingElementPopularityValueContainer {
-  flex-grow: 1;
+.projectElementInfoCircles1, .projectElementInfoCircles2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 }
 
-.streamingElementPopularityValue {
-  margin-left: 20px;
+.projectElementInfoCircle {
+  margin-left: 10px;
 }
 </style>

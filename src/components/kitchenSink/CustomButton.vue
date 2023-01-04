@@ -18,15 +18,19 @@ export default {
         fontWeight: 'var(--fsm-fw-regular)'
       },
       themeLight: {
-        bgColor: 'var(--fsm-pink-1)',
+        bgImage: 'linear-gradient(var(--fsm-pink-1), var(--fsm-pink-2))',
         fontColor: 'var(--fsm-dark-blue-3)'
       },
       themeDark: {
         bgColor: 'var(--fsm-dark-blue-4)',
         fontColor: 'var(--fsm-pink-1)'
       },
+      themeDisabled: {
+        bgColor: 'var(--fsm-dark-blue-3)',
+        fontColor: 'var(--fsm-dark-blue-4)'
+      },
       sizeValues: {},
-      themeValues: {},
+      themeValues: { bgImage: 'none', bgColor: 'none' },
     }
   },
   props: {
@@ -41,6 +45,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    }
   },
   methods: {
     setCSSVariables() {
@@ -56,11 +64,25 @@ export default {
       }
     },
     buttonFunction() {
-      this.$emit('clicked');
+      if (!this.disabled) {
+        this.$emit('clicked');
+      }
+    },
+    applyAbilityStyle() {
+      if (this.disabled) {
+        this.themeValues = {...this.themeDisabled};
+      } else {
+        this.setCSSVariables();
+      }
     },
   },
   mounted() {
     this.setCSSVariables();
+  },
+  watch: {
+    disabled: function () {
+      this.applyAbilityStyle();
+    }
   },
 }
 </script>
@@ -72,6 +94,7 @@ export default {
   padding: 0.25em;
   width: 100%;
   background-color: v-bind('themeValues.bgColor');
+  background-image: v-bind('themeValues.bgImage');
   color: v-bind('themeValues.fontColor');
   font-size: v-bind('sizeValues.fontSize');
   font-weight: v-bind('sizeValues.fontWeight');

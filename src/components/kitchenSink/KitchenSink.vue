@@ -12,7 +12,7 @@
       <header-info icon="studio">Example Studios</header-info>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<background-tile title="Title" content-color="white">Test</background-tile> (DEFAULT)'/>
+      <code-view code='<background-tile title="Title" content-color="white">Test</background-tile>'/>
       <code-view code='<background-tile title="Title" content-color="grey" icon="movies">Test</background-tile>'/>
       <div class="kitchenSinkFlexRow">
         <background-tile title="Title" content-color="white">Test</background-tile>
@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-button :dark="false" size="medium">Test</custom-button> (DEFAULT)'/>
+      <code-view code='<custom-button :dark="false" size="medium">Test</custom-button>'/>
       <code-view
           code='<custom-button :dark="true" size="medium" @clicked="yourFunction">Function Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
@@ -60,53 +60,61 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>'/>
-      <code-view
-          code='<custom-icon icon="settings" size="60px" theme="light" :gradient="false" :shadow="false"/> (DEFAULT)'/>
-      <code-view code='<custom-icon icon="suicide" size="60px" theme="light" :gradient="true" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="movies" size="60px" theme="dark" :gradient="false" :shadow="true"/>'/>
-      <code-view code='<custom-icon icon="prison" size="60px" theme="dark" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="ninjas" size="60px" theme="dark" :gradient="true" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="simple-tick" size="60px" theme="red" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="green" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="blue" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="award" size="60px" theme="yellow" :gradient="false" :shadow="false"/>'/>
-      <code-view code='<custom-icon icon="action" size="60px" theme="white" :gradient="false" :shadow="false"/>'/>
+      <code-view code='<custom-button :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>'/>
+      <code-view code='<custom-button size="large" :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>'/>
       <div class="kitchenSinkFlexRow">
-        <custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>
-        <custom-icon icon="settings" size="60px" theme="light" :gradient="false" :shadow="false"/>
-        <custom-icon icon="suicide" size="60px" theme="light" :gradient="true" :shadow="false"/>
-        <custom-icon icon="movies" size="60px" theme="dark" :gradient="false" :shadow="true"/>
-        <custom-icon icon="prison" size="60px" theme="dark" :gradient="false" :shadow="false"/>
-        <custom-icon icon="ninjas" size="60px" theme="dark" :gradient="true" :shadow="false"/>
-        <custom-icon icon="simple-tick" size="60px" theme="red" :gradient="false" :shadow="false"/>
-        <custom-icon icon="rising-chart" size="60px" theme="green" :gradient="false" :shadow="false"/>
-        <custom-icon icon="rising-chart" size="60px" theme="blue" :gradient="false" :shadow="false"/>
-        <custom-icon icon="award" size="60px" theme="yellow" :gradient="false" :shadow="false"/>
-        <custom-icon icon="action" size="60px" theme="white" :gradient="false" :shadow="false"/>
+        <custom-button :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>
+        <div class="kitchenSinkSpacer"/>
+        <custom-button size="large" :disabled="invertThemeTest" @clicked="yourFunction">Test</custom-button>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code='<custom-icon icon="home" size="60px" theme="light" :gradient="false" :shadow="true"/>'/>
       <code-view
-          code='<icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view
-          code='<icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false"/>'/>
-      <code-view
-          code='<icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
-      <code-view
-          code='<icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>'/>
-      <code-view
-          code='<icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true" :shadow="false"/>'/>
+          code='<custom-icon icon="settings" size="60px" theme="light" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="suicide" size="60px" theme="light" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="movies" size="60px" theme="dark"" :shadow="true"/>'/>
+      <code-view code='<custom-icon icon="prison" size="60px" theme="dark"" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="ninjas" size="60px" theme="dark" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="simple-tick" size="60px" theme="red" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="green" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="rising-chart" size="60px" theme="blue" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="award" size="60px" theme="yellow" :shadow="false"/>'/>
+      <code-view code='<custom-icon icon="action" size="60px" theme="white" :shadow="false"/>'/>
       <div class="kitchenSinkFlexRow">
-        <icon-button icon="plus" size="extraSmall" :dark="false" :bg-gradient="false" :icon-gradient="false"
+        <custom-icon icon="home" size="60px" theme="light" :shadow="true"/>
+        <custom-icon icon="settings" size="60px" theme="light" :shadow="false"/>
+        <custom-icon icon="suicide" size="60px" theme="light" :shadow="false"/>
+        <custom-icon icon="movies" size="60px" theme="dark" :shadow="true"/>
+        <custom-icon icon="prison" size="60px" theme="dark" :shadow="false"/>
+        <custom-icon icon="ninjas" size="60px" theme="dark" :shadow="false"/>
+        <custom-icon icon="simple-tick" size="60px" theme="red" :shadow="false"/>
+        <custom-icon icon="rising-chart" size="60px" theme="green" :shadow="false"/>
+        <custom-icon icon="rising-chart" size="60px" theme="blue" :shadow="false"/>
+        <custom-icon icon="award" size="60px" theme="yellow" :shadow="false"/>
+        <custom-icon icon="action" size="60px" theme="white" :shadow="false"/>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<icon-button icon="plus" size="extraSmall" :dark="false" :shadow="false"/>'/>
+      <code-view code='<icon-button icon="open" size="small" :dark="false" :shadow="false"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="true" :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="true" :disabled="invertThemeTest" :shadow="true"/>'/>
+      <code-view code='<icon-button icon="settings" size="large" :dark="false" :disabled="invertThemeTest" :shadow="true"/>'/>
+      <code-view code='<icon-button icon="home" size="large" :dark="false" :shadow="true"/>'/>
+      <code-view code='<icon-button icon="movies" size="medium" :dark="true" :shadow="false"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <icon-button icon="plus" size="extraSmall" :dark="false"
                      :shadow="false"/>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false"
+        <icon-button icon="open" size="small" :dark="false"
                      :shadow="false"/>
-        <icon-button icon="settings" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false"
-                     :shadow="false" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>
-        <icon-button icon="home" size="large" :dark="false" :bg-gradient="true" :icon-gradient="true" :shadow="true"/>
-        <icon-button icon="movies" size="medium" :dark="true" :bg-gradient="true" :icon-gradient="true"
-                     :shadow="false"/>
+        <icon-button icon="settings" size="large" :dark="true"
+                     :shadow="true" :invertTheme="invertThemeTest" @click="invertThemeTest = !invertThemeTest"/>
+        <icon-button icon="settings" size="large" :dark="true" :disabled="invertThemeTest" :shadow="true"/>
+        <icon-button icon="settings" size="large" :dark="false" :disabled="invertThemeTest" :shadow="true"/>
+        <icon-button icon="home" size="large" :dark="false" :shadow="true"/>
+        <icon-button icon="movies" size="medium" :dark="true"
+                     :shadow="true"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -127,7 +135,7 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'true' + singleQuote + '>'"/>
+          :code="'<tile-pages-nav :pages=' + singleQuote + JSON.stringify(navExample2) + singleQuote + ' :gradient=' + singleQuote + 'false' + singleQuote + '>'"/>
       <code-view code='░░<div>Movies Div</div>'/>
       <code-view code='░░<div>People Div</div>'/>
       <code-view code='░░<div>Others Div</div>'/>
@@ -136,27 +144,27 @@
       <code-view code='MEANING: pages[0] -> first child-container (<div>Movies Div</div>)'/>
       <code-view code='MEANING: pages[1] -> second child-container (<div>People Div</div>)'/>
       <code-view code='RULE: pages.length MUST BE nav-children-count'/>
-      <tile-pages-nav :pages='navExample2' :gradient='true'>
+      <tile-pages-nav :pages='navExample2' :gradient='false'>
         <div>Movies Div</div>
         <div>People Div</div>
         <div>Others Div</div>
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<event-element type="productionFinished" movieName="Movie Title Name One" hide-open-icon/>'/>
-      <code-view code='<event-element type="featureFilm" movieName="Movie Title Name One" hide-open-icon/>'/>
-      <code-view code='<event-element type="blockbuster" movieName="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="award" @open-clicked="elementOpened"/>'/>
+      <code-view code='<event-element type="productionFinished" movieTitle="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="featureFilm" movieTitle="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>'/>
+      <code-view code='<event-element type="award" @open-clicked="elementOpened" status="open"/>'/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="productionFinished" movieTitle="Movie Title Name One" hide-open-icon/>
+        <event-element type="productionFinished" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="featureFilm" movieTitle="Movie Title Name One" hide-open-icon/>
+        <event-element type="featureFilm" movieTitle="Movie Title Name One"/>
       </div>
       <div class="kitchenSinkSpacer"/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="blockbuster" movieTitle="Movie Title Name One"/>
+        <event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="award" @open-clicked="elementOpened"/>
+        <event-element type="award" @open-clicked="elementOpened" status="open"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -238,10 +246,29 @@
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
-          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" budget="$ 9,999"  earnings="$ 999,999" @open-clicked="elementOpened"/>'/>
-      <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
-                     genre="Western" genre-icon="western" budget="$ 9,999" earnings="$ 999,999"
-                     @open-clicked="elementOpened"/>
+          code='<movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+" genre="Western" genre-icon="western" release="13 Sep, 2222" earnings="$ 999,999" @open-clicked="elementOpened"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" earnings="$ 999,999"
+                       @open-clicked="elementOpened"/>
+        <div class="kitchenSinkSpacer"/>
+        <movie-element movie-title="Movie Title" :svg-code="examplePoster" viewers="99" critics="99" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" earnings="$ 999,999"
+                       @open-clicked="elementOpened"/>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view
+          code='<project-element project-title="Project Title" :svg-code="examplePoster" age="13+" genre="Western" genre-icon="western" release="13 Sep, 2222" status="Production" @open-clicked="elementOpened"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <project-element project-title="Project Title" :svg-code="examplePoster" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" status="Production"
+                       @open-clicked="elementOpened"/>
+        <div class="kitchenSinkSpacer"/>
+        <project-element project-title="Project Title" :svg-code="examplePoster" age="13+"
+                       genre="Western" genre-icon="western" release="13 Sep, 2222" status="Production"
+                       @open-clicked="elementOpened"/>
+      </div>
     </div>
     <div class="kitchenSinkComponentDiv">
       <code-view
@@ -267,27 +294,28 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view
-          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Unlimited" @open-clicked="elementOpened"/>'/>
-      <code-view
-          code='<streaming-element movie-title="Movie Title" age="13+" owner="Example Studios" contract="Limited" :contract-critical="true" @open-clicked="elementOpened"/>'/>
+      <code-view code='<streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>'/>
       <div class="kitchenSinkFlexRow">
-        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Unlimited"
-                           @open-clicked="elementOpened"/>
+        <streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>
         <div class="kitchenSinkSpacer"/>
-        <streaming-element movie-title="Movie Title" popularity="99" owner="Example Studios" contract="Limited"
-                           :contract-critical="true" @open-clicked="elementOpened"/>
+        <streaming-info-element streaming-info-title="Streaming+" icon="placeholder" :popularity="50" subscribers="999,999" revenue="$ 9.99 M" :initial-price="5.5"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view
-          code='<streaming-competitor-element subscribers="9,999,999" owner="Example Studios" streaming-service="Example Studios+"/>'/>
+      <code-view code='<streaming-element :svg-code="examplePoster" streaming-title="Titleeeeeeee" :popularity="50" contract="99 Months" @open-clicked="elementOpened"/>'/>
       <div class="kitchenSinkFlexRow">
-        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios"
-                                      streaming-service="Example Studios+"/>
+        <streaming-element :svg-code="examplePoster" streaming-title="Titleeeeeeee" :popularity="50" contract="99 Months" @open-clicked="elementOpened"/>
         <div class="kitchenSinkSpacer"/>
-        <streaming-competitor-element subscribers="9,999,999" owner="Example Studios"
-                                      streaming-service="Example Studios+"/>
+        <streaming-element :svg-code="examplePoster" streaming-title="Titleeeeeeee" :popularity="50" contract="99 Months" @open-clicked="elementOpened"/>
+      </div>
+    </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+"/>'/>
+      <code-view code='<streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+" icon-theme="blue"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+"/>
+        <div class="kitchenSinkSpacer"/>
+        <streaming-competitor-element icon="placeholder" subscribers="9,999,999" streaming-service="Example Studios+" icon-theme="blue"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
@@ -357,10 +385,14 @@ import FinanceElement from "@/components/kitchenSink/FinanceElement";
 import MarketShareElement from "@/components/kitchenSink/MarketShareElement";
 import EarningStatisticsElement from "@/components/kitchenSink/EarningStatisticsElement";
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
+import ProjectElement from "@/components/kitchenSink/ProjectElement.vue";
+import StreamingInfoElement from "@/components/kitchenSink/StreamingInfoElement.vue";
 
 export default {
   name: "KitchenSink",
   components: {
+    StreamingInfoElement,
+    ProjectElement,
     AvatarElement,
     EarningStatisticsElement,
     MarketShareElement,
