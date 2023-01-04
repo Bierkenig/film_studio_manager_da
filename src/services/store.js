@@ -9,8 +9,6 @@ import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
-import PreProduction from "@/classes/PreProduction";
-import Production from "@/classes/Production";
 
 export default createStore({
     /** Application state */
@@ -25,6 +23,7 @@ export default createStore({
         balance: 0,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
+        currentMovie: null,
         //movies which are still in cinema and generate profit
         createdMovies: [],
         //muss das ins save file?
@@ -157,18 +156,11 @@ export default createStore({
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
         animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
-        //FOR TESTING ->
-        preProduction: new PreProduction(),
 
         preProductionEvents: {
             actorWhoWantsToDropOut: null,
             directorWithDispute: null,
         },
-
-        //Production
-        production: new Production(4),
-
-        //PostProduction
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,'AS'),
             new StreamingService('TUV Studio',1,0,0,'TU'),

@@ -116,16 +116,16 @@ export default {
     saveActors() {
       switch (this.radio) {
         case "main" || "Hauptdarsteller":
-          this.$store.state.preProduction.screenplay.actors.main.push(this.currentActor)
+          this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
           break
         case "minor":
-          this.$store.state.preProduction.screenplay.actors.minor.push(this.currentActor)
+          this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
           break
         case "support" || "Nebendarsteller":
-          this.$store.state.preProduction.screenplay.actors.support.push(this.currentActor)
+          this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
           break
         case "cameo":
-          this.$store.state.preProduction.screenplay.actors.cameo.push(this.currentActor)
+          this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
           break
       }
 

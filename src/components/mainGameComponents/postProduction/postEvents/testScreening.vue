@@ -4,21 +4,15 @@
       <div class="modal-container">
         <div class="modal-body">
           <slot name="body">
-            <h3>{{$t('reeditingDirector.h3')}}</h3>
-            <div>{{$t('reeditingDirector.msg')}}</div>
-
-            <button class="modal-default-button" @click="bool = true; bool2 = false">{{$t('reeditingDirector.reedit')}}</button>
-            <button class="modal-default-button" @click="bool2 = true; bool = false">{{$t('reeditingDirector.ignore')}}</button>
-
-            <div v-if="bool">
-              {{$t('reeditingDirector.quality2')}}
+            <h3>{{$t('postProductionEvents.testScreening.title')}}</h3>
+            <button class="modal-default-button" @click="feedbacks = true">{{$t('postProductionEvents.testScreening.run')}}</button>
+            <div v-if="feedbacks">
+              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.soundTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.vfxTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
+              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
             </div>
-
-            <div v-if="bool2">
-              {{$t('reeditingDirector.quality')}}
-            </div>
-
-            <button class="modal-default-button" @click="saveState()">{{$t('reeditingDirector.save')}}</button>
           </slot>
         </div>
       </div>
@@ -32,19 +26,14 @@ export default {
 
   data() {
     return {
-      bool: false,
-      bool2: false
+      feedbacks: false
     }
   },
 
   methods: {
-    saveState() {
-      if (this.bool) {
-        this.$store.state.currentMovie.hype += this.$store.state.currentMovie.hype * 0.05
-      } else if (this.bool2) {
-        this.$store.state.currentMovie.quality *= 0.9
-      }
-    },
+    buildFeedbacks() {
+
+    }
   }
 }
 </script>

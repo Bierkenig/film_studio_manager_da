@@ -34,7 +34,7 @@ export default {
   name: "durationSection",
   data() {
     return {
-      scope: this.$store.state.preProduction.screenplay.details.scope,
+      scope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
       preProductionInput: 4,
       productionInput: 4,
       postProductionInput: 8,
@@ -56,7 +56,7 @@ export default {
         max: 0,
       },
       productionPhase: 0,
-      directorCreativeControl: (this.$store.state.preProduction.hiredDirector._popularity + this.$store.state.preProduction.hiredDirector._experience + this.$store.state.preProduction.hiredDirector._rating) / 3,
+      directorCreativeControl: (this.$store.state.currentMovie._preProduction.hiredDirector._popularity + this.$store.state.currentMovie._preProduction.hiredDirector._experience + this.$store.state.currentMovie._preProduction.hiredDirector._rating) / 3,
       disabled: true,
       counter: 0,
       calcReleaseDate: new Date(),
@@ -84,10 +84,10 @@ export default {
     },
 
     setStoreWeeks() {
-      this.$store.state.preProduction.releaseDate = this.calcReleaseDate;
-      this.$store.state.preProduction.preProductionLength = this.preProduction
-      this.$store.state.preProduction.productionLength = this.production
-      this.$store.state.preProduction.postProductionLength = this.postProduction
+      this.$store.state.currentMovie._preProduction.releaseDate = this.calcReleaseDate;
+      this.$store.state.currentMovie._preProduction.preProductionLength = this.preProduction
+      this.$store.state.currentMovie._preProduction.productionLength = this.production
+      this.$store.state.currentMovie._preProduction.postProductionLength = this.postProduction
     }
   },
 

@@ -2,23 +2,39 @@ import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
 import {Studio} from "@/classes/Studio";
+import PreProduction from "@/classes/PreProduction";
+import Production from "@/classes/Production";
+import PostProduction from "@/classes/PostProduction";
 
 export class Movie {
-    constructor(screenplay, date, owner, contract, director, popularity = {children: 0, teenager: 0, adult: 0}) {
-        this._title = screenplay.title
-        this._earnings = []
-        this._screenplay = screenplay;
-        this._date = date;
+    constructor(owner, contract, popularity = {children: 0, teenager: 0, adult: 0}) {
+        //TYPE -> String from another Class
+        this._title = this._screenplay.title
+        //TYPE -> a preProduction Class Object
+        this._preProduction = new PreProduction()
+        //TYPE -> a production Class Object
+        this._production = new Production(this._preProduction.releaseDate)
+        //TYPE -> a postProduction Class Object
+        this._postProduction = new PostProduction(this._preProduction.postProductionLength)
+        //TYPE -> director Class Object
+        this.director = this._preProduction.hiredDirector;
+        //TYPE -> screenplay class Object
+        this._screenplay = this._preProduction.screenplay;
+        //TYPE -> Studio Class Object
         this._owner = owner;
         // null -> no rights bought, 0, -> unlimited rights (created movie)
         this._contract = contract;
-        this.director = director;
+        //NOT DONE YET
+        this._earnings = []
         //TYPE -> Object with Integer Attr
         this.popularity = popularity
+        //TYPE -> Integer
         this.quality = 100
+        //TYPE -> Integer
         this.riskOfFailure = 0
+        //TYPE -> Integer
         this.crewMorale = 5
-        if (this.director instanceof Person && this._screenplay instanceof Screenplay) this.hype = this.createTotal()
+        //this._date = date;
     }
 
 

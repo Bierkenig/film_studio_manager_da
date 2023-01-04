@@ -116,13 +116,13 @@ export default class PreProduction {
     }
 
     createBudgetHype() {
-        if (this.$store.state.preProduction.budgetPop === 0) {
+        if (this.budgetPop === 0) {
             return 100;
-        } else if (this.$store.state.preProduction.budgetPop === 1) {
+        } else if (this.budgetPop === 1) {
             return 50;
-        } else if (this.$store.state.preProduction.budgetPop === 2) {
+        } else if (this.budgetPop === 2) {
             return 25;
-        } else if (this.$store.state.preProduction.budgetPop === 3) {
+        } else if (this.budgetPop === 3) {
             return 5;
         }
     }

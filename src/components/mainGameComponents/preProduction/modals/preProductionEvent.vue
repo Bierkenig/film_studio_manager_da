@@ -37,7 +37,7 @@
               <div v-if="duration">
                 <div>{{$t('preProductionEvents.extend.set')}}</div>
                 <input type="range" min="" max="12" step="1" v-model="durationAmount">
-                <button @click="this.$store.state.preProduction.preProductionLength = durationAmount; $emit('close')">{{$t('preProductionEvents.close')}}</button>
+                <button @click="this.$store.state.currentMovie._preProduction.preProductionLength = durationAmount; $emit('close')">{{$t('preProductionEvents.close')}}</button>
               </div>
 
               <actors-section v-if="actorSection"></actors-section>
@@ -69,9 +69,9 @@ export default {
 
   data() {
     return {
-      dirRating: this.$store.state.preProduction.hiredDirector.rating,
+      dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
       duration: false,
-      min: this.$store.state.preProduction.preProductionLength,
+      min: this.$store.state.currentMovie._preProduction.preProductionLength,
       durationAmount: this.min,
       close: false,
       actorSection: false,
@@ -83,22 +83,22 @@ export default {
     aOption() {
       switch (this.type) {
         case "dropOut":
-          this.$store.state.preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
+          this.$store.state.currentMovie._preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
           break
         case "recast":
-          this.$store.state.preProduction.movie.hype *= 0.9
-          this.$store.state.preProduction.hiredDirector.dirMorale += 1
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
           break
         case "creative":
-          this.$store.state.preProductionEvents.directorWithDispute._paidSalary *= 1.25
-          this.$store.state.preProduction.hiredDirector.dirMorale += 1
+          this.$store.state.currentMovie._preProductionEvents.directorWithDispute._paidSalary *= 1.25
+          this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
           break
         case "difficulty":
-          this.$store.state.preProduction.budget.production *= 1.15
+          this.$store.state.currentMovie._preProduction.budget.production *= 1.15
           break
         case "extend":
           this.calcDireMorale(true)
-          this.$store.state.preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           this.crewMoraleGoes(1)
           break
       }
@@ -107,19 +107,19 @@ export default {
     bOption() {
       switch (this.type) {
         case "dropOut":
-          this.$store.state.preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           this.actorSection = true
           break
         case "recast":
-          this.$store.state.preProduction.hiredDirector.dirMorale -= 1
+          this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 1
           break
         case "creative":
-          this.$store.state.preProduction.movie.hype *= 0.75
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.75
           this.directorSection = true
           this.crewMoraleGoes(-1)
           break
         case "difficulty":
-          this.$store.state.preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           break
         case "extend":
           this.calcDireMorale(false)
@@ -129,25 +129,25 @@ export default {
 
     calcDireMorale(trueFalse) {
       if (this.dirRating > 75) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 3
+        if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 3
       } else if (this.dirRating > 50 && this.dirRating <= 75) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 2
+        if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 2
       } else if (this.dirRating <= 50) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 1
+        if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 1
       }
     },
 
     crewMoraleGoes(up) {
-      this.$store.state.preProduction.screenplay.actors.main.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.main.forEach((el) => {
         el.actorMorale += up
       })
-      this.$store.state.preProduction.screenplay.actors.minor.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.minor.forEach((el) => {
         el.actorMorale += up
       })
-      this.$store.state.preProduction.screenplay.actors.support.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.support.forEach((el) => {
         el.actorMorale += up
       })
-      this.$store.state.preProduction.screenplay.actors.cameo.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.forEach((el) => {
         el.actorMorale += up
       })
     },

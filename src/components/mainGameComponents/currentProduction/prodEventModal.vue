@@ -30,10 +30,8 @@
                 <li v-if="type === 'directorLeaves'">{{ $t('productionEvents.' + type + '.consequenceB3') }}</li>
               </ul>
 
-              <button class="modal-default-button" @click="aOption()">{{ $t('productionEvents.optionA') }}</button>
-              <button class="modal-default-button" @click="bOption()">{{ $t('productionEvents.optionB') }}</button>
-
-              <actors-section v-if="recast"></actors-section>
+              <button class="modal-default-button" @click="aOption(); bool = true">{{ $t('productionEvents.optionA') }}</button>
+              <button class="modal-default-button" @click="bOption(); bool = true">{{ $t('productionEvents.optionB') }}</button>
 
               <div v-if="weeks">
                 <div>{{$t('productionEvents.specify')}}</div>
@@ -48,7 +46,7 @@
                 <input type="date" v-model="releaseDate">
               </div>
 
-              <button v-if="weeks || recast || date" class="modal-default-button" @click="closeWindow()">{{$t('preProduction.close')}}</button>
+              <button v-if="weeks || date || bool" class="modal-default-button" @click="closeWindow()">{{$t('preProduction.close')}}</button>
             </slot>
           </div>
         </div>
@@ -58,23 +56,21 @@
 </template>
 
 <script>
-import ActorsSection from "@/components/mainGameComponents/preProduction/actorsSection";
 
 export default {
   name: "prod-event-modal",
-  components: {ActorsSection},
   props: {
     type: String
   },
 
   data() {
     return {
-      recast: false,
       weeks: false,
       date: false,
+      bool: false,
       durWeeks: 0,
       releaseDate: null,
-      dirRating: this.$store.state.preProduction.hiredDirector.rating,
+      dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
     }
   },
 
@@ -82,34 +78,34 @@ export default {
     aOption() {
       switch (this.type) {
         case "weather":
-          this.$store.state.preProduction.budget.set *= 1.1
+          this.$store.state.currentMovie._preProduction.budget.set *= 1.1
             this.$emit('close')
           break
         case "castMember":
-          this.$store.state.preProduction.movie.hype *= 0.85
-          this.recast = true
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.85
           this.calcDireMorale(true)
+          this.$router.push({name: "actorSection"})
           break
         case "budgetForCostumes":
-          this.$store.state.preProduction.budget.costume *= 1.1
+          this.$store.state.currentMovie._preProduction.budget.costume *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "equipment":
-          this.$store.state.preProduction.budget.cinematography *= 1.1
+          this.$store.state.currentMovie._preProduction.budget.cinematography *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "budget":
-          this.$store.state.preProduction.budget.production *= 1.1
+          this.$store.state.currentMovie._preProduction.budget.production *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
           this.$emit('close')
           break
         case "breakdown":
-          this.$store.state.preProduction.budget.set *= 1.1
+          this.$store.state.currentMovie._preProduction.budget.set *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
           this.$emit('close')
@@ -121,19 +117,18 @@ export default {
           break
         case "directorLeaves":
           this.calcDireMorale(true)
-          this.$store.state.preProduction.hiredDirector.salary *= 1.25
+          this.$store.state.currentMovie._preProduction.hiredDirector.salary *= 1.25
           this.$emit('close')
           break
         case "changes":
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
-          this.$store.state.preProduction.budget.problemBudget += this.$store.state.preProduction.getWholeBudget() * 0.1
+          this.$store.state.currentMovie._preProduction.budget.problemBudget += this.$store.state.currentMovie._preProduction.getWholeBudget() * 0.1
           this.$emit('close')
           break
         case "injured":
-          this.$store.state.preProduction.movie.hype *= 0.85
-          this.recast = true
-          this.$emit('close')
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.85
+          this.$router.push({name: "actorSection"})
           break
       }
     },
@@ -141,9 +136,9 @@ export default {
     bOption() {
       switch (this.type) {
         case "weather":
-          this.$store.state.production.haltedStartDate = this.$store.state.currentDate
-          this.$store.state.production.haltedDuration += 4
-          //TODO set release Date 4 Weeks later
+          this.$store.state.currentMovie._production.haltedStartDate = this.$store.state.currentDate
+          this.$store.state.currentMovie._production.haltedDuration += 4
+          this.$store.state.currentMovie._production.calcHaltedEndDate()
           break
         case "castMember":
           this.calcDireMorale(false)
@@ -168,39 +163,38 @@ export default {
           this.calcDireMorale(false)
           break
         case "directorLeaves":
-          this.$store.state.preProduction.movie.hype *= 0.75
-          //TODO hiring director !!!!!
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.75
           this.crewMoraleGoes(-1)
-          //TODO hiring cast member
+          this.$router.push({name: "directorSection"})
           break
         case "changes":
           this.calcDireMorale(false)
           this.crewMoraleGoes(-1)
           break
         case "injured":
-          this.$store.state.preProduction.movie.hype *= 0.90
-          if (this.$store.state.production.haltedStartDate === null) this.$store.state.production.haltedStartDate = this.$store.state.currentDate
-          this.$store.state.production.haltedDuration += 4
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.90
+          if (this.$store.state.currentMovie._production.haltedStartDate === null) this.$store.state.currentMovie._production.haltedStartDate = this.$store.state.currentDate
+          this.$store.state.currentMovie._production.haltedDuration += 4
           break
       }
     },
 
     calcDireMorale(trueFalse) {
       if (this.dirRating > 75) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 3
+        if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 3
       } else if (this.dirRating > 50 && this.dirRating <= 75) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 2
+        if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 2
       } else if (this.dirRating <= 50) {
-        if (!trueFalse) this.$store.state.preProduction.hiredDirector.dirMorale -= 1
+        if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 1
       }
     },
 
     check() {
       //TODO releaseDate
-      this.$store.state.preProduction.productionLength += this.durWeeks
+      this.$store.state.currentMovie._preProduction.productionLength += this.durWeeks
       if (this.type === 'duration') {
-        if(this.$store.state.preProduction.startDate.getDate() + 7 * this.$store.state.preProduction.productionLength === this.$store.state.preProduction.releaseDate) {
-          this.releaseDate = this.$store.state.preProduction.startDate.getDate() + 7 * this.$store.state.preProduction.productionLength
+        if(this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength === this.$store.state.currentMovie._preProduction.releaseDate) {
+          this.releaseDate = this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength
           this.date = true
         } else {
           this.$emit('close')
@@ -209,23 +203,23 @@ export default {
     },
 
     crewMoraleGoes(up) {
-      this.$store.state.preProduction.screenplay.actors.main.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.main.forEach((el) => {
         el.actorMorale += up
       })
-      this.$store.state.preProduction.screenplay.actors.minor.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.minor.forEach((el) => {
         el.actorMorale += up
       })
-      this.$store.state.preProduction.screenplay.actors.support.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.support.forEach((el) => {
         el.actorMorale += up
       })
-      this.$store.state.preProduction.screenplay.actors.cameo.forEach((el) => {
+      this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.forEach((el) => {
         el.actorMorale += up
       })
     },
 
     closeWindow() {
       if(this.type === 'duration') {
-        this.$store.state.preProduction.releaseDate = this.releaseDate
+        this.$store.state.currentMovie._preProduction.releaseDate = this.releaseDate
       }
       this.$emit('close')
     }

@@ -314,24 +314,96 @@ i18next
                             consequenceB2: "Production halted for 8 weeks",
                         },
                     },
-                    marketingSection: {
-                        interest: "Interested Groups",
-                        children: "Children",
-                        teenager: "Teenager",
-                        adult: "Adults",
-                        trailer: "Trailers",
-                        add: "Add trailer",
-                        scope: "Your Screenplay Scope: ",
-                        champaign: "Marketing champaign",
-                        print: "Print affects all Interest Groups equally",
-                        poster: "Enter the amount of Posters you want to advertise",
-                        ads: "Enter the amount of Ads you want to advertise in newspapers and magazines",
-                        price: "Sum: ",
-                        internet: "Internet affects children and teenagers",
-                        social: "Do you want to use social networks",
-                        video: "Do you want to use video campaigns",
-                        commercials: "Commercials affects adults",
-                        start: "Start Marketing"
+                    postProductionEvents: {
+                        testScreening: {
+                            title: "Test Screening",
+                            run: "Run Test Screening",
+                            editingTitle: "Editing Feedback",
+                            soundTitle: "Sound Feedback",
+                            vfxTitle: "Visual Effects Feedback",
+                            actingTitle: "Acting Feedback",
+                            storyTitle: "Story Feedback",
+                            editing: {
+                                good: {
+                                    feed1: "The transitions between scenes were seamless and kept me engaged.",
+                                    feed2: "The continuity of the film was well maintained throughout.",
+                                    feed3: "The editing was very smooth and paced well.",
+                                    feed4: "The cuts were effective and added to the overall narrative.",
+                                    feed5: "The use of montage to tell the story was effective.",
+                                },
+                                bad: {
+                                    feed1: "The pacing was too slow, making it difficult to stay engaged in the story.",
+                                    feed2: "The transitions between scenes were jarring and disorienting.",
+                                    feed3: "The editing was choppy and didn't flow smoothly.",
+                                    feed4: "The color grading was inconsistent, making it hard to follow the action.",
+                                    feed5: "There were too many cuts that felt unnecessary and disjointed the narrative.",
+                                }
+                            },
+                            sound: {
+                                good: {
+                                    feed1: "The music complemented the visuals perfectly, creating a powerful atmosphere.",
+                                    feed2: "The sound effects were spot-on and really added an extra level of realism to the experience.",
+                                    feed3: "The sound design was effective and enhanced the viewing experience.",
+                                    feed4: "The sound design was able to effectively tell the story without being intrusive.",
+                                    feed5: "The sound design was innovative and creative.",
+                                },
+                                bad: {
+                                    feed1: "The sound design was poorly mixed, making it difficult to hear the dialogue.",
+                                    feed2: "The sound design was too distracting and detracted from the overall viewing experience.",
+                                    feed3: "The sound balance was off, with some audio elements far too loud while others were too quiet.",
+                                    feed4: "The sound design was overly simplistic and not engaging.",
+                                    feed5: "The sound design did not effectively convey the mood or tone of the film.",
+                                }
+                            },
+                            vfx: {
+                                good: {
+                                    feed1: "The effects blended seamlessly with the live action elements.",
+                                    feed2: "The effects were imaginative and helped to tell the story in a unique way.",
+                                    feed3: "The effects were very creative and enhanced the overall viewing experience.",
+                                    feed4: "The effects had a lot of detail and felt realistic.",
+                                    feed5: "The effects communicated the emotion of the scenes very effectively",
+                                },
+                                bad: {
+                                    feed1: "The visual effects are too overwhelming and detract from the other elements of the film.",
+                                    feed2: "The visual effects were too over the top and distracting.",
+                                    feed3: "The special effects were too unrealistic and out-of-place.",
+                                    feed4: "The animation was choppy and lacked fluidity.",
+                                    feed5: "The textures were flat and uninteresting.",
+                                }
+                            },
+                            acting: {
+                                good: {
+                                    feed1: "The chemistry between the actors was spot on.",
+                                    feed2: "Every actor was able to deliver their lines with great emotion and commitment.",
+                                    feed3: "The actor was able to capture the complexity of the character.",
+                                    feed4: "The actor was able to convey a range of emotions convincingly.",
+                                    feed5: "The actor was able to bring the character to life in a compelling way.",
+                                },
+                                bad: {
+                                    feed1: "The acting was wooden and unconvincing.",
+                                    feed2: "The cast's chemistry was off-putting and awkward.",
+                                    feed3: "The timing of the dialogue was often off and the delivery was forced.",
+                                    feed4: "The actors had trouble connecting with the characters and the story.",
+                                    feed5: "Their performances were too over-the-top and lacked subtlety.",
+                                }
+                            },
+                            story: {
+                                good: {
+                                    feed1: "The pacing of the story was perfect and kept me engaged throughout.",
+                                    feed2: "The story was very well-written, with attention to detail and strong structure.",
+                                    feed3: "The story was emotionally engaging and I felt connected to the characters.",
+                                    feed4: "The themes were relevant and resonated with me.",
+                                    feed5: "The story was fascinating and kept me guessing until the end.",
+                                },
+                                bad: {
+                                    feed1: "The story is too predictable and lacks originality.",
+                                    feed2: "The characters are one-dimensional and aren’t very believable.",
+                                    feed3: "There are too many plot holes that weren’t explained.",
+                                    feed4: "It feels like the story drags on too long.",
+                                    feed5: "It’s too confusing and hard to follow.",
+                                }
+                            }
+                        }
                     },
                     release: {
                         releaseOptions: "Release Options",
