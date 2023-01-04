@@ -2,22 +2,39 @@ import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
 import {Studio} from "@/classes/Studio";
+import PreProduction from "@/classes/PreProduction";
+import Production from "@/classes/Production";
+import PostProduction from "@/classes/PostProduction";
 
 export class Movie {
-    constructor(screenplay, date, owner, contract, director, popularity = {children: 0, teenager: 0, adult: 0}) {
-        this._title = screenplay?.title
-        this._earnings = []
-        this._screenplay = screenplay;
-        this._date = date;
+    constructor(owner, contract, popularity = {children: 0, teenager: 0, adult: 0}) {
+        //TYPE -> String from another Class
+        this._title = this._screenplay.title
+        //TYPE -> a preProduction Class Object
+        this._preProduction = new PreProduction()
+        //TYPE -> a production Class Object
+        this._production = new Production(this._preProduction.releaseDate)
+        //TYPE -> a postProduction Class Object
+        this._postProduction = new PostProduction(this._preProduction.postProductionLength)
+        //TYPE -> director Class Object
+        this.director = this._preProduction.hiredDirector;
+        //TYPE -> screenplay class Object
+        this._screenplay = this._preProduction.screenplay;
+        //TYPE -> Studio Class Object
         this._owner = owner;
         // null -> no rights bought, 0, -> unlimited rights (created movie)
         this._contract = contract;
-        this.director = director;
+        //NOT DONE YET
+        this._earnings = []
         //TYPE -> Object with Integer Attr
         this.popularity = popularity
+        //TYPE -> Integer
         this.quality = 100
+        //TYPE -> Integer
         this.riskOfFailure = 0
-        if (this.director instanceof Person && this._screenplay instanceof Screenplay) this.hype = this.createTotal()
+        //TYPE -> Integer
+        this.crewMorale = 5
+        //this._date = date;
     }
 
 
@@ -67,47 +84,6 @@ export class Movie {
 
     set earnings(value) {
         this._earnings = value;
-    }
-
-    createCastHype() {
-        let mainPop;
-        let supportPop;
-        let minorCameoPop;
-        this.screenplay.actors.main.forEach((el) => {
-            mainPop += el._popularity
-        })
-        this.screenplay.actors.support.forEach((el) => {
-            supportPop += el._popularity
-        })
-        this.screenplay.actors.minor.forEach((el) => {
-            minorCameoPop += el._popularity
-        })
-        this.screenplay.actors.cameo.forEach((el) => {
-            minorCameoPop += el._popularity
-        })
-        return ((mainPop / this.screenplay.actors.main.length) * 50) +
-            ((supportPop / this.screenplay.actors.support.length) * 35) +
-            ((minorCameoPop / (this.screenplay.actors.minor.length + this.screenplay.actors.cameo.length)) * 15) / 100
-    }
-
-    createTechnicalHype() {
-        return (this.director._popularity * 75 + this.screenplay.writer._popularity * 25) / 100
-    }
-
-    createBudgetHype() {
-        if (this.$store.state.preProduction.budgetPop === 0) {
-            return 100;
-        } else if (this.$store.state.preProduction.budgetPop === 1) {
-            return 50;
-        } else if (this.$store.state.preProduction.budgetPop === 2) {
-            return 25;
-        } else if (this.$store.state.preProduction.budgetPop === 3) {
-            return 5;
-        }
-    }
-
-    createTotal() {
-        return (this.createCastHype() * 50 + this.createTechnicalHype() * 35 + this.createBudgetHype() * 15) / 100
     }
 
     static fromJSON(jsonObject){

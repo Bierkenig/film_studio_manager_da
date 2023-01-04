@@ -33,6 +33,8 @@ export default class Person {
         this._rating = rating;
         //TYPE -> String
         this._salary = salary;
+        //TYPE -> Integer
+        this._paidSalary = this._salary;
         //TYPE -> String
         this._isActor = isActor;
         //TYPE -> String
@@ -42,24 +44,8 @@ export default class Person {
         //TYPE -> String
         this._genre = genre;
         //TYPE -> Integer
-        if (isDirector) this._no = 0; this.morale = this.calcDirectorMorale()
-        if (isActor) this.notAvailable = 0; this.morale = this.calcActorMorale()
-    }
-
-    calcDirectorMorale() {
-        //1 = high, 3 = medium, 5 = low
-        if (this._no <= 1) {
-            return 1
-        } else if (this._no <= 3 && this._no > 1) {
-            return 3
-        } else if (this._no <= 5 && this._no > 3) {
-            return 5
-        }
-    }
-
-    calcActorMorale() {
-        //1 = high, 3 = medium, 5 = low
-        //Steht nirgendswo
+        if (isDirector) this._no = 0; this.dirMorale = 5
+        if (isActor) this.notAvailable = 0; this.actorMorale = 5
     }
 
     get id() {

@@ -61,7 +61,7 @@ export class Screenplay {
         let counter = 0
         Object.keys(this.actors).forEach(key => {
             this.actors[key].forEach(person => {
-                morale += person.morale
+                morale += person.actorMorale
                 counter++
             })
         })

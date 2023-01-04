@@ -1,16 +1,16 @@
 <template>
   <div>
     <div>{{$t('durationSection.set')}}</div>
-    <input type="range" min="4" max="14" step="1" v-model="preProduction" @change="changeReleaseDate">
-    <div>{{preProduction}}</div>
+    <input type="range" :min="preProduction.min" :max="preProduction.max" step="1" v-model="preProductionInput">
+    <div>{{preProductionInput}}</div>
 
     <div>{{$t('durationSection.set2')}}</div>
-    <input type="range" min="4" max="24" step="1" v-model="production">
-    <div>{{production}}</div>
+    <input type="range" :min="production.min" :max="production.max" step="1" v-model="productionInput">
+    <div>{{productionInput}}</div>
 
     <div>{{$t('durationSection.set3')}}</div>
-    <input type="range" min="8" max="26" step="1" v-model="postProduction">
-    <div>{{postProduction}}</div>
+    <input type="range" :min="production.min" :max="production.max" step="1" v-model="postProductionInput">
+    <div>{{postProductionInput}}</div>
 
     <button @click="calcStartDate(); disabled = false">{{$t('durationSection.confirm')}}</button>
 
@@ -19,42 +19,54 @@
 
     <div>{{$t('durationSection.choice')}}{{releaseDateInput}}</div>
 
-    <!-- Director moral Smiley-->
-    <smiley-director></smiley-director>
+    <button @click="calcTheReleaseDate(); release = true">{{$t('durationSection.calc')}}</button>
 
-    <button :disabled="disabled" @click="setStoreWeeks() ;this.$router.push({name: 'actorSection'})">{{$t('durationSection.continue')}}</button>
+    <div v-if="release">{{$t('durationSection.estimated')}}</div>
+    <div v-if="release">{{calcReleaseDate}}</div>
+
+    <button :disabled="disabled" @click="setStoreWeeks(); this.$router.push({name: 'budgetSection'})">{{$t('durationSection.continue')}}</button>
 
   </div>
 </template>
 
 <script>
-import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
 export default {
   name: "durationSection",
-  components: {SmileyDirector},
   data() {
     return {
-      scope: this.$store.state.preProduction.currentScreenplay.details.scope,
-      preProduction: 0,
-      production: 0,
-      postProduction: 0,
+      scope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
+      preProductionInput: 4,
+      productionInput: 4,
+      postProductionInput: 8,
       releaseDateInput: 0,
+      preProduction: {
+        min: 0,
+        max: 1
+      },
+      production: {
+        min: 0,
+        max: 1
+      },
+      postProduction: {
+        min: 0,
+        max: 1
+      },
       releaseDate: {
         min: 0,
         max: 0,
       },
       productionPhase: 0,
-      directorCreativeControl: (this.$store.state.preProduction.hiredDirector._popularity + this.$store.state.preProduction.hiredDirector._experience + this.$store.state.preProduction.hiredDirector._rating) / 3,
-      directorPerfectDate: 0,
+      directorCreativeControl: (this.$store.state.currentMovie._preProduction.hiredDirector._popularity + this.$store.state.currentMovie._preProduction.hiredDirector._experience + this.$store.state.currentMovie._preProduction.hiredDirector._rating) / 3,
       disabled: true,
       counter: 0,
-      perfectWeeks: 0,
+      calcReleaseDate: new Date(),
+      release: false
     }
   },
 
   methods: {
     calcStartDate() {
-      this.productionPhase = parseInt(this.preProduction) + parseInt(this.production) + parseInt(this.postProduction)
+      this.productionPhase = parseInt(this.preProductionInput) + parseInt(this.productionInput) + parseInt(this.postProductionInput)
       if (this.directorCreativeControl <= 50) {
         this.releaseDate.min = this.productionPhase - 12
         this.releaseDate.max = this.productionPhase + 12
@@ -67,50 +79,60 @@ export default {
       }
     },
 
-    changeReleaseDate() {
-      this.calcPerfectWeeks()
-      if (this.directorCreativeControl > 50 && this.directorCreativeControl <= 75) {
-        if (this.perfectWeeks === this.preProduction) {
-          this.$store.state.preProduction.hiredDirector._no--;
-        } else {
-          this.$store.state.preProduction.hiredDirector._no++;
-        }
-      } else if (this.directorCreativeControl > 75) {
-        if (this.perfectWeeks + 2 <= this.preProduction) {
-          this.$store.state.preProduction.hiredDirector._no--;
-        } else {
-          this.$store.state.preProduction.hiredDirector._no++;
-        }
-      }else {
-        this.$store.state.preProduction.hiredDirector._no--;
-      }
-    },
-
-    calcPerfectWeeks() {
-      switch (this.scope) {
-        case "little":
-          this.perfectWeeks = 6
-          break
-        case "small":
-          this.perfectWeeks = 7
-          break
-        case "normal":
-          this.perfectWeeks = 9
-          break
-        case "large":
-          this.perfectWeeks = 11
-          break
-        case "epic":
-          this.perfectWeeks = 13
-          break
-      }
+    calcTheReleaseDate() {
+      this.calcReleaseDate.setDate(this.$store.state.currentDate.getDate() + 7 * (this.productionPhase + this.releaseDateInput));
     },
 
     setStoreWeeks() {
-      this.$store.state.preProduction.duration.releaseDate = this.releaseDateInput;
-      this.$store.state.preProduction.duration.preProductionLength = this.preProduction
-      this.$store.state.preProduction.duration.productionLength = this.production
-      this.$store.state.preProduction.duration.postProductionLength = this.postProduction
+      this.$store.state.currentMovie._preProduction.releaseDate = this.calcReleaseDate;
+      this.$store.state.currentMovie._preProduction.preProductionLength = this.preProduction
+      this.$store.state.currentMovie._preProduction.productionLength = this.production
+      this.$store.state.currentMovie._preProduction.postProductionLength = this.postProduction
+    }
+  },
+
+  mounted() {
+    switch (this.scope) {
+      case "little":
+        this.preProduction.min = 2
+        this.preProduction.max = 4
+        this.production.min = 4
+        this.production.max = 8
+        this.production.min = 4
+        this.production.max = 8
+        break
+      case "small":
+        this.preProduction.min = 4
+        this.preProduction.max = 6
+        this.production.min = 8
+        this.production.max = 12
+        this.production.min = 8
+        this.production.max = 12
+        break
+      case "normal":
+        this.preProduction.min = 6
+        this.preProduction.max = 8
+        this.production.min = 12
+        this.production.max = 16
+        this.production.min = 12
+        this.production.max = 16
+        break
+      case "large":
+        this.preProduction.min = 8
+        this.preProduction.max = 10
+        this.production.min = 16
+        this.production.max = 20
+        this.production.min = 16
+        this.production.max = 20
+        break
+      case "epic":
+        this.preProduction.min = 10
+        this.preProduction.max = 12
+        this.production.min = 20
+        this.production.max = 24
+        this.production.min = 20
+        this.production.max = 24
+        break
     }
   }
 }

@@ -18,10 +18,12 @@
       <div>{{$t('buyScreenplaySection.existing')}}</div>
       <div v-for="(el, index) in owningScreenplays" :key="index">
         {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer._first_name}} | {{el.writer._last_name}} / {{el.description}} / {{el.rating}} / {{el.price}}
-        <button @click="this.$store.state.preProduction.currentScreenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
+        <button @click="this.$store.state.currentMovie._preProduction.screenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
       </div>
     </div>
     <button v-if="this.$store.state.preProduction.currentScreenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+    <button v-if="this.$store.state.currentMovie._preProduction.screenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+
     <icon-button
         id="screenplaySectionBackButton"
         icon="simple-arrow-left"
@@ -37,6 +39,7 @@
 <script>
 import {Screenplay} from "@/classes/Screenplay";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import {Movie} from "@/classes/Movie";
 
 export default {
   name: "screenplaySection",
@@ -65,13 +68,17 @@ export default {
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
-      this.$store.state.preProduction.isPreProduction = true
       this.$router.push({name: 'createScreenplay'});
     },
 
     goBack(){
       this.$router.push({name: 'movies'})
     }
+  },
+
+  mounted() {
+    //Insert new Movie Object
+    this.$store.state.currentMovie = new Movie(this.$store.state.studio, null, {children: 0, teenager: 0, adult: 0})
   }
 }
 </script>

@@ -34,6 +34,7 @@ import NewCreateScreenplay from "@/components/mainGameComponents/moviesMenu/NewC
 import ScreenplaySummary from "@/components/mainGameComponents/homeMenu/ScreenplaySummary.vue";
 import FranchisesList from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesList.vue";
 import SourcesList from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesList.vue";
+import prodEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal";
 
 
 const routes = [
@@ -67,11 +68,18 @@ const routes = [
 
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
 
+    //PreProduction
     { name: 'screenplaySection', path: '/screenplaySection', component: screenplaySection, props: true},
     { name: 'directorSection', path: '/directorSection', component: directorSection, props: true},
     { name: 'durationSection', path: '/durationSection', component: durationSection, props: true},
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
+
+    //Production
+    { name: 'prodEventModal', path: '/prodEventModal', component: prodEventModal, props: true},
+
+    //PostProduction
+
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true},

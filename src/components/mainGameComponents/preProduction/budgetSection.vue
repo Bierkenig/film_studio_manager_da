@@ -50,30 +50,26 @@
     <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value">
     <div>{{vfx.value}}</div>
 
-    <!-- Setting Smiley-->
-    <smiley-director></smiley-director>
 
     <button @click="calcSum(); disabled = false">{{$t('budgetSection.button')}}</button>
 
-    <div>{{this.$store.state.preProduction.outgoings}}</div>
+    <div>{{this.$store.state.currentMovie._preProduction.outgoings}}</div>
 
-    <button :disabled="disabled" @click="this.$store.state.movieState = 'preProduction' ;this.$router.push({name: 'afterPreProductionPhase'})">{{$t('budgetSection.continue')}}</button>
+    <button :disabled="disabled" @click="this.$router.push({name: 'actorSection'})">{{$t('budgetSection.continue')}}</button>
   </div>
 </template>
 
 <script>
-import SmileyDirector from "@/components/mainGameComponents/preProduction/SmileyDirector";
 export default {
   name: "budgetSection",
-  components: {SmileyDirector},
   data() {
     return {
-      screenplayType: this.$store.state.preProduction.currentScreenplay.type,
-      screenplayScope: this.$store.state.preProduction.currentScreenplay.details.scope,
-      screenplaySpecial: this.$store.state.preProduction.currentScreenplay.details.specialEffects,
-      featureList: this.$store.state.preProduction.feature,
-      indieList: this.$store.state.preProduction.indie,
-      animatedList: this.$store.state.preProduction.animated,
+      screenplayType: this.$store.state.currentMovie._preProduction.screenplay.type,
+      screenplayScope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
+      screenplaySpecial: this.$store.state.currentMovie._preProduction.screenplay.details.specialEffects,
+      featureList: this.$store.state.feature,
+      indieList: this.$store.state.indie,
+      animatedList: this.$store.state.animated,
       disabled: true,
       production: {
         value: 0,
@@ -193,89 +189,79 @@ export default {
     },
 
     calcSum() {
-      this.$store.state.preProduction.budget.production = parseInt(this.production.value)
-      this.$store.state.preProduction.budget.extras = parseInt(this.extras.value)
-      this.$store.state.preProduction.budget.cinematography = parseInt(this.cinematography.value)
-      this.$store.state.preProduction.budget.sound = parseInt(this.sound.value)
-      this.$store.state.preProduction.budget.editing = parseInt(this.editing.value)
-      this.$store.state.preProduction.budget.score = parseInt(this.score.value)
-      this.$store.state.preProduction.budget.set = parseInt(this.set.value)
-      this.$store.state.preProduction.budget.stunts = parseInt(this.stunts.value)
-      this.$store.state.preProduction.budget.costume = parseInt(this.costume.value)
-      this.$store.state.preProduction.budget.makeup = parseInt(this.makeup.value)
-      this.$store.state.preProduction.budget.sfx = parseInt(this.sfx.value)
-      this.$store.state.preProduction.budget.vfx = parseInt(this.vfx.value)
+      this.$store.state.currentMovie._preProduction.budget.production = parseInt(this.production.value)
+      this.$store.state.currentMovie._preProduction.budget.extras = parseInt(this.extras.value)
+      this.$store.state.currentMovie._preProduction.budget.cinematography = parseInt(this.cinematography.value)
+      this.$store.state.currentMovie._preProduction.budget.sound = parseInt(this.sound.value)
+      this.$store.state.currentMovie._preProduction.budget.editing = parseInt(this.editing.value)
+      this.$store.state.currentMovie._preProduction.budget.score = parseInt(this.score.value)
+      this.$store.state.currentMovie._preProduction.budget.set = parseInt(this.set.value)
+      this.$store.state.currentMovie._preProduction.budget.stunts = parseInt(this.stunts.value)
+      this.$store.state.currentMovie._preProduction.budget.costume = parseInt(this.costume.value)
+      this.$store.state.currentMovie._preProduction.budget.makeup = parseInt(this.makeup.value)
+      this.$store.state.currentMovie._preProduction.budget.sfx = parseInt(this.sfx.value)
+      this.$store.state.currentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
 
-
-      const max = this.production.max + this.extras.max + this.cinematography.max + this.sound.max + this.editing.max + this.score.max + this.set.max
-      + this.stunts.max + this.costume.max + this.makeup.max + this.sfx.max + this.vfx.max
-      //set Director Smiley
-      if (this.$store.state.preProduction.outgoings / 12 < max / 12)  {
-        this.$store.state.preProduction.hiredDirector._no++;
-      }
-
-
-      //set budget Pop TODO sfx & vfx extra
       switch (this.screenplayScope) {
         case "little":
-          if (this.between(this.production.value, (this.production.max - this.production.min)*0.01, (this.production.max - this.production.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.01, (this.extras.max - this.extras.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.01, (this.cinematography.max - this.production.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.01, (this.sound.max - this.sound.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.01, (this.editing.max - this.editing.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.score.value, (this.score.max - this.score.min)*0.01, (this.score.max - this.score.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.set.value, (this.set.max - this.set.min)*0.01, (this.set.max - this.set.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.01, (this.stunts.max - this.stunts.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.01, (this.costume.max - this.costume.min)*0.2)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.01, (this.makeup.max - this.makeup.min)*0.2)) this.$store.state.preProduction.budgetPop--;
+          if (this.between(this.production.value, (this.production.max - this.production.min)*0.01, (this.production.max - this.production.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.01, (this.extras.max - this.extras.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.01, (this.cinematography.max - this.production.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.01, (this.sound.max - this.sound.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.01, (this.editing.max - this.editing.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.score.value, (this.score.max - this.score.min)*0.01, (this.score.max - this.score.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.set.value, (this.set.max - this.set.min)*0.01, (this.set.max - this.set.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.01, (this.stunts.max - this.stunts.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.01, (this.costume.max - this.costume.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.01, (this.makeup.max - this.makeup.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
         case "small":
-          if (this.between(this.production.value, (this.production.max - this.production.min)*0.21, (this.production.max - this.production.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.21, (this.extras.max - this.extras.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.21, (this.cinematography.max - this.production.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.21, (this.sound.max - this.sound.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.21, (this.editing.max - this.editing.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.score.value, (this.score.max - this.score.min)*0.21, (this.score.max - this.score.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.set.value, (this.set.max - this.set.min)*0.21, (this.set.max - this.set.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.21, (this.stunts.max - this.stunts.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.21, (this.costume.max - this.costume.min)*0.4)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.21, (this.makeup.max - this.makeup.min)*0.4)) this.$store.state.preProduction.budgetPop--;
+          if (this.between(this.production.value, (this.production.max - this.production.min)*0.21, (this.production.max - this.production.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.21, (this.extras.max - this.extras.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.21, (this.cinematography.max - this.production.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.21, (this.sound.max - this.sound.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.21, (this.editing.max - this.editing.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.score.value, (this.score.max - this.score.min)*0.21, (this.score.max - this.score.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.set.value, (this.set.max - this.set.min)*0.21, (this.set.max - this.set.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.21, (this.stunts.max - this.stunts.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.21, (this.costume.max - this.costume.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.21, (this.makeup.max - this.makeup.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
         case "normal":
-          if (this.between(this.production.value, (this.production.max - this.production.min)*0.41, (this.production.max - this.production.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.41, (this.extras.max - this.extras.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.41, (this.cinematography.max - this.production.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.41, (this.sound.max - this.sound.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.41, (this.editing.max - this.editing.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.score.value, (this.score.max - this.score.min)*0.41, (this.score.max - this.score.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.set.value, (this.set.max - this.set.min)*0.41, (this.set.max - this.set.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.41, (this.stunts.max - this.stunts.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.41, (this.costume.max - this.costume.min)*0.6)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.41, (this.makeup.max - this.makeup.min)*0.6)) this.$store.state.preProduction.budgetPop--;
+          if (this.between(this.production.value, (this.production.max - this.production.min)*0.41, (this.production.max - this.production.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.41, (this.extras.max - this.extras.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.41, (this.cinematography.max - this.production.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.41, (this.sound.max - this.sound.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.41, (this.editing.max - this.editing.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.score.value, (this.score.max - this.score.min)*0.41, (this.score.max - this.score.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.set.value, (this.set.max - this.set.min)*0.41, (this.set.max - this.set.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.41, (this.stunts.max - this.stunts.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.41, (this.costume.max - this.costume.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.41, (this.makeup.max - this.makeup.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
         case "large":
-          if (this.between(this.production.value, (this.production.max - this.production.min)*0.61, (this.production.max - this.production.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.61, (this.extras.max - this.extras.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.61, (this.cinematography.max - this.production.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.61, (this.sound.max - this.sound.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.61, (this.editing.max - this.editing.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.score.value, (this.score.max - this.score.min)*0.61, (this.score.max - this.score.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.set.value, (this.set.max - this.set.min)*0.61, (this.set.max - this.set.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.61, (this.stunts.max - this.stunts.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.61, (this.costume.max - this.costume.min)*0.8)) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.61, (this.makeup.max - this.makeup.min)*0.8)) this.$store.state.preProduction.budgetPop--;
+          if (this.between(this.production.value, (this.production.max - this.production.min)*0.61, (this.production.max - this.production.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.61, (this.extras.max - this.extras.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.61, (this.cinematography.max - this.production.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.61, (this.sound.max - this.sound.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.61, (this.editing.max - this.editing.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.score.value, (this.score.max - this.score.min)*0.61, (this.score.max - this.score.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.set.value, (this.set.max - this.set.min)*0.61, (this.set.max - this.set.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.61, (this.stunts.max - this.stunts.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.61, (this.costume.max - this.costume.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.61, (this.makeup.max - this.makeup.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
         case "epic":
-          if (this.between(this.production.value, (this.production.max - this.production.min)*0.81, (this.production.max - this.production.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.81, (this.extras.max - this.extras.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.81, (this.cinematography.max - this.production.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.81, (this.sound.max - this.sound.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.81, (this.editing.max - this.editing.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.score.value, (this.score.max - this.score.min)*0.81, (this.score.max - this.score.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.set.value, (this.set.max - this.set.min)*0.81, (this.set.max - this.set.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.81, (this.stunts.max - this.stunts.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.81, (this.costume.max - this.costume.min))) this.$store.state.preProduction.budgetPop--;
-          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.81, (this.makeup.max - this.makeup.min))) this.$store.state.preProduction.budgetPop--;
+          if (this.between(this.production.value, (this.production.max - this.production.min)*0.81, (this.production.max - this.production.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.81, (this.extras.max - this.extras.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.81, (this.cinematography.max - this.production.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sound.value, (this.sound.max - this.sound.min)*0.81, (this.sound.max - this.sound.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.editing.value, (this.editing.max - this.editing.min)*0.81, (this.editing.max - this.editing.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.score.value, (this.score.max - this.score.min)*0.81, (this.score.max - this.score.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.set.value, (this.set.max - this.set.min)*0.81, (this.set.max - this.set.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.81, (this.stunts.max - this.stunts.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.81, (this.costume.max - this.costume.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.81, (this.makeup.max - this.makeup.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
       }
     },
