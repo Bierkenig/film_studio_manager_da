@@ -9,7 +9,7 @@ export default class PreProduction {
         this.screenplay = null
         this.hiredDirector = null
         this.outgoings = 0
-        if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale(); this.calcCastMorale()
+        if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay) this.hype = this.createTotal()
         this.preProductionLength = 0
         this.productionLength = 0

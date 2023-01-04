@@ -2,7 +2,6 @@ import {createStore} from "vuex";
 import {Studio} from "@/classes/Studio";
 import {Movie} from "@/classes/Movie";
 import News from "@/classes/News";
-import Award from "@/classes/Award";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
@@ -42,36 +41,7 @@ export default createStore({
         currentDate: new Date("January 01, 2023"),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
-        news: [
-            new News('Studio 1235 gegründet',
-                new Person(0,null,'Jakob','hallo',23,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'sa', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Deine MUm', 'internationalAward'),
-                null,
-                'AS',
-                'Studios'),
-            new News('Benni ist cool',
-                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                null,
-                'AS',
-                'People'),
-            new News('Benni ist cool',
-                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                null,
-                'AS',
-                'People'),
-            new News('Benni ist cool',
-                new Person(1,null,'Benni','Schmid',12,'male','austrian','arabian',4,4,3,null,null,5,23,123456,true,false,false,null),
-                new Movie(new Screenplay(0, 'hallo', 'cooles', null, null, null, null, null, null, 123, null), new Studio('hallo'), 2023, 23),
-                new Award('Neuer', 'anderer Award'),
-                null,
-                'AS',
-                'People')
-        ],
+        news: [],
         //nicht fertig
         earnings: [
             {
@@ -135,29 +105,10 @@ export default createStore({
             }
         ],
         //movies which are in currentProduction
-        inProductionMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Western',
-            null,'NC-17 / +18', null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        inProductionMovies: [],
 
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [new Movie(new Screenplay(2, 'FILM', null, 'Action',
-            null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Comedy',
-                null,'NC-17 / +18', null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Western',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'War',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0),
-            new Movie(new Screenplay(2, 'HIHIHI', null, 'Thriller',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        finishedMovies: [],
         //nicht fertig
         calendarEvents: [
             {
@@ -248,7 +199,7 @@ export default createStore({
         //preProduction
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25.000 - 2.000.000", "25.000 - 500.000", "25.000 - 1.500.000", "25.000 - 1.000.000", "25.000 - 500.000", "25.000 - 1.000.000", "25.000 - 2.000.000", "25.000 - 500.000", "5.000 - 500.000", "25.000 - 500.000", "25.000 - 1.000.000", "250.000 - 15.000.000"],
-        animated: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
+        animation: ["250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 3.500.000", "250.000 - 3.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "250.000 - 5.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 1.000.000", "250.000 - 3.000.000", "1.000.000 - 50.000.000"],
 
         preProductionEvents: {
             actorWhoWantsToDropOut: null,
@@ -260,19 +211,9 @@ export default createStore({
             new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
         ownStreamingService: null,
         //movies which you are owning (created, bought rights, bought movies)
-        allOwningMovies: [new Movie(new Screenplay(2, 'TEST3', null, 'Action',
-            null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("MEINS"),0)],
+        allOwningMovies: [],
         //movies from other studios (no rights have been bought yet, non-owning movies)
-        moviesFromOtherStudios: [new Movie(new Screenplay(0, 'TEST', null, 'Comedy',
-            null,"PG / +13", null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'21.11.2022',new Studio("Example Studio 2"),null),
-            new Movie(new Screenplay(1, 'TEST2', null, 'Western',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'23.11.2022',new Studio("Example Studio 1"),null),
-            new Movie(new Screenplay(3, 'TEST3', null, 'War',
-                null,"PG / +13", null, null, null, null,
-                {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}),'25.11.2022',new Studio("Example Studio 1"),null)],
+        moviesFromOtherStudios: [],
 
         studioNames: ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
             "Pictures", "Emberlight Films", "Sandstorm Productions", "Greenlight Films", "Incandescent Pictures", "Velvet Vision Studio", "Luna Productions", "Terra studios", "Roaring 20s Productions", "Heart of Life Studios", "Maze Pictures", "Radiant Pictures"],

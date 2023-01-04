@@ -69,7 +69,7 @@ export default {
       screenplaySpecial: this.$store.state.currentMovie._preProduction.screenplay.details.specialEffects,
       featureList: this.$store.state.feature,
       indieList: this.$store.state.indie,
-      animatedList: this.$store.state.animated,
+      animatedList: this.$store.state.animation,
       disabled: true,
       production: {
         value: 0,
@@ -138,7 +138,7 @@ export default {
 
     calcInputRange() {
       switch (this.screenplayType.toLowerCase()) {
-        case "feature":
+        case "Feature":
           this.production.min = parseInt(this.splitRange(this.featureList[0])[0]); this.production.max = parseInt(this.splitRange(this.featureList[0])[1])
           this.extras.min = parseInt(this.splitRange(this.featureList[1])[0]); this.extras.max = parseInt(this.splitRange(this.featureList[1])[1])
           this.cinematography.min = parseInt(this.splitRange(this.featureList[2])[0]); this.cinematography.max = parseInt(this.cinematography.max = this.splitRange(this.featureList[2])[1])
@@ -152,7 +152,7 @@ export default {
           this.sfx.min = parseInt(this.splitRange(this.featureList[10])[0]); this.sfx.max = parseInt(this.splitRange(this.featureList[10])[1])
           this.vfx.min = parseInt(this.splitRange(this.featureList[11])[0]); this.vfx.max = parseInt(this.splitRange(this.featureList[11])[1])
           break
-        case "indie":
+        case "Indie":
           this.production.min = parseInt(this.splitRange(this.indieList[0])[0]); this.production.max = parseInt(this.splitRange(this.indieList[0])[1])
           this.extras.min = parseInt(this.splitRange(this.indieList[1])[0]); this.extras.max = parseInt(this.splitRange(this.indieList[1])[1])
           this.cinematography.min = parseInt(this.splitRange(this.indieList[2])[0]); this.cinematography.max = parseInt(this.splitRange(this.indieList[2])[1])
@@ -166,7 +166,7 @@ export default {
           this.sfx.min = parseInt(this.splitRange(this.indieList[10])[0]); this.sfx.max = parseInt(this.splitRange(this.indieList[10])[1])
           this.vfx.min = parseInt(this.splitRange(this.indieList[11])[0]); this.vfx.max = parseInt(this.splitRange(this.indieList[11])[1])
           break
-        case "animated":
+        case "Animation":
           this.production.min = parseInt(this.splitRange(this.animatedList[0])[0]); this.production.max = parseInt(this.splitRange(this.animatedList[0])[1])
           this.extras.min = parseInt(this.splitRange(this.animatedList[1])[0]); this.extras.max = parseInt(this.splitRange(this.animatedList[1])[1])
           this.cinematography.min = parseInt(this.splitRange(this.animatedList[2])[0]); this.cinematography.max = parseInt(this.splitRange(this.animatedList[2])[1])
@@ -203,7 +203,7 @@ export default {
       this.$store.state.currentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
 
       switch (this.screenplayScope) {
-        case "little":
+        case "Little":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.01, (this.production.max - this.production.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.01, (this.extras.max - this.extras.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.01, (this.cinematography.max - this.production.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
@@ -215,7 +215,7 @@ export default {
           if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.01, (this.costume.max - this.costume.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.01, (this.makeup.max - this.makeup.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
-        case "small":
+        case "Small":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.21, (this.production.max - this.production.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.21, (this.extras.max - this.extras.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.21, (this.cinematography.max - this.production.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
@@ -227,7 +227,7 @@ export default {
           if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.21, (this.costume.max - this.costume.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.21, (this.makeup.max - this.makeup.min)*0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
-        case "normal":
+        case "Normal":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.41, (this.production.max - this.production.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.41, (this.extras.max - this.extras.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.41, (this.cinematography.max - this.production.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
@@ -239,7 +239,7 @@ export default {
           if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.41, (this.costume.max - this.costume.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.41, (this.makeup.max - this.makeup.min)*0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
-        case "large":
+        case "Large":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.61, (this.production.max - this.production.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.61, (this.extras.max - this.extras.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.61, (this.cinematography.max - this.production.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
@@ -251,7 +251,7 @@ export default {
           if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.61, (this.costume.max - this.costume.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.61, (this.makeup.max - this.makeup.min)*0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
-        case "epic":
+        case "Epic":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.81, (this.production.max - this.production.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.extras.value, (this.extras.max - this.extras.min)*0.81, (this.extras.max - this.extras.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.cinematography.value, (this.cinematography.max - this.cinematography.min)*0.81, (this.cinematography.max - this.production.min))) this.$store.state.currentMovie._preProduction.budgetPop--;

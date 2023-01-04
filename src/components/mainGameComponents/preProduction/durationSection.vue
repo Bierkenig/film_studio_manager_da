@@ -93,7 +93,7 @@ export default {
 
   mounted() {
     switch (this.scope) {
-      case "little":
+      case "Little":
         this.preProduction.min = 2
         this.preProduction.max = 4
         this.production.min = 4
@@ -101,7 +101,7 @@ export default {
         this.production.min = 4
         this.production.max = 8
         break
-      case "small":
+      case "Small":
         this.preProduction.min = 4
         this.preProduction.max = 6
         this.production.min = 8
@@ -109,7 +109,7 @@ export default {
         this.production.min = 8
         this.production.max = 12
         break
-      case "normal":
+      case "Normal":
         this.preProduction.min = 6
         this.preProduction.max = 8
         this.production.min = 12
@@ -117,7 +117,7 @@ export default {
         this.production.min = 12
         this.production.max = 16
         break
-      case "large":
+      case "Large":
         this.preProduction.min = 8
         this.preProduction.max = 10
         this.production.min = 16
@@ -125,7 +125,7 @@ export default {
         this.production.min = 16
         this.production.max = 20
         break
-      case "epic":
+      case "Epic":
         this.preProduction.min = 10
         this.preProduction.max = 12
         this.production.min = 20

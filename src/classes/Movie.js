@@ -9,7 +9,7 @@ import PostProduction from "@/classes/PostProduction";
 export class Movie {
     constructor(owner, contract, popularity = {children: 0, teenager: 0, adult: 0}) {
         //TYPE -> String from another Class
-        this._title = this._screenplay.title
+        this._title = this._screenplay?.title
         //TYPE -> a preProduction Class Object
         this._preProduction = new PreProduction()
         //TYPE -> a production Class Object

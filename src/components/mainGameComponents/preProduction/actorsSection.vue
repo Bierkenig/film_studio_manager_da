@@ -30,7 +30,7 @@ export default {
   components: {AvatarElement},
   data() {
     return {
-      allActors: this.$store.state.getAllActors(),
+      allActors: this.$store.getters.getAllActors,
       currentActor: null,
       salaryLevel: 0,
       negotiate: false,
@@ -38,12 +38,16 @@ export default {
         min: 0,
         max: 0,
       },
-      proposedSalary: this.salary.min,
+      proposedSalary: 0,
       index: 0,
       sendOfferBool: false,
       actorDecision: false,
       radio: ""
     }
+  },
+
+  mounted() {
+    this.proposedSalary = this.salary.min
   },
 
   methods: {

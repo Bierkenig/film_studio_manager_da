@@ -21,7 +21,6 @@
         <button @click="this.$store.state.currentMovie._preProduction.screenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
       </div>
     </div>
-    <button v-if="this.$store.state.preProduction.currentScreenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
     <button v-if="this.$store.state.currentMovie._preProduction.screenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
 
     <icon-button
@@ -39,7 +38,6 @@
 <script>
 import {Screenplay} from "@/classes/Screenplay";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
-import {Movie} from "@/classes/Movie";
 
 export default {
   name: "screenplaySection",
@@ -68,17 +66,12 @@ export default {
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
-      this.$router.push({name: 'createScreenplay'});
+      this.$router.push({name: 'newScreenplay'});
     },
 
     goBack(){
       this.$router.push({name: 'movies'})
     }
-  },
-
-  mounted() {
-    //Insert new Movie Object
-    this.$store.state.currentMovie = new Movie(this.$store.state.studio, null, {children: 0, teenager: 0, adult: 0})
   }
 }
 </script>

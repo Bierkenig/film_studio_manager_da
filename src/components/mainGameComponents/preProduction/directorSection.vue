@@ -43,10 +43,14 @@ export default {
         max: 1,
         step: 1
       },
-      selectedSalary: this.salaryRange.min,
+      selectedSalary: 0,
       decision: false,
       decision2: false,
     }
+  },
+
+  mounted() {
+    this.selectedSalary = this.salaryRange.min
   },
 
   methods: {
@@ -60,11 +64,11 @@ export default {
 
     calcDirectorsDecision() {
       if (this.directorsControl <= 50) {
-        this.decision2 = this.selectedSalary >= this.salaryRange.max * 0.3;
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.3;
       } else if (this.directorsControl > 50 && this.directorsControl < 75) {
-        this.decision2 = this.selectedSalary >= this.salaryRange.max * 0.625;
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.625;
       } else if (this.directorsControl >= 75) {
-        this.decision2 = this.selectedSalary >= this.salaryRange.max * 0.75;
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.75;
       }
 
       if (this.currentDirector._no === 3) {

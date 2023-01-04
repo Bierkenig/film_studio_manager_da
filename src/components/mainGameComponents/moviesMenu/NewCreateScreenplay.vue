@@ -353,7 +353,11 @@ export default {
     },
 
     goBack(){
-      this.$router.push({name: 'movies'})
+      if(this.$router.options.history.state.back === '/screenplaySection'){
+        this.$router.push({name: 'screenplaySection'})
+      } else {
+        this.$router.push({name: 'movies'})
+      }
     },
 
     setSelectedType(value){
