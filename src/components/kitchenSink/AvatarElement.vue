@@ -1,5 +1,5 @@
 <template>
-  <div class="customIcon" ref="customIcon"></div>
+  <div class="avatarElement"></div>
 </template>
 
 <script>
@@ -28,11 +28,16 @@ export default {
   mounted() {
     this.setSVG();
   },
+  watch: {
+    svgCode: function() {
+      this.setSVG();
+    }
+  },
 }
 </script>
 
 <style scoped>
-.customIcon {
+.avatarElement {
   background-image: v-bind('svgBG');
   width: v-bind('size');
   height: v-bind('size');
