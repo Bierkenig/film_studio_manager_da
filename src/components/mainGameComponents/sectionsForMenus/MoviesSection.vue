@@ -44,33 +44,32 @@
         <option value="Descending">{{ $t('descending') }}</option>
       </select>-->
     </div>
-    <div class="moviesSectionDetails verticalScroll">
+    <div v-if="headline === 'producedMovies'" class="moviesSectionDetails verticalScroll">
       <movie-element
           class="moviesSectionMovieElement"
           v-for="(it,index) in data"
           :key="index"
           :movie-title="it._title"
+          svg-code=""
           viewers="99"
           critics="99"
           :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]"
           :genre="it._screenplay.genre"
           :genre-icon="it._screenplay.genre.toLowerCase()"
-          budget="$ 9,999"
-          earnings="$ 999,999"/>
-      <!--<movie-element
+          :release="it._preProduction.releaseDate.getYear()"
+          earnings="$ 999,999"
+          @open-clicked="elementOpened"/>
+    </div>
+    <div v-if="headline === 'contentManagement'" class="moviesSectionDetails verticalScroll">
+      <streaming-element
+          class="moviesSectionMovieElement"
           v-for="(it,index) in data"
           :key="index"
-          :movie-title="it._title"
-          viewers="99"
-          critics="99"
-          :age="it._screenplay.ageRating.match('[+][0-9]+')"
-          :genre="it._screenplay.genre"
-          :genre-icon="it._screenplay.genre.toLowerCase()"
-          budget="$ 9,999"
-          earnings="$ 999,999"/>
-          @open-clicked="elementOpened"/>-->
-
-      <!--<movie-item v-for="(it,index) in data" :key="index" :movie="it"/>-->
+          svg-code=""
+          :streaming-title="it._title"
+          :popularity="it.popularity"
+          :contract="it._contract +  ' Years'"
+          @open-clicked="elementOpened"/>
     </div>
   </div>
 </template>
@@ -79,9 +78,10 @@
 import MovieElement from "@/components/kitchenSink/MovieElement.vue";
 import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
 import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
+import StreamingElement from "@/components/kitchenSink/StreamingElement.vue";
 export default {
   name: "MoviesSection",
-  components: {CustomListSort, CustomSelect, MovieElement},
+  components: {StreamingElement, CustomListSort, CustomSelect, MovieElement},
 
   props: {
     headline: String

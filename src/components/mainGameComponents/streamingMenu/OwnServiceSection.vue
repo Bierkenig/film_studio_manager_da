@@ -2,91 +2,23 @@
   <div id="ownServiceSection">
     <h2 id="ownServiceSectionHeader">Information</h2>
     <div id="ownServiceSectionInfoContainer">
-      <div id="ownServiceSectionNameContainer">
-        <custom-icon
-            size="40px"
-            theme="light"
-            :gradient="false"
-            :icon="this.$store.getters.getCurrentLogo"
-            :shadow="false"
-            :invert-theme="false"/>
-        <div id="ownServiceSectionName">
-          {{ streamingService._name }}
-        </div>
-      </div>
-      <div id="ownServiceSectionInformation">
-        <div class="ownServiceSectionInfoElement">
-          <div class="ownServiceSectionInfoElementLeftSide">
-            <custom-icon
-                size="18px"
-                theme="light"
-                :gradient="false"
-                icon="rising-chart"
-                :shadow="false"
-                :invert-theme="false"/>
-            <div>{{ $t('popularity') }}</div>
-          </div>
-          <input class="ownServiceSectionRangeSlider"
-                 type="range"
-                 :min="0"
-                 :max="100"
-                 :step="1"
-                 v-model="streamingService._popularity" disabled>
-        </div>
-        <div class="ownServiceSectionInfoElement">
-          <div class="ownServiceSectionInfoElementLeftSide">
-            <custom-icon
-                size="18px"
-                theme="light"
-                :gradient="false"
-                icon="party"
-                :shadow="false"
-                :invert-theme="false"/>
-            <div>{{ $t('subscribers') }}</div>
-          </div>
-          <div>{{ roundBudget(this.streamingService._subscribers) }}</div>
-        </div>
-        <div class="ownServiceSectionInfoElement">
-          <div class="ownServiceSectionInfoElementLeftSide">
-            <custom-icon
-                size="18px"
-                theme="light"
-                :gradient="false"
-                icon="plus"
-                :shadow="false"
-                :invert-theme="false"/>
-            <div>Profit</div>
-          </div>
-          <div>{{ roundBudget(this.streamingService._profit) }}</div>
-        </div>
-        <div class="ownServiceSectionInfoElement">
-          <div class="ownServiceSectionInfoElementLeftSide">
-            <custom-icon
-                size="18px"
-                theme="light"
-                :gradient="false"
-                icon="money"
-                :shadow="false"
-                :invert-theme="false"/>
-            <div>{{ $t('price') }}</div>
-          </div>
-          <div>
-            <button class="ownServiceSectionPriceButton" id="minusButton" @click="subtractPrice">-</button>
-            <span class="num">$ {{ this.streamingService._price.toFixed(2) }}</span>
-            <button class="ownServiceSectionPriceButton" id="plusButton" @click="addPrice">+</button>
-          </div>
-        </div>
-      </div>
+      <streaming-info-element
+          :streaming-info-title="streamingService._name"
+          :icon="this.$store.getters.getCurrentLogo"
+          :popularity="streamingService._popularity"
+          :subscribers="roundBudget(this.streamingService._subscribers)"
+          :revenue="this.streamingService._profit.toString()"
+          :initial-price="this.streamingService._price"/>
     </div>
   </div>
 </template>
 
 <script>
-import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import StreamingInfoElement from "@/components/kitchenSink/StreamingInfoElement.vue";
 
 export default {
   name: "OwnServiceSection",
-  components: {CustomIcon},
+  components: {StreamingInfoElement},
 
   data(){
     return {
@@ -94,19 +26,13 @@ export default {
     }
   },
 
+  watch: {
+    'this.$store.getters.getOwnStreamingService._price': function (){
+      console.log(this.$store.getters.getOwnStreamingService._price)
+    }
+  },
+
   methods: {
-    addPrice(){
-      if(this.streamingService._price < 100){
-        this.streamingService._price = this.streamingService._price + 0.5;
-      }
-    },
-
-    subtractPrice(){
-      if(this.streamingService._price > 1){
-        this.streamingService._price = this.streamingService._price - 0.5;
-      }
-    },
-
     roundBudget(labelValue){
       return Math.abs(Number(labelValue)) >= 1.0e+9
 

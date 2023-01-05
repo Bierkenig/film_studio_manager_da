@@ -80,7 +80,7 @@ export default {
 
   methods: {
     createService(){
-      this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,1000000,10,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
+      this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,1000000,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       //TODO: auf 10 Milliarden ändern
       this.$store.commit('subtractBalance', 10000000)
     }

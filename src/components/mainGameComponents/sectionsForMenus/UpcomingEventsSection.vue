@@ -6,7 +6,13 @@
         <div>
           <h2 class="date">{{ $t('today') }}</h2>
           <div class="event" v-for="(it,index) in todayEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+            <event-element v-if="it.type === 'productionFinished'" :type="it.type" :movie-title="it.movie" @open-clicked="goToEvent" status="open"/>
+          </div>
+          <div class="event" v-for="(it,index) in todayEvents" :key="index">
+            <event-element v-if="it.type === 'featureFilm' || it.type === 'blockbuster'" :type="it.type" :movie-title="it.movie" status="done"/>
+          </div>
+          <div class="event" v-for="(it,index) in todayEvents" :key="index">
+            <event-element v-if="it.type === 'award'" :type="it.type" :movie-title="it.movie"/>
           </div>
         </div>
 
@@ -41,6 +47,11 @@ export default {
   },
 
   methods: {
+    goToEvent(){
+      //TODO: ZU Movie gehen
+      this.$router.push('calendar')
+    },
+
     getNextWeeksDate() {
       const now = this.$store.getters.getCurrentDate;
 
