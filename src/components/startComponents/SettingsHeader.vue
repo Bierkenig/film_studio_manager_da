@@ -4,7 +4,6 @@
       <icon-button
           class="button"
           v-if="this.showOnPage.includes(this.$route.name)"
-          icon="musical"
           size="small"
           :dark="false"
           :bg-gradient="true"
@@ -16,7 +15,6 @@
       <icon-button
           class="button"
           v-if="this.showOnPage.includes(this.$route.name)"
-          icon="star"
           size="small"
           :dark="false"
           :bg-gradient="true"
@@ -28,7 +26,6 @@
       <icon-button
           class="button"
           v-if="this.showOnPage.includes(this.$route.name)"
-          icon="journalism"
           size="small"
           :dark="true"
           :bg-gradient="true"
@@ -50,7 +47,6 @@
       <icon-button
           class="button"
           v-if="!this.showOnPage.includes(this.$route.name)"
-          icon="home"
           size="small"
           :dark="true"
           :bg-gradient="true"
@@ -75,7 +71,6 @@
       <icon-button
           class="button"
           v-if="!this.showOnPage.includes(this.$route.name)"
-          icon="simple-arrow-right"
           size="small"
           :dark="true"
           :bg-gradient="true"

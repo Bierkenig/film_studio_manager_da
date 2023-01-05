@@ -5,7 +5,6 @@
       <router-link to="home">
         <icon-button
             id="homeButton"
-            icon="home"
             size="medium"
             :dark="false"
             :bg-gradient="true"
@@ -31,7 +30,6 @@
       <router-link to="streaming">
         <icon-button
             id="streamingButton"
-            icon="streaming"
             size="medium"
             :dark="true"
             :bg-gradient="true"
@@ -44,7 +42,6 @@
       <router-link to="news">
         <icon-button
             id="newsButton"
-            icon="news"
             size="medium"
             :dark="true"
             :bg-gradient="true"

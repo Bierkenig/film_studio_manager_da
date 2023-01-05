@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import {Screenplay} from "@/classes/Screenplay";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import {Movie} from "@/classes/Movie";
@@ -41,21 +40,13 @@ export default {
 
   methods: {
     goToSite(){
-      if(this.headline === 'createScreenplay'){
-        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
-            null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
-        this.$router.push({name: 'newScreenplay'});
-      } else if(this.headline === 'createMovie'){
+      if(this.headline === 'createMovie'){
         this.$store.state.currentMovie = new Movie(this.$store.state.studio, null, {children: 0, teenager: 0, adult: 0})
         this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){
         this.$router.push({name: 'sourcesList'});
       } else if(this.headline === 'listOfFranchises'){
-        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
-            null,null, null, null, null, null,
-            {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
-        this.$router.push({name: 'newScreenplay'});
+        this.$router.push({name: 'franchisesList'});
       } else if(this.headline === 'buyStreamingRights'){
         this.$router.push({name: 'buyMovieRights'});
       }

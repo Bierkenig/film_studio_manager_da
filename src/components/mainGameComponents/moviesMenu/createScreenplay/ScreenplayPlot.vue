@@ -175,14 +175,12 @@
           :icon-gradient="false"
           :shadow="false"
           @click="goBack"/>
-      <router-link :to="{name: 'hireWriter'}">
-        <custom-button
-            id="screenplayPlotContinueButton"
-            :dark="false"
-            size="medium"
-            :disabled="true"
-            @clicked="clickButton">{{ $t('continue')}}</custom-button>
-      </router-link>
+      <custom-button
+          id="screenplayPlotContinueButton"
+          :dark="false"
+          size="medium"
+          :disabled="true"
+          @click="clickButton">{{ $t('continue')}}</custom-button>
     </div>
 
     <div
@@ -387,6 +385,7 @@ export default {
       this.$store.getters.getCurrentScreenplay.setAct2(this.getList(2));
       this.$store.getters.getCurrentScreenplay.setAct3(this.getList(3));
       this.$store.getters.getCurrentScreenplay.setLength(this.screenplayLength);
+      this.$router.push({name: 'hireWriter'});
     },
 
     characterMomentButtonClick(){

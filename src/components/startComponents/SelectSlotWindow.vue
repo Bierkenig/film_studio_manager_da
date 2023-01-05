@@ -3,7 +3,6 @@
     <div>
       <icon-button
           id="selectSlotWindowBackButton"
-          icon="simple-arrow-left"
           size="medium"
           :dark="true"
           :bg-gradient="true"

@@ -6,7 +6,6 @@
           <div id="startMenu">
             <icon-button
                 id="startMenuCloseButton"
-                icon="simple-arrow-right"
                 size="medium"
                 :dark="true"
                 :bg-gradient="true"

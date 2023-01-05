@@ -4,7 +4,6 @@
       <div>
         <icon-button
             id="createStudioBackButton"
-            icon="simple-arrow-left"
             size="medium"
             :dark="true"
             :bg-gradient="true"
@@ -34,7 +33,6 @@
                 <div v-for="i in 10" :key="i">
                   <icon-button
                       class="availableIconsElements"
-                      :icon="icon[i-1]"
                       size="small"
                       :dark="true"
                       :bg-gradient="true"
@@ -96,7 +94,7 @@ export default {
       chosenLogo: null,
       databaseType: "default",
       iconSelected: [false,false,false,false,false,false,false,false,false,false],
-      icon: ['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
+      icon: ['placeholder','placeholder','placeholder','placeholder','placeholder','placeholder','placeholder','placeholder','placeholder','placeholder']//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
     }
   },
   methods: {
