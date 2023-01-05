@@ -2,7 +2,7 @@
   <div id="writerDetailsDiv">
     <div id="writerDetailsVertical">
       <h2 class="writerDetailsHeader">{{ $t('general') }}</h2>
-      <div id="writerDetailsInfoBox">
+      <div class="writerDetailsInfoBox">
         <div id="writerDetailsPersonalInfo">
           <div id="writerDetailsAvatarBox">
             <avatar-element :svg-code="this.staffAvatar" size="100px"/>
@@ -107,31 +107,94 @@
           </div>
         </div>
       </div>
+      <h2 class="writerDetailsHeader" id="writerDetailsOfferHeader">Contract Offer</h2>
+      <div class="writerDetailsInfoBox">
+        <div class="writerDetailsOfferBox">
+          <div class="writerDetailsOfferBoxSalaryText">Salary</div>
+          <div class="writerDetailsOfferBoxSalaryInput">
+            <icon-button icon="minus" size="extraSmall" :dark="true" :shadow="false" @click="subtractSalary"/>
+            <div class="writerDetailsOfferBoxSalaryValue">$ {{ roundSalary(selectedSalary) }}</div>
+            <icon-button icon="plus" size="extraSmall" :dark="true" :shadow="false" @click="addSalary"/>
+          </div>
+        </div>
+      </div>
+      <custom-button
+          v-if="!this.rejectedStaff.includes(this.staff) || decision !== true"
+          class="writerDetailsOfferButton"
+          :dark="false"
+          size="medium"
+          :disabled="numberOfOffers === 3"
+          @clicked="calcDirectorsDecision(); decision2 = true; numberOfOffers++">Offer ({{ numberOfOffers }}/3)</custom-button>
+      <custom-button
+          v-else
+          class="writerDetailsOfferButton"
+          :dark="false"
+          size="medium"
+          :disabled="true">Offer (3/3)</custom-button>
+
+      <div v-if="decision2">{{decision ? this.currentStaff._first_name + " " + this.currentStaff._last_name + $t('hireDirectorSection.decision') + "Yes" : this.currentStaff._first_name + " " + this.currentStaff._last_name + $t('hireDirectorSection.decision') + "No"}}</div>
+
+      <div v-if="decision === false && this.currentStaff._no !== 3 && decision2">{{$t('hireDirectorSection.think')}}</div>
+
+      <div v-if="this.currentStaff._no === 3">{{this.currentStaff._first_name}} {{this.currentStaff._last_name}}{{$t('hireDirectorSection.declined')}}</div>
+
+      <!--<button :disabled="!decision" @click="this.$store.state.currentMovie._preProduction.hiredDirector = this.currentStaff ;this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>-->
+
+      <!--<router-link :to="{name: this.nextLocation}">
+      <custom-button
+            v-if="type === 'Writer'"
+            class="writerDetailsHireButton"
+            :dark="false"
+            size="small"
+            :disabled="true"
+            @clicked="hireWriter">{{ $t('continue') }}</custom-button>
+       <custom-button
+           v-if="type === 'Writer'"
+           id="hireWriterButton"
+           class="writerDetailsHireButton"
+           :dark="false"
+           size="small"
+           :disabled="checkBalance || !staffName"
+           @clicked="hireWriter">{{ $t('hireWriter') }}</custom-button>
+       <custom-button
+           v-if="type === 'Director'"
+           id="hireDirectorButton"
+           class="writerDetailsHireButton"
+           :dark="false"
+           size="small"
+           :disabled="checkBalance || !staffName"
+           @clicked="hireDirector">{{ $t('hireDirector') }}</custom-button>
+       <custom-button
+           v-if="type === 'Actor'"
+           id="hireActorButton"
+           class="writerDetailsHireButton"
+           :dark="false"
+           size="small"
+           :disabled="checkBalance || !staffName"
+           @clicked="hireActor">{{ $t('hireActor') }}</custom-button>
+      </router-link>-->
       <router-link :to="{name: this.nextLocation}">
         <custom-button
             v-if="type === 'Writer'"
-            id="hireWriterButton"
             class="writerDetailsHireButton"
             :dark="false"
-            size="small"
-            :disabled="checkBalance || !staffName"
-            @clicked="hireWriter">{{ $t('hireWriter') }}</custom-button>
+            size="medium"
+            :disabled="!decision"
+            @clicked="hireWriter">{{ $t('continue') }}</custom-button>
         <custom-button
             v-if="type === 'Director'"
-            id="hireDirectorButton"
             class="writerDetailsHireButton"
             :dark="false"
-            size="small"
-            :disabled="checkBalance || !staffName"
-            @clicked="hireDirector">{{ $t('hireDirector') }}</custom-button>
+            size="medium"
+            :disabled="true"
+            @clicked="hireDirector">{{ $t('continue') }}</custom-button>
         <custom-button
             v-if="type === 'Actor'"
-            id="hireActorButton"
             class="writerDetailsHireButton"
             :dark="false"
-            size="small"
-            :disabled="checkBalance || !staffName"
-            @clicked="hireActor">{{ $t('hireActor') }}</custom-button>
+            size="medium"
+            :disabled="true"
+            @clicked="hireActor">{{ $t('continue') }}</custom-button>
       </router-link>
     </div>
   </div>
@@ -142,10 +205,11 @@ import {Screenplay} from "@/classes/Screenplay";
 import AvatarElement from "@/components/kitchenSink/AvatarElement.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 
 export default {
   name: "WriterDetails",
-  components: {CustomButton, CustomIcon, AvatarElement},
+  components: {IconButton, CustomButton, CustomIcon, AvatarElement},
 
   props: {
     staff: Object,
@@ -170,13 +234,31 @@ export default {
       staffTalent: 50,
       staffExperience: 50,
       copiedPrice: 0,
-      oldWriter: ''
+      oldWriter: '',
+      selectedSalary: 100000,
+      numberOfOffers: 0,
+      rejectedStaff: [],
+
+      staffControl: null,
+      currentStaff: null,
+      showNegotiation: false,
+      salaryRange: {
+        min: 0,
+        max: 1,
+        step: 50000
+      },
+      decision: false,
+      decision2: false,
+
+
     }
   },
 
   mounted() {
    this.copiedPrice = this.$store.getters.getCurrentScreenplay.price;
    this.oldWriter = this.$store.getters.getCurrentScreenplay.writer;
+
+   this.selectedSalary = this.salaryRange.min
   },
 
   watch: {
@@ -194,12 +276,42 @@ export default {
         this.staffGenre = this.staff._genre[this.$store.getters.getCurrentScreenplay.genre];
         this.staffSalary = parseInt(this.staff._salary.replaceAll('.',''));
         this.staffGender = this.staff._gender;
+        this.numberOfOffers = 0;
         console.log(this.staff._genre)
+      }
+    },
+
+    numberOfOffers: function (){
+      if(this.numberOfOffers === 3){
+        this.rejectedStaff.push(this.staff)
       }
     }
   },
 
   methods: {
+    calcSalary(staff) {
+      this.currentStaff = staff;
+      this.showNegotiation = true;
+      this.staffControl = (this.currentStaff._popularity + this.currentStaff._experience + this.currentStaff._rating) / 3
+      this.salaryRange.min = this.$store.state.allDirectorSalary[staff._rating - 1 - 3]
+      this.salaryRange.max = this.$store.state.allDirectorSalary[staff._rating - 1 + 3]
+    },
+
+    calcDirectorsDecision() {
+      if (this.staffControl <= 50) {
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.3;
+      } else if (this.staffControl > 50 && this.staffControl < 75) {
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.625;
+      } else if (this.staffControl >= 75) {
+        this.decision = this.selectedSalary >= this.salaryRange.max * 0.75;
+      }
+
+      if (this.currentDirector._no === 3) {
+        const index = this.allDirectors.indexOf(this.currentDirector)
+        this.allDirectors.splice(index, 1)
+      }
+    },
+
     hireActor(){
       console.log('FUNKTION NOCH NICHT EINGEBAUT')
     },
@@ -297,6 +409,18 @@ export default {
       }
     },
 
+    subtractSalary(){
+      if(this.selectedSalary > this.salaryRange.min){
+        this.selectedSalary = this.selectedSalary - this.salaryRange.step;
+      }
+    },
+
+    addSalary(){
+      if(this.selectedSalary < this.salaryRange.max){
+        this.selectedSalary = this.selectedSalary + this.salaryRange.step;
+      }
+    },
+
     roundSalary(labelValue){
       return Math.abs(Number(labelValue)) >= 1.0e+9
 
@@ -330,7 +454,7 @@ export default {
   color: var(--fsm-pink-1);
 }
 
-#writerDetailsInfoBox {
+.writerDetailsInfoBox {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   padding: 15px;
@@ -418,13 +542,50 @@ export default {
   background: linear-gradient(to right, var(--fsm-pink-1) 0%, var(--fsm-pink-1) 50%, var(--fsm-dark-blue-4) 50%, var(--fsm-dark-blue-4) 100%);
 }
 
-.writerDetailsHireButton {
-  margin-top: 15px;
-}
-
 .writerDetailsHireButton[disabled],
 .writerDetailsHireButton[disabled]{
   background-color: var(--fsm-white);
   color: var(--fsm-dark-blue-1);
+}
+
+.writerDetailsHireButton {
+  position: absolute;
+  float: right;
+  right: 100px;
+  bottom: 20px;
+  width: 15%;
+}
+
+#writerDetailsOfferHeader {
+  margin-top: 15px !important;
+}
+
+.writerDetailsOfferBoxSalaryText {
+  font-weight: var(--fsm-fw-semibold);
+  font-size: 22px;
+}
+
+.writerDetailsOfferBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.writerDetailsOfferBoxSalaryInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.writerDetailsOfferBoxSalaryValue {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 5px 35px 5px 35px;
+  font-size: 18px;
+}
+
+.writerDetailsOfferButton {
+  margin-top: 15px;
 }
 </style>

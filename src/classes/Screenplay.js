@@ -31,7 +31,7 @@ export class Screenplay {
         this.topics = topics;
         //scope = little, small, normal, large, epic
         //TYPE -> Object [Character]
-        this.roles = {main: [], support: [], minor: [], cameo: [], voiceOver: []};
+        this.roles = {main: [], support: [], minor: [], cameo: []};
         //TYPE -> Object [Persons]
         this.actors = {main: [], support: [], minor: [], cameo: []};
         //TYPE -> Object
@@ -205,8 +205,20 @@ export class Screenplay {
         this.roles.cameo.push(actor);
     }
 
-    addVoiceOverCharacter(actor) {
-        this.roles.voiceOver.push(actor);
+    removeMainCharacter(actor) {
+        this.roles.main = this.roles.main.filter(character => character !== actor)
+    }
+
+    removeSupportCharacter(actor) {
+        this.roles.support = this.roles.support.filter(character => character !== actor)
+    }
+
+    removeMinorCharacter(actor) {
+        this.roles.minor = this.roles.minor.filter(character => character !== actor)
+    }
+
+    removeCameoCharacter(actor) {
+        this.roles.cameo = this.roles.cameo.filter(character => character !== actor)
     }
 
     setScope(value) {

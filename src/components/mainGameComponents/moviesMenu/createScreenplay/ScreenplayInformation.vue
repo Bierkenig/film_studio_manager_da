@@ -117,16 +117,10 @@
             <div id="screenplayInformationRoleSecondDiv">
               <div class="screenplayInformationRoleDiv">
                 <div v-if="screenplay.roles['cameo'].length !== 0" class="screenplayInformationRoleInfo">Cameo</div>
-                <div v-if="screenplay.roles['voiceOver'].length !== 0" class="screenplayInformationRoleInfo">{{ $t('voiceOver') }}</div>
               </div>
               <div class="screenplayInformationTextDiv">
                 <div class="screenplayInformationRoleNameContainer">
                   <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['cameo']" :key="index">
-                    {{ it.name }}
-                  </div>
-                </div>
-                <div class="screenplayInformationRoleNameContainer">
-                  <div class="screenplayInformationText" v-for="(it, index) in screenplay.roles['voiceOver']" :key="index">
                     {{ it.name }}
                   </div>
                 </div>

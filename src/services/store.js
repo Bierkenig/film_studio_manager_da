@@ -610,8 +610,20 @@ export default createStore({
             state.currentScreenplay.addCameoCharacter(character);
         },
 
-        addCurrentScreenplayVoiceOverCharacter(state, character) {
-            state.currentScreenplay.addVoiceOverCharacter(character);
+        removeCurrentScreenplayMainCharacter(state, character) {
+            state.currentScreenplay.removeMainCharacter(character);
+        },
+
+        removeCurrentScreenplaySupportCharacter(state, character) {
+            state.currentScreenplay.removeSupportCharacter(character);
+        },
+
+        removeCurrentScreenplayMinorCharacter(state, character) {
+            state.currentScreenplay.removeMinorCharacter(character);
+        },
+
+        removeCurrentScreenplayCameoCharacter(state, character) {
+            state.currentScreenplay.removeCameoCharacter(character);
         },
 
         setAllActors(state, value){

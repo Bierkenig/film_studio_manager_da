@@ -197,23 +197,31 @@
                       <div id="createScreenplayCharacterLeftSectionInnerBoxElements" class="verticalScroll">
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
                           <div>{{ it.name }}</div>
-                          <div>{{ $t('main') }}</div>
+                          <div class="createScreenplayCharacterElementRoleInfo">
+                            <div>{{ $t('main') }}</div>
+                            <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'main')"/>
+                          </div>
                         </div>
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.support" :key="index">
                           <div>{{ it.name }}</div>
-                          <div>{{ $t('support') }}</div>
+                          <div class="createScreenplayCharacterElementRoleInfo">
+                            <div>{{ $t('support') }}</div>
+                            <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'support')"/>
+                          </div>
                         </div>
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.minor" :key="index">
                           <div>{{ it.name }}</div>
-                          <div>Minor</div>
+                          <div class="createScreenplayCharacterElementRoleInfo">
+                            <div>Minor</div>
+                            <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'minor')"/>
+                          </div>
                         </div>
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.cameo" :key="index">
                           <div>{{ it.name }}</div>
-                          <div>Cameo</div>
-                        </div>
-                        <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.voiceOver" :key="index">
-                          <div>{{ it.name }}</div>
-                          <div>{{ $t('voiceOver') }}</div>
+                          <div class="createScreenplayCharacterElementRoleInfo">
+                            <div>Cameo</div>
+                            <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'cameo')"/>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -241,7 +249,6 @@
                       <option value="support" :disabled="numberOfSupportCharacters === 3">{{ $t('support') }}</option>
                       <option value="minor" :disabled="numberOfMinorCharacters === 3">Minor</option>
                       <option value="cameo" :disabled="numberOfCameoCharacters === 3">Cameo</option>
-                      <option value="voiceOver" :disabled="numberOfVoiceOverCharacters === 3">{{ $t('voiceOver') }}</option>
                     </select>
                   </div>
                 </div>
@@ -313,7 +320,6 @@ export default {
       numberOfSupportCharacters: this.$store.getters.getCurrentScreenplay.roles.support.length,
       numberOfMinorCharacters: this.$store.getters.getCurrentScreenplay.roles.minor.length,
       numberOfCameoCharacters: this.$store.getters.getCurrentScreenplay.roles.cameo.length,
-      numberOfVoiceOverCharacters: this.$store.getters.getCurrentScreenplay.roles.voiceOver.length,
     }
   },
 
@@ -406,6 +412,22 @@ export default {
       }
     },
 
+    removeCharacter(character, role){
+      if (role === 'main'){
+        this.numberOfMainCharacters--;
+        this.$store.commit('removeCurrentScreenplayMainCharacter',character);
+      } else if (role === 'support'){
+        this.numberOfSupportCharacters--;
+        this.$store.commit('removeCurrentScreenplaySupportCharacter',character);
+      } else if (role === 'minor'){
+        this.numberOfMinorCharacters--;
+        this.$store.commit('removeCurrentScreenplayMinorCharacter',character);
+      } else if (role === 'cameo'){
+        this.numberOfCameoCharacters--;
+        this.$store.commit('removeCurrentScreenplayCameoCharacter',character);
+      }
+    },
+
     saveCharacter(){
       if (this.characterRole === 'main'){
         this.numberOfMainCharacters++;
@@ -419,9 +441,6 @@ export default {
       } else if (this.characterRole === 'cameo'){
         this.numberOfCameoCharacters++;
         this.$store.commit('addCurrentScreenplayCameoCharacter',new Character(this.characterName,this.characterGender, this.characterAge));
-      } else if (this.characterRole === 'voiceOver'){
-        this.numberOfVoiceOverCharacters++;
-        this.$store.commit('addCurrentScreenplayVoiceOverCharacter',new Character(this.characterName,this.characterGender, this.characterAge));
       }
       this.characterRole = null;
       this.characterName = '';
@@ -591,11 +610,11 @@ input[type='radio']:checked:after {
 #createScreenplayCharacterRightSection {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 35%;
 }
 
 #createScreenplayCharacterLeftSection {
-  width: 50%;
+  width: 65%;
 }
 
 #createScreenplayCharacterLeftSectionInnerBox {
@@ -644,9 +663,16 @@ input[type='radio']:checked:after {
   justify-content: space-between;
   align-items: center;
   padding: 5px 10px 5px 10px;
-  width: 85%;
+  width: 90%;
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-s-border-radius);
+}
+
+.createScreenplayCharacterElementRoleInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 option:disabled,
