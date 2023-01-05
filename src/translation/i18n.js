@@ -114,10 +114,11 @@ i18next
                         hire: "Choose a Director with whom you want to negotiate",
                         negotiate: "Negotiate",
                         salary: "Select a salary for ",
-                        control: "Choose the directors creative control",
                         offer: "Send offer",
-                        decision: "'s decision: ",
-                        think: "Try to readjust the salary or increase the creative control",
+                        decision: "'s Answer: ",
+                        rejected: "Rejected",
+                        accepted: "Accepted",
+                        think: "Try to readjust the salary",
                         declined: " declined your Offers 3 times. Try to negotiate with another Director"
                     },
                     durationSection: {
@@ -129,7 +130,8 @@ i18next
                         continue: "Continue",
                         choice: "Your choice: ",
                         estimated: "Estimated Release Date: ",
-                        calc: "Calculate release Date"
+                        calc: "Calculate release Date",
+                        weeks: "Weeks"
                     },
                     actorSection: {
                         hire: "Hire Actors for your Movie",

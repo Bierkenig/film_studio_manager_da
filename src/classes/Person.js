@@ -25,14 +25,14 @@ export default class Person {
         this._depth = depth;
         //TYPE -> Integer
         this._craft = craft;
-        //TYPE -> String
+        //TYPE -> Integer
         this._talent = talent;
         //TYPE -> Integer
         this._popularity = popularity;
         //TYPE -> Integer/Float
         this._rating = rating;
         //TYPE -> String
-        this._salary = salary;
+        this._salary = salary.replaceAll('.', '');
         //TYPE -> Integer
         this._paidSalary = this._salary;
         //TYPE -> String

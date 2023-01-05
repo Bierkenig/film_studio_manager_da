@@ -2,27 +2,29 @@
   <div>
     <div>{{$t('durationSection.set')}}</div>
     <input type="range" :min="preProduction.min" :max="preProduction.max" step="1" v-model="preProductionInput">
-    <div>{{preProductionInput}}</div>
+    <div>{{preProductionInput}} {{$t('durationSection.weeks')}}</div>
 
     <div>{{$t('durationSection.set2')}}</div>
     <input type="range" :min="production.min" :max="production.max" step="1" v-model="productionInput">
-    <div>{{productionInput}}</div>
+    <div>{{productionInput}} {{$t('durationSection.weeks')}}</div>
 
     <div>{{$t('durationSection.set3')}}</div>
     <input type="range" :min="production.min" :max="production.max" step="1" v-model="postProductionInput">
-    <div>{{postProductionInput}}</div>
+    <div>{{postProductionInput}} {{$t('durationSection.weeks')}}</div>
 
-    <button @click="calcStartDate(); disabled = false">{{$t('durationSection.confirm')}}</button>
+    <button @click="releaseSection = true">{{$t('durationSection.confirm')}}</button>
 
-    <div>{{$t('durationSection.releaseDate')}}</div>
-    <input type="range" :min="releaseDate.min" :max="releaseDate.max" step="1" v-model="releaseDateInput">
+    <div v-if="releaseSection">
+      <div>{{$t('durationSection.releaseDate')}}</div>
+      <input type="range" :min="0" :max="12" step="1" v-model="releaseDateInput">
 
-    <div>{{$t('durationSection.choice')}}{{releaseDateInput}}</div>
+      <div>{{$t('durationSection.choice')}}{{releaseDateInput}} {{$t('durationSection.weeks')}}</div>
 
-    <button @click="calcTheReleaseDate(); release = true">{{$t('durationSection.calc')}}</button>
+      <button @click="calcTheReleaseDate(); release = true; disabled = false">{{$t('durationSection.calc')}}</button>
 
-    <div v-if="release">{{$t('durationSection.estimated')}}</div>
-    <div v-if="release">{{calcReleaseDate}}</div>
+      <div v-if="release">{{$t('durationSection.estimated')}}</div>
+      <div v-if="release">{{calcReleaseDate.toDateString()}}</div>
+    </div>
 
     <button :disabled="disabled" @click="setStoreWeeks(); this.$router.push({name: 'budgetSection'})">{{$t('durationSection.continue')}}</button>
 
@@ -35,9 +37,9 @@ export default {
   data() {
     return {
       scope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
-      preProductionInput: 4,
-      productionInput: 4,
-      postProductionInput: 8,
+      preProductionInput: 0,
+      productionInput: 0,
+      postProductionInput: 0,
       releaseDateInput: 0,
       preProduction: {
         min: 0,
@@ -51,36 +53,25 @@ export default {
         min: 0,
         max: 1
       },
-      releaseDate: {
-        min: 0,
-        max: 0,
-      },
       productionPhase: 0,
-      directorCreativeControl: (this.$store.state.currentMovie._preProduction.hiredDirector._popularity + this.$store.state.currentMovie._preProduction.hiredDirector._experience + this.$store.state.currentMovie._preProduction.hiredDirector._rating) / 3,
       disabled: true,
       counter: 0,
       calcReleaseDate: new Date(),
-      release: false
+      release: false,
+      releaseSection: false,
     }
   },
 
   methods: {
-    calcStartDate() {
+    calcTheReleaseDate() {
       this.productionPhase = parseInt(this.preProductionInput) + parseInt(this.productionInput) + parseInt(this.postProductionInput)
-      if (this.directorCreativeControl <= 50) {
-        this.releaseDate.min = this.productionPhase - 12
-        this.releaseDate.max = this.productionPhase + 12
-      } else if (this.directorCreativeControl > 50 && this.directorCreativeControl <= 75) {
-        this.releaseDate.min = (this.productionPhase * 1.25) - 12
-        this.releaseDate.max = (this.productionPhase * 1.25) + 12
-      } else if (this.directorCreativeControl > 75) {
-        this.releaseDate.min = (this.productionPhase * 1.50) - 12
-        this.releaseDate.max = (this.productionPhase * 1.50) + 12
-      }
+      const weeks = this.productionPhase + parseInt(this.releaseDateInput)
+      this.calcReleaseDate = this.addWeeks(new Date(), weeks, this.$store.getters.getCurrentDate)
     },
 
-    calcTheReleaseDate() {
-      this.calcReleaseDate.setDate(this.$store.state.currentDate.getDate() + 7 * (this.productionPhase + this.releaseDateInput));
+    addWeeks(date, weeks, startDate) {
+      date.setDate(startDate.getDate() + 7 * weeks);
+      return date;
     },
 
     setStoreWeeks() {
@@ -134,6 +125,10 @@ export default {
         this.production.max = 24
         break
     }
+
+    this.preProductionInput = this.preProduction.min
+    this.productionInput = this.production.min
+    this.postProductionInput = this.postProduction.min
   }
 }
 </script>

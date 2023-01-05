@@ -18,7 +18,7 @@
       <div>{{$t('buyScreenplaySection.existing')}}</div>
       <div v-for="(el, index) in owningScreenplays" :key="index">
         {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer._first_name}} | {{el.writer._last_name}} / {{el.description}} / {{el.rating}} / {{el.price}}
-        <button @click="this.$store.state.currentMovie._preProduction.screenplay = el">{{$t('buyScreenplaySection.choose')}}</button>
+        <button @click="setScreenplay(el)">{{$t('buyScreenplaySection.choose')}}</button>
       </div>
     </div>
     <button v-if="this.$store.state.currentMovie._preProduction.screenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
@@ -67,6 +67,10 @@ export default {
         this.$store.state.currentFranchise = el;
       }
       this.$router.push({name: 'newScreenplay'});
+    },
+
+    setScreenplay(screenplay) {
+      this.$store.state.currentMovie._preProduction.screenplay = screenplay
     },
 
     goBack(){

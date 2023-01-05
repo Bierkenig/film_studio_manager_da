@@ -2,7 +2,7 @@
   <div>
     <div>{{$t('budgetSection.overall')}}</div>
 
-    <div>{{$t('budgetSection.currentProduction')}}</div>
+    <div>{{$t('budgetSection.production')}}</div>
     <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value">
     <div>{{production.value}}</div>
 
@@ -135,9 +135,9 @@ export default {
   },
 
   methods: {
-
     calcInputRange() {
-      switch (this.screenplayType.toLowerCase()) {
+      console.log(this.screenplayType)
+      switch (this.screenplayType) {
         case "Feature":
           this.production.min = parseInt(this.splitRange(this.featureList[0])[0]); this.production.max = parseInt(this.splitRange(this.featureList[0])[1])
           this.extras.min = parseInt(this.splitRange(this.featureList[1])[0]); this.extras.max = parseInt(this.splitRange(this.featureList[1])[1])
@@ -168,6 +168,8 @@ export default {
           break
         case "Animation":
           this.production.min = parseInt(this.splitRange(this.animatedList[0])[0]); this.production.max = parseInt(this.splitRange(this.animatedList[0])[1])
+          console.log(this.production.min)
+          console.log(this.production.max)
           this.extras.min = parseInt(this.splitRange(this.animatedList[1])[0]); this.extras.max = parseInt(this.splitRange(this.animatedList[1])[1])
           this.cinematography.min = parseInt(this.splitRange(this.animatedList[2])[0]); this.cinematography.max = parseInt(this.splitRange(this.animatedList[2])[1])
           this.sound.min = parseInt(this.splitRange(this.animatedList[3])[0]); this.sound.max = parseInt(this.splitRange(this.animatedList[3])[1])

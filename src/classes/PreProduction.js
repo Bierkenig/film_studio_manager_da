@@ -5,7 +5,6 @@ import Earnings from "@/classes/Earnings";
 
 export default class PreProduction {
     constructor() {
-        this.movie = null
         this.screenplay = null
         this.hiredDirector = null
         this.outgoings = 0
