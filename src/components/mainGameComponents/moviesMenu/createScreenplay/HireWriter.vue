@@ -2,15 +2,13 @@
   <div id="hireWriterMainDiv">
     <h1 id="hireWriterHeader">{{ $t('hireWriter') }}</h1>
     <div id="hireWriterBackground">
-      <staff-list id="hireWriterList" :staff="data" @sendStaff="receiveStaff"/>
+      <writer-list v-if="!this.$store.getters.getCurrentScreenplay.rewritingStatus" id="hireWriterList" :writer-list="writers" @sendWriter="receiveWriter"/>
       <div id="hireWriterDetailsVertical">
-        <staff-details
+        <writer-details
             id="hireWriterDetails"
-            :staff="clickedStaff"
+            :writer="clickedWriter"
             :screenplay="this.$store.getters.getCurrentScreenplay"
             :check-balance="checkBalance"
-            next-location="screenplayInformation"
-            type="Writer"
         />
         <icon-button
             v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
@@ -28,32 +26,32 @@
 </template>
 
 <script>
-import StaffList from "@/components/mainGameComponents/StaffList";
-import StaffDetails from '@/components/mainGameComponents/StaffDetails';
+import WriterList from "@/components/mainGameComponents/moviesMenu/createScreenplay/WriterList.vue";
+import WriterDetails from '@/components/mainGameComponents/moviesMenu/createScreenplay/WriterDetails.vue';
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 export default {
   name: "HireWriter",
-  components: {IconButton, StaffList, StaffDetails},
+  components: {IconButton, WriterList, WriterDetails},
 
   data() {
     return {
-      data: this.$store.getters.getAllWriters,
-      clickedStaff: {},
+      writers: this.$store.getters.getAllWriters,
+      clickedWriter: {},
       checkBalance: true
     }
   },
 
   mounted() {
     if(this.$store.getters.getCurrentScreenplay.price !== null){
-      this.clickedStaff = this.$store.getters.getCurrentScreenplay.writer;
+      this.clickedWriter = this.$store.getters.getCurrentScreenplay.writer;
       this.checkBalance = (this.$store.getters.getBalance - parseInt(this.$store.getters.getCurrentScreenplay.writer.salary)) < 0;
     }
   },
 
   methods: {
-    receiveStaff: function (staff){
-      this.clickedStaff = staff;
-      this.checkBalance = (this.$store.getters.getBalance - parseInt(staff.salary)) < 0;
+    receiveWriter: function (writer){
+      this.clickedWriter = writer;
+      this.checkBalance = (this.$store.getters.getBalance - parseInt(writer.salary)) < 0;
     },
 
     goBack(){

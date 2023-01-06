@@ -44,7 +44,9 @@ export default class Person {
         //TYPE -> String
         this._genre = genre;
         //TYPE -> Integer
-        if (isDirector) this._no = 0; this.dirMorale = 5
+        this._no = 0
+        //TYPE -> Integer
+        if (isDirector) this.dirMorale = 5
         if (isActor) this.notAvailable = 0; this.actorMorale = 5
     }
 

@@ -1,20 +1,15 @@
 <template>
   <div>
-    <div id="staffList">
-      <div class="staffListSortDiv">
+    <div id="writerList">
+      <div class="writerListSortDiv">
         <custom-select :options="['Popularity','Rating','Salary']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
-      <div class="staffListScroll verticalScroll">
-        <div v-for="(item, index) in data" :id="'item' + index" :key="index" class="staffListElement" @click="getStaffInfo(index, item)">
-          <div class="staffListElementTitle" :id="'staffListElementTitle' + index">
+      <div class="writerListScroll verticalScroll">
+        <div v-for="(item, index) in writers" :id="'item' + index" :key="index" class="writerListElement" @click="getWriterInfo(index, item)">
+          <div class="writerListElementTitle" :id="'writerListElementTitle' + index">
             {{ item._first_name }} {{ item._last_name }}
           </div>
-          <!--<div class="moreStaffListElementInfo">
-            <div class="staffListElementSalary">$ {{ item._salary }}</div>
-            <div class="staffListElementRating">{{ item._rating }}</div>
-            <div class="staffListElementGenreRating">{{ item._rating }}</div>
-          </div>-->
         </div>
       </div>
     </div>
@@ -26,11 +21,11 @@ import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
 import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
 
 export default {
-  name: "StaffList",
+  name: "WriterList",
   components: {CustomListSort, CustomSelect},
 
   props: {
-    staff: {
+    writerList: {
       type: Array,
       required: true,
     }
@@ -38,7 +33,7 @@ export default {
 
   data() {
     return {
-      data: this.staff,
+      writers: this.writerList,
       lastIndex: null,
       selectedSortByWhat: null,
       selectedTypeOfSort: 'Ascending',
@@ -48,40 +43,40 @@ export default {
   methods: {
     setSelectedSortByWhat(arg){
       this.selectedSortByWhat = arg;
-      this.sortStaffList();
+      this.sortWriterList();
     },
 
     setSelectedTypeOfSort(arg){
       this.selectedTypeOfSort = arg;
-      this.sortStaffList();
+      this.sortWriterList();
     },
 
-    sortStaffList(){
+    sortWriterList(){
       if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => a._popularity - b._popularity)
+        this.writers.sort((a, b) => a._popularity - b._popularity)
       } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending') {
-        this.data.sort((a, b) => b._popularity - a._popularity)
+        this.writers.sort((a, b) => b._popularity - a._popularity)
       } else if(this.selectedSortByWhat === 'Rating' && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => a._rating - b._rating)
+        this.writers.sort((a, b) => a._rating - b._rating)
       } else if(this.selectedSortByWhat === 'Rating' && this.selectedTypeOfSort === 'Descending'){
-        this.data.sort((a, b) => b._rating - a._rating)
+        this.writers.sort((a, b) => b._rating - a._rating)
       } else if(this.selectedSortByWhat === 'Salary' && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => parseInt(a._salary.replaceAll('.','')) - parseInt(b._salary.replaceAll('.','')))
+        this.writers.sort((a, b) => parseInt(a._salary.replaceAll('.','')) - parseInt(b._salary.replaceAll('.','')))
       } else if(this.selectedSortByWhat === 'Salary' && this.selectedTypeOfSort === 'Descending'){
-        this.data.sort((a,b) => parseInt(b._salary.replaceAll('.','')) - parseInt(a._salary.replaceAll('.','')))
+        this.writers.sort((a,b) => parseInt(b._salary.replaceAll('.','')) - parseInt(a._salary.replaceAll('.','')))
       }
     },
 
-    getStaffInfo(index, staff){
+    getWriterInfo(index, writer){
       document.getElementById('item'+index).style.backgroundColor = 'var(--fsm-pink-1)';
-      document.getElementById('staffListElementTitle'+index).style.color = 'var(--fsm-dark-blue-4)';
+      document.getElementById('writerListElementTitle'+index).style.color = 'var(--fsm-dark-blue-4)';
       if(this.lastIndex !== null){
         document.getElementById('item'+this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
-        document.getElementById('staffListElementTitle'+this.lastIndex).style.color = 'unset';
+        document.getElementById('writerListElementTitle'+this.lastIndex).style.color = 'unset';
       }
       this.lastIndex = index;
 
-      this.$emit('sendStaff',staff);
+      this.$emit('sendWriter',writer);
     },
 
     roundSalary(labelValue){
@@ -125,21 +120,21 @@ export default {
   border-radius: 20px 20px 20px 20px;
 }
 
-#staffList {
+#writerList {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
   padding: 15px;
   width: 350px;
 }
 
-.staffListScroll {
+.writerListScroll {
   height: 500px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.staffListSortDiv {
+.writerListSortDiv {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -147,7 +142,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.staffListElement {
+.writerListElement {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-s-border-radius);
   padding: 10px 0 10px 15px;

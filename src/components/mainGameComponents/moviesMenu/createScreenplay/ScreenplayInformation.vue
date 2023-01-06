@@ -249,7 +249,6 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
-import PreProduction from "@/classes/PreProduction";
 
 export default {
   name: "ScreenplayInformation",
@@ -263,6 +262,13 @@ export default {
 
   methods: {
     onButtonClick(){
+      if (!this.screenplay.rewritingStatus) {
+        this.$store.state.currentMovie._preProduction.screenplay = this.screenplay
+        this.$router.push({name: 'directorSection'})
+      } else {
+        this.$router.push({name: 'home'});
+      }
+
       let screenplays = this.$store.getters.getScreenplays;
       let position = -1;
       for (let i = 0; i < screenplays.length; i++) {
@@ -276,14 +282,6 @@ export default {
       } else {
         this.$store.getters.getCurrentScreenplay.subtractRewriting();
         this.$store.getters.getCurrentScreenplay.setRewritingStatus(false);
-      }
-      console.log(this.$store.getters.getCurrentScreenplay);
-
-      if (this.$store.state.currentMovie._preProduction instanceof PreProduction) {
-        this.$store.state.currentMovie._preProduction.screenplay = this.screenplay
-        this.$router.push({name: 'directorSection'})
-      } else {
-        this.$router.push({name: 'movies'});
       }
     },
 
