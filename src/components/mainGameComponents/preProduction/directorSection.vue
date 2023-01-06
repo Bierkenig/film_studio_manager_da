@@ -37,7 +37,6 @@ export default {
       allDirectors: this.$store.getters.getAllDirectors,
       showNegotiation: false,
       currentDirector: null,
-      directorsControl: null,
       salaryRange: {
         min: 0,
         max: 1,
@@ -47,12 +46,10 @@ export default {
       decision: false,
       decision2: false,
       disabled: false,
-      salaryLevel: 0
+      salaryLevel: 0,
+      perfectSalary: 0,
+      perfectSalary1: 0,
     }
-  },
-
-  mounted() {
-    this.selectedSalary = this.salaryRange.min
   },
 
   methods: {
@@ -60,68 +57,108 @@ export default {
       this.currentDirector = director;
       this.showNegotiation = true;
       this.salaryLevel = Math.round((this.currentDirector._craft * 35 + this.currentDirector._experience * 25 + this.currentDirector._popularity * 40) / 100)
-      this.directorsControl = (this.currentDirector._popularity + this.currentDirector._experience + this.currentDirector._rating) / 3
-      this.salaryRange.min = this.$store.state.allDirectorSalary[this.currentDirector._rating - 1 - 2]
-      this.salaryRange.max = this.$store.state.allDirectorSalary[this.currentDirector._rating - 1 + 2]
+      this.salaryRange.min = this.$store.state.allDirectorSalary[this.salaryLevel - 1 - 2]
+      this.perfectSalary = this.$store.state.allDirectorSalary[this.salaryLevel - 1]
+      console.log(this.perfectSalary)
+      this.perfectSalary1 = this.$store.state.allDirectorSalary[this.salaryLevel - 1 - 1]
+      console.log(this.perfectSalary1)
+      console.log(this.salaryRange.min)
+      this.salaryRange.max = this.$store.state.allDirectorSalary[this.salaryLevel - 1 + 2]
       this.disabled = true
+      this.selectedSalary = this.salaryRange.min
     },
 
     calcDirectorsDecision() {
-      let salValue = (Object.values(this.calcSalValue(this.selectedSalary))[0]).toString();
+      let salValue = (Object.values(this.calcSalValue(this.selectedSalary))[0]);
       console.log(this.salaryLevel)
-      console.log(salValue)
-      console.log(this.currentDirector._salary)
-      if (salValue === this.currentDirector._salary) {
+      if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 2)
+          const random = Math.round(Math.random())
           if (random === 0) this.decision = true
-          else if (random === 1) this.decision = false; this.currentDirector._no++
+          else if (random === 1) {
+            this.decision = false
+            this.currentDirector._no += 1
+          }
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random() * 4)
+          const random = Math.round(Math.random() * 3)
           if (random === 0 || random === 1 || random === 2) this.decision = true
-          else if (random === 3) this.decision = false; this.currentDirector._no++
+          else if (random === 3) {
+            this.decision = false
+            this.currentDirector._no += 1
+          }
         } else if (this.salaryLevel <= 50) {
           this.decision = true
         }
-      } else if (this.$store.state.allDirectorSalary[this.index-1] === salValue || this.$store.state.allDirectorSalary[this.index+1] === salValue) {
+      } else if (this.perfectSalary1 === salValue) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 4)
+          const random = Math.round(Math.random() * 3)
           if (random === 0 || random === 1 || random === 2) {
             this.decision = false
-            this.currentDirector._no++
+            this.currentDirector._no += 1
           } else if (random === 3) this.decision = true
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random() * 2)
+          const random = Math.round(Math.random())
           if (random === 0) this.decision = true
-          else if (random === 1) this.decision = false; this.currentDirector._no++
+          else if (random === 1) {
+            this.decision = false
+            this.currentDirector._no += 1
+          }
         } else if (this.salaryLevel <= 50) {
-          const random = Math.round(Math.random() * 4)
+          const random = Math.round(Math.random() * 3)
           if (random === 0 || random === 1 || random === 2) this.decision = true
-          else if (random === 3) this.decision = false; this.currentDirector._no++
+          else if (random === 3) {
+            this.decision = false
+            this.currentDirector._no += 1
+          }
         }
-      } else if (this.$store.state.allDirectorSalary[this.index-2] === salValue || this.$store.state.allDirectorSalary[this.index+2] === salValue) {
+      } else if (this.salaryRange.min === salValue) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 8)
+          const random = Math.round(Math.random() * 7)
           this.decision = random === 7;
-          if (!this.decision) this.currentDirector._no++
+          if (!this.decision) this.currentDirector._no += 1
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random() * 4)
+          const random = Math.round(Math.random() * 3)
           if (random === 0 || random === 1 || random === 2) {
             this.decision = false
-            this.currentDirector._no++
+            this.currentDirector._no += 1
           }
           else if (random === 3) this.decision = true
         } else if (this.salaryLevel <= 50) {
-          const random = Math.round(Math.random() * 2)
+          const random = Math.round(Math.random())
+          console.log(random)
           if (random === 0) this.decision = true
-          else if (random === 1) this.decision = false; this.currentDirector._no++
+          else if (random === 1) {
+            this.decision = false
+            this.currentDirector._no += 1
+          }
         }
+      } else if (salValue > this.perfectSalary) {
+        this.decision = true
       }
 
+      //TODO manu abwarten
+      if (this.decision) {
+        let index = this.$store.state.allDirectors.indexOf(this.currentDirector)
+        console.log(index)
+        this.$store.state.allDirectors.splice(index, 1)
+
+        let index2 = this.$store.state.allActors.indexOf(this.currentDirector)
+        this.$store.state.allActors.splice(index2, 1)
+
+        let index3 = this.$store.state.allWriters.indexOf(this.currentDirector)
+        this.$store.state.allWriters.splice(index3, 1)
+      }
+
+      console.log(this.currentDirector._no)
       if (this.currentDirector._no === 3) {
         const index = this.allDirectors.indexOf(this.currentDirector)
+        console.log("index: " + index)
         this.allDirectors.splice(index, 1)
         this.disabled = false
+        this.currentDirector = null
+        this.salaryRange.min = 0
+        this.salaryRange.max = 0
+        this.selectedSalary = 0
       }
     },
 

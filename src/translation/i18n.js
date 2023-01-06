@@ -143,6 +143,7 @@ i18next
                         no: "Rejected",
                         readjust: "Try to readjust the Salary",
                         continue: "Finish preproduction",
+                        add: "Add Actor",
                     },
                     budgetSection: {
                         overall: "Set the Budget for your Movie",
@@ -159,7 +160,8 @@ i18next
                         sfx: "Set the Budget for SFX",
                         vfx: "Set the Budget for VFX",
                         button: "Confirm",
-                        continue: "Continue"
+                        continue: "Continue",
+                        total: "Total: "
                     },
                     preProductionEvents: {
                         close: "Close",
