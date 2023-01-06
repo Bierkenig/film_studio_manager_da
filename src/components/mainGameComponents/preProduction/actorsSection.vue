@@ -1,30 +1,40 @@
 <template>
   <div>
-    <h3>{{$t('actorSection.hire')}}</h3>
+    <h3>{{ $t('actorSection.hire') }}</h3>
     <div v-for="(el, index) in allActors" :key="index">
       <avatar-element :svg-code="el._avatar"></avatar-element>
-      {{el._first_name}} | {{el._last_name}} | {{el._age}} | {{el._gender}} | {{el._nationality}} | {{el._ethnicity}} | {{el._depth}} | {{el._rating}} | {{el._salary}}
-      <button @click="negotiateContract(el)">{{$t('actorSection.negotiate')}}</button>
+      {{ el._first_name }} | {{ el._last_name }} | {{ el._age }} | {{ el._gender }} | {{ el._nationality }} |
+      {{ el._ethnicity }} | {{ el._depth }} | {{ el._rating }}
+      <button @click="negotiateContract(el); disabled = true" :disabled="disabled">{{ $t('actorSection.negotiate') }}</button>
     </div>
     <div v-if="negotiate">
-      <div>{{$t('actorSection.salary')}}{{this.currentActor._first_name}} {{this.currentActor._last_name}}</div>
-      <input :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
-      <div>{{proposedSalary}}</div>
+      <div>{{ $t('actorSection.salary') }}{{ this.currentActor._first_name }} {{ this.currentActor._last_name }}</div>
+      <input type="range" :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
+      <div>{{ proposedSalary }}</div>
       <div>
-        <input type="radio" :value="$t('main')" v-model="radio">
-        <input type="radio" value="minor" v-model="radio">
-        <input type="radio" :value="$t('support')" v-model="radio">
-        <input type="radio" value="cameo" v-model="radio">
+        <input type="radio" id="main" :value="$t('main')" v-model="radio">
+        <label for="main">{{$t('main')}}</label>
+        <input type="radio" id="minor" value="Minor" v-model="radio">
+        <label for="minor">Minor</label>
+        <input type="radio" id="support" :value="$t('support')" v-model="radio">
+        <label for="support">{{$t('support')}}</label>
+        <input type="radio" id="cameo" value="Cameo" v-model="radio">
+        <label for="cameo">Cameo</label>
       </div>
-      <button @click="sendOffer(); sendOfferBool = true">{{$t('actorSection.offer')}}</button>
-      <div v-if="sendOfferBool">{{currentActor._first_name}} {{currentActor._last_name}}{{$t('actorSection.decision')}}: {{actorDecision ? $t('actorSection.yes') : $t('actorSection.no')}}</div>
-      <button v-if="actorDecision" @click="saveActors()">{{$t('actorSection.continue')}}</button>
+      <button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</button>
+      <div v-if="sendOfferBool">{{ currentActor._first_name }}
+        {{ currentActor._last_name }}{{ $t('actorSection.decision') }}
+        {{ actorDecision ? $t('actorSection.yes') :  $t('actorSection.no') }}
+      </div>
+      <button v-if="sendOfferBool" @click="saveActors()">{{$t('actorSection.add')}}</button><br/>
     </div>
+    <button v-if="actorDecision" @click="finishPreProd()">{{ $t('actorSection.continue') }}</button>
   </div>
 </template>
 
 <script>
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
+
 export default {
   name: "actorsSection",
   components: {AvatarElement},
@@ -39,72 +49,118 @@ export default {
         max: 0,
       },
       proposedSalary: 0,
-      index: 0,
       sendOfferBool: false,
       actorDecision: false,
-      radio: ""
+      radio: "",
+      disabled: false,
+      perfectSalary: 0,
+      perfectSalary1: 0,
     }
-  },
-
-  mounted() {
-    this.proposedSalary = this.salary.min
   },
 
   methods: {
     negotiateContract(actor) {
       this.currentActor = actor
-      this.salaryLevel = (this.currentActor._depth * 35 + this.currentActor._experience * 25 + this.currentActor._popularity * 40) / 100
+      this.salaryLevel = Math.round((this.currentActor._depth * 35 + this.currentActor._experience * 25 + this.currentActor._popularity * 40) / 100)
 
       //calc min & max
-      this.index = this.$store.state.allDirectorSalary.indexOf(this.currentActor._salary)
-      this.salary.min = this.$store.state.allDirectorSalary[this.index - 2]
-      this.salary.max = this.$store.state.allDirectorSalary[this.index + 2]
+      console.log(this.salaryLevel)
+      this.salary.min = this.$store.state.allDirectorSalary[this.salaryLevel -1 - 2]
+      console.log(this.salary.min)
+      this.perfectSalary = this.$store.state.allDirectorSalary[this.salaryLevel - 1]
+      this.perfectSalary1 = this.$store.state.allDirectorSalary[this.salaryLevel - 1 -1]
+      this.salary.max = this.$store.state.allDirectorSalary[this.salaryLevel - 1 + 2]
+      console.log(this.salary.max)
 
       //set negotiate true
+      this.sendOfferBool = false
       this.negotiate = true
+      this.proposedSalary = this.salary.min
     },
 
     sendOffer() {
-      let salValue = this.calcSalValue(this.proposedSalary)
-      if (salValue === this.currentActor._salary) {
+      let salValue = (Object.values(this.calcSalValue(this.proposedSalary))[0]);
+      if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 2)
+          const random = Math.round(Math.random())
           if (random === 0) this.actorDecision = true
-          else if (random === 1) this.actorDecision = false
+          else if (random === 1) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          }
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random() * 4)
+          const random = Math.round(Math.random() * 3)
           if (random === 0 || random === 1 || random === 2) this.actorDecision = true
-          else if (random === 3) this.actorDecision = false
+          else if (random === 3) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          }
         } else if (this.salaryLevel <= 50) {
           this.actorDecision = true
         }
-      } else if (this.$store.state.allDirectorSalary[this.index-1] === salValue || this.$store.state.allDirectorSalary[this.index+1] === salValue) {
+      } else if (this.perfectSalary1 === salValue) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 4)
-          if (random === 0 || random === 1 || random === 2) this.actorDecision = false
-          else if (random === 3) this.actorDecision = true
+          const random = Math.round(Math.random() * 3)
+          if (random === 0 || random === 1 || random === 2) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          } else if (random === 3) this.actorDecision = true
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random() * 2)
+          const random = Math.round(Math.random())
           if (random === 0) this.actorDecision = true
-          else if (random === 1) this.actorDecision = false
+          else if (random === 1) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          }
         } else if (this.salaryLevel <= 50) {
-          const random = Math.round(Math.random() * 4)
+          const random = Math.round(Math.random() * 3)
           if (random === 0 || random === 1 || random === 2) this.actorDecision = true
-          else if (random === 3) this.actorDecision = false
+          else if (random === 3) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          }
         }
-      } else if (this.$store.state.allDirectorSalary[this.index-2] === salValue || this.$store.state.allDirectorSalary[this.index+2] === salValue) {
+      } else if (this.salary.min === salValue) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 8)
+          const random = Math.round(Math.random() * 7)
           this.actorDecision = random === 7;
+          if (!this.actorDecision) this.currentActor._no += 1
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random() * 4)
-          if (random === 0 || random === 1 || random === 2) this.actorDecision = false
+          const random = Math.round(Math.random() * 3)
+          if (random === 0 || random === 1 || random === 2) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          }
           else if (random === 3) this.actorDecision = true
         } else if (this.salaryLevel <= 50) {
-          const random = Math.round(Math.random() * 2)
+          const random = Math.round(Math.random())
           if (random === 0) this.actorDecision = true
-          else if (random === 1) this.actorDecision = false
+          else if (random === 1) {
+            this.actorDecision = false
+            this.currentActor._no += 1
+          }
         }
+      } else if (salValue > this.perfectSalary) {
+        this.actorDecision = true
+      }
+
+      if (this.actorDecision) {
+        let index = this.$store.state.allDirectors.indexOf(this.currentActor)
+        console.log(index)
+        this.$store.state.allDirectors.splice(index, 1)
+
+        let index2 = this.$store.state.allActors.indexOf(this.currentActor)
+        this.$store.state.allActors.splice(index2, 1)
+
+        let index3 = this.$store.state.allWriters.indexOf(this.currentActor)
+        this.$store.state.allWriters.splice(index3, 1)
+      }
+
+      console.log(this.currentActor._no)
+      if (this.currentActor._no === 3) {
+        const index = this.allActors.indexOf(this.currentActor)
+        this.allActors.splice(index, 1)
+        this.disabled = false
       }
     },
 
@@ -119,20 +175,29 @@ export default {
 
     saveActors() {
       switch (this.radio) {
-        case "main" || "Hauptdarsteller":
+        case "Main" || "Hauptdarsteller":
           this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
           break
-        case "minor":
+        case "Minor":
           this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
           break
-        case "support" || "Nebendarsteller":
+        case "Support" || "Nebendarsteller":
           this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
           break
-        case "cameo":
+        case "Cameo":
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
           break
       }
+      this.negotiate = false
+      this.disabled = false
+      this.currentActor = null
+      this.salary.min = 0
+      this.salary.max = 0
+      this.proposedSalary = 0
+    },
 
+    finishPreProd() {
+      console.log(this.$store.state.currentMovie)
       this.$router.push({name: "home"})
     },
   }

@@ -53,7 +53,7 @@
 
     <button @click="calcSum(); disabled = false">{{$t('budgetSection.button')}}</button>
 
-    <div>{{this.$store.state.currentMovie._preProduction.outgoings}}</div>
+    <div>{{$t('budgetSection.total')}}{{total}}</div>
 
     <button :disabled="disabled" @click="this.$router.push({name: 'actorSection'})">{{$t('budgetSection.continue')}}</button>
   </div>
@@ -71,6 +71,7 @@ export default {
       indieList: this.$store.state.indie,
       animatedList: this.$store.state.animation,
       disabled: true,
+      total: 0,
       production: {
         value: 0,
         min: 0,
@@ -136,7 +137,6 @@ export default {
 
   methods: {
     calcInputRange() {
-      console.log(this.screenplayType)
       switch (this.screenplayType) {
         case "Feature":
           this.production.min = parseInt(this.splitRange(this.featureList[0])[0]); this.production.max = parseInt(this.splitRange(this.featureList[0])[1])
@@ -191,6 +191,7 @@ export default {
     },
 
     calcSum() {
+      console.log(this.$store.state.currentMovie)
       this.$store.state.currentMovie._preProduction.budget.production = parseInt(this.production.value)
       this.$store.state.currentMovie._preProduction.budget.extras = parseInt(this.extras.value)
       this.$store.state.currentMovie._preProduction.budget.cinematography = parseInt(this.cinematography.value)
@@ -203,6 +204,8 @@ export default {
       this.$store.state.currentMovie._preProduction.budget.makeup = parseInt(this.makeup.value)
       this.$store.state.currentMovie._preProduction.budget.sfx = parseInt(this.sfx.value)
       this.$store.state.currentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
+
+      this.total = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget()
 
       switch (this.screenplayScope) {
         case "Little":
