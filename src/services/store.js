@@ -30,6 +30,7 @@ export default createStore({
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
         currentMovie: null,
+        currentProdEventType: "",
         //movies which are still in cinema and generate profit
         createdMovies: [],
         //muss das ins save file?
