@@ -17,12 +17,11 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSection";
 import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
 import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
-import financeMixin from "@/mixins/financeMixin";
 import ProjectsSection from "@/components/mainGameComponents/sectionsForMenus/ProjectsSection";
 export default {
   name: "HomeMenu",
 
-  mixins: [soundeffectMixin('button', 'click'), financeMixin()],
+  mixins: [soundeffectMixin('button', 'click')],
   components: {ProjectsSection, UpcomingEventsSection, EarningsSection, NewsSection},
   methods: {
     save() {

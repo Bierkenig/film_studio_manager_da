@@ -47,14 +47,11 @@ import OwnServiceSection from "@/components/mainGameComponents/streamingMenu/Own
 import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
 //import CompetitorServiceSection from "@/components/mainGameComponents/streamingMenu/CompetitorServiceSection";
 //import BuyStreamingServiceModal from "@/components/mainGameComponents/streamingMenu/BuyStreamingServiceModal";
-import financeMixin from "@/mixins/financeMixin";
 import {StreamingService} from "@/classes/StreamingService";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
 export default {
   name: "StreamingMenu",
-
-  mixins: [financeMixin()],
 
   components: {
     ActionSection,

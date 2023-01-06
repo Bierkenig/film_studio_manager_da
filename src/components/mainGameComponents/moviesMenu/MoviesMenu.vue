@@ -11,14 +11,11 @@
 
 <script>
 import {Screenplay} from "@/classes/Screenplay";
-import financeMixin from "@/mixins/financeMixin";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection";
 import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
 export default {
   name: "MoviesMenu",
   components:{MoviesSection, ActionSection},
-
-  mixins: [financeMixin()],
 
   data(){
     return{
