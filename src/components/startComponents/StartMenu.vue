@@ -59,6 +59,10 @@
               <button id="slotButton" class="buttonStyle">Select Slot</button>
             </router-link>
 
+            <router-link :to="{ name: 'testScreening'}">
+              <button id="slotButton" class="buttonStyle">testScreening</button>
+            </router-link>
+
             <!--<div>
               <router-link :to="{ name: 'kitchenSink'}">
                 <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>

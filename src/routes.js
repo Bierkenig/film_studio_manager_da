@@ -35,6 +35,7 @@ import ScreenplaySummary from "@/components/mainGameComponents/homeMenu/Screenpl
 import FranchisesList from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesList.vue";
 import SourcesList from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesList.vue";
 import prodEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal";
+import testScreening from "@/components/mainGameComponents/postProduction/postEvents/testScreening";
 
 
 const routes = [
@@ -79,6 +80,7 @@ const routes = [
     { name: 'prodEventModal', path: '/prodEventModal', component: prodEventModal, props: true},
 
     //PostProduction
+    { name: 'testScreening', path: '/testScreening', component: testScreening, props: true},
 
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
