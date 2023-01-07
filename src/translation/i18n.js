@@ -323,6 +323,7 @@ i18next
                     postProductionEvents: {
                         testScreening: {
                             title: "Test Screening",
+                            result: "Test Screening Results",
                             run: "Run Test Screening",
                             editingTitle: "Editing Feedback",
                             soundTitle: "Sound Feedback",
@@ -1054,6 +1055,98 @@ i18next
                     rewrite: 'Umschreiben',
                     buyStreamingRights: 'Streamingrechte kaufen',
                     buyStreamingRightsInfoText: 'Kaufe Rechte für Filme von anderen Studios.',
+                    postProductionEvents: {
+                        testScreening: {
+                            title: "Test Vorführung",
+                            result: "Test Vorführung Ergebnis",
+                            run: "Test Vorführung durchführen",
+                            editingTitle: "Schnitt Feedback",
+                            soundTitle: "Ton Feedback",
+                            vfxTitle: "Visuelle Effekte Feedback",
+                            actingTitle: "Schaupiel Feedback",
+                            storyTitle: "Handlung Feedback",
+                            editing: {
+                                good: {
+                                    feed1: "Die Übergänge zwischen den einzelnen Szenen waren nahtlos und haben mich stets auf Trab gehalten.",
+                                    feed2: "Die Kontinuität des Films wurde durchgängig gut beibehalten.",
+                                    feed3: "Der Schnitt war sehr flüssig und das Erzähltempo angemessen.",
+                                    feed4: "Die Schnitte waren wirkungsvoll und trugen zur Gesamterzählung bei.",
+                                    feed5: "Der Einbau von Montagen zur Erzählung der Geschichte war effektiv.",
+                                },
+                                bad: {
+                                    feed1: "Das Erzähltempo war zu langsam, was es schwierig machte, sich auf die Geschichte einzulassen.",
+                                    feed2: "Die Übergänge zwischen den Szenen waren ruckartig und verwirrend.",
+                                    feed3: "Der Schnitt war abgehackt und nicht fließend.",
+                                    feed4: "Die Farbgestaltung war nicht einheitlich, was es schwer machte, der Handlung zu folgen.",
+                                    feed5: "Es gab zu viele Schnitte, die sich unnötig anfühlten und die Erzählung aus dem Zusammenhang rissen.",
+                                }
+                            },
+                            sound: {
+                                good: {
+                                    feed1: "Die Musik ergänzte die visuellen Eindrücke perfekt und schuf eine kraftvolle Atmosphäre.",
+                                    feed2: "Die Soundeffekte waren genau richtig und verliehen dem Erlebnis eine zusätzliche Realitätsebene.",
+                                    feed3: "Das Sounddesign war wirkungsvoll und verbesserte das Filmerlebnis.",
+                                    feed4: "Das Sounddesign war in der Lage, die Geschichte effektiv zu erzählen, ohne aufdringlich zu sein.",
+                                    feed5: "Das Sounddesign war innovativ und kreativ.",
+                                },
+                                bad: {
+                                    feed1: "Das Sounddesign war schlecht abgemischt, weshalb es schwierig war, die Dialoge zu verstehen.",
+                                    feed2: "Das Sounddesign war zu störend und lenkte vom Gesamterlebnis ab.",
+                                    feed3: "Die Tonbalance war unausgewogen, einige Tonelemente waren viel zu laut, andere zu leise.",
+                                    feed4: "Das Sounddesign war zu schlicht und nicht sehr ansprechend.",
+                                    feed5: "Das Sounddesign hat die Stimmung oder den Ton des Films nicht ausreichend vermittelt.",
+                                }
+                            },
+                            vfx: {
+                                good: {
+                                    feed1: "The effects blended seamlessly with the live action elements.",
+                                    feed2: "The effects were imaginative and helped to tell the story in a unique way.",
+                                    feed3: "The effects were very creative and enhanced the overall viewing experience.",
+                                    feed4: "The effects had a lot of detail and felt realistic.",
+                                    feed5: "The effects communicated the emotion of the scenes very effectively",
+                                },
+                                bad: {
+                                    feed1: "The visual effects are too overwhelming and detract from the other elements of the film.",
+                                    feed2: "The visual effects were too over the top and distracting.",
+                                    feed3: "The special effects were too unrealistic and out-of-place.",
+                                    feed4: "The animation was choppy and lacked fluidity.",
+                                    feed5: "The textures were flat and uninteresting.",
+                                }
+                            },
+                            acting: {
+                                good: {
+                                    feed1: "The chemistry between the actors was spot on.",
+                                    feed2: "Every actor was able to deliver their lines with great emotion and commitment.",
+                                    feed3: "The actor was able to capture the complexity of the character.",
+                                    feed4: "The actor was able to convey a range of emotions convincingly.",
+                                    feed5: "The actor was able to bring the character to life in a compelling way.",
+                                },
+                                bad: {
+                                    feed1: "The acting was wooden and unconvincing.",
+                                    feed2: "The cast's chemistry was off-putting and awkward.",
+                                    feed3: "The timing of the dialogue was often off and the delivery was forced.",
+                                    feed4: "The actors had trouble connecting with the characters and the story.",
+                                    feed5: "Their performances were too over-the-top and lacked subtlety.",
+                                }
+                            },
+                            story: {
+                                good: {
+                                    feed1: "The pacing of the story was perfect and kept me engaged throughout.",
+                                    feed2: "The story was very well-written, with attention to detail and strong structure.",
+                                    feed3: "The story was emotionally engaging and I felt connected to the characters.",
+                                    feed4: "The themes were relevant and resonated with me.",
+                                    feed5: "The story was fascinating and kept me guessing until the end.",
+                                },
+                                bad: {
+                                    feed1: "The story is too predictable and lacks originality.",
+                                    feed2: "The characters are one-dimensional and aren’t very believable.",
+                                    feed3: "There are too many plot holes that weren’t explained.",
+                                    feed4: "It feels like the story drags on too long.",
+                                    feed5: "It’s too confusing and hard to follow.",
+                                }
+                            }
+                        }
+                    },
                 }
             }
         }

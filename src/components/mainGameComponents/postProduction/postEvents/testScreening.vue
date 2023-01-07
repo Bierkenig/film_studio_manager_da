@@ -4,14 +4,49 @@
       <div class="modal-container">
         <div class="modal-body">
           <slot name="body">
-            <h3>{{$t('postProductionEvents.testScreening.title')}}</h3>
-            <button class="modal-default-button" @click="feedbacks = true">{{$t('postProductionEvents.testScreening.run')}}</button>
+            <h3 v-if="!feedbacks">{{$t('postProductionEvents.testScreening.title')}}</h3>
+            <h3 v-else>{{$t('postProductionEvents.testScreening.result')}}</h3>
+
+            <button v-if="!feedbacks" class="modal-default-button" @click="buildFeedbacks">{{$t('postProductionEvents.testScreening.run')}}</button>
             <div v-if="feedbacks">
-              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
-              <div>{{$t('postProductionEvents.testScreening.soundTitle')}}</div>
-              <div>{{$t('postProductionEvents.testScreening.vfxTitle')}}</div>
-              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
-              <div>{{$t('postProductionEvents.testScreening.editingTitle')}}</div>
+              <div class="feedback">
+                <info-circle text="+" size="30px" alternative-style/>
+
+                {{$t('postProductionEvents.testScreening.editingTitle')}}
+
+                {{editingFeedback}}
+              </div>
+
+
+              <div class="feedback">
+                <info-circle text="+" size="30px" alternative-style/>
+                {{$t('postProductionEvents.testScreening.soundTitle')}}
+
+                {{soundFeedback}}
+              </div>
+              <div class="feedback">
+                <info-circle text="+" size="30px" alternative-style/>
+                {{$t('postProductionEvents.testScreening.vfxTitle')}}
+
+                {{vfxFeedback}}
+              </div>
+              <div class="feedback">
+                <info-circle text="+" size="30px" alternative-style/>
+
+                {{$t('postProductionEvents.testScreening.actingTitle')}}
+
+                {{actingFeedback}}
+              </div>
+
+              <div class="feedback">
+                <info-circle text="-" size="30px" alternative-style/>
+                {{$t('postProductionEvents.testScreening.storyTitle')}}
+
+                {{storyFeedback}}
+              </div>
+              <router-link to="/">
+                <button>Back</button>
+              </router-link>
             </div>
           </slot>
         </div>
@@ -21,17 +56,41 @@
 </template>
 
 <script>
+import InfoCircle from "@/components/kitchenSink/InfoCircle";
+import {i18next} from '@/translation/i18n'
 export default {
   name: "reeditingDirector",
-
+  components: {InfoCircle},
   data() {
     return {
-      feedbacks: false
+      feedbacks: false,
+      goodFeedback: ["good.feed1","good.feed2","good.feed3","good.feed4", "good.feed5"],
+      badFeedback: ["bad.feed1","bad.feed2","bad.feed3","bad.feed4", "bad.feed5"],
+      editingFeedback: null,
+      soundFeedback: null,
+      vfxFeedback: null,
+      actingFeedback: null,
+      storyFeedback: null,
+      editingBudget: this.$store.state.currentMovie?._preProduction.budget.editing,
+      dirMorale: this.$store.state.currentMovie?._preProduction.hiredDirector.dirMorale,
+      crewMorale: this.$store.state.currentMovie?.crewMorale,
+      screenplayRating: this.$store.state.currentMovie?._preProduction.screenplay.rating,
+
+
     }
   },
 
   methods: {
     buildFeedbacks() {
+      this.feedbacks = true;
+
+      this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+      this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+      this.vfxFeedback =  i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+      if()
+      this.actingFeedback =  i18next.t("postProductionEvents.testScreening.acting." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+      this.storyFeedback =  i18next.t("postProductionEvents.testScreening.story." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+
 
     }
   }
@@ -60,7 +119,7 @@ export default {
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: var(--fsm-dark-blue-3);
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
@@ -78,6 +137,10 @@ export default {
 
 .modal-default-button {
   float: right;
+}
+.feedback{
+  display: flex;
+  flex-direction: row;
 }
 
 /*
