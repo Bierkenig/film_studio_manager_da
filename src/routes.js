@@ -32,14 +32,20 @@ import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
 import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
 import NewCreateScreenplay from "@/components/mainGameComponents/moviesMenu/NewCreateScreenplay.vue";
 import ScreenplaySummary from "@/components/mainGameComponents/homeMenu/ScreenplaySummary.vue";
-import FranchisesList from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesList.vue";
 import SourcesList from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesList.vue";
 import prodEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal";
 import testScreening from "@/components/mainGameComponents/postProduction/postEvents/testScreening";
+import MovieSummary from "@/components/mainGameComponents/homeMenu/MovieSummary.vue";
+import CreateFranchise from "@/components/mainGameComponents/homeMenu/CreateFranchise.vue";
+import FranchiseSection from "@/components/mainGameComponents/preProduction/franchiseSection.vue";
+import FranchisesOverview from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesOverview.vue";
 
 
 const routes = [
-    { name: 'franchisesList', path: '/franchisesList', component: FranchisesList, props: true },
+    { name: 'movieSummary', path: '/movieSummary', component: MovieSummary, props: true },
+    { name: 'createFranchise', path: '/createFranchise', component: CreateFranchise, props: true },
+
+    { name: 'franchisesOverview', path: '/franchisesOverview', component: FranchisesOverview, props: true },
     { name: 'sourcesList', path: '/sourcesList', component: SourcesList, props: true },
 
     { name: 'screenplaySummary', path: '/screenplaySummary', component: ScreenplaySummary, props: true },
@@ -75,6 +81,7 @@ const routes = [
     { name: 'durationSection', path: '/durationSection', component: durationSection, props: true},
     { name: 'actorSection', path: '/actorSection', component: actorsSection, props: true},
     { name: 'budgetSection', path: '/budgetSection', component: budgetSection, props: true},
+    { name: 'franchiseSection', path: '/franchiseSection', component: FranchiseSection, props: true },
 
     //Production
     { name: 'prodEventModal', path: '/prodEventModal', component: prodEventModal, props: true},

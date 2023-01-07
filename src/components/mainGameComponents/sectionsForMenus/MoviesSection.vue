@@ -56,9 +56,10 @@
           :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]"
           :genre="it._screenplay.genre"
           :genre-icon="it._screenplay.genre.toLowerCase()"
-          :release="it._preProduction.releaseDate.getYear()"
+          release="2025"
           earnings="$ 999,999"
           @open-clicked="elementOpened"/>
+          <!--:release="it._preProduction.releaseDate.getYear()"-->
     </div>
     <div v-if="headline === 'contentManagement'" class="moviesSectionDetails verticalScroll">
       <streaming-element
@@ -181,6 +182,7 @@ export default {
   margin-top: 15px;
   gap: 15px;
   height: 500px;
+  overflow-x: hidden;
 }
 
 #moviesSectionSelectDiv {

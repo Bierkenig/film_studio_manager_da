@@ -110,7 +110,7 @@ export default createStore({
         inProductionMovies: [],
 
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [],
+        finishedMovies: [new Movie(new Studio('IBIZA','2023',1000000,10), 0)],
         //nicht fertig
         calendarEvents: [
             {
@@ -186,7 +186,7 @@ export default createStore({
             },
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
-        franchises: [new Franchises(0, 'Hallo was geht')],
+        franchises: [],
         currentFranchise: null,
         otherStudios: [],
         financialHistory: [
@@ -424,7 +424,17 @@ export default createStore({
 
         getWriterSalaries(state){
             return state.allWriterSalary;
-        }
+        },
+
+        getNextFranchiseId(state){
+            let nextId = 0;
+            state.franchises.forEach(franchise => {
+                if (franchise.getId() > nextId) {
+                    nextId = franchise.getId();
+                }
+            })
+            return nextId + 1;
+        },
     },
 
     /** Methods that change the application state synchronously */
@@ -497,6 +507,10 @@ export default createStore({
 
         setNewCurrentScreenplay(state, screenplay){
             state.currentScreenplay = screenplay;
+        },
+
+        setNewCurrentMovie(state,movie){
+            state.currentMovie = movie;
         },
 
         setCurrentScreenplayWriter(state, writer){

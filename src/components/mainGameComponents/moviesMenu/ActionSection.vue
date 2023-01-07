@@ -46,7 +46,7 @@ export default {
       } else if(this.headline === 'listOfSources'){
         this.$router.push({name: 'sourcesList'});
       } else if(this.headline === 'listOfFranchises'){
-        this.$router.push({name: 'franchisesList'});
+        this.$router.push({name: 'franchisesOverview'});
       } else if(this.headline === 'buyStreamingRights'){
         this.$router.push({name: 'buyMovieRights'});
       }

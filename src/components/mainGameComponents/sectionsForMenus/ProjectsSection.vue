@@ -10,7 +10,7 @@
               <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
             </div>
             <div v-else>
-              <project-element :project-title="it._title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" status="Production" @open-clicked="elementOpened"/>
+              <project-element :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre" :genre-icon="it._preProduction.screenplay.genre.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo(it)"/>
             </div>
           </div>
         </div>
@@ -21,7 +21,7 @@
         </div>
         <div class="projectsSectionElement">
           <div v-for="(it, index) in this.productions" :key="index">
-            <project-element :project-title="it._title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]" :genre="it._screenplay.genre" :genre-icon="it._screenplay.genre.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" status="Production" @open-clicked="elementOpened"/>
+            <project-element :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre" :genre-icon="it._preProduction.screenplay.genre.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo(it)"/>
           </div>
         </div>
       </tile-pages-nav>
@@ -47,9 +47,13 @@ export default {
   methods: {
     screenplayInfo(element){
       this.$store.commit('setNewCurrentScreenplay',element)
-      //this.$store.getters.getCurrentScreenplay.setRewritingStatus(true);
       this.$router.push({name: 'screenplaySummary'});
-    }
+    },
+
+    movieInfo(element){
+      this.$store.commit('setNewCurrentMovie',element)
+      this.$router.push({name: 'movieSummary'});
+    },
   }
 }
 </script>

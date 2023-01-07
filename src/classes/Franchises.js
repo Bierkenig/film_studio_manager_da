@@ -4,8 +4,6 @@ export default class Franchises {
         this.id = id
         //TYPE -> String
         this.name = name
-        //TYPE -> Movie
-        this.mainMovie = null
         //TYPE -> Array
         this.allMovies = []
     }
@@ -18,21 +16,16 @@ export default class Franchises {
         return this.name
     }
 
-    getMainMovie() {
-        return this.mainMovie
-    }
-
     getAllMovies() {
         return this.allMovies
     }
 
-    setMainMovie(value){
-        this.mainMovie = value;
+    addAllMovies(value){
         this.allMovies.push(value)
     }
 
-    addAllMovies(value){
-        this.allMovies.push(value)
+    getLastScreenplay(){
+        return this.allMovies[this.allMovies.length - 1]._preProduction.screenplay;
     }
 
     static fromJSON(jsonObject){

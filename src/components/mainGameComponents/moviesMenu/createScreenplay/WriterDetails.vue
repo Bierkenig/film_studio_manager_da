@@ -324,7 +324,7 @@ export default {
 
     hireWriter(){
       this.screenplay.setWriter(this.writer);
-      if(this.oldWriter === this.writer){
+      if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
         this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
         this.$store.commit('subtractBalance', (this.selectedSalary/2));
       } else {

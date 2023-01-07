@@ -87,7 +87,6 @@ export default {
       this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
       this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
       this.vfxFeedback =  i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-      if()
       this.actingFeedback =  i18next.t("postProductionEvents.testScreening.acting." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
       this.storyFeedback =  i18next.t("postProductionEvents.testScreening.story." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
 

@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import {Screenplay} from "@/classes/Screenplay";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 
 export default {
@@ -58,6 +57,8 @@ export default {
     this.setOfferNumberZero(this.allWriters)
     this.setOfferNumberZero(this.allDirectors)
     this.setOfferNumberZero(this.allActors)
+
+    this.$store.getters.getCurrentMovie._status = 'Pre Production'
   },
 
   methods: {
@@ -75,13 +76,10 @@ export default {
     },
 
     goToCreateScreenplay(el){
-      this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
-          null,null, null, null, null, null,
-          {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
-      this.$router.push({name: 'newScreenplay'});
+      this.$router.push({name: 'franchiseSection'});
     },
 
     setScreenplay(screenplay) {

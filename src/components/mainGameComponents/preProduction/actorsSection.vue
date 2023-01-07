@@ -187,7 +187,8 @@ export default {
 
     finishPreProd() {
       console.log(this.$store.state.currentMovie)
-      this.$store.commit('addInProductionMovie', this.$store.getter.getCurrentMovie)
+      this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
+      console.log(this.$store.getters.getInProductionMovies)
       this.$router.push({name: "home"})
     },
   }
