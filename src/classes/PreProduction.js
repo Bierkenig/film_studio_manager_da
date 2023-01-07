@@ -29,6 +29,8 @@ export default class PreProduction {
             vfx: 0,
             sfx: 0,
             problemBudget: 0,
+            directorSalary: 0,
+            actorSalary: 0,
         }
         this.budgetPop = 12
     }

@@ -22,7 +22,7 @@
 
       <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
 
-      <button :disabled="!decision" @click="this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector ;this.$router.push({name: 'durationSection'})">{{$t('buyScreenplaySection.continue')}}</button>
+      <button :disabled="!decision" @click="goToDuration()">{{$t('buyScreenplaySection.continue')}}</button>
     </div>
   </div>
 </template>
@@ -56,7 +56,7 @@ export default {
     calcSalary(director) {
       this.currentDirector = director;
       this.showNegotiation = true;
-      this.salaryLevel = Math.round((this.currentDirector._craft * 35 + this.currentDirector._experience * 25 + this.currentDirector._popularity * 40) / 100)
+      this.salaryLevel = Math.round((this.currentDirector._talent * 35 + this.currentDirector._experience * 25 + this.currentDirector._popularity * 40) / 100)
       this.salaryRange.min = this.$store.state.allDirectorSalary[this.salaryLevel - 1 - 2]
       this.perfectSalary = this.$store.state.allDirectorSalary[this.salaryLevel - 1]
       console.log(this.perfectSalary)
@@ -136,19 +136,6 @@ export default {
         this.decision = true
       }
 
-      //TODO manu abwarten
-      if (this.decision) {
-        let index = this.$store.state.allDirectors.indexOf(this.currentDirector)
-        console.log(index)
-        this.$store.state.allDirectors.splice(index, 1)
-
-        let index2 = this.$store.state.allActors.indexOf(this.currentDirector)
-        this.$store.state.allActors.splice(index2, 1)
-
-        let index3 = this.$store.state.allWriters.indexOf(this.currentDirector)
-        this.$store.state.allWriters.splice(index3, 1)
-      }
-
       console.log(this.currentDirector._no)
       if (this.currentDirector._no === 3) {
         const index = this.allDirectors.indexOf(this.currentDirector)
@@ -170,6 +157,12 @@ export default {
         return a < b ? -1 : (a > b ? 1 : 0);
       });
     },
+
+    goToDuration() {
+      this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector
+      this.$store.state.currentMovie._preProduction.budget.directorSalary = this.selectedSalary
+      this.$router.push({name: 'durationSection'})
+    }
   },
 }
 </script>

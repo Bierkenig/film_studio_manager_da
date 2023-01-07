@@ -61,7 +61,7 @@ export default {
   methods: {
     negotiateContract(actor) {
       this.currentActor = actor
-      this.salaryLevel = Math.round((this.currentActor._depth * 35 + this.currentActor._experience * 25 + this.currentActor._popularity * 40) / 100)
+      this.salaryLevel = Math.round((this.currentActor._talent * 35 + this.currentActor._experience * 25 + this.currentActor._popularity * 40) / 100)
 
       //calc min & max
       console.log(this.salaryLevel)
@@ -144,18 +144,6 @@ export default {
         this.actorDecision = true
       }
 
-      if (this.actorDecision) {
-        let index = this.$store.state.allDirectors.indexOf(this.currentActor)
-        console.log(index)
-        this.$store.state.allDirectors.splice(index, 1)
-
-        let index2 = this.$store.state.allActors.indexOf(this.currentActor)
-        this.$store.state.allActors.splice(index2, 1)
-
-        let index3 = this.$store.state.allWriters.indexOf(this.currentActor)
-        this.$store.state.allWriters.splice(index3, 1)
-      }
-
       console.log(this.currentActor._no)
       if (this.currentActor._no === 3) {
         const index = this.allActors.indexOf(this.currentActor)
@@ -188,6 +176,7 @@ export default {
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
           break
       }
+      this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
       this.negotiate = false
       this.disabled = false
       this.currentActor = null
@@ -198,6 +187,7 @@ export default {
 
     finishPreProd() {
       console.log(this.$store.state.currentMovie)
+      this.$store.commit('addInProductionMovie', this.$store.getter.getCurrentMovie)
       this.$router.push({name: "home"})
     },
   }
