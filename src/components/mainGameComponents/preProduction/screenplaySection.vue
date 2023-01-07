@@ -48,10 +48,25 @@ export default {
       boughtScreenplays: this.$store.getters.getBoughtScreenplays,
       owningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       franchises: this.$store.getters.getFranchises,
+      allWriters: this.$store.getters.getAllWriters,
+      allDirectors: this.$store.getters.getAllDirectors,
+      allActors: this.$store.getters.getAllActors,
     }
   },
 
+  mounted() {
+    this.setOfferNumberZero(this.allWriters)
+    this.setOfferNumberZero(this.allDirectors)
+    this.setOfferNumberZero(this.allActors)
+  },
+
   methods: {
+    setOfferNumberZero(array){
+      for (let i = 0; i < array.length; i++) {
+        array[i]._no = 0;
+      }
+    },
+
     buy(screenplay) {
       this.$store.state.boughtScreenplays.push(screenplay)
       if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0){

@@ -17,18 +17,18 @@ export default class PreProduction {
         this.startDate = new Date()
         this.budget = {
             production: 0,
-                extras: 0,
-                cinematography: 0,
-                sound: 0,
-                editing: 0,
-                score: 0,
-                set: 0,
-                stunts: 0,
-                costume: 0,
-                makeup: 0,
-                vfx: 0,
-                sfx: 0,
-                problemBudget: 0,
+            extras: 0,
+            cinematography: 0,
+            sound: 0,
+            editing: 0,
+            score: 0,
+            set: 0,
+            stunts: 0,
+            costume: 0,
+            makeup: 0,
+            vfx: 0,
+            sfx: 0,
+            problemBudget: 0,
         }
         this.budgetPop = 12
     }
@@ -128,5 +128,12 @@ export default class PreProduction {
 
     createTotal() {
         return (this.createCastHype() * 50 + this.createTechnicalHype() * 35 + this.createBudgetHype() * 15) / 100
+    }
+
+    getTotalBudget() {
+        return (this.budget.production + this.budget.extras + this.budget.cinematography +
+            this.budget.sound + this.budget.editing + this.budget.score + this.budget.set +
+            this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
+            this.budget.sfx + this.budget.problemBudget)
     }
 }

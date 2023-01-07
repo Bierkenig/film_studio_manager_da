@@ -5,6 +5,7 @@ import News from "@/classes/News";
 export default function simulate(){
     console.log('Simulation works')
     createStudios();
+    streamingService();
 }
 
 function createStudios(){
@@ -21,4 +22,31 @@ function createStudios(){
 
 function randomNumber(probability){
     return Math.random() < probability ? 0 : 1;
+}
+
+function streamingService(){
+    if(store.getters.getOwnStreamingService !== null){
+        if(((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate)/ (1000 * 60 * 60 * 24)) > 30)
+        {
+            let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
+
+            let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
+
+            let sum = revenue - serviceMaintainmentCosts;
+            store.commit('addBalance', sum);
+
+            if(sum < 0){
+                console.log(sum + '$ abgezogen!');
+            } else if (sum > 0) {
+                console.log(sum + '$ erhalten!');
+            } else {
+                console.log('0$');
+            }
+
+            store.getters.getOwnStreamingService._lastCheckedDate = new Date(
+                store.getters.getOwnStreamingService._lastCheckedDate.getFullYear(),
+                store.getters.getOwnStreamingService._lastCheckedDate.getMonth() + 1,
+                store.getters.getOwnStreamingService._lastCheckedDate.getDate());
+        }
+    }
 }

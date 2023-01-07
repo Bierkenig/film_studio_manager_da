@@ -59,9 +59,6 @@
 
 export default {
   name: "prod-event-modal",
-  props: {
-    type: String
-  },
 
   data() {
     return {
@@ -71,6 +68,7 @@ export default {
       durWeeks: 0,
       releaseDate: null,
       dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
+      type: this.$store.state.currentProdEventType
     }
   },
 
