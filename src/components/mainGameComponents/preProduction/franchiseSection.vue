@@ -21,6 +21,7 @@
 
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default {
   name: "franchiseSection",
@@ -34,11 +35,16 @@ export default {
 
   methods: {
     goToScreenplay(){
-      let newScreenplay = this.$store.getters.getCurrentFranchise.getLastScreenplay();
-      newScreenplay.acts = {act1: [], act2: [], act3: []};
-      newScreenplay.price = null;
-      newScreenplay.writer = null;
-      newScreenplay.id = this.$store.getters.getNextScreenplayId;
+      let lastScreenplay = this.$store.getters.getCurrentFranchise.getLastScreenplay();
+      let newScreenplay = new Screenplay(this.$store.getters.getNextScreenplayId,lastScreenplay.title,
+          lastScreenplay.type, lastScreenplay.genre,lastScreenplay.subgenre, lastScreenplay.ageRating,
+          null,lastScreenplay.description,lastScreenplay.rating,null,lastScreenplay.topics,
+          this.$store.getters.getCurrentFranchise);
+      newScreenplay.setRatingRange(lastScreenplay.ratingRange);
+      newScreenplay.roles = lastScreenplay.roles;
+      newScreenplay.details = lastScreenplay.details;
+      newScreenplay.ageRatingDetails = lastScreenplay.ageRatingDetails;
+      console.log(newScreenplay)
       this.$store.getters.getCurrentMovie._franchiseType = this.movieFranchiseType;
       this.$store.commit('setNewCurrentScreenplay', newScreenplay);
       this.$router.push({name: 'newScreenplay'});

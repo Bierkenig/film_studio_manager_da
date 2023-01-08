@@ -134,14 +134,12 @@
         </div>
       </div>
 
-      <router-link :to="{name: 'screenplayInformation'}">
-        <custom-button
-            class="writerDetailsHireButton"
-            :dark="false"
-            size="medium"
-            :disabled="!writerDecision"
-            @click="hireWriter">{{ $t('continue') }}</custom-button>
-      </router-link>
+      <custom-button
+          class="writerDetailsHireButton"
+          :dark="false"
+          size="medium"
+          :disabled="writerDecision == null || !writerDecision"
+          @click="hireWriter">{{ $t('continue') }}</custom-button>
     </div>
   </div>
 </template>
@@ -201,6 +199,7 @@ export default {
   },
 
   mounted() {
+    console.log(this.writerDecision === null);
    this.copiedPrice = this.$store.getters.getCurrentScreenplay.price;
    this.oldWriter = this.$store.getters.getCurrentScreenplay.writer;
 
@@ -387,6 +386,8 @@ export default {
       } else {
         this.screenplay.setWritingPhase(8)
       }
+
+      this.$router.push({name: 'screenplayInformation'})
     },
 
     subtractSalary(){

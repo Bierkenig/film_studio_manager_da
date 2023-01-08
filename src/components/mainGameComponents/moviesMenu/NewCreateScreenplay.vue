@@ -3,7 +3,7 @@
     <div id="createScreenplaySubDiv">
       <div>
         <icon-button
-            v-if="this.$router.options.history.state.back !== '/screenplaySummary'"
+            v-if="this.$router.options.history.state.back !== '/screenplaySummary' || this.$router.options.history.state.back !== '/franchiseSection'"
             id="createScreenplayBackButton"
             icon="simple-arrow-left"
             size="medium"
@@ -119,7 +119,7 @@
                         :disabled="disableSelect(index)"
                         v-model="topics[index-1]"
                     >
-                      <option :value="undefined" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
+                      <option :value="null" disabled selected hidden>{{ $t('topic') }} {{ index }}</option>
                       <option
                           v-for="(it,ind) in this.allTopics"
                           :key="ind"

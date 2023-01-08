@@ -291,7 +291,7 @@ export default {
     this.$store.getters.getScreenplays[0].setLength('152');
     this.$store.getters.getScreenplays[0].setWritingPhase(14);
 
-    this.$store.getters.getFinishedMovies[0]._screenplay = this.$store.getters.getScreenplays[0];
+    this.$store.getters.getFinishedMovies[0]._preProduction.screenplay = this.$store.getters.getScreenplays[0];
   }
 }
 </script>

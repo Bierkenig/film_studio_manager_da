@@ -99,7 +99,8 @@ export default {
   },
   methods: {
     startGame() {
-      this.$store.commit('createStudio', {studio: new Studio(this.name,"2023",parseInt(this.budget),0), logo: this.chosenLogo});
+      this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),0), logo: this.chosenLogo});
+      this.$store.getters.getFinishedMovies[0]._owner = this.$store.getters.getStudio;
       this.$router.push({name: 'home'})
     },
 

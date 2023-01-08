@@ -188,6 +188,9 @@ export default {
     finishPreProd() {
       console.log(this.$store.state.currentMovie)
       this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
+      if(this.$store.getters.getCurrentMovie._preProduction.screenplay.franchise !== null){
+        this.$store.getters.getCurrentFranchise.addAllMovies(this.$store.getters.getCurrentMovie)
+      }
       console.log(this.$store.getters.getInProductionMovies)
       this.$router.push({name: "home"})
     },

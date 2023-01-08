@@ -12,8 +12,16 @@ function createStudios(){
     let num = randomNumber(0.85);
     if(num === 1){
         let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
-        let newStudio = new Studio(studioName,store.getters.getCurrentDate.getFullYear(),50000000,0);
+
+        let studioId;
+        if(store.getters.getOtherStudios.length === 0){
+            studioId = 2;
+        } else {
+            studioId = store.getters.getNextStudioId;
+        }
+        let newStudio = new Studio(studioId,studioName,store.getters.getCurrentDate.getFullYear(),50000000,0);
         store.getters.getOtherStudios.push(newStudio);
+
         let newsTitle = newStudio.getName() + ' gegründet';
         let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
         store.getters.getCurrentNews.push(new News(newsTitle,null,null,null,newStudio,newsDescription,'Studios'))

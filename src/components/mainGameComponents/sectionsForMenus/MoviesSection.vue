@@ -49,16 +49,16 @@
           class="moviesSectionMovieElement"
           v-for="(it,index) in data"
           :key="index"
-          :movie-title="it._title"
+          :movie-title="it._preProduction.screenplay.title"
           svg-code=""
           viewers="99"
           critics="99"
-          :age="RegExp('\\+\\d+$').exec(it._screenplay.ageRating)[0]"
-          :genre="it._screenplay.genre"
-          :genre-icon="it._screenplay.genre.toLowerCase()"
+          :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]"
+          :genre="it._preProduction.screenplay.genre"
+          :genre-icon="it._preProduction.screenplay.genre.toLowerCase()"
           release="2025"
           earnings="$ 999,999"
-          @open-clicked="elementOpened"/>
+          @open-clicked="movieInfo(it)"/>
           <!--:release="it._preProduction.releaseDate.getYear()"-->
     </div>
     <div v-if="headline === 'contentManagement'" class="moviesSectionDetails verticalScroll">
@@ -67,10 +67,10 @@
           v-for="(it,index) in data"
           :key="index"
           svg-code=""
-          :streaming-title="it._title"
+          :streaming-title="it._preProduction.screenplay.title"
           :popularity="it.popularity"
           :contract="it._contract +  ' Years'"
-          @open-clicked="elementOpened"/>
+          @open-clicked="movieInfo(it)"/>
     </div>
   </div>
 </template>
@@ -117,6 +117,11 @@ export default {
   },*/
 
   methods: {
+    movieInfo(element){
+      this.$store.commit('setNewCurrentMovie',element)
+      this.$router.push({name: 'movieSummary'});
+    },
+
     setSelectedSortByWhat(arg){
       this.selectedSortByWhat = arg;
       this.sortMovieRights();

@@ -15,13 +15,13 @@ export default createStore({
     /** Application state */
     state:{
         slot: null,
-        screenplays: [new Screenplay(3,'Toy Story 2','Animation','Adventure',null,'G / +3',
+        screenplays: [new Screenplay(1,'Cars','Animation','Adventure',null,'G / +3',
             new Person(5,null,'Franz','Huber',35,'male','Austria','Caucasian','5',78,25,62,58,57,65,'2.500.000',
                 'true','true','true', [{'Action':92,'Adventure':80,'Biography':19,'Comdey':55,'Crime':12,'Documentary':52,'Drama':62,'Erotic':52,
                     'Family':23,'Fantasy':20,'History':25,'Horror':65,'Musical':23,'Mystery':95,'Romance':75,'Science Fiction':41, 'Sport':25,'Thriller':25,'War':56,'Western':78}]),
             'Ein Film von Spielzeugen, die eine fantastische Reise um die Welt erleben und einiges durchmachen müssen',65.8,
             2500000,{firstTopic: 'Family',secondTopic: 'Adventure',thirdTopic: null},null)],
-        boughtScreenplays: [new Screenplay(4,'Toy Story','Animation','Adventure',null,'G / +3',
+        boughtScreenplays: [new Screenplay(2,'Toy Story','Animation','Adventure',null,'G / +3',
             new Person(5,null,'Franz','Huber',35,'male','Austria','Caucasian','5',78,25,62,58,57,65,'2.500.000',
                 'true','true','true', [{'Action':92,'Adventure':80,'Biography':19,'Comdey':55,'Crime':12,'Documentary':52,'Drama':62,'Erotic':52,
     'Family':23,'Fantasy':20,'History':25,'Horror':65,'Musical':23,'Mystery':95,'Romance':75,'Science Fiction':41, 'Sport':25,'Thriller':25,'War':56,'Western':78}]),
@@ -88,7 +88,7 @@ export default createStore({
         inProductionMovies: [],
 
         //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [new Movie(new Studio('IBIZA','2023',1000000,10), 0)],
+        finishedMovies: [new Movie(null, 0)],
         //nicht fertig
         calendarEvents: [
             {
@@ -271,7 +271,8 @@ export default createStore({
 
         getNextScreenplayId(state){
             let nextId = 0;
-            state.screenplays.forEach(screenplay => {
+            let allScreenplays = state.screenplays.concat(state.boughtScreenplays)
+            allScreenplays.forEach(screenplay => {
                 if (screenplay.getId() > nextId) {
                     nextId = screenplay.getId();
                 }
@@ -409,6 +410,16 @@ export default createStore({
             state.franchises.forEach(franchise => {
                 if (franchise.getId() > nextId) {
                     nextId = franchise.getId();
+                }
+            })
+            return nextId + 1;
+        },
+
+        getNextStudioId(state){
+            let nextId = 0;
+            state.otherStudios.forEach(studio => {
+                if (studio.getId() > nextId) {
+                    nextId = studio.getId();
                 }
             })
             return nextId + 1;

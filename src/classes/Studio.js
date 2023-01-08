@@ -1,7 +1,9 @@
 import {Movie} from "@/classes/Movie";
 
 export class Studio {
-    constructor(name, year, budget, popularity) {
+    constructor(id, name, year, budget, popularity) {
+        //TYPE -> Integer
+        this.id = id;
         //TYPE -> String
         this.name = name;
         //TYPE -> String
@@ -12,6 +14,10 @@ export class Studio {
         this.popularity = popularity;
         //TYPE -> Array
         this.movies = [];
+    }
+
+    getId(){
+        return this.id;
     }
 
     getName() {

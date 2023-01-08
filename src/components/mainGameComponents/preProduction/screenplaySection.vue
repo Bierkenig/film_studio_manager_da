@@ -16,7 +16,7 @@
     </div>
     <div>
       <div>{{$t('buyScreenplaySection.existing')}}</div>
-      <div v-for="(el, index) in owningScreenplays" :key="index">
+      <div v-for="(el, index) in possibleScreenplays" :key="index">
         {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer._first_name}} | {{el.writer._last_name}} / {{el.description}} / {{el.rating}} / {{el.price}}
         <button @click="setScreenplay(el)">{{$t('buyScreenplaySection.choose')}}</button>
       </div>
@@ -45,7 +45,7 @@ export default {
     return {
       screenplays: this.$store.getters.getAllScreenplays,
       boughtScreenplays: this.$store.getters.getBoughtScreenplays,
-      owningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
+      possibleScreenplays: [],
       franchises: this.$store.getters.getFranchises,
       allWriters: this.$store.getters.getAllWriters,
       allDirectors: this.$store.getters.getAllDirectors,
@@ -59,6 +59,14 @@ export default {
     this.setOfferNumberZero(this.allActors)
 
     this.$store.getters.getCurrentMovie._status = 'Pre Production'
+
+    let createdScreenplays = this.$store.getters.getScreenplays;
+    for (let i = 0; i < createdScreenplays.length; i++) {
+      if(createdScreenplays[i].franchise === null){
+        this.possibleScreenplays.push(createdScreenplays[i])
+      }
+    }
+    this.possibleScreenplays = this.possibleScreenplays.concat(this.$store.getters.getBoughtScreenplays)
   },
 
   methods: {
