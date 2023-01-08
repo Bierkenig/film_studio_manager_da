@@ -3,7 +3,7 @@ import Award from "@/classes/Award";
 import {Movie} from "@/classes/Movie";
 
 export default class News {
-    constructor(title, person = null, movie = null, award = null, studio = null, description, type) {
+    constructor(title, description, type, person = null, movie = null, award = null, studio = null) {
         this._title = title;
         this._person = person;
         this._movie = movie;

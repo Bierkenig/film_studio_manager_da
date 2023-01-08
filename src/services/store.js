@@ -9,6 +9,7 @@ import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
 import DataUtil from "@/classes/DataUtil";
+import FinancialPerformance from '@/classes/FinancialPerformance'
 
 export default createStore({
     /** Application state */
@@ -79,32 +80,9 @@ export default createStore({
                 date: new Date(2023,0,15)
             }
         ],
-        //nicht fertig
         financialPerformance: [
-            {
-                date: {
-                    name: "January 2023",
-                    data: {
-                        production: {incoming: "-", outgoing: -300000},
-                        marketing: {incoming: "-", outgoing: -40000},
-                        loan: {incoming: "-", outgoing: -30000000},
-                        cinema: {incoming: 33000000, outgoing: -2000000},
-                        streaming: {incoming: 200000, outgoing: -20000000},
-                    }
-                }
-            },
-            {
-                date: {
-                    name: "February 2023",
-                    data: {
-                        production: {incoming: "-", outgoing: -20000},
-                        marketing: {incoming: "-", outgoing: -30000},
-                        loan: {incoming: "-", outgoing: -30000000},
-                        cinema: {incoming: 33000000, outgoing: -2000000},
-                        streaming: {incoming: 200000, outgoing: -20000000},
-                    }
-                },
-            }
+            new FinancialPerformance(new Date(2023, 0, 1)),
+            new FinancialPerformance(new Date(2023, 1, 1))
         ],
         //movies which are in currentProduction
         inProductionMovies: [],

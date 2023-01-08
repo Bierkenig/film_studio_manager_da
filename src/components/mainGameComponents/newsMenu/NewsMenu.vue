@@ -15,7 +15,7 @@
         <option value="movie">{{$t('newsData.movie')}}</option>
         <option value="award">{{$t('newsData.award')}}</option>
       </select>
-      <div v-for="(el, index) in sortedNews" :key="index">{{el.getTitle()}} / {{el.getPerson() === null ? "" : el.getPerson()._first_name / el.getPerson()._last_name}} / {{el.getMovie() === null ? "" : el.getMovie()}} / {{el.getAward() === null ? "" : el.getAward().getDesc()}}</div>
+      <div v-for="(el, index) in sortedNews" :key="index">{{el._title}} / {{el._person === null ? "" : el._person._first_name / el._person._last_name}} / {{el._movie === null ? "" : el._movie}} / {{el._award === null ? "" : el._award.getDesc()}}</div>
     </div>
 
     <div>
@@ -26,7 +26,8 @@
         <option value="values">{{$t('newsData.values')}}</option>
       </select>
       <div v-for="(el, index) in selectedPeople" :key="index">
-        {{el._first_name}} / {{el._last_name}} / {{el.age}} / {{el.salary}} / {{el.genre}} / {{el.avatar}} / {{el.nationality}} / {{el.ethnicity}} / {{el.rating}}
+        <avatar-element :svg-code="el._avatar"></avatar-element>
+        {{el._first_name}} / {{el._last_name}} / {{el.age}} / {{el.salary}} / {{el.genre}} / {{el.nationality}} / {{el.ethnicity}} / {{el.rating}}
       </div>
     </div>
 
@@ -38,7 +39,7 @@
         <option value="earnings">{{$t('newsData.earnings')}}</option>
       </select>
       <div v-for="(el, index) in allMovies" :key="index">
-        {{el.screenplay.getTitle()}} / {{el.director._first_name / el.director._last_name}} / {{el.screenplay.getGenre()}} / {{el.screenplay.getAgeRating()}} / {{el.screenplay.getDescription()}}
+        {{el._preProduction.screenplay.title}} / {{el._preProduction.hiredDirector._first_name / el._preProduction.hiredDirector._last_name}} / {{el._preProduction.screenplay.genre}} / {{el.screenplay.ageRatingDetails.violence}} / {{el.screenplay.ageRatingDetails.cursing}} / {{el.screenplay.ageRatingDetails.loveScenes}} / {{el.screenplay.description}}
       </div>
     </div>
 
@@ -47,16 +48,17 @@
         <option v-for="(el, index) in this.$store.getters.getAllYears" :key="index">{{el}}</option>
       </select>
       <div v-for="(el, index) in sortedAwards" :key="index">
-        {{el.getDesc()}} / {{el.getType()}}
+        {{el.desc}} / {{el.type}}
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import AvatarElement from "@/components/kitchenSink/AvatarElement";
 export default {
   name: "NewsMenu",
-
+  components: {AvatarElement},
   data() {
     return {
       selectedNews: "person",
@@ -185,8 +187,8 @@ export default {
   mounted() {
 
     this.selectedPeople = this.$store.state.allPeople
-    this.allMovies.push(this.$store.getters.getAllMovies)
-    this.allAwards.push(this.$store.getters.getAllAwards)
+    this.allMovies = this.$store.getters.getAllMovies
+    this.allAwards = this.$store.getters.getAllAwards
 
 
     this.sortEarnings()

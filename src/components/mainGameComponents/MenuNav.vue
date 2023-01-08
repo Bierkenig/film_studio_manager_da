@@ -90,7 +90,7 @@
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
-import simulate from "@/simulation/simulation";
+//import simulate from "@/simulation/simulation";
 
 export default {
   name: "MenuNav",
@@ -141,7 +141,7 @@ export default {
     },
 
     onUpdateDate(){
-      simulate();
+      //simulate();
       this.$store.commit('updateCurrentDate');
     },
   }
