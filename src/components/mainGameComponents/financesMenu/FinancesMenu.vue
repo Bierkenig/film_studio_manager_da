@@ -1,69 +1,95 @@
 <template>
-  <div>
-    <div id="credit">
-      <h3>{{$t('labelTakeCredit')}}</h3>
-      <label for="credit">{{$t('descCredit')}}</label>
-      <button name="credit">
-        {{$t('takeCredit')}}
-      </button>
+  <div class="financesMenu">
+    <div class="financesMenuLeftSide">
+      <background-tile class="loanTile" :title="$t('labelTakeCredit')" content-color="grey" icon="placeholder">
+        {{ $t('descCredit') }}
+        <custom-button class="loanButton">{{ $t('takeCredit') }}</custom-button>
+      </background-tile>
+      <background-tile class="buyStudioTile" :title="$t('labelBuyStudio')" content-color="grey" icon="placeholder">
+        {{ $t('descStudio') }}
+        <custom-button class="buyStudioButton">{{ $t('buyStudio') }}</custom-button>
+      </background-tile>
+    </div>
+    <div class="financesMenuCenter">
+      <background-tile class="fiscalPerformanceTile" :title="$t('fiscalPerformance.name')">
+
+      </background-tile>
+    </div>
+    <div class="financesMenuRightSide">
+      <background-tile title="Title" content-color="grey" icon="placeholder">Test</background-tile>
     </div>
 
-    <div id="buy">
-      <h3>{{$t('labelBuyStudio')}}</h3>
-      <label for="buy">{{$t('descStudio')}}</label>
-      <button name="buy">
-        {{$t('buyStudio')}}
-      </button>
-    </div>
 
-    <div id="fiscalPerformance">
-      <h3>{{$t('fiscalPerformance.name')}}</h3>
-      <i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
-      <p>{{this.availablePerformanceDates[index]}}</p>
-      <i class="arrow right" @click="updateFiscalPerformance(1)"></i>
-      <table>
-        <tr>
-          <th>{{$t('fiscalPerformance.area')}}</th>
-          <th>{{$t('fiscalPerformance.incoming')}}</th>
-          <th>{{$t('fiscalPerformance.outgoing')}}</th>
-          <th>{{$t('fiscalPerformance.accumulated')}}</th>
-        </tr>
-        <tr v-for="element in fiscalPerformanceData" :key="element">
-          <td>{{$t(element.name)}}</td>
-          <td>{{element.incoming}}</td>
-          <td>{{element.outgoing}}</td>
-          <td>{{element.accumulated}}</td>
-        </tr>
-      </table>
-    </div>
 
-    <div id="marketShare">
-      <h3>{{$t('marketShare.name')}}</h3>
-      <select>
-        <option v-for="year in this.availableMarketYears" :key="year" :value="year">{{year}}</option>
-      </select>
-      <div v-for="studio in this.$store.getters.getOtherStudios" :key="studio[0]">{{studio[0]}} {{studio[2]}}</div>
-      <div>
-        <pie-chart :data="this.otherStudiosPieChart"></pie-chart>
+    <div class="unstyledFinancesMenu">
+<!--      <div id="credit">-->
+<!--        <h3>{{ $t('labelTakeCredit') }}</h3>-->
+<!--        <label for="credit">{{ $t('descCredit') }}</label>-->
+<!--        <button name="credit">-->
+<!--          {{ $t('takeCredit') }}-->
+<!--        </button>-->
+<!--      </div>-->
+
+<!--      <div id="buy">-->
+<!--        <h3>{{ $t('labelBuyStudio') }}</h3>-->
+<!--        <label for="buy">{{ $t('descStudio') }}</label>-->
+<!--        <button name="buy">-->
+<!--          {{ $t('buyStudio') }}-->
+<!--        </button>-->
+<!--      </div>-->
+
+      <div id="fiscalPerformance">
+        <h3>{{ $t('fiscalPerformance.name') }}</h3>
+        <i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
+        <p>{{ this.availablePerformanceDates[index] }}</p>
+        <i class="arrow right" @click="updateFiscalPerformance(1)"></i>
+        <table>
+          <tr>
+            <th>{{ $t('fiscalPerformance.area') }}</th>
+            <th>{{ $t('fiscalPerformance.incoming') }}</th>
+            <th>{{ $t('fiscalPerformance.outgoing') }}</th>
+            <th>{{ $t('fiscalPerformance.accumulated') }}</th>
+          </tr>
+          <tr v-for="element in fiscalPerformanceData" :key="element">
+            <td>{{ $t(element.name) }}</td>
+            <td>{{ element.incoming }}</td>
+            <td>{{ element.outgoing }}</td>
+            <td>{{ element.accumulated }}</td>
+          </tr>
+        </table>
       </div>
-    </div>
 
-    <div>
-      <h3>{{$t('financialHistory.name')}}</h3>
-      <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
-        <!-- TODO icon -->
-        <h2>{{$t(el.title)}}</h2>
-        <p>{{$t(el.desc)}}</p>
+      <div id="marketShare">
+        <h3>{{ $t('marketShare.name') }}</h3>
+        <select>
+          <option v-for="year in this.availableMarketYears" :key="year" :value="year">{{ year }}</option>
+        </select>
+        <div v-for="studio in this.$store.getters.getOtherStudios" :key="studio[0]">{{ studio[0] }} {{ studio[2] }}
+        </div>
+        <div>
+          <pie-chart :data="this.otherStudiosPieChart"></pie-chart>
+        </div>
+      </div>
+
+      <div>
+        <h3>{{ $t('financialHistory.name') }}</h3>
+        <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
+          <!-- TODO icon -->
+          <h2>{{ $t(el.title) }}</h2>
+          <p>{{ $t(el.desc) }}</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "FinancesMenu",
 
-  components: {
-  },
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -141,7 +167,7 @@ export default {
     //fetch financial dates
     let array = this.$store.getters.getFinancialPerformance;
     array.forEach((el) => {
-        this.availablePerformanceDates.push(el.date.name)
+      this.availablePerformanceDates.push(el)
     })
     //fetch other Studio years
     let studios = this.$store.getters.getOtherStudios
@@ -154,18 +180,53 @@ export default {
     //set Studios
     this.otherStudiosPieChart = this.$store.getters.getOtherStudios
     this.otherStudiosPieChart.forEach((el) => {
-      el.splice(1,1)
+      el.splice(1, 1)
     })
 
     //call the updateFiscalPerformance Method once
-    this.updateFiscalPerformance()
+    //this.updateFiscalPerformance()
   }
 }
 </script>
 
 <style scoped>
+.financesMenu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
-.arrow {
+.financesMenuLeftSide, .financesMenuRightSide {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.financesMenuCenter {
+  flex-grow: 2;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 20px 0 20px;
+}
+
+.buyStudioTile {
+  margin-top: 20px;
+}
+
+.loanButton, .buyStudioButton {
+  margin-top: 20px;
+}
+
+
+.unstyledFinancesMenu {
+  display: none;
+}
+
+/*.arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
@@ -180,6 +241,5 @@ export default {
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
-}
-
+}*/
 </style>

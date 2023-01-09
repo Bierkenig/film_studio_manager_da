@@ -55,8 +55,8 @@ i18next
                     buyStudio: "Buy",
                     labelTakeCredit: "Take out a loan",
                     labelBuyStudio: "Buy a Studio",
-                    descCredit: "Produce and releaseSection your own Movie",
-                    descStudio: "Lorem ipsum deine Mum",
+                    descCredit: "Produce new movies from existing scripts or buy new.",
+                    descStudio: "View your own sources or buy them from your competitors.",
                     fiscalPerformance: {
                         name: "Fiscal Performance",
                         area: "Area",
@@ -714,8 +714,8 @@ i18next
                     buyStudio: "Kaufen",
                     labelTakeCredit: "Kredit aufnehmen",
                     labelBuyStudio: "Studio kaufen",
-                    descCredit: "Produziere und veröffentliche deinen eigenen Film",
-                    descStudio: "Lorem ipsum deine Mum",
+                    descCredit: "Produziere neue Filme nach vorhandenen Drehbüchern oder kaufe neue.",
+                    descStudio: "Sieh dir deine eigenen Quellen an oder kaufe welche von deinen Konkurrenten.",
                     fiscalPerformance: {
                         name: "Finanzielle Leistungsfähigkeit",
                         area: "Bereich",
