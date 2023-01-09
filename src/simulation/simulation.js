@@ -106,24 +106,30 @@ function killAndRefreshPeople() {
     let roles = {actor: 0, director: 0, writer: 0}
 
     //loop Actors
-    //TODO check for age
+    //TODO check for age + check for Type in News
     allActors.forEach((el) => {
-        if (el._age > 90) window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
-        else refreshPerson(el)
+        if (el._age > 90) {
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Actor " + el._first_name + el._last_name + " died", null, el))
+            window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
+        } else refreshPerson(el)
         roles.actor++;
     })
 
     //loop Directors
     allDirectors.forEach((el) => {
-        if (el._age > 90) window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
-        else refreshPerson(el)
+        if (el._age > 90) {
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Director " + el._first_name + el._last_name + " died", null, el))
+            window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
+        } else refreshPerson(el)
         roles.director++;
     })
 
     //loop Writers
     allWriters.forEach((el) => {
-        if (el._age > 90) window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
-        else refreshPerson(el)
+        if (el._age > 90) {
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Writer " + el._first_name + el._last_name + " died", null, el))
+            window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
+        } else refreshPerson(el)
         roles.writer++;
     })
 
@@ -229,11 +235,8 @@ function generatePersonValues(roles) {
         lastID = data
     })
 
-    //Insert Person into the db + TODO anpassen wenn datenbank angepasst ist
+    //Insert Person into the db + TODO anpassen wenn datenbank angepasst ist + add News when a Person gets generated
     window.ipcRenderer.send('generatePerson', ["INSERT INTO people (pk_personID, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent, popularity, rating, salary, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [lastID, svg, firstName, lastName, age, gender, nationalityValue, ethnicityValue, performance, experience, "null", "null", talent, popularity, rating, "null", isActor, isDirector, isWriter]])
-    window.ipcRenderer.on('sendPersonStatus', (event, data) => {
-        console.log("DB: Status -> " + data)
-    })
 
 }
 
