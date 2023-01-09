@@ -11,8 +11,12 @@
       <div>{{$t('buyScreenplaySection.expand')}}</div>
       <div v-for="(el, index) in franchises" :key="index">
         {{el.name}}
-        <button @click="goToCreateScreenplay(el)">{{$t('buyScreenplaySection.expand2')}}</button>
+        <button @click="goToExpandFranchise(el)">{{$t('buyScreenplaySection.expand2')}}</button>
       </div>
+    </div>
+    <div>
+      <div>{{$t('createScreenplay')}}</div>
+      <button @click="goToCreateScreenplay">{{$t('create')}}</button>
     </div>
     <div>
       <div>{{$t('buyScreenplaySection.existing')}}</div>
@@ -37,6 +41,7 @@
 
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default {
   name: "screenplaySection",
@@ -83,12 +88,20 @@ export default {
       }
     },
 
-    goToCreateScreenplay(el){
+    goToExpandFranchise(el){
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
       this.$router.push({name: 'franchiseSection'});
     },
+
+    goToCreateScreenplay(){
+      this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
+          null,null, null, null, null, null,
+          {firstTopic: null, secondTopic: null, thirdTopic: null}));
+      this.$router.push({name: 'newScreenplay'});
+    },
+
 
     setScreenplay(screenplay) {
       this.$store.state.currentMovie._preProduction.screenplay = screenplay

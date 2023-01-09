@@ -215,14 +215,14 @@
                   {{ screenplay.length }}
                 </div>
               </div>
-              <div class="screenplayInformationText">
+              <!--<div class="screenplayInformationText">
                 <div >
                   {{ $t('writingPhase') }}
                 </div>
                 <div>
                   {{ screenplay.writingPhase }}
                 </div>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>

@@ -125,7 +125,7 @@
             class="writerDetailsOfferButton"
             :dark="false"
             size="medium"
-            :disabled="this.currentWriter?._no === 3"
+            :disabled="this.currentWriter?._no === 3 || this.writerDecision === null"
             @clicked="calcWriterDecision">Offer ({{ this.currentWriter?._no }}/3)</custom-button>
 
         <div class="writerDetailsWriterAnswer">
@@ -138,8 +138,8 @@
           class="writerDetailsHireButton"
           :dark="false"
           size="medium"
-          :disabled="writerDecision == null || !writerDecision"
-          @click="hireWriter">{{ $t('continue') }}</custom-button>
+          :disabled="this.writerDecision === null || !this.writerDecision"
+          @clicked="hireWriter">{{ $t('continue') }}</custom-button>
     </div>
   </div>
 </template>
@@ -191,15 +191,12 @@ export default {
       indexOfMainSalary: null,
       changingIndex: null,
       writerDecision: null
-
-      //numberOfOffers: 0,
-      //rejectedStaff: [],
-
     }
   },
 
   mounted() {
-    console.log(this.writerDecision === null);
+    console.log(this.currentWriter?._no === 3 || this.writerDecision === null)
+    console.log(this.writerDecision == null || !this.writerDecision);
    this.copiedPrice = this.$store.getters.getCurrentScreenplay.price;
    this.oldWriter = this.$store.getters.getCurrentScreenplay.writer;
 
@@ -228,15 +225,8 @@ export default {
 
         this.currentWriter = this.writer;
         this.changeSalaryValueLevel(Math.round((this.writerTalent * 35 + this.writerExperience * 25 + this.writerPopularity * 40) / 100))
-        //this.numberOfOffers = 0;
       }
     },
-
-    /*numberOfOffers: function (){
-      if(this.numberOfOffers === 3){
-        this.rejectedStaff.push(this.staff)
-      }
-    }*/
   },
 
   methods: {
@@ -322,6 +312,7 @@ export default {
     },
 
     hireWriter(){
+      console.log('ASASAS')
       this.screenplay.setWriter(this.writer);
       if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
         this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));

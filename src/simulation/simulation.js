@@ -2,6 +2,7 @@ import store from "@/services/store";
 import {Studio} from "@/classes/Studio";
 import News from "@/classes/News";
 import {Avataaars} from "@/avatar/avataaars"
+import {all} from "core-js/internals/document-all";
 
 //Avatar Option Lists
 /*const skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
@@ -33,11 +34,23 @@ export default function simulate() {
     renewPeople();
 }
 
+//function to create new studios
 function createStudios() {
-    let num = randomNumber(0.85);
-    if (num === 1) {
-        let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
+    let num = randomNumber(0.10);
+    if (num === 0) {
+        //get all existing studio names
+        let allStudios = [store.getters.getStudio.getName()];
+        store.getters.getOtherStudios.forEach(studio => {
+            allStudios.push(studio.getName())
+        })
 
+        //get studio name of new studio, check if name already exists
+        let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
+        while (allStudios.includes(studioName)){
+            studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)]
+        }
+
+        //get id of new studio (last studio id + 1)
         let studioId;
         if (store.getters.getOtherStudios.length === 0) {
             studioId = 2;
@@ -47,24 +60,32 @@ function createStudios() {
         let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), 50000000, 0);
         store.getters.getOtherStudios.push(newStudio);
 
+        //create news of new studio
         let newsTitle = newStudio.getName() + ' gegründet';
         let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
-        store.getters.getCurrentNews.push(new News(newsTitle, null, null, null, newStudio, newsDescription, 'Studios'))
+        store.commit('addNews',new News(newsTitle, newsDescription, 'Studios',null,null,null,newStudio))
     }
 }
 
+//function to get 0 or 1 with specific probability
 function randomNumber(probability) {
     return Math.random() < probability ? 0 : 1;
 }
 
+//function for streaming service costs / earnings
 function streamingService() {
     if (store.getters.getOwnStreamingService !== null) {
+        //earnings / costs per month
         if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
+            //get subscriber number
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
 
+            //calculate revenue for subscribers
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
 
+            //substract maintainment costs from revenue
             let sum = revenue - serviceMaintainmentCosts;
+            //substract final revenue / costs from studio budget
             store.commit('addBalance', sum);
 
             if (sum < 0) {
@@ -75,6 +96,7 @@ function streamingService() {
                 console.log('0$');
             }
 
+            //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(
                 store.getters.getOwnStreamingService._lastCheckedDate.getFullYear(),
                 store.getters.getOwnStreamingService._lastCheckedDate.getMonth() + 1,
