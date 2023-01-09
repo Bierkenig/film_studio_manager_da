@@ -66,6 +66,7 @@ export default {
     return {
       screenplayType: this.$store.state.currentMovie._preProduction.screenplay.type,
       screenplayScope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
+      vfxSfxScope: "",
       screenplaySpecial: this.$store.state.currentMovie._preProduction.screenplay.details.specialEffects,
       featureList: this.$store.state.feature,
       indieList: this.$store.state.indie,
@@ -267,6 +268,29 @@ export default {
           if (this.between(this.stunts.value, (this.stunts.max - this.stunts.min)*0.81, (this.stunts.max - this.stunts.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.costume.value, (this.costume.max - this.costume.min)*0.81, (this.costume.max - this.costume.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.makeup.value, (this.makeup.max - this.makeup.min)*0.81, (this.makeup.max - this.makeup.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          break
+      }
+
+      switch (this.vfxSfxScope) {
+        case "None":
+          if (this.between(this.vfx.value, (this.vfx.max - this.vfx.min)*0.01, (this.vfx.max - this.vfx.min) * 0.02)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sfx.value, (this.sfx.max - this.sfx.min)*0.01, (this.sfx.max - this.sfx.min) * 0.02)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          break
+        case "Some":
+          if (this.between(this.vfx.value, (this.vfx.max - this.vfx.min)*0.21, (this.vfx.max - this.vfx.min) * 0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sfx.value, (this.sfx.max - this.sfx.min)*0.21, (this.sfx.max - this.sfx.min) * 0.4)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          break
+        case "Medium":
+          if (this.between(this.vfx.value, (this.vfx.max - this.vfx.min)*0.41, (this.vfx.max - this.vfx.min) * 0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sfx.value, (this.sfx.max - this.sfx.min)*0.41, (this.sfx.max - this.sfx.min) * 0.6)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          break
+        case "Lots":
+          if (this.between(this.vfx.value, (this.vfx.max - this.vfx.min)*0.61, (this.vfx.max - this.vfx.min) * 0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sfx.value, (this.sfx.max - this.sfx.min)*0.61, (this.sfx.max - this.sfx.min) * 0.8)) this.$store.state.currentMovie._preProduction.budgetPop--;
+          break
+        case "Spectacle":
+          if (this.between(this.vfx.value, (this.vfx.max - this.vfx.min)*0.81, (this.vfx.max - this.vfx.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
+          if (this.between(this.sfx.value, (this.sfx.max - this.sfx.min)*0.81, (this.sfx.max - this.sfx.min))) this.$store.state.currentMovie._preProduction.budgetPop--;
           break
       }
     },
