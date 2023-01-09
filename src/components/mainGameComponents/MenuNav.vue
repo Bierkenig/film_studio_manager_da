@@ -153,7 +153,6 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 1em;
   margin-left: 100px;
   margin-right: 100px;
 }

@@ -312,9 +312,11 @@ html, body {
 
 .gameHeaderComponent {
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .menuNavComponent {
+  margin-top: 40px;
   margin-bottom: 40px;
 }
 

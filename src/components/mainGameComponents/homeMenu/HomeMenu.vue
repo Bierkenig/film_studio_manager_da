@@ -39,7 +39,6 @@ export default {
   flex: 1;
   flex-direction: row;
   gap: 15px;
-  margin-top: 15px;
 }
 
 .upcomingEvents, #homeMenuRightSide {

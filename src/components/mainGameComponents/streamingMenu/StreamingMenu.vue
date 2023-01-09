@@ -91,7 +91,6 @@ export default {
   flex-direction: row;
   gap: 20px;
   flex: 1;
-  margin-top: 15px;
 }
 
 .ownServiceSectionTag {
