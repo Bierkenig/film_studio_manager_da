@@ -44,7 +44,7 @@ export default createStore({
         //currentDate: new Date("January 01, 2023"),
         currentLanguage: 'en',
         //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
-        newNews: [],
+        news: [],
         //nicht fertig
         earnings: [
             {
@@ -302,7 +302,7 @@ export default createStore({
         },
 
         getCurrentNews(state){
-            return state.newNews;
+            return state.news;
         },
 
         getEarnings(state){
