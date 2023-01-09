@@ -60,7 +60,11 @@
             </router-link>
 
             <router-link :to="{ name: 'testScreening'}">
-              <button id="slotButton" class="buttonStyle">testScreening</button>
+              <button id="testScreening" class="buttonStyle">testScreening</button>
+            </router-link>
+
+            <router-link :to="{ name: 'testScreeningOptions'}">
+              <button id="testScreeningOptions" class="buttonStyle">testScreeningOptions</button>
             </router-link>
 
             <!--<div>

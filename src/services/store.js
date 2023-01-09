@@ -186,6 +186,14 @@ export default createStore({
             directorWithDispute: null,
         },
 
+        type:{
+            editing: null,
+            sound: null,
+            vfx: null,
+            acting: null,
+            story: null
+        },
+
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,new Studio('AS'),new Date("January 25, 2023")),
             new StreamingService('TUV Studio',1,0,0,10,new Studio('TU'),new Date("January 24, 2023")),
             new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],

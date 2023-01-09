@@ -330,6 +330,8 @@ i18next
                             vfxTitle: "Visual Effects Feedback",
                             actingTitle: "Acting Feedback",
                             storyTitle: "Story Feedback",
+                            optionA: "Option A",
+                            optionB: "Option B",
                             editing: {
                                 good: {
                                     feed1: "The transitions between scenes were seamless and kept me engaged.",
@@ -344,7 +346,9 @@ i18next
                                     feed3: "The editing was choppy and didn't flow smoothly.",
                                     feed4: "The color grading was inconsistent, making it hard to follow the action.",
                                     feed5: "There were too many cuts that felt unnecessary and disjointed the narrative.",
-                                }
+                                },
+                                optionA: "Increase editing budget",
+                                optionB: "Do not increase editing budget"
                             },
                             sound: {
                                 good: {
@@ -360,7 +364,9 @@ i18next
                                     feed3: "The sound balance was off, with some audio elements far too loud while others were too quiet.",
                                     feed4: "The sound design was overly simplistic and not engaging.",
                                     feed5: "The sound design did not effectively convey the mood or tone of the film.",
-                                }
+                                },
+                                optionA: "Increase sound budget",
+                                optionB: "Do not increase sound budget"
                             },
                             vfx: {
                                 good: {
@@ -376,7 +382,9 @@ i18next
                                     feed3: "The special effects were too unrealistic and out-of-place.",
                                     feed4: "The animation was choppy and lacked fluidity.",
                                     feed5: "The textures were flat and uninteresting.",
-                                }
+                                },
+                                optionA: "Increase vfx budget",
+                                optionB: "Do not increase vfx budget"
                             },
                             acting: {
                                 good: {
@@ -392,7 +400,9 @@ i18next
                                     feed3: "The timing of the dialogue was often off and the delivery was forced.",
                                     feed4: "The actors had trouble connecting with the characters and the story.",
                                     feed5: "Their performances were too over-the-top and lacked subtlety.",
-                                }
+                                },
+                                optionA: "Reshoot certain scenes",
+                                optionB: "Do no reshoot scenes"
                             },
                             story: {
                                 good: {
@@ -408,7 +418,9 @@ i18next
                                     feed3: "There are too many plot holes that weren’t explained.",
                                     feed4: "It feels like the story drags on too long.",
                                     feed5: "It’s too confusing and hard to follow.",
-                                }
+                                },
+                                optionA: "Reshoot majority of the scenes",
+                                optionB: "Do not reshoot scenes"
                             }
                         }
                     },
