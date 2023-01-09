@@ -1,9 +1,9 @@
 <template>
   <div id="createScreenplayMainDiv">
     <div id="createScreenplaySubDiv">
-      <div>
+      <!--<div>
         <icon-button
-            v-if="this.$router.options.history.state.back !== '/screenplaySummary' || this.$router.options.history.state.back !== '/franchiseSection'"
+            v-if="this.$router.options.history.state.back !== '/screenplaySummary' && this.$router.options.history.state.back !== '/franchiseSection'"
             id="createScreenplayBackButton"
             icon="simple-arrow-left"
             size="medium"
@@ -12,7 +12,7 @@
             :icon-gradient="false"
             :shadow="false"
             @click="goBack()"/>
-      </div>
+      </div>-->
       <div class="createScreenplayBackground">
         <div class="verticalScroll">
           <div>

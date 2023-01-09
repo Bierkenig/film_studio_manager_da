@@ -138,7 +138,7 @@
           class="writerDetailsHireButton"
           :dark="false"
           size="medium"
-          :disabled="this.writerDecision === null || !this.writerDecision"
+          :disabled="writerDecision === false || writerDecision === null"
           @clicked="hireWriter">{{ $t('continue') }}</custom-button>
     </div>
   </div>
@@ -195,16 +195,14 @@ export default {
   },
 
   mounted() {
-    console.log(this.currentWriter?._no === 3 || this.writerDecision === null)
-    console.log(this.writerDecision == null || !this.writerDecision);
+    if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
+      this.writerDecision = true;
+    }
    this.copiedPrice = this.$store.getters.getCurrentScreenplay.price;
    this.oldWriter = this.$store.getters.getCurrentScreenplay.writer;
 
    this.selectedSalary = this.salaryRange.min;
    this.salaryValues = this.$store.getters.getWriterSalaries;
-   if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
-     this.writerDecision = true;
-   }
   },
 
   watch: {
