@@ -187,7 +187,7 @@ export default createStore({
         },
 
         type:{
-            editing: null,
+            editing: true,
             sound: null,
             vfx: null,
             acting: null,

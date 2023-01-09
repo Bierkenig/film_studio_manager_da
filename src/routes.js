@@ -40,6 +40,7 @@ import CreateFranchise from "@/components/mainGameComponents/homeMenu/CreateFran
 import FranchiseSection from "@/components/mainGameComponents/preProduction/franchiseSection.vue";
 import FranchisesOverview from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesOverview.vue";
 import testScreeningOptions from "@/components/mainGameComponents/postProduction/postEvents/testScreeningOptions";
+import testScreeningResults from "@/components/mainGameComponents/postProduction/postEvents/testScreeningResults";
 
 
 const routes = [
@@ -90,6 +91,7 @@ const routes = [
     //PostProduction
     { name: 'testScreening', path: '/testScreening', component: testScreening, props: true},
     { name: 'testScreeningOptions', path: '/testScreeningOptions', component: testScreeningOptions, props: true},
+    { name: 'testScreeningResults', path: '/testScreeningResults/:addedWeeks/:editingBudgetIncrease', component: testScreeningResults, props: true},
 
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
