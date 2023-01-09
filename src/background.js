@@ -115,6 +115,77 @@ async function createWindow() {
         saving.resetDB(data)
     })
 
+    //simulation
+    //get last Id
+    ipcMain.on('lastID', (event, data) => {
+        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                console.log("DB: Got the last ID")
+                event.sender.send('sendLastID', row)
+            })
+        })
+        db.close()
+    })
+
+    //kill a Person
+    ipcMain.on('killPerson', (event, data) => {
+        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+
+        let sql = data[0]
+        let params = data[1]
+
+        db.serialize(() => {
+            db.each(sql, params, (err) => {
+                if (err) console.log(err)
+                console.log("DB: Killed a Person")
+            })
+        })
+        db.close()
+    })
+
+    //generate a new one
+    ipcMain.on('generatePerson', (event, data) => {
+        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+
+        const sql = data[0]
+        const params = data[1]
+
+        db.serialize(() => {
+            db.each(sql, params, (err) => {
+                if (err) console.log(err)
+                console.log("DB: Person created")
+            })
+        })
+        db.close()
+    })
+
+    //refresh stats
+    ipcMain.on('refreshPerson', (event, data) => {
+        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+
+        let sql = data[0]
+        let params = data[1]
+
+        db.serialize(() => {
+            db.each(sql, params, (err) => {
+                if (err) console.log(err)
+                console.log("DB: Person refreshed")
+            })
+        })
+        db.close()
+    })
+
     if (process.env.WEBPACK_DEV_SERVER_URL) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)

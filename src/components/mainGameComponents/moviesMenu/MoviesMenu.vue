@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import {Screenplay} from "@/classes/Screenplay";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection";
 import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
 export default {
@@ -22,15 +21,6 @@ export default {
       allOwningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
     }
   },
-
-  methods: {
-    goToCreateScreenplay(){
-      this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
-          null,null, null, null, null, null,
-          {firstTopic: undefined, secondTopic: undefined, thirdTopic: undefined}));
-      this.$router.push({name: 'createScreenplay'});
-    }
-  }
 }
 </script>
 

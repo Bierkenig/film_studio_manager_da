@@ -96,7 +96,6 @@ export default {
   flex-direction: column;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-l-border-radius);
-  color: white;
 }
 
 #eventHeading{
@@ -112,7 +111,7 @@ export default {
 }
 
 .scroll{
-  height: 750px;
+  height: 730px;
 }
 
 .event{
