@@ -1,29 +1,176 @@
 <template>
   <div>
-    <div v-for="(it, index) in allFranchises" :key="index" @click="getFranchiseInfo(it)">
-      {{it.name}}
+    <div id="franchisesListMainDiv">
+      <div>
+        <tile-pages-nav id="franchisesListNavigation" :pages='["Owning","For Sales"]' :gradient='true'>
+          <div class="franchiseList">
+            <div class="franchiseListScroll verticalScroll">
+              <div v-for="(it, index) in allOwningFranchises" :id="'franchiseItem' + index" :key="index" class="franchiseListElement" @click="getFranchiseInfo(it,index)">
+                <div class="franchiseListElementTitle" :id="'franchiseListElementName' + index">
+                  {{it.name}}
+                </div>
+              </div>
+            </div>
+            <div class="franchiseListSortDiv">
+              <custom-select :options="['Popularity','Name']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
+              <custom-list-sort @sort-changed="setSelectedTypeOfSortOwningFranchises"/>
+            </div>
+          </div>
+          <div class="franchiseList">
+            <div class="franchiseListScroll verticalScroll">
+              <div v-for="(it, index) in allForSalesFranchises" :id="'franchiseItem' + index" :key="index" class="franchiseListElement" @click="getFranchiseInfo(it,index)">
+                <div class="franchiseListElementTitle" :id="'franchiseListElementName' + index">
+                  {{it.name}}
+                </div>
+              </div>
+            </div>
+            <div class="franchiseListSortDiv">
+              <custom-select :options="['Popularity','Name']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForSalesFranchises"/>
+              <custom-list-sort @sort-changed="setSelectedTypeOfSortForSalesFranchises"/>
+            </div>
+          </div>
+        </tile-pages-nav>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import CustomSelect from "@/components/kitchenSink/CustomSelect";
+import CustomListSort from "@/components/kitchenSink/CustomListSort";
+import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 export default {
   name: "FranchisesList",
+  components: {TilePagesNav, CustomListSort, CustomSelect},
 
   data(){
     return {
-      allFranchises: this.$store.getters.getFranchises,
+      allOwningFranchises: this.$store.getters.getFranchises,
+      allForSalesFranchises: this.$store.getters.getOtherStudiosFranchises,
+      lastIndex: null,
+      selectedSortByWhat: null,
+      selectedTypeOfSort: 'Ascending',
     }
   },
 
   methods: {
-    getFranchiseInfo(franchise){
+    getFranchiseInfo(franchise,index){
+      document.getElementById('franchiseItem'+index).style.backgroundColor = 'var(--fsm-pink-1)';
+      document.getElementById('franchiseListElementName'+index).style.color = 'var(--fsm-dark-blue-4)';
+      if(this.lastIndex !== null){
+        document.getElementById('franchiseItem'+this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
+        document.getElementById('franchiseListElementName'+this.lastIndex).style.color = 'unset';
+      }
+      this.lastIndex = index;
+
       this.$emit('sendFranchise',franchise);
+    },
+
+    setSelectedSortByWhatForSalesFranchises(arg){
+      this.selectedSortByWhat = arg;
+      this.sortFranchiseList(this.allForSalesFranchises);
+    },
+
+    setSelectedTypeOfSortForSalesFranchises(arg){
+      this.selectedTypeOfSort = arg;
+      this.sortFranchiseList(this.allForSalesFranchises);
+    },
+
+    setSelectedSortByWhatOwningFranchises(arg){
+      this.selectedSortByWhat = arg;
+      this.sortFranchiseList(this.allOwningFranchises);
+    },
+
+    setSelectedTypeOfSortOwningFranchises(arg){
+      this.selectedTypeOfSort = arg;
+      this.sortFranchiseList(this.allOwningFranchises);
+    },
+
+    sortFranchiseList(array){
+      if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
+        array.sort(function (a, b) {
+          let franchiseAPopularity = 0;
+          let franchiseBPopularity = 0;
+          for (let i = 0; i < a.allMovies.length; i++) {
+            franchiseAPopularity += a.allMovies[i].popularity;
+          }
+          for (let i = 0; i < b.allMovies.length; i++) {
+            franchiseBPopularity += b.allMovies[i].popularity;
+          }
+          return (franchiseAPopularity / a.allMovies.length) - (franchiseBPopularity / b.allMovies.length)
+        })
+      } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending') {
+        array.sort(function (a, b) {
+          let franchiseAPopularity = 0;
+          let franchiseBPopularity = 0;
+          for (let i = 0; i < a.allMovies.length; i++) {
+            franchiseAPopularity += a.allMovies[i].popularity;
+          }
+          for (let i = 0; i < b.allMovies.length; i++) {
+            franchiseBPopularity += b.allMovies[i].popularity;
+          }
+          return (franchiseBPopularity / b.allMovies.length) - (franchiseAPopularity / a.allMovies.length)
+        })
+      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+        array.sort((a, b) => a.name.localeCompare(b.name))
+      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+        array.sort((a, b) => b.name.localeCompare(a.name))
+      }
+    },
+
+    roundSalary(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
   }
 }
 </script>
 
 <style scoped>
+#franchisesListMainDiv {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 15px;
+  width: 350px;
+}
 
+.franchiseListScroll {
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.franchiseListSortDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.franchiseListElement {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+  padding: 10px 0 10px 15px;
+}
+
+#franchisesListNavigation{
+  margin: 15px;
+}
+
+.franchiseList {
+  width: 100%;
+}
 </style>

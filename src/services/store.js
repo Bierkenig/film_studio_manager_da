@@ -166,6 +166,7 @@ export default createStore({
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
         currentFranchise: null,
+        otherStudiosFranchises: [],
         otherStudios: [],
         financialHistory: [
             {title: "financialHistory.event1", desc: "financialHistory.desc1", iconPath: ""},
@@ -432,6 +433,20 @@ export default createStore({
             })
             return nextId + 1;
         },
+
+        getOtherStudiosFranchises(state){
+            return state.otherStudiosFranchises;
+        },
+
+        getNextOtherStudiosFranchiseId(state){
+            let nextId = 0;
+            state.otherStudiosFranchises.forEach(franchise => {
+                if (franchise.getId() > nextId) {
+                    nextId = franchise.getId();
+                }
+            })
+            return nextId + 1;
+        },
     },
 
     /** Methods that change the application state synchronously */
@@ -683,6 +698,19 @@ export default createStore({
 
         addStreamingServicesFromOtherStudios(state, service){
             state.streamingServicesFromOtherStudios.push(service)
+        },
+
+        addOtherStudiosFranchise(state, franchise){
+            state.otherStudiosFranchises.push(franchise)
+        },
+
+        //payload -> [0] -> bought franchise, [1] -> price of franchise
+        buyOtherStudiosFranchise(state, payload){
+          let otherStudio = state.otherStudios.filter(st => st === payload[0].owner);
+          payload[0].owner = state.studio;
+          state.studio.budget = state.studio.budget - payload[1];
+          otherStudio.budget = otherStudio.budget + payload[1];
+          console.log(state.otherStudios)
         },
 
         stateToSave(state, reducedState){

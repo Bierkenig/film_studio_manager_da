@@ -6,7 +6,7 @@
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
       <div class="writerListScroll verticalScroll">
-        <div v-for="(item, index) in writers" :id="'item' + index" :key="index" class="writerListElement" @click="getWriterInfo(index, item)">
+        <div v-for="(item, index) in writers" :id="'writerItem' + index" :key="index" class="writerListElement" @click="getWriterInfo(index, item)">
           <div class="writerListElementTitle" :id="'writerListElementTitle' + index">
             {{ item._first_name }} {{ item._last_name }}
           </div>
@@ -68,10 +68,10 @@ export default {
     },
 
     getWriterInfo(index, writer){
-      document.getElementById('item'+index).style.backgroundColor = 'var(--fsm-pink-1)';
+      document.getElementById('writerItem'+index).style.backgroundColor = 'var(--fsm-pink-1)';
       document.getElementById('writerListElementTitle'+index).style.color = 'var(--fsm-dark-blue-4)';
       if(this.lastIndex !== null){
-        document.getElementById('item'+this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
+        document.getElementById('writerItem'+this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
         document.getElementById('writerListElementTitle'+this.lastIndex).style.color = 'unset';
       }
       this.lastIndex = index;
@@ -99,27 +99,6 @@ export default {
 </script>
 
 <style scoped>
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-button {
-  height: 1.5em;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #1C222F;
-  border-radius: 20px 20px 20px 20px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgb(226,226,226);
-  border-radius: 20px 20px 20px 20px;
-}
-
 #writerList {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
