@@ -26,15 +26,12 @@
 
       <select
           id="contract"
-          onfocus="this.size=5;"
-          onblur="this.size=1;"
-          onchange="this.size=1; this.blur();"
           v-model="selectedContract"
       >
         <option :value="null" disabled selected hidden>{{ $t('contract') }}</option>
+        <option :value="1">1 {{ $t('newsData.year') }}</option>
         <option :value="3">3 {{ $t('years') }}</option>
         <option :value="5">5 {{ $t('years') }}</option>
-        <option :value="10">10 {{ $t('years') }}</option>
       </select>
 
       <router-link :to="{name: 'streaming'}">
