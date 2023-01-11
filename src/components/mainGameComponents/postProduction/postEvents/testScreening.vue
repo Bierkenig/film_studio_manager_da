@@ -4,48 +4,53 @@
       <div class="modal-container">
         <div class="modal-body">
           <slot name="body">
-            <h3 v-if="!feedbacks">{{$t('postProductionEvents.testScreening.title')}}</h3>
-            <h3 v-else>{{$t('postProductionEvents.testScreening.result')}}</h3>
+            <h3 v-if="!feedbacks">{{ $t('postProductionEvents.testScreening.title') }}</h3>
+            <h3 v-else>{{ $t('postProductionEvents.testScreening.result') }}</h3>
 
-            <button v-if="!feedbacks" class="modal-default-button" @click="buildFeedbacks">{{$t('postProductionEvents.testScreening.run')}}</button>
+            <button v-if="!feedbacks" class="modal-default-button" @click="buildFeedbacks">
+              {{ $t('postProductionEvents.testScreening.run') }}
+            </button>
             <div v-if="feedbacks">
               <div class="feedback">
                 <info-circle text="+" size="30px" alternative-style/>
 
-                {{$t('postProductionEvents.testScreening.editingTitle')}}
+                {{ $t('postProductionEvents.testScreening.editingTitle') }}
 
-                {{editingFeedback}}
+                {{ editingFeedback }}
               </div>
 
 
               <div class="feedback">
                 <info-circle text="+" size="30px" alternative-style/>
-                {{$t('postProductionEvents.testScreening.soundTitle')}}
+                {{ $t('postProductionEvents.testScreening.soundTitle') }}
 
-                {{soundFeedback}}
+                {{ soundFeedback }}
               </div>
               <div class="feedback">
                 <info-circle text="+" size="30px" alternative-style/>
-                {{$t('postProductionEvents.testScreening.vfxTitle')}}
+                {{ $t('postProductionEvents.testScreening.vfxTitle') }}
 
-                {{vfxFeedback}}
+                {{ vfxFeedback }}
               </div>
               <div class="feedback">
                 <info-circle text="+" size="30px" alternative-style/>
 
-                {{$t('postProductionEvents.testScreening.actingTitle')}}
+                {{ $t('postProductionEvents.testScreening.actingTitle') }}
 
-                {{actingFeedback}}
+                {{ actingFeedback }}
               </div>
 
               <div class="feedback">
                 <info-circle text="-" size="30px" alternative-style/>
-                {{$t('postProductionEvents.testScreening.storyTitle')}}
+                {{ $t('postProductionEvents.testScreening.storyTitle') }}
 
-                {{storyFeedback}}
+                {{ storyFeedback }}
               </div>
               <router-link to="/">
                 <button>Back</button>
+              </router-link>
+              <router-link :to = "{name: 'testScreeningOptions'}">
+                <button>Continue</button>
               </router-link>
             </div>
           </slot>
@@ -58,15 +63,19 @@
 <script>
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import {i18next} from '@/translation/i18n'
+
 export default {
   name: "reeditingDirector",
   components: {InfoCircle},
   data() {
+    let _featureList = this.$store.state.feature
+    let _indieList = this.$store.state.indie
+    let _animatedList = this.$store.state.animation
     return {
       feedbacks: false,
 
-      goodFeedback: ["good.feed1","good.feed2","good.feed3","good.feed4", "good.feed5"],
-      badFeedback: ["bad.feed1","bad.feed2","bad.feed3","bad.feed4", "bad.feed5"],
+      goodFeedback: ["good.feed1", "good.feed2", "good.feed3", "good.feed4", "good.feed5"],
+      badFeedback: ["bad.feed1", "bad.feed2", "bad.feed3", "bad.feed4", "bad.feed5"],
 
       featureList: this.$store.state.feature,
       indieList: this.$store.state.indie,
@@ -87,310 +96,340 @@ export default {
       screenplayRating: this.$store.state.currentMovie?._preProduction.screenplay.rating,
       screenplayType: this.$store.state.currentMovie?._preProduction.screenplay.type,
 
-      editingFeatureMin: parseInt(this.splitRange(this.featureList[4])[0]),
-      editingFeatureMax: parseInt(this.splitRange(this.featureList[4])[1]),
+      editingFeatureMin: parseInt(this.splitRange(_featureList[4])[0]),
+      editingFeatureMax: parseInt(this.splitRange(_featureList[4])[1]),
       editingFeatureRange: this.editingFeatureMax - this.editingFeatureMin,
 
-      editingIndieMin: parseInt(this.splitRange(this.indieList[4])[0]),
-      editingIndieMax: parseInt(this.splitRange(this.indieList[4])[1]),
+      editingIndieMin: parseInt(this.splitRange(_indieList[4])[0]),
+      editingIndieMax: parseInt(this.splitRange(_indieList[4])[1]),
       editingIndieRange: this.editingIndieMax - this.editingIndieMin,
 
-      editingAnimationMin: parseInt(this.splitRange(this.animatedList[4])[0]),
-      editingAnimationMax: parseInt(this.splitRange(this.animatedList[4])[1]),
+      editingAnimationMin: parseInt(this.splitRange(_animatedList[4])[0]),
+      editingAnimationMax: parseInt(this.splitRange(_animatedList[4])[1]),
       editingAnimationRange: this.editingAnimationMax - this.editingAnimationMin,
 
-      soundFeatureMin: parseInt(this.splitRange(this.featureList[3])[0]),
-      soundFeatureMax: parseInt(this.splitRange(this.featureList[3])[1]),
+      soundFeatureMin: parseInt(this.splitRange(_featureList[3])[0]),
+      soundFeatureMax: parseInt(this.splitRange(_featureList[3])[1]),
       soundFeatureRange: this.soundFeatureMax - this.soundFeatureMin,
 
-      soundIndieMin: parseInt(this.splitRange(this.indieList[3])[0]),
-      soundIndieMax: parseInt(this.splitRange(this.indieList[3])[1]),
+      soundIndieMin: parseInt(this.splitRange(_indieList[3])[0]),
+      soundIndieMax: parseInt(this.splitRange(_indieList[3])[1]),
       soundIndieRange: this.soundIndieMax - this.soundIndieMin,
 
-      soundAnimationMin: parseInt(this.splitRange(this.animatedList[3])[0]),
-      soundAnimationMax: parseInt(this.splitRange(this.animatedList[3])[1]),
+      soundAnimationMin: parseInt(this.splitRange(_animatedList[3])[0]),
+      soundAnimationMax: parseInt(this.splitRange(_animatedList[3])[1]),
       soundAnimationRange: this.soundAnimationMax - this.soundAnimationMin,
 
-      scoreFeatureMin: parseInt(this.splitRange(this.featureList[3])[0]),
-      scoreFeatureMax: parseInt(this.splitRange(this.featureList[3])[1]),
+      scoreFeatureMin: parseInt(this.splitRange(_featureList[3])[0]),
+      scoreFeatureMax: parseInt(this.splitRange(_featureList[3])[1]),
       scoreFeatureRange: this.scoreFeatureMax - this.scoreFeatureMin,
 
-      scoreIndieMin: parseInt(this.splitRange(this.indieList[3])[0]),
-      scoreIndieMax: parseInt(this.splitRange(this.indieList[3])[1]),
+      scoreIndieMin: parseInt(this.splitRange(_indieList[3])[0]),
+      scoreIndieMax: parseInt(this.splitRange(_indieList[3])[1]),
       scoreIndieRange: this.scoreIndieMax - this.scoreIndieMin,
 
-      scoreAnimationMin: parseInt(this.splitRange(this.animatedList[3])[0]),
-      scoreAnimationMax: parseInt(this.splitRange(this.animatedList[3])[1]),
+      scoreAnimationMin: parseInt(this.splitRange(_animatedList[3])[0]),
+      scoreAnimationMax: parseInt(this.splitRange(_animatedList[3])[1]),
       scoreAnimationRange: this.scoreAnimationMax - this.scoreAnimationMin,
 
-      screenplayScope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
+      screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
 
-  }
+    }
   },
 
   methods: {
     buildFeedbacks() {
       this.feedbacks = true;
 
-      if(this.screenplayType === "Feature"){
-        switch (this.screenplayScope){
+      if (this.screenplayType === "Feature") {
+        switch (this.screenplayScope) {
           case "Little":
-            this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            this.$store.state.type.editing = false
+            this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             break
 
           case "Small":
-            if(this.editingBudget >= this.editingFeatureRange/5){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= this.editingFeatureRange / 5) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Normal":
-            if(this.editingBudget >= (this.editingFeatureRange/5)*2){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingFeatureRange / 5) * 2) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Large":
-            if(this.editingBudget >= (this.editingFeatureRange/5)*3){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingFeatureRange / 5) * 3) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Epic":
-            if(this.editingBudget >= (this.editingFeatureRange/5)*4){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingFeatureRange / 5) * 4) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
         }
 
       }
-      if(this.screenplayType === "Indie"){
-        switch (this.screenplayScope){
+      if (this.screenplayType === "Indie") {
+        switch (this.screenplayScope) {
           case "Little":
-            this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            this.$store.state.type.editing = false
+            this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             break
 
           case "Small":
-            if(this.editingBudget >= this.editingIndieRange/5){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= this.editingIndieRange / 5) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Normal":
-            if(this.editingBudget >= (this.editingIndieRange/5)*2){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingIndieRange / 5) * 2) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Large":
-            if(this.editingBudget >= (this.editingIndieRange/5)*3){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingIndieRange / 5) * 3) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Epic":
-            if(this.editingBudget >= (this.editingIndieRange/5)*4){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingIndieRange / 5) * 4) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
         }
 
       }
-      if(this.screenplayType === "Animation"){
-        switch (this.screenplayScope){
+      if (this.screenplayType === "Animation") {
+        switch (this.screenplayScope) {
           case "Little":
-            this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            this.$store.state.type.editing = false
+            this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             break
 
           case "Small":
-            if(this.editingBudget >= this.editingAnimationRange/5){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= this.editingAnimationRange / 5) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Normal":
-            if(this.editingBudget >= (this.editingAnimationRange/5)*2){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingAnimationRange / 5) * 2) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Large":
-            if(this.editingBudget >= (this.editingAnimationRange/5)*3){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingAnimationRange / 5) * 3) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Epic":
-            if(this.editingBudget >= (this.editingAnimationRange/5)*4){
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.editingFeedback =  i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.editingBudget >= (this.editingAnimationRange / 5) * 4) {
+              this.$store.state.type.editing = false
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.editing = true
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
         }
 
       }
 
-      if(this.screenplayType === "Feature"){
-        switch (this.screenplayScope){
+      if (this.screenplayType === "Feature") {
+        switch (this.screenplayScope) {
           case "Little":
-            this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            this.$store.state.type.sound = false
+            this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             break
           case "Small":
-            if(this.soundBudget >= this.soundFeatureRange/5 && this.scoreBudget >= this.scoreFeatureRange/5){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= this.soundFeatureRange / 5 && this.scoreBudget >= this.scoreFeatureRange / 5) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Normal":
-            if(this.soundBudget >= (this.soundFeatureRange/5)*2 && this.scoreBudget >= (this.scoreFeatureRange/5)*2){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundFeatureRange / 5) * 2 && this.scoreBudget >= (this.scoreFeatureRange / 5) * 2) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Large":
-            if(this.soundBudget >= (this.soundFeatureRange/5)*3 && this.scoreBudget >= (this.scoreFeatureRange/5)*3){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundFeatureRange / 5) * 3 && this.scoreBudget >= (this.scoreFeatureRange / 5) * 3) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Epic":
-            if(this.soundBudget >= (this.soundFeatureRange/5)*4 && this.scoreBudget >= (this.scoreFeatureRange/5)*4){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundFeatureRange / 5) * 4 && this.scoreBudget >= (this.scoreFeatureRange / 5) * 4) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
         }
 
       }
-      if(this.screenplayType === "Indie"){
-        switch (this.screenplayScope){
+      if (this.screenplayType === "Indie") {
+        switch (this.screenplayScope) {
           case "Little":
-            this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            this.$store.state.type.sound = false
+            this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             break
 
           case "Small":
-            if(this.soundBudget >= this.soundFeatureRange/5 && this.scoreBudget >= this.scoreFeatureRange/5){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= this.soundFeatureRange / 5 && this.scoreBudget >= this.scoreFeatureRange / 5) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Normal":
-            if(this.soundBudget >= (this.soundFeatureRange/5)*2 && this.scoreBudget >= (this.scoreFeatureRange/5)*2){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundFeatureRange / 5) * 2 && this.scoreBudget >= (this.scoreFeatureRange / 5) * 2) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Large":
-            if(this.soundBudget >= (this.soundFeatureRange/5)*3 && this.scoreBudget >= (this.scoreFeatureRange/5)*3){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundFeatureRange / 5) * 3 && this.scoreBudget >= (this.scoreFeatureRange / 5) * 3) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Epic":
-            if(this.soundBudget >= (this.soundFeatureRange/5)*4 && this.scoreBudget >= (this.scoreFeatureRange/5)*4){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundFeatureRange / 5) * 4 && this.scoreBudget >= (this.scoreFeatureRange / 5) * 4) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
         }
 
       }
-      if(this.screenplayType === "Animation"){
-        switch (this.screenplayScope){
+      if (this.screenplayType === "Animation") {
+        switch (this.screenplayScope) {
           case "Little":
-            this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            this.$store.state.type.sound = false
+            this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             break
 
           case "Small":
-            if(this.soundBudget >= this.soundAnimationRange/5 && this.scoreBudget >= this.scoreAnimationRange/5){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= this.soundAnimationRange / 5 && this.scoreBudget >= this.scoreAnimationRange / 5) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Normal":
-            if(this.soundBudget >= (this.soundAnimationRange/5)*2 && this.scoreBudget >= (this.scoreAnimationRange/5)*2){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundAnimationRange / 5) * 2 && this.scoreBudget >= (this.scoreAnimationRange / 5) * 2) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Large":
-            if(this.soundBudget >= (this.soundAnimationRange/5)*3 && this.scoreBudget >= (this.scoreAnimationRange/5)*3){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundAnimationRange / 5) * 3 && this.scoreBudget >= (this.scoreAnimationRange / 5) * 3) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
 
           case "Epic":
-            if(this.soundBudget >= (this.soundAnimationRange/5)*4 && this.scoreBudget >= (this.scoreAnimationRange/5)*4){
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-            }
-            else {
-              this.soundFeedback =  i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+            if (this.soundBudget >= (this.soundAnimationRange / 5) * 4 && this.scoreBudget >= (this.scoreAnimationRange / 5) * 4) {
+              this.$store.state.type.sound = false
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            } else {
+              this.$store.state.type.sound = true
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             }
             break
         }
@@ -398,20 +437,22 @@ export default {
       }
 
       //TODO scopes für vfx noch nicht definiert, daher immer positives Feedback
-      this.vfxFeedback =  i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+      this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
 
-      if(this.crewMorale > 3 && this.dirMorale > 3) {
+      if (this.crewMorale > 3 && this.dirMorale > 3) {
+        this.$store.state.type.acting = false
         this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
-      }
-      else if(this.crewMorale < 4 && this.dirMorale < 4){
+      } else if (this.crewMorale < 4 && this.dirMorale < 4) {
+        this.$store.state.type.acting = true
         this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
       }
 
-      if(this.screenplayRating >= 75 && this.crewMorale > 3 && this.dirMorale > 3){
-        this.storyFeedback =  i18next.t("postProductionEvents.testScreening.story." + this.goodFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
-      }
-      else if(this.screenplayRating < 75 && this.crewMorale < 4 && this.dirMorale < 4) {
-        this.storyFeedback =  i18next.t("postProductionEvents.testScreening.story." + this.badFeedback[Math.floor(Math.random()*this.goodFeedback.length)])
+      if (this.screenplayRating >= 75 && this.crewMorale > 3 && this.dirMorale > 3) {
+        this.$store.state.type.story = false
+        this.storyFeedback = i18next.t("postProductionEvents.testScreening.story." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+      } else if (this.screenplayRating < 75 && this.crewMorale < 4 && this.dirMorale < 4) {
+        this.$store.state.type.story = true
+        this.storyFeedback = i18next.t("postProductionEvents.testScreening.story." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
 
       }
     },
@@ -421,7 +462,7 @@ export default {
       return str.split('-')
     },
 
-}
+  }
 }
 </script>
 
@@ -466,7 +507,8 @@ export default {
 .modal-default-button {
   float: right;
 }
-.feedback{
+
+.feedback {
   display: flex;
   flex-direction: row;
 }

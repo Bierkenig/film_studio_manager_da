@@ -189,17 +189,17 @@ export default createStore({
 
         type:{
             editing: true,
-            sound: null,
-            vfx: null,
-            acting: null,
-            story: null
+            sound: true,
+            vfx: true,
+            acting: true,
+            story: true
         },
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,new Studio('AS'),new Date("January 25, 2023")),
             new StreamingService('TUV Studio',1,0,0,10,new Studio('TU'),new Date("January 24, 2023")),
             new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
         ownStreamingService: null,
-        //movies which you are owning (created, bought rights, bought movies)
+        //movies you own (created, bought rights, bought movies)
         allOwningMovies: [],
         //movies from other studios (no rights have been bought yet, non-owning movies)
         moviesFromOtherStudios: [],

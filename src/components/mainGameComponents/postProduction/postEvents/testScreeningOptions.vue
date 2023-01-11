@@ -20,7 +20,7 @@
     <br>
     Benefit: Lorem Ipsum
     <br>
-    <button @click="choseOptionB()">Choose</button>
+    <button @click="choseOptionB('editing')">Choose</button>
       <button class="buttonStyle" @click="continueToResult">Continue</button>
   </div>
 </div>
@@ -45,7 +45,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB()">Choose</button>
+      <button @click="choseOptionB('sound')">Choose</button>
     </div>
 </div>
   <div v-if="typeVFX === true">
@@ -69,7 +69,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB()">Choose</button>
+      <button @click="choseOptionB('vfx')">Choose</button>
     </div>
   </div>
   <div v-if="typeActing === true">
@@ -93,7 +93,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB()">Choose</button>
+      <button @click="choseOptionB('acting')">Choose</button>
     </div>
   </div>
   <div v-if="typeStory === true">
@@ -117,7 +117,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB()">Choose</button>
+      <button @click="choseOptionB('story')">Choose</button>
 
     </div>
   </div>
