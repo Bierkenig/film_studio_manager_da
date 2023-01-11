@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="franchisesDetailsMainDiv">
     <div v-if="franchiseMovies.length !== 0">
       <div v-for="(it,index) in franchiseMovies" :key="index">
         {{ it._preProduction.screenplay.title }}
@@ -36,5 +36,9 @@ export default {
 </script>
 
 <style scoped>
-
+#franchisesDetailsMainDiv {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 5px;
+}
 </style>

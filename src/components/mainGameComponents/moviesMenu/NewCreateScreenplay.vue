@@ -29,7 +29,7 @@
                   <label id="createScreenplayDescriptionLabel" for="createScreenplayDescription">{{ $t('description') }}</label>
                   <input id="createScreenplayDescription" v-model="desc" type="text" :placeholder="$t('screenplay') + ' ' + $t('description')" />
                 </div>
-                <div id="radioBox">
+                <div id="typeBox">
                   <div id="typeHint">
                     Type
                   </div>
@@ -44,8 +44,8 @@
             </h2>
             <div class="createScreenplayBox">
               <div class="createScreenplayBoxInnerElement">
-                <div id="radioBox">
-                  <div id="typeHint">
+                <div id="genreBox">
+                  <div id="genreHint">
                     Genre
                   </div>
                   <div id="createScreenplayGenreSelect">
@@ -106,8 +106,8 @@
                     </select>
                   </div>
                 </div>
-                <div id="radioBox">
-                  <div id="typeHint">
+                <div id="topicsBox">
+                  <div id="topicsHint">
                     {{ $t('topics') }}
                   </div>
                   <div id="createScreenplayTopicsSelect">

@@ -71,14 +71,14 @@ export default {
     if(this.$store.getters.getOwnStreamingService !== null){
       this.showBuyModal = false;
     }
-    //TODO: auf 10 Milliarden ändern
+    //TODO: auf 2 500 000 000 ändern
     this.checkBalance = (this.$store.getters.getBalance - 10000000) < 0;
   },
 
   methods: {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,1000000,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
-      //TODO: auf 10 Milliarden ändern
+      //TODO: auf 2 500 000 000 ändern
       this.$store.commit('subtractBalance', 10000000)
     }
   }

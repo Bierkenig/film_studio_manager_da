@@ -115,24 +115,4 @@ export default {
 .earningNavigation {
   margin: 15px
 }
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-button {
-  height: 1.5em;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: #1C222F;
-  border-radius: 20px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 20px;
-}
 </style>

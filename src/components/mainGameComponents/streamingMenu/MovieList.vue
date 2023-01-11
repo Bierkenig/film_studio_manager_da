@@ -3,9 +3,6 @@
     <div v-if="movieData.length !== 0">
       <select
           id="sortByWhatMovies"
-          onfocus="this.size=5;"
-          onblur="this.size=1;"
-          onchange="this.size=1; this.blur();"
           v-model="selectedSortByWhat"
       >
         <option :value="null" disabled selected hidden>{{ $t('sortBy') }}</option>
@@ -16,9 +13,6 @@
       </select>
       <select
           id="typeOfSortMovies"
-          onfocus="this.size=5;"
-          onblur="this.size=1;"
-          onchange="this.size=1; this.blur();"
           v-model="selectedTypeOfSort"
       >
         <option value="Ascending">{{ $t('ascending') }}</option>

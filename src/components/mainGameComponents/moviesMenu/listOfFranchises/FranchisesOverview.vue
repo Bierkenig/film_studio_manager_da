@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="franchiseOverviewMainDiv">
     <h1 id="franchisesListHeader">List of Franchises</h1>
     <icon-button
         id="franchisesListBackButton"
@@ -10,10 +10,8 @@
         :icon-gradient="false"
         :shadow="false"
         @click="goBack"/>
-    <div>
-      <franchises-list @sendWriter="receiveFranchise"/>
-      <franchises-details :franchise="clickedFranchise"/>
-    </div>
+    <franchises-list @sendFranchise="receiveFranchise"/>
+    <franchises-details :franchise="clickedFranchise"/>
   </div>
 </template>
 
@@ -45,6 +43,15 @@ export default {
 </script>
 
 <style scoped>
+#franchiseOverviewMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  gap: 15px;
+}
+
 #franchisesListHeader {
   position: absolute;
   top: 15px;

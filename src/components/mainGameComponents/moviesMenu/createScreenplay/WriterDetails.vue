@@ -135,10 +135,11 @@
       </div>
 
       <custom-button
+          id="writerContinue"
           class="writerDetailsHireButton"
           :dark="false"
           size="medium"
-          :disabled="writerDecision === false || writerDecision === null"
+          :disabled="writerDecision === null && writerDecision !== true"
           @clicked="hireWriter">{{ $t('continue') }}</custom-button>
     </div>
   </div>
@@ -195,9 +196,6 @@ export default {
   },
 
   mounted() {
-    if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
-      this.writerDecision = true;
-    }
    this.copiedPrice = this.$store.getters.getCurrentScreenplay.price;
    this.oldWriter = this.$store.getters.getCurrentScreenplay.writer;
 

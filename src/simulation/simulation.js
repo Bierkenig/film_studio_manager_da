@@ -79,22 +79,21 @@ function streamingService() {
         if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
             //get subscriber number
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
+            //substract maintainment costs from balance
+            store.commit('subtractBalance', serviceMaintainmentCosts);
 
             //calculate revenue for subscribers
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
+            //add revenue to balance
+            store.commit('addBalance', revenue);
 
-            //substract maintainment costs from revenue
-            let sum = revenue - serviceMaintainmentCosts;
-            //substract final revenue / costs from studio budget
-            store.commit('addBalance', sum);
-
-            if (sum < 0) {
+            /*if (sum < 0) {
                 console.log(sum + '$ abgezogen!');
             } else if (sum > 0) {
                 console.log(sum + '$ erhalten!');
             } else {
                 console.log('0$');
-            }
+            }*/
 
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(

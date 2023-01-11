@@ -120,13 +120,12 @@ export default {
   },
   methods: {
     changePrice(up) {
-      if (up && this.price + this.priceStep < 100.5) {
+      if (up && this.price + this.priceStep < 50.5) {
         this.price += this.priceStep;
       } else if (!up && this.price - this.priceStep > 0.5) {
         this.price -= this.priceStep;
       }
       this.$store.getters.getOwnStreamingService._price = this.price;
-      console.log(this.$store.getters.getOwnStreamingService)
     },
   },
 }
