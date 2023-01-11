@@ -21,9 +21,7 @@
     Benefit: Lorem Ipsum
     <br>
     <button @click="choseOptionB()">Choose</button>
-    <router-link :to="{ name: 'testScreeningResults', params: { addedWeeks: this.test, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), flags: (booleanEditingOption) + (booleanSoundOption * 3) + (booleanVFXOption * 9) + (booleanActingOption * 27) + (booleanStoryOption * 81)}}">
-      <button class="buttonStyle">Continue</button>
-    </router-link>
+      <button class="buttonStyle" @click="continueToResult">Continue</button>
   </div>
 </div>
   <div v-if="typeSound === true">
@@ -142,14 +140,21 @@ export default {
 
       dirRating: this.$store.state.currentMovie?._preProduction.hiredDirector.rating,
       screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
+
+      percentageSingleBudget: 20,
+      percentageWholeBudget: 10,
       addedWeeks: 0,
-      wholeBudgetIncrease: {
+      actingBudgetIncrease: {
+        value: 0,
+        percentage: 0,
+      },
+      storyBudgetIncrease: {
         value: 0,
         percentage: 0,
       },
       editingBudgetIncrease: {
         value: 20000,
-        percentage: 10,
+        percentage: 20,
       },
       soundBudgetIncrease: {
         value: 0,
@@ -164,11 +169,11 @@ export default {
       // 1 - Option A selected
       // 2 - Option B selected
       // 0 - No Options (positive Feedback)
-      booleanEditingOption: 1,
+      booleanEditingOption: 0,
       booleanSoundOption: 0,
       booleanVFXOption: 0,
       booleanActingOption: 0,
-      booleanStoryOption: 2,
+      booleanStoryOption: 0,
 
     }
   },
@@ -177,26 +182,27 @@ export default {
     choseOptionA(optionType){
         switch(optionType){
           case 'editing':
-            this.editingBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.editing * 0.1;
-            this.editingBudgetIncrease.precentage = 10;
-            this.$store.getters.getCurrentMovie._preProduction.budget.editing *= 1.1;
+            this.editingBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.editing * (this.percentageSingleBudget/100);
+            this.editingBudgetIncrease.precentage = this.percentageSingleBudget;
+            this.booleanEditingOption = 1
             break
           case 'sound':
-            this.soundBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.sound * 0.1;
-            this.soundBudgetIncrease.precentage = 10;
-            this.$store.getters.getCurrentMovie._preProduction.budget.sound *= 1.1;
+            this.soundBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.sound * (this.percentageSingleBudget/100);
+            this.soundBudgetIncrease.precentage = this.percentageSingleBudget;
+            this.booleanSoundOption = 1
             break
           case 'vfx':
-            this.vfxBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.vfx * 0.1;
-            this.vfxBudgetIncrease.precentage = 10;
-            this.$store.getters.getCurrentMovie._preProduction.budget.vfx *= 1.1;
+            this.vfxBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.vfx * (this.percentageSingleBudget/100);
+            this.vfxBudgetIncrease.precentage = this.percentageSingleBudget;
+            this.booleanVFXOption = 1
             break
           case 'acting':
             //TODO Hype -15%
             // eslint-disable-next-line no-case-declarations
-            this.wholeBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * 0.05;
-            this.wholeBudgetIncrease.percentage += 5;
-            this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.wholeBudgetIncrease.value;
+            this.actingBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.actingBudgetIncrease.percentage += this.percentageWholeBudget;
+            this.booleanActingOption = 1
+            //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.wholeBudgetIncrease.value;
             if(this.screenplayScope === 'Little'){
               this.addedWeeks += 1;
               // this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),1 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
@@ -220,9 +226,10 @@ export default {
             break
           case 'story':
             //TODO Hype -15%
-            this.wholeBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * 0.1;
-            this.wholeBudgetIncrease.percentage += 10;
-            this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.wholeBudgetIncrease.value;
+            this.storyBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.storyBudgetIncrease.percentage += this.percentageWholeBudget;
+            this.booleanStoryOption = 1;
+            //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.storyBudgetIncrease.value;
             if(this.screenplayScope === 'Little'){
               this.addedWeeks += 1;
               // this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),1 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
@@ -247,8 +254,24 @@ export default {
       }
     },
 
-    choseOptionB(){
-      this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+    choseOptionB(type){
+      switch(type){
+        case "editing":
+          this.booleanEditingOption = 2
+          break
+        case "sound":
+          this.booleanSoundOption = 2
+          break
+        case "vfx":
+          this.booleanVFXOption = 2
+          break
+        case "acting":
+          this.booleanActingOption = 2
+          break
+        case "story":
+          this.booleanStoryOption = 2
+          break
+      }
     },
 
     calcDireMorale(trueFalse) {
@@ -259,6 +282,46 @@ export default {
       } else if (this.dirRating <= 50) {
         if (!trueFalse) this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 1
       }
+    },
+
+    continueToResult() {
+      if(this.booleanEditingOption === 1){
+        this.$store.getters.getCurrentMovie._preProduction.budget.editing *= (1 + (this.editingBudgetIncrease.percentage/100));
+      }
+      else if(this.booleanEditingOption === 2){
+        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+      }
+
+      if(this.booleanSoundOption === 1){
+        this.$store.getters.getCurrentMovie._preProduction.budget.sound *= (1 + (this.soundBudgetIncrease.percentage/100));
+      }
+      else if(this.booleanEditingOption === 2){
+        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+      }
+
+      if(this.booleanVFXOption === 1){
+        this.$store.getters.getCurrentMovie._preProduction.budget.vfx *= (1 + (this.vfxBudgetIncrease.percentage/100));
+      }
+      else if(this.booleanEditingOption === 2){
+        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+      }
+
+      if(this.booleanActingOption === 1){
+        this.$store.getters.getCurrentMovie._preProduction.budget.acting *= (1 + (this.actingBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
+      }
+      else if(this.booleanEditingOption === 2){
+        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+      }
+
+      if(this.booleanStoryOption === 1){
+        this.$store.getters.getCurrentMovie._preProduction.budget.story *= (1 + (this.storyBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
+      }
+      else if(this.booleanEditingOption === 2){
+        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+      }
+      this.$router.push({ name: 'testScreeningResults', params: { addedWeeks: this.addedWeeks, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), soundBudgetIncrease: JSON.stringify(this.soundBudgetIncrease), vfxBudgetIncrease: JSON.stringify(this.vfxBudgetIncrease), actingBudgetIncrease: JSON.stringify(this.actingBudgetIncrease), storyBudgetIncrease: JSON.stringify(this.storyBudgetIncrease), flags: (this.booleanEditingOption) + (this.booleanSoundOption * 3) + (this.booleanVFXOption * 9) + (this.booleanActingOption * 27) + (this.booleanStoryOption * 81)}})
     },
 
     addWeeks(date, weeks, startDate) {
