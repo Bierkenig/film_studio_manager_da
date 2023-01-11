@@ -21,7 +21,7 @@
     Benefit: Lorem Ipsum
     <br>
     <button @click="choseOptionB()">Choose</button>
-    <router-link :to="{ name: 'testScreeningResults', params: { addedWeeks: this.test, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease)}}">
+    <router-link :to="{ name: 'testScreeningResults', params: { addedWeeks: this.test, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), flags: (booleanEditingOption) + (booleanSoundOption * 3) + (booleanVFXOption * 9) + (booleanActingOption * 27) + (booleanStoryOption * 81)}}">
       <button class="buttonStyle">Continue</button>
     </router-link>
   </div>
@@ -160,6 +160,16 @@ export default {
         percentage: 0,
       },
       test: 5,
+
+      // 1 - Option A selected
+      // 2 - Option B selected
+      // 0 - No Options (positive Feedback)
+      booleanEditingOption: 1,
+      booleanSoundOption: 0,
+      booleanVFXOption: 0,
+      booleanActingOption: 0,
+      booleanStoryOption: 2,
+
     }
   },
 
