@@ -482,7 +482,7 @@ export default {
   border-radius: var(--fsm-l-border-radius);
   width: 600px;
   height: 650px;
-  padding: 10px 20px 10px 20px;
+  padding: 20px;
 }
 
 /*Back Button Design*/

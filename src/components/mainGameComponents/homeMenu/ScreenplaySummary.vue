@@ -14,7 +14,7 @@
     <div id="screenplaySummaryBackground">
       <div>
         <h2 class="screenplaySummaryHeading">Information</h2>
-        <div id="screenplaySummaryInformationContainer">
+        <div class="screenplaySummaryInformationContainer">
           <div class="screenplaySummaryInfoFlex">
             <div class="screenplaySummaryInfoFlexLeft">
               <div id="screenplaySummaryTitle">{{ screenplayTitle }}</div>
@@ -85,14 +85,14 @@
       </div>
       <div>
         <h2 class="screenplaySummaryHeading">{{ $t('characters') }}</h2>
-        <div id="screenplaySummaryInformationContainer">
+        <div class="screenplaySummaryInformationContainer">
           <div id="screenplaySummaryCharacterContainer" class="verticalScroll">
             <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['main']" :key="index">
               <div class="screenplaySummaryCharacterElementLeft">
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ index + 1 }}
+                {{ $t('character') }} {{ characterIndex[index] }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
                 {{ $t('main') }} {{ $t('role') }}
@@ -103,7 +103,7 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ index + 1 }}
+                {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + index] }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
                 {{ $t('support') }} {{ $t('role') }}
@@ -114,7 +114,7 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ index + 1 }}
+                {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + screenplayRoles['support'].length + index] }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
                 Minor {{ $t('role') }}
@@ -125,21 +125,10 @@
                 {{ it.name }}
               </div>
               <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ index + 1 }}
+                {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + screenplayRoles['support'].length + screenplayRoles['minor'].length + index] }}
               </div>
               <div class="screenplaySummaryCharacterElementRight">
                 Cameo {{ $t('role') }}
-              </div>
-            </div>
-            <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['voiceOver']" :key="index">
-              <div class="screenplaySummaryCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ index + 1 }}
-              </div>
-              <div class="screenplaySummaryCharacterElementRight">
-                {{ $t('voiceOver') }} {{ $t('role') }}
               </div>
             </div>
           </div>
@@ -176,6 +165,7 @@ export default {
       screenplayTopics: [],
       screenplayRoles: this.$store.getters.getCurrentScreenplay.roles,
       screenplayWriter: this.$store.getters.getCurrentScreenplay.writer._first_name + ' ' + this.$store.getters.getCurrentScreenplay.writer._last_name,
+      characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L']
     }
   },
 
@@ -251,7 +241,7 @@ export default {
   font-size: 24px;
 }
 
-#screenplaySummaryInformationContainer {
+.screenplaySummaryInformationContainer {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-l-border-radius);
   padding: 10px 20px 10px 20px;
@@ -362,17 +352,16 @@ export default {
 }
 
 .screenplaySummaryCharacterElementLeft {
-  width: 33%;
+  width: 15%;
   float: left;
 }
 
 .screenplaySummaryCharacterElementCenter {
-  width: 33%;
+  width: 30%;
   text-align: center;
 }
 
 .screenplaySummaryCharacterElementRight {
-  width: 33%;
-  float: right;
+  width: 21%;
 }
 </style>
