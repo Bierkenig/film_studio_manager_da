@@ -102,7 +102,16 @@ export default {
       this.data = this.$store.getters.getCreatedMovies.concat(this.$store.getters.getFinishedMovies)
     } else if(this.headline === 'contentManagement'){
       this.selectedSortByWhat = 'Contract'
-      this.data = this.$store.getters.getAllOwningMovies
+      this.data = this.$store.getters.getBoughtMovieRights.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies);
+
+      let franchises = this.$store.getters.getFranchises;
+      for (let i = 0; i < franchises.length; i++) {
+        for (let j = 0; j < franchises[i].allMovies.length; j++) {
+          if(!this.data.includes(franchises[i].allMovies[j])){
+            this.data.push(franchises[i].allMovies[j])
+          }
+        }
+      }
     }
   },
 

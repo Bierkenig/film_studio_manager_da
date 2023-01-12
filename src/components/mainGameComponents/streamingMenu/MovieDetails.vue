@@ -63,7 +63,7 @@ export default {
     buyRights(){
       let sendMovie = this.movie;
       sendMovie.contract = this.selectedContract;
-      this.$store.commit('addOwningMovie',sendMovie);
+      this.$store.commit('addBoughtMovieRights',sendMovie);
       this.$router.push({name: 'streaming'})
     }
   }

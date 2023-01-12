@@ -28,7 +28,7 @@ export class Movie {
         this._screenplay = this._preProduction.screenplay;
         //TYPE -> Studio Class Object
         this._owner = owner;
-        // null -> no rights bought / 0 -> unlimited rights (created movie)
+        // null -> no rights bought / 0 -> unlimited rights (own created movie, bought movie)
         this._contract = contract;
         //NOT DONE YET
         this._earnings = []
@@ -43,6 +43,8 @@ export class Movie {
         //this._date = date;
         //TYPE -> String
         this._franchiseType = null;
+        //TYPE -> Date (for films in which rights have been acquired)
+        this._boughtRightDate = null;
     }
 
     setProduction() {
@@ -126,6 +128,10 @@ export class Movie {
 
     set status(value) {
         this._status = value;
+    }
+
+    get boughtRightDate() {
+        return this._boughtRightDate;
     }
 
     static fromJSON(jsonObject) {

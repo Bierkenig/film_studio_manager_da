@@ -199,8 +199,13 @@ export default createStore({
             new StreamingService('TUV Studio',1,0,0,10,new Studio('TU'),new Date("January 24, 2023")),
             new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
         ownStreamingService: null,
-        //movies you own (created, bought rights, bought movies)
-        allOwningMovies: [],
+        //movies you bought
+        //TODO: schauen, ob bei save file dabei
+        boughtMovies: [],
+        //bought movie rights
+        //TODO: neu hinzugeben bei save
+        boughtMovieRights: [],
+
         //movies from other studios (no rights have been bought yet, non-owning movies)
         moviesFromOtherStudios: [],
 
@@ -390,8 +395,8 @@ export default createStore({
             return state.currentFranchise;
         },
 
-        getAllOwningMovies(state) {
-            return state.allOwningMovies;
+        getBoughtMovies(state) {
+            return state.boughtMovies;
         },
 
         getMoviesFromOtherStudios(state) {
@@ -447,6 +452,10 @@ export default createStore({
             })
             return nextId + 1;
         },
+
+        getBoughtMovieRights(state){
+            return state.boughtMovieRights;
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -692,8 +701,8 @@ export default createStore({
             state.allPeople = payload;
         },
 
-        addOwningMovie(state, movie){
-            state.allOwningMovies.push(movie);
+        addBoughtMovie(state, movie){
+            state.boughtMovies.push(movie);
         },
 
         addMoviesFromOtherStudios(state, movie){
@@ -717,6 +726,14 @@ export default createStore({
           state.studio.budget = state.studio.budget - payload[1];
           otherStudio.budget = otherStudio.budget + payload[1];
           console.log(state.otherStudios)
+        },
+
+        addBoughtMovieRights(state, movie){
+            state.boughtMovieRights.push(movie);
+        },
+
+        removeBoughtMovieRights(state, movie){
+            state.boughtMovieRights.splice(state.boughtMovieRights.indexOf(movie), 1);
         },
 
         stateToSave(state, reducedState){
@@ -750,7 +767,7 @@ export default createStore({
                 "marketing",
                 "streamingServicesFromOtherStudios",
                 "ownStreamingService",
-                "allOwningMovies",
+                "boughtMovies",
                 "moviesFromOtherStudios",
                 "allDirectorSalary",
             ])
@@ -775,7 +792,7 @@ export default createStore({
                 "financialPerformance",
                 "allYears",
                 "allDirectorSalary",
-                "allOwningMovies",
+                "boughtMovies",
                 "moviesFromOtherStudios",
                 "logo",
                 "calenderEvents"
@@ -806,7 +823,7 @@ export default createStore({
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.happeningEvent = Event.fromJSON(responseData.happeningEvent)
             //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
-            state.allOwningMovies = responseData.allOwningMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
 
 

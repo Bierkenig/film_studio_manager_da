@@ -87,13 +87,43 @@ function streamingService() {
             //add revenue to balance
             store.commit('addBalance', revenue);
 
-            /*if (sum < 0) {
-                console.log(sum + '$ abgezogen!');
-            } else if (sum > 0) {
-                console.log(sum + '$ erhalten!');
-            } else {
-                console.log('0$');
-            }*/
+            //content maintainment costs
+            //get movies from streaming service
+            let streamingServiceMovies = store.getters.getBoughtMovieRights;
+
+            //divide movies into contract length
+            let oneYearMovies = [];
+            let twoYearsMovies = [];
+            let threeYearsMovies = [];
+            let fourYearsMovies = [];
+            let fiveYearsMovies = [];
+
+            streamingServiceMovies.forEach(function(movie){
+                switch (movie.contract){
+                    case 1:
+                        oneYearMovies.push(movie);
+                        break;
+                    case 2:
+                        twoYearsMovies.push(movie);
+                        break;
+                    case 3:
+                        threeYearsMovies.push(movie);
+                        break;
+                    case 4:
+                        fourYearsMovies.push(movie);
+                        break;
+                    case 5:
+                        fiveYearsMovies.push(movie);
+                        break;
+                    default:
+                        break;
+                }
+            })
+
+            /*
+            einzelne Arrays durchgehen, preis von allen movies zusammenrechnen, durch die jeweilige Vertragslänge (außer bei 1) und durch 12 dividieren,
+            gesamtpreis abziehen von budget
+             */
 
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(
@@ -103,6 +133,11 @@ function streamingService() {
         }
     }
 }
+
+/*
+vertragslänge von gekauften Filmrechte überprüfen und gegebenfalls aktualisieren,
+wenn vertragslänge gleich 0, dann wieder aus boughtMovieRights löschen
+ */
 
 function renewPeople() {
     //kill and refresh people
