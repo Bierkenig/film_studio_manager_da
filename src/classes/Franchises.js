@@ -1,11 +1,13 @@
 export default class Franchises {
-    constructor(id, name, owner) {
+    constructor(id, name, owner, date) {
         //TYPE -> Integer
         this.id = id
         //TYPE -> String
         this.name = name
         //TYPE -> Studio
         this.owner = owner;
+        //TYPE -> Date
+        this.foundationDate = date;
         //TYPE -> Array
         this.allMovies = []
     }
@@ -24,6 +26,10 @@ export default class Franchises {
 
     getAllMovies() {
         return this.allMovies
+    }
+
+    getFoundationDate(){
+        return this.foundationDate;
     }
 
     addAllMovies(value){

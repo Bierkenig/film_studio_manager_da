@@ -12,7 +12,7 @@
               </div>
             </div>
             <div class="franchiseListSortDiv">
-              <custom-select :options="['Popularity','Name']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
+              <custom-select :options="['Popularity','Name','Year']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
               <custom-list-sort @sort-changed="setSelectedTypeOfSortOwningFranchises"/>
             </div>
           </div>
@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="franchiseListSortDiv">
-              <custom-select :options="['Popularity','Name']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForSalesFranchises"/>
+              <custom-select :options="['Popularity','Name','Year']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForSalesFranchises"/>
               <custom-list-sort @sort-changed="setSelectedTypeOfSortForSalesFranchises"/>
             </div>
           </div>
@@ -115,6 +115,10 @@ export default {
         array.sort((a, b) => a.name.localeCompare(b.name))
       } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
         array.sort((a, b) => b.name.localeCompare(a.name))
+      } else if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Ascending'){
+        array.sort((a, b) => a.foundationDate - b.foundationDate)
+      } else if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Descending'){
+        array.sort((a, b) => b.foundationDate - a.foundationDate)
       }
     },
 

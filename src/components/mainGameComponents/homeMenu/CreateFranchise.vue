@@ -27,7 +27,7 @@ export default {
 
   methods: {
     saveFranchise(){
-      let newFranchise = new Franchises(this.$store.getters.getNextFranchiseId,this.franchiseTitle, this.$store.getters.getStudio);
+      let newFranchise = new Franchises(this.$store.getters.getNextFranchiseId,this.franchiseTitle, this.$store.getters.getStudio, this.$store.getters.getCurrentDate);
       newFranchise.addAllMovies(this.$store.getters.getCurrentMovie)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.franchise = newFranchise;
       this.$store.commit('addFranchise',newFranchise);

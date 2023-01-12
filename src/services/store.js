@@ -711,7 +711,9 @@ export default createStore({
         //payload -> [0] -> bought franchise, [1] -> price of franchise
         buyOtherStudiosFranchise(state, payload){
           let otherStudio = state.otherStudios.filter(st => st === payload[0].owner);
+          state.otherStudiosFranchises.splice(state.otherStudiosFranchises.indexOf(payload[0]), 1);
           payload[0].owner = state.studio;
+          state.franchises.push(payload[0])
           state.studio.budget = state.studio.budget - payload[1];
           otherStudio.budget = otherStudio.budget + payload[1];
           console.log(state.otherStudios)
