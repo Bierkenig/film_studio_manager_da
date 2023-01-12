@@ -5,8 +5,8 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>{{$t('continueProduction.qst2')}}</div>
-              <button class="modal-default-button" @click="setMovieAgain()">{{$t('continueProduction.continue')}}</button>
+              <div>{{$t('continueProduction.qst')}}</div>
+              <button class="modal-default-button" @click="$emit('close')">{{$t('continueProduction.continue')}}</button>
               <button class="modal-default-button" @click="cancelMovie()">{{$t('continueProduction.cancel')}}</button>
             </slot>
           </div>
@@ -18,17 +18,13 @@
 
 <script>
 export default {
-  name: "pre-production-event",
+  name: "production-event",
 
   methods: {
     cancelMovie() {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
       this.$store.state.currentMovie = null
-      this.$emit('close')
-    },
-
-    setMovieAgain() {
       this.$emit('close')
     }
   }

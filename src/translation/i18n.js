@@ -215,6 +215,7 @@ i18next
                     },
                     continueProduction: {
                         qst: "Do you want to continue with your production with the movie?",
+                        qst2: "Do you want to continue with your Postproduction with the movie?",
                         continue: "Continue",
                         cancel: "Cancel Movie",
                     },

@@ -493,6 +493,10 @@ export default createStore({
             state.createdMovies.push(createdMovie);
         },
 
+        setCurrentMovie(state, payload) {
+            state.currentMovie = payload
+        },
+
         setNewCurrentMovieAndScreenplay(state, screenplay) {
             state.currentMovie = new Movie(screenplay);
         },

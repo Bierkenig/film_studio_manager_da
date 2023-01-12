@@ -28,7 +28,7 @@
       </div>
       <button v-if="sendOfferBool" @click="saveActors()">{{$t('actorSection.add')}}</button><br/>
     </div>
-    <button v-if="actorDecision" @click="finishPreProd()">{{ $t('actorSection.continue') }}</button>
+    <button @click="finishPreProd()">{{ $t('actorSection.continue') }}</button>
   </div>
 </template>
 
@@ -194,6 +194,12 @@ export default {
       console.log(this.$store.getters.getInProductionMovies)
       this.$router.push({name: "home"})
     },
+  },
+
+  mounted() {
+    console.log(this.$store.state.currentMovie)
+    this.$store.state.currentMovie._status = 'Release'
+    this.$store.state.currentMovie.setRelease()
   }
 }
 </script>

@@ -5,30 +5,30 @@ import Earnings from "@/classes/Earnings";
 
 export default class PreProduction {
     constructor() {
-        this.screenplay = null
-        this.hiredDirector = null
+        this.screenplay = new Screenplay(0, 'Benni Test', 'Indie', 'Action', 'Animation', 'G', null, 'Benni is cool', 69, 250000, null)
+        this.hiredDirector = new Person(0, null, 'Benni', 'Franklin', 23, 'male', 'Austria', 'caucasian', 23, 23, 23, 23, 23, 23, 23, 0, true, true, true)
         this.outgoings = 0
         if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
-        this.hype = this.createTotal()
+            this.hype = this.createTotal()
         this.preProductionLength = 0
         this.productionLength = 0
         this.postProductionLength = 0
         this.releaseDate = null
         this.startDate = new Date()
         this.budget = {
-            production: 0,
-            extras: 0,
-            cinematography: 0,
-            sound: 0,
-            editing: 0,
-            score: 0,
-            set: 0,
-            stunts: 0,
-            costume: 0,
-            makeup: 0,
-            vfx: 0,
-            sfx: 0,
+            production: 100,
+            extras: 2903840,
+            cinematography: 90274024,
+            sound: 1,
+            editing: 21098934,
+            score: 892,
+            set: 9872924,
+            stunts: 2,
+            costume: 2,
+            makeup: 9826498247,
+            vfx: 209284098274,
+            sfx: 2864874,
             problemBudget: 0,
             directorSalary: 0,
             actorSalary: 0,

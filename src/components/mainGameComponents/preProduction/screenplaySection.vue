@@ -65,6 +65,7 @@ export default {
 
     this.$store.getters.getCurrentMovie._status = 'Pre Production'
 
+
     let createdScreenplays = this.$store.getters.getScreenplays;
     for (let i = 0; i < createdScreenplays.length; i++) {
       if(createdScreenplays[i].franchise === null){

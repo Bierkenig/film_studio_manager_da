@@ -192,7 +192,6 @@ export default {
     },
 
     calcSum() {
-      console.log(this.$store.state.currentMovie)
       this.$store.state.currentMovie._preProduction.budget.production = parseInt(this.production.value)
       this.$store.state.currentMovie._preProduction.budget.extras = parseInt(this.extras.value)
       this.$store.state.currentMovie._preProduction.budget.cinematography = parseInt(this.cinematography.value)
