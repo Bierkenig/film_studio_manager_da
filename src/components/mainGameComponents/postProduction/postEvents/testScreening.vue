@@ -12,7 +12,8 @@
             </button>
             <div v-if="feedbacks">
               <div class="feedback">
-                <info-circle text="+" size="30px" alternative-style/>
+                <info-circle v-if="!this.$store.state.type.editing" text="+" size="30px" alternative-style/>
+                <info-circle v-else text="-" size="30px" alternative-style/>
 
                 {{ $t('postProductionEvents.testScreening.editingTitle') }}
 
@@ -21,19 +22,26 @@
 
 
               <div class="feedback">
-                <info-circle text="+" size="30px" alternative-style/>
+                <info-circle v-if="!this.$store.state.type.sound" text="+" size="30px" alternative-style/>
+                <info-circle v-else text="-" size="30px" alternative-style/>
+
                 {{ $t('postProductionEvents.testScreening.soundTitle') }}
 
                 {{ soundFeedback }}
               </div>
               <div class="feedback">
-                <info-circle text="+" size="30px" alternative-style/>
+                <info-circle v-if="!this.$store.state.type.vfx" text="+" size="30px" alternative-style/>
+                <info-circle v-else text="-" size="30px" alternative-style/>
+
                 {{ $t('postProductionEvents.testScreening.vfxTitle') }}
 
                 {{ vfxFeedback }}
               </div>
               <div class="feedback">
-                <info-circle text="+" size="30px" alternative-style/>
+
+                <info-circle v-if="!this.$store.state.type.acting" text="+" size="30px" alternative-style/>
+                <info-circle v-else text="-" size="30px" alternative-style/>
+
 
                 {{ $t('postProductionEvents.testScreening.actingTitle') }}
 
@@ -41,7 +49,10 @@
               </div>
 
               <div class="feedback">
-                <info-circle text="-" size="30px" alternative-style/>
+
+                <info-circle v-if="!this.$store.state.type.story" text="+" size="30px" alternative-style/>
+                <info-circle v-else text="-" size="30px" alternative-style/>
+
                 {{ $t('postProductionEvents.testScreening.storyTitle') }}
 
                 {{ storyFeedback }}
@@ -68,9 +79,6 @@ export default {
   name: "reeditingDirector",
   components: {InfoCircle},
   data() {
-    let _featureList = this.$store.state.feature
-    let _indieList = this.$store.state.indie
-    let _animatedList = this.$store.state.animation
     return {
       feedbacks: false,
 
@@ -96,45 +104,63 @@ export default {
       screenplayRating: this.$store.state.currentMovie?._preProduction.screenplay.rating,
       screenplayType: this.$store.state.currentMovie?._preProduction.screenplay.type,
 
-      editingFeatureMin: parseInt(this.splitRange(_featureList[4])[0]),
-      editingFeatureMax: parseInt(this.splitRange(_featureList[4])[1]),
-      editingFeatureRange: this.editingFeatureMax - this.editingFeatureMin,
+      editingFeatureMin: parseInt(this.splitRange(this.$store.state.feature[4])[0]),
+      editingFeatureMax: parseInt(this.splitRange(this.$store.state.feature[4])[1]),
+      editingFeatureRange: 0,
 
-      editingIndieMin: parseInt(this.splitRange(_indieList[4])[0]),
-      editingIndieMax: parseInt(this.splitRange(_indieList[4])[1]),
-      editingIndieRange: this.editingIndieMax - this.editingIndieMin,
+      editingIndieMin: parseInt(this.splitRange(this.$store.state.indie[4])[0]),
+      editingIndieMax: parseInt(this.splitRange(this.$store.state.indie[4])[1]),
+      editingIndieRange: 0,
 
-      editingAnimationMin: parseInt(this.splitRange(_animatedList[4])[0]),
-      editingAnimationMax: parseInt(this.splitRange(_animatedList[4])[1]),
-      editingAnimationRange: this.editingAnimationMax - this.editingAnimationMin,
+      editingAnimationMin: parseInt(this.splitRange(this.$store.state.animation[4])[0]),
+      editingAnimationMax: parseInt(this.splitRange(this.$store.state.animation[4])[1]),
+      editingAnimationRange: 0,
 
-      soundFeatureMin: parseInt(this.splitRange(_featureList[3])[0]),
-      soundFeatureMax: parseInt(this.splitRange(_featureList[3])[1]),
-      soundFeatureRange: this.soundFeatureMax - this.soundFeatureMin,
+      soundFeatureMin: parseInt(this.splitRange(this.$store.state.feature[3])[0]),
+      soundFeatureMax: parseInt(this.splitRange(this.$store.state.feature[3])[1]),
+      soundFeatureRange: 0,
 
-      soundIndieMin: parseInt(this.splitRange(_indieList[3])[0]),
-      soundIndieMax: parseInt(this.splitRange(_indieList[3])[1]),
-      soundIndieRange: this.soundIndieMax - this.soundIndieMin,
+      soundIndieMin: parseInt(this.splitRange(this.$store.state.indie[3])[0]),
+      soundIndieMax: parseInt(this.splitRange(this.$store.state.indie[3])[1]),
+      soundIndieRange: 0,
 
-      soundAnimationMin: parseInt(this.splitRange(_animatedList[3])[0]),
-      soundAnimationMax: parseInt(this.splitRange(_animatedList[3])[1]),
-      soundAnimationRange: this.soundAnimationMax - this.soundAnimationMin,
+      soundAnimationMin: parseInt(this.splitRange(this.$store.state.animation[3])[0]),
+      soundAnimationMax: parseInt(this.splitRange(this.$store.state.animation[3])[1]),
+      soundAnimationRange: 0,
 
-      scoreFeatureMin: parseInt(this.splitRange(_featureList[3])[0]),
-      scoreFeatureMax: parseInt(this.splitRange(_featureList[3])[1]),
-      scoreFeatureRange: this.scoreFeatureMax - this.scoreFeatureMin,
+      scoreFeatureMin: parseInt(this.splitRange(this.$store.state.feature[3])[0]),
+      scoreFeatureMax: parseInt(this.splitRange(this.$store.state.feature[3])[1]),
+      scoreFeatureRange: 0,
 
-      scoreIndieMin: parseInt(this.splitRange(_indieList[3])[0]),
-      scoreIndieMax: parseInt(this.splitRange(_indieList[3])[1]),
-      scoreIndieRange: this.scoreIndieMax - this.scoreIndieMin,
+      scoreIndieMin: parseInt(this.splitRange(this.$store.state.indie[3])[0]),
+      scoreIndieMax: parseInt(this.splitRange(this.$store.state.indie[3])[1]),
+      scoreIndieRange: 0,
 
-      scoreAnimationMin: parseInt(this.splitRange(_animatedList[3])[0]),
-      scoreAnimationMax: parseInt(this.splitRange(_animatedList[3])[1]),
-      scoreAnimationRange: this.scoreAnimationMax - this.scoreAnimationMin,
+      scoreAnimationMin: parseInt(this.splitRange(this.$store.state.animation[3])[0]),
+      scoreAnimationMax: parseInt(this.splitRange(this.$store.state.animation[3])[1]),
+      scoreAnimationRange: 0,
+
 
       screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
+      sfxVfxScope: this.$store.state.currentMovie?._preProduction.screenplay.details.specialEffects,
+
 
     }
+  },
+
+  mounted() {
+    this.editingFeatureRange = this.editingFeatureMax - this.editingFeatureMin;
+    this.editingIndieRange = this.editingIndieMax - this.editingIndieMin;
+    this.editingAnimationRange = this.editingAnimationMax - this.editingAnimationMin;
+
+    this.soundFeatureRange = this.soundFeatureMax - this.soundFeatureMin;
+    this.soundIndieRange = this.soundIndieMax - this.soundIndieMin;
+    this.soundAnimationRange = this.soundAnimationMax - this.soundAnimationMin;
+
+    this.scoreFeatureRange = this.scoreFeatureMax - this.scoreFeatureMin;
+    this.scoreIndieRange = this.scoreIndieMax - this.scoreIndieMin;
+    this.scoreAnimationRange = this.scoreAnimationMax - this.scoreAnimationMin;
+
   },
 
   methods: {
@@ -179,6 +205,7 @@ export default {
             break
 
           case "Epic":
+
             if (this.editingBudget >= (this.editingFeatureRange / 5) * 4) {
               this.$store.state.type.editing = false
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
@@ -438,6 +465,19 @@ export default {
 
       //TODO scopes für vfx noch nicht definiert, daher immer positives Feedback
       this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+
+      switch (this.sfxVfxScope) {
+        case "None":
+          break
+        case "Some":
+          break
+        case "Medium":
+          break
+        case "Lots":
+          break
+        case "Spectacle":
+          break
+      }
 
       if (this.crewMorale > 3 && this.dirMorale > 3) {
         this.$store.state.type.acting = false

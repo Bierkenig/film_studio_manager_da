@@ -38,7 +38,7 @@ export class Screenplay {
         this.acts = {act1: [], act2: [], act3: []};
         //TYPE -> Object
         //TODO change scope
-        this.details = {scope: 'Epic', tone: '', specialEffects: ''};
+        this.details = {scope: 'Epic', tone: '', specialEffects: 'Spectacle'};
         //TYPE -> Object
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         //TYPE -> Integer

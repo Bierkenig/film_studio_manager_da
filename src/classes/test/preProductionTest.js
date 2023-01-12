@@ -3,10 +3,10 @@ import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
 
-export default class PreProduction {
+export default class PreProductionTest {
     constructor() {
         this.screenplay = new Screenplay(0, 'Benni Test', 'Indie', 'Action', 'Animation', 'G', null, 'Benni is cool', 69, 250000, null)
-        this.hiredDirector = new Person(0, null, 'Benni', 'Franklin', 23, 'male', 'Austria', 'caucasian', 23, 23, 23, 23, 23, 23, 23, 0, true, true, true)
+        this.hiredDirector = new Person(0, null, 'Benni', 'Franklin', 23, 'male', 'Austria', 'caucasian', 23, 23, 23, 23, 23, 23, 23, '1.000', true, true, true)
         this.outgoings = 0
         if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
@@ -20,9 +20,9 @@ export default class PreProduction {
             production: 100,
             extras: 2903840,
             cinematography: 90274024,
-            sound: 1,
-            editing: 21098934,
-            score: 892,
+            sound: 10000000,
+            editing: 0,
+            score: 1,
             set: 9872924,
             stunts: 2,
             costume: 2,
@@ -38,7 +38,7 @@ export default class PreProduction {
 
     static fromJSON(jsonObject) {
         //TODO modify
-        let instance = Object.assign(new PreProduction(), jsonObject)
+        let instance = Object.assign(new PreProductionTest(), jsonObject)
         instance.owner = Studio.fromJSON(jsonObject.owner)
         instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
         instance.date = new Date(jsonObject.date)
@@ -114,7 +114,7 @@ export default class PreProduction {
     }
 
     createTechnicalHype() {
-        return (this.hiredDirector._popularity * 75 + this.screenplay.writer._popularity * 25) / 100
+        return (this.hiredDirector._popularity * 75 + 25) / 100
     }
 
     createBudgetHype() {

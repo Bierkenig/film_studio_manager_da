@@ -5,7 +5,8 @@ import {Studio} from "@/classes/Studio";
 import PreProduction from "@/classes/PreProduction";
 import Production from "@/classes/Production";
 import PostProduction from "@/classes/PostProduction";
-import Release from "@/classes/Release";
+import Release from "@/classes/Release"
+import preProductionTest from '@/classes/test/preProductionTest'
 
 export class Movie {
     constructor(owner, contract, popularity = {children: 0, teenager: 0, adult: 0}) {
@@ -14,7 +15,7 @@ export class Movie {
         //TYPE -> String
         this._status = null;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new PreProduction()
+        this._preProduction = new preProductionTest()
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object

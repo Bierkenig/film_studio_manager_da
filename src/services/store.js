@@ -30,7 +30,7 @@ export default createStore({
         studio: null,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
-        currentMovie: null,
+        currentMovie: new Movie(null, null),
         currentProdEventType: "",
         //movies which are still in cinema and generate profit
         createdMovies: [],
@@ -188,11 +188,11 @@ export default createStore({
         },
 
         type:{
-            editing: true,
-            sound: true,
-            vfx: true,
-            acting: true,
-            story: true
+            editing: null,
+            sound: null,
+            vfx: null,
+            acting: null,
+            story: null
         },
 
         streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,new Studio('AS'),new Date("January 25, 2023")),
