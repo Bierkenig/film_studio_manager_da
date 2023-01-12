@@ -66,7 +66,6 @@ export default {
     return {
       screenplayType: this.$store.state.currentMovie._preProduction.screenplay.type,
       screenplayScope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
-      vfxSfxScope: "",
       screenplaySpecial: this.$store.state.currentMovie._preProduction.screenplay.details.specialEffects,
       featureList: this.$store.state.feature,
       indieList: this.$store.state.indie,
@@ -270,7 +269,7 @@ export default {
           break
       }
 
-      switch (this.vfxSfxScope) {
+      switch (this.screenplaySpecial) {
         case "None":
           if (this.between(this.vfx.value, (this.vfx.max - this.vfx.min)*0.01, (this.vfx.max - this.vfx.min) * 0.02)) this.$store.state.currentMovie._preProduction.budgetPop--;
           if (this.between(this.sfx.value, (this.sfx.max - this.sfx.min)*0.01, (this.sfx.max - this.sfx.min) * 0.02)) this.$store.state.currentMovie._preProduction.budgetPop--;
