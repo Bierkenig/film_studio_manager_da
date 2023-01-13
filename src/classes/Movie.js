@@ -9,7 +9,8 @@ import Release from "@/classes/Release"
 import preProductionTest from '@/classes/test/preProductionTest'
 
 export class Movie {
-    constructor(owner, contract, popularity = {children: 0, teenager: 0, adult: 0}) {
+    constructor(owner, contract, genrePopularity = {children: 0, teenager: 0, adult: 0},
+                subgenrePopularity = {children: 0, teenager: 0, adult: 0}, topicPopularity = {firstTopic: null, secondTopic: null, thirdTopic: null}) {
         //TYPE -> String from another Class
         this._title = this._screenplay?.title
         //TYPE -> String
@@ -33,7 +34,14 @@ export class Movie {
         //NOT DONE YET
         this._earnings = []
         //TYPE -> Object with Integer Attr
-        this.popularity = popularity
+        this.genrePopularity = genrePopularity
+        //TYPE -> Object with Integer Attr
+        this.subgenrePopularity = subgenrePopularity
+        //TYPE -> Object with Object Attr
+        // -> Example {firstTopic: {children: 20, teenager: 3, adult: 5},
+        // secondTopic: {children: 20, teenager: 3, adult: 5},
+        // thirdTopic: {children: 20, teenager: 3, adult: 5}}
+        this.topicPopularity = topicPopularity
         //TYPE -> Integer
         this.quality = 100
         //TYPE -> Integer
@@ -45,6 +53,8 @@ export class Movie {
         this._franchiseType = null;
         //TYPE -> Date (for films in which rights have been acquired)
         this._boughtRightDate = null;
+        //TYPE -> Integer (TODO POSTPRODUCTION)
+        if (this._status === 'Release') this.totalOutgoings = this._preProduction.outgoings + this._production.outgoings
     }
 
     setProduction() {
@@ -61,7 +71,8 @@ export class Movie {
 
     setRelease() {
         if (this.status === 'Release' && this._postProduction instanceof PostProduction) {
-            this._release = new Release(this._preProduction.budget.costume)
+            this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
+                this.subgenrePopularity, this.topicPopularity, this.owner)
         }
     }
 
