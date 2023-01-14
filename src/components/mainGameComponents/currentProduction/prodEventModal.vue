@@ -6,6 +6,7 @@
           <div class="modal-body">
             <slot name="body">
               <h3>{{ $t('productionEvents.' + type + '.problem') }}</h3>
+              <div>{{$t('productionEvents.optionA')}}</div>
               <div>{{ $t('productionEvents.' + type + '.optionA') }}</div>
               <ul>
                 <li>{{ $t('productionEvents.' + type + '.consequenceA1') }}</li>
@@ -19,6 +20,7 @@
                           type === 'changes'">{{ $t('productionEvents.' + type + '.consequenceA3') }}
                 </li>
               </ul>
+              <div>{{$t('productionEvents.optionB')}}</div>
               <div>{{ $t('productionEvents.' + type + '.optionB') }}</div>
               <ul>
                 <li>{{ $t('productionEvents.' + type + '.consequenceB1') }}</li>
@@ -39,14 +41,14 @@
                 <div>{{durWeeks}}</div>
               </div>
 
-              <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('preProduction.check')}}</button>
+              <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('productionEvents.check')}}</button>
 
               <div v-if="date">
                 <div>{{$t('productionEvents.date')}}</div>
                 <input type="date" v-model="releaseDate">
               </div>
 
-              <button v-if="weeks || date || bool" class="modal-default-button" @click="closeWindow()">{{$t('preProduction.close')}}</button>
+              <button v-if="weeks || date || bool" class="modal-default-button" @click="closeWindow()">{{$t('productionEvents.close')}}</button>
             </slot>
           </div>
         </div>
@@ -80,7 +82,7 @@ export default {
             this.$emit('close')
           break
         case "castMember":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.85
+          this.$store.state.currentMovie._preProduction.hype *= 0.85
           this.calcDireMorale(true)
           this.$router.push({name: "actorSection"})
           break
@@ -115,7 +117,7 @@ export default {
           break
         case "directorLeaves":
           this.calcDireMorale(true)
-          this.$store.state.currentMovie._preProduction.hiredDirector.salary *= 1.25
+          this.$store.state.currentMovie._preProduction.hiredDirector._salary *= 1.25
           this.$emit('close')
           break
         case "changes":
@@ -125,7 +127,7 @@ export default {
           this.$emit('close')
           break
         case "injured":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.85
+          this.$store.state.currentMovie._preProduction.hype *= 0.85
           this.$router.push({name: "actorSection"})
           break
       }
@@ -161,7 +163,7 @@ export default {
           this.calcDireMorale(false)
           break
         case "directorLeaves":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.75
+          this.$store.state.currentMovie._preProduction.hype *= 0.75
           this.crewMoraleGoes(-1)
           this.$router.push({name: "directorSection"})
           break

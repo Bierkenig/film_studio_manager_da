@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "production-event",
+  name: "continue-prod",
 
   methods: {
     cancelMovie() {

@@ -32,7 +32,7 @@ export default class Person {
         //TYPE -> Integer/Float
         this._rating = rating;
         //TYPE -> String
-        this._salary = salary.replaceAll('.', '');
+        this._salary = parseInt(salary.replaceAll('.', ''))
         //TYPE -> Integer
         this._paidSalary = this._salary;
         //TYPE -> String
