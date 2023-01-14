@@ -53,6 +53,8 @@ export class Movie {
         this._franchiseType = null;
         //TYPE -> Date (for films in which rights have been acquired)
         this._boughtRightDate = null;
+        //TYPE -> Integer (for films in which rights have been acquired)
+        this._totalCosts = null;
         //TYPE -> Integer (TODO POSTPRODUCTION)
         if (this._status === 'Release') this.totalOutgoings = this._preProduction.outgoings + this._production.outgoings
     }

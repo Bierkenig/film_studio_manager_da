@@ -34,6 +34,10 @@
         <option :value="5">5 {{ $t('years') }}</option>
       </select>
 
+      <div>
+        {{ price }}
+      </div>
+
       <router-link :to="{name: 'streaming'}">
         <button id="buyMovieRightButton" class="buttonStyle" @click="buyRights" :disabled="checkBalance || !selectedContract || !movie">{{ $t('buyRights') }}</button>
       </router-link>
@@ -55,14 +59,51 @@ export default {
 
   data(){
     return {
-      selectedContract: null
+      selectedContract: null,
+      price: 0
+    }
+  },
+
+  watch: {
+    movie: function (){
+      if(this.selectedContract !== null){
+        this.setMoviePrice()
+      }
+    },
+
+    selectedContract: function (){
+      if(this.movie !== null){
+        this.setMoviePrice()
+      }
     }
   },
 
   methods: {
+    setMoviePrice(){
+      //TODO: Quality ersetzen mit Audience Rating
+      let percentage = 0;
+      if(this.movie.quality < 50){
+        percentage = (Math.floor(Math.random() * (75 - 25 + 1) + 25)) / 100;
+      } else if(this.movie.quality >= 50 && this.movie.quality < 75){
+        percentage = (Math.floor(Math.random() * (100 - 50 + 1) + 50)) / 100;
+      } else {
+        percentage = (Math.floor(Math.random() * (125 - 75 + 1) + 75)) / 100;
+      }
+
+      if(this.selectedContract === 3){
+        percentage = percentage * 1.5;
+      } else if(this.selectedContract === 5){
+        percentage = percentage * 2;
+      }
+
+      this.price = this.movie.totalOutgoings * percentage;
+    },
+
     buyRights(){
       let sendMovie = this.movie;
       sendMovie.contract = this.selectedContract;
+      sendMovie._boughtRightDate = this.$store.getters.getCurrentDate;
+      sendMovie._totalCosts = this.price;
       this.$store.commit('addBoughtMovieRights',sendMovie);
       this.$router.push({name: 'streaming'})
     }

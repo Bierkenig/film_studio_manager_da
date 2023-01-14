@@ -75,6 +75,25 @@ function randomNumber(probability) {
 //function for streaming service costs / earnings
 function streamingService() {
     if (store.getters.getOwnStreamingService !== null) {
+        //get movies from streaming service
+        let streamingServiceMovies = store.getters.getBoughtMovieRights;
+
+        streamingServiceMovies.forEach(function (movie){
+            let checkDate = new Date(
+                movie._boughtRightDate.getFullYear()+1,
+                movie._boughtRightDate.getMonth(),
+                movie._boughtRightDate.getDate())
+
+            if(store.getters.getCurrentDate > checkDate){
+                if(movie._contract === 1){
+                    store.commit('removeBoughtMovieRights',movie)
+                } else {
+                    movie._boughtRightDate = checkDate;
+                    movie._contract--;
+                }
+            }
+        })
+
         //earnings / costs per month
         if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
             //get subscriber number
@@ -88,9 +107,6 @@ function streamingService() {
             store.commit('addBalance', revenue);
 
             //content maintainment costs
-            //get movies from streaming service
-            let streamingServiceMovies = store.getters.getBoughtMovieRights;
-
             //divide movies into contract length
             let oneYearMovies = [];
             let twoYearsMovies = [];
@@ -124,6 +140,32 @@ function streamingService() {
             einzelne Arrays durchgehen, preis von allen movies zusammenrechnen, durch die jeweilige Vertragslänge (außer bei 1) und durch 12 dividieren,
             gesamtpreis abziehen von budget
              */
+            let oneYearMoviesPrice, twoYearsMoviesPrice, threeYearsMoviesPrice, fourYearsMoviesPrice, fiveYearsMoviesPrice;
+
+            oneYearMovies.forEach((movie) => {
+                oneYearMoviesPrice += movie._totalCosts;
+            })
+            twoYearsMovies.forEach((movie) => {
+                twoYearsMoviesPrice += movie._totalCosts;
+            })
+            threeYearsMovies.forEach((movie) => {
+                threeYearsMoviesPrice += movie._totalCosts;
+            })
+            fourYearsMovies.forEach((movie) => {
+                fourYearsMoviesPrice += movie._totalCosts;
+            })
+            fiveYearsMovies.forEach((movie) => {
+                fiveYearsMoviesPrice += movie._totalCosts;
+            })
+
+            let contentMaintainmentCosts = 0;
+            contentMaintainmentCosts += (oneYearMoviesPrice / 12)
+            contentMaintainmentCosts += (twoYearsMoviesPrice / 2 / 12)
+            contentMaintainmentCosts += (threeYearsMoviesPrice / 3 / 12)
+            contentMaintainmentCosts += (fourYearsMoviesPrice / 4 / 12)
+            contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
+
+            store.commit('subtractBalance', contentMaintainmentCosts);
 
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(
