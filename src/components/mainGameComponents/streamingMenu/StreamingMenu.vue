@@ -23,7 +23,7 @@
     </div>
     <div v-else class="streamingMenuEmptyMessageMainDiv">
       <div class="streamingMenuEmptyMessage">
-        <h2 id="streamingMenuEmptyHeader">Create Streaming Service</h2>
+        <h2 id="streamingMenuEmptyHeader">{{ $t('createService') }}</h2>
         <div class="streamingMenuNameInputDiv">
           <label id="streamingServiceNameLabel" for="streamingServiceName">Name</label>
           <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" placeholder="Name">

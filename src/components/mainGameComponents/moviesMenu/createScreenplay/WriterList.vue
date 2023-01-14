@@ -2,7 +2,7 @@
   <div>
     <div id="writerList">
       <div class="writerListSortDiv">
-        <custom-select :options="['Popularity','Rating','Salary']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+        <custom-select :options="[$t('popularity'),$t('rating'),$t('salary')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
       <div class="writerListScroll verticalScroll">
@@ -52,18 +52,18 @@ export default {
     },
 
     sortWriterList(){
-      if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
+      if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Ascending'){
         this.writers.sort((a, b) => a._popularity - b._popularity)
-      } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending') {
+      } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Descending') {
         this.writers.sort((a, b) => b._popularity - a._popularity)
-      } else if(this.selectedSortByWhat === 'Rating' && this.selectedTypeOfSort === 'Ascending'){
+      } else if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Ascending'){
         this.writers.sort((a, b) => a._rating - b._rating)
-      } else if(this.selectedSortByWhat === 'Rating' && this.selectedTypeOfSort === 'Descending'){
+      } else if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Descending'){
         this.writers.sort((a, b) => b._rating - a._rating)
-      } else if(this.selectedSortByWhat === 'Salary' && this.selectedTypeOfSort === 'Ascending'){
-        this.writers.sort((a, b) => parseInt(a._salary.replaceAll('.','')) - parseInt(b._salary.replaceAll('.','')))
-      } else if(this.selectedSortByWhat === 'Salary' && this.selectedTypeOfSort === 'Descending'){
-        this.writers.sort((a,b) => parseInt(b._salary.replaceAll('.','')) - parseInt(a._salary.replaceAll('.','')))
+      } else if((this.selectedSortByWhat === 'Salary' || this.selectedSortByWhat === 'Gehalt') && this.selectedTypeOfSort === 'Ascending'){
+        this.writers.sort((a, b) => a._salary - b._salary)
+      } else if((this.selectedSortByWhat === 'Salary' || this.selectedSortByWhat === 'Gehalt') && this.selectedTypeOfSort === 'Descending'){
+        this.writers.sort((a,b) => b._salary - a._salary)
       }
     },
 

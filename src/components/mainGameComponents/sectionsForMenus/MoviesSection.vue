@@ -2,8 +2,8 @@
   <div class="moviesSection">
     <h1>{{ $t(headline) }}</h1>
     <div v-if="data.length !== 0" id="moviesSectionSelectDiv">
-      <custom-select v-if="headline === 'contentManagement'" :options="['Contract','Owner','Popularity']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
-      <custom-select v-if="headline === 'producedMovies'" :options="['Year','Earnings','Quality']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+      <custom-select v-if="headline === 'contentManagement'" :options="[$t('contract'),$t('owner'),$t('popularity')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+      <custom-select v-if="headline === 'producedMovies'" :options="[$t('newsData.year'),$t('earnings'),$t('quality')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
       <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       <!--<select
           id="sortByWhat"
@@ -143,33 +143,33 @@ export default {
 
     sortMovieRights(){
       if(this.headline === 'producedMovies'){
-        /*if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Ascending'){
+        /*if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
           this.data.sort((a, b) => a._contract - b._contract)
-        } else if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Descending') {
+        } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending') {
           this.data.sort((a, b) => b._contract - a._contract)
-        } else if(this.selectedSortByWhat === 'Earnings' && this.selectedTypeOfSort === 'Ascending'){
+        } else if((this.selectedSortByWhat === 'Earnings' || this.selectedSortByWhat === 'Einnahmen') && this.selectedTypeOfSort === 'Ascending'){
           this.data.sort((a, b) => a._contract - b._contract)
-        } else if(this.selectedSortByWhat === 'Earnings' && this.selectedTypeOfSort === 'Descending'){
+        } else if((this.selectedSortByWhat === 'Earnings' || this.selectedSortByWhat === 'Einnahmen') && this.selectedTypeOfSort === 'Descending'){
           this.data.sort((a, b) => b._contract - a._contract)
-        } /*else if(this.selectedSortByWhat === 'Quality' && this.selectedTypeOfSort === 'Ascending'){
+        } /*else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
         this.data.sort((a, b) => a._popularity.localeCompare(b._owner))
-      } else if(this.selectedSortByWhat === 'Quality' && this.selectedTypeOfSort === 'Descending'){
+      } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending'){
         this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
       }*/
       } else if(this.headline === 'contentManagement'){
-        if(this.selectedSortByWhat === 'Contract' && this.selectedTypeOfSort === 'Ascending'){
+        if((this.selectedSortByWhat === 'Contract' || this.selectedSortByWhat === 'Vertrag') && this.selectedTypeOfSort === 'Ascending'){
           this.data.sort((a, b) => a._contract - b._contract)
-        } else if(this.selectedSortByWhat === 'Contract' && this.selectedTypeOfSort === 'Descending') {
+        } else if((this.selectedSortByWhat === 'Contract' || this.selectedSortByWhat === 'Vertrag') && this.selectedTypeOfSort === 'Descending') {
           this.data.sort((a, b) => b._contract - a._contract)
-        } else if(this.selectedSortByWhat === 'Owner' && this.selectedTypeOfSort === 'Ascending'){
+        } else if((this.selectedSortByWhat === 'Owner' || this.selectedSortByWhat === 'Besitzer') && this.selectedTypeOfSort === 'Ascending'){
           this.data.sort((a, b) => a._owner.localeCompare(b._owner))
-        } else if(this.selectedSortByWhat === 'Owner' && this.selectedTypeOfSort === 'Descending'){
+        } else if((this.selectedSortByWhat === 'Owner' || this.selectedSortByWhat === 'Besitzer') && this.selectedTypeOfSort === 'Descending'){
           this.data.sort((a, b) => b._owner.localeCompare(a._owner))
-        } /*else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
+        } /*else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Ascending'){
         this.data.sort((a, b) => a._popularity.localeCompare(b._owner))
-      } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending'){
-        this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
-      }*/
+        } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Descending'){
+          this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
+        }*/
       }
     }
   }

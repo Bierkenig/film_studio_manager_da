@@ -9,7 +9,7 @@
           {{ franchise.name }}
         </div>
         <div>
-          {{ franchise.foundationDate }}
+          {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
         </div>
         <div>
           {{ franchiseMovies.length }}

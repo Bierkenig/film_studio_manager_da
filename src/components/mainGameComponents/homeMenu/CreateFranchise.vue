@@ -7,7 +7,7 @@
         :dark="false"
         size="medium"
         :disabled="!franchiseTitle"
-        @clicked="saveFranchise">Save Franchise</custom-button>
+        @clicked="saveFranchise">{{ $t('createFranchise') }}</custom-button>
   </div>
 </template>
 

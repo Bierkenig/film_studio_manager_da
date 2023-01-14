@@ -1,6 +1,6 @@
 <template>
   <div id="earningSection">
-    <h1 id="earningsHeading">{{ $t('earnings') }}</h1>
+    <h1 id="earningsHeading">{{ $t('newsData.earnings') }}</h1>
 
     <!--    <div>-->
     <!--      <select-->

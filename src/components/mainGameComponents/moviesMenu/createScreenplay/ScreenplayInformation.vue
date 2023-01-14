@@ -186,7 +186,7 @@
                   {{ $t(index) }}
                 </div>
                 <div>
-                  {{ $t(it) }}
+                  {{ $t(it.toLowerCase()) }}
                 </div>
               </div>
             </div>

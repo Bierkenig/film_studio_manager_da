@@ -108,10 +108,10 @@
         </div>
       </div>
       <div v-if="!this.$store.getters.getCurrentScreenplay.rewritingStatus">
-        <h2 class="writerDetailsHeader" id="writerDetailsOfferHeader">Contract Offer</h2>
+        <h2 class="writerDetailsHeader" id="writerDetailsOfferHeader">{{ $t('contractOffer') }}</h2>
         <div class="writerDetailsInfoBox">
           <div class="writerDetailsOfferBox">
-            <div class="writerDetailsOfferBoxSalaryText">Salary</div>
+            <div class="writerDetailsOfferBoxSalaryText">{{ $t('salary') }}</div>
             <div class="writerDetailsOfferBoxSalaryInput">
               <icon-button icon="minus" size="extraSmall" :dark="true" :shadow="false" @click="subtractSalary"/>
               <div class="writerDetailsOfferBoxSalaryValue">$ {{ roundSalary(selectedSalary) }}</div>
@@ -126,7 +126,7 @@
             :dark="false"
             size="medium"
             :disabled="this.currentWriter?._no === 3 || this.writerDecision === null"
-            @clicked="calcWriterDecision">Offer ({{ this.currentWriter?._no }}/3)</custom-button>
+            @clicked="calcWriterDecision">{{ $t('hireDirectorSection.offer') }} ({{ this.currentWriter?._no }}/3)</custom-button>
 
         <div class="writerDetailsWriterAnswer">
           <div v-if="writerDecision !== null && !writerDecision">{{ $t('hireDirectorSection.rejected') }}</div>
@@ -216,7 +216,7 @@ export default {
         this.writerAge = this.writer._age;
         this.writerNationality = this.writer._nationality;
         this.writerGenre = this.writer._genre[this.$store.getters.getCurrentScreenplay.genre];
-        this.writerSalary = parseInt(this.writer._salary.replaceAll('.',''));
+        this.writerSalary = this.writer._salary;
         this.writerGender = this.writer._gender;
 
         this.currentWriter = this.writer;

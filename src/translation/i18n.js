@@ -474,7 +474,7 @@ i18next
                     streaming: 'Streaming',
                     skipWeek: 'Skip to next week',
                     releasedMovie: 'Released Movies',
-                    earnings: 'Latest Earnings',
+                    earnings: 'Earnings',
                     week: 'Week',
                     month: 'Month',
                     inProduction: 'In Production',
@@ -706,6 +706,13 @@ i18next
                     rewrite: 'Rewrite',
                     buyStreamingRights: 'Buy Streaming Rights',
                     buyStreamingRightsInfoText: 'Buy rights to movies from other studios.',
+                    createFranchise: 'Create Franchise',
+                    owning: 'Owning',
+                    forSale: 'For Sales',
+                    sequel: 'Sequel',
+                    prequel: 'Prequel',
+                    screenplayPlot: 'Screenplay Plot',
+                    contractOffer: 'Contract Offer',
                 }
             },
             de: {
@@ -814,6 +821,8 @@ i18next
                         control: "Wähle die kreative Kontrolle des Regisseurs",
                         offer: "Angebot senden",
                         decision: "'s Entscheidung': ",
+                        rejected: "Abgelehnt",
+                        accepted: "Akzeptieren",
                         think: "Versuche das Gehalt anzupassen oder die kreative Kontrolle zu erhöhen",
                         declined: " lehnte deine Angebote 3 Mal ab. Versuche mit einem anderen Regisseur zu verhandeln"
                     },
@@ -1365,6 +1374,13 @@ i18next
                             }
                         }
                     },
+                    createFranchise: 'Franchise erstellen',
+                    owning: 'Eigene',
+                    forSale: 'Zu Kaufen',
+                    sequel: 'Fortsetzung',
+                    prequel: 'Vorgeschichte',
+                    screenplayPlot: 'Drehbuchhandlung',
+                    contractOffer: 'Vertragsangebot',
                 }
             }
         }

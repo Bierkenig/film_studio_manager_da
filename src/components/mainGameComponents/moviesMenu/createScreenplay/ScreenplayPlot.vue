@@ -1,7 +1,7 @@
 <template>
   <div id="screenplayPlotMainDiv">
     <div class="screenplayPlotBackground">
-      <h1 class="screenplayPlotHeader">Screenplay Plot</h1>
+      <h1 class="screenplayPlotHeader">{{ $t('screenplayPlot') }}</h1>
 
       <div>
         <transition name="modal">

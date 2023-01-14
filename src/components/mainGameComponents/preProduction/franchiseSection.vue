@@ -6,8 +6,8 @@
           v-model="movieFranchiseType"
       >
         <option :value="undefined" disabled selected hidden>Franchise Type</option>
-        <option value="Sequel">Sequel</option>
-        <option value="Prequel">Prequel</option>
+        <option value="Sequel">{{ $t('sequel') }}</option>
+        <option value="Prequel">{{ $t('prequel') }}</option>
       </select>
     </div>
     <custom-button
@@ -15,7 +15,7 @@
         :dark="false"
         size="medium"
         :disabled="!movieFranchiseType"
-        @clicked="goToScreenplay">Save Franchise</custom-button>
+        @clicked="goToScreenplay">{{ $t('continue')}}</custom-button>
   </div>
 </template>
 

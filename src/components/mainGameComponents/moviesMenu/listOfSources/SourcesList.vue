@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 id="sourcesListHeader">List of Sources</h1>
+    <h1 id="sourcesListHeader">{{ $t('listOfSources') }}</h1>
     <icon-button
         id="sourcesListBackButton"
         icon="simple-arrow-left"

@@ -1,6 +1,6 @@
 <template>
   <div id="franchiseOverviewMainDiv">
-    <h1 id="franchisesListHeader">List of Franchises</h1>
+    <h1 id="franchisesListHeader">{{ $t('listOfFranchises') }}</h1>
     <icon-button
         id="franchisesListBackButton"
         icon="simple-arrow-left"

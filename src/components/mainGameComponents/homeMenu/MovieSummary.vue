@@ -6,7 +6,7 @@
         id="movieSummaryCreateFranchiseButton"
         :dark="false"
         size="small"
-        @click="createFranchise">Create Franchise</custom-button>
+        @click="createFranchise">{{ $t('createFranchise') }}</custom-button>
     <icon-button
         id="movieSummaryBackButton"
         icon="simple-arrow-left"

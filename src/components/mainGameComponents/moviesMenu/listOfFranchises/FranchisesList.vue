@@ -2,7 +2,7 @@
   <div>
     <div id="franchisesListMainDiv">
       <div>
-        <tile-pages-nav id="franchisesListNavigation" :pages='["Owning","For Sales"]' :gradient='true'>
+        <tile-pages-nav id="franchisesListNavigation" :pages='[$t("owning"),$t("forSale")]' :gradient='true'>
           <div class="franchiseList">
             <div class="franchiseListScroll verticalScroll">
               <div v-for="(it, index) in allOwningFranchises" :id="'franchiseItem' + index" :key="index" class="franchiseListElement" @click="getFranchiseInfo(it,index)">
@@ -12,7 +12,7 @@
               </div>
             </div>
             <div class="franchiseListSortDiv">
-              <custom-select :options="['Popularity','Name','Year']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
+              <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
               <custom-list-sort @sort-changed="setSelectedTypeOfSortOwningFranchises"/>
             </div>
           </div>
@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="franchiseListSortDiv">
-              <custom-select :options="['Popularity','Name','Year']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForSalesFranchises"/>
+              <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForSalesFranchises"/>
               <custom-list-sort @sort-changed="setSelectedTypeOfSortForSalesFranchises"/>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default {
     },
 
     sortFranchiseList(array){
-      if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
+      if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Ascending'){
         array.sort(function (a, b) {
           let franchiseAPopularity = 0;
           let franchiseBPopularity = 0;
@@ -99,7 +99,7 @@ export default {
           }
           return (franchiseAPopularity / a.allMovies.length) - (franchiseBPopularity / b.allMovies.length)
         })
-      } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending') {
+      } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Descending') {
         array.sort(function (a, b) {
           let franchiseAPopularity = 0;
           let franchiseBPopularity = 0;
@@ -115,9 +115,9 @@ export default {
         array.sort((a, b) => a.name.localeCompare(b.name))
       } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
         array.sort((a, b) => b.name.localeCompare(a.name))
-      } else if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Ascending'){
+      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
         array.sort((a, b) => a.foundationDate - b.foundationDate)
-      } else if(this.selectedSortByWhat === 'Year' && this.selectedTypeOfSort === 'Descending'){
+      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending'){
         array.sort((a, b) => b.foundationDate - a.foundationDate)
       }
     },
