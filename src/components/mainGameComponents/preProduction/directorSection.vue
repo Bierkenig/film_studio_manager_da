@@ -22,7 +22,7 @@
 
       <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
 
-      <button :disabled="!decision" @click="goToDuration()">{{$t('buyScreenplaySection.continue')}}</button>
+      <button @click="goToDuration()" :disabled="!decision">{{$t('buyScreenplaySection.continue')}}</button>
     </div>
   </div>
 </template>

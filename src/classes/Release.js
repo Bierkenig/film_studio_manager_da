@@ -1,14 +1,24 @@
 export default class Release {
-    constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner) {
+    constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2, critics = 0, audience = 0) {
+        //Important Variables
         this.budget = preProduction.budget
         this.screenplay = preProduction.screenplay
         this.genrePopularity = genrePopularity
         this.subgenrePopularity = subgenrePopularity
+        this.critics = critics
+        this.audience = audience
         //Example -> {topic1: {children: 0, teenager: 1, adult: 2}, }
         this.topicPopularity = topicPopularity
         this.owner = owner
         this.productionBudgetRating = this.calcBudgetRating(preProduction.budgetPop)
         this.productionPhasesRating = this.calcPhasesRating(crewMorale)
+        this.totalMoviegoersPotential = 300000000
+        this.childrenMoviegoersPotential = 45000000
+        this.teenagersMoviegoersPotential = 90000000
+        this.adultsMoviegoersPotential = 165000000
+        this.ticketPricePerTicket = 10
+        this.movieInterest = this.calcMovieInterest()
+        this.releaseScope = releaseScope
 
         //Equations
         //QUALITY
@@ -63,7 +73,7 @@ export default class Release {
             this.castPopularityFormula = (this.mainCastPopularity * 50 + this.supportCastPopularity * 25 + this.minorCameoCastPopularity * 15) / 100
 
             //Director
-            this.directorPopularityFormula = preProduction.hiredDirector
+            this.directorPopularityFormula = preProduction.hiredDirector.popularity
 
             //Writer
             this.writerPopularityFormula = this.screenplay.writer._popularity
@@ -76,6 +86,49 @@ export default class Release {
             this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
         //Hype
+            //Marketing + TODO WAITING FOR BENNI
+            /*
+            this.childrenMarketingEffect = (ChildrenPrintMarketing * 25 + ChildrenInternetMarketing * 60 + ChildrenCommercialsMarketing * 15) / 100
+            this.childrenMoviePopularityAfterMarketingFormula = (ChildrenMoviePopularityFormula + ChildrenMarketingEffect) * MovieAgeRatingEffectOnChildren
+
+            this.teenagersMarketingEffect = (TeenagersPrintMarketing * 25 + TeenagersInternetMarketing * 60 + TeenagersCommercialsMarketing * 15) / 100
+            this.teenagersMoviePopularityAfterMarketingFormula = (TeenagersMoviePopularityFormula + TeenagersMarketingEffect) * MovieAgeRatingEffectOnTeenagers
+
+            this.adultsMarketingEffect = (AdultsPrintMarketing * 25 + AdultsInternetMarketing * 60 + AdultsCommercialsMarketing * 15) / 100
+            this.adultsMoviePopularityAfterMarketingFormula = (AdultsMoviePopularityFormula + AdultsMarketingEffect) * MovieAgeRatingEffectOnAdults
+
+
+            this.hypeFormula = CurrentHype * HypeFromMarketing
+
+            (-25 * 25 + 0 * 50 + 25 * 15) / 100 -> -2.5
+
+
+            //FINAL FORMULA
+            this.childrenMoviePopularityFormula = (TopicPopularity * 20 + GenrePopularity * 30 + QualityFormula * 20 + PopularityFormula * 30) / 100
+
+            this.teenagersMoviePopularityFormula = (TopicPopularity * 25 + GenrePopularity * 25 + QualityFormula * 25 + PopularityFormula * 25) / 100
+
+            this.adultsMoviePopularityFormula = (TopicPopularity * 30 + GenrePopularity * 20 + QualityFormula * 30 + PopularityFormula * 20) / 100
+             */
+
+        //Ratings
+            //Critics Rating
+            this.criticsFormula = (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
+
+            //Audience
+            this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
+
+        //Earnings
+            //Weekly drops
+            //Function below
+
+            //FINAL FORMULA
+            //this.openingEarnings = (this.childrenMoviegoersPotential * (ChildrenMoviePopularityAfterMarketingFormula / 100) + this.teenagersMoviegoersPotential * (TeenagersMoviePopularityAfterMarketingFormula / 100) + this.adultsMoviegoersPotential * (AdultsMoviePopularityAfterMarketingFormula / 100)) * (this.movieInterest / 100 / this.releaseScope) * (preProduction.hype / 100) * this.ticketPricePerTicket
+
+            //this.continuingEarnings = this.openingEarnings * HypeFormula
+
+            //this.totalEarnings = this.openingEarnings + this.continuingEarnings
+
     }
 
     calcBudgetRating(budgetPop) {
@@ -245,6 +298,63 @@ export default class Release {
                     count += el._popularity
                 })
                 return count / this.screenplay.actors.support.length
+        }
+    }
+
+    calcMovieInterest() {
+        switch (this.screenplay.details.scope) {
+            case 'Little':
+                return 10
+            case 'Small':
+                return 15
+            case 'Normal':
+                return 25
+            case 'Large':
+                return 35
+            case 'Epic':
+                return 50
+        }
+    }
+
+    getWeeklyHypeDrop(blockbuster) {
+        let criticsFormulaDrop = this.calcCriticsOrAudience(this.critics)
+        let audienceFormulaDrop = this.calcCriticsOrAudience(this.audience)
+        let movieScopeDrop = this.calcMovieScopeDrop(this.screenplay.details.scope)
+        let randomDrop = Math.round(Math.random() * (90 - 35 + 1) + 35)
+
+        if (blockbuster) {
+            let weeklyHypeDrop = (criticsFormulaDrop * 30 + audienceFormulaDrop * 25 + movieScopeDrop * 15 + randomDrop * 30) / 100
+            return weeklyHypeDrop * 0.9
+        } else {
+            return (criticsFormulaDrop * 30 + audienceFormulaDrop * 25 + movieScopeDrop * 15 + randomDrop * 30) / 100
+        }
+    }
+
+    calcCriticsOrAudience(value) {
+        if (value > 90) {
+            return 0.35
+        } else if (value <= 90 && value > 75) {
+            return 0.5
+        } else if (value <= 75 && value > 60) {
+            return 0.6
+        } else if (value <= 60 && value > 45) {
+            return 0.8
+        } else if (value <= 45 && value > 30) {
+            return 0.9
+        }
+    }
+
+    calcMovieScopeDrop(scope) {
+        if (scope === 'Little') {
+            return 45
+        } else if (scope === 'Small') {
+            return 50
+        } else if (scope === 'Normal') {
+            return 55
+        } else if (scope === 'Large') {
+            return 60
+        } else if (scope === 'Epic') {
+            return 65
         }
     }
 

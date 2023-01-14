@@ -72,7 +72,7 @@ export class Movie {
     setRelease() {
         if (this.status === 'Release' && this._postProduction instanceof PostProduction) {
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
-                this.subgenrePopularity, this.topicPopularity, this.owner)
+                this.subgenrePopularity, this.topicPopularity, this.owner, 2, 96, 96)
         }
     }
 

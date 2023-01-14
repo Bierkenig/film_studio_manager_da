@@ -321,6 +321,30 @@ i18next
                             consequenceB2: "Production halted for 8 weeks",
                         },
                     },
+                    beforeRelease: {
+                        details: "Movie Details",
+                        title: "Title",
+                        screenplay: {
+                            msg: "Screenplay",
+                            writer: "Writer",
+                            topics: "Topics",
+                        },
+                        director: "Director",
+                        popularity: "Popularity",
+                        criticsRating: "Critics Rating",
+                        audienceRating: "Audience Rating",
+                        open: "Opening Week Earnings",
+                        feedbacks: "Feedbacks"
+                    },
+                    afterRelease: {
+                        summary: "Movie Performance",
+                        next: "Next Steps",
+                        qst: "Do you want to create a Franchise?",
+                        create: "Create Franchise",
+                        dvd: "DVD Release",
+                        streaming: "Your Streaming Service owns the Movie"
+                    },
+                    finishMovie: "Finish Movie",
                     postProductionEvents: {
                         testScreening: {
                             title: "Test Screening",
