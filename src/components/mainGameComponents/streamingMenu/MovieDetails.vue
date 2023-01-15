@@ -104,6 +104,7 @@ export default {
       sendMovie.contract = this.selectedContract;
       sendMovie._boughtRightDate = this.$store.getters.getCurrentDate;
       sendMovie._totalCosts = this.price;
+      sendMovie._preProduction.hype = 100;
       this.$store.commit('addBoughtMovieRights',sendMovie);
       this.$router.push({name: 'streaming'})
     }
