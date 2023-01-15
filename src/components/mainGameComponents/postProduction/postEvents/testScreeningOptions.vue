@@ -144,17 +144,20 @@ export default {
       percentageSingleBudget: 20,
       percentageWholeBudget: 10,
       addedWeeks: 0,
-      actingBudgetIncrease: {
+      actingConsequence: {
         value: 0,
         percentage: 0,
+        addedWeeks: 0,
       },
-      storyBudgetIncrease: {
+      storyConsequence: {
         value: 0,
         percentage: 0,
+        addedWeeks: 0,
+
       },
       editingBudgetIncrease: {
-        value: 20000,
-        percentage: 20,
+        value: 0,
+        percentage: 0,
       },
       soundBudgetIncrease: {
         value: 0,
@@ -164,7 +167,7 @@ export default {
         value: 0,
         percentage: 0,
       },
-      test: 5,
+
 
       // 1 - Option A selected
       // 2 - Option B selected
@@ -183,70 +186,80 @@ export default {
         switch(optionType){
           case 'editing':
             this.editingBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.editing * (this.percentageSingleBudget/100);
-            this.editingBudgetIncrease.precentage = this.percentageSingleBudget;
+            this.editingBudgetIncrease.percentage = this.percentageSingleBudget;
             this.booleanEditingOption = 1
             break
           case 'sound':
             this.soundBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.sound * (this.percentageSingleBudget/100);
-            this.soundBudgetIncrease.precentage = this.percentageSingleBudget;
+            this.soundBudgetIncrease.percentage = this.percentageSingleBudget;
             this.booleanSoundOption = 1
             break
           case 'vfx':
             this.vfxBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.budget.vfx * (this.percentageSingleBudget/100);
-            this.vfxBudgetIncrease.precentage = this.percentageSingleBudget;
+            this.vfxBudgetIncrease.percentage = this.percentageSingleBudget;
             this.booleanVFXOption = 1
             break
           case 'acting':
             //TODO Hype -15%
             // eslint-disable-next-line no-case-declarations
-            this.actingBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
-            this.actingBudgetIncrease.percentage += this.percentageWholeBudget;
+            this.actingConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.actingConsequence.percentage += this.percentageWholeBudget;
             this.booleanActingOption = 1
             //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.wholeBudgetIncrease.value;
             if(this.screenplayScope === 'Little'){
+              this.actingConsequence.addedWeeks += 1;
               this.addedWeeks += 1;
               // this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),1 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Small'){
+              this.actingConsequence.addedWeeks += 2;
               this.addedWeeks += 2;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),2 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Normal'){
+              this.actingConsequence.addedWeeks += 3;
               this.addedWeeks += 3;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),3 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Large'){
+              this.actingConsequence.addedWeeks += 4;
               this.addedWeeks += 4;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),4 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Epic'){
+              this.actingConsequence.addedWeeks += 5;
               this.addedWeeks += 5;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),5 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             break
           case 'story':
             //TODO Hype -15%
-            this.storyBudgetIncrease.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
-            this.storyBudgetIncrease.percentage += this.percentageWholeBudget;
+            this.storyConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.storyConsequence.percentage += this.percentageWholeBudget;
             this.booleanStoryOption = 1;
             //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.storyBudgetIncrease.value;
             if(this.screenplayScope === 'Little'){
+              this.storyConsequence.addedWeeks += 1;
               this.addedWeeks += 1;
               // this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),1 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Small'){
+              this.storyConsequence.addedWeeks += 2;
               this.addedWeeks += 2;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),2 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Normal'){
+              this.storyConsequence.addedWeeks += 4;
               this.addedWeeks += 4;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),3 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Large'){
+              this.storyConsequence.addedWeeks += 6;
               this.addedWeeks += 6;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),4 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
             else if(this.screenplayScope === 'Epic'){
+              this.storyConsequence.addedWeeks += 8;
               this.addedWeeks += 8;
               //this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),5 , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
             }
@@ -307,7 +320,7 @@ export default {
       }
 
       if(this.booleanActingOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.acting *= (1 + (this.actingBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.acting *= (1 + (this.actingConsequence.percentage/100));
         this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
       }
       else if(this.booleanEditingOption === 2){
@@ -315,13 +328,13 @@ export default {
       }
 
       if(this.booleanStoryOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.story *= (1 + (this.storyBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.story *= (1 + (this.storyConsequence.percentage/100));
         this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
       }
       else if(this.booleanEditingOption === 2){
         this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
       }
-      this.$router.push({ name: 'testScreeningResults', params: { addedWeeks: this.addedWeeks, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), soundBudgetIncrease: JSON.stringify(this.soundBudgetIncrease), vfxBudgetIncrease: JSON.stringify(this.vfxBudgetIncrease), actingBudgetIncrease: JSON.stringify(this.actingBudgetIncrease), storyBudgetIncrease: JSON.stringify(this.storyBudgetIncrease), flags: (this.booleanEditingOption) + (this.booleanSoundOption * 3) + (this.booleanVFXOption * 9) + (this.booleanActingOption * 27) + (this.booleanStoryOption * 81)}})
+      this.$router.push({ name: 'testScreeningResults', params: { addedWeeks: this.addedWeeks, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), soundBudgetIncrease: JSON.stringify(this.soundBudgetIncrease), vfxBudgetIncrease: JSON.stringify(this.vfxBudgetIncrease), actingConsequence: JSON.stringify(this.actingConsequence), storyConsequence: JSON.stringify(this.storyConsequence), flags: (this.booleanEditingOption) + (this.booleanSoundOption * 3) + (this.booleanVFXOption * 9) + (this.booleanActingOption * 27) + (this.booleanStoryOption * 81)}})
     },
 
     addWeeks(date, weeks, startDate) {

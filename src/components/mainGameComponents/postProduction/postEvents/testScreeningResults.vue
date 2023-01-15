@@ -1,32 +1,70 @@
 <template>
+
   AddedWeeks:
   {{this.addedWeeks}}
-  <br>
+  <div v-if="(this.flags % 3) === 1">
   Editing Budget Increase:
   {{JSON.parse(this.editingBudgetIncrease).value}}
   Editing Budget Increase %:
   {{JSON.parse(this.editingBudgetIncrease).percentage}}
-  <br>
+  </div>
+  <div v-if="(this.flags % 3) === 2">
+    Editing Consequence: Director Morale went down
+  </div>
+
+  <div v-if="(Math.floor(this.flags / 3) % 3) === 1">
   Sound Budget Increase:
   {{JSON.parse(this.soundBudgetIncrease).value}}
   Sound Budget Increase %:
   {{JSON.parse(this.soundBudgetIncrease).percentage}}
-  <br>
+  </div>
+  <div v-if="(Math.floor(this.flags / 3) % 3) === 2">
+    Sound Consequence: Director Morale went down
+  </div>
+
+
+  <div v-if="(Math.floor(this.flags / 9) % 3) === 1">
   VFX Budget Increase:
   {{JSON.parse(this.vfxBudgetIncrease).value}}
   VFX Budget Increase %:
   {{JSON.parse(this.vfxBudgetIncrease).percentage}}
-  <br>
-  Acting Budget Increase:
-  {{JSON.parse(this.actingBudgetIncrease).value}}
-  Acting Budget Increase %:
-  {{JSON.parse(this.actingBudgetIncrease).percentage}}
-  <br>
-  Story Budget Increase:
-  {{JSON.parse(this.storyBudgetIncrease).value}}
-  Story Budget Increase %:
-  {{JSON.parse(this.storyBudgetIncrease).percentage}}
-  <br>
+  </div>
+  <div v-if="(Math.floor(this.flags / 9) % 3) === 2">
+    VFX Consequence: Director Morale went down
+  </div>
+
+
+  <div v-if="(Math.floor(this.flags / 27) % 3) === 1">
+  Whole Production Budget Increase:
+  {{JSON.parse(this.actingConsequence).value}}
+    <br>
+    Whole Production Budget Increase %:
+  {{JSON.parse(this.actingConsequence).percentage}}
+    <br>
+    Added time before Release (weeks):
+  {{JSON.parse(this.actingConsequence).addedWeeks}}
+    <br>
+    Movie Hype went down
+  </div>
+  <div v-if="(Math.floor(this.flags / 27) % 3) === 2">
+    Acting Consequence: Director Morale went down
+  </div>
+
+  <div v-if="(Math.floor(this.flags / 81) % 3) === 1">
+  Whole Production Budget Increase:
+  {{JSON.parse(this.storyConsequence).value}}
+    <br>
+  Whole Production Budget Increase %:
+  {{JSON.parse(this.storyConsequence).percentage}}
+    <br>
+    Added time before Release (weeks):
+  {{JSON.parse(this.storyConsequence).addedWeeks}}
+    <br>
+    Movie Hype went down
+  </div>
+  <div v-if="(Math.floor(this.flags / 81) % 3) === 2">
+    Story Consequence: Director Morale went down
+  </div>
   {{(this.flags % 3)}}
   {{(~~(this.flags / 3) % 3)}}
   {{(((this.flags / 9)>>0) % 3)}}
@@ -43,8 +81,8 @@ export default {
     editingBudgetIncrease: String,
     soundBudgetIncrease: String,
     vfxBudgetIncrease: String,
-    actingBudgetIncrease: String,
-    storyBudgetIncrease: String,
+    actingConsequence: String,
+    storyConsequence: String,
     flags: Number
   }
 }

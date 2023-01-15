@@ -91,7 +91,7 @@ const routes = [
     //PostProduction
     { name: 'testScreening', path: '/testScreening', component: testScreening, props: true},
     { name: 'testScreeningOptions', path: '/testScreeningOptions', component: testScreeningOptions, props: true},
-    { name: 'testScreeningResults', path: '/testScreeningResults/:addedWeeks/:flags/:editingBudgetIncrease/:soundBudgetIncrease/:vfxBudgetIncrease/:actingBudgetIncrease/:storyBudgetIncrease', component: testScreeningResults, props: true},
+    { name: 'testScreeningResults', path: '/testScreeningResults/:addedWeeks/:flags/:editingBudgetIncrease/:soundBudgetIncrease/:vfxBudgetIncrease/:actingConsequence/:storyConsequence', component: testScreeningResults, props: true},
 
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
