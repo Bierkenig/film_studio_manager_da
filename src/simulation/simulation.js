@@ -78,6 +78,10 @@ function streamingService() {
         //get movies from streaming service
         let streamingServiceMovies = store.getters.getBoughtMovieRights;
 
+        /*
+        vertragslänge von gekauften Filmrechte überprüfen und gegebenfalls aktualisieren,
+        wenn vertragslänge gleich 0, dann wieder aus boughtMovieRights löschen
+         */
         streamingServiceMovies.forEach(function (movie){
             let checkDate = new Date(
                 movie._boughtRightDate.getFullYear()+1,
@@ -176,10 +180,148 @@ function streamingService() {
     }
 }
 
-/*
-vertragslänge von gekauften Filmrechte überprüfen und gegebenfalls aktualisieren,
-wenn vertragslänge gleich 0, dann wieder aus boughtMovieRights löschen
- */
+export function updateServicePopularityAndSubscribers(){
+    // get all movies from streaming service
+    let allStreamingServiceMovies = store.getters.getBoughtMovieRights.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies);
+    // object with all genres
+    let allGenreRatings = {
+        'Action':0,
+        'Adventure':0,
+        'Biography':0,
+        'Comedy':0,
+        'Crime':0,
+        'Documentary':0,
+        'Drama':0,
+        'Erotic':0,
+        'Family':0,
+        'Fantasy':0,
+        'History':0,
+        'Horror':0,
+        'Musical':0,
+        'Mystery':0,
+        'Romance':0,
+        'ScienceFiction':0,
+        'Sport':0,
+        'Thriller':0,
+        'War':0,
+        'Western':0
+    }
+
+    // count movies of each genre
+    allStreamingServiceMovies.forEach(function (movie){
+        allGenreRatings[movie._preProduction.screenplay.genre]++;
+    })
+
+    // determine rating for each genre
+    Object.keys(allGenreRatings).forEach(key => {
+        if(allGenreRatings[key] >= 1 && allGenreRatings[key] <= 5){
+            allGenreRatings[key] = 1;
+        } else if(allGenreRatings[key] >= 6 && allGenreRatings[key] <= 10){
+            allGenreRatings[key] = 5;
+        } else if(allGenreRatings[key] >= 11 && allGenreRatings[key] <= 20){
+            allGenreRatings[key] = 10;
+        } else if(allGenreRatings[key] >= 21 && allGenreRatings[key] <= 30){
+            allGenreRatings[key] = 20;
+        } else if(allGenreRatings[key] >= 31 && allGenreRatings[key] <= 40){
+            allGenreRatings[key] = 30;
+        } else if(allGenreRatings[key] >= 41 && allGenreRatings[key] <= 50){
+            allGenreRatings[key] = 45;
+        } else if(allGenreRatings[key] >= 51 && allGenreRatings[key] <= 60){
+            allGenreRatings[key] = 55;
+        } else if(allGenreRatings[key] >= 61 && allGenreRatings[key] <= 70){
+            allGenreRatings[key] = 70;
+        } else if(allGenreRatings[key] >= 71 && allGenreRatings[key] <= 85){
+            allGenreRatings[key] = 85;
+        } else if(allGenreRatings[key] >= 86){
+            allGenreRatings[key] = 100;
+        }
+    });
+
+    // count numbers of genres that have a rating greater than 0 and count all genre ratings
+    let counterForGenreNumbers = 0;
+    let counterForRatings = 0;
+    Object.keys(allGenreRatings).forEach(key => {
+        if(allGenreRatings[key] !== 0){
+            counterForRatings += allGenreRatings[key];
+            counterForGenreNumbers++;
+        }
+    });
+
+    // divide counterForRatings by counterForGenreNumbers to get average
+    let averageOfEachGenre = counterForRatings / counterForGenreNumbers;
+
+    // get number of all movies
+    let totalContent = 0;
+    if(allStreamingServiceMovies >= 1 && allStreamingServiceMovies <= 10){
+        totalContent = 1;
+    } else if(allStreamingServiceMovies >= 11 && allStreamingServiceMovies <= 25){
+        totalContent = 3;
+    } else if(allStreamingServiceMovies >= 26 && allStreamingServiceMovies <= 75){
+        totalContent = 5;
+    } else if(allStreamingServiceMovies >= 76 && allStreamingServiceMovies <= 150){
+        totalContent = 7;
+    } else if(allStreamingServiceMovies >= 151 && allStreamingServiceMovies <= 250){
+        totalContent = 10;
+    } else if(allStreamingServiceMovies >= 251 && allStreamingServiceMovies <= 450){
+        totalContent = 15;
+    } else if(allStreamingServiceMovies >= 451 && allStreamingServiceMovies <= 650){
+        totalContent = 25;
+    } else if(allStreamingServiceMovies >= 651 && allStreamingServiceMovies <= 800){
+        totalContent = 45;
+    } else if(allStreamingServiceMovies >= 801 && allStreamingServiceMovies <= 1000){
+        totalContent = 65;
+    } else if(allStreamingServiceMovies >= 1001){
+        totalContent = 100;
+    }
+
+    let streamingContent = (averageOfEachGenre * 40 + totalContent * 60) / 100;
+
+    // calculate streaming service price potential, depends on the price of the service
+    let streamingServicePricePotential = 0;
+    let streamingPrice = store.getters.getOwnStreamingService._price;
+    if(streamingPrice >= 1.00 && streamingPrice <= 7.50){
+        streamingServicePricePotential = 1;
+    } else if(streamingPrice >= 8.00 && streamingPrice <= 15.00){
+        streamingServicePricePotential = 0.90;
+    } else if(streamingPrice >= 15.50 && streamingPrice <= 25.00){
+        streamingServicePricePotential = 0.75;
+    } else if(streamingPrice >= 25.50 && streamingPrice <= 35.00){
+        streamingServicePricePotential = 0.45;
+    } else if(streamingPrice >= 35.50 && streamingPrice <= 45.00){
+        streamingServicePricePotential = 0.25;
+    } else if(streamingPrice >= 45.50 && streamingPrice <= 50.00){
+        streamingServicePricePotential = 0.10;
+    }
+
+    // calculate streaming service hype = popularity
+    let sumOfHype = 0;
+    allStreamingServiceMovies.forEach(function (movie){
+        if(movie._release.critics <= 50){
+            movie._release.critics = movie._release.critics * 0.75;
+        } else if(movie._release.critics >= 51 && movie._release.critics <= 75){
+            movie._release.critics = movie._release.critics * 0.85;
+        } else if(movie._release.critics >= 76){
+            movie._release.critics = movie._release.critics * 0.95;
+        }
+
+        if(movie._release.audience <= 50){
+            movie._release.audience = movie._release.audience * 0.75;
+        } else if(movie._release.audience >= 51 && movie._release.audience <= 75){
+            movie._release.audience = movie._release.audience * 0.85;
+        } else if(movie._release.audience >= 76){
+            movie._release.audience = movie._release.audience * 0.95;
+        }
+
+        sumOfHype += movie._preProduction.hype;
+    })
+
+    let streamingServiceHype = sumOfHype / allStreamingServiceMovies.length;
+    store.getters.getOwnStreamingService._popularity = streamingServiceHype;
+
+    //set streaming service services
+    let potentialSubscribers = 300000000;
+    store.getters.getOwnStreamingService._subscribers = potentialSubscribers * ((streamingServicePricePotential * 15 + streamingContent * 15 + streamingServiceHype * 70) / 100);
+}
 
 function renewPeople() {
     //kill and refresh people
