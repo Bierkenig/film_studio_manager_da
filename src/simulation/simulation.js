@@ -298,29 +298,26 @@ export function updateServicePopularityAndSubscribers(){
 
     // calculate streaming service hype = popularity
     let sumOfHype = 0;
+    let hypeDrop1 = 0;
+    let hypeDrop2 = 0;
     allStreamingServiceMovies.forEach(function (movie){
         if(movie._release.critics <= 50){
-            //TODO: change critics rating to critics hype
-            movie._release.critics = movie._release.critics * 0.75;
+            hypeDrop1 = 0.75;
         } else if(movie._release.critics >= 51 && movie._release.critics <= 75){
-            //TODO: change critics rating to critics hype
-            movie._release.critics = movie._release.critics * 0.85;
+            hypeDrop1 = 0.85;
         } else if(movie._release.critics >= 76){
-            //TODO: change critics rating to critics hype
-            movie._release.critics = movie._release.critics * 0.95;
+            hypeDrop1 = 0.95;
         }
 
         if(movie._release.audience <= 50){
-            //TODO: change audience rating to audience hype
-            movie._release.audience = movie._release.audience * 0.75;
+            hypeDrop2 = 0.75;
         } else if(movie._release.audience >= 51 && movie._release.audience <= 75){
-            //TODO: change audience rating to audience hype
-            movie._release.audience = movie._release.audience * 0.85;
+            hypeDrop2 = 0.85;
         } else if(movie._release.audience >= 76){
-            //TODO: change audience rating to audience hype
-            movie._release.audience = movie._release.audience * 0.95;
+            hypeDrop2 = 0.95;
         }
 
+        movie._preProduction.hype = movie._preProduction.hype * ((hypeDrop1 + hypeDrop2) / 2);
         sumOfHype += movie._preProduction.hype;
     })
 
