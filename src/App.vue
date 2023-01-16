@@ -38,6 +38,22 @@ export default {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
     }
   },
+
+  mounted(){
+
+    window.ipcRenderer.send('r2mSettingsLoading')
+    window.ipcRenderer.receive('m2rSettingsLoading', async data => {
+      if(data !== null) {
+        let saveData = data.state
+        this.$store.commit('setCurrentBackgroundMusic', saveData.backgroundMusic);
+        this.$store.commit('setCurrentSoundeffect', saveData.soundeffects);
+        this.$store.commit('changeCurrentLanguage', saveData.currentLanguage);
+        await new Promise(resolve => setTimeout(resolve, 20))
+        console.log('Settings-File was loaded')
+      }
+    })
+  },
+
   created(){
     setInterval(function() {
       //window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),store.getters.getSlot])

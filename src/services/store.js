@@ -10,6 +10,7 @@ import Earnings from "@/classes/Earnings";
 import Event from "@/classes/Event";
 import DataUtil from "@/classes/DataUtil";
 import FinancialPerformance from '@/classes/FinancialPerformance'
+import i18next from "i18next";
 
 export default createStore({
     /** Application state */
@@ -631,6 +632,7 @@ export default createStore({
 
         changeCurrentLanguage(state, value){
             state.currentLanguage = value;
+            i18next.changeLanguage(value)
         },
 
         addFinishedMovie(state, movie){
@@ -747,10 +749,7 @@ export default createStore({
                 "currentMovieExpenses",
                 "createdMovies",
                 "logo",
-                "soundeffects",
-                "backgroundMusic",
                 "currentDate",
-                "currentLanguage",
                 "news",
                 "earnings",
                 "financialPerformance",
@@ -774,6 +773,15 @@ export default createStore({
 
             return reducedState
         },
+        stateToSettings(state, reducedState){
+            DataUtil.transferProperties(state, reducedState, [
+                "soundeffects",
+                "backgroundMusic",
+                "currentLanguage",
+            ])
+
+            return reducedState
+        },
 
         loadFromSave(state, responseData){
 
@@ -785,9 +793,6 @@ export default createStore({
                 "balance",
                 "currentMovieBudget",
                 "currentMovieExpenses",
-                "soundeffects",
-                "backgroundMusic",
-                "currentLanguage",
                 "financialHistory",
                 "financialPerformance",
                 "allYears",
@@ -851,7 +856,7 @@ export default createStore({
             // }
         },
 
-        setSlot(state, payload){
+            setSlot(state, payload){
             state.slot = payload
         },
 
