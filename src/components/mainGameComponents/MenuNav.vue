@@ -100,8 +100,10 @@ export default {
 
   components: {CustomButton, IconButton},
 
-  props:{
-    pageName: String,
+  mixins: [soundeffectMixin('button','click')],
+
+  props: {
+    checkVisibility: Boolean
   },
 
   data(){
@@ -118,12 +120,14 @@ export default {
     }
   },
 
-  mixins: [soundeffectMixin('button','click')],
-
-  mounted() {
-    this.highlightButton['homeButton'] = false;
-    this.highlightButton[this.lastButton] = false;
-    this.lastButton = 'homeButton';
+  watch: {
+    checkVisibility: function (){
+      if(this.checkVisibility) {
+        this.highlightButton['homeButton'] = false;
+        this.highlightButton[this.lastButton] = false;
+        this.lastButton = 'homeButton';
+      }
+    }
   },
 
   methods: {
@@ -139,7 +143,6 @@ export default {
         this.highlightButton[this.lastButton] = false;
       }
 
-      console.log(this.highlightButton)
       this.lastButton = name;
     },
 

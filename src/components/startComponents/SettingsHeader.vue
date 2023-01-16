@@ -71,7 +71,6 @@
 
       <icon-button
           class="button"
-          icon="exit"
           v-if="!this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="true"

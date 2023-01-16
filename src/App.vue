@@ -11,8 +11,9 @@
 
     <menu-nav
         class="menuNavComponent"
-        v-if="this.showOnPage.includes(this.$route.name)"
-        page-name="calendar"
+        v-show="this.showOnPage.includes(this.$route.name)"
+        v-observe-visibility="visibilityChanged"
+        :check-visibility="checkNavVisibility"
     />
 
    <!-- <audio id="backgroundMusic" autoplay loop>
@@ -35,7 +36,15 @@ export default {
   mixins: [soundeffectMixin('button','click')],
   data() {
     return {
-      showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
+      showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],
+      checkNavVisibility: false
+    }
+  },
+
+  methods: {
+    visibilityChanged (isVisible) {
+      this.checkNavVisibility = (isVisible && this.$router.options.history.state.back === '/createStudio')
+          || (isVisible && this.$router.options.history.state.back === '/loadings');
     }
   },
 
