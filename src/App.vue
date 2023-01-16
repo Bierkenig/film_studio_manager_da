@@ -45,6 +45,15 @@ export default {
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if(data !== null) {
         let saveData = data.state
+        if(saveData.currentLanguage !== "de"){
+          saveData.currentLanguage = "en"
+        }
+        if(saveData.soundeffects !== false){
+          saveData.soundeffects = true
+        }
+        if(saveData.backgroundMusic !== false){
+          saveData.backgroundMusic = true
+        }
         this.$store.commit('setCurrentBackgroundMusic', saveData.backgroundMusic);
         this.$store.commit('setCurrentSoundeffect', saveData.soundeffects);
         this.$store.commit('changeCurrentLanguage', saveData.currentLanguage);
