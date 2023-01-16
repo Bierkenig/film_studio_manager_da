@@ -46,6 +46,7 @@
           <!--TODO: @click="" zum Speichern einfügen-->
       <icon-button
           class="button"
+          icon="home"
           v-if="!this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="true"
@@ -70,6 +71,7 @@
 
       <icon-button
           class="button"
+          icon="exit"
           v-if="!this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="true"
