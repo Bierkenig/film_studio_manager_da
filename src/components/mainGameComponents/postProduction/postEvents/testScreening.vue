@@ -98,6 +98,7 @@ export default {
       editingBudget: this.$store.state.currentMovie?._preProduction.budget.editing,
       soundBudget: this.$store.state.currentMovie?._preProduction.budget.sound,
       scoreBudget: this.$store.state.currentMovie?._preProduction.budget.score,
+      vfxBudget: this.$store.state.currentMovie?._preProduction.budget.vfx,
 
       dirMorale: this.$store.state.currentMovie?._preProduction.hiredDirector.dirMorale,
       crewMorale: this.$store.state.currentMovie?.crewMorale,
@@ -140,6 +141,17 @@ export default {
       scoreAnimationMax: parseInt(this.splitRange(this.$store.state.animation[3])[1]),
       scoreAnimationRange: 0,
 
+      vfxFeatureMin: parseInt(this.splitRange(this.$store.state.feature[11])[0]),
+      vfxFeatureMax: parseInt(this.splitRange(this.$store.state.feature[11])[1]),
+      vfxFeatureRange: 0,
+
+      vfxIndieMin: parseInt(this.splitRange(this.$store.state.indie[11])[0]),
+      vfxIndieMax: parseInt(this.splitRange(this.$store.state.indie[11])[1]),
+      vfxIndieRange: 0,
+
+      vfxAnimationMin: parseInt(this.splitRange(this.$store.state.animation[11])[0]),
+      vfxAnimationMax: parseInt(this.splitRange(this.$store.state.animation[11])[1]),
+      vfxAnimationRange: 0,
 
       screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
       sfxVfxScope: this.$store.state.currentMovie?._preProduction.screenplay.details.specialEffects,
@@ -161,6 +173,9 @@ export default {
     this.scoreIndieRange = this.scoreIndieMax - this.scoreIndieMin;
     this.scoreAnimationRange = this.scoreAnimationMax - this.scoreAnimationMin;
 
+    this.vfxFeatureRange = this.vfxFeatureMax - this.vfxFeatureMin;
+    this.vfxIndieRange = this.vfxIndieMax - this.vfxIndieMin;
+    this.vfxAnimationRange = this.vfxAnimationMax - this.vfxAnimationMin;
   },
 
   methods: {
@@ -180,7 +195,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -190,7 +205,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -200,7 +215,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -211,7 +226,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
         }
@@ -230,7 +245,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -240,7 +255,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -250,7 +265,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -260,7 +275,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
         }
@@ -279,7 +294,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -289,7 +304,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -299,7 +314,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -309,7 +324,7 @@ export default {
               this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.editing = true
-              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.editingFeedback = i18next.t("postProductionEvents.testScreening.editing." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
         }
@@ -328,7 +343,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -338,7 +353,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -348,7 +363,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -358,7 +373,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
         }
@@ -377,7 +392,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -387,7 +402,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -397,7 +412,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -407,7 +422,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
         }
@@ -426,7 +441,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -436,7 +451,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -446,7 +461,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
 
@@ -456,7 +471,7 @@ export default {
               this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
             } else {
               this.$store.state.type.sound = true
-              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+              this.soundFeedback = i18next.t("postProductionEvents.testScreening.sound." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
             }
             break
         }
@@ -464,35 +479,166 @@ export default {
       }
 
       //TODO scopes für vfx noch nicht definiert, daher immer positives Feedback
-      this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
-
-      switch (this.sfxVfxScope) {
-        case "None":
-          break
-        case "Some":
-          break
-        case "Medium":
-          break
-        case "Lots":
-          break
-        case "Spectacle":
-          break
+      if (this.screenplayType === "Feature") {
+        switch (this.sfxVfxScope) {
+          case "None":
+            this.$store.state.type.vfx = false
+            this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            break
+          case "Some":
+            if(this.vfxBudget >= this.vfxFeatureRange / 5) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Medium":
+            if(this.vfxBudget >= (this.vfxFeatureRange / 5) * 2) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Lots":
+            if(this.vfxBudget >= (this.vfxFeatureRange / 5) * 3) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Spectacle":
+            if(this.vfxBudget >= (this.vfxFeatureRange / 5) * 4) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+        }
+      }
+      if (this.screenplayType === "Indie") {
+        switch (this.sfxVfxScope) {
+          case "None":
+            this.$store.state.type.vfx = false
+            this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            break
+          case "Some":
+            if(this.vfxBudget >= this.vfxIndieRange / 5) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Medium":
+            if(this.vfxBudget >= (this.vfxIndieRange / 5) * 2) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Lots":
+            if(this.vfxBudget >= (this.vfxIndieRange / 5) * 3) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Spectacle":
+            if(this.vfxBudget >= (this.vfxIndieRange / 5) * 4) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+        }
+      }
+      if (this.screenplayType === "Animation") {
+        switch (this.sfxVfxScope) {
+          case "None":
+            this.$store.state.type.vfx = false
+            this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            break
+          case "Some":
+            if(this.vfxBudget >= this.vfxAnimationRange / 5) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Medium":
+            if(this.vfxBudget >= (this.vfxAnimationRange / 5) * 2) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Lots":
+            if(this.vfxBudget >= (this.vfxAnimationRange / 5) * 3) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+          case "Spectacle":
+            if(this.vfxBudget >= (this.vfxAnimationRange / 5) * 4) {
+              this.$store.state.type.vfx = false
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+            }
+            else{
+              this.$store.state.type.vfx = true
+              this.vfxFeedback = i18next.t("postProductionEvents.testScreening.vfx." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
+            }
+            break
+        }
       }
 
+      //TODO condition dumm
       if (this.crewMorale > 3 && this.dirMorale > 3) {
         this.$store.state.type.acting = false
         this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
       } else if (this.crewMorale < 4 && this.dirMorale < 4) {
         this.$store.state.type.acting = true
-        this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+        this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
       }
 
-      if (this.screenplayRating >= 75 && this.crewMorale > 3 && this.dirMorale > 3) {
+      if ((this.screenplayRating >= 75) + (this.crewMorale > 3) + (this.dirMorale > 3) >= 2) {
         this.$store.state.type.story = false
         this.storyFeedback = i18next.t("postProductionEvents.testScreening.story." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
-      } else if (this.screenplayRating < 75 && this.crewMorale < 4 && this.dirMorale < 4) {
+      } else {
         this.$store.state.type.story = true
-        this.storyFeedback = i18next.t("postProductionEvents.testScreening.story." + this.badFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
+        this.storyFeedback = i18next.t("postProductionEvents.testScreening.story." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
 
       }
     },
