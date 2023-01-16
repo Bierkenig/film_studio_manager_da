@@ -654,11 +654,10 @@ export default {
         }
       }
 
-      //TODO condition dumm
-      if (this.crewMorale > 3 && this.dirMorale > 3) {
+      if (((this.crewMorale + this.dirMorale)/2) >= 3) {
         this.$store.state.type.acting = false
         this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.goodFeedback[Math.floor(Math.random() * this.goodFeedback.length)])
-      } else if (this.crewMorale < 4 && this.dirMorale < 4) {
+      } else if (((this.crewMorale + this.dirMorale)/2) < 3) {
         this.$store.state.type.acting = true
         this.feedbackCount -= 1
         this.actingFeedback = i18next.t("postProductionEvents.testScreening.acting." + this.badFeedback[Math.floor(Math.random() * this.badFeedback.length)])
