@@ -171,6 +171,9 @@ function streamingService() {
 
             store.commit('subtractBalance', contentMaintainmentCosts);
 
+            //update streaming service popularity and number of subscribers
+            updateServicePopularityAndSubscribers();
+
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(
                 store.getters.getOwnStreamingService._lastCheckedDate.getFullYear(),
@@ -297,18 +300,24 @@ export function updateServicePopularityAndSubscribers(){
     let sumOfHype = 0;
     allStreamingServiceMovies.forEach(function (movie){
         if(movie._release.critics <= 50){
+            //TODO: change critics rating to critics hype
             movie._release.critics = movie._release.critics * 0.75;
         } else if(movie._release.critics >= 51 && movie._release.critics <= 75){
+            //TODO: change critics rating to critics hype
             movie._release.critics = movie._release.critics * 0.85;
         } else if(movie._release.critics >= 76){
+            //TODO: change critics rating to critics hype
             movie._release.critics = movie._release.critics * 0.95;
         }
 
         if(movie._release.audience <= 50){
+            //TODO: change audience rating to audience hype
             movie._release.audience = movie._release.audience * 0.75;
         } else if(movie._release.audience >= 51 && movie._release.audience <= 75){
+            //TODO: change audience rating to audience hype
             movie._release.audience = movie._release.audience * 0.85;
         } else if(movie._release.audience >= 76){
+            //TODO: change audience rating to audience hype
             movie._release.audience = movie._release.audience * 0.95;
         }
 

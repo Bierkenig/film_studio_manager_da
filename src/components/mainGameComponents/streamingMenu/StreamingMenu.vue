@@ -50,6 +50,7 @@ import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/Movi
 import {StreamingService} from "@/classes/StreamingService";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
+import {updateServicePopularityAndSubscribers} from "@/simulation/simulation";
 export default {
   name: "StreamingMenu",
 
@@ -78,6 +79,7 @@ export default {
   methods: {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
+      updateServicePopularityAndSubscribers();
       //TODO: auf 2 500 000 000 ändern
       this.$store.commit('subtractBalance', 2500000000)
     }
