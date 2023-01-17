@@ -81,8 +81,10 @@ export default createStore({
             }
         ],
         financialPerformance: [
-            new FinancialPerformance(new Date(2023, 0, 1)),
-            new FinancialPerformance(new Date(2023, 1, 1))
+            new FinancialPerformance(new Date(2023, 0)),
+            new FinancialPerformance(new Date(2023, 1)),
+            new FinancialPerformance(new Date(2024, 0)),
+            new FinancialPerformance(new Date(2024, 1))
         ],
         //movies which are in currentProduction
         inProductionMovies: [],

@@ -20,24 +20,7 @@
     </div>
 
 
-
-    <div class="unstyledFinancesMenu">
-<!--      <div id="credit">-->
-<!--        <h3>{{ $t('labelTakeCredit') }}</h3>-->
-<!--        <label for="credit">{{ $t('descCredit') }}</label>-->
-<!--        <button name="credit">-->
-<!--          {{ $t('takeCredit') }}-->
-<!--        </button>-->
-<!--      </div>-->
-
-<!--      <div id="buy">-->
-<!--        <h3>{{ $t('labelBuyStudio') }}</h3>-->
-<!--        <label for="buy">{{ $t('descStudio') }}</label>-->
-<!--        <button name="buy">-->
-<!--          {{ $t('buyStudio') }}-->
-<!--        </button>-->
-<!--      </div>-->
-
+    <div class="hide">
       <div id="fiscalPerformance">
         <h3>{{ $t('fiscalPerformance.name') }}</h3>
         <i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
@@ -64,19 +47,14 @@
         <select>
           <option v-for="year in this.availableMarketYears" :key="year" :value="year">{{ year }}</option>
         </select>
-        <div v-for="studio in this.$store.getters.getOtherStudios" :key="studio[0]">{{ studio[0] }} {{ studio[2] }}
-        </div>
-        <div>
-          <pie-chart :data="this.otherStudiosPieChart"></pie-chart>
-        </div>
-      </div>
 
-      <div>
-        <h3>{{ $t('financialHistory.name') }}</h3>
-        <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
-          <!-- TODO icon -->
-          <h2>{{ $t(el.title) }}</h2>
-          <p>{{ $t(el.desc) }}</p>
+        <div>
+          <h3>{{ $t('financialHistory.name') }}</h3>
+          <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
+            <!-- TODO icon -->
+            <h2>{{ $t(el.title) }}</h2>
+            <p>{{ $t(el.desc) }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -166,6 +144,8 @@ export default {
   mounted() {
     //fetch financial dates
     let array = this.$store.getters.getFinancialPerformance;
+    console.log('-----------------------------------------------------')
+    console.log(array)
     array.forEach((el) => {
       this.availablePerformanceDates.push(el)
     })
@@ -222,7 +202,7 @@ export default {
 }
 
 
-.unstyledFinancesMenu {
+.hide {
   display: none;
 }
 
