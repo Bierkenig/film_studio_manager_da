@@ -5,6 +5,7 @@
       <router-link to="home">
         <icon-button
             id="homeButton"
+            icon="home"
             size="medium"
             :dark="false"
             :bg-gradient="true"
@@ -30,6 +31,7 @@
       <router-link to="streaming">
         <icon-button
             id="streamingButton"
+            icon="streaming"
             size="medium"
             :dark="true"
             :bg-gradient="true"
@@ -42,6 +44,7 @@
       <router-link to="news">
         <icon-button
             id="newsButton"
+            icon="news"
             size="medium"
             :dark="true"
             :bg-gradient="true"
@@ -97,8 +100,10 @@ export default {
 
   components: {CustomButton, IconButton},
 
-  props:{
-    pageName: String,
+  mixins: [soundeffectMixin('button','click')],
+
+  props: {
+    checkVisibility: Boolean
   },
 
   data(){
@@ -115,12 +120,14 @@ export default {
     }
   },
 
-  mixins: [soundeffectMixin('button','click')],
-
-  mounted() {
-    this.highlightButton['homeButton'] = false;
-    this.highlightButton[this.lastButton] = false;
-    this.lastButton = 'homeButton';
+  watch: {
+    checkVisibility: function (){
+      if(this.checkVisibility) {
+        this.highlightButton['homeButton'] = false;
+        this.highlightButton[this.lastButton] = false;
+        this.lastButton = 'homeButton';
+      }
+    }
   },
 
   methods: {
@@ -136,7 +143,6 @@ export default {
         this.highlightButton[this.lastButton] = false;
       }
 
-      console.log(this.highlightButton)
       this.lastButton = name;
     },
 

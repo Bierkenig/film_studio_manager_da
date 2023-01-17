@@ -196,17 +196,30 @@ export function deleteSaveFile(slot) {
 //         console.log("exists")
 //         return [true, slot]
 // }
-export function checkIfExists(slot){
+export function checkIfExists(slot = null){
     console.log("check")
-    const filePath = path.join('.','.data' ,'saves', slot.toString(), 'save.json');
     let result;
 
-    try{
-        fs.statSync(filePath);
-        result = [true, slot];
+    if(slot !== null) {
+        const filePath = path.join('.','.data' ,'saves', slot.toString(), 'save.json');
+
+        try {
+            fs.statSync(filePath);
+            result = [true, slot];
+        } catch (e) {
+            result = [false, slot];
+        }
     }
-    catch(e){
-        result = [false, slot];
+    if(slot === null){
+        const filePath = path.join('.','.data','settings.json');
+
+        try{
+            fs.statSync(filePath);
+            result = true;
+        }
+        catch(e) {
+            result = false;
+        }
     }
 
     console.log(result[0] ? "exists" : "no file");
@@ -347,3 +360,28 @@ export function resetDB(slot){
     fs.copyFileSync('src/DB/database/fsm.db', './.data/database/fsm_custom' + slot.toString() + '.db')
 
 }
+
+export function saveSettings(data) {
+    data = JSON.parse(data)
+    fs.writeFile(path.join('.','.data','settings.json'), JSON.stringify({
+        en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
+        de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
+        type: 'settings',
+        state: data
+    }, null, 2), 'utf-8', err => {
+        if (err) {
+            console.error(err);
+            return
+        }
+    })
+}
+
+export function loadSettings(){
+    let save = null;
+    if(checkIfExists()) {
+        save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'settings.json')).toString());
+    }
+
+    return save;
+
+    }

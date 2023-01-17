@@ -74,6 +74,10 @@ async function createWindow() {
         saving.save(data[0], data[1]);
     })
 
+    ipcMain.on('saveSettingData', (event, data) => {
+        saving.saveSettings(data);
+    })
+
     ipcMain.on('r2mLoading', (event, data) => {
         event.sender.send('m2rLoading', saving.load(data))
     })
@@ -81,6 +85,11 @@ async function createWindow() {
     ipcMain.on('r2mChecking', (event, data) => {
         event.sender.send('m2rChecking', saving.checkIfExists(data))
     })
+
+    ipcMain.on('r2mSettingsLoading', (event) => {
+        event.sender.send('m2rSettingsLoading', saving.loadSettings())
+    })
+
 
     ipcMain.on('r2mDeleting', (event, data) => {
         //db.close()

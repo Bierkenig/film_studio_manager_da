@@ -11,8 +11,9 @@
 
     <menu-nav
         class="menuNavComponent"
-        v-if="this.showOnPage.includes(this.$route.name)"
-        page-name="calendar"
+        v-show="this.showOnPage.includes(this.$route.name)"
+        v-observe-visibility="visibilityChanged"
+        :check-visibility="checkNavVisibility"
     />
 
    <!-- <audio id="backgroundMusic" autoplay loop>
@@ -35,9 +36,42 @@ export default {
   mixins: [soundeffectMixin('button','click')],
   data() {
     return {
-      showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar']
+      showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],
+      checkNavVisibility: false
     }
   },
+
+  methods: {
+    visibilityChanged (isVisible) {
+      this.checkNavVisibility = (isVisible && this.$router.options.history.state.back === '/createStudio')
+          || (isVisible && this.$router.options.history.state.back === '/loadings');
+    }
+  },
+
+  mounted(){
+
+    window.ipcRenderer.send('r2mSettingsLoading')
+    window.ipcRenderer.receive('m2rSettingsLoading', async data => {
+      if(data !== null) {
+        let saveData = data.state
+        if(saveData.currentLanguage !== "de"){
+          saveData.currentLanguage = "en"
+        }
+        if(saveData.soundeffects !== false){
+          saveData.soundeffects = true
+        }
+        if(saveData.backgroundMusic !== false){
+          saveData.backgroundMusic = true
+        }
+        this.$store.commit('setCurrentBackgroundMusic', saveData.backgroundMusic);
+        this.$store.commit('setCurrentSoundeffect', saveData.soundeffects);
+        this.$store.commit('changeCurrentLanguage', saveData.currentLanguage);
+        await new Promise(resolve => setTimeout(resolve, 20))
+        console.log('Settings-File was loaded')
+      }
+    })
+  },
+
   created(){
     setInterval(function() {
       //window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),store.getters.getSlot])

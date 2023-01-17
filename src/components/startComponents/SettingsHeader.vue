@@ -46,6 +46,7 @@
           <!--TODO: @click="" zum Speichern einfügen-->
       <icon-button
           class="button"
+          icon="home"
           v-if="!this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="true"
@@ -120,7 +121,7 @@ export default {
       showOnPage: ['default'],
       soundEffectStatus: this.$store.getters.getCurrentStatusOfSoundeffect,
       backgroundMusicStatus: this.$store.getters.getCurrentStatusOfBackgroundMusic,
-      language: this.$store.getters.getCurrentLanguage,
+      language: null,
       showCloseModal: false,
       showMenuModal: false,
     }
@@ -152,6 +153,7 @@ export default {
 
     changeLanguage(){
       let language = ['en','de']
+      this.language = this.$store.getters.getCurrentLanguage
       for (let i = 0; i < language.length; i++) {
         if(this.language !== language[i]){
           this.language = language[i];
@@ -168,6 +170,12 @@ export default {
       console.log(this.$store.state)
       console.log(reducedState)
       window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), this.$store.getters.getSlot])
+
+      let reducedStateSettings = {}
+      this.$store.commit("stateToSettings", reducedStateSettings)
+      console.log(this.$store.state)
+      console.log(reducedStateSettings)
+      window.ipcRenderer.send('saveSettingData', JSON.stringify(reducedStateSettings))
     }
   }
 }
