@@ -169,8 +169,13 @@ export default createStore({
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
         currentFranchise: null,
+
+        // variables for sale
+        otherStudiosMovies: [],
+        otherStudiosScreenplays: [],
         otherStudiosFranchises: [],
         otherStudios: [],
+
         financialHistory: [
             {title: "financialHistory.event1", desc: "financialHistory.desc1", iconPath: ""},
             {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
@@ -458,6 +463,14 @@ export default createStore({
 
         getBoughtMovieRights(state){
             return state.boughtMovieRights;
+        },
+
+        getOtherStudiosMovies(state){
+            return state.otherStudiosMovies;
+        },
+
+        getOtherStudiosScreenplays(state){
+            return state.otherStudiosScreenplays;
         }
     },
 
@@ -738,6 +751,22 @@ export default createStore({
 
         removeBoughtMovieRights(state, movie){
             state.boughtMovieRights.splice(state.boughtMovieRights.indexOf(movie), 1);
+        },
+
+        addOtherStudiosMovies(state, movie){
+            state.otherStudiosMovies.push(movie)
+        },
+
+        removeOtherStudiosMovies(state, movie){
+            state.otherStudiosMovies.splice(state.otherStudiosMovies.indexOf(movie), 1);
+        },
+
+        addOtherStudiosScreenplays(state, movie){
+            state.otherStudiosScreenplays.push(movie)
+        },
+
+        removeOtherStudiosScreenplays(state, movie){
+            state.otherStudiosScreenplays.splice(state.otherStudiosScreenplays.indexOf(movie), 1);
         },
 
         stateToSave(state, reducedState){

@@ -10,17 +10,18 @@
         :icon-gradient="false"
         :shadow="false"
         @click="goBack"/>
-    <sources-list @sendFranchise="receiveItem"/>
-    <sources-details :franchise="clickedItem" :check-balance="checkBalance"/>
+    <sources-list @sendSource="receiveItem"/>
+    <sources-details :source="clickedItem" :check-balance="checkBalance"/>
   </div>
 </template>
 
 <script>
 import SourcesList from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesList";
 import SourcesDetails from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesDetails";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 export default {
   name: "SourcesOverview",
-  components: {SourcesDetails, SourcesList},
+  components: {IconButton, SourcesDetails, SourcesList},
 
   data(){
     return{
