@@ -3,7 +3,7 @@
     <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
       <icon-button
           class="button"
-          v-if="this.showOnPage.includes(this.$route.name)"
+          v-show="this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="false"
           :bg-gradient="true"
@@ -14,7 +14,7 @@
       />
       <icon-button
           class="button"
-          v-if="this.showOnPage.includes(this.$route.name)"
+          v-show="this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="false"
           :bg-gradient="true"
@@ -25,7 +25,7 @@
       />
       <icon-button
           class="button"
-          v-if="this.showOnPage.includes(this.$route.name)"
+          v-show="this.showOnPage.includes(this.$route.name)"
           size="small"
           :dark="true"
           :bg-gradient="true"
