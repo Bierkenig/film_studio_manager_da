@@ -41,6 +41,7 @@ import FranchisesOverview from "@/components/mainGameComponents/moviesMenu/listO
 import testScreeningOptions from "@/components/mainGameComponents/postProduction/postEvents/testScreeningOptions";
 import testScreeningResults from "@/components/mainGameComponents/postProduction/postEvents/testScreeningResults";
 import SourcesOverview from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesOverview";
+import MarketingBudgetSelect from "@/components/mainGameComponents/postProduction/marketing/MarketingBudgetSelect";
 
 
 const routes = [
@@ -93,6 +94,8 @@ const routes = [
     { name: 'testScreeningOptions', path: '/testScreeningOptions', component: testScreeningOptions, props: true},
     { name: 'testScreeningResults', path: '/testScreeningResults/:addedWeeks/:flags/:editingBudgetIncrease/:soundBudgetIncrease/:vfxBudgetIncrease/:actingConsequence/:storyConsequence', component: testScreeningResults, props: true},
 
+
+    { name: 'MarketingBudgetSelect', path: '/MarketingBudgetSelect', component: MarketingBudgetSelect, props: true},
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true},

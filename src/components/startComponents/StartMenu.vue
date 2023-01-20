@@ -67,6 +67,9 @@
               <button id="testScreeningOptions" class="buttonStyle">testScreeningOptions</button>
             </router-link>
 
+            <router-link :to="{ name: 'MarketingBudgetSelect'}">
+              <button id="MarketingBudgetSelect" class="buttonStyle">MarketingBudgetSelect</button>
+            </router-link>
             <!--<div>
               <router-link :to="{ name: 'kitchenSink'}">
                 <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
