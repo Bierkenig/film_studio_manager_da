@@ -92,30 +92,34 @@ export default createStore({
             {
                 id: 1,
                 movie: "SOMETHING",
-                start: '2023-01-01',
-                end: '2023-01-02',
+                start: '2023-01-15',
+                end: '2023-01-16',
                 type: 'productionFinished',
+                completed: false,
             },
             {
                 id: 2,
                 movie: "NICHTS",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'featureFilm'
+                type: 'featureFilm',
+                completed: false,
             },
             {
                 id: 3,
                 movie: "ALLES",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'blockbuster'
+                type: 'blockbuster',
+                completed: false,
             },
             {
                 id: 4,
                 movie: "VIELLEICHT",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'award'
+                type: 'award',
+                completed: false,
             },
             {
                 id: 5,
@@ -123,6 +127,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'featureFilm',
+                completed: false,
             },
             {
                 id: 6,
@@ -130,6 +135,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 7,
@@ -137,6 +143,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 8,
@@ -144,6 +151,7 @@ export default createStore({
                 start: '2023-01-29',
                 end: '2023-01-30',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 9,
@@ -151,6 +159,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 10,
@@ -158,7 +167,7 @@ export default createStore({
                 start: '2023-01-29',
                 end: '2023-01-30',
                 type: 'award',
-
+                completed: false,
             },
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),

@@ -3,6 +3,7 @@ import {Studio} from "@/classes/Studio";
 import News from "@/classes/News";
 import {Avataaars} from "@/avatar/avataaars"
 import {all} from "core-js/internals/document-all";
+import {Movie} from "@/classes/Movie";
 
 //Avatar Option Lists
 /*const skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
@@ -28,10 +29,15 @@ const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 export default function simulate() {
     //TODO fetch DB again
-    console.log('SIMULATION: Started....')
+    //console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
     renewPeople();
+
+    let newMovie = new Movie(store.getters.getStudio.getName(), 0);
+    newMovie._preProduction.screenplay = store.getters.getScreenplays[0];
+    newMovie._foundationDate = store.getters.getCurrentDate;
+    store.commit('addFinishedMovie',newMovie)
 }
 
 //function to create new studios

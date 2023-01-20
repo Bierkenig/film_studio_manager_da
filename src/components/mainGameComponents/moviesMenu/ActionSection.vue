@@ -2,14 +2,10 @@
   <div id="actionSectionContainer">
     <div id="actionSectionHeaderContainer">
       <h2 class="actionSectionHeader">{{ $t(headline) }}</h2>
-      <icon-button
+      <info-circle
           id="actionSectionHeaderIcon"
           :icon="icon"
-          size="medium"
-          :dark="false"
-          :bg-gradient="true"
-          :icon-gradient="false"
-          :shadow="false"/>
+          :dark="false"/>
     </div>
     <div class="actionSectionInfoText">
       {{ $t(infoText) }}
@@ -25,12 +21,12 @@
 
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton";
-import IconButton from "@/components/kitchenSink/IconButton.vue";
 import {Movie} from "@/classes/Movie";
+import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 
 export default {
   name: "ActionSection",
-  components: {IconButton, CustomButton},
+  components: {InfoCircle, CustomButton},
   props: {
     headline: String,
     infoText: String,

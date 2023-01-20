@@ -2,7 +2,19 @@
   <div>
     <div class="animationBody">
       <div class="animationElementDate">
-        {{ date.toLocaleDateString("en-US") }}
+        {{ ("0" + date.getDate()).slice(-2) }}
+        {{ date.toLocaleString('en-US', {month: 'short'}) }},
+        {{ date.getFullYear() }}
+      </div>
+      <div class="animationElementIcons">
+        <div class="animationElementIconsBox verticalScroll">
+          <img
+              v-for="(it, index) in dayEvents"
+              :key="index"
+              :class="'eventIconElements ' + it + 'Events'"
+              :src="require('../../../assets/icons/' + icons[it] + '.svg')"
+              :alt="it + 'Icon'"/>
+        </div>
       </div>
     </div>
   </div>
@@ -14,6 +26,55 @@ export default {
 
   props: {
     date: Date,
+  },
+
+  data(){
+    return {
+      dayEvents: [],
+      icons: {
+        'productionFinished': 'simple-tick',
+        'featureFilm':'rising-chart',
+        'blockbuster':'rising-chart',
+        'award':'award'
+      },
+    }
+  },
+
+  mounted() {
+    let allCalendarEvents = this.$store.getters.getCalendarEvents;
+    let allEventsCompleted = null;
+    for (let i = 0; i < allCalendarEvents.length; i++) {
+      if(allCalendarEvents[i].start === this.formatDate(this.$store.getters.getCurrentDate.toDateString())){
+        this.dayEvents.push(allCalendarEvents[i].type)
+        if(allEventsCompleted === null || allEventsCompleted === true){
+          allEventsCompleted = allCalendarEvents[i].completed;
+        }
+      }
+    }
+    if(this.dayEvents.length !== 0 && !allEventsCompleted){
+      setTimeout(() => {
+        this.$emit('stopAnimate')
+      }, 2000)
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        allCalendarEvents[i].completed = true;
+      }
+    }
+  },
+
+  methods: {
+    formatDate(date) {
+      let d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+
+      return [year, month, day].join('-');
+    }
   }
 }
 </script>
@@ -25,11 +86,56 @@ export default {
   height: 150px;
   width: 200px;
   padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .animationElementDate {
+  margin-top: 8px;
   color: var(--fsm-pink-1);
   font-weight: var(--fsm-fw-bold);
   text-align: center;
+}
+
+.animationElementIcons {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+
+  flex: 1;
+  padding: 5px;
+  margin: 5px;
+}
+
+.animationElementIconsBox {
+  flex: 1;
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.eventIconElements {
+  width: 15px;
+  height: 15px;
+  border-radius: var(--fsm-l-border-radius);
+  padding: 5px
+}
+
+.awardEvents {
+  background-color: var(--fsm-light-yellow)
+}
+
+.blockbusterEvents {
+  background-color: var(--fsm-light-blue)
+}
+
+.featureFilmEvents {
+  background-color: var(--fsm-light-green)
+}
+
+.productionFinishedEvents {
+  background-color: var(--fsm-pink-1)
 }
 </style>

@@ -7,16 +7,16 @@
           <div class="modal-body">
             <div class="simulationScreenElementDiv">
               <Transition name="slide-fade" id="transition">
-                <animation-element v-if="show" :date="currentDate"/>
-                <animation-element v-else :date="currentDate"/>
+                <animation-element v-if="show" :date="currentDate" @stop-animate="stopAnimate"/>
+                <animation-element v-else :date="currentDate" @stop-animate="stopAnimate"/>
               </Transition>
             </div>
-            <custom-button
-                id="stopSimulationButton"
-                :dark="false"
-                size="medium"
-                @click="stopAnimate">Stop</custom-button>
           </div>
+          <custom-button
+              id="stopSimulationButton"
+              :dark="false"
+              size="medium"
+              @click="stopAnimate">Stop</custom-button>
         </div>
       </div>
     </div>
@@ -31,6 +31,7 @@ export default {
   name: "SimulationScreen",
   components: {CustomButton, AnimationElement},
 
+
   data(){
     return {
       show: true,
@@ -43,7 +44,7 @@ export default {
   mounted() {
     this.interval = setInterval(() => {
       this.animate()
-    }, 4000)
+    }, 5000)
   },
 
   methods: {
@@ -51,7 +52,7 @@ export default {
       clearInterval(this.interval)
       setTimeout(() => {
         this.$emit('close');
-      }, 5000)
+      }, 4000)
     },
 
     animate(){
@@ -73,19 +74,16 @@ export default {
 }
 
 #stopSimulationButton {
-  position: absolute;
-  float: right;
-  right: 100px;
-  bottom: 20px;
-  width: 15%;
+  margin-top: 15px;
+  width: 200px;
 }
 
 .slide-fade-enter-active {
-  transition: all 0.8s ease-in;
+  transition: all 1s ease-in;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-fade-leave-to {
@@ -106,13 +104,14 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: table;
   transition: opacity 0.3s ease;
-}
+  text-align: center;
 
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .modal-enter-from, .modal-leave-to {
