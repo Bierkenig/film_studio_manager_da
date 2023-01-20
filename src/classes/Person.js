@@ -15,7 +15,7 @@ export default class Person {
         //TYPE -> Integer
         this._birthday = birthday
         //TYPE -> Integer
-        //this.age = ???
+        this._age = 0
         //TYPE -> String
         this._gender = gender;
         //TYPE -> String
