@@ -28,7 +28,7 @@ const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 export default function simulate() {
     //TODO fetch DB again
-    console.log('Simulation works')
+    console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
     renewPeople();
