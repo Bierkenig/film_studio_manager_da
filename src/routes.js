@@ -32,7 +32,6 @@ import ActorOutput from "@/components/DB-Editor/Entities/ActorOutput";
 import SelectDBWindow from "@/components/DB-Editor/SelectDBWindow";
 import NewCreateScreenplay from "@/components/mainGameComponents/moviesMenu/NewCreateScreenplay.vue";
 import ScreenplaySummary from "@/components/mainGameComponents/homeMenu/ScreenplaySummary.vue";
-import SourcesList from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesList.vue";
 import prodEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal";
 import testScreening from "@/components/mainGameComponents/postProduction/postEvents/testScreening";
 import MovieSummary from "@/components/mainGameComponents/homeMenu/MovieSummary.vue";
@@ -41,6 +40,7 @@ import FranchiseSection from "@/components/mainGameComponents/preProduction/fran
 import FranchisesOverview from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesOverview.vue";
 import testScreeningOptions from "@/components/mainGameComponents/postProduction/postEvents/testScreeningOptions";
 import testScreeningResults from "@/components/mainGameComponents/postProduction/postEvents/testScreeningResults";
+import SourcesOverview from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesOverview";
 
 
 const routes = [
@@ -48,7 +48,7 @@ const routes = [
     { name: 'createFranchise', path: '/createFranchise', component: CreateFranchise, props: true },
 
     { name: 'franchisesOverview', path: '/franchisesOverview', component: FranchisesOverview, props: true },
-    { name: 'sourcesList', path: '/sourcesList', component: SourcesList, props: true },
+    { name: 'sourcesOverview', path: '/sourcesOverview', component: SourcesOverview, props: true },
 
     { name: 'screenplaySummary', path: '/screenplaySummary', component: ScreenplaySummary, props: true },
     { name: 'newScreenplay', path: '/newScreenplay', component: NewCreateScreenplay, props: true },

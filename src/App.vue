@@ -326,6 +326,7 @@ export default {
     this.$store.getters.getScreenplays[0].setWritingPhase(14);
 
     this.$store.getters.getFinishedMovies[0]._preProduction.screenplay = this.$store.getters.getScreenplays[0];
+    this.$store.getters.getFinishedMovies[0]._foundationDate = this.$store.getters.getCurrentDate;
   }
 }
 </script>

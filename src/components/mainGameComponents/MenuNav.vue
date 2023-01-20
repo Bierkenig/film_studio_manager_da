@@ -81,11 +81,22 @@
             @click="focusButton('calendarButton')"/>
       </router-link>
     </div>
+
+    <transition name="modal">
+      <simulation-screen
+          v-if="startSimulation"
+          @close="startSimulation = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </simulation-screen>
+    </transition>
+
     <custom-button
         id="menuNavSkipButton"
         :dark="false"
         size="medium"
-        @click="onUpdateDate">{{ $t('skipWeek') }}</custom-button>
+        @click="startSimulation = true">{{ $t('skipWeek') }}</custom-button>
   </div>
 </template>
 
@@ -93,12 +104,12 @@
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
-import simulate from "@/simulation/simulation";
+import SimulationScreen from "@/components/mainGameComponents/calendarSimulation/SimulationScreen";
 
 export default {
   name: "MenuNav",
 
-  components: {CustomButton, IconButton},
+  components: {SimulationScreen, CustomButton, IconButton},
 
   mixins: [soundeffectMixin('button','click')],
 
@@ -116,7 +127,8 @@ export default {
         'newsButton': false,
         'financesButton': false,
         'calendarButton': false,
-      }
+      },
+      startSimulation: false,
     }
   },
 
@@ -144,11 +156,6 @@ export default {
       }
 
       this.lastButton = name;
-    },
-
-    onUpdateDate(){
-      simulate();
-      this.$store.commit('updateCurrentDate');
     },
   }
 }

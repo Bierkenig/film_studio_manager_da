@@ -8,19 +8,38 @@
         <div id="franchiseDetailsFranchiseName">
           {{ franchise.name }}
         </div>
-        <div>
-          {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+        <div class="franchiseDetailsGeneralInfo">
+          <div>
+            Creation
+          </div>
+          <div>
+            {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+          </div>
         </div>
-        <div>
-          {{ franchiseMovies.length }}
+        <div class="franchiseDetailsGeneralInfo">
+          <div>
+            Number of movies
+          </div>
+          <div>
+            {{ franchiseMovies.length }}
+          </div>
         </div>
       </div>
     </div>
     <h2 class="franchiseDetailsHeader" id="franchiseDetailsMovieHeader">{{ $t('movies') }}</h2>
     <div class="franchiseDetailsBox">
-      <div v-if="franchiseMovies.length !== 0" class="franchiseDetailsMovieBox">
-        <div v-for="(it,index) in franchiseMovies" :key="index" class="franchiseDetailsMovieItem">
-          {{ it._preProduction.screenplay.title }}
+      <div v-if="franchiseMovies.length !== 0" class="franchiseDetailsMovieBox verticalScroll">
+        <div v-for="index in 10" :key="index" class="franchiseDetailsMovieItem">
+          <div>
+            {{ franchiseMovies[0]._preProduction.screenplay.title }}
+          </div>
+          <div>
+            <!--TODO: mit den Einnahmen des Filmes ersetzen-->
+            $ 10000000
+          </div>
+          <div>
+            {{ franchiseMovies[0]._foundationDate.getFullYear() }}
+          </div>
         </div>
       </div>
     </div>
@@ -65,7 +84,7 @@ export default {
 
   methods: {
     buyFranchise(){
-      this.$store.commit('buyOtherStudiosFranchise',[this.franchise,this.franchisePrice])
+      this.$store.commit('buyFranchiseFromOtherStudios',[this.franchise,this.franchisePrice])
     }
   }
 }
@@ -109,11 +128,13 @@ export default {
 #franchiseDetailsFranchiseName {
   font-size: 28px;
   font-weight: var(--fsm-fw-bold);
+  margin: 10px 0 10px 0;
 }
 
 .franchiseDetailsFranchiseInfo {
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 10px;
 }
 
@@ -125,13 +146,26 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 120px;
   width: 100%;
 }
 
 .franchiseDetailsMovieItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px 10px 7px 10px;
+}
+
+.franchiseDetailsGeneralInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
   flex: 1;
-  padding: 5px 0 5px 5px;
+  padding: 7px 10px 7px 10px;
 }
 </style>

@@ -5,17 +5,27 @@
       <div id="sourcesDetailsPosterBox">
       </div>
       <div v-if="source !== null" class="sourcesDetailsSourceInfo">
-        <div v-if="typeof source === Screenplay" class="sourcesDetailsSourceName">
+        <!--<div v-if="typeof source === Screenplay" class="franchiseDetailsFranchiseName">
+          {{ source._title }}
+        </div>
+        <div v-else class="franchiseDetailsFranchiseName">
           {{ source.title }}
         </div>
-        <div v-if="typeof source === Movie" class="sourcesDetailsSourceName">
-          {{ source._preProduction.screenplay.title }}
+        <div class="franchiseDetailsGeneralInfo">
+          <div>
+            Creation
+          </div>
+          <div>
+            {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+          </div>
         </div>
-        <!--<div>
-          {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
-        </div>
-        <div>
-          {{ franchiseMovies.length }}
+        <div class="franchiseDetailsGeneralInfo">
+          <div>
+            Number of movies
+          </div>
+          <div>
+            {{ franchiseMovies.length }}
+          </div>
         </div>-->
       </div>
     </div>
@@ -38,16 +48,8 @@
 </template>
 
 <script>
-import {Screenplay} from "@/classes/Screenplay";
-
 export default {
   name: "SourcesDetails",
-  computed: {
-    Screenplay() {
-      return Screenplay
-    }
-  },
-  components: {},
 
   props: {
     source: Object,

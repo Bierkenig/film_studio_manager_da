@@ -1,6 +1,6 @@
 <template>
   <div id="sourcesOverviewMainDiv">
-    <h1 id="sourcesListHeader">{{ $t('listOfFranchises') }}</h1>
+    <h1 id="sourcesListHeader">{{ $t('listOfSources') }}</h1>
     <icon-button
         id="sourcesListBackButton"
         icon="simple-arrow-left"
@@ -37,6 +37,7 @@ export default {
 
     receiveItem(item) {
       this.clickedItem = item;
+      console.log(item)
       //TODO: auf Preis von Item (Drehbuch oder Film) umändern
       this.checkBalance = (this.$store.getters.getBalance - parseInt("0")) < 0;
     }

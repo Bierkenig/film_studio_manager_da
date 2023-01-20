@@ -6,8 +6,8 @@
           <tile-pages-nav id="movieListNavigation" :pages='[$t("owning"),$t("forSale")]' :gradient='true'>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOwningMovies" :id="'sourceItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index)">
-                  <div class="sourcesListElementTitle" :id="'sourcesListElementName' + index">
+                <div v-for="(it, index) in allOwningMovies" :id="'movieItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'moviesListElementName','movieItem')">
+                  <div class="sourcesListElementTitle" :id="'moviesListElementName' + index">
                     {{it._preProduction.screenplay.title}}
                   </div>
                 </div>
@@ -19,8 +19,8 @@
             </div>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOtherStudiosMovies" :id="'sourceItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index)">
-                  <div class="sourcesListElementTitle" :id="'sourcesListElementName' + index">
+                <div v-for="(it, index) in allOtherStudiosMovies" :id="'movieItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'moviesListElementName','movieItem')">
+                  <div class="sourcesListElementTitle" :id="'moviesListElementName' + index">
                     {{it._preProduction.screenplay.title}}
                   </div>
                 </div>
@@ -34,8 +34,8 @@
           <tile-pages-nav id="screenplaysListNavigation" :pages='[$t("owning"),$t("forSale")]' :gradient='true'>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOwningScreenplays" :id="'sourceItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index)">
-                  <div class="sourcesListElementTitle" :id="'sourcesListElementName' + index">
+                <div v-for="(it, index) in allOwningScreenplays" :id="'screenplayItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'screenplaysListElementName','screenplayItem')">
+                  <div class="sourcesListElementTitle" :id="'screenplaysListElementName' + index">
                     {{it.title}}
                   </div>
                 </div>
@@ -47,8 +47,8 @@
             </div>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOtherStudiosScreenplays" :id="'sourceItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index)">
-                  <div class="sourcesListElementTitle" :id="'sourcesListElementName' + index">
+                <div v-for="(it, index) in allOtherStudiosScreenplays" :id="'screenplayItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'screenplaysListElementName','screenplayItem')">
+                  <div class="sourcesListElementTitle" :id="'screenplaysListElementName' + index">
                     {{it.title}}
                   </div>
                 </div>
@@ -76,8 +76,8 @@ export default {
 
   data(){
     return {
-      allOtherStudiosMovies: this.$store.getters.getOtherStudiosMovies,
-      allOtherStudiosScreenplays: this.$store.getters.getOtherStudiosScreenplays,
+      allOtherStudiosMovies: this.$store.getters.getMoviesFromOtherStudios,
+      allOtherStudiosScreenplays: this.$store.getters.getScreenplaysFromWriters,
       allOwningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       allOwningMovies: this.$store.getters.getInProductionMovies.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies),
       lastIndex: null,
@@ -87,12 +87,12 @@ export default {
   },
 
   methods: {
-    getSourceInfo(source, index) {
-      document.getElementById('sourceItem' + index).style.backgroundColor = 'var(--fsm-pink-1)';
-      document.getElementById('sourcesListElementName' + index).style.color = 'var(--fsm-dark-blue-4)';
+    getSourceInfo(source, index, containerId, itemId) {
+      document.getElementById(itemId + index).style.backgroundColor = 'var(--fsm-pink-1)';
+      document.getElementById(containerId + index).style.color = 'var(--fsm-dark-blue-4)';
       if (this.lastIndex !== null) {
-        document.getElementById('sourceItem' + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
-        document.getElementById('sourcesListElementName' + this.lastIndex).style.color = 'unset';
+        document.getElementById(itemId + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
+        document.getElementById(containerId + this.lastIndex).style.color = 'unset';
       }
       this.lastIndex = index;
 
@@ -224,8 +224,12 @@ export default {
   padding: 10px 0 10px 15px;
 }
 
-#movieListNavigation, #movieListNavigation{
+#sourcesListSelect{
   margin: 15px;
+}
+
+#movieListNavigation, #screenplaysListNavigation {
+  width: 100%;
 }
 
 .sourcesList {

@@ -42,9 +42,10 @@ export default {
     goToSite(){
       if(this.headline === 'createMovie'){
         this.$store.state.currentMovie = new Movie(this.$store.state.studio, null, {children: 0, teenager: 0, adult: 0})
+        this.$store.getters.getCurrentMovie._foundationDate = this.$store.getters.getCurrentDate;
         this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){
-        this.$router.push({name: 'sourcesList'});
+        this.$router.push({name: 'sourcesOverview'});
       } else if(this.headline === 'listOfFranchises'){
         this.$router.push({name: 'franchisesOverview'});
       } else if(this.headline === 'buyStreamingRights'){
