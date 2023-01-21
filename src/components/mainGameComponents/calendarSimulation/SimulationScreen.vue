@@ -75,7 +75,7 @@ export default {
 
 #stopSimulationButton {
   margin-top: 15px;
-  width: 200px;
+  width: 300px;
 }
 
 .slide-fade-enter-active {

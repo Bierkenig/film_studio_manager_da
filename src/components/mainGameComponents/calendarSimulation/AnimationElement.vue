@@ -83,8 +83,8 @@ export default {
 .animationBody {
   background-color: var(--fsm-dark-blue-2);
   border-radius: var(--fsm-m-border-radius);
-  height: 150px;
-  width: 200px;
+  height: 250px;
+  width: 300px;
   padding: 5px;
   display: flex;
   flex-direction: column;

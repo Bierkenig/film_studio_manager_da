@@ -450,7 +450,7 @@ export default createStore({
             return nextId + 1;
         },
 
-        getOtherStudiosFranchises(state){
+        getFranchisesFromOtherStudios(state){
             return state.franchisesFromOtherStudios;
         },
 
@@ -725,6 +725,15 @@ export default createStore({
             state.franchisesFromOtherStudios.push(franchise)
         },
 
+        //payload[0] -> franchise, payload[1] -> movie
+        addMovieToFranchiseFromOtherStudios(state, payload){
+            for (let i = 0; i < state.franchisesFromOtherStudios.length; i++) {
+                if(state.franchisesFromOtherStudios[i] === payload[0]){
+                    state.franchisesFromOtherStudios[i].addAllMovies(payload[1])
+                }
+            }
+        },
+
         //payload -> [0] -> bought franchise, [1] -> price of franchise
         buyFranchiseFromOtherStudios(state, payload){
           let otherStudio = state.otherStudios.filter(st => st === payload[0].owner);
@@ -733,6 +742,11 @@ export default createStore({
           state.franchises.push(payload[0])
           state.studio.budget = state.studio.budget - payload[1];
           otherStudio.budget = otherStudio.budget + payload[1];
+
+          for (let i = 0; i < payload[0].allMovies.length; i++) {
+              state.finishedMovies.push(payload[0].allMovies[i]);
+          }
+
           console.log(state.otherStudios)
         },
 

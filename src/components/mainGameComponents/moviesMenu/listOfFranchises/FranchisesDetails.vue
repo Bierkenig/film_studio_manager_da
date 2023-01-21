@@ -1,44 +1,111 @@
 <template>
   <div id="franchisesDetailsMainDiv">
     <h2 class="franchiseDetailsHeader">{{ $t('general') }}</h2>
-    <div class="franchiseDetailsBox">
-      <div id="franchiseDetailsPosterBox">
+    <div class="franchiseDetailsOuterBox">
+      <div class="franchiseDetailsBox">
+        <div id="franchiseDetailsPosterBox">
+        </div>
+        <div v-if="franchise !== null" class="franchiseDetailsFranchiseInfo">
+          <div id="franchiseDetailsFranchiseName">
+            {{ franchise.name }}
+          </div>
+          <div class="franchiseDetailsGeneralInfo">
+            <div>
+              Creation
+            </div>
+            <div>
+              {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+            </div>
+          </div>
+          <div class="franchiseDetailsGeneralInfo">
+            <div>
+              Number of movies
+            </div>
+            <div>
+              {{ franchiseMovies.length }}
+            </div>
+          </div>
+        </div>
       </div>
-      <div v-if="franchise !== null" class="franchiseDetailsFranchiseInfo">
-        <div id="franchiseDetailsFranchiseName">
-          {{ franchise.name }}
+      <div v-if="franchise !== null" class="franchiseDetailsBox">
+        <div class="franchiseDetailsPeople">
+          <div class="franchiseDetailsPeopleRating">
+            <div>
+              Children
+            </div>
+            <input class="franchiseDetailsRangeSlider"
+                   type="range"
+                   :min="0"
+                   :max="100"
+                   :step="1"
+                   v-model="childrenRating" disabled>
+          </div>
+          <div class="franchiseDetailsPeopleRating">
+            <div>
+              Teenager
+            </div>
+            <input class="franchiseDetailsRangeSlider"
+                   type="range"
+                   :min="0"
+                   :max="100"
+                   :step="1"
+                   v-model="teenagerRating" disabled>
+          </div>
+          <div class="franchiseDetailsPeopleRating">
+            <div>
+              Adult
+            </div>
+            <input class="franchiseDetailsRangeSlider"
+                   type="range"
+                   :min="0"
+                   :max="100"
+                   :step="1"
+                   v-model="adultRating" disabled>
+          </div>
         </div>
-        <div class="franchiseDetailsGeneralInfo">
-          <div>
-            Creation
+        <div class="franchiseDetailsFinances">
+          <div class="franchiseDetailsFinancesDetails">
+            <div>
+              Price
+            </div>
+            <div>
+              $ {{ franchisePrice }}
+            </div>
           </div>
-          <div>
-            {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+          <div class="franchiseDetailsPeopleRating">
+            <div>
+              Expenses
+            </div>
+            <div>
+              <!--TODO: mit expenses von Franchise ersetzen-->
+              $ {{ franchisePrice }}
+            </div>
           </div>
-        </div>
-        <div class="franchiseDetailsGeneralInfo">
-          <div>
-            Number of movies
-          </div>
-          <div>
-            {{ franchiseMovies.length }}
+          <div class="franchiseDetailsPeopleRating">
+            <div>
+              Worldwide Gross
+            </div>
+            <div>
+              <!--TODO: mit worldwide gross von Franchise ersetzen-->
+              $ {{ franchisePrice }}
+            </div>
           </div>
         </div>
       </div>
     </div>
     <h2 class="franchiseDetailsHeader" id="franchiseDetailsMovieHeader">{{ $t('movies') }}</h2>
-    <div class="franchiseDetailsBox">
+    <div class="franchiseDetailsOuterBox">
       <div v-if="franchiseMovies.length !== 0" class="franchiseDetailsMovieBox verticalScroll">
-        <div v-for="index in 10" :key="index" class="franchiseDetailsMovieItem">
+        <div v-for="(it, index) in franchiseMovies" :key="index" class="franchiseDetailsMovieItem">
           <div>
-            {{ franchiseMovies[0]._preProduction.screenplay.title }}
+            {{ it._preProduction.screenplay.title }}
           </div>
           <div>
             <!--TODO: mit den Einnahmen des Filmes ersetzen-->
             $ 10000000
           </div>
           <div>
-            {{ franchiseMovies[0]._foundationDate.getFullYear() }}
+            {{ it._foundationDate.getFullYear() }}
           </div>
         </div>
       </div>
@@ -49,7 +116,7 @@
         :dark="false"
         size="small"
         :disabled="checkBalance"
-        @clicked="buyFranchise">{{ $t('continue') }}</custom-button>
+        @clicked="buyFranchise">{{ $t('buyScreenplaySection.buy') }}</custom-button>
   </div>
 </template>
 
@@ -70,6 +137,9 @@ export default {
     return {
       franchiseMovies: [],
       franchisePrice: 0,
+      childrenRating: 0,
+      teenagerRating: 0,
+      adultRating: 0,
     }
   },
 
@@ -77,13 +147,59 @@ export default {
     franchise: function(){
       if (this.franchise !== null) {
         this.franchiseMovies = this.franchise.allMovies;
-        //TODO: Franchise Preis setzen
+        this.franchisePrice = 0;
+        this.childrenRating = 0;
+        this.teenagerRating = 0;
+        this.adultRating = 0;
+
+        for (let i = 0; i < this.franchiseMovies.length; i++) {
+          let childrenRatingSum = 0;
+          let teenagerRatingSum = 0;
+          let adultRatingSum = 0;
+
+          childrenRatingSum += this.franchiseMovies[i].genrePopularity['children'];
+          childrenRatingSum += this.franchiseMovies[i].subgenrePopularity['children'];
+
+          teenagerRatingSum += this.franchiseMovies[i].genrePopularity['teenager'];
+          teenagerRatingSum += this.franchiseMovies[i].subgenrePopularity['teenager'];
+
+          adultRatingSum += this.franchiseMovies[i].genrePopularity['adult'];
+          adultRatingSum += this.franchiseMovies[i].subgenrePopularity['adult'];
+
+          Object.keys(this.franchiseMovies[i].topicPopularity).forEach(key => {
+            Object.keys(this.franchiseMovies[i].topicPopularity[key]).forEach(key2 => {
+              if(key2 == 'children'){
+                childrenRatingSum += this.franchiseMovies[i].topicPopularity[key][key2]
+              } else if(key2 == 'teenager'){
+                teenagerRatingSum += this.franchiseMovies[i].topicPopularity[key][key2]
+              } else if(key2 == 'adult'){
+                adultRatingSum += this.franchiseMovies[i].topicPopularity[key][key2]
+              }
+            })
+          })
+
+          this.childrenRating += childrenRatingSum / 5;
+          this.teenagerRating += teenagerRatingSum / 5;
+          this.adultRating += adultRatingSum / 5;
+
+          // price of each franchise
+          let movieEarnings = 0;
+          for (let j = 0; j < this.franchiseMovies[i]._earnings.length; j++) {
+            movieEarnings += this.franchiseMovies[i]._earnings[j].amount
+          }
+          this.franchisePrice += movieEarnings;
+        }
+
+        this.childrenRating = this.childrenRating / this.franchiseMovies.length;
+        this.teenagerRating = this.teenagerRating / this.franchiseMovies.length;
+        this.adultRating = this.adultRating / this.franchiseMovies.length;
       }
     },
   },
 
   methods: {
     buyFranchise(){
+      this.$emit('boughtFranchise')
       this.$store.commit('buyFranchiseFromOtherStudios',[this.franchise,this.franchisePrice])
     }
   }
@@ -104,11 +220,17 @@ export default {
   color: var(--fsm-pink-1);
 }
 
-.franchiseDetailsBox {
+.franchiseDetailsOuterBox {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   padding: 15px;
   margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.franchiseDetailsBox {
   display: flex;
   flex-direction: row;
   gap: 15px;
@@ -167,5 +289,36 @@ export default {
   border-radius: var(--fsm-m-border-radius);
   flex: 1;
   padding: 7px 10px 7px 10px;
+}
+
+.franchiseDetailsPeople, .franchiseDetailsFinances {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.franchiseDetailsPeopleRating, .franchiseDetailsFinancesDetails {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 5px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.franchiseDetailsRangeSlider {
+  width: 100px;
+  height: 10px;
+}
+
+.franchiseDetailsRangeSlider::-webkit-slider-thumb {
+  background: linear-gradient(to right, var(--fsm-pink-1) 0%, var(--fsm-pink-1) 50%, var(--fsm-dark-blue-4) 50%, var(--fsm-dark-blue-4) 100%);
+}
+
+#franchiseDetailsBuyButton {
+  margin-top: 15px;
 }
 </style>

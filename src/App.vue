@@ -29,6 +29,7 @@ import store from "./services/store";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
 import {Character} from "@/classes/Character";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: 'App',
@@ -340,6 +341,15 @@ export default {
 
     this.$store.getters.getFinishedMovies[0]._preProduction.screenplay = this.$store.getters.getScreenplays[0];
     this.$store.getters.getFinishedMovies[0]._foundationDate = this.$store.getters.getCurrentDate;
+    this.$store.getters.getFinishedMovies[0].genrePopularity = {children: 18, teenager: 85, adult: 59};
+    this.$store.getters.getFinishedMovies[0].subgenrePopularity = {children: 55, teenager: 37, adult: 75};
+    this.$store.getters.getFinishedMovies[0].topicPopularity = {firstTopic: {children: 28, teenager: 3, adult: 5},
+      secondTopic: {children: 96, teenager: 58, adult: 75},
+      thirdTopic: {children: 25, teenager: 86, adult: 15}};
+
+    this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(2500000,new Date('01.01.2023')))
+    this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(3500000,new Date('02.01.2023')))
+    this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(750000,new Date('03.01.2023')))
   }
 }
 </script>
