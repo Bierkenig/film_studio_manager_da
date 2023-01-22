@@ -748,6 +748,10 @@ i18next
                         ascending: 'Ascending',
                         descending: 'Descending',
                     },
+                    movieElement: {
+                        release: 'Release',
+                        earnings: 'Earnings',
+                    },
                 }
             },
             de: {
@@ -1450,6 +1454,10 @@ i18next
                     customListSort: {
                         ascending: 'Aufsteigend',
                         descending: 'Absteigend',
+                    },
+                    movieElement: {
+                        release: 'Veröffentlichung',
+                        earnings: 'Einnahmen',
                     },
                 }
             }
