@@ -147,9 +147,6 @@ export default {
     })*/
 
     //test
-    console.log(actors)
-    console.log(directors)
-    console.log(writers)
 
     this.$store.commit('setAllWriters', writers);
     this.$store.commit('setAllDirectors', directors);
