@@ -125,22 +125,6 @@ async function createWindow() {
     })
 
     //simulation
-    //get last Id
-    ipcMain.on('lastID', (event, data) => {
-        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
-            if (err) console.error('Database opening error: ', err);
-        });
-
-        db.serialize(() => {
-            db.each(data, (err, row) => {
-                if (err) console.log(err)
-                console.log("DB: Got the last ID")
-                event.sender.send('sendLastID', row)
-            })
-        })
-        db.close()
-    })
-
     //kill a Person
     ipcMain.on('killPerson', (event, data) => {
         db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
