@@ -762,6 +762,12 @@ i18next
                         quality: 'Quality',
                         writer: 'Writer',
                     },
+                    streamingInfoElement: {
+                        popularity: 'Popularity',
+                        subscribers: 'Subscribers',
+                        revenue: 'Revenue',
+                        price: 'Price',
+                    },
                 }
             },
             de: {
@@ -1478,6 +1484,12 @@ i18next
                         age: 'Alter',
                         quality: 'Qualität',
                         writer: 'Autor',
+                    },
+                    streamingInfoElement: {
+                        popularity: 'Beliebtheit',
+                        subscribers: 'Abonnenten',
+                        revenue: 'Einnahmen',
+                        price: 'Preis',
                     },
                 }
             }
