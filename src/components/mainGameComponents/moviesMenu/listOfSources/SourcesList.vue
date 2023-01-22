@@ -6,7 +6,7 @@
           <tile-pages-nav id="movieListNavigation" :pages='[$t("owning"),$t("forSale")]' :gradient='true'>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOwningMovies" :id="'movieItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'moviesListElementName','movieItem')">
+                <div v-for="(it, index) in allOwningMovies" :id="'movieOwningItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'moviesListElementName','movieOwningItem')">
                   <div class="sourcesListElementTitle" :id="'moviesListElementName' + index">
                     {{it._preProduction.screenplay.title}}
                   </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOtherStudiosMovies" :id="'movieItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'moviesListElementName','movieItem')">
+                <div v-for="(it, index) in allOtherStudiosMovies" :id="'movieSaleItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'moviesListElementName','movieSaleItem')">
                   <div class="sourcesListElementTitle" :id="'moviesListElementName' + index">
                     {{it._preProduction.screenplay.title}}
                   </div>
@@ -34,7 +34,7 @@
           <tile-pages-nav id="screenplaysListNavigation" :pages='[$t("owning"),$t("forSale")]' :gradient='true'>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOwningScreenplays" :id="'screenplayItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'screenplaysListElementName','screenplayItem')">
+                <div v-for="(it, index) in allOwningScreenplays" :id="'screenplayOwningItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'screenplaysListElementName','screenplayOwningItem')">
                   <div class="sourcesListElementTitle" :id="'screenplaysListElementName' + index">
                     {{it.title}}
                   </div>
@@ -47,7 +47,7 @@
             </div>
             <div class="sourcesList">
               <div class="sourcesListScroll verticalScroll">
-                <div v-for="(it, index) in allOtherStudiosScreenplays" :id="'screenplayItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'screenplaysListElementName','screenplayItem')">
+                <div v-for="(it, index) in allOtherStudiosScreenplays" :id="'screenplaySaleItem' + index" :key="index" class="sourcesListElement" @click="getSourceInfo(it,index,'screenplaysListElementName','screenplaySaleItem')">
                   <div class="sourcesListElementTitle" :id="'screenplaysListElementName' + index">
                     {{it.title}}
                   </div>
@@ -81,6 +81,8 @@ export default {
       allOwningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       allOwningMovies: this.$store.getters.getInProductionMovies.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies),
       lastIndex: null,
+      lastContainerId: null,
+      lastItemId: null,
       selectedSortByWhat: null,
       selectedTypeOfSort: 'Ascending',
     }
@@ -91,12 +93,18 @@ export default {
       document.getElementById(itemId + index).style.backgroundColor = 'var(--fsm-pink-1)';
       document.getElementById(containerId + index).style.color = 'var(--fsm-dark-blue-4)';
       if (this.lastIndex !== null) {
-        document.getElementById(itemId + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
-        document.getElementById(containerId + this.lastIndex).style.color = 'unset';
+        document.getElementById(this.lastItemId + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
+        document.getElementById(this.lastContainerId + this.lastIndex).style.color = 'unset';
       }
       this.lastIndex = index;
+      this.lastItemId = itemId;
+      this.lastContainerId = containerId;
 
-      this.$emit('sendSource', source);
+      if(itemId === 'movieSaleItem' || itemId === 'screenplaySaleItem'){
+        this.$emit('sendSource', source, 'Sale');
+      } else {
+        this.$emit('sendSource', source, 'Owning');
+      }
     },
 
     setSelectedSortByWhatForAllOwningMovies(arg) {
