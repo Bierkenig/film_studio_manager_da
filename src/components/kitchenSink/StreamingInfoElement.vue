@@ -16,7 +16,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="streamingInfoElementPopularityLabel">
-              Popularity
+              {{ $t('streamingInfoElement.popularity') }}
             </div>
           </div>
           <div class="streamingInfoElementPopularityValueContainer">
@@ -32,7 +32,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="streamingInfoElementPriceLabel">
-              Subscribers
+              {{ $t('streamingInfoElement.subscribers') }}
             </div>
           </div>
           <div class="streamingInfoElementPriceValue">
@@ -47,7 +47,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="streamingInfoElementPriceLabel">
-              Revenue
+              {{ $t('streamingInfoElement.revenue') }}
             </div>
           </div>
           <div class="streamingInfoElementPriceValue">
@@ -62,7 +62,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="streamingInfoElementPriceLabel">
-              Price
+              {{ $t('streamingInfoElement.price') }}
             </div>
           </div>
           <div class="streamingInfoElementPriceValueContainer">

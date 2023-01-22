@@ -18,7 +18,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="movieElementReleaseLabel">
-              Release
+              {{ $t('movieElement.release') }}
             </div>
           </div>
           <div class="movieElementReleaseValue">
@@ -37,7 +37,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="movieElementEarningsLabel">
-              Earnings
+              {{ $t('movieElement.earnings') }}
             </div>
           </div>
           <div class="movieElementEarningsValue">
