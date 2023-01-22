@@ -11,7 +11,7 @@
           </div>
           <div class="franchiseDetailsGeneralInfo">
             <div>
-              Creation
+              {{ $t('creationDate') }}
             </div>
             <div>
               {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
@@ -19,7 +19,7 @@
           </div>
           <div class="franchiseDetailsGeneralInfo">
             <div>
-              Number of movies
+              {{ $t('numberOfMovies') }}
             </div>
             <div>
               {{ franchiseMovies.length }}
@@ -31,7 +31,7 @@
         <div class="franchiseDetailsPeople">
           <div class="franchiseDetailsPeopleRating">
             <div>
-              Children
+              {{ $t('children') }}
             </div>
             <input class="franchiseDetailsRangeSlider"
                    type="range"
@@ -42,7 +42,7 @@
           </div>
           <div class="franchiseDetailsPeopleRating">
             <div>
-              Teenager
+              {{ $t('teenagers') }}
             </div>
             <input class="franchiseDetailsRangeSlider"
                    type="range"
@@ -53,7 +53,7 @@
           </div>
           <div class="franchiseDetailsPeopleRating">
             <div>
-              Adult
+              {{ $t('adults') }}
             </div>
             <input class="franchiseDetailsRangeSlider"
                    type="range"
@@ -65,29 +65,27 @@
         </div>
         <div class="franchiseDetailsFinances">
           <div class="franchiseDetailsFinancesDetails">
-            <div>
-              Price
+            <div class="franchiseDetailsFinancesDetailsHeader">
+              {{ $t('price') }}
             </div>
             <div>
-              $ {{ franchisePrice }}
-            </div>
-          </div>
-          <div class="franchiseDetailsPeopleRating">
-            <div>
-              Expenses
-            </div>
-            <div>
-              <!--TODO: mit expenses von Franchise ersetzen-->
-              $ {{ franchisePrice }}
+              $ {{ currencyFormatDE(franchisePrice) }}
             </div>
           </div>
-          <div class="franchiseDetailsPeopleRating">
-            <div>
-              Worldwide Gross
+          <div class="franchiseDetailsFinancesDetails">
+            <div class="franchiseDetailsFinancesDetailsHeader">
+              {{ $t('expenses') }}
             </div>
             <div>
-              <!--TODO: mit worldwide gross von Franchise ersetzen-->
-              $ {{ franchisePrice }}
+              $ {{ currencyFormatDE(franchiseExpenses) }}
+            </div>
+          </div>
+          <div class="franchiseDetailsFinancesDetails">
+            <div class="franchiseDetailsFinancesDetailsHeader">
+              {{ $t('worldwideGross') }}
+            </div>
+            <div>
+              $ {{ currencyFormatDE(franchisePrice) }}
             </div>
           </div>
         </div>
@@ -102,7 +100,7 @@
           </div>
           <div>
             <!--TODO: mit den Einnahmen des Filmes ersetzen-->
-            $ 10000000
+            $ {{ currencyFormatDE(franchiseMovieEarnings[index]) }}
           </div>
           <div>
             {{ it._foundationDate.getFullYear() }}
@@ -137,6 +135,8 @@ export default {
     return {
       franchiseMovies: [],
       franchisePrice: 0,
+      franchiseExpenses: 0,
+      franchiseMovieEarnings: [],
       childrenRating: 0,
       teenagerRating: 0,
       adultRating: 0,
@@ -151,6 +151,7 @@ export default {
         this.childrenRating = 0;
         this.teenagerRating = 0;
         this.adultRating = 0;
+        this.franchiseExpenses = 0;
 
         for (let i = 0; i < this.franchiseMovies.length; i++) {
           let childrenRatingSum = 0;
@@ -188,6 +189,9 @@ export default {
             movieEarnings += this.franchiseMovies[i]._earnings[j].amount
           }
           this.franchisePrice += movieEarnings;
+          this.franchiseMovieEarnings.push(movieEarnings);
+
+          this.franchiseExpenses += this.franchiseMovies[i].totalOutgoings;
         }
 
         this.childrenRating = this.childrenRating / this.franchiseMovies.length;
@@ -201,6 +205,14 @@ export default {
     buyFranchise(){
       this.$emit('boughtFranchise')
       this.$store.commit('buyFranchiseFromOtherStudios',[this.franchise,this.franchisePrice])
+    },
+
+    currencyFormatDE(num) {
+      return (
+          num
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      ) // use . as a separator
     }
   }
 }
@@ -320,5 +332,9 @@ export default {
 
 #franchiseDetailsBuyButton {
   margin-top: 15px;
+}
+
+.franchiseDetailsFinancesDetailsHeader {
+  flex: 1;
 }
 </style>

@@ -147,9 +147,6 @@ export default {
     })*/
 
     //test
-    console.log(actors)
-    console.log(directors)
-    console.log(writers)
 
     this.$store.commit('setAllWriters', writers);
     this.$store.commit('setAllDirectors', directors);
@@ -350,6 +347,7 @@ export default {
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(2500000,new Date('01.01.2023')))
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(3500000,new Date('02.01.2023')))
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(750000,new Date('03.01.2023')))
+    this.$store.getters.getFinishedMovies[0].totalOutgoings = 5526000;
   }
 }
 </script>

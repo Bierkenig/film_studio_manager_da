@@ -780,6 +780,13 @@ i18next
                         total: 'Total',
                         studio: 'Studio',
                     },
+                    creationDate: 'Creation Date',
+                    numberOfMovies: 'Number of Movies',
+                    teenagers: 'Teenagers',
+                    children: 'Children',
+                    adults: 'Adults',
+                    expenses: 'Expenses',
+                    worldwideGross: 'Worldwide Gross',
                 }
             },
             de: {
@@ -1515,6 +1522,13 @@ i18next
                         total: 'Gesamt',
                         studio: 'Studio',
                     },
+                    creationDate: 'Erstellungsdatum',
+                    numberOfMovies: 'Anzahl an Filme',
+                    teenagers: 'Jugendliche',
+                    children: 'Kinder',
+                    adults: 'Erwachsene',
+                    expenses: 'Kosten',
+                    worldwideGross: 'Weltweite Einnahmen',
                 }
             }
         }

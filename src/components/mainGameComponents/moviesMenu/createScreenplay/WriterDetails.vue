@@ -215,9 +215,73 @@ export default {
         this.writerPopularity = this.writer._popularity;
         this.writerAge = this.writer._age;
         this.writerNationality = this.writer._nationality;
-        this.writerGenre = this.writer._genre[this.$store.getters.getCurrentScreenplay.genre];
         this.writerSalary = this.writer._salary;
         this.writerGender = this.writer._gender;
+
+        switch(this.$store.getters.getCurrentScreenplay.genre) {
+          case 'Action':
+            this.writerGenre = this.writer._action;
+            break;
+          case 'Adventure':
+            this.writerGenre = this.writer._adventure;
+            break;
+          case 'Biography':
+            this.writerGenre = this.writer._biography;
+            break;
+          case 'Comedy':
+            this.writerGenre = this.writer._comedy;
+            break;
+          case 'Crime':
+            this.writerGenre = this.writer._crime;
+            break;
+          case 'Documentary':
+            this.writerGenre = this.writer._documentary;
+            break;
+          case 'Drama':
+            this.writerGenre = this.writer._drama;
+            break;
+          case 'Erotic':
+            this.writerGenre = this.writer._erotic;
+            break;
+          case 'Family':
+            this.writerGenre = this.writer._family;
+            break;
+          case 'Fantasy':
+            this.writerGenre = this.writer._fantasy;
+            break;
+          case 'History':
+            this.writerGenre = this.writer._history;
+            break;
+          case 'Horror':
+            this.writerGenre = this.writer._horror;
+            break;
+          case 'Musical':
+            this.writerGenre = this.writer._musical;
+            break;
+          case 'Mystery':
+            this.writerGenre = this.writer._mystery;
+            break;
+          case 'Romance':
+            this.writerGenre = this.writer._romance;
+            break;
+          case 'ScienceFiction':
+            this.writerGenre = this.writer._scienceFiction;
+            break;
+          case 'Sport':
+            this.writerGenre = this.writer._sport;
+            break;
+          case 'Thriller':
+            this.writerGenre = this.writer._thriller;
+            break;
+          case 'War':
+            this.writerGenre = this.writer._war;
+            break;
+          case 'Western':
+            this.writerGenre = this.writer._western;
+            break;
+          default:
+            break;
+        }
 
         this.currentWriter = this.writer;
         this.changeSalaryValueLevel(Math.round((this.writerTalent * 35 + this.writerExperience * 25 + this.writerPopularity * 40) / 100))
@@ -363,8 +427,6 @@ export default {
         let screenplayRating = (writerTalent * 65 + this.writerGenre * 35) / 100;
         this.screenplay.setRating(screenplayRating)
       }
-
-      console.log(this.screenplay.rating)
 
       this.screenplay.setRatingRange((Math.ceil(this.screenplay.rating / 10) * 10) - 9 + ' - ' + (Math.ceil(this.screenplay.rating / 10) * 10))
 

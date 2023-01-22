@@ -2,7 +2,7 @@
   <div>
     <h3>{{ $t('actorSection.hire') }}</h3>
     <div v-for="(el, index) in allActors" :key="index">
-      <avatar-element :svg-code="el._avatar"></avatar-element>
+      <avatar-element :svg-code="el._avatar"/>
       {{ el._first_name }} | {{ el._last_name }} | {{ el._age }} | {{ el._gender }} | {{ el._nationality }} |
       {{ el._ethnicity }} | {{ el._depth }} | {{ el._rating }}
       <button @click="negotiateContract(el); disabled = true" :disabled="disabled">{{ $t('actorSection.negotiate') }}</button>
@@ -188,11 +188,8 @@ export default {
     finishPreProd() {
       console.log(this.$store.state.currentMovie)
       this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
-      if(this.$store.getters.getCurrentMovie._preProduction.screenplay.franchise !== null){
-        this.$store.getters.getCurrentFranchise.addAllMovies(this.$store.getters.getCurrentMovie)
-      }
       console.log(this.$store.getters.getInProductionMovies)
-      this.$router.push({name: "home"})
+      this.$router.push({name: "movies"})
     },
   },
 
