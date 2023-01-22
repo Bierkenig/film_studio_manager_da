@@ -772,6 +772,9 @@ i18next
                         popularity: 'Popularity',
                         contract: 'Contract',
                     },
+                    streamingCompetitorElement: {
+                        subscribers: 'Subscribers',
+                    },
                 }
             },
             de: {
@@ -1498,6 +1501,9 @@ i18next
                     streamingElement: {
                         popularity: 'Beliebtheit',
                         contract: 'Vertrag',
+                    },
+                    streamingCompetitorElement: {
+                        subscribers: 'Abonnenten',
                     },
                 }
             }

@@ -15,7 +15,7 @@
                 <custom-icon size="16px" theme="light" :shadow="true"/>
               </div>
               <div class="streamingCompetitorElementSubscribersLabel">
-                Subscribers
+                {{ $t('streamingCompetitorElement.subscribers') }}
               </div>
             </div>
             <div class="streamingCompetitorElementSubscribersValue">
