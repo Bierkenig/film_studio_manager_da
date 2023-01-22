@@ -775,6 +775,11 @@ i18next
                     streamingCompetitorElement: {
                         subscribers: 'Subscribers',
                     },
+                    earningStatisticsElement: {
+                        opening: 'Opening',
+                        total: 'Total',
+                        studio: 'Studio',
+                    },
                 }
             },
             de: {
@@ -1504,6 +1509,11 @@ i18next
                     },
                     streamingCompetitorElement: {
                         subscribers: 'Abonnenten',
+                    },
+                    earningStatisticsElement: {
+                        opening: 'Start',
+                        total: 'Gesamt',
+                        studio: 'Studio',
                     },
                 }
             }
