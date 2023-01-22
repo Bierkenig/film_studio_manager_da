@@ -744,6 +744,10 @@ i18next
                         status: 'Status',
                         timeLeft: 'Time left',
                     },
+                    customListSort: {
+                        ascending: 'Ascending',
+                        descending: 'Descending',
+                    },
                 }
             },
             de: {
@@ -1442,6 +1446,10 @@ i18next
                         release: 'Veröffentlichung',
                         status: 'Status',
                         timeLeft: 'Restliche Zeit',
+                    },
+                    customListSort: {
+                        ascending: 'Aufsteigend',
+                        descending: 'Absteigend',
                     },
                 }
             }
