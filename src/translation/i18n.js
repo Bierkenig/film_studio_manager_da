@@ -713,6 +713,32 @@ i18next
                     prequel: 'Prequel',
                     screenplayPlot: 'Screenplay Plot',
                     contractOffer: 'Contract Offer',
+                    events: {
+                        preProductionFinished: {
+                            title: 'Preproduction finished',
+                            description: 'Of the movie',
+                        },
+                        productionFinished: {
+                            title: 'Production finished',
+                            description: 'Of the movie',
+                        },
+                        postProductionFinished: {
+                            title: 'Postproduction finished',
+                            description: 'Of the movie',
+                        },
+                        featureRelease: {
+                            title: 'Feature Film Release',
+                            description: 'Of the movie',
+                        },
+                        blockbusterRelease: {
+                            title: 'Blockbuster Release',
+                            description: 'Of the movie',
+                        },
+                        awards: {
+                            title: 'International Film Awards',
+                            description: 'Nomination Announcements',
+                        },
+                    },
                 }
             },
             de: {
@@ -1381,6 +1407,32 @@ i18next
                     prequel: 'Vorgeschichte',
                     screenplayPlot: 'Drehbuchhandlung',
                     contractOffer: 'Vertragsangebot',
+                    events: {
+                        preProductionFinished: {
+                            title: 'Vorproduktion abgeschlossen',
+                            description: 'Von dem Film',
+                        },
+                        productionFinished: {
+                            title: 'Produktion abgeschlossen',
+                            description: 'Von dem Film',
+                        },
+                        postProductionFinished: {
+                            title: 'Nachbearbeitng abgeschlossen',
+                            description: 'Von dem Film',
+                        },
+                        featureRelease: {
+                            title: 'Spielfilm-Veröffentlichung',
+                            description: 'Von dem Film',
+                        },
+                        blockbusterRelease: {
+                            title: 'Blockbuster-Veröffentlichung',
+                            description: 'Von dem Film',
+                        },
+                        awards: {
+                            title: 'Internationale Filmpreise',
+                            description: 'Ankündigung der Nominierungen',
+                        },
+                    },
                 }
             }
         }
