@@ -18,7 +18,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="projectElementReleaseLabel">
-              Release
+              {{ $t('projectElement.release') }}
             </div>
           </div>
           <div class="projectElementReleaseValue">
@@ -36,7 +36,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="projectElementEarningsLabel">
-              Status
+              {{ $t('projectElement.status') }}
             </div>
           </div>
           <div class="projectElementEarningsValue">

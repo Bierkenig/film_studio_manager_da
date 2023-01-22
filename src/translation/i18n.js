@@ -752,6 +752,10 @@ i18next
                         release: 'Release',
                         earnings: 'Earnings',
                     },
+                    projectElement: {
+                        release: 'Release',
+                        status: 'Status',
+                    },
                 }
             },
             de: {
@@ -1458,6 +1462,10 @@ i18next
                     movieElement: {
                         release: 'Veröffentlichung',
                         earnings: 'Einnahmen',
+                    },
+                    projectElement: {
+                        release: 'Veröffentlichung',
+                        status: 'Status',
                     },
                 }
             }
