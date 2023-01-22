@@ -86,7 +86,6 @@
               Worldwide Gross
             </div>
             <div>
-              <!--TODO: mit worldwide gross von Franchise ersetzen-->
               $ {{ franchisePrice }}
             </div>
           </div>
