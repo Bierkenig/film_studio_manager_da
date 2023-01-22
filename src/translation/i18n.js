@@ -713,6 +713,13 @@ i18next
                     prequel: 'Prequel',
                     screenplayPlot: 'Screenplay Plot',
                     contractOffer: 'Contract Offer',
+                    creationDate: 'Creation Date',
+                    numberOfMovies: 'Number of Movies',
+                    teenagers: 'Teenagers',
+                    children: 'Children',
+                    adults: 'Adults',
+                    expenses: 'Expenses',
+                    worldwideGross: 'Worldwide Gross',
                 }
             },
             de: {
@@ -1381,6 +1388,13 @@ i18next
                     prequel: 'Vorgeschichte',
                     screenplayPlot: 'Drehbuchhandlung',
                     contractOffer: 'Vertragsangebot',
+                    creationDate: 'Erstellungsdatum',
+                    numberOfMovies: 'Anzahl an Filme',
+                    teenagers: 'Jugendliche',
+                    children: 'Kinder',
+                    adults: 'Erwachsene',
+                    expenses: 'Kosten',
+                    worldwideGross: 'Weltweite Einnahmen',
                 }
             }
         }
