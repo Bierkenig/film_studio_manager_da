@@ -739,6 +739,11 @@ i18next
                             description: 'Nomination Announcements',
                         },
                     },
+                    productionElement: {
+                        release: 'Release',
+                        status: 'Status',
+                        timeLeft: 'Time left',
+                    },
                 }
             },
             de: {
@@ -1432,6 +1437,11 @@ i18next
                             title: 'Internationale Filmpreise',
                             description: 'Ankündigung der Nominierungen',
                         },
+                    },
+                    productionElement: {
+                        release: 'Veröffentlichung',
+                        status: 'Status',
+                        timeLeft: 'Restliche Zeit',
                     },
                 }
             }
