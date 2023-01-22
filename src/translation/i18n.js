@@ -756,6 +756,12 @@ i18next
                         release: 'Release',
                         status: 'Status',
                     },
+                    screenplayElement: {
+                        genre: 'Genre',
+                        age: 'Age',
+                        quality: 'Quality',
+                        writer: 'Writer',
+                    },
                 }
             },
             de: {
@@ -1466,6 +1472,12 @@ i18next
                     projectElement: {
                         release: 'Veröffentlichung',
                         status: 'Status',
+                    },
+                    screenplayElement: {
+                        genre: 'Genre',
+                        age: 'Alter',
+                        quality: 'Qualität',
+                        writer: 'Autor',
                     },
                 }
             }
