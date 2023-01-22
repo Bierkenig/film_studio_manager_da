@@ -768,6 +768,10 @@ i18next
                         revenue: 'Revenue',
                         price: 'Price',
                     },
+                    streamingElement: {
+                        popularity: 'Popularity',
+                        contract: 'Contract',
+                    },
                 }
             },
             de: {
@@ -1490,6 +1494,10 @@ i18next
                         subscribers: 'Abonnenten',
                         revenue: 'Einnahmen',
                         price: 'Preis',
+                    },
+                    streamingElement: {
+                        popularity: 'Beliebtheit',
+                        contract: 'Vertrag',
                     },
                 }
             }
