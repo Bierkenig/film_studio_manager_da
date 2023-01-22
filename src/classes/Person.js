@@ -12,7 +12,7 @@ export default class Person {
         this._first_name = first_name;
         //TYPE -> String
         this._last_name = last_name;
-        //TYPE -> Integer
+        //TYPE -> String
         this._birthday = birthday
         //TYPE -> Integer
         this._age = 0
@@ -41,37 +41,37 @@ export default class Person {
         //TYPE -> Integer
         this._comedy = comedy
         //TYPE -> Integer
-        this.crime = crime
+        this._crime = crime
         //TYPE -> Integer
-        this.documentary = documentary
+        this._documentary = documentary
         //TYPE -> Integer
-        this.drama = drama
+        this._drama = drama
         //TYPE -> Integer
-        this.erotic = erotic
+        this._erotic = erotic
         //TYPE -> Integer
-        this.family = family
+        this._family = family
         //TYPE -> Integer
-        this.fantasy = fantasy
+        this._fantasy = fantasy
         //TYPE -> Integer
-        this.history = history
+        this._history = history
         //TYPE -> Integer
-        this.horror = horror
+        this._horror = horror
         //TYPE -> Integer
-        this.musical = musical
+        this._musical = musical
         //TYPE -> Integer
-        this.mystery = mystery
+        this._mystery = mystery
         //TYPE -> Integer
-        this.romance = romance
+        this._romance = romance
         //TYPE -> Integer
-        this.scienceFiction = scienceFiction
+        this._scienceFiction = scienceFiction
         //TYPE -> Integer
-        this.sport = sport
+        this._sport = sport
         //TYPE -> Integer
-        this.thriller = thriller
+        this._thriller = thriller
         //TYPE -> Integer
-        this.war = war
+        this._war = war
         //TYPE -> Integer
-        this.western = western
+        this._western = western
         //TYPE -> String
         this._isActor = isActor;
         //TYPE -> String
