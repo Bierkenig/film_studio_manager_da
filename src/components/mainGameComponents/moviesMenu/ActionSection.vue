@@ -13,7 +13,6 @@
     <custom-button
         class="actionButton"
         :dark="false"
-        size="small"
         @clicked="goToSite">{{ $t(buttonText) }}</custom-button>
 
   </div>

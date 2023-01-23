@@ -787,6 +787,7 @@ i18next
                     adults: 'Adults',
                     expenses: 'Expenses',
                     worldwideGross: 'Worldwide Gross',
+                    competitors: 'Competitors',
                 }
             },
             de: {
@@ -1529,6 +1530,7 @@ i18next
                     adults: 'Erwachsene',
                     expenses: 'Kosten',
                     worldwideGross: 'Weltweite Einnahmen',
+                    competitors: 'Konkurrenz',
                 }
             }
         }
