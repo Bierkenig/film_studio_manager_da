@@ -1,25 +1,17 @@
 <template>
   <div class="simulationScreenMainDiv">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-
-          <div class="modal-body">
-            <div class="simulationScreenElementDiv">
-              <Transition name="slide-fade" id="transition">
-                <animation-element v-if="show" :date="currentDate" @stop-animate="stopAnimate"/>
-                <animation-element v-else :date="currentDate" @stop-animate="stopAnimate"/>
-              </Transition>
-            </div>
-          </div>
-          <custom-button
-              id="stopSimulationButton"
-              :dark="false"
-              size="medium"
-              @click="stopAnimate">Stop</custom-button>
-        </div>
-      </div>
+    <div class="simulationScreenElementDiv">
+      <Transition name="slide-fade" id="transition">
+        <animation-element v-if="show" :date="currentDate" @stop-animate="stopAnimate"/>
+        <animation-element v-else :date="currentDate" @stop-animate="stopAnimate"/>
+      </Transition>
     </div>
+
+    <custom-button
+        id="stopSimulationButton"
+        :dark="false"
+        size="medium"
+        @click="stopAnimate">Stop</custom-button>
   </div>
 </template>
 
@@ -51,7 +43,7 @@ export default {
     stopAnimate(){
       clearInterval(this.interval)
       setTimeout(() => {
-        this.$emit('close');
+        this.$router.go(-1);
       }, 4000)
     },
 
@@ -68,6 +60,14 @@ export default {
 </script>
 
 <style scoped>
+.simulationScreenMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .simulationScreenElementDiv {
   display: flex;
   flex-direction: row;
@@ -94,33 +94,5 @@ export default {
 .slide-fade-enter-from{
   transform: translateX(50px);
   opacity: 0;
-}
-
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 0.3s ease;
-  text-align: center;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-.modal-enter-from, .modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-active .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 </style>

@@ -1,14 +1,5 @@
 <template>
   <div>
-    <transition name="modal">
-      <simulation-screen
-          v-if="startSimulation"
-          @close="startSimulation = false">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </simulation-screen>
-    </transition>
     <div id="menuNavContainer">
       <p style="width: 15%"></p>
       <div id="menuNavButtonContainer">
@@ -97,7 +88,7 @@
           :dark="false"
           size="medium"
           :disabled="this.allEventsCompleted === false"
-          @clicked="startSimulation = true">{{ $t('continue') }}</custom-button>
+          @clicked="this.$router.push({name: 'simulationScreen'})">{{ $t('continue') }}</custom-button>
     </div>
   </div>
 </template>
@@ -106,12 +97,11 @@
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
-import SimulationScreen from "@/components/mainGameComponents/calendarSimulation/SimulationScreen";
 
 export default {
   name: "MenuNav",
 
-  components: {SimulationScreen, CustomButton, IconButton},
+  components: {CustomButton, IconButton},
 
   mixins: [soundeffectMixin('button','click')],
 
@@ -130,7 +120,6 @@ export default {
         'financesButton': false,
         'calendarButton': false,
       },
-      startSimulation: false,
       allEventsCompleted: null,
     }
   },

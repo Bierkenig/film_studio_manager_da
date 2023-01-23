@@ -42,9 +42,12 @@ import testScreeningOptions from "@/components/mainGameComponents/postProduction
 import testScreeningResults from "@/components/mainGameComponents/postProduction/postEvents/testScreeningResults";
 import SourcesOverview from "@/components/mainGameComponents/moviesMenu/listOfSources/SourcesOverview";
 import MarketingBudgetSelect from "@/components/mainGameComponents/postProduction/marketing/MarketingBudgetSelect";
+import SimulationScreen from "@/components/mainGameComponents/calendarSimulation/SimulationScreen";
 
 
 const routes = [
+    { name: 'simulationScreen', path: '/simulationScreen', component: SimulationScreen, props: true },
+
     { name: 'movieSummary', path: '/movieSummary', component: MovieSummary, props: true },
     { name: 'createFranchise', path: '/createFranchise', component: CreateFranchise, props: true },
 
