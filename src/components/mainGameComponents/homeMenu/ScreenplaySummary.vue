@@ -137,8 +137,8 @@
             id="screenplaySummaryRewriteButton"
             :dark="false"
             size="small"
-            :disabled="this.$store.getters.getCurrentScreenplay.rewritingValue === 0 || this.$store.getters.getCurrentScreenplay.bought"
-            @click="rewrite">{{ $t('rewrite') }}</custom-button>
+            :disabled="this.$store.getters.getCurrentScreenplay.rewritingValue === 0"
+            @clicked="rewrite">{{ $t('rewrite') }}</custom-button>
       </div>
     </div>
   </div>

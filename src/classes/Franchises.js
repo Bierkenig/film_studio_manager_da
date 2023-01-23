@@ -45,7 +45,7 @@ export default class Franchises {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Franchises(), jsonObject)
-        instance._owner = Studio.fromJSON(jsonObject._owner)
+        instance.owner = Studio.fromJSON(jsonObject.owner)
         instance.foundationDate = new Date(jsonObject.foundationDate)
         instance.allMovies = jsonObject.allMovies?.map(object => Movie.fromJSON(object)) || []
         return instance;

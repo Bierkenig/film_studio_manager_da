@@ -55,9 +55,9 @@ export default {
       setTimeout(() => {
         this.$emit('stopAnimate')
       }, 2000)
-      for (let i = 0; i < allCalendarEvents.length; i++) {
+      /*for (let i = 0; i < allCalendarEvents.length; i++) {
         allCalendarEvents[i].completed = true;
-      }
+      }*/
     }
   },
 

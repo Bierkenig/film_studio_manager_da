@@ -96,7 +96,8 @@
           id="menuNavSkipButton"
           :dark="false"
           size="medium"
-          @click="startSimulation = true">{{ $t('continue') }}</custom-button>
+          :disabled="this.allEventsCompleted === false"
+          @clicked="startSimulation = true">{{ $t('continue') }}</custom-button>
     </div>
   </div>
 </template>
@@ -130,6 +131,7 @@ export default {
         'calendarButton': false,
       },
       startSimulation: false,
+      allEventsCompleted: null,
     }
   },
 
@@ -139,6 +141,18 @@ export default {
         this.highlightButton['homeButton'] = false;
         this.highlightButton[this.lastButton] = false;
         this.lastButton = 'homeButton';
+      }
+    },
+
+    '$store.getters.getCurrentDate': function (){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      this.allEventsCompleted = null;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].start === this.formatDate(this.$store.getters.getCurrentDate.toDateString())){
+          if(this.allEventsCompleted === null || this.allEventsCompleted === true){
+            this.allEventsCompleted = allCalendarEvents[i].completed;
+          }
+        }
       }
     }
   },
@@ -158,6 +172,20 @@ export default {
 
       this.lastButton = name;
     },
+
+    formatDate(date) {
+      let d = new Date(date),
+          month = '' + (d.getMonth() + 1),
+          day = '' + d.getDate(),
+          year = d.getFullYear();
+
+      if (month.length < 2)
+        month = '0' + month;
+      if (day.length < 2)
+        day = '0' + day;
+
+      return [year, month, day].join('-');
+    }
   }
 }
 </script>
