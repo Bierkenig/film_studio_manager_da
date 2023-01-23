@@ -69,9 +69,6 @@ export default {
 
 #ownServiceSectionInfoContainer {
   margin-top: 15px;
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-l-border-radius);
-  padding: 15px;
 }
 
 #ownServiceSectionNameContainer {

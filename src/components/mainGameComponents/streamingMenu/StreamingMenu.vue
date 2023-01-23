@@ -20,6 +20,9 @@
         <competitor-service-section class="competitorServiceSectionTag"/>-->
       </div>
       <movies-section class="moviesSectionTag" headline="contentManagement"/>
+      <div id="rightSide">
+        <competitor-section />
+      </div>
     </div>
     <div v-else class="streamingMenuEmptyMessageMainDiv">
       <div class="streamingMenuEmptyMessage">
@@ -51,10 +54,12 @@ import {StreamingService} from "@/classes/StreamingService";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
 import {updateServicePopularityAndSubscribers} from "@/simulation/simulation";
+import CompetitorSection from "@/components/mainGameComponents/streamingMenu/CompetitorSection.vue";
 export default {
   name: "StreamingMenu",
 
   components: {
+    CompetitorSection,
     ActionSection,
     CustomButton,
     //BuyStreamingServiceModal,
@@ -100,7 +105,7 @@ export default {
   flex-direction: column;
 }
 
-#leftSide {
+#leftSide, #rightSide {
   display: flex;
   flex-direction: column;
   width: 30%;
