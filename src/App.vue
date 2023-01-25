@@ -29,6 +29,7 @@ import store from "./services/store";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
 import {Character} from "@/classes/Character";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: 'App',
@@ -87,30 +88,38 @@ export default {
     window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
     window.ipcRenderer.receive('fromGetPeople', (data) => {
       if(data.isWriter == "true"){
-        writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
-            data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-            data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
+        writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
+            data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
       }
       if(data.isDirector == "true"){
-        directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
-            data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-            data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
+        directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
+            data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
       }
       if(data.isActor == "true"){
-        actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
-            data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-            data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
+        actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
+            data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
       }
-      people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.age, data.gender, data.nationality,
-          data.ethnicity,data.performance, data.experience, data.depth, data.craft, data.talent,data.popularity,
-          data.rating, data.salary, data.isActor, data.isDirector, data.isWriter,[]))
+      people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
+          data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+          data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+          data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+          data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
     })
     window.ipcRenderer.send('toGetTopics','SELECT * FROM topics');
     window.ipcRenderer.receive('fromGetTopics', (data) => {
       topics.push(data.topicName);
     })
 
-    window.ipcRenderer.send('toGetGenreRating','SELECT genreRating.*, g.* FROM genreRating INNER JOIN genre g ON genreRating.fk_pk_genreID = g.pk_genreID');
+    /*window.ipcRenderer.send('toGetGenreRating','SELECT genreRating.*, g.* FROM genreRating INNER JOIN genre g ON genreRating.fk_pk_genreID = g.pk_genreID');
     window.ipcRenderer.receive('fromGetGenreRating', (data) => {
       for (let i = 0; i < writers.length; i++) {
         if(data.fk_pk_personID === writers[i]._id){
@@ -135,7 +144,9 @@ export default {
           people[i]._genre[data.genreName] = data.number;
         }
       }
-    })
+    })*/
+
+    //test
 
     this.$store.commit('setAllWriters', writers);
     this.$store.commit('setAllDirectors', directors);
@@ -326,6 +337,17 @@ export default {
     this.$store.getters.getScreenplays[0].setWritingPhase(14);
 
     this.$store.getters.getFinishedMovies[0]._preProduction.screenplay = this.$store.getters.getScreenplays[0];
+    this.$store.getters.getFinishedMovies[0]._foundationDate = this.$store.getters.getCurrentDate;
+    this.$store.getters.getFinishedMovies[0].genrePopularity = {children: 18, teenager: 85, adult: 59};
+    this.$store.getters.getFinishedMovies[0].subgenrePopularity = {children: 55, teenager: 37, adult: 75};
+    this.$store.getters.getFinishedMovies[0].topicPopularity = {firstTopic: {children: 28, teenager: 3, adult: 5},
+      secondTopic: {children: 96, teenager: 58, adult: 75},
+      thirdTopic: {children: 25, teenager: 86, adult: 15}};
+
+    this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(2500000,new Date('01.01.2023')))
+    this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(3500000,new Date('02.01.2023')))
+    this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(750000,new Date('03.01.2023')))
+    this.$store.getters.getFinishedMovies[0].totalOutgoings = 5526000;
   }
 }
 </script>

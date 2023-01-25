@@ -8,15 +8,15 @@
     </div>
     <div class="productionElementInfo">
       <div class="productionElementInfoBox">
-        <div class="productionElementInfoBoxText">Release</div>
+        <div class="productionElementInfoBoxText">{{ $t('productionElement.release') }}</div>
         <div class="productionElementInfoBoxText">{{releaseDate}}</div>
       </div>
       <div class="productionElementInfoBox productionElementMiddleInfoBox">
-        <div class="productionElementInfoBoxText">Status</div>
+        <div class="productionElementInfoBoxText">{{ $t('productionElement.status') }}</div>
         <div class="productionElementInfoBoxText">{{status}}</div>
       </div>
       <div class="productionElementInfoBox">
-        <div class="productionElementInfoBoxText">Time left</div>
+        <div class="productionElementInfoBoxText">{{ $t('productionElement.timeLeft') }}</div>
         <div class="productionElementInfoBoxText">{{timeLeft}}</div>
       </div>
     </div>

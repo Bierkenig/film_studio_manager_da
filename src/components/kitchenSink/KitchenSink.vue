@@ -1,5 +1,5 @@
 <template>
-  <div id="kitchenSinkMainDiv">
+  <div id="kitchenSinkMainDiv" @click="changeLanguage">
     <router-link :to="{ name: 'default'}">
       <button id="startMenuButton" class="buttonStyle">Menu</button>
     </router-link>
@@ -151,10 +151,18 @@
       </tile-pages-nav>
     </div>
     <div class="kitchenSinkComponentDiv">
+      <code-view code='<event-element type="preProductionFinished" movieTitle="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="postProductionFinished" movieTitle="Movie Title Name One"/>'/>
       <code-view code='<event-element type="productionFinished" movieTitle="Movie Title Name One"/>'/>
       <code-view code='<event-element type="featureFilm" movieTitle="Movie Title Name One"/>'/>
       <code-view code='<event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>'/>
       <code-view code='<event-element type="award" @open-clicked="elementOpened" status="open"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <event-element type="preProductionFinished" movieTitle="Movie Title Name One"/>
+        <div class="kitchenSinkSpacer"/>
+        <event-element type="postProductionFinished" movieTitle="Movie Title Name One"/>
+      </div>
+      <div class="kitchenSinkSpacer"/>
       <div class="kitchenSinkFlexRow">
         <event-element type="productionFinished" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
@@ -428,6 +436,7 @@ export default {
       singleQuote: "'",
       doubleQuote: '"',
       invertThemeTest: false,
+      languageTest: 'DE',
     }
   },
   methods: {
@@ -442,6 +451,14 @@ export default {
     },
     elementOpened() {
       alert('elementOpened has been executed');
+    },
+    changeLanguage() {
+      if (this.languageTest === 'DE') {
+        this.languageTest = 'EN';
+      } else {
+        this.languageTest = 'DE';
+      }
+      console.log(this.languageTest);
     },
   },
 }

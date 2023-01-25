@@ -18,7 +18,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="streamingElementPopularityLabel">
-              Popularity
+              {{ $t('streamingElement.popularity') }}
             </div>
           </div>
           <div class="streamingElementPopularityValueContainer">
@@ -34,7 +34,7 @@
               <custom-icon size="16px" theme="light" :shadow="true"/>
             </div>
             <div class="streamingElementContractLabel">
-              Contract
+              {{ $t('streamingElement.contract') }}
             </div>
           </div>
           <div class="streamingElementContractValue">

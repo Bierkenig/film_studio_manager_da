@@ -87,40 +87,39 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 0)),
             new FinancialPerformance(new Date(2024, 1))
         ],
-        //movies which are in currentProduction
-        inProductionMovies: [],
-
-        //movies which aren't in cinema anymore and are completely finished
-        finishedMovies: [new Movie(null, 0)],
         //nicht fertig
         calendarEvents: [
             {
                 id: 1,
                 movie: "SOMETHING",
-                start: '2023-01-01',
-                end: '2023-01-02',
+                start: '2023-01-15',
+                end: '2023-01-16',
                 type: 'productionFinished',
+                completed: false,
             },
             {
                 id: 2,
                 movie: "NICHTS",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'featureFilm'
+                type: 'featureFilm',
+                completed: false,
             },
             {
                 id: 3,
                 movie: "ALLES",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'blockbuster'
+                type: 'blockbuster',
+                completed: false,
             },
             {
                 id: 4,
                 movie: "VIELLEICHT",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'award'
+                type: 'award',
+                completed: false,
             },
             {
                 id: 5,
@@ -128,6 +127,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'featureFilm',
+                completed: false,
             },
             {
                 id: 6,
@@ -135,6 +135,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 7,
@@ -142,6 +143,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 8,
@@ -149,6 +151,7 @@ export default createStore({
                 start: '2023-01-29',
                 end: '2023-01-30',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 9,
@@ -156,6 +159,7 @@ export default createStore({
                 start: '2023-01-08',
                 end: '2023-01-09',
                 type: 'award',
+                completed: false,
             },
             {
                 id: 10,
@@ -163,18 +167,30 @@ export default createStore({
                 start: '2023-01-29',
                 end: '2023-01-30',
                 type: 'award',
-
+                completed: false,
             },
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
         currentFranchise: null,
 
+        //movies which are in currentProduction
+        inProductionMovies: [],
+
+        //movies which aren't in cinema anymore and are completely finished
+        finishedMovies: [new Movie(null, 0)],
+
         // variables for sale
-        otherStudiosMovies: [],
-        otherStudiosScreenplays: [],
-        otherStudiosFranchises: [],
+        moviesFromOtherStudios: [],
+        screenplaysFromWriters: [],
+        franchisesFromOtherStudios: [],
         otherStudios: [],
+
+        //TODO: schauen, ob bei save file dabei
+        boughtMovies: [],
+        //bought movie rights
+        //TODO: neu hinzugeben bei save
+        boughtMovieRights: [],
 
         financialHistory: [
             {title: "financialHistory.event1", desc: "financialHistory.desc1", iconPath: ""},
@@ -207,15 +223,6 @@ export default createStore({
             new StreamingService('TUV Studio',1,0,0,10,new Studio('TU'),new Date("January 24, 2023")),
             new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
         ownStreamingService: null,
-        //movies you bought
-        //TODO: schauen, ob bei save file dabei
-        boughtMovies: [],
-        //bought movie rights
-        //TODO: neu hinzugeben bei save
-        boughtMovieRights: [],
-
-        //movies from other studios (no rights have been bought yet, non-owning movies)
-        moviesFromOtherStudios: [],
 
         studioNames: ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
             "Pictures", "Emberlight Films", "Sandstorm Productions", "Greenlight Films", "Incandescent Pictures", "Velvet Vision Studio", "Luna Productions", "Terra studios", "Roaring 20s Productions", "Heart of Life Studios", "Maze Pictures", "Radiant Pictures",
@@ -407,10 +414,6 @@ export default createStore({
             return state.boughtMovies;
         },
 
-        getMoviesFromOtherStudios(state) {
-            return state.moviesFromOtherStudios;
-        },
-
         getStreamingServicesFromOtherStudios(state){
             return state.streamingServicesFromOtherStudios;
         },
@@ -447,13 +450,13 @@ export default createStore({
             return nextId + 1;
         },
 
-        getOtherStudiosFranchises(state){
-            return state.otherStudiosFranchises;
+        getFranchisesFromOtherStudios(state){
+            return state.franchisesFromOtherStudios;
         },
 
         getNextOtherStudiosFranchiseId(state){
             let nextId = 0;
-            state.otherStudiosFranchises.forEach(franchise => {
+            state.franchisesFromOtherStudios.forEach(franchise => {
                 if (franchise.getId() > nextId) {
                     nextId = franchise.getId();
                 }
@@ -465,12 +468,12 @@ export default createStore({
             return state.boughtMovieRights;
         },
 
-        getOtherStudiosMovies(state){
-            return state.otherStudiosMovies;
+        getMoviesFromOtherStudios(state) {
+            return state.moviesFromOtherStudios;
         },
 
-        getOtherStudiosScreenplays(state){
-            return state.otherStudiosScreenplays;
+        getScreenplaysFromWriters(state){
+            return state.screenplaysFromWriters;
         }
     },
 
@@ -622,15 +625,7 @@ export default createStore({
 
         updateCurrentDate(state){
             let lastDate = state.currentDate;
-            /*if(lastDate.getDate() == 22){
-                if (lastDate.getMonth() == 11) {
-                    state.currentDate = new Date(lastDate.getFullYear() + 1, 0, 1);
-                } else {
-                    state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth() + 1, 1);
-                }
-            } else {*/
-            state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+7);
-            //}
+            state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+1);
         },
 
         addCalendarEvents(state, calendarEvent){
@@ -722,26 +717,36 @@ export default createStore({
             state.boughtMovies.push(movie);
         },
 
-        addMoviesFromOtherStudios(state, movie){
-            state.moviesFromOtherStudios.push(movie);
-        },
-
         addStreamingServicesFromOtherStudios(state, service){
             state.streamingServicesFromOtherStudios.push(service)
         },
 
-        addOtherStudiosFranchise(state, franchise){
-            state.otherStudiosFranchises.push(franchise)
+        addFranchiseFromOtherStudios(state, franchise){
+            state.franchisesFromOtherStudios.push(franchise)
+        },
+
+        //payload[0] -> franchise, payload[1] -> movie
+        addMovieToFranchiseFromOtherStudios(state, payload){
+            for (let i = 0; i < state.franchisesFromOtherStudios.length; i++) {
+                if(state.franchisesFromOtherStudios[i] === payload[0]){
+                    state.franchisesFromOtherStudios[i].addAllMovies(payload[1])
+                }
+            }
         },
 
         //payload -> [0] -> bought franchise, [1] -> price of franchise
-        buyOtherStudiosFranchise(state, payload){
+        buyFranchiseFromOtherStudios(state, payload){
           let otherStudio = state.otherStudios.filter(st => st === payload[0].owner);
-          state.otherStudiosFranchises.splice(state.otherStudiosFranchises.indexOf(payload[0]), 1);
+          state.franchisesFromOtherStudios.splice(state.franchisesFromOtherStudios.indexOf(payload[0]), 1);
           payload[0].owner = state.studio;
           state.franchises.push(payload[0])
           state.studio.budget = state.studio.budget - payload[1];
           otherStudio.budget = otherStudio.budget + payload[1];
+
+          for (let i = 0; i < payload[0].allMovies.length; i++) {
+              state.finishedMovies.push(payload[0].allMovies[i]);
+          }
+
           console.log(state.otherStudios)
         },
 
@@ -753,20 +758,20 @@ export default createStore({
             state.boughtMovieRights.splice(state.boughtMovieRights.indexOf(movie), 1);
         },
 
-        addOtherStudiosMovies(state, movie){
-            state.otherStudiosMovies.push(movie)
+        addMoviesFromOtherStudios(state, movie){
+            state.moviesFromOtherStudios.push(movie);
         },
 
-        removeOtherStudiosMovies(state, movie){
-            state.otherStudiosMovies.splice(state.otherStudiosMovies.indexOf(movie), 1);
+        removeMovieFromOtherStudios(state, movie){
+            state.moviesFromOtherStudios.splice(state.moviesFromOtherStudios.indexOf(movie), 1);
         },
 
-        addOtherStudiosScreenplays(state, movie){
-            state.otherStudiosScreenplays.push(movie)
+        addScreenplaysFromWriters(state, movie){
+            state.screenplaysFromWriters.push(movie)
         },
 
-        removeOtherStudiosScreenplays(state, movie){
-            state.otherStudiosScreenplays.splice(state.otherStudiosScreenplays.indexOf(movie), 1);
+        removeScreenplayFromWriters(state, movie){
+            state.screenplaysFromWriters.splice(state.screenplaysFromWriters.indexOf(movie), 1);
         },
 
         stateToSave(state, reducedState){

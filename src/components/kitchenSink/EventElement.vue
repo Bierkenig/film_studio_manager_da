@@ -1,7 +1,9 @@
 <template>
 <div class="eventElementMainDiv" ref="eventElementMainDiv">
   <div class="eventElementMainContent">
+    <custom-icon class="eventElementIcon" :id="'preProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'productionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'postProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'featureFilmIcon' + randomId" icon="rising-chart" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'blockbusterIcon' + randomId" icon="rising-chart" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'awardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
@@ -38,7 +40,7 @@ export default {
       type: String,
       default: 'productionFinished',
       validator(value) {
-        return ['productionFinished', 'featureFilm', 'blockbuster', 'award'].includes(value);
+        return ['preProductionFinished', 'productionFinished', 'postProductionFinished', 'featureFilm', 'blockbuster', 'award'].includes(value);
       }
     },
     movieTitle: {
@@ -57,25 +59,35 @@ export default {
     setupElement() {
       this.updateStatus();
       switch (this.type) {
+        case 'preProductionFinished':
+          document.getElementById('preProductionFinishedIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.preProductionFinished.title');
+          this.description = this.$t('events.preProductionFinished.description') + ' "' + this.movieTitle + '"';
+          break;
         case 'productionFinished':
           document.getElementById('productionFinishedIcon' + this.randomId).style.display = 'block';
-          this.title = 'Production finished';
-          this.description = 'Of the movie "' + this.movieTitle + '"';
+          this.title = this.$t('events.productionFinished.title');
+          this.description = this.$t('events.productionFinished.description') + ' "' + this.movieTitle + '"';
+          break;
+        case 'postProductionFinished':
+          document.getElementById('postProductionFinishedIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.postProductionFinished.title');
+          this.description = this.$t('events.postProductionFinished.description') + ' "' + this.movieTitle + '"';
           break;
         case 'featureFilm':
           document.getElementById('featureFilmIcon' + this.randomId).style.display = 'block';
-          this.title = 'Feature Film Release';
-          this.description = 'Of the movie "' + this.movieTitle + '"';
+          this.title = this.$t('events.featureRelease.title');
+          this.description = this.$t('events.featureRelease.description') + ' "' + this.movieTitle + '"';
           break;
         case 'blockbuster':
           document.getElementById('blockbusterIcon' + this.randomId).style.display = 'block';
-          this.title = 'Blockbuster Release';
-          this.description = 'Of the movie "' + this.movieTitle + '"';
+          this.title = this.$t('events.blockbusterRelease.title');
+          this.description = this.$t('events.blockbusterRelease.description') + ' "' + this.movieTitle + '"';
           break;
         case 'award':
           document.getElementById('awardIcon' + this.randomId).style.display = 'block';
-          this.title = 'International Film Awards';
-          this.description = 'Nomination Announcements';
+          this.title = this.$t('events.awards.title');
+          this.description = this.$t('events.awards.description');
           break;
         default:
           throw('Invalid event type!');

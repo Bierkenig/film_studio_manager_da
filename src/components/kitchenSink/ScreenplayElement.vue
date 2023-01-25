@@ -12,19 +12,19 @@
         <div class="screenplayElementInfoElement">
           <info-circle class="screenplayElementInfoCircle" :icon="genreIcon" :data-title="genre"/>
           <div class="screenplayElementInfoDesc">
-            Genre
+            {{ $t('screenplayElement.genre') }}
           </div>
         </div>
         <div class="screenplayElementInfoElement">
           <info-circle class="screenplayElementInfoCircle" :text="age" data-title="Age Rating"/>
           <div class="screenplayElementInfoDesc">
-            Age
+            {{ $t('screenplayElement.age') }}
           </div>
         </div>
         <div class="screenplayElementMoreInfo">
           <div class="screenplayElementQualityInfo">
             <div class="screenplayElementQualityLabel">
-              Quality
+              {{ $t('screenplayElement.quality') }}
             </div>
             <div class="screenplayElementQualityValueContainer">
               <input class="screenplayElementQualityValue" type="range" min="1" max="100" step="1" :value="quality" disabled>
@@ -32,7 +32,7 @@
           </div>
           <div class="screenplayElementWriterInfo">
             <div class="screenplayElementWriterLabel">
-              Writer
+              {{ $t('screenplayElement.writer') }}
             </div>
             <div class="screenplayElementWriterName">
               {{ writer }}

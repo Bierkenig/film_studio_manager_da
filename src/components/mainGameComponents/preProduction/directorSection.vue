@@ -3,7 +3,7 @@
     <div>{{$t('hireDirectorSection.hire')}}</div>
     <div v-for="(el, index) in allDirectors" :key="index">
       <avatar-element :svg-code="el._avatar"/>
-      {{el._first_name}} | {{el._last_name}} | {{el._age}} | {{el._gender}} | {{el._nationality}} | {{el._ethnicity}} | {{el._craft}} | {{el._rating}} | {{el._salary}}
+      {{el._first_name}} | {{el._last_name}} | {{el._age}} | {{el._gender}} | {{el._nationality}} | {{el._ethnicity}} | {{el._talent}} | {{el._rating}} | {{el._salary}}
       <button @click="calcSalary(el)" :disabled="disabled">{{$t('hireDirectorSection.negotiate')}}</button>
     </div>
 

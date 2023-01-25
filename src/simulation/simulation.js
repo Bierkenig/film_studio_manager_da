@@ -2,7 +2,6 @@ import store from "@/services/store";
 import {Studio} from "@/classes/Studio";
 import News from "@/classes/News";
 import {Avataaars} from "@/avatar/avataaars"
-import {all} from "core-js/internals/document-all";
 
 //Avatar Option Lists
 /*const skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
@@ -28,7 +27,7 @@ const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 export default function simulate() {
     //TODO fetch DB again
-    console.log('Simulation works')
+    console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
     renewPeople();

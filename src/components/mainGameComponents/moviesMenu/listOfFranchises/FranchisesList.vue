@@ -46,7 +46,7 @@ export default {
   data(){
     return {
       allOwningFranchises: this.$store.getters.getFranchises,
-      allForSalesFranchises: this.$store.getters.getOtherStudiosFranchises,
+      allForSalesFranchises: this.$store.getters.getFranchisesFromOtherStudios,
       lastIndex: null,
       selectedSortByWhat: null,
       selectedTypeOfSort: 'Ascending',

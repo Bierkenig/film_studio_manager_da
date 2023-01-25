@@ -9,6 +9,10 @@ export default {
   name: "CustomButton",
   data() {
     return {
+      sizeSmall: {
+        fontSize: '16px',
+        fontWeight: 'var(--fsm-fw-regular)'
+      },
       sizeMedium: {
         fontSize: '24px',
         fontWeight: 'var(--fsm-fw-bold)'
@@ -38,7 +42,7 @@ export default {
       type: String,
       default: 'medium',
       validator(value) {
-        return ['medium', 'large'].includes(value);
+        return ['small','medium', 'large'].includes(value);
       },
     },
     dark: {
@@ -56,6 +60,8 @@ export default {
         this.sizeValues = {...this.sizeMedium};
       } else if (this.size === 'large') {
         this.sizeValues = {...this.sizeLarge};
+      } else if (this.size === 'small') {
+        this.sizeValues = {...this.sizeSmall};
       }
       if (!this.dark) {
         this.themeValues = {...this.themeLight};

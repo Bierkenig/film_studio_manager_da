@@ -11,15 +11,15 @@
     </div>
     <div class="earningStatisticsElementInfo">
       <div class="earningStatisticsElementInfoBox">
-        <div class="earningStatisticsElementInfoBoxText">Opening</div>
+        <div class="earningStatisticsElementInfoBoxText">{{ $t('earningStatisticsElement.opening') }}</div>
         <div class="earningStatisticsElementInfoBoxText">{{ opening }}</div>
       </div>
       <div class="earningStatisticsElementInfoBox earningStatisticsElementMiddleInfoBox">
-        <div class="earningStatisticsElementInfoBoxText">Total</div>
+        <div class="earningStatisticsElementInfoBoxText">{{ $t('earningStatisticsElement.total') }}</div>
         <div class="earningStatisticsElementInfoBoxText">{{ total }}</div>
       </div>
       <div class="earningStatisticsElementInfoBox">
-        <div class="earningStatisticsElementInfoBoxText">Studio</div>
+        <div class="earningStatisticsElementInfoBoxText">{{ $t('earningStatisticsElement.studio') }}</div>
         <div class="earningStatisticsElementInfoBoxText">{{ studio }}</div>
       </div>
     </div>

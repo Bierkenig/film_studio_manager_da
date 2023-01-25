@@ -1,6 +1,6 @@
 <template>
   <div id="sourcesOverviewMainDiv">
-    <h1 id="sourcesListHeader">{{ $t('listOfFranchises') }}</h1>
+    <h1 id="sourcesListHeader">{{ $t('listOfSources') }}</h1>
     <icon-button
         id="sourcesListBackButton"
         icon="simple-arrow-left"
@@ -11,7 +11,10 @@
         :shadow="false"
         @click="goBack"/>
     <sources-list @sendSource="receiveItem"/>
-    <sources-details :source="clickedItem" :check-balance="checkBalance"/>
+    <sources-details :source="clickedItem"
+                     :source-type="itemType"
+                     :list-type="listType"
+                     :check-balance="checkBalance"/>
   </div>
 </template>
 
@@ -26,6 +29,9 @@ export default {
   data(){
     return{
       clickedItem: null,
+      itemType: null,
+      listType: null,
+      sourcePrice: 0,
       checkBalance: null
     }
   },
@@ -35,10 +41,17 @@ export default {
       this.$router.push({name: 'movies'})
     },
 
-    receiveItem(item) {
-      this.clickedItem = item;
-      //TODO: auf Preis von Item (Drehbuch oder Film) umändern
-      this.checkBalance = (this.$store.getters.getBalance - parseInt("0")) < 0;
+    receiveItem(itemClicked, listType) {
+      this.clickedItem = itemClicked;
+      this.listType = listType;
+      if ('id' in this.clickedItem){
+        this.itemType = 'Screenplay'
+        this.sourcePrice = this.clickedItem.price;
+      } else {
+        this.itemType = 'Movie'
+        this.sourcePrice = this.clickedItem.totalOutgoings;
+      }
+      this.checkBalance = (this.$store.getters.getBalance - parseInt(this.sourcePrice)) < 0;
     }
   }
 }
