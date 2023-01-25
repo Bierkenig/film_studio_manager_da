@@ -42,6 +42,8 @@ import FranchisesOverview from "@/components/mainGameComponents/moviesMenu/listO
 import testScreeningOptions from "@/components/mainGameComponents/postProduction/postEvents/testScreeningOptions";
 import testScreeningResults from "@/components/mainGameComponents/postProduction/postEvents/testScreeningResults";
 import MarketingBudgetSelect from "@/components/mainGameComponents/postProduction/marketing/MarketingBudgetSelect";
+import chooseMedium from "@/components/mainGameComponents/postProduction/mediums/chooseMedium";
+import cinemaNegotiation from "@/components/mainGameComponents/postProduction/mediums/cinemaNegotiation";
 
 
 const routes = [
@@ -93,6 +95,9 @@ const routes = [
     { name: 'testScreening', path: '/testScreening', component: testScreening, props: true},
     { name: 'testScreeningOptions', path: '/testScreeningOptions', component: testScreeningOptions, props: true},
     { name: 'testScreeningResults', path: '/testScreeningResults/:addedWeeks/:flags/:editingBudgetIncrease/:soundBudgetIncrease/:vfxBudgetIncrease/:actingConsequence/:storyConsequence', component: testScreeningResults, props: true},
+
+    { name: 'chooseMedium', path: '/chooseMedium', component: chooseMedium, props: true},
+    { name: 'cinemaNegotiation', path: '/cinemaNegotiation', component: cinemaNegotiation, props: true},
 
 
     { name: 'MarketingBudgetSelect', path: '/MarketingBudgetSelect', component: MarketingBudgetSelect, props: true},

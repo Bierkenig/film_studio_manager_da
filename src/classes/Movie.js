@@ -60,14 +60,14 @@ export class Movie {
     }
 
     setProduction() {
-        if (this._status === 'Production' && this._preProduction instanceof PreProduction) {
+        if (this._status === 'Production' && this._preProduction instanceof PreProduction || this._preProduction instanceof preProductionTest) {
             this._production = new Production(this._preProduction.releaseDate)
         }
     }
 
     setPostProduction() {
         if (this._status === 'Postproduction' && this._production instanceof Production) {
-            this._postProduction = new PostProduction(this._preProduction.postProductionLength)
+            this._postProduction = new PostProduction(this._preProduction.postProductionLength, this._preProduction.screenplay)
         }
     }
 

@@ -31,7 +31,7 @@ export default createStore({
         studio: null,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
-        currentMovie: new Movie(null, null),
+        currentMovie: new Movie(new Studio(100,"Jakob ist Cool", "2023",50000000,80), null),
         currentProdEventType: "",
         //movies which are still in cinema and generate profit
         createdMovies: [],
