@@ -1,12 +1,13 @@
 export default class Release {
-    constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2, critics = 0, audience = 0) {
+    constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2
+                , marketingPrint, marketingInternet, marketingCommericals) {
         //Important Variables
+        this.preProduction = preProduction
         this.budget = preProduction.budget
         this.screenplay = preProduction.screenplay
         this.genrePopularity = genrePopularity
         this.subgenrePopularity = subgenrePopularity
-        this.critics = critics
-        this.audience = audience
+        this.hype = preProduction.hype
         //Example -> {topic1: {children: 0, teenager: 1, adult: 2}, }
         this.topicPopularity = topicPopularity
         this.owner = owner
@@ -19,6 +20,9 @@ export default class Release {
         this.ticketPricePerTicket = 10
         this.movieInterest = this.calcMovieInterest()
         this.releaseScope = releaseScope
+        this.marketingPrint = marketingPrint
+        this.marketingInternet = marketingInternet
+        this.marketingCommericals = marketingCommericals
 
         //Equations
         //QUALITY
@@ -86,31 +90,39 @@ export default class Release {
             this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
         //Hype
-            //Marketing + TODO WAITING FOR BENNI
-            /*
-            this.childrenMarketingEffect = (ChildrenPrintMarketing * 25 + ChildrenInternetMarketing * 60 + ChildrenCommercialsMarketing * 15) / 100
-            this.childrenMoviePopularityAfterMarketingFormula = (ChildrenMoviePopularityFormula + ChildrenMarketingEffect) * MovieAgeRatingEffectOnChildren
+            //Marketing
+            let print = this.calcMarketing(this.marketingPrint)
+            let internet = this.calcMarketing(this.marketingInternet)
+            let commercial = this.calcMarketing(this.marketingCommericals)
 
-            this.teenagersMarketingEffect = (TeenagersPrintMarketing * 25 + TeenagersInternetMarketing * 60 + TeenagersCommercialsMarketing * 15) / 100
-            this.teenagersMoviePopularityAfterMarketingFormula = (TeenagersMoviePopularityFormula + TeenagersMarketingEffect) * MovieAgeRatingEffectOnTeenagers
+            let effectChildren;
+            let effectTeenagers;
+            let effectAdults;
+            if (this.screenplay.ageRating === 'G / +3') {effectChildren = 1; effectTeenagers = 0.5; effectAdults = 0.5}
+            else if (this.screenplay.ageRating === 'PG / +7') {effectChildren = 1; effectTeenagers = 0.75; effectAdults = 0.75}
+            else if (this.screenplay.ageRating === 'PG-13 / +13') {effectChildren = 0.5; effectTeenagers = 1; effectAdults = 1}
+            else if (this.screenplay.ageRating === 'R / +16') {effectChildren = 0.25; effectTeenagers = 1; effectAdults = 1}
+            else if (this.screenplay.ageRating === 'NC-17 / +18') {effectChildren = 0.05; effectTeenagers = 0.75; effectAdults = 1}
 
-            this.adultsMarketingEffect = (AdultsPrintMarketing * 25 + AdultsInternetMarketing * 60 + AdultsCommercialsMarketing * 15) / 100
-            this.adultsMoviePopularityAfterMarketingFormula = (AdultsMoviePopularityFormula + AdultsMarketingEffect) * MovieAgeRatingEffectOnAdults
+            this.childrenMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+            this.childrenMoviePopularityAfterMarketingFormula = (this.childrenMoviePopularity + this.childrenMarketingEffect) * effectChildren
 
+            this.teenagersMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+            this.teenagersMoviePopularityAfterMarketingFormula = (this.teenagersMoviePopularity + this.teenagersMarketingEffect) * effectTeenagers
 
-            this.hypeFormula = CurrentHype * HypeFromMarketing
+            this.adultsMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+            this.adultsMoviePopularityAfterMarketingFormula = (this.adultsMoviePopularity + this.adultsMarketingEffect) * effectAdults
 
-            (-25 * 25 + 0 * 50 + 25 * 15) / 100 -> -2.5
+            this.hypeFromMarketing = this.calcFromMarketing()
 
+            this.hypeFormula = this.hype * this.hypeFromMarketing
 
             //FINAL FORMULA
-            this.childrenMoviePopularityFormula = (TopicPopularity * 20 + GenrePopularity * 30 + QualityFormula * 20 + PopularityFormula * 30) / 100
+            this.childrenMoviePopularityFormula = (this.topicPopularity * 20 + this.genrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 30) / 100
 
-            this.teenagersMoviePopularityFormula = (TopicPopularity * 25 + GenrePopularity * 25 + QualityFormula * 25 + PopularityFormula * 25) / 100
+            this.teenagersMoviePopularityFormula = (this.topicPopularity * 25 + this.genrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 25) / 100
 
-            this.adultsMoviePopularityFormula = (TopicPopularity * 30 + GenrePopularity * 20 + QualityFormula * 30 + PopularityFormula * 20) / 100
-             */
-
+            this.adultsMoviePopularityFormula = (this.topicPopularity * 30 + this.genrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 20) / 100
         //Ratings
             //Critics Rating
             this.criticsFormula = (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
@@ -123,11 +135,14 @@ export default class Release {
             //Function below
 
             //FINAL FORMULA
-            //this.openingEarnings = (this.childrenMoviegoersPotential * (ChildrenMoviePopularityAfterMarketingFormula / 100) + this.teenagersMoviegoersPotential * (TeenagersMoviePopularityAfterMarketingFormula / 100) + this.adultsMoviegoersPotential * (AdultsMoviePopularityAfterMarketingFormula / 100)) * (this.movieInterest / 100 / this.releaseScope) * (preProduction.hype / 100) * this.ticketPricePerTicket
+            this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
+                this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
+                this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
+                (this.movieInterest / 100 / this.releaseScope) * (preProduction.hype / 100) * this.ticketPricePerTicket
 
-            //this.continuingEarnings = this.openingEarnings * HypeFormula
+            this.continuingEarnings = this.openingEarnings * this.hypeFormula
 
-            //this.totalEarnings = this.openingEarnings + this.continuingEarnings
+            this.totalEarnings = this.openingEarnings + this.continuingEarnings
 
     }
 
@@ -156,6 +171,89 @@ export default class Release {
             return 20
         } else {
             return 0
+        }
+    }
+
+    calcMarketing(type) {
+        if (this.screenplay.type === "Feature" || this.screenplay.type === "Animation") {
+            switch (this.screenplay.details.scope) {
+                case "Small":
+                    if (this.isBetween(type, 5000000, 10000000) || type > 10000000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 1000000, 5000000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    break
+                case "Normal":
+                    if (this.isBetween(type, 10000000, 20000000) || type > 20000000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 5000000, 10000000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    if (this.isBetween(type, 1000000, 5000000)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                    break
+                case "Large":
+                    if (this.isBetween(type, 20000000, 40000000) || type > 40000000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 10000000, 20000000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    if (this.isBetween(type, 5000000, 10000000)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                    break
+                case "Epic":
+                    if (this.isBetween(type, 40000000, 75000000) || type > 75000000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 20000000, 40000000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    if (this.isBetween(type, 10000000, 20000000)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                    break
+                default:
+                    return Math.round(Math.random() * (25 - 15)) + 15
+            }
+        } else if (this.screenplay.type === "Indie") {
+            switch (this.screenplay.details.scope) {
+                case "Small":
+                    if (this.isBetween(type, 1000000, 2500000) || type > 2500000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 100000, 1000000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    break
+                case "Normal":
+                    if (this.isBetween(type, 2500000, 5000000) || type > 5000000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 1000000, 2500000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    if (this.isBetween(type, 100000, 1000000)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                    break
+                case "Large":
+                    if (this.isBetween(type, 5000000, 7500000) || type > 7500000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 2500000, 5000000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    if (this.isBetween(type, 1000000, 2500000)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                    break
+                case "Epic":
+                    if (this.isBetween(type, 7500000, 10000000) || type > 10000000) return Math.round(Math.random() * (25 - 15)) + 15
+                    if (this.isBetween(type, 5000000, 7500000)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                    if (this.isBetween(type, 2500000, 5000000)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                    break
+                default:
+                    return Math.round(Math.random() * (25 - 15)) + 15
+            }
+        }
+    }
+
+    isBetween(value, min, max) {
+        return value <= max && value >= min;
+    }
+
+    calcFromMarketing() {
+        const duration = this.preProduction.postProductionLength
+        switch (this.screenplay.details.scope) {
+            case 'Small':
+                if (this.isBetween(duration, 8, 12) || duration > 12) return Math.round(Math.random() * (25 - 15)) + 15
+                if (this.isBetween(duration, 4,8)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                break
+            case 'Normal':
+                if (this.isBetween(duration, 12, 16) || duration > 16) return Math.round(Math.random() * (25 - 15)) + 15
+                if (this.isBetween(duration, 8, 12)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                if (this.isBetween(duration, 4,8)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                break
+            case 'Large':
+                if (this.isBetween(duration, 16, 20) || duration > 20) return Math.round(Math.random() * (25 - 15)) + 15
+                if (this.isBetween(duration, 12, 16)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                if (this.isBetween(duration, 8, 12)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                break
+            case 'Epic':
+                if (this.isBetween(duration, 20, 24) || duration > 24) return Math.round(Math.random() * (25 - 15)) + 15
+                if (this.isBetween(duration, 16, 20)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                if (this.isBetween(duration, 12, 16)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                break
+            default:
+                return Math.round(Math.random() * (25 - 15)) + 15
         }
     }
 
@@ -317,8 +415,8 @@ export default class Release {
     }
 
     getWeeklyHypeDrop(blockbuster) {
-        let criticsFormulaDrop = this.calcCriticsOrAudience(this.critics)
-        let audienceFormulaDrop = this.calcCriticsOrAudience(this.audience)
+        let criticsFormulaDrop = this.calcCriticsOrAudience(this.criticsFormula)
+        let audienceFormulaDrop = this.calcCriticsOrAudience(this.audienceFormula)
         let movieScopeDrop = this.calcMovieScopeDrop(this.screenplay.details.scope)
         let randomDrop = Math.round(Math.random() * (90 - 35 + 1) + 35)
 

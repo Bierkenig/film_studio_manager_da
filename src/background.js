@@ -6,6 +6,7 @@ import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 const path = require('path')
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const saving = require("./saving/Saving");
+const { screen } = require('electron')
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
@@ -15,14 +16,27 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 1200,
-        height: 800,
+        width: 1920,
+        height: 1080,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js')
-        }
+        },
+        resizable: false,
+        movable: false,
+        useContentSize: true,
     })
+
+    console.log(screen.getPrimaryDisplay())
+
+    //Resize to 16:9
+    // set aspect ratio to 16:9 on Windows
+    /*if (process.platform === 'win32') {
+        let size = win.getSize()
+        win.setSize(size[0], parseInt(size[0] * 9 / 16))
+    }*/
+    win.setAspectRatio(win.getSize()[0] * 9 /16)
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()

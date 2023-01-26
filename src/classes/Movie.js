@@ -9,8 +9,7 @@ import Release from "@/classes/Release"
 import preProductionTest from '@/classes/test/preProductionTest'
 
 export class Movie {
-    constructor(owner, contract, genrePopularity = {children: 0, teenager: 0, adult: 0},
-                subgenrePopularity = {children: 0, teenager: 0, adult: 0}, topicPopularity = {firstTopic: null, secondTopic: null, thirdTopic: null}) {
+    constructor(owner, contract, genrePopularity = 1, subgenrePopularity = 1, topicPopularity = 1) {
         //TYPE -> String from another Class
         this._title = this._screenplay?.title
         //TYPE -> String
@@ -33,14 +32,11 @@ export class Movie {
         this._contract = contract;
         //NOT DONE YET
         this._earnings = []
-        //TYPE -> Object with Integer Attr
+        //TYPE -> Integer
         this.genrePopularity = genrePopularity
-        //TYPE -> Object with Integer Attr
+        //TYPE -> Integer
         this.subgenrePopularity = subgenrePopularity
-        //TYPE -> Object with Object Attr
-        // -> Example {firstTopic: {children: 20, teenager: 3, adult: 5},
-        // secondTopic: {children: 20, teenager: 3, adult: 5},
-        // thirdTopic: {children: 20, teenager: 3, adult: 5}}
+        //TYPE -> Integer
         this.topicPopularity = topicPopularity
         //TYPE -> Integer
         this.quality = 100
@@ -76,7 +72,8 @@ export class Movie {
     setRelease() {
         if (this.status === 'Release' && this._postProduction instanceof PostProduction) {
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
-                this.subgenrePopularity, this.topicPopularity, this.owner, 2, 96, 96)
+                this.subgenrePopularity, this.topicPopularity, this.owner, 2,
+                this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
         }
     }
 
