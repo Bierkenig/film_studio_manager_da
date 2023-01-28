@@ -1,6 +1,6 @@
 import store from '@/services/store'
 export default class Person {
-    constructor(id, avatar, first_name, last_name, birthday, gender, nationality, ethnicity, performance, experience, talent,popularity,
+    constructor(id, avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent,popularity,
     rating, action, adventure, biography, comedy, crime, documentary, drama, erotic,
     family, fantasy, history, horror, musical, mystery, romance, scienceFiction, sport,
     thriller, war, western, isActor, isDirector, isWriter) {
@@ -15,6 +15,8 @@ export default class Person {
         //TYPE -> String
         this._birthday = birthday
         //TYPE -> Integer
+        this._deathAge = deathAge
+        //TYPE -> Integer
         this._age = 0
         //TYPE -> String
         this._gender = gender;
@@ -22,6 +24,8 @@ export default class Person {
         this._nationality = nationality;
         //TYPE -> String
         this._ethnicity = ethnicity;
+        //TYPE -> String
+        this._workingSince = workingSince
         //TYPE -> Integer
         this._performance = performance;
         //TYPE -> Integer
@@ -81,8 +85,10 @@ export default class Person {
         //TYPE -> Integer
         this._no = 0
         //TYPE -> Integer
+        this._workingOnProjects = 0
+        //TYPE -> Integer
         if (isDirector) this.dirMorale = 5
-        if (isActor) this.notAvailable = 0; this.actorMorale = 5
+        if (isActor) this.actorMorale = 5
     }
 
     calcAge() {

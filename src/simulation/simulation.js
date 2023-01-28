@@ -45,7 +45,7 @@ function createStudios() {
 
         //get studio name of new studio, check if name already exists
         let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
-        while (allStudios.includes(studioName)){
+        while (allStudios.includes(studioName)) {
             studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)]
         }
 
@@ -62,7 +62,7 @@ function createStudios() {
         //create news of new studio
         let newsTitle = newStudio.getName() + ' gegründet';
         let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
-        store.commit('addNews',new News(newsTitle, newsDescription, 'Studios',null,null,null,newStudio))
+        store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', null, null, null, newStudio))
     }
 }
 
@@ -81,15 +81,15 @@ function streamingService() {
         vertragslänge von gekauften Filmrechte überprüfen und gegebenfalls aktualisieren,
         wenn vertragslänge gleich 0, dann wieder aus boughtMovieRights löschen
          */
-        streamingServiceMovies.forEach(function (movie){
+        streamingServiceMovies.forEach(function (movie) {
             let checkDate = new Date(
-                movie._boughtRightDate.getFullYear()+1,
+                movie._boughtRightDate.getFullYear() + 1,
                 movie._boughtRightDate.getMonth(),
                 movie._boughtRightDate.getDate())
 
-            if(store.getters.getCurrentDate > checkDate){
-                if(movie._contract === 1){
-                    store.commit('removeBoughtMovieRights',movie)
+            if (store.getters.getCurrentDate > checkDate) {
+                if (movie._contract === 1) {
+                    store.commit('removeBoughtMovieRights', movie)
                 } else {
                     movie._boughtRightDate = checkDate;
                     movie._contract--;
@@ -117,8 +117,8 @@ function streamingService() {
             let fourYearsMovies = [];
             let fiveYearsMovies = [];
 
-            streamingServiceMovies.forEach(function(movie){
-                switch (movie.contract){
+            streamingServiceMovies.forEach(function (movie) {
+                switch (movie.contract) {
                     case 1:
                         oneYearMovies.push(movie);
                         break;
@@ -143,7 +143,8 @@ function streamingService() {
             einzelne Arrays durchgehen, preis von allen movies zusammenrechnen, durch die jeweilige Vertragslänge (außer bei 1) und durch 12 dividieren,
             gesamtpreis abziehen von budget
              */
-            let oneYearMoviesPrice, twoYearsMoviesPrice, threeYearsMoviesPrice, fourYearsMoviesPrice, fiveYearsMoviesPrice;
+            let oneYearMoviesPrice, twoYearsMoviesPrice, threeYearsMoviesPrice, fourYearsMoviesPrice,
+                fiveYearsMoviesPrice;
 
             oneYearMovies.forEach((movie) => {
                 oneYearMoviesPrice += movie._totalCosts;
@@ -182,59 +183,59 @@ function streamingService() {
     }
 }
 
-export function updateServicePopularityAndSubscribers(){
+export function updateServicePopularityAndSubscribers() {
     // get all movies from streaming service
     let allStreamingServiceMovies = store.getters.getBoughtMovieRights.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies);
     // object with all genres
     let allGenreRatings = {
-        'Action':0,
-        'Adventure':0,
-        'Biography':0,
-        'Comedy':0,
-        'Crime':0,
-        'Documentary':0,
-        'Drama':0,
-        'Erotic':0,
-        'Family':0,
-        'Fantasy':0,
-        'History':0,
-        'Horror':0,
-        'Musical':0,
-        'Mystery':0,
-        'Romance':0,
-        'ScienceFiction':0,
-        'Sport':0,
-        'Thriller':0,
-        'War':0,
-        'Western':0
+        'Action': 0,
+        'Adventure': 0,
+        'Biography': 0,
+        'Comedy': 0,
+        'Crime': 0,
+        'Documentary': 0,
+        'Drama': 0,
+        'Erotic': 0,
+        'Family': 0,
+        'Fantasy': 0,
+        'History': 0,
+        'Horror': 0,
+        'Musical': 0,
+        'Mystery': 0,
+        'Romance': 0,
+        'ScienceFiction': 0,
+        'Sport': 0,
+        'Thriller': 0,
+        'War': 0,
+        'Western': 0
     }
 
     // count movies of each genre
-    allStreamingServiceMovies.forEach(function (movie){
+    allStreamingServiceMovies.forEach(function (movie) {
         allGenreRatings[movie._preProduction.screenplay.genre]++;
     })
 
     // determine rating for each genre
     Object.keys(allGenreRatings).forEach(key => {
-        if(allGenreRatings[key] >= 1 && allGenreRatings[key] <= 5){
+        if (allGenreRatings[key] >= 1 && allGenreRatings[key] <= 5) {
             allGenreRatings[key] = 1;
-        } else if(allGenreRatings[key] >= 6 && allGenreRatings[key] <= 10){
+        } else if (allGenreRatings[key] >= 6 && allGenreRatings[key] <= 10) {
             allGenreRatings[key] = 5;
-        } else if(allGenreRatings[key] >= 11 && allGenreRatings[key] <= 20){
+        } else if (allGenreRatings[key] >= 11 && allGenreRatings[key] <= 20) {
             allGenreRatings[key] = 10;
-        } else if(allGenreRatings[key] >= 21 && allGenreRatings[key] <= 30){
+        } else if (allGenreRatings[key] >= 21 && allGenreRatings[key] <= 30) {
             allGenreRatings[key] = 20;
-        } else if(allGenreRatings[key] >= 31 && allGenreRatings[key] <= 40){
+        } else if (allGenreRatings[key] >= 31 && allGenreRatings[key] <= 40) {
             allGenreRatings[key] = 30;
-        } else if(allGenreRatings[key] >= 41 && allGenreRatings[key] <= 50){
+        } else if (allGenreRatings[key] >= 41 && allGenreRatings[key] <= 50) {
             allGenreRatings[key] = 45;
-        } else if(allGenreRatings[key] >= 51 && allGenreRatings[key] <= 60){
+        } else if (allGenreRatings[key] >= 51 && allGenreRatings[key] <= 60) {
             allGenreRatings[key] = 55;
-        } else if(allGenreRatings[key] >= 61 && allGenreRatings[key] <= 70){
+        } else if (allGenreRatings[key] >= 61 && allGenreRatings[key] <= 70) {
             allGenreRatings[key] = 70;
-        } else if(allGenreRatings[key] >= 71 && allGenreRatings[key] <= 85){
+        } else if (allGenreRatings[key] >= 71 && allGenreRatings[key] <= 85) {
             allGenreRatings[key] = 85;
-        } else if(allGenreRatings[key] >= 86){
+        } else if (allGenreRatings[key] >= 86) {
             allGenreRatings[key] = 100;
         }
     });
@@ -243,7 +244,7 @@ export function updateServicePopularityAndSubscribers(){
     let counterForGenreNumbers = 0;
     let counterForRatings = 0;
     Object.keys(allGenreRatings).forEach(key => {
-        if(allGenreRatings[key] !== 0){
+        if (allGenreRatings[key] !== 0) {
             counterForRatings += allGenreRatings[key];
             counterForGenreNumbers++;
         }
@@ -254,25 +255,25 @@ export function updateServicePopularityAndSubscribers(){
 
     // get number of all movies
     let totalContent = 0;
-    if(allStreamingServiceMovies >= 1 && allStreamingServiceMovies <= 10){
+    if (allStreamingServiceMovies >= 1 && allStreamingServiceMovies <= 10) {
         totalContent = 1;
-    } else if(allStreamingServiceMovies >= 11 && allStreamingServiceMovies <= 25){
+    } else if (allStreamingServiceMovies >= 11 && allStreamingServiceMovies <= 25) {
         totalContent = 3;
-    } else if(allStreamingServiceMovies >= 26 && allStreamingServiceMovies <= 75){
+    } else if (allStreamingServiceMovies >= 26 && allStreamingServiceMovies <= 75) {
         totalContent = 5;
-    } else if(allStreamingServiceMovies >= 76 && allStreamingServiceMovies <= 150){
+    } else if (allStreamingServiceMovies >= 76 && allStreamingServiceMovies <= 150) {
         totalContent = 7;
-    } else if(allStreamingServiceMovies >= 151 && allStreamingServiceMovies <= 250){
+    } else if (allStreamingServiceMovies >= 151 && allStreamingServiceMovies <= 250) {
         totalContent = 10;
-    } else if(allStreamingServiceMovies >= 251 && allStreamingServiceMovies <= 450){
+    } else if (allStreamingServiceMovies >= 251 && allStreamingServiceMovies <= 450) {
         totalContent = 15;
-    } else if(allStreamingServiceMovies >= 451 && allStreamingServiceMovies <= 650){
+    } else if (allStreamingServiceMovies >= 451 && allStreamingServiceMovies <= 650) {
         totalContent = 25;
-    } else if(allStreamingServiceMovies >= 651 && allStreamingServiceMovies <= 800){
+    } else if (allStreamingServiceMovies >= 651 && allStreamingServiceMovies <= 800) {
         totalContent = 45;
-    } else if(allStreamingServiceMovies >= 801 && allStreamingServiceMovies <= 1000){
+    } else if (allStreamingServiceMovies >= 801 && allStreamingServiceMovies <= 1000) {
         totalContent = 65;
-    } else if(allStreamingServiceMovies >= 1001){
+    } else if (allStreamingServiceMovies >= 1001) {
         totalContent = 100;
     }
 
@@ -281,17 +282,17 @@ export function updateServicePopularityAndSubscribers(){
     // calculate streaming service price potential, depends on the price of the service
     let streamingServicePricePotential = 0;
     let streamingPrice = store.getters.getOwnStreamingService._price;
-    if(streamingPrice >= 1.00 && streamingPrice <= 7.50){
+    if (streamingPrice >= 1.00 && streamingPrice <= 7.50) {
         streamingServicePricePotential = 1;
-    } else if(streamingPrice >= 8.00 && streamingPrice <= 15.00){
+    } else if (streamingPrice >= 8.00 && streamingPrice <= 15.00) {
         streamingServicePricePotential = 0.90;
-    } else if(streamingPrice >= 15.50 && streamingPrice <= 25.00){
+    } else if (streamingPrice >= 15.50 && streamingPrice <= 25.00) {
         streamingServicePricePotential = 0.75;
-    } else if(streamingPrice >= 25.50 && streamingPrice <= 35.00){
+    } else if (streamingPrice >= 25.50 && streamingPrice <= 35.00) {
         streamingServicePricePotential = 0.45;
-    } else if(streamingPrice >= 35.50 && streamingPrice <= 45.00){
+    } else if (streamingPrice >= 35.50 && streamingPrice <= 45.00) {
         streamingServicePricePotential = 0.25;
-    } else if(streamingPrice >= 45.50 && streamingPrice <= 50.00){
+    } else if (streamingPrice >= 45.50 && streamingPrice <= 50.00) {
         streamingServicePricePotential = 0.10;
     }
 
@@ -299,20 +300,20 @@ export function updateServicePopularityAndSubscribers(){
     let sumOfHype = 0;
     let hypeDrop1 = 0;
     let hypeDrop2 = 0;
-    allStreamingServiceMovies.forEach(function (movie){
-        if(movie._release.critics <= 50){
+    allStreamingServiceMovies.forEach(function (movie) {
+        if (movie._release.critics <= 50) {
             hypeDrop1 = 0.75;
-        } else if(movie._release.critics >= 51 && movie._release.critics <= 75){
+        } else if (movie._release.critics >= 51 && movie._release.critics <= 75) {
             hypeDrop1 = 0.85;
-        } else if(movie._release.critics >= 76){
+        } else if (movie._release.critics >= 76) {
             hypeDrop1 = 0.95;
         }
 
-        if(movie._release.audience <= 50){
+        if (movie._release.audience <= 50) {
             hypeDrop2 = 0.75;
-        } else if(movie._release.audience >= 51 && movie._release.audience <= 75){
+        } else if (movie._release.audience >= 51 && movie._release.audience <= 75) {
             hypeDrop2 = 0.85;
-        } else if(movie._release.audience >= 76){
+        } else if (movie._release.audience >= 76) {
             hypeDrop2 = 0.95;
         }
 
@@ -353,43 +354,74 @@ function killAndRefreshPeople() {
     //loop Actors
     //TODO check for age + check for Type in News
     allActors.forEach((el) => {
-        if (el._age > 90) {
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Actor " + el._first_name + el._last_name + " died", null, el))
+        if (checkAge(el)) {
             window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Actor " + el._first_name + el._last_name + " died", null, el))
+            roles.actor++
         } else refreshPerson(el)
-        roles.actor++;
     })
 
     //loop Directors
     allDirectors.forEach((el) => {
-        if (el._age > 90) {
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Director " + el._first_name + el._last_name + " died", null, el))
+        if (checkAge(el)) {
             window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Director " + el._first_name + el._last_name + " died", null, el))
+            roles.director++
         } else refreshPerson(el)
-        roles.director++;
     })
 
     //loop Writers
     allWriters.forEach((el) => {
-        if (el._age > 90) {
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Writer " + el._first_name + el._last_name + " died", null, el))
+        if (checkAge(el)) {
             window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Writer " + el._first_name + el._last_name + " died", null, el))
+            roles.writer++
         } else refreshPerson(el)
-        roles.writer++;
     })
 
     return roles
 }
 
+function checkAge(person) {
+    const deathAge = person._deathAge
+    if (deathAge < 10) {
+        return Math.random() * 100 <= 0.5
+    } else if (deathAge >= 10 && deathAge < 20) {
+        return Math.round(Math.random() * 99) + 1 === 1
+    } else if (deathAge >= 20 && deathAge < 30) {
+        return Math.round(Math.random() * 99) + 1 <= 5
+    } else if (deathAge >= 30 && deathAge < 40) {
+        return Math.round(Math.random() * 99) + 1 <= 10
+    } else if (deathAge >= 40 && deathAge < 50) {
+        return Math.round(Math.random() * 99) + 1 <= 15
+    } else if (deathAge >= 50 && deathAge < 60) {
+        return Math.round(Math.random() * 99) + 1 <= 20
+    } else if (deathAge >= 60 && deathAge < 70) {
+        return Math.round(Math.random() * 99) + 1 <= 35
+    } else if (deathAge >= 70 && deathAge < 80) {
+        return Math.round(Math.random() * 99) + 1 <= 50
+    } else if (deathAge >= 80 && deathAge < 90) {
+        return Math.round(Math.random() * 99) + 1 <= 75
+    } else if (deathAge >= 90 && deathAge < 100) {
+        return Math.round(Math.random() * 99) + 1 <= 85
+    } else if (deathAge >= 100) {
+        return Math.round(Math.random() * 99) + 1 <= 99
+    }
+}
+
 function refreshPerson(person) {
-    //gen new Values
-    let newExperience = 30
-    let newPopularity = 30
-    //TODO WHEN DB IS UPDATED (worked since ?)
+    //gen new Experience
+    
 
+    //gen new Popularity
 
+    //gen new Age
     //send new Values to DB
     window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", [newExperience, newPopularity, person._id]])
+}
+
+function dateDiff() {
+
 }
 
 function generatePersonValues(roles) {

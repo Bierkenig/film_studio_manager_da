@@ -88,28 +88,28 @@ export default {
     window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
     window.ipcRenderer.receive('fromGetPeople', (data) => {
       if(data.isWriter == "true"){
-        writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
-            data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+        writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
             data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
             data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
             data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
       }
       if(data.isDirector == "true"){
-        directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
-            data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+        directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
             data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
             data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
             data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
       }
       if(data.isActor == "true"){
-        actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
-            data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+        actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
             data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
             data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
             data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
       }
-      people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.gender, data.nationality,
-          data.ethnicity,data.performance, data.experience, data.talent,data.popularity,
+      people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+          data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
           data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
           data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
           data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))

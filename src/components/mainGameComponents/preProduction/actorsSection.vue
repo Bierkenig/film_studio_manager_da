@@ -176,6 +176,7 @@ export default {
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
           break
       }
+      this.currentActor._workingOnProjects++
       this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
       this.negotiate = false
       this.disabled = false

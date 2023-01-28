@@ -8,6 +8,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production'
 const saving = require("./saving/Saving");
 const { screen } = require('electron')
 
+
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
     {scheme: 'app', privileges: {secure: true, standard: true}}
@@ -16,14 +17,14 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 1920,
-        height: 1080,
+        width: 1500,
+        height: 600,
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js')
         },
-        resizable: false,
+        resizable: true,
         movable: false,
         useContentSize: true,
     })
@@ -36,7 +37,20 @@ async function createWindow() {
         let size = win.getSize()
         win.setSize(size[0], parseInt(size[0] * 9 / 16))
     }*/
-    win.setAspectRatio(win.getSize()[0] * 9 /16)
+    //win.setAspectRatio(win.getSize()[0] * 9 /16)
+    /*let screenDimension = screen.getPrimaryDisplay().workAreaSize
+    let width = screenDimension.width
+
+    const scaleFactor = 1 / (1920 / width);
+    win.once("ready-to-show", () => {
+            win.maximize();
+            win.setFullScreen(true);
+
+        //Adjust zoom factor according to DPI or scale factor that we determined before
+        console.log("Display with current scale factor: %o", scaleFactor);
+        win.webContents.setZoomFactor(scaleFactor);
+        win.show()
+    });*/
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
