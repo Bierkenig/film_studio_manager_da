@@ -165,7 +165,7 @@ async function createWindow() {
         db.serialize(() => {
             db.each(sql, params, (err) => {
                 if (err) console.log(err)
-                console.log("DB: Killed a Person")
+                else console.log("DB: Killed a Person")
             })
         })
         db.close()
@@ -184,6 +184,7 @@ async function createWindow() {
             db.each(sql, params, (err) => {
                 if (err) console.log(err)
                 console.log("DB: Person created")
+                event.sender.send('personStatus', 200)
             })
         })
         db.close()

@@ -1,13 +1,12 @@
 import store from "@/services/store";
 import {Studio} from "@/classes/Studio";
 import News from "@/classes/News";
-import {Avataaars} from "@/avatar/avataaars"
+import {Avataaars} from "@/avatar/avataaars";
+import Person from "@/classes/Person";
 
 //Avatar Option Lists
-/*const skin = ["tanned", "yellow", "pale", "light", "brown", "darkBrown", "black"]
-const mouth = ["concerned", "default", "disbelief", "eating", "grimace", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
+const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
 const eyes = ["squint", "closed", "cry", "default", "eyeRoll", "happy", "hearts", "side", "surprised", "wink", "winkWacky", "xDizzy"]
-const eyebrows = ["angryNatural", "defaultNatural", "flatNatural", "frownNatural", "raisedExcitedNatural", "sadConcernedNatural", "unibrowNatural", "upDownNatural", "raisedExcited", "angry", "default", "sadConcerned", "upDown"]
 const top = ["dreads01", "dreads02", "frizzle", "shaggyMullet", "shaggy", "shortCurly", "shortFlat", "shortRound", "sides", "shortWaved", "theCaesarAndSidePart", "theCaesar", "bigHair", "bob", "bun", "curly", "curvy", "dreads", "frida", "froAndBand", "fro", "longButNotTooLong", "miaWallace", "shavedSides", "straightAndStrand", "straight01", "straight02", "eyepatch", "turban", "hijab", "hat", "winterHat01", "winterHat02", "winterHat03", "winterHat04"]
 const hairColor = ["auburn", "black", "blonde", "blondeGolden", "brown", "brownDark", "pastelPink", "platinum", "red", "silverGray"]
 const facialHair = ["none", "beardLight", "beardMagestic", "beardMedium", "moustaceFancy", "moustacheMagnum"]
@@ -16,8 +15,6 @@ const clothing = ["blazerAndShirt", "blazerAndSweater", "collarAndSweater", "gra
 const clothingColor = ["black", "blue01", "blue02", "blue03", "gray01", "gray02", "heather", "pastelBlue", "pastelGreen", "pastelOrange", "pastelRed", "pastelYellow", "pink", "red", "white"]
 const accessories = ["none", "kurt", "prescription01", "prescription02", "round", "sunglasses", "wayfarers"]
 const accessoriesColor = ["black", "blue01", "blue02", "blue03", "gray01", "gray02", "heather", "pastelBlue", "pastelGreen", "pastelOrange", "pastelRed", "pastelYellow", "pink", "red", "white"]
-const hatColor = ["black", "blue01", "blue02", "blue03", "gray01", "gray02", "heather", "pastelBlue", "pastelGreen", "pastelOrange", "pastelRed", "pastelYellow", "pink", "red", "white"]
-*/
 //nationality values (Germany: 10, Italy: 10, Spain: 10, France: 10, UK: 10, USA: 60)
 const nationality = ["Algeria", " Angola", " Benin", "Botswana", "Burkina Faso", "Burundi", "Cabo Verde/Cape Verde", "Cameroon", "Central African Republic", "Chad", "Comoros", "Congo/Republic of the Congo", "Democratic Republic of the Congo", "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea Guinea-Bissau", "Ivory Coast/Republic of Côte d'Ivoire", "Kenya", "Lesotho", "Liberia", "Libya", "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", "Rwanda", "Sao Tome and Principe", "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa", "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda", "Zambia", "Zimbabwe", "Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", "Bhutan", "British Indian Ocean Territory (UK territory)", "Brunei", "Cambodia", "China", "Georgia", "Hong Kong", "India", "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan", "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", "Macau", "Malaysia", "Maldives", "Mongolia", "Myanmar", "Nepal", "North Korea", "Oman", "Pakistan", "Palestine", "Philippines", "Qatar", "Russia", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", "Syria", "Taiwan", "Tajikistan", "Thailand", "Timor-Leste", "Turkey", "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen", "UK", "Antigua and Barbuda", "Bahamas", "Barbados", "Belize", "Canada", "Costa Rica", "Cuba", "Dominica", "Dominican Republic", "El Salvador", "Grenada", "Guatemala", "Haiti", "Honduras", "Jamaica", "Mexico", "Nicaragua", "Panama", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Trinidad and Tobago", "United States of America", "Australia", "Fiji", "Kiribati", "Marshall Islands", "Micronesia", "Nauru", "New Zealand", "Palau", "Papua New Guinea", "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu", "Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador", "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela", "Germany", "France", "Spain", "Italy", "Albania", "Andorra", "Armenia", "Austria", "Azerbaijan", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czechia/Czech Republic", "Denmark", "Estonia", "Finland", "Georgia", "Greece", "Hungary", "Iceland", "Ireland", "Kazakhstan", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Sweden", "Switzerland", "Turkey", "Ukraine", "Vatican City"]
 
@@ -26,11 +23,52 @@ const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 
 export default function simulate() {
-    //TODO fetch DB again
     console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
     renewPeople();
+
+    //FETCHING DB
+    //clear
+    /*store.state.allActors = []
+    store.state.allDirectors = []
+    store.state.allWriters = []
+    //Fill
+    let actors = [], writers = [], directors = [], people = []
+    window.ipcRenderer.send('toGetPeople', "SELECT * FROM people")
+    window.ipcRenderer.receive('fromGetPeople', (data) => {
+        if(data.isWriter == "true"){
+            writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+                data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+                data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+        }
+        if(data.isDirector == "true"){
+            directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+                data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+                data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+        }
+        if(data.isActor == "true"){
+            actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+                data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+                data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+        }
+        people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+
+        this.$store.commit('setAllWriters', writers);
+        this.$store.commit('setAllDirectors', directors);
+        this.$store.commit('setAllActors', actors);
+        this.$store.commit('setAllPeople', people);
+    })*/
 }
 
 //function to create new studios
@@ -333,16 +371,16 @@ function renewPeople() {
     //kill and refresh people
     const roles = killAndRefreshPeople()
     const diedPeople = roles.actor + roles.director + roles.writer
-    console.log(diedPeople)
-    console.log(roles)
+    console.log("Died: " + diedPeople)
+    console.log("Roles: " + roles)
 
     //generate new ones
-    /*for (let i = 0; i < diedPeople; i++) {
+    for (let i = 0; i < diedPeople; i++) {
         generatePersonValues(roles)
         roles.actor--;
         roles.director--;
         roles.writer--;
-    }*/
+    }
 }
 
 function killAndRefreshPeople() {
@@ -352,7 +390,6 @@ function killAndRefreshPeople() {
     let roles = {actor: 0, director: 0, writer: 0}
 
     //loop Actors
-    //TODO check for age + check for Type in News
     allActors.forEach((el) => {
         if (checkAge(el)) {
             window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
@@ -410,38 +447,96 @@ function checkAge(person) {
 }
 
 function refreshPerson(person) {
+    const [days, month, year] = person._workingSince.split('-')
+    const dateDifference = dateDiff(store.getters.getCurrentDate, new Date(parseInt(year), parseInt(month), parseInt(days)))
     //gen new Experience
-    
-
+    let newExperience = 0
+    if (dateDifference <= 5) newExperience = Math.floor(Math.random() * (35 - 20 + 1) + 20);
+    if (dateDifference > 5 && dateDifference <= 10) newExperience = Math.floor(Math.random() * (45 - 36 + 1) + 36);
+    if (dateDifference > 10 && dateDifference <= 15) newExperience = Math.floor(Math.random() * (55 - 46 + 1) + 46);
+    if (dateDifference > 15 && dateDifference <= 20) newExperience = Math.floor(Math.random() * (60 - 56 + 1) + 56);
+    if (dateDifference > 20 && dateDifference <= 25) newExperience = Math.floor(Math.random() * (70 - 61 + 1) + 61);
+    if (dateDifference > 25 && dateDifference <= 30) newExperience = Math.floor(Math.random() * (75 - 71 + 1) + 71);
+    if (dateDifference > 30 && dateDifference <= 35) newExperience = Math.floor(Math.random() * (80 - 76 + 1) + 76);
+    if (dateDifference > 35 && dateDifference <= 40) newExperience = Math.floor(Math.random() * (85 - 81 + 1) + 81);
+    if (dateDifference > 40 && dateDifference <= 45) newExperience = Math.floor(Math.random() * (90 - 86 + 1) + 86);
+    if (dateDifference > 45 && dateDifference <= 50) newExperience = Math.floor(Math.random() * (95 - 91 + 1) + 91);
+    if (dateDifference > 50) newExperience = Math.floor(Math.random() * (99 - 96 + 1) + 96);
     //gen new Popularity
-
-    //gen new Age
+    let newPopularity = person._popularity
+    if (person.audienceRating < 25) newPopularity -= 3
+    if (person.audienceRating >= 25 && person.audienceRating < 50) newPopularity -= 2
+    if (person.audienceRating >= 50 && person.audienceRating < 75) newPopularity += 2
+    if (person.audienceRating >= 75) newPopularity += 3
     //send new Values to DB
     window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", [newExperience, newPopularity, person._id]])
 }
 
-function dateDiff() {
-
+function dateDiff(date1, date2) {
+    return date2.getFullYear() - date1.getFullYear()
 }
 
 function generatePersonValues(roles) {
     const experience = 20
     const popularity = 20
+
+    //create gender
+    let gender
+    const genderRandom = Math.round(Math.random() * 9)
+    if (genderRandom <= 4) gender = "male"
+    else if (genderRandom > 4 && genderRandom <= 8) gender = "female"
+    else gender = "diverse"
+
+    //create nationality & ethnicity
+    let array = generateNationalityAndEthnicity()
+    const nationalityValue = array[0]
+    const ethnicityValue = array[1]
+
+    //calc Avatar
+    let [skin, eyes, clothing, top, hairColor, facialHair, facialHairColor, mouth, accessories, accessoriesColor, clothingColor] = generateAvatarValues(ethnicityValue)
+    let svg
+    if (gender === 'male') {
+        svg = Avataaars.create({
+            width: "150",
+            style: "transparent",
+            skin: skin,
+            eyes: eyes,
+            clothing: clothing,
+            top: top,
+            hairColor: hairColor,
+            facialHair: facialHair,
+            facialHairColor: facialHairColor,
+            mouth: mouth,
+            clothingColor: clothingColor
+        })
+    } else if (gender === 'female' || gender === 'diverse') {
+        svg = Avataaars.create({
+            width: "150",
+            style: "transparent",
+            skin: skin,
+            eyes: eyes,
+            clothing: clothing,
+            top: top,
+            hairColor: hairColor,
+            mouth: mouth,
+            accessories: accessories,
+            accessoriesColor: accessoriesColor,
+            clothingColor: clothingColor
+        })
+    }
+
     //calc talent
     let talent = 0
-    const random = Math.round(Math.random() * 99)
-    const random1 = Math.round(Math.random() * 99)
-    const random2 = Math.round(Math.random() * 99)
-    const random3 = Math.round(Math.random() * 99)
-    if (random <= 25) {
+    if (Math.round(Math.random() * 99) <= 25) {
         talent = Math.floor(Math.random() * (25 - 1 + 1) + 1)
-    } else if (random1 <= 75) {
+    } else if (Math.round(Math.random() * 99) <= 75) {
         talent = Math.floor(Math.random() * (50 - 25 + 1) + 25)
-    } else if (random2 <= 25) {
+    } else if (Math.round(Math.random() * 99) <= 25) {
         talent = Math.floor(Math.random() * (75 - 50 + 1) + 50)
-    } else if (random3 <= 5) {
+    } else if (Math.round(Math.random() * 99) <= 5) {
         talent = Math.floor(Math.random() * (100 - 75 + 1) + 75)
     }
+
     //calc age
     let age = 0
     const ageRandom = Math.round(Math.random() * 99)
@@ -478,43 +573,58 @@ function generatePersonValues(roles) {
     } else if (ageRandom10 >= 0 && ageRandom10 <= 5) {
         age = Math.floor(Math.random() * (111 - 100 + 1) + 100)
     }
+    let birthday = (Math.round(Math.random() * 29) + 1).toString() + "-" + (Math.round(Math.random() * 11) + 1).toString() + "-" + (store.getters.getCurrentDate.getFullYear() - age).toString()
 
-    //create Avatar + TODO remove testing
-    let svg = Avataaars.create({
-        eyes: "squint"
-    })
-    //create first + lastname (TODO später Riesendatensatz laut Manu)
+    //create first + lastname
     let firstName = "Benni"
     let lastName = "Franklin"
-    //create gender
-    let gender
-    const genderRandom = Math.round(Math.random() * 9)
-    if (genderRandom <= 4) gender = "male"
-    else if (genderRandom > 4 && genderRandom <= 8) gender = "female"
-    else gender = "diverse"
-    //create nationality & ethnicity
-    let array = generateNationalityAndEthnicity()
-    const nationalityValue = array[0]
-    const ethnicityValue = array[1]
+
+    //deathAge
+    let diff = store.getters.getCurrentDate.getFullYear() - parseInt(birthday.split('-')[2])
+    const deathAge = Math.round(Math.random() * (111 - diff + 1) + diff)
+
+    //workingSince
+    const workingSince = (Math.round(Math.random() * 29) + 1).toString() + "-" + (Math.round(Math.random() * 11) + 1).toString() + "-" + (store.getters.getCurrentDate.getFullYear() - 50).toString()
+
+    //Genres
+    let action = Math.round(Math.random() * 99) + 1
+    let adventure = Math.round(Math.random() * 99) + 1
+    let biography = Math.round(Math.random() * 99) + 1
+    let comedy = Math.round(Math.random() * 99) + 1
+    let crime = Math.round(Math.random() * 99) + 1
+    let documentary = Math.round(Math.random() * 99) + 1
+    let drama = Math.round(Math.random() * 99) + 1
+    let erotic = Math.round(Math.random() * 99) + 1
+    let family = Math.round(Math.random() * 99) + 1
+    let fantasy = Math.round(Math.random() * 99) + 1
+    let history = Math.round(Math.random() * 99) + 1
+    let horror = Math.round(Math.random() * 99) + 1
+    let musical = Math.round(Math.random() * 99) + 1
+    let mystery = Math.round(Math.random() * 99) + 1
+    let romance = Math.round(Math.random() * 99) + 1
+    let scienceFiction = Math.round(Math.random() * 99) + 1
+    let sport = Math.round(Math.random() * 99) + 1
+    let thriller = Math.round(Math.random() * 99) + 1
+    let war = Math.round(Math.random() * 99) + 1
+    let western = Math.round(Math.random() * 99) + 1
 
     //create Roles
     let isActor = roles.actor > 0 ? "true" : "false"
     let isDirector = roles.director > 0 ? "true" : "false"
     let isWriter = roles.writer > 0 ? "true" : "false"
+
     //create performance & rating
-    let performance = Math.round(Math.random() * 100)
-    let rating = (performance + experience + talent) / 3
+    let performance = Math.round(Math.random() * 99) + 1
+    let rating = Math.round((performance + experience + talent) / 3)
 
-    //get last ID
-    let lastID = 0
-    window.ipcRenderer.send('lastID', "SELECT max(pk_personID) from people")
-    window.ipcRenderer.on('sendLastID', (event, data) => {
-        lastID = data
+    //Insert Person into the db
+    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, biography, comedy, crime, documentary, drama, erotic, family, fantasy, history, horror, musical, mystery, romance, scienceFiction, sport, thriller, war, western, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [svg, firstName, lastName, birthday, deathAge, gender, nationalityValue, ethnicityValue, workingSince, performance, experience, talent, popularity, rating, action, adventure, biography, comedy, crime, documentary, drama, erotic, family, fantasy, history, horror, musical, mystery, romance, scienceFiction, sport, thriller, war, western, isActor, isDirector, isWriter]])
+    window.ipcRenderer.receive('personStatus', (data) => {
+        if (data === 200) {
+            store.commit('addNews', new News("New Person joined", "New Person joined the Film Studio Manager Community", null))
+        }
     })
-
-    //Insert Person into the db + TODO anpassen wenn datenbank angepasst ist + add News when a Person gets generated
-    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (pk_personID, avatar, first_name, last_name, age, gender, nationality, ethnicity, performance, experience, depth, craft, talent, popularity, rating, salary, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", [lastID, svg, firstName, lastName, age, gender, nationalityValue, ethnicityValue, performance, experience, "null", "null", talent, popularity, rating, "null", isActor, isDirector, isWriter]])
-
 }
 
 function generateNationalityAndEthnicity() {
@@ -531,5 +641,40 @@ function generateNationalityAndEthnicity() {
     //ethnicity
     const ethnicityRandom = Math.round(Math.random() * 4)
     array[1] = ethnicity[ethnicityRandom]
+    return array
+}
+
+function generateAvatarValues(ethnicity) {
+    let array = []
+    //skin, eyes, clothing, top, hairColor, facialHair, facialHairColor, mouth, accessories, accessoriesColor
+    switch (ethnicity) {
+        case 'Caucasian':
+            array.push("light")
+            break
+        case 'Black':
+            array.push("black")
+            break
+        case 'Asian':
+            array.push("yellow")
+            break
+        case 'Arabic':
+            array.push("darkBrown")
+            break
+        case 'People of Color':
+            array.push("brown")
+            break
+    }
+
+    array.push(eyes[Math.round(Math.random() * 11)])
+    array.push(clothing[Math.round(Math.random() * 8)])
+    array.push(top[Math.round(Math.random() * 34)])
+    array.push(hairColor[Math.round(Math.random() * 9)])
+    array.push(facialHair[Math.round(Math.random() * 5)])
+    array.push(facialHairColor[Math.round(Math.random() * 9)])
+    array.push(mouth[Math.round(Math.random() * 10)])
+    array.push(accessories[Math.round(Math.random() * 6)])
+    array.push(accessoriesColor[Math.round(Math.random() * 14)])
+    array.push(clothingColor[Math.round(Math.random() * 14)])
+
     return array
 }

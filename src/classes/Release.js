@@ -1,3 +1,4 @@
+import store from '@/services/store'
 export default class Release {
     constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2
                 , marketingPrint, marketingInternet, marketingCommericals) {
@@ -129,6 +130,7 @@ export default class Release {
 
             //Audience
             this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
+            this.setAudienceRating()
 
         //Earnings
             //Weekly drops
@@ -156,6 +158,23 @@ export default class Release {
         } else {
             return 0
         }
+    }
+
+    setAudienceRating() {
+        store.getters.getCurrentMovie._preProduction.screenplay.actors.main.forEach((el) => {
+            el.audienceRating = this.audienceFormula
+        })
+        store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.forEach((el) => {
+            el.audienceRating = this.audienceFormula
+        })
+        store.getters.getCurrentMovie._preProduction.screenplay.actors.support.forEach((el) => {
+            el.audienceRating = this.audienceFormula
+        })
+        store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.forEach((el) => {
+            el.audienceRating = this.audienceFormula
+        })
+        store.getters.getCurrentMovie._preProduction.hiredDirector.audienceRating = this.audienceFormula
+        store.getters.getCurrentMovie._preProduction.screenplay.writer = this.audienceFormula
     }
 
     calcPhasesRating(crewMorale) {

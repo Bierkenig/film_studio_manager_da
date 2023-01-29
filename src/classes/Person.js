@@ -17,7 +17,7 @@ export default class Person {
         //TYPE -> Integer
         this._deathAge = deathAge
         //TYPE -> Integer
-        this._age = 0
+        if (store !== undefined && this._birthday !== null) this._age = 0
         //TYPE -> String
         this._gender = gender;
         //TYPE -> String
@@ -87,12 +87,14 @@ export default class Person {
         //TYPE -> Integer
         this._workingOnProjects = 0
         //TYPE -> Integer
+        this.audienceRating = 0
+        //TYPE -> Integer
         if (isDirector) this.dirMorale = 5
         if (isActor) this.actorMorale = 5
     }
 
-    calcAge() {
-        return (Math.abs(store.state.currentDate - new Date(this._birthday))) / (1000 * 3600 * 24)
+    getBirthYear() {
+        return this._birthday.slice(-4)
     }
 
     get id() {
@@ -107,7 +109,7 @@ export default class Person {
         return this._first_name;
     }
 
-    getLastName() {
+    get last_name() {
         return this._last_name;
     }
 
@@ -135,14 +137,6 @@ export default class Person {
         return this._experience;
     }
 
-    get depth() {
-        return this._depth;
-    }
-
-    get craft() {
-        return this._craft;
-    }
-
     get talent() {
         return this._talent;
     }
@@ -155,10 +149,6 @@ export default class Person {
         return this._rating;
     }
 
-    get salary() {
-        return this._salary;
-    }
-
     get isActor() {
         return this._isActor;
     }
@@ -169,10 +159,6 @@ export default class Person {
 
     get isWriter() {
         return this._isWriter;
-    }
-
-    get genre() {
-        return this._genre;
     }
 
     static fromJSON(jsonObject){
