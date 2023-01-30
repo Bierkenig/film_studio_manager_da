@@ -113,6 +113,10 @@ export default class Person {
         return this._last_name;
     }
 
+    getFullName() {
+        return this._first_name + ' ' + this._last_name;
+    }
+
     get age() {
         return this._age;
     }
