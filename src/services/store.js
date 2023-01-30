@@ -32,6 +32,7 @@ export default createStore({
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
         currentMovie: new Movie(new Studio(100,"Jakob ist Cool", "2023",50000000,80), null),
+        currentMovieDetails: null,
         currentProdEventType: "",
         //movies which are still in cinema and generate profit
         createdMovies: [],
@@ -290,6 +291,10 @@ export default createStore({
             return state.currentMovie;
         },
 
+        getCurrentMovieDetails(state) {
+            return state.currentMovieDetails;
+        },
+
         getCurrentScreenplay(state){
             return state.currentScreenplay;
         },
@@ -523,6 +528,14 @@ export default createStore({
 
         setCurrentMovie(state, payload) {
             state.currentMovie = payload
+        },
+
+        setCurrentMovieDetails(state, payload) {
+            state.currentMovieDetails = payload;
+        },
+
+        clearCurrentMovieDetails(state) {
+            state.currentMovieDetails = null;
         },
 
         setNewCurrentMovieAndScreenplay(state, screenplay) {

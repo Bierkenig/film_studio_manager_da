@@ -45,6 +45,7 @@ import MarketingBudgetSelect from "@/components/mainGameComponents/postProductio
 import chooseMedium from "@/components/mainGameComponents/postProduction/mediums/chooseMedium";
 import cinemaNegotiation from "@/components/mainGameComponents/postProduction/mediums/cinemaNegotiation";
 import SimulationScreen from "@/components/mainGameComponents/calendarSimulation/SimulationScreen";
+import MovieDetails from "@/components/mainGameComponents/moviesMenu/MovieDetails.vue";
 
 
 const routes = [
@@ -64,6 +65,7 @@ const routes = [
     { name: 'buyMovieRights', path: '/buyMovieRights', component: BuyMovieRights, props: true },
     { name: 'news', path: '/news', component: News, props: true },
     { name: 'movies', path: '/movies', component: Movies, props: true },
+    { name: 'movieDetails', path: '/movieDetails', component: MovieDetails, props: true },
     { name: 'streaming', path: '/streaming', component: Streaming, props: true },
     { name: 'finances', path: '/finances', component: Finances, props: true },
     { name: 'calendar', path: '/calendar', component: Calendar, props: true },
