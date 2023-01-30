@@ -6,45 +6,45 @@ import DataUtil from "@/classes/DataUtil"
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false) {
         //TYPE -> Integer
-        this.id = id;
+        this.id = id; //GEMACHT
         //TYPE -> String
-        this.title = title;
+        this.title = title; //GEMACHT
         //TYPE -> String
-        this.genre = genre;
+        this.genre = genre; //GEMACHT
         //TYPE -> String
-        this.ageRating = ageRating;
+        this.ageRating = ageRating; //GEMACHT
         //TYPE -> Writer
-        this.writer = writer;
+        this.writer = writer; //GEMACHT
         //TYPE -> String
-        this.description = description;
+        this.description = description; //GEMACHT
         //TYPE -> Integer
-        this.rating = rating;
+        this.rating = rating; //GEMACHT
         //TYPE -> String
-        this.ratingRange = null;
+        this.ratingRange = null; //GEMACHT
         //TYPE -> Integer
         this.price = price;
         //TYPE -> String
-        this.type = type;
+        this.type = type; //GEMACHT
         //TYPE -> String
-        this.subgenre = subgenre;
+        this.subgenre = subgenre; //GEMACHT
         //TYPE -> Object
-        this.topics = topics;
+        this.topics = topics; //GEMACHT
         //scope = little, small, normal, large, epic
         //TYPE -> Object [Character]
-        this.roles = {main: [], support: [], minor: [], cameo: []};
+        this.roles = {main: [], support: [], minor: [], cameo: []}; //GEMACHT
         //TYPE -> Object [Persons]
         this.actors = {main: [], support: [], minor: [], cameo: []};
         //TYPE -> Object
-        this.acts = {act1: [], act2: [], act3: []};
+        this.acts = {act1: [], act2: [], act3: []}; //GEMACHT
         //TYPE -> Object
         //TODO change scope
-        this.details = {scope: 'Epic', tone: '', specialEffects: 'Spectacle'};
+        this.details = {scope: 'Epic', tone: '', specialEffects: 'Spectacle'}; //GEMACHT
         //TYPE -> Object
-        this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+        this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''}; //GEMACHT
         //TYPE -> Integer
-        this.length = 0;
+        this.length = 0; //GEMACHT
         //TYPE -> Integer
-        this.writingPhase = null;
+        this.writingPhase = null; //GEMACHT
         //TYPE -> Integer
         this.rewritingValue = 3;
         //TYPE -> Boolean

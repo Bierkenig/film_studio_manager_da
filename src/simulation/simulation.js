@@ -3,6 +3,7 @@ import {Studio} from "@/classes/Studio";
 import News from "@/classes/News";
 import {Avataaars} from "@/avatar/avataaars";
 import Person from "@/classes/Person";
+import {Screenplay} from "@/classes/Screenplay";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -22,11 +23,14 @@ const nationality = ["Algeria", " Angola", " Benin", "Botswana", "Burkina Faso",
 const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 
+
+
 export default function simulate() {
     console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
     renewPeople();
+    createScreenplaysFromWriters();
 
     //FETCHING DB
     //clear
@@ -100,7 +104,8 @@ function createStudios() {
         //create news of new studio
         let newsTitle = newStudio.getName() + ' gegründet';
         let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
-        store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', null, null, null, newStudio))
+        store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', null, null, null, newStudio));
+        store.state.studioNames.splice(store.state.studioNames.indexOf(studioName),1);
     }
 }
 
@@ -365,6 +370,232 @@ export function updateServicePopularityAndSubscribers() {
     //set streaming service services
     let potentialSubscribers = 300000000;
     store.getters.getOwnStreamingService._subscribers = potentialSubscribers * ((streamingServicePricePotential * 15 + streamingContent * 15 + streamingServiceHype * 70) / 100);
+}
+
+//create screenplays from other writers
+function createScreenplaysFromWriters(){
+    if(randomNumber(0.50) === 0){
+        //get all necessary values
+        let allScreenplayTitles = store.state.screenplayTitles;
+        let allScreenplayTypes = ['Animation','Feature','Indie'];
+        let allSubgenres = store.getters.getAllSubgenres;
+        let allTopics =  store.getters.getAllTopics;
+        let scopeValues = ['Little','Small','Normal','Large','Epic'];
+        let toneValues = ['Depressing','Dark','Realistic','Upbeat','Lighthearted'];
+        let specialEffectsValues = ['None','Some','Medium','Lots','Spectacle'];
+        let violenceValues = [1,2,3,4,5];
+        let cursingValues = [1,2,3,4,5];
+        let loveSceneValues = [1,2,3,4,5];
+        let ageRatingScala = {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'};
+        let allWriters = store.getters.getAllWriters;
+
+
+        // Shuffling the object (get key of object / title of screenplay)
+        let shuffle = Object.keys(allScreenplayTitles).map((e, i, a) => {
+            // Getting a random value between [i, a.length]
+            // Math.floor can be translated as ~~
+            let j = Math.floor(Math.random() * (a.length - i) + i);
+            // Switching the elements of positions i & j
+            [a[i], a[j]] = [a[j], a[i]];
+            // Returning current value
+            return a[i];
+        });
+        //set screenplay title
+        let screenplayTitle = shuffle.slice(0, 1)[0];
+        //set screenplay genre
+        let screenplayGenre = allScreenplayTitles[screenplayTitle].genre;
+        //set screenplay type
+        let screenplayType = allScreenplayTypes[Math.floor(Math.random() * allScreenplayTypes.length)];
+        let screenplaySubgenre = null;
+        let screenplayDescription = '';
+        let screenplayTopics = {firstTopic: null,secondTopic: null,thirdTopic: null};
+        let screenplayDetails = {scope: '', tone: '', specialEffects: ''};
+        let screenplayAgeRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+
+        //set screenplay subgenre
+        if(randomNumber(0.50) === 0){
+            screenplaySubgenre = allSubgenres[screenplayGenre][Math.floor(Math.random() * allSubgenres[screenplayGenre].length)]
+        }
+
+        //set screenplay description
+        switch (screenplayGenre) {
+            case 'Action':
+                screenplayDescription = 'An action movie.';
+                break;
+            case 'Adventure':
+                screenplayDescription = 'An adventure movie.';
+                break;
+            case 'Comedy':
+                screenplayDescription = 'A comedy movie.';
+                break;
+            case 'Documentary':
+                screenplayDescription = 'A documentary movie.';
+                break;
+            case 'Drama':
+                screenplayDescription = 'A drama movie.';
+                break;
+            case 'Fantasy':
+                screenplayDescription = 'A fantasy movie.';
+                break;
+            case 'Horror':
+                screenplayDescription = 'A horror movie.';
+                break;
+            case 'Musical':
+                screenplayDescription = 'A musical movie.';
+                break;
+            case 'Romance':
+                screenplayDescription = 'A romance movie.';
+                break;
+            case 'Science-Fiction':
+                screenplayDescription = 'A science-fiction movie.';
+                break;
+            case 'Thriller':
+                screenplayDescription = 'A thriller movie.';
+                break;
+            case 'War':
+                screenplayDescription = 'A war movie.';
+                break;
+            default:
+                break;
+        }
+
+        //set screenplay topics
+        screenplayTopics.firstTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+        if(randomNumber(0.50) === 0){
+            screenplayTopics.secondTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+            while (screenplayTopics.secondTopic === screenplayTopics.firstTopic){
+                screenplayTopics.secondTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+            }
+            if(randomNumber(0.50) === 0){
+                screenplayTopics.thirdTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+                while (screenplayTopics.thirdTopic === screenplayTopics.firstTopic || screenplayTopics.thirdTopic === screenplayTopics.secondTopic){
+                    screenplayTopics.thirdTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+                }
+            }
+        }
+
+        //create screenplay
+        let newScreenplay = new Screenplay(store.getters.getNextScreenplayId,screenplayTitle,screenplayType,screenplayGenre,screenplaySubgenre,null,null,screenplayDescription,null,null,screenplayTopics);
+
+        //set screenplay details
+        screenplayDetails.scope = scopeValues[Math.floor(Math.random() * scopeValues.length)];
+        screenplayDetails.tone = toneValues[Math.floor(Math.random() * toneValues.length)];
+        screenplayDetails.specialEffects = specialEffectsValues[Math.floor(Math.random() * specialEffectsValues.length)];
+
+        //set screenplay age rating details
+        screenplayAgeRatingDetails.violence = violenceValues[Math.floor(Math.random() * violenceValues.length)];
+        screenplayAgeRatingDetails.cursing = cursingValues[Math.floor(Math.random() * cursingValues.length)];
+        screenplayAgeRatingDetails.loveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
+
+        newScreenplay.details = screenplayDetails;
+        newScreenplay.ageRatingDetails = screenplayAgeRatingDetails;
+
+        //set screenplay age rating
+        newScreenplay.ageRating = ageRatingScala[Math.max(screenplayAgeRatingDetails.violence, screenplayAgeRatingDetails.cursing, screenplayAgeRatingDetails.loveScenes)];
+
+        //set screenplay roles
+        newScreenplay.roles = allScreenplayTitles[screenplayTitle].roles;
+        //set screenplay acts
+        newScreenplay.acts = allScreenplayTitles[screenplayTitle].acts;
+
+        //set screenplay length
+        if(newScreenplay.type === 'Feature'){
+            newScreenplay.length = Math.floor(Math.random() * (300 - 60) + 60);
+        } else {
+            newScreenplay.length = Math.floor(Math.random() * (300 - 40) + 40);
+        }
+
+        //set screenplay writing phase
+        if(newScreenplay.type === 'Feature' || newScreenplay.type === 'Animation'){
+            newScreenplay.setWritingPhase(12)
+        } else {
+            newScreenplay.setWritingPhase(8)
+        }
+
+        //set screenplay writer
+        let screenplayWriter = allWriters[Math.floor(Math.random() * allWriters.length)];
+
+        //set screenplay rating
+        let minTalent;
+        let maxTalent;
+        if(screenplayWriter._experience > 0 && screenplayWriter._experience <= 50){
+            minTalent = screenplayWriter._talent - 15;
+            maxTalent = screenplayWriter._talent + 5;
+        } else if(screenplayWriter._experience > 50 && screenplayWriter._experience <= 75){
+            minTalent = screenplayWriter._talent - 10;
+            maxTalent = screenplayWriter._talent + 5;
+        } else if(screenplayWriter._experience > 75){
+            minTalent = screenplayWriter._talent - 5;
+            maxTalent = screenplayWriter._talent + 5;
+        }
+        let writerTalent = minTalent + ((maxTalent - minTalent) / (Math.floor(Math.random() * (100 - 20 + 1)) + 20))
+        let writerGenre = '';
+        switch(newScreenplay.genre) {
+            case 'Action':
+                writerGenre = screenplayWriter._action;
+                break;
+            case 'Adventure':
+                writerGenre = screenplayWriter._adventure;
+                break;
+            case 'Comedy':
+                writerGenre = screenplayWriter._comedy;
+                break;
+            case 'Documentary':
+                writerGenre = screenplayWriter._documentary;
+                break;
+            case 'Drama':
+                writerGenre = screenplayWriter._drama;
+                break;
+            case 'Fantasy':
+                writerGenre = screenplayWriter._fantasy;
+                break;
+            case 'Horror':
+                writerGenre = screenplayWriter._horror;
+                break;
+            case 'Musical':
+                writerGenre = screenplayWriter._musical;
+                break;
+            case 'Romance':
+                writerGenre = screenplayWriter._romance;
+                break;
+            case 'ScienceFiction':
+                writerGenre = screenplayWriter._scienceFiction;
+                break;
+            case 'Thriller':
+                writerGenre = screenplayWriter._thriller;
+                break;
+            case 'War':
+                writerGenre = screenplayWriter._war;
+                break;
+            default:
+                break;
+        }
+        let screenplayRating = Math.floor((writerTalent * 65 + writerGenre * 35) / 100);
+        newScreenplay.setRating(screenplayRating)
+        newScreenplay.setRatingRange((Math.ceil(newScreenplay.rating / 10) * 10) - 9 + ' - ' + (Math.ceil(newScreenplay.rating / 10) * 10))
+
+        //set screenplay price
+        let screenplayPrice = 0;
+        if(screenplayWriter._talent <= 50){
+            let calculator = Math.random() * (1.5 - 1) + 1;
+            screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriter._salary;
+        } else if(screenplayWriter._talent >= 51 && screenplayWriter._talent <= 75){
+            let calculator = Math.random() * (2 - 1.5) + 1.5;
+            screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriter._salary;
+        } else if(screenplayWriter._talent >= 76){
+            let calculator = Math.random() * (3 - 2) + 2;
+            screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriter._salary;
+        }
+        newScreenplay.setPrice(screenplayPrice);
+
+        //add screenplay to screenplayFromWriters array
+        console.log(newScreenplay);
+        store.commit('addScreenplaysFromWriters',newScreenplay);
+
+        //delete screenplay title from source array
+        delete store.state.screenplayTitles[screenplayTitle];
+        console.log(store.state.screenplayTitles)
+    }
 }
 
 function renewPeople() {
