@@ -16,7 +16,7 @@ export default class Person {
         //TYPE -> Integer
         this._deathAge = deathAge
         //TYPE -> Integer
-        if (store !== undefined && this._birthday !== null) this._age = 0
+        if (store !== undefined && this._birthday !== null) this._age = store.getters.getCurrentDate.getFullYear() - parseInt(this._birthday.slice(-4))
         //TYPE -> String
         this._gender = gender;
         //TYPE -> String

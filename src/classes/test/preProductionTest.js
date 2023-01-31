@@ -5,7 +5,7 @@ import Earnings from "@/classes/Earnings";
 
 export default class PreProductionTest {
     constructor() {
-        this.screenplay = new Screenplay(0, 'Benni Test', 'Indie', 'Action', 'Animation', 'G', null, 'Benni is cool', 69, 250000, null)
+        this.screenplay = new Screenplay(0, 'Benni Test', 'Indie', 'Action', 'Animation', 'G', null, 'Benni is cool', 69, 250000, {firstTopic: 'Animals', secondTopic: null, thirdTopic: 'Baseball'})
         this.hiredDirector = new Person(0, null, 'Benni', 'Franklin', 23, 'male', 'Austria', 'caucasian', 23, 23, 23, 23, 23, 23, 23, '1.000', true, true, true)
         this.outgoings = 0
         if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()

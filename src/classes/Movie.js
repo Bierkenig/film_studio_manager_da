@@ -7,6 +7,7 @@ import Production from "@/classes/Production";
 import PostProduction from "@/classes/PostProduction";
 import Release from "@/classes/Release"
 import preProductionTest from '@/classes/test/preProductionTest'
+import store from "@/services/store";
 
 export class Movie {
     constructor(owner, contract) {
@@ -33,11 +34,11 @@ export class Movie {
         //NOT DONE YET
         this._earnings = []
         //TYPE -> Integer
-        this.genrePopularity = ""
+        this.genrePopularity = null
         //TYPE -> Integer
-        this.subgenrePopularity = ""
+        this.subgenrePopularity = null
         //TYPE -> Integer
-        this.topicPopularity = ""
+        this.topicPopularity = null
         //TYPE -> Integer
         this.quality = 100
         //TYPE -> Integer
@@ -70,11 +71,37 @@ export class Movie {
     }
 
     setRelease() {
-        if (this.status === 'Release' && this._postProduction instanceof PostProduction) {
+        if (this.status === 'Release' /*&& this._postProduction instanceof PostProduction*/) {
+            this.genrePopularity = this.calcGenrePopularities()
+            this.subgenrePopularity = this.calcSubGenrePopularities()
+            this.topicPopularity = this.calcTopicPopularities()
+            console.log(this.genrePopularity)
+            console.log(this.subgenrePopularity)
+            console.log(this.topicPopularity)
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this.owner, 2,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
         }
+    }
+
+    calcGenrePopularities() {
+        return store.state.allGenres.filter(el => el.genreName === this._screenplay.getGenre())
+    }
+
+    calcSubGenrePopularities() {
+        return store.state.allSubGenres.filter(el => el.genreName === this._screenplay.subgenre)
+    }
+
+    calcTopicPopularities() {
+        let allPops = {
+            first: null,
+            second: null,
+            third: null
+        }
+        allPops.first = store.state.allTopics.filter(el => el.topicName === this._screenplay.getTopics().firstTopic)
+        allPops.second= store.state.allTopics.filter(el => el.topicName === this._screenplay.getTopics().secondTopic)
+        allPops.third = store.state.allTopics.filter(el => el.topicName === this._screenplay.getTopics().thirdTopic)
+        return allPops
     }
 
     get screenplay() {
