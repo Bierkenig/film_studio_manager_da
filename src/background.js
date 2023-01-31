@@ -85,19 +85,33 @@ async function createWindow() {
         db.close()
     })
 
-    ipcMain.on('toGetGenreRating', (event, data) => {
+    ipcMain.on('getGenres', (event, data) => {
         db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error('Database opening error: ', err);
         });
         db.serialize(() => {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
-                else event.sender.send('fromGetGenreRating', row)
+                else event.sender.send('gotGenres', row)
             })
         })
         db.close()
     })
-// IPC Saving
+
+    ipcMain.on('getSubGenres', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotSubGenres', row)
+            })
+        })
+        db.close()
+    })
+
+    // IPC Saving
     ipcMain.on('savingData', (event, data) => {
         saving.save(data[0], data[1]);
     })

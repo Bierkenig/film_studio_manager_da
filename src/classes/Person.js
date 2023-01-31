@@ -1,9 +1,8 @@
 import store from '@/services/store'
 export default class Person {
     constructor(id, avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent,popularity,
-    rating, action, adventure, biography, comedy, crime, documentary, drama, erotic,
-    family, fantasy, history, horror, musical, mystery, romance, scienceFiction, sport,
-    thriller, war, western, isActor, isDirector, isWriter) {
+    rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction,
+    thriller, war, isActor, isDirector, isWriter) {
         //TYPE -> Integer
         this._id = id;
         //TYPE -> String
@@ -41,41 +40,25 @@ export default class Person {
         //TYPE -> Integer
         this._adventure = adventure
         //TYPE -> Integer
-        this._biography = biography
-        //TYPE -> Integer
         this._comedy = comedy
-        //TYPE -> Integer
-        this._crime = crime
         //TYPE -> Integer
         this._documentary = documentary
         //TYPE -> Integer
         this._drama = drama
         //TYPE -> Integer
-        this._erotic = erotic
-        //TYPE -> Integer
-        this._family = family
-        //TYPE -> Integer
         this._fantasy = fantasy
-        //TYPE -> Integer
-        this._history = history
         //TYPE -> Integer
         this._horror = horror
         //TYPE -> Integer
         this._musical = musical
         //TYPE -> Integer
-        this._mystery = mystery
-        //TYPE -> Integer
         this._romance = romance
         //TYPE -> Integer
         this._scienceFiction = scienceFiction
         //TYPE -> Integer
-        this._sport = sport
-        //TYPE -> Integer
         this._thriller = thriller
         //TYPE -> Integer
         this._war = war
-        //TYPE -> Integer
-        this._western = western
         //TYPE -> String
         this._isActor = isActor;
         //TYPE -> String
