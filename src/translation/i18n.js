@@ -845,7 +845,31 @@ i18next
                         submarine: 'Submarine',
                         prisonerofwar: 'Prisoner of War',
                         antiwar: 'Anti-War',
-                    }
+                    },
+                    movieDetailsElement: {
+                        general: {
+                            heading: 'General',
+                            children: 'Children',
+                            teenagers: 'Teenagers',
+                            adults: 'Adults',
+                            setting: 'Setting',
+                            topics: 'Topics',
+                            release: 'Release',
+                            writer: 'Writer',
+                            director: 'Director',
+                            era: 'Era',
+                        },
+                        finances: {
+                            heading: 'Finances',
+                            productionBudget: 'Production Budget',
+                            marketingBudget: 'Marketing Budget',
+                            totalCost: 'Total Cost',
+                            openingWeek: 'Opening Week',
+                            cinemaGross: 'Cinema Gross',
+                            dvdGross: 'DVD Gross',
+                        },
+                        newMovie: 'New Movie',
+                    },
                 }
             },
             de: {
@@ -1640,7 +1664,31 @@ i18next
                         submarine: 'U-Boot',
                         prisonerofwar: 'Kriegsgefangene',
                         antiwar: 'Anti-Krieg',
-                    }
+                    },
+                    movieDetailsElement: {
+                        general: {
+                            heading: 'Allgemein',
+                            children: 'Kinder',
+                            teenagers: 'Teenager',
+                            adults: 'Erwachsene',
+                            setting: 'Kulisse',
+                            topics: 'Inhalt',
+                            release: 'Veröffentlichung',
+                            writer: 'Autos',
+                            director: 'Regisseur',
+                            era: 'Zeitraum',
+                        },
+                        finances: {
+                            heading: 'Finanzen',
+                            productionBudget: 'Produktionsbudget',
+                            marketingBudget: 'Marketingbudget',
+                            totalCost: 'Gesamtkosten',
+                            openingWeek: 'Einführungswoche',
+                            cinemaGross: 'Kino-Einnahmen',
+                            dvdGross: 'DVD-Einnahmen',
+                        },
+                        newMovie: 'Neuer Film',
+                    },
                 }
             }
         }
