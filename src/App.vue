@@ -30,6 +30,9 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import Person from "@/classes/Person";
 import {Character} from "@/classes/Character";
 import Earnings from "@/classes/Earnings";
+import Topic from "@/classes/Topic";
+import Genre from "@/classes/Genre";
+import SubGenre from "@/classes/SubGenre";
 
 export default {
   name: 'App',
@@ -84,67 +87,48 @@ export default {
       }
     }, 600000);
 
-    let writers = [], directors = [], actors = [], topics = [], people = [];
+    let writers = [], directors = [], actors = [], topics = [], people = [], genres = [], subgenres = [];
     window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
     window.ipcRenderer.receive('fromGetPeople', (data) => {
       if(data.isWriter == "true"){
         writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
             data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+            data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+            data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
       }
       if(data.isDirector == "true"){
         directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
             data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+            data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+            data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
       }
       if(data.isActor == "true"){
         actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
             data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+            data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+            data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
       }
       people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
           data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-          data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-          data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-          data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+          data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+          data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
     })
+
     window.ipcRenderer.send('toGetTopics','SELECT * FROM topics');
     window.ipcRenderer.receive('fromGetTopics', (data) => {
-      topics.push(data.topicName);
+      topics.push(new Topic(data.topicName, data.childrenPopularity, data.teenPopularity, data.adultPopularity));
     })
 
-    /*window.ipcRenderer.send('toGetGenreRating','SELECT genreRating.*, g.* FROM genreRating INNER JOIN genre g ON genreRating.fk_pk_genreID = g.pk_genreID');
-    window.ipcRenderer.receive('fromGetGenreRating', (data) => {
-      for (let i = 0; i < writers.length; i++) {
-        if(data.fk_pk_personID === writers[i]._id){
-          writers[i]._genre[data.genreName] = data.number;
-        }
-      }
+    //genre & subgenre
+    window.ipcRenderer.send('getGenres', 'SELECT * FROM genre');
+    window.ipcRenderer.receive('gotGenres', (data) => {
+      genres.push(new Genre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
+    })
 
-      for (let i = 0; i < directors.length; i++) {
-        if(data.fk_pk_personID === directors[i]._id){
-          directors[i]._genre[data.genreName] = data.number;
-        }
-      }
-
-      for (let i = 0; i < actors.length; i++) {
-        if(data.fk_pk_personID === actors[i]._id){
-          actors[i]._genre[data.genreName] = data.number;
-        }
-      }
-
-      for (let i = 0; i < people.length; i++) {
-        if(data.fk_pk_personID === people[i]._id) {
-          people[i]._genre[data.genreName] = data.number;
-        }
-      }
-    })*/
+    window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
+    window.ipcRenderer.receive('gotSubGenres', (data) => {
+      subgenres.push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
+    })
 
     //test
 
@@ -153,6 +137,8 @@ export default {
     this.$store.commit('setAllActors', actors);
     this.$store.commit('setAllTopics',topics);
     this.$store.commit('setAllPeople', people);
+    this.$store.commit('setAllGenres', genres)
+    this.$store.commit('setAllSubGenres', subgenres)
 
     this.$store.getters.getBoughtScreenplays[0].setRatingRange('61 - 70');
     this.$store.getters.getBoughtScreenplays[0].addMainCharacter(new Character('Woodie','male',18));

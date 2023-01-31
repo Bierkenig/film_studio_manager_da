@@ -799,23 +799,23 @@ function checkAge(person) {
     } else if (deathAge >= 10 && deathAge < 20) {
         return Math.round(Math.random() * 99) + 1 === 1
     } else if (deathAge >= 20 && deathAge < 30) {
-        return Math.round(Math.random() * 99) + 1 <= 5
+        return Math.round(Math.random() * 99) + 1 <= 3
     } else if (deathAge >= 30 && deathAge < 40) {
-        return Math.round(Math.random() * 99) + 1 <= 10
+        return Math.round(Math.random() * 99) + 1 <= 5
     } else if (deathAge >= 40 && deathAge < 50) {
-        return Math.round(Math.random() * 99) + 1 <= 15
+        return Math.round(Math.random() * 99) + 1 <= 7
     } else if (deathAge >= 50 && deathAge < 60) {
-        return Math.round(Math.random() * 99) + 1 <= 20
+        return Math.round(Math.random() * 99) + 1 <= 10
     } else if (deathAge >= 60 && deathAge < 70) {
-        return Math.round(Math.random() * 99) + 1 <= 35
+        return Math.round(Math.random() * 99) + 1 <= 17
     } else if (deathAge >= 70 && deathAge < 80) {
-        return Math.round(Math.random() * 99) + 1 <= 50
+        return Math.round(Math.random() * 99) + 1 <= 25
     } else if (deathAge >= 80 && deathAge < 90) {
-        return Math.round(Math.random() * 99) + 1 <= 75
+        return Math.round(Math.random() * 99) + 1 <= 30
     } else if (deathAge >= 90 && deathAge < 100) {
-        return Math.round(Math.random() * 99) + 1 <= 85
+        return Math.round(Math.random() * 99) + 1 <= 45
     } else if (deathAge >= 100) {
-        return Math.round(Math.random() * 99) + 1 <= 99
+        return Math.round(Math.random() * 99) + 1 <= 60
     }
 }
 
@@ -897,6 +897,7 @@ function generatePersonValues(roles) {
             clothingColor: clothingColor
         })
     }
+    svg.toString()
 
     //calc talent
     let talent = 0
@@ -962,24 +963,16 @@ function generatePersonValues(roles) {
     //Genres
     let action = Math.round(Math.random() * 99) + 1
     let adventure = Math.round(Math.random() * 99) + 1
-    let biography = Math.round(Math.random() * 99) + 1
     let comedy = Math.round(Math.random() * 99) + 1
-    let crime = Math.round(Math.random() * 99) + 1
     let documentary = Math.round(Math.random() * 99) + 1
     let drama = Math.round(Math.random() * 99) + 1
-    let erotic = Math.round(Math.random() * 99) + 1
-    let family = Math.round(Math.random() * 99) + 1
     let fantasy = Math.round(Math.random() * 99) + 1
-    let history = Math.round(Math.random() * 99) + 1
     let horror = Math.round(Math.random() * 99) + 1
     let musical = Math.round(Math.random() * 99) + 1
-    let mystery = Math.round(Math.random() * 99) + 1
     let romance = Math.round(Math.random() * 99) + 1
     let scienceFiction = Math.round(Math.random() * 99) + 1
-    let sport = Math.round(Math.random() * 99) + 1
     let thriller = Math.round(Math.random() * 99) + 1
     let war = Math.round(Math.random() * 99) + 1
-    let western = Math.round(Math.random() * 99) + 1
 
     //create Roles
     let isActor = roles.actor > 0 ? "true" : "false"
@@ -991,8 +984,8 @@ function generatePersonValues(roles) {
     let rating = Math.round((performance + experience + talent) / 3)
 
     //Insert Person into the db
-    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, biography, comedy, crime, documentary, drama, erotic, family, fantasy, history, horror, musical, mystery, romance, scienceFiction, sport, thriller, war, western, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [svg, firstName, lastName, birthday, deathAge, gender, nationalityValue, ethnicityValue, workingSince, performance, experience, talent, popularity, rating, action, adventure, biography, comedy, crime, documentary, drama, erotic, family, fantasy, history, horror, musical, mystery, romance, scienceFiction, sport, thriller, war, western, isActor, isDirector, isWriter]])
+    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        [svg, firstName, lastName, birthday, deathAge, gender, nationalityValue, ethnicityValue, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter]])
     window.ipcRenderer.receive('personStatus', (data) => {
         if (data === 200) {
             store.commit('addNews', new News("New Person joined", "New Person joined the Film Studio Manager Community", null))

@@ -278,6 +278,8 @@ export default createStore({
             "Thriller": ["PsychologicalThriller","PoliticalThriller","Crime","Mystery","Detective"],
             "War": ["Propaganda","Submarine","PrisonerOfWar","AntiWar","Satire"]
         },
+        allGenres: [],
+        allSubGenres: [],
 
         //editor
         editPerson: null,
@@ -747,6 +749,14 @@ export default createStore({
 
         setAllTopics(state, value){
             state.allTopics = value;
+        },
+
+        setAllGenres(state, payload) {
+            state.allGenres = payload
+        },
+
+        setAllSubGenres(state, payload) {
+            state.allSubGenres = payload
         },
 
         setOwnStreamingService(state, value){

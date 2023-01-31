@@ -9,7 +9,7 @@ import Release from "@/classes/Release"
 import preProductionTest from '@/classes/test/preProductionTest'
 
 export class Movie {
-    constructor(owner, contract, genrePopularity = 1, subgenrePopularity = 1, topicPopularity = 1) {
+    constructor(owner, contract) {
         //TYPE -> String from another Class
         this._title = this._screenplay?.title
         //TYPE -> String
@@ -33,11 +33,11 @@ export class Movie {
         //NOT DONE YET
         this._earnings = []
         //TYPE -> Integer
-        this.genrePopularity = genrePopularity
+        this.genrePopularity = ""
         //TYPE -> Integer
-        this.subgenrePopularity = subgenrePopularity
+        this.subgenrePopularity = ""
         //TYPE -> Integer
-        this.topicPopularity = topicPopularity
+        this.topicPopularity = ""
         //TYPE -> Integer
         this.quality = 100
         //TYPE -> Integer
