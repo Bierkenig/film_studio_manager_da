@@ -36,7 +36,7 @@
             :dark="false"
             size="small"
             :disabled="checkBalance || !name"
-            @click="createService">
+            @clicked="createService">
           {{ $t('createService') }}
         </custom-button>
       </div>
