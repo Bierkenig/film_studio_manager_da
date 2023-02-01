@@ -190,6 +190,12 @@ export default {
   border: none !important;
 }
 
+@media screen and (min-height: 975px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .fc-scroller {
   overflow: hidden !important;
 }
