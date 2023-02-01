@@ -869,6 +869,7 @@ i18next
                             dvdGross: 'DVD Gross',
                         },
                         newMovie: 'New Movie',
+                        loading: 'Loading',
                     },
                 }
             },
@@ -1688,6 +1689,7 @@ i18next
                             dvdGross: 'DVD-Einnahmen',
                         },
                         newMovie: 'Neuer Film',
+                        loading: 'Laden',
                     },
                 }
             }

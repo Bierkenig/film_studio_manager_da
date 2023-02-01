@@ -46,6 +46,7 @@ import chooseMedium from "@/components/mainGameComponents/postProduction/mediums
 import cinemaNegotiation from "@/components/mainGameComponents/postProduction/mediums/cinemaNegotiation";
 import SimulationScreen from "@/components/mainGameComponents/calendarSimulation/SimulationScreen";
 import MovieDetails from "@/components/mainGameComponents/moviesMenu/MovieDetails.vue";
+import LoadingScreen from "@/components/mainGameComponents/LoadingScreen.vue";
 
 
 const routes = [
@@ -84,6 +85,7 @@ const routes = [
 
 
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
+    { name: 'loadingScreen', path: '/loadingScreen/:nextRoute', component: LoadingScreen, props: true },
 
     //PreProduction
     { name: 'screenplaySection', path: '/screenplaySection', component: screenplaySection, props: true},

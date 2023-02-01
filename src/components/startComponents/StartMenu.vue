@@ -74,6 +74,10 @@
             <router-link :to="{ name: 'chooseMedium'}">
               <button id="chooseMedium" class="buttonStyle">chooseMedium</button>
             </router-link>
+
+            <router-link :to="{ name: 'loadingScreen', params: {nextRoute: 'default'}}">
+              <button id="loadingScreen" class="buttonStyle">loadingScreen</button>
+            </router-link>
             <!--<div>
               <router-link :to="{ name: 'kitchenSink'}">
                 <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
