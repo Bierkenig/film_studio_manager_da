@@ -4,6 +4,7 @@
       <div class="modal-container">
         <div class="modal-body">
           <slot name="body">
+            {{this.releaseDate}}
             <h3 v-if="!feedbacks">{{ $t('postProductionEvents.testScreening.title') }}</h3>
             <h3 v-else>{{ $t('postProductionEvents.testScreening.result') }}</h3>
 
@@ -161,7 +162,7 @@ export default {
       screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
       sfxVfxScope: this.$store.state.currentMovie?._preProduction.screenplay.details.specialEffects,
 
-
+      releaseDate: this.$store.getters.getCurrentMovie._preProduction.releaseDate,
     }
   },
 

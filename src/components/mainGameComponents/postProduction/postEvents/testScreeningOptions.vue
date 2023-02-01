@@ -1,5 +1,7 @@
 <template>
-<div v-if="typeEditing === true">
+  <button class="buttonStyle" @click="continueToResult">Continue</button>
+
+  <div v-if="typeEditing === true">
   <div>
     {{$t("postProductionEvents.testScreening.optionA")}}
     {{$t("postProductionEvents.testScreening.editing.optionA")}}
@@ -8,7 +10,7 @@
     <br>
     Benefit: Lorem Ipsum
     <br>
-    <button @click="choseOptionA('editing')">Choose</button>
+    <button v-if="booleanEditingOption !== 1" @click="choseOptionA('editing')">Choose</button>
     <br>
     <br>
   </div>
@@ -20,7 +22,7 @@
     <br>
     Benefit: Lorem Ipsum
     <br>
-    <button @click="choseOptionB('editing')">Choose</button>
+    <button v-if="booleanEditingOption !== 2" @click="choseOptionB('editing')">Choose</button>
       <button class="buttonStyle" @click="continueToResult">Continue</button>
   </div>
 </div>
@@ -33,7 +35,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionA('sound')">Choose</button>
+      <button v-if="booleanSoundOption !== 1" @click="choseOptionA('sound')">Choose</button>
       <br>
       <br>
     </div>
@@ -45,7 +47,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB('sound')">Choose</button>
+      <button v-if="booleanSoundOption !== 2" @click="choseOptionB('sound')">Choose</button>
     </div>
 </div>
   <div v-if="typeVFX === true">
@@ -57,7 +59,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionA('vfx')">Choose</button>
+      <button v-if="booleanVFXOption !== 1" @click="choseOptionA('vfx')">Choose</button>
       <br>
       <br>
     </div>
@@ -69,7 +71,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB('vfx')">Choose</button>
+      <button v-if="booleanVFXOption !== 2" @click="choseOptionB('vfx')">Choose</button>
     </div>
   </div>
   <div v-if="typeActing === true">
@@ -81,7 +83,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionA('acting')">Choose</button>
+      <button v-if="booleanActingOption !== 1" @click="choseOptionA('acting')">Choose</button>
       <br>
       <br>
     </div>
@@ -93,7 +95,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB('acting')">Choose</button>
+      <button v-if="booleanActingOption !== 2" @click="choseOptionB('acting')">Choose</button>
     </div>
   </div>
   <div v-if="typeStory === true">
@@ -105,7 +107,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionA('story')">Choose</button>
+      <button v-if="booleanStoryOption !== 1" @click="choseOptionA('story')">Choose</button>
       <br>
       <br>
     </div>
@@ -117,7 +119,7 @@
       <br>
       Benefit: Lorem Ipsum
       <br>
-      <button @click="choseOptionB('story')">Choose</button>
+      <button v-if="booleanStoryOption !== 2" @click="choseOptionB('story')">Choose</button>
 
     </div>
   </div>
@@ -200,8 +202,6 @@ export default {
             this.booleanVFXOption = 1
             break
           case 'acting':
-            //TODO Hype -15%
-            // eslint-disable-next-line no-case-declarations
             this.actingConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
             this.actingConsequence.percentage += this.percentageWholeBudget;
             this.booleanActingOption = 1
@@ -271,18 +271,31 @@ export default {
       switch(type){
         case "editing":
           this.booleanEditingOption = 2
+          this.editingBudgetIncrease.value = 0
+          this.editingBudgetIncrease.percentage = 0
           break
         case "sound":
           this.booleanSoundOption = 2
+          this.soundBudgetIncrease.value = 0
+          this.soundBudgetIncrease.percentage = 0
+          this.sound
           break
         case "vfx":
           this.booleanVFXOption = 2
+          this.vfxBudgetIncrease.value = 0
+          this.vfxBudgetIncrease.percentage = 0
           break
         case "acting":
           this.booleanActingOption = 2
+          this.actingConsequence.value = 0
+          this.actingConsequence.percentage = 0
+          this.actingConsequence.addedWeeks = 0
           break
         case "story":
           this.booleanStoryOption = 2
+          this.storyConsequence.value = 0
+          this.storyConsequence.percentage = 0
+          this.storyConsequence.addedWeeks = 0
           break
       }
     },
@@ -299,37 +312,43 @@ export default {
 
     continueToResult() {
       if(this.booleanEditingOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.editing *= (1 + (this.editingBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.editing += this.editingBudgetIncrease.value;
       }
       else if(this.booleanEditingOption === 2){
         this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
       }
 
       if(this.booleanSoundOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.sound *= (1 + (this.soundBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.sound += this.soundBudgetIncrease.value;
       }
       else if(this.booleanEditingOption === 2){
         this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
       }
 
       if(this.booleanVFXOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.vfx *= (1 + (this.vfxBudgetIncrease.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.vfx += this.vfxBudgetIncrease.value;
       }
       else if(this.booleanEditingOption === 2){
         this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
       }
 
+      //TODO add weeks
       if(this.booleanActingOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.acting *= (1 + (this.actingConsequence.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.acting += this.actingConsequence.value;
         this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
+        this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),this.actingConsequence.addedWeeks , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
+
       }
       else if(this.booleanEditingOption === 2){
         this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
       }
 
+      //TODO add weeks
       if(this.booleanStoryOption === 1){
-        this.$store.getters.getCurrentMovie._preProduction.budget.story *= (1 + (this.storyConsequence.percentage/100));
+        this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget *= this.storyConsequence.value;
         this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
+        this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),this.storyConsequence.addedWeeks , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
+
       }
       else if(this.booleanEditingOption === 2){
         this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
@@ -338,8 +357,8 @@ export default {
     },
 
     addWeeks(date, weeks, startDate) {
-      date.setDate(startDate.getDate() + 7 * weeks);
-      return date;
+      startDate.setDate(startDate.getDate() + 7 * weeks);
+      return startDate;
     },
   }
 }

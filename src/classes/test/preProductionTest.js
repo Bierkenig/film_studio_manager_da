@@ -14,7 +14,7 @@ export default class PreProductionTest {
         this.preProductionLength = 0
         this.productionLength = 0
         this.postProductionLength = 0
-        this.releaseDate = null
+        this.releaseDate = new Date(2025, 2, 26)
         this.startDate = new Date()
         this.budget = {
             production: 100,
