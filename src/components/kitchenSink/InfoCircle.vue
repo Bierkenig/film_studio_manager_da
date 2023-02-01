@@ -33,6 +33,10 @@ export default {
         fontSize: '22px',
         fontWeight: 'var(--fsm-fw-medium)',
       },
+      fontStyleLarge: {
+        fontSize: '28px',
+        fontWeight: 'var(--fsm-fw-bold)',
+      },
       themeValues: {},
       fontStyleValues: {},
       iconThemes: ['dark', 'light'],
@@ -58,7 +62,11 @@ export default {
     alternativeStyle: {
       type: Boolean,
       default: false,
-    }
+    },
+    largeFont: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     setCSSVariables() {
@@ -76,6 +84,9 @@ export default {
       }
       if (this.text !== '') {
         this.$refs.infoCircleSubDiv.innerHTML = this.text;
+        if (this.largeFont) {
+          this.fontStyleValues = {...this.fontStyleLarge};
+        }
       }
     },
   },

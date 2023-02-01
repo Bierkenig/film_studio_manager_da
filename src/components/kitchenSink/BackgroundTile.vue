@@ -68,8 +68,8 @@ export default {
   color: v-bind('colorValue');
   background: rgba(37, 45, 62, 0.66);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 }
 
 .backgroundTileIcon {

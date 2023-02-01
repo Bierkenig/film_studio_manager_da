@@ -11,6 +11,7 @@
         id="stopSimulationButton"
         :dark="false"
         size="medium"
+        :disabled="stopButtonDisabled"
         @click="stopAnimate">Stop</custom-button>
   </div>
 </template>
@@ -30,17 +31,20 @@ export default {
       currentDate: this.$store.getters.getCurrentDate,
       animationStatus: false,
       interval: null,
+      stopButtonDisabled: false,
     }
   },
 
   mounted() {
+    this.stopButtonDisabled = false;
     this.interval = setInterval(() => {
       this.animate()
-    }, 5000)
+    }, 4000)
   },
 
   methods: {
     stopAnimate(){
+      this.stopButtonDisabled = true;
       clearInterval(this.interval)
       setTimeout(() => {
         this.$router.go(-1);

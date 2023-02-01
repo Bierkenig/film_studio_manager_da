@@ -38,8 +38,8 @@ export default {
   components: {ProjectElement, ScreenplayElement, TilePagesNav},
   data() {
     return {
-      all: this.$store.getters.getScreenplays.concat(this.$store.getters.getInProductionMovies),
-      screenplays: this.$store.getters.getScreenplays,
+      all: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays,this.$store.getters.getInProductionMovies),
+      screenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       productions: this.$store.getters.getInProductionMovies,
     }
   },

@@ -56,25 +56,17 @@
                     >
                       <option :value="null" disabled selected hidden>Genre</option>
                       <option value="Action">Action</option>
-                      <option value="Adventure">{{ $t('adventure') }}</option>
-                      <option value="Biography">{{ $t('biography') }}</option>
-                      <option value="Comedy">{{ $t('comedy') }}</option>
-                      <option value="Crime">{{ $t('crime') }}</option>
-                      <option value="Documentary">{{ $t('documentary') }}</option>
+                      <option value="Adventure">{{ $t('genres.adventure') }}</option>
+                      <option value="Comedy">{{ $t('genres.comedy') }}</option>
+                      <option value="Documentary">{{ $t('genres.documentary') }}</option>
                       <option value="Drama">Drama</option>
-                      <option value="Erotic">{{ $t('erotic') }}</option>
-                      <option value="Family">{{ $t('family') }}</option>
                       <option value="Fantasy">Fantasy</option>
-                      <option value="History">{{ $t('history') }}</option>
                       <option value="Horror">Horror</option>
                       <option value="Musical">Musical</option>
-                      <option value="Mystery">{{ $t('mystery') }}</option>
-                      <option value="Romance">{{ $t('romance') }}</option>
-                      <option value="ScienceFiction">Sci-Fi</option>
-                      <option value="Sport">Sport</option>
+                      <option value="Romance">{{ $t('genres.romance') }}</option>
+                      <option value="Science-Fiction">Science-Fiction</option>
                       <option value="Thriller">Thriller</option>
-                      <option value="War">{{ $t('war') }}</option>
-                      <option value="Western">Western</option>
+                      <option value="War">{{ $t('genres.war') }}</option>
                     </select>
                     <select
                         class="createScreenplaySelect"
@@ -83,26 +75,10 @@
                         v-model="subgenre"
                     >
                       <option :value="null" disabled selected hidden>Subgenre</option>
-                      <option value="Action" :disabled="this.genre === 'Action'">Action</option>
-                      <option value="Adventure" :disabled="this.genre === 'Adventure'">{{ $t('adventure') }}</option>
-                      <option value="Biography" :disabled="this.genre === 'Biography'">{{ $t('biography') }}</option>
-                      <option value="Comedy" :disabled="this.genre === 'Comedy'">{{ $t('comedy') }}</option>
-                      <option value="Crime" :disabled="this.genre === 'Crime'">{{ $t('crime') }}</option>
-                      <option value="Documentary" :disabled="this.genre === 'Documentary'">{{ $t('documentary') }}</option>
-                      <option value="Drama" :disabled="this.genre === 'Drama'">Drama</option>
-                      <option value="Erotic" :disabled="this.genre === 'Erotic'">{{ $t('erotic') }}</option>
-                      <option value="Family" :disabled="this.genre === 'Family'">{{ $t('family') }}</option>
-                      <option value="Fantasy" :disabled="this.genre === 'Fantasy'">Fantasy</option>
-                      <option value="History" :disabled="this.genre === 'History'">{{ $t('history') }}</option>
-                      <option value="Horror" :disabled="this.genre === 'Horror'">Horror</option>
-                      <option value="Musical" :disabled="this.genre === 'Musical'">Musical</option>
-                      <option value="Mystery" :disabled="this.genre === 'Mystery'">{{ $t('mystery') }}</option>
-                      <option value="Romance" :disabled="this.genre === 'Romance'">{{ $t('romance') }}</option>
-                      <option value="ScienceFiction" :disabled="this.genre === 'Science-Fiction'">Sci-Fi</option>
-                      <option value="Sport" :disabled="this.genre === 'Sport'">Sport</option>
-                      <option value="Thriller" :disabled="this.genre === 'Thriller'">Thriller</option>
-                      <option value="War" :disabled="this.genre === 'War'">{{ $t('war') }}</option>
-                      <option value="Western" :disabled="this.genre === 'Western'">Western</option>
+                      <option
+                          v-for="(it,ind) in this.allSubgenres[this.genre]"
+                          :key="ind"
+                          :value="it">{{ $t('genres.' + it.toLowerCase()) }}</option>
                     </select>
                   </div>
                 </div>
@@ -265,7 +241,7 @@
               id="createScreenplayContinueButton"
               :dark="false"
               size="medium"
-              :disabled="!genre || !title || !desc || !type || topics[0] === undefined
+              :disabled="!genre || !title || !desc || !type || topics[0] === null
             || !selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
             || !selectedCursing || !selectedLoveScenes || numberOfMainCharacters === 0 ||
             numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0"
@@ -320,6 +296,8 @@ export default {
       numberOfSupportCharacters: this.$store.getters.getCurrentScreenplay.roles.support.length,
       numberOfMinorCharacters: this.$store.getters.getCurrentScreenplay.roles.minor.length,
       numberOfCameoCharacters: this.$store.getters.getCurrentScreenplay.roles.cameo.length,
+
+      allSubgenres: this.$store.getters.getAllSubgenres,
     }
   },
 

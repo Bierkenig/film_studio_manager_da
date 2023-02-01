@@ -128,7 +128,8 @@ export default {
   methods: {
     movieInfo(element){
       this.$store.commit('setNewCurrentMovie',element)
-      this.$router.push({name: 'movieSummary'});
+      this.$store.commit('setCurrentMovieDetails',element)
+      this.$router.push({name: 'movieDetails'});
     },
 
     setSelectedSortByWhat(arg){

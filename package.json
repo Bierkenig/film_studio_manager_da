@@ -36,6 +36,7 @@
     "material-icons-font": "^2.1.0",
     "moment": "^2.29.4",
     "object-hash": "^3.0.0",
+    "random-profile-generator": "^2.3.0",
     "source-map-loader": "^4.0.0",
     "sqlite3": "^5.1.2",
     "vue": "^3.2.39",

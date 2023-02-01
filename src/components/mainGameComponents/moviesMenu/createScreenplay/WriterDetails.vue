@@ -225,14 +225,8 @@ export default {
           case 'Adventure':
             this.writerGenre = this.writer._adventure;
             break;
-          case 'Biography':
-            this.writerGenre = this.writer._biography;
-            break;
           case 'Comedy':
             this.writerGenre = this.writer._comedy;
-            break;
-          case 'Crime':
-            this.writerGenre = this.writer._crime;
             break;
           case 'Documentary':
             this.writerGenre = this.writer._documentary;
@@ -240,17 +234,8 @@ export default {
           case 'Drama':
             this.writerGenre = this.writer._drama;
             break;
-          case 'Erotic':
-            this.writerGenre = this.writer._erotic;
-            break;
-          case 'Family':
-            this.writerGenre = this.writer._family;
-            break;
           case 'Fantasy':
             this.writerGenre = this.writer._fantasy;
-            break;
-          case 'History':
-            this.writerGenre = this.writer._history;
             break;
           case 'Horror':
             this.writerGenre = this.writer._horror;
@@ -258,26 +243,17 @@ export default {
           case 'Musical':
             this.writerGenre = this.writer._musical;
             break;
-          case 'Mystery':
-            this.writerGenre = this.writer._mystery;
-            break;
           case 'Romance':
             this.writerGenre = this.writer._romance;
             break;
           case 'ScienceFiction':
             this.writerGenre = this.writer._scienceFiction;
             break;
-          case 'Sport':
-            this.writerGenre = this.writer._sport;
-            break;
           case 'Thriller':
             this.writerGenre = this.writer._thriller;
             break;
           case 'War':
             this.writerGenre = this.writer._war;
-            break;
-          case 'Western':
-            this.writerGenre = this.writer._western;
             break;
           default:
             break;
@@ -424,7 +400,7 @@ export default {
           maxTalent = this.writerTalent + 5;
         }
         let writerTalent = minTalent + ((maxTalent - minTalent) / (Math.floor(Math.random() * (100 - 20 + 1)) + 20))
-        let screenplayRating = (writerTalent * 65 + this.writerGenre * 35) / 100;
+        let screenplayRating = Math.floor((writerTalent * 65 + this.writerGenre * 35) / 100);
         this.screenplay.setRating(screenplayRating)
       }
 

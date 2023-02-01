@@ -1,7 +1,8 @@
 import store from '@/services/store'
+
 export default class Release {
     constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2
-                , marketingPrint, marketingInternet, marketingCommericals) {
+        , marketingPrint, marketingInternet, marketingCommericals) {
         //Important Variables
         this.preProduction = preProduction
         this.budget = preProduction.budget
@@ -11,6 +12,7 @@ export default class Release {
         this.hype = preProduction.hype
         //Example -> {topic1: {children: 0, teenager: 1, adult: 2}, }
         this.topicPopularity = topicPopularity
+        this.numberOfMovieTopics = this.calcNumberOfMovieTopics()
         this.owner = owner
         this.productionBudgetRating = this.calcBudgetRating(preProduction.budgetPop)
         this.productionPhasesRating = this.calcPhasesRating(crewMorale)
@@ -27,125 +29,149 @@ export default class Release {
 
         //Equations
         //QUALITY
-            //Production Budget
-            this.productionBudget = (this.budget.production * 15 + this.budget.extras * 5 + this.budget.cinematography * 7 +
-                this.budget.sound * 7 + this.budget.editing * 10 + this.budget.score * 7 + this.budget.set * 10 + this.budget.stunts * 5 +
-                this.budget.costume * 7 + this.budget.makeup * 5 + this.budget.sfx * 7 + this.budget.vfx * 15) / 100
+        //Production Budget
+        this.productionBudget = (this.budget.production * 15 + this.budget.extras * 5 + this.budget.cinematography * 7 +
+            this.budget.sound * 7 + this.budget.editing * 10 + this.budget.score * 7 + this.budget.set * 10 + this.budget.stunts * 5 +
+            this.budget.costume * 7 + this.budget.makeup * 5 + this.budget.sfx * 7 + this.budget.vfx * 15) / 100
 
-            //Production Phases
-            this.productionPhases = (preProduction.preProductionLength * 15 + preProduction.productionLength * 45 +
-                preProduction.postProductionLength * 25 + crewMorale * 15) / 100
+        //Production Phases
+        this.productionPhases = (preProduction.preProductionLength * 15 + preProduction.productionLength * 45 +
+            preProduction.postProductionLength * 25 + crewMorale * 15) / 100
 
-            //Director
-            this.director = preProduction.hiredDirector
-            this.directorTalent = this.calcMinMaxDir(this.director)[0] + ( ( this.calcMinMaxDir(this.director)[1] - this.calcMinMaxDir(this.director)[0] ) / preProduction.hiredDirector.dirMorale )
+        //Director
+        this.director = preProduction.hiredDirector
+        this.directorTalent = this.calcMinMaxDir(this.director)[0] + ((this.calcMinMaxDir(this.director)[1] - this.calcMinMaxDir(this.director)[0]) / preProduction.hiredDirector.dirMorale)
 
-            this.directorFormula = ( this.directorTalent * 65 + this.objectByString(preProduction.hiredDirector._genre, this.screenplay.genre) * 35 ) / 100
+        this.directorFormula = (this.directorTalent * 65 + this.objectByString(preProduction.hiredDirector._genre, this.screenplay.genre) * 35) / 100
 
-            //Cast
-            //IndividualCastMember function below
-            this.mainCast = this.getSingleCastMember('main')
-            this.supportCast = this.getSingleCastMember('support')
-            this.minorCameoCast = this.getSingleCastMember('minor')
+        //Cast
+        //IndividualCastMember function below
+        this.mainCast = this.getSingleCastMember('main')
+        this.supportCast = this.getSingleCastMember('support')
+        this.minorCameoCast = this.getSingleCastMember('minor')
 
-            this.castFormula = (this.mainCast * 50 + this.supportCast * 25 + this.minorCameoCast * 15) / 100
+        this.castFormula = (this.mainCast * 50 + this.supportCast * 25 + this.minorCameoCast * 15) / 100
 
-            //Screenplay
-            this.screenplayFormula = this.screenplay.rating
+        //Screenplay
+        this.screenplayFormula = this.screenplay.rating
 
-            //FINAL FORMULA
-            this.qualityFormula = (this.productionBudget * 20 + this.productionPhases * 10 + this.directorFormula * 20 + this.castFormula * 20 + this.screenplayFormula * 30) / 100
+        //FINAL FORMULA
+        this.qualityFormula = (this.productionBudget * 20 + this.productionPhases * 10 + this.directorFormula * 20 + this.castFormula * 20 + this.screenplayFormula * 30) / 100
 
         //Popularity
-            //Genre
-            this.childrenGenrePopularity = (this.genrePopularity.children * 65 + this.subgenrePopularity.children * 35) / 100
-            this.teenagersGenrePopularity = (this.genrePopularity.teenager * 65 + this.subgenrePopularity.teenager * 35) / 100
-            this.adultsGenrePopularity = (this.genrePopularity.adult * 65 + this.subgenrePopularity.adult * 35) / 100
+        //Genre
+        this.childrenGenrePopularity = (this.genrePopularity.childrenPopularity * 65 + this.subgenrePopularity.childrenPopularity * 35) / 100
+        this.teenagersGenrePopularity = (this.genrePopularity.teenPopularity * 65 + this.subgenrePopularity.teenPopularity * 35) / 100
+        this.adultsGenrePopularity = (this.genrePopularity.adultPopularity * 65 + this.subgenrePopularity.adultPopularity * 35) / 100
 
-            //Topics
-            this.childrenTopicsPopularity = this.calcChildrenTopicPopularity()
-            this.teenagersTopicsPopularity = this.calcTeenagerTopicPopularity()
-            this.adultsTopicsPopularity = this.calcAdultTopicPopularity()
+        //Topics
+        this.childrenTopicsPopularity = (this.topicPopularity.first.childrenPopularity + this.topicPopularity.second.childrenPopularity + this.topicPopularity.third.childrenPopularity) / this.numberOfMovieTopics
+        this.teenagersTopicsPopularity = (this.topicPopularity.first.teenPopularity + this.topicPopularity.second.teenPopularity + this.topicPopularity.third.teenPopularity) / this.numberOfMovieTopics
+        this.adultsTopicsPopularity = (this.topicPopularity.first.adultPopularity + this.topicPopularity.second.adultPopularity + this.topicPopularity.third.adultPopularity) / this.numberOfMovieTopics
 
-            //Studio Popularity
-            this.studioPopularityFormula = this.owner.popularity
+        //Studio Popularity
+        this.studioPopularityFormula = this.owner.popularity
 
-            //Cast
-            this.mainCastPopularity = this.getSingleCastPopularity('main')
-            this.supportCastPopularity = this.getSingleCastPopularity('support')
-            this.minorCameoCastPopularity = this.getSingleCastPopularity('minor')
+        //Cast
+        this.mainCastPopularity = this.getSingleCastPopularity('main')
+        this.supportCastPopularity = this.getSingleCastPopularity('support')
+        this.minorCameoCastPopularity = this.getSingleCastPopularity('minor')
 
-            this.castPopularityFormula = (this.mainCastPopularity * 50 + this.supportCastPopularity * 25 + this.minorCameoCastPopularity * 15) / 100
+        this.castPopularityFormula = (this.mainCastPopularity * 50 + this.supportCastPopularity * 25 + this.minorCameoCastPopularity * 15) / 100
 
-            //Director
-            this.directorPopularityFormula = preProduction.hiredDirector.popularity
+        //Director
+        this.directorPopularityFormula = preProduction.hiredDirector.popularity
 
-            //Writer
-            this.writerPopularityFormula = this.screenplay.writer._popularity
+        //Writer
+        this.writerPopularityFormula = this.screenplay.writer._popularity
 
-            //FINAL FORMULA
-            this.popularityFormula = (this.studioPopularityFormula * 15 + this.castPopularityFormula * 50 + this.directorPopularityFormula * 20 + this.writerPopularityFormula * 15) / 100
+        //FINAL FORMULA
+        this.popularityFormula = (this.studioPopularityFormula * 15 + this.castPopularityFormula * 50 + this.directorPopularityFormula * 20 + this.writerPopularityFormula * 15) / 100
 
-            this.childrenMoviePopularity = (this.childrenTopicsPopularity * 20 + this.childrenGenrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 40) / 100
-            this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
-            this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
+        this.childrenMoviePopularity = (this.childrenTopicsPopularity * 20 + this.childrenGenrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 40) / 100
+        this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
+        this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
         //Hype
-            //Marketing
-            let print = this.calcMarketing(this.marketingPrint)
-            let internet = this.calcMarketing(this.marketingInternet)
-            let commercial = this.calcMarketing(this.marketingCommericals)
+        //Marketing
+        let print = this.calcMarketing(this.marketingPrint)
+        let internet = this.calcMarketing(this.marketingInternet)
+        let commercial = this.calcMarketing(this.marketingCommericals)
 
-            let effectChildren;
-            let effectTeenagers;
-            let effectAdults;
-            if (this.screenplay.ageRating === 'G / +3') {effectChildren = 1; effectTeenagers = 0.5; effectAdults = 0.5}
-            else if (this.screenplay.ageRating === 'PG / +7') {effectChildren = 1; effectTeenagers = 0.75; effectAdults = 0.75}
-            else if (this.screenplay.ageRating === 'PG-13 / +13') {effectChildren = 0.5; effectTeenagers = 1; effectAdults = 1}
-            else if (this.screenplay.ageRating === 'R / +16') {effectChildren = 0.25; effectTeenagers = 1; effectAdults = 1}
-            else if (this.screenplay.ageRating === 'NC-17 / +18') {effectChildren = 0.05; effectTeenagers = 0.75; effectAdults = 1}
+        let effectChildren;
+        let effectTeenagers;
+        let effectAdults;
+        if (this.screenplay.ageRating === 'G / +3') {
+            effectChildren = 1;
+            effectTeenagers = 0.5;
+            effectAdults = 0.5
+        } else if (this.screenplay.ageRating === 'PG / +7') {
+            effectChildren = 1;
+            effectTeenagers = 0.75;
+            effectAdults = 0.75
+        } else if (this.screenplay.ageRating === 'PG-13 / +13') {
+            effectChildren = 0.5;
+            effectTeenagers = 1;
+            effectAdults = 1
+        } else if (this.screenplay.ageRating === 'R / +16') {
+            effectChildren = 0.25;
+            effectTeenagers = 1;
+            effectAdults = 1
+        } else if (this.screenplay.ageRating === 'NC-17 / +18') {
+            effectChildren = 0.05;
+            effectTeenagers = 0.75;
+            effectAdults = 1
+        }
 
-            this.childrenMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
-            this.childrenMoviePopularityAfterMarketingFormula = (this.childrenMoviePopularity + this.childrenMarketingEffect) * effectChildren
+        this.childrenMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+        this.childrenMoviePopularityAfterMarketingFormula = (this.childrenMoviePopularity + this.childrenMarketingEffect) * effectChildren
 
-            this.teenagersMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
-            this.teenagersMoviePopularityAfterMarketingFormula = (this.teenagersMoviePopularity + this.teenagersMarketingEffect) * effectTeenagers
+        this.teenagersMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+        this.teenagersMoviePopularityAfterMarketingFormula = (this.teenagersMoviePopularity + this.teenagersMarketingEffect) * effectTeenagers
 
-            this.adultsMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
-            this.adultsMoviePopularityAfterMarketingFormula = (this.adultsMoviePopularity + this.adultsMarketingEffect) * effectAdults
+        this.adultsMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+        this.adultsMoviePopularityAfterMarketingFormula = (this.adultsMoviePopularity + this.adultsMarketingEffect) * effectAdults
 
-            this.hypeFromMarketing = this.calcFromMarketing()
+        this.hypeFromMarketing = this.calcFromMarketing()
 
-            this.hypeFormula = this.hype * this.hypeFromMarketing
+        this.hypeFormula = this.hype * this.hypeFromMarketing
 
-            //FINAL FORMULA
-            this.childrenMoviePopularityFormula = (this.topicPopularity * 20 + this.genrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 30) / 100
+        //FINAL FORMULA
+        this.childrenMoviePopularityFormula = (this.topicPopularity * 20 + this.genrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 30) / 100
 
-            this.teenagersMoviePopularityFormula = (this.topicPopularity * 25 + this.genrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 25) / 100
+        this.teenagersMoviePopularityFormula = (this.topicPopularity * 25 + this.genrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 25) / 100
 
-            this.adultsMoviePopularityFormula = (this.topicPopularity * 30 + this.genrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 20) / 100
+        this.adultsMoviePopularityFormula = (this.topicPopularity * 30 + this.genrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 20) / 100
         //Ratings
-            //Critics Rating
-            this.criticsFormula = (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
+        //Critics Rating
+        this.criticsFormula = (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
 
-            //Audience
-            this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
-            this.setAudienceRating()
+        //Audience
+        this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
+        this.setAudienceRating()
 
         //Earnings
-            //Weekly drops
-            //Function below
+        //Weekly drops
+        //Function below
 
-            //FINAL FORMULA
-            this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
+        //FINAL FORMULA
+        this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
                 this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
-                (this.movieInterest / 100 / this.releaseScope) * (preProduction.hype / 100) * this.ticketPricePerTicket
+            (this.movieInterest / 100 / this.releaseScope) * (preProduction.hype / 100) * this.ticketPricePerTicket
 
-            this.continuingEarnings = this.openingEarnings * this.hypeFormula
+        this.continuingEarnings = this.openingEarnings * this.hypeFormula
 
-            this.totalEarnings = this.openingEarnings + this.continuingEarnings
+        this.totalEarnings = this.openingEarnings + this.continuingEarnings
 
+    }
+
+    calcNumberOfMovieTopics() {
+        let amount;
+        if (this.topicPopularity.first !== null) amount++;
+        else if (this.topicPopularity.second !== null) amount++;
+        else if (this.topicPopularity.third !== null) amount++;
+        return amount
     }
 
     calcBudgetRating(budgetPop) {
@@ -254,12 +280,12 @@ export default class Release {
         switch (this.screenplay.details.scope) {
             case 'Small':
                 if (this.isBetween(duration, 8, 12) || duration > 12) return Math.round(Math.random() * (25 - 15)) + 15
-                if (this.isBetween(duration, 4,8)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                if (this.isBetween(duration, 4, 8)) return Math.round(Math.random() * (5 - (-5))) + (-5)
                 break
             case 'Normal':
                 if (this.isBetween(duration, 12, 16) || duration > 16) return Math.round(Math.random() * (25 - 15)) + 15
                 if (this.isBetween(duration, 8, 12)) return Math.round(Math.random() * (5 - (-5))) + (-5)
-                if (this.isBetween(duration, 4,8)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                if (this.isBetween(duration, 4, 8)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
                 break
             case 'Large':
                 if (this.isBetween(duration, 16, 20) || duration > 20) return Math.round(Math.random() * (25 - 15)) + 15
@@ -344,54 +370,6 @@ export default class Release {
             max = 5
         }
         return [min, max]
-    }
-
-    calcChildrenTopicPopularity() {
-        let length = 0
-        let value = 0
-        if (this.topicPopularity.firstTopic instanceof Object) {
-            value += this.topicPopularity.firstTopic.children
-            length += 1
-        } else if (this.topicPopularity.secondTopic instanceof Object) {
-            value += this.topicPopularity.secondTopic.children
-            length += 1
-        } else if (this.topicPopularity.thirdTopic instanceof Object) {
-            value += this.topicPopularity.thirdTopic.children
-            length += 1
-        }
-        return value / length
-    }
-
-    calcTeenagerTopicPopularity() {
-        let length = 0
-        let value = 0
-        if (this.topicPopularity.firstTopic instanceof Object) {
-            value += this.topicPopularity.firstTopic.teenager
-            length += 1
-        } else if (this.topicPopularity.secondTopic instanceof Object) {
-            value += this.topicPopularity.secondTopic.teenager
-            length += 1
-        } else if (this.topicPopularity.thirdTopic instanceof Object) {
-            value += this.topicPopularity.thirdTopic.teenager
-            length += 1
-        }
-        return value / length
-    }
-
-    calcAdultTopicPopularity() {
-        let length = 0
-        let value = 0
-        if (this.topicPopularity.firstTopic instanceof Object) {
-            value += this.topicPopularity.firstTopic.adult
-            length += 1
-        } else if (this.topicPopularity.secondTopic instanceof Object) {
-            value += this.topicPopularity.secondTopic.adult
-            length += 1
-        } else if (this.topicPopularity.thirdTopic instanceof Object) {
-            value += this.topicPopularity.thirdTopic.adult
-            length += 1
-        }
-        return value / length
     }
 
     getSingleCastPopularity(type) {

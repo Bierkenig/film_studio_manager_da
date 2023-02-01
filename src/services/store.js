@@ -16,7 +16,7 @@ export default createStore({
     /** Application state */
     state:{
         slot: null,
-        screenplays: [new Screenplay(1,'Cars','Animation','Adventure',null,'G / +3',
+        screenplays: [new Screenplay(1,'Cars','Animation','Science-Fiction',null,'G / +3',
             new Person(5,null,'Franz','Huber',35,'male','Austria','Caucasian','5',78,25,62,58,57,65,'2.500.000',
                 'true','true','true', [{'Action':92,'Adventure':80,'Biography':19,'Comdey':55,'Crime':12,'Documentary':52,'Drama':62,'Erotic':52,
                     'Family':23,'Fantasy':20,'History':25,'Horror':65,'Musical':23,'Mystery':95,'Romance':75,'Science Fiction':41, 'Sport':25,'Thriller':25,'War':56,'Western':78}]),
@@ -32,6 +32,7 @@ export default createStore({
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
         currentMovie: new Movie(new Studio(100,"Jakob ist Cool", "2023",50000000,80), null),
+        currentMovieDetails: null,
         currentProdEventType: "",
         //movies which are still in cinema and generate profit
         createdMovies: [],
@@ -241,6 +242,19 @@ export default createStore({
             "Astral Pictures", "Mystic Memories Films", "Starlight Films", "Heavenly Dreams Films", "Stargazer Films", "Mystic Sunrise Pictures", "Sunlight Pictures", "Stardust Films", "Mystic Moon Studios", "Blue Skies Studios", "Enchanted Forest Pictures", "Starstream Pictures",
             "Mystic Light Pictures", "Glowing Embers Studios", "Dreamland Films", "Dreamwalker Pictures", "Dreamcatcher Studios", "Starry Night Films", "Moonlight Studios", "Mystic Visions Films", "Mystic Valley Pictures", "Celestial Dream Pictures"],
 
+        screenplayTitles: ["The Waning Moon", "The Burning Flame", "The Unspoken Truth", "The Road to Nowhere", "Into the Abyss", "Shadows of the Night", "The Secret Garden", "The Unseen Path", "The Legend of Time", "The Labyrinth of Fate",
+            "The Lost Soul", "The Edge of Time", "The Call of the Wild", "Celestial Rising", "Late Night Serenade", "The Last Dance", "A Long Journey", "Emerald Bay", "The Fortune Teller", "Chasing the Horizon", "Frozen Fire",
+            "Dreamweaver", "The Phoenix Rises", "Starlight in the Dark", "Eternal Flame", "Moonlight Memory", "Starstruck", "To the Ends of the Earth", "The Big Sky", "The Final Act", "Road to Redemption", "Midnight Magic", "A Wish Upon a Star",
+            "The Golden Hour", "Legend of the Lake", "The Siren Song", "The Labyrinth of Fate", "Silver Lining", "The Dreamcatcher", "The Edge of the World", "The Star-Crossed Lovers", "The Storm Before the Calm", "The Silver Screen",
+            "Summer Solstice", "A New Dawn", "The Witching Hour", "Flash of Lightning", "The Endless Summer", "The Road Less Traveled", "The Deep Blue Sea", "The Phoenix Reborn", "The Alchemist's Tale",
+            "Heart of Gold", "A Night to Remember", "The Lost Paradise", "The Rising Sun", "The Mystic Mountain", "A Moment in Time", "The Frozen North", "The Great Escape", "The Gilded Cage",
+            "The Seventh Heaven", "The Night Circus", "The Garden of Dreams", "The Tempest", "The Crimson Moon", "A Dream Come True", "The Mystic Forest", "The Shadow of the Moon", "The Star-Gazer",
+            "The Golden Age", "The Lost City", "Midnight Star", "The Wanderer's Path", "Frozen in Fear", "Lost in the Shadows", "The Lonely Road Ahead", "Into the Unknown", "Where the Night Begins",
+            "Within the Silence", "Nightfall's Embrace", "In the Depths of Darkness", "The Secrets of the Forest", "Echoes of the Past", "Stranded in a Storm", "Ice and Fire", "Memories of Tomorrow", "Tides of Change",
+            "A Stranger's Tale", "The Path Unseen", "The Final Act", "Captive of the Night", "A Whisper in the Wind", "The Forgotten Story", "The Curse of the Moon", "The Endless Journey", "A New Dawn", "The Howling Wind",
+            "The Crossroads of Fate", "Beyond the Horizon", "Burning in the Dark", "The Journey Home", "The Chilling Midnight", "The Curse of the Stars", "The Road Not Taken", "The Whispering Woods", "Into the Wild"
+        ],
+
         //data from database
         allPeople: [],
         allActors: [],
@@ -250,6 +264,22 @@ export default createStore({
         allAwards: [],
         allTopics: [],
         allScreenplays: [],
+        allSubgenres: {
+            "Action": ["Superhero","Disaster","Espionage","MartialArts","Western"],
+            "Adventure": ["Survival","Pirates","Swashbuckler","Sea","Jungle"],
+            "Comedy": ["BuddyComedy","SlapstickComedy","Parody","Satire","Mockumentary"],
+            "Documentary": ["Biography","Mockumentary","Nature","Docufiction","Reality"],
+            "Drama": ["LegalDrama","Political","ComingOfAge","Family","Sport"],
+            "Fantasy": ["ContemporaryFantasy","UrbanFantasy","DarkFantasy","FairyTale","History"],
+            "Horror":["Slasher","Psychological","Survival","FoundFootage","Monster"],
+            "Musical": ["Dance","Rock","Operreta","Ballet","Broadway"],
+            "Romance": ["ChickFlick","Erotic","Historical","Paranormal","Family"],
+            "Science-Fiction": ["Noir","Military","SpaceOpera","FutureNoir","Apocalyptic"],
+            "Thriller": ["PsychologicalThriller","PoliticalThriller","Crime","Mystery","Detective"],
+            "War": ["Propaganda","Submarine","PrisonerOfWar","AntiWar","Satire"]
+        },
+        allGenres: [],
+        allSubGenres: [],
 
         //editor
         editPerson: null,
@@ -290,6 +320,10 @@ export default createStore({
             return state.currentMovie;
         },
 
+        getCurrentMovieDetails(state) {
+            return state.currentMovieDetails;
+        },
+
         getCurrentScreenplay(state){
             return state.currentScreenplay;
         },
@@ -300,7 +334,7 @@ export default createStore({
 
         getNextScreenplayId(state){
             let nextId = 0;
-            let allScreenplays = state.screenplays.concat(state.boughtScreenplays)
+            let allScreenplays = state.screenplays.concat(state.boughtScreenplays, state.screenplaysFromWriters)
             allScreenplays.forEach(screenplay => {
                 if (screenplay.getId() > nextId) {
                     nextId = screenplay.getId();
@@ -372,6 +406,10 @@ export default createStore({
 
         getAllWriters(state){
             return state.allWriters;
+        },
+
+        getAllSubgenres(state){
+            return state.allSubgenres;
         },
 
         getFinancialHistory(state) {
@@ -523,6 +561,14 @@ export default createStore({
 
         setCurrentMovie(state, payload) {
             state.currentMovie = payload
+        },
+
+        setCurrentMovieDetails(state, payload) {
+            state.currentMovieDetails = payload;
+        },
+
+        clearCurrentMovieDetails(state) {
+            state.currentMovieDetails = null;
         },
 
         setNewCurrentMovieAndScreenplay(state, screenplay) {
@@ -703,6 +749,14 @@ export default createStore({
 
         setAllTopics(state, value){
             state.allTopics = value;
+        },
+
+        setAllGenres(state, payload) {
+            state.allGenres = payload
+        },
+
+        setAllSubGenres(state, payload) {
+            state.allSubGenres = payload
         },
 
         setOwnStreamingService(state, value){

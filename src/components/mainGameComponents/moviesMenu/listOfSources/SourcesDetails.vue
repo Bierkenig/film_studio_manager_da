@@ -196,12 +196,13 @@ export default {
       let chosenScreenplay = null;
       for (let i = 0; i < allOtherScreenplays.length; i++) {
         if(allOtherScreenplays[i].id === this.source.id){
-          chosenScreenplay = allOtherScreenplays[i].id;
+          chosenScreenplay = allOtherScreenplays[i];
         }
       }
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
       this.$store.commit('subtractBalance',chosenScreenplay.price)
+      this.$router.push({name: 'movies'})
     },
 
     buyMovie(){
