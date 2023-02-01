@@ -2,6 +2,15 @@
 
   AddedWeeks:
   {{this.addedWeeks}}
+  <br>
+  New Release Date:
+  <br>
+  {{this.releaseDate}}
+  <br>
+  Old Release Date:
+  <br>
+  {{new Date(this.releaseDate.setDate(this.releaseDate.getDate() - 7 * this.addedWeeks))}}
+  <br>
   <div v-if="(this.flags % 3) === 1">
   Editing Budget Increase:
   {{JSON.parse(this.editingBudgetIncrease).value}}
@@ -76,7 +85,7 @@
 <script>
 export default {
   name: "testScreeningResults",
-  props:{
+  props: {
     addedWeeks: Number,
     editingBudgetIncrease: String,
     soundBudgetIncrease: String,
@@ -84,6 +93,14 @@ export default {
     actingConsequence: String,
     storyConsequence: String,
     flags: Number
+  },
+  data(){
+    return{
+      releaseDate: this.$store.getters.getCurrentMovie._preProduction.releaseDate,
+      date: new Date(),
+      oldReleaseDate:  this.date?.setDate(this.releaseDate.getDate() - 7 * this.addedWeeks)
+
+    }
   }
 }
 </script>
