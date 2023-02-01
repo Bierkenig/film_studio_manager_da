@@ -30,8 +30,8 @@ export default {
         fontColor: 'var(--fsm-pink-1)'
       },
       themeDisabled: {
-        bgColor: 'var(--fsm-dark-blue-3)',
-        fontColor: 'var(--fsm-dark-blue-4)'
+        bgColor: 'var(--fsm-white)',
+        fontColor: 'var(--fsm-dark-blue-1)'
       },
       sizeValues: {},
       themeValues: { bgImage: 'none', bgColor: 'none' },

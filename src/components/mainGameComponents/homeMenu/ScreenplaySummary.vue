@@ -30,7 +30,7 @@
             </div>
             <div class="screenplaySummaryInfoFlexRight">
               <div id="screenplaySummaryInfoCircleContainer">
-                <info-circle class="screenplaySummaryInfoCircle" :icon="screenplayGenre.toLowerCase()" data-title="Genre" size="50px"/>
+                <info-circle class="screenplaySummaryInfoCircle" :icon="screenplayGenre.genreName.toLowerCase()" data-title="Genre" size="50px"/>
                 <info-circle class="screenplaySummaryInfoCircle" :text="RegExp('\\+\\d+$').exec(screenplayAgeRating)[0]" data-title="Age Rating" size="50px"/>
               </div>
               <div id="screenplaySummaryInfoIcon">
@@ -75,7 +75,7 @@
                 </div>
                 <div>
                   <span v-for="(it, index) in screenplayTopics" :key="index" class="screenplaySummaryTopicValues">
-                    {{ it }}<span v-if="index !== screenplayTopics.length - 1">, </span>
+                    {{ it.topicName }}<span v-if="index !== screenplayTopics.length - 1">, </span>
                   </span>
                 </div>
               </div>

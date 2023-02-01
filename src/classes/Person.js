@@ -12,9 +12,9 @@ export default class Person {
         //TYPE -> String
         this._last_name = last_name;
         //TYPE -> String
-        this._birthday = birthday
+        this._birthday = birthday;
         //TYPE -> Integer
-        this._deathAge = deathAge
+        this._deathAge = deathAge;
         //TYPE -> Integer
         this._age = 0
         //TYPE -> String

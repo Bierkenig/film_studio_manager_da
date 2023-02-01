@@ -19,7 +19,7 @@
                 Genre:
               </div>
               <div>
-                {{ screenplay.genre }}
+                {{ $t('genres.' + screenplay.genre.genreName.toLowerCase().replace('-','')) }}
               </div>
             </div>
             <div class="screenplayInformationText">
@@ -27,7 +27,7 @@
                 Subgenre:
               </div>
               <div v-if="screenplay.subgenre">
-                {{ screenplay.subgenre }}
+                {{ $t('genres.' + screenplay.subgenre.subGenreName.toLowerCase()) }}
               </div>
               <div v-else>
                 _____
@@ -83,7 +83,9 @@
               </div>
               <div id="screenplayInformationTopicsContainer">
                 <div v-for="(it, index) in screenplay.topics" :key="index">
-                  {{ it }}
+                  <div v-if="it !== null">
+                    {{ it.topicName }}
+                  </div>
                 </div>
               </div>
             </div>

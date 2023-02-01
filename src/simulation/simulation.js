@@ -381,7 +381,8 @@ function createScreenplaysFromWriters(){
         const randomProfile = require('random-profile-generator');
         let allScreenplayTitles = store.state.screenplayTitles;
         let allScreenplayTypes = ['Animation','Feature','Indie'];
-        let allSubgenres = store.getters.getAllSubgenres;
+        let allGenres = store.getters.getAllGenres;
+        let allSubgenres = store.getters.getSubgenresFromEachGenre;
         let allTopics =  store.getters.getAllTopics;
         let scopeValues = ['Little','Small','Normal','Large','Epic'];
         let toneValues = ['Depressing','Dark','Realistic','Upbeat','Lighthearted'];
@@ -399,21 +400,11 @@ function createScreenplaysFromWriters(){
                             'theRenaissance','highMiddleAges','earlyMiddleAges','vikingEra','darkAge','ancientWorld','stoneAge'];
 
 
-        // Shuffling the object (get key of object / title of screenplay)
-        let shuffle = Object.keys(allSubgenres).map((e, i, a) => {
-            // Getting a random value between [i, a.length]
-            // Math.floor can be translated as ~~
-            let j = Math.floor(Math.random() * (a.length - i) + i);
-            // Switching the elements of positions i & j
-            [a[i], a[j]] = [a[j], a[i]];
-            // Returning current value
-            return a[i];
-        });
 
         //set screenplay title
         let screenplayTitle = allScreenplayTitles[Math.floor(Math.random() * allScreenplayTitles.length)];
         //set screenplay genre
-        let screenplayGenre = shuffle.slice(0, 1)[0];
+        let screenplayGenre = allGenres[Math.floor(Math.random() * allGenres.length)];
         //set screenplay type
         let screenplayType = allScreenplayTypes[Math.floor(Math.random() * allScreenplayTypes.length)];
         let screenplaySubgenre = null;
@@ -424,11 +415,11 @@ function createScreenplaysFromWriters(){
 
         //set screenplay subgenre
         if(randomNumber(0.50) === 0){
-            screenplaySubgenre = allSubgenres[screenplayGenre][Math.floor(Math.random() * allSubgenres[screenplayGenre].length)]
+            screenplaySubgenre = allSubgenres[screenplayGenre.genreName][Math.floor(Math.random() * allSubgenres[screenplayGenre.genreName].length)]
         }
 
         //set screenplay description
-        switch (screenplayGenre) {
+        switch (screenplayGenre.genreName) {
             case 'Action':
                 screenplayDescription = 'An action movie.';
                 break;

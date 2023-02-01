@@ -788,7 +788,19 @@ i18next
                     expenses: 'Expenses',
                     worldwideGross: 'Worldwide Gross',
                     competitors: 'Competitors',
-                    subgenres: {
+                    genres: {
+                        action: 'Action',
+                        drama: 'Drama',
+                        horror: 'Horror',
+                        fantasy: 'Fantasy',
+                        thriller: 'Thriller',
+                        musical: 'Musical',
+                        sciencefiction: 'Science-Fiction',
+                        adventure: 'Adventure',
+                        comedy: 'Comedy',
+                        documentary: 'Documentary',
+                        romance: 'Romance',
+                        war: 'War',
                         superhero: 'Superhero',
                         disaster: 'Disaster',
                         espionage: 'Espionage',
@@ -871,6 +883,7 @@ i18next
                         newMovie: 'New Movie',
                     },
                     loading: 'Loading',
+                    buyMovie: 'Buy movie'
                 }
             },
             de: {
@@ -1604,6 +1617,13 @@ i18next
                     worldwideGross: 'Weltweite Einnahmen',
                     competitors: 'Konkurrenz',
                     genres: {
+                        action: 'Action',
+                        drama: 'Drama',
+                        horror: 'Horror',
+                        fantasy: 'Fantasy',
+                        thriller: 'Thriller',
+                        musical: 'Musical',
+                        sciencefiction: 'Science-Fiction',
                         adventure: 'Abenteuer',
                         comedy: 'Komödie',
                         documentary: 'Dokumentationsfilm',
@@ -1691,6 +1711,8 @@ i18next
                         newMovie: 'Neuer Film',
                     },
                     loading: 'Laden',
+                    buyMovie: 'Film kaufen',
+
                 }
             }
         }
