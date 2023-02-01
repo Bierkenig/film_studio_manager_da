@@ -1,21 +1,24 @@
 <template>
   <div class="loadingScreenMainDiv">
-    <div class="loadingScreenBG">
-      {{ $t('loading') }}
+    <background-tile class="loadingScreenBG" :title="title">
       <div class="meterBox">
         <div class="meter">
           <span ref="bar" style="width:0"></span>
         </div>
       </div>
-    </div>
+    </background-tile>
   </div>
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+
 export default {
   name: "LoadingScreen",
+  components: {BackgroundTile},
   props: {
     nextRoute: String,
+    title: String,
   },
   mounted() {
     setTimeout(this.startBar, 500)
@@ -38,19 +41,10 @@ export default {
 }
 
 .loadingScreenBG {
-  display: inline-block;
-  border-radius: var(--fsm-l-border-radius);
-  padding: var(--fsm-l-border-radius);
   width: 50%;
-  box-sizing: border-box;
-  background: rgba(37, 45, 62, 0.66);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
 }
 
 .meterBox {
-  margin: 10px;
   padding: 20px;
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-s-border-radius);
@@ -62,7 +56,7 @@ export default {
   width: 100%;
   position: relative;
 
-  background: var(--fsm-white);
+  background: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-l-border-radius);
 }
 
