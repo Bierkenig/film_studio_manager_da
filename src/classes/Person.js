@@ -16,7 +16,7 @@ export default class Person {
         //TYPE -> Integer
         this._deathAge = deathAge
         //TYPE -> Integer
-        if (store !== undefined && this._birthday !== null) this._age = store.getters.getCurrentDate.getFullYear() - parseInt(this._birthday.slice(-4))
+        this._age = 0
         //TYPE -> String
         this._gender = gender;
         //TYPE -> String
@@ -74,10 +74,13 @@ export default class Person {
         //TYPE -> Integer
         if (isDirector) this.dirMorale = 5
         if (isActor) this.actorMorale = 5
+        this.calcAge(this._birthday)
     }
 
-    getBirthYear() {
-        return this._birthday.slice(-4)
+    calcAge(birthday) {
+        if (store !== undefined) {
+            this._age = store.getters.getCurrentDate.getFullYear() - (parseInt(birthday.toString().slice(-4)))
+        }
     }
 
     get id() {
