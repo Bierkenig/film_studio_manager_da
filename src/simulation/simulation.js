@@ -79,35 +79,37 @@ export default function simulate() {
 
 //function to create new studios
 function createStudios() {
-    let num = randomNumber(0.10);
-    if (num === 0) {
-        //get all existing studio names
-        let allStudios = [store.getters.getStudio.getName()];
-        store.getters.getOtherStudios.forEach(studio => {
-            allStudios.push(studio.getName())
-        })
+    if(store.state.studioNames.length !== 0) {
+        let num = randomNumber(0.10);
+        if (num === 0) {
+            //get all existing studio names
+            let allStudios = [store.getters.getStudio.getName()];
+            store.getters.getOtherStudios.forEach(studio => {
+                allStudios.push(studio.getName())
+            })
 
-        //get studio name of new studio, check if name already exists
-        let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
-        while (allStudios.includes(studioName)) {
-            studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)]
+            //get studio name of new studio, check if name already exists
+            let studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)];
+            while (allStudios.includes(studioName)) {
+                studioName = store.state.studioNames[Math.floor(Math.random() * store.state.studioNames.length)]
+            }
+
+            //get id of new studio (last studio id + 1)
+            let studioId;
+            if (store.getters.getOtherStudios.length === 0) {
+                studioId = 2;
+            } else {
+                studioId = store.getters.getNextStudioId;
+            }
+            let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), 50000000, 0);
+            store.getters.getOtherStudios.push(newStudio);
+
+            //create news of new studio
+            let newsTitle = newStudio.getName() + ' gegründet';
+            let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
+            store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', null, null, null, newStudio));
+            store.state.studioNames.splice(store.state.studioNames.indexOf(studioName), 1);
         }
-
-        //get id of new studio (last studio id + 1)
-        let studioId;
-        if (store.getters.getOtherStudios.length === 0) {
-            studioId = 2;
-        } else {
-            studioId = store.getters.getNextStudioId;
-        }
-        let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), 50000000, 0);
-        store.getters.getOtherStudios.push(newStudio);
-
-        //create news of new studio
-        let newsTitle = newStudio.getName() + ' gegründet';
-        let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
-        store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', null, null, null, newStudio));
-        store.state.studioNames.splice(store.state.studioNames.indexOf(studioName),1);
     }
 }
 
@@ -376,367 +378,360 @@ export function updateServicePopularityAndSubscribers() {
 
 //create screenplays from other writers
 function createScreenplaysFromWriters(){
-    if(randomNumber(0.50) === 0){
-        //get all necessary values
-        const randomProfile = require('random-profile-generator');
-        let allScreenplayTitles = store.state.screenplayTitles;
-        let allScreenplayTypes = ['Animation','Feature','Indie'];
-        let allSubgenres = store.getters.getAllSubgenres;
-        let allTopics =  store.getters.getAllTopics;
-        let scopeValues = ['Little','Small','Normal','Large','Epic'];
-        let toneValues = ['Depressing','Dark','Realistic','Upbeat','Lighthearted'];
-        let specialEffectsValues = ['None','Some','Medium','Lots','Spectacle'];
-        let violenceValues = [1,2,3,4,5];
-        let cursingValues = [1,2,3,4,5];
-        let loveSceneValues = [1,2,3,4,5];
-        let ageRatingScala = {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'};
-        let allWriters = store.getters.getAllWriters;
-        let characterMoments = ['dies','kills','defies','losesTo','escapes','isCaptured','runsAway','isOnAMission','completesTheMission',
-                                'losesSomeoneImportant','isAlive','helps','sendsOnAMission','fights','letsGo','fallsInLoveWith'];
-        let settings = ['undefined','space','france','germany','uk','russia','italy','spain','China','india','saudiArabia','Japan',
-                        'southKorea','southAfrica','morocco','egypt','canada','USA','mexico','brazil','colombia','argentina','australia','newZealand'];
-        let timePeriods = ['farFuture','nearFuture','presentDay','90s','80s','70s','60s','century20','century19','century18','industrialRevolution',
-                            'theRenaissance','highMiddleAges','earlyMiddleAges','vikingEra','darkAge','ancientWorld','stoneAge'];
+    if(store.state.screenplayTitles.length !== 0) {
+        if (randomNumber(0.50) === 0) {
+            //get all necessary values
+            const randomProfile = require('random-profile-generator');
+            let allScreenplayTitles = store.state.screenplayTitles;
+            let allScreenplayTypes = ['Animation', 'Feature', 'Indie'];
+            let allGenres = store.getters.getAllGenres;
+            let allSubgenres = store.getters.getSubgenresFromEachGenre;
+            let allTopics = store.getters.getAllTopics;
+            let scopeValues = ['Little', 'Small', 'Normal', 'Large', 'Epic'];
+            let toneValues = ['Depressing', 'Dark', 'Realistic', 'Upbeat', 'Lighthearted'];
+            let specialEffectsValues = ['None', 'Some', 'Medium', 'Lots', 'Spectacle'];
+            let violenceValues = [1, 2, 3, 4, 5];
+            let cursingValues = [1, 2, 3, 4, 5];
+            let loveSceneValues = [1, 2, 3, 4, 5];
+            let ageRatingScala = {1: 'G / +3', 2: 'PG / +7', 3: 'PG-13 / +13', 4: 'R / +16', 5: 'NC-17 / +18'};
+            let allWriters = store.getters.getAllWriters;
+            let characterMoments = ['dies', 'kills', 'defies', 'losesTo', 'escapes', 'isCaptured', 'runsAway', 'isOnAMission', 'completesTheMission',
+                'losesSomeoneImportant', 'isAlive', 'helps', 'sendsOnAMission', 'fights', 'letsGo', 'fallsInLoveWith'];
+            let settings = ['undefined', 'space', 'france', 'germany', 'uk', 'russia', 'italy', 'spain', 'China', 'india', 'saudiArabia', 'Japan',
+                'southKorea', 'southAfrica', 'morocco', 'egypt', 'canada', 'USA', 'mexico', 'brazil', 'colombia', 'argentina', 'australia', 'newZealand'];
+            let timePeriods = ['farFuture', 'nearFuture', 'presentDay', '90s', '80s', '70s', '60s', 'century20', 'century19', 'century18', 'industrialRevolution',
+                'theRenaissance', 'highMiddleAges', 'earlyMiddleAges', 'vikingEra', 'darkAge', 'ancientWorld', 'stoneAge'];
 
 
-        // Shuffling the object (get key of object / title of screenplay)
-        let shuffle = Object.keys(allSubgenres).map((e, i, a) => {
-            // Getting a random value between [i, a.length]
-            // Math.floor can be translated as ~~
-            let j = Math.floor(Math.random() * (a.length - i) + i);
-            // Switching the elements of positions i & j
-            [a[i], a[j]] = [a[j], a[i]];
-            // Returning current value
-            return a[i];
-        });
+            //set screenplay title
+            let screenplayTitle = allScreenplayTitles[Math.floor(Math.random() * allScreenplayTitles.length)];
+            //set screenplay genre
+            let screenplayGenre = allGenres[Math.floor(Math.random() * allGenres.length)];
+            //set screenplay type
+            let screenplayType = allScreenplayTypes[Math.floor(Math.random() * allScreenplayTypes.length)];
+            let screenplaySubgenre = null;
+            let screenplayDescription = '';
+            let screenplayTopics = {firstTopic: null, secondTopic: null, thirdTopic: null};
+            let screenplayDetails = {scope: '', tone: '', specialEffects: ''};
+            let screenplayAgeRatingDetails = {violence: '', cursing: '', loveScenes: ''};
 
-        //set screenplay title
-        let screenplayTitle = allScreenplayTitles[Math.floor(Math.random() * allScreenplayTitles.length)];
-        //set screenplay genre
-        let screenplayGenre = shuffle.slice(0, 1)[0];
-        //set screenplay type
-        let screenplayType = allScreenplayTypes[Math.floor(Math.random() * allScreenplayTypes.length)];
-        let screenplaySubgenre = null;
-        let screenplayDescription = '';
-        let screenplayTopics = {firstTopic: null,secondTopic: null,thirdTopic: null};
-        let screenplayDetails = {scope: '', tone: '', specialEffects: ''};
-        let screenplayAgeRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+            //set screenplay subgenre
+            if (randomNumber(0.50) === 0) {
+                screenplaySubgenre = allSubgenres[screenplayGenre.genreName][Math.floor(Math.random() * allSubgenres[screenplayGenre.genreName].length)]
+            }
 
-        //set screenplay subgenre
-        if(randomNumber(0.50) === 0){
-            screenplaySubgenre = allSubgenres[screenplayGenre][Math.floor(Math.random() * allSubgenres[screenplayGenre].length)]
-        }
+            //set screenplay description
+            switch (screenplayGenre.genreName) {
+                case 'Action':
+                    screenplayDescription = 'An action movie.';
+                    break;
+                case 'Adventure':
+                    screenplayDescription = 'An adventure movie.';
+                    break;
+                case 'Comedy':
+                    screenplayDescription = 'A comedy movie.';
+                    break;
+                case 'Documentary':
+                    screenplayDescription = 'A documentary movie.';
+                    break;
+                case 'Drama':
+                    screenplayDescription = 'A drama movie.';
+                    break;
+                case 'Fantasy':
+                    screenplayDescription = 'A fantasy movie.';
+                    break;
+                case 'Horror':
+                    screenplayDescription = 'A horror movie.';
+                    break;
+                case 'Musical':
+                    screenplayDescription = 'A musical movie.';
+                    break;
+                case 'Romance':
+                    screenplayDescription = 'A romance movie.';
+                    break;
+                case 'Science-Fiction':
+                    screenplayDescription = 'A science-fiction movie.';
+                    break;
+                case 'Thriller':
+                    screenplayDescription = 'A thriller movie.';
+                    break;
+                case 'War':
+                    screenplayDescription = 'A war movie.';
+                    break;
+                default:
+                    break;
+            }
 
-        //set screenplay description
-        switch (screenplayGenre) {
-            case 'Action':
-                screenplayDescription = 'An action movie.';
-                break;
-            case 'Adventure':
-                screenplayDescription = 'An adventure movie.';
-                break;
-            case 'Comedy':
-                screenplayDescription = 'A comedy movie.';
-                break;
-            case 'Documentary':
-                screenplayDescription = 'A documentary movie.';
-                break;
-            case 'Drama':
-                screenplayDescription = 'A drama movie.';
-                break;
-            case 'Fantasy':
-                screenplayDescription = 'A fantasy movie.';
-                break;
-            case 'Horror':
-                screenplayDescription = 'A horror movie.';
-                break;
-            case 'Musical':
-                screenplayDescription = 'A musical movie.';
-                break;
-            case 'Romance':
-                screenplayDescription = 'A romance movie.';
-                break;
-            case 'Science-Fiction':
-                screenplayDescription = 'A science-fiction movie.';
-                break;
-            case 'Thriller':
-                screenplayDescription = 'A thriller movie.';
-                break;
-            case 'War':
-                screenplayDescription = 'A war movie.';
-                break;
-            default:
-                break;
-        }
-
-        //set screenplay topics
-        screenplayTopics.firstTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
-        if(randomNumber(0.50) === 0){
-            screenplayTopics.secondTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
-            while (screenplayTopics.secondTopic === screenplayTopics.firstTopic){
+            //set screenplay topics
+            screenplayTopics.firstTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+            if (randomNumber(0.50) === 0) {
                 screenplayTopics.secondTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
-            }
-            if(randomNumber(0.50) === 0){
-                screenplayTopics.thirdTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
-                while (screenplayTopics.thirdTopic === screenplayTopics.firstTopic || screenplayTopics.thirdTopic === screenplayTopics.secondTopic){
+                while (screenplayTopics.secondTopic === screenplayTopics.firstTopic) {
+                    screenplayTopics.secondTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+                }
+                if (randomNumber(0.50) === 0) {
                     screenplayTopics.thirdTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+                    while (screenplayTopics.thirdTopic === screenplayTopics.firstTopic || screenplayTopics.thirdTopic === screenplayTopics.secondTopic) {
+                        screenplayTopics.thirdTopic = allTopics[Math.floor(Math.random() * allTopics.length)];
+                    }
                 }
             }
-        }
 
-        //create screenplay
-        let newScreenplay = new Screenplay(store.getters.getNextScreenplayId,screenplayTitle,screenplayType,screenplayGenre,screenplaySubgenre,null,null,screenplayDescription,null,null,screenplayTopics);
+            //create screenplay
+            let newScreenplay = new Screenplay(store.getters.getNextScreenplayId, screenplayTitle, screenplayType, screenplayGenre, screenplaySubgenre, null, null, screenplayDescription, null, null, screenplayTopics);
 
-        //set screenplay details
-        screenplayDetails.scope = scopeValues[Math.floor(Math.random() * scopeValues.length)];
-        screenplayDetails.tone = toneValues[Math.floor(Math.random() * toneValues.length)];
-        screenplayDetails.specialEffects = specialEffectsValues[Math.floor(Math.random() * specialEffectsValues.length)];
+            //set screenplay details
+            screenplayDetails.scope = scopeValues[Math.floor(Math.random() * scopeValues.length)];
+            screenplayDetails.tone = toneValues[Math.floor(Math.random() * toneValues.length)];
+            screenplayDetails.specialEffects = specialEffectsValues[Math.floor(Math.random() * specialEffectsValues.length)];
 
-        //set screenplay age rating details
-        screenplayAgeRatingDetails.violence = violenceValues[Math.floor(Math.random() * violenceValues.length)];
-        screenplayAgeRatingDetails.cursing = cursingValues[Math.floor(Math.random() * cursingValues.length)];
-        screenplayAgeRatingDetails.loveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
+            //set screenplay age rating details
+            screenplayAgeRatingDetails.violence = violenceValues[Math.floor(Math.random() * violenceValues.length)];
+            screenplayAgeRatingDetails.cursing = cursingValues[Math.floor(Math.random() * cursingValues.length)];
+            screenplayAgeRatingDetails.loveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
 
-        newScreenplay.details = screenplayDetails;
-        newScreenplay.ageRatingDetails = screenplayAgeRatingDetails;
+            newScreenplay.details = screenplayDetails;
+            newScreenplay.ageRatingDetails = screenplayAgeRatingDetails;
 
-        //set screenplay age rating
-        newScreenplay.ageRating = ageRatingScala[Math.max(screenplayAgeRatingDetails.violence, screenplayAgeRatingDetails.cursing, screenplayAgeRatingDetails.loveScenes)];
+            //set screenplay age rating
+            newScreenplay.ageRating = ageRatingScala[Math.max(screenplayAgeRatingDetails.violence, screenplayAgeRatingDetails.cursing, screenplayAgeRatingDetails.loveScenes)];
 
-        //set screenplay roles
-        //newScreenplay.roles = allScreenplayTitles[screenplayTitle].roles;
-        addCharacter(newScreenplay.roles.main,Math.floor(Math.random() * (3 - 1) + 1));
-        addCharacter(newScreenplay.roles.support,Math.floor(Math.random() * (3 - 1) + 1));
-        addCharacter(newScreenplay.roles.minor,Math.floor(Math.random() * (3 - 1) + 1));
-        addCharacter(newScreenplay.roles.cameo,Math.floor(Math.floor(Math.random() * 4)));
+            //set screenplay roles
+            //newScreenplay.roles = allScreenplayTitles[screenplayTitle].roles;
+            addCharacter(newScreenplay.roles.main, Math.floor(Math.random() * (3 - 1) + 1));
+            addCharacter(newScreenplay.roles.support, Math.floor(Math.random() * (3 - 1) + 1));
+            addCharacter(newScreenplay.roles.minor, Math.floor(Math.random() * (3 - 1) + 1));
+            addCharacter(newScreenplay.roles.cameo, Math.floor(Math.floor(Math.random() * 4)));
 
-        function addCharacter(array, max){
-            if(max !== 0){
-                for (let i = 0; i < max; i++) {
-                    let profile = randomProfile.profile();
-                    array.push(new Character(profile.firstName,profile.gender.toLowerCase(),profile.age))
+            function addCharacter(array, max) {
+                if (max !== 0) {
+                    for (let i = 0; i < max; i++) {
+                        let profile = randomProfile.profile();
+                        array.push(new Character(profile.firstName, profile.gender.toLowerCase(), profile.age))
+                    }
                 }
             }
-        }
 
-        //set screenplay acts
-        // newScreenplay.acts = allScreenplayTitles[screenplayTitle].acts;
-        let screenplayCharacters = newScreenplay.roles.main.concat(newScreenplay.roles.support,newScreenplay.roles.minor,newScreenplay.roles.cameo);
+            //set screenplay acts
+            // newScreenplay.acts = allScreenplayTitles[screenplayTitle].acts;
+            let screenplayCharacters = newScreenplay.roles.main.concat(newScreenplay.roles.support, newScreenplay.roles.minor, newScreenplay.roles.cameo);
 
-        // set screenplay acts character moments
-        for (let i = 0; i < 3; i++) {
-            let randomCharacterMoment = characterMoments[Math.floor(Math.random() * characterMoments.length)];
-            let characterOne = null;
-            let characterTwo = null;
+            // set screenplay acts character moments
+            for (let i = 0; i < 3; i++) {
+                let randomCharacterMoment = characterMoments[Math.floor(Math.random() * characterMoments.length)];
+                let characterOne = null;
+                let characterTwo = null;
 
-            if(randomCharacterMoment === 'dies' || randomCharacterMoment === 'escapes' || randomCharacterMoment === 'isCaptured' ||
-                randomCharacterMoment === 'runsAway' || randomCharacterMoment === 'isOnAMission' || randomCharacterMoment === 'completesTheMission' ||
-                randomCharacterMoment === 'losesSomeoneImportant' || randomCharacterMoment === 'isAlive'){
+                if (randomCharacterMoment === 'dies' || randomCharacterMoment === 'escapes' || randomCharacterMoment === 'isCaptured' ||
+                    randomCharacterMoment === 'runsAway' || randomCharacterMoment === 'isOnAMission' || randomCharacterMoment === 'completesTheMission' ||
+                    randomCharacterMoment === 'losesSomeoneImportant' || randomCharacterMoment === 'isAlive') {
 
-                characterOne = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
-                if(i === 0){
-                    addCharacterMoment(newScreenplay.acts.act1,i,characterOne,randomCharacterMoment,'',1);
-                } else if(i === 1){
-                    addCharacterMoment(newScreenplay.acts.act2,i,characterOne,randomCharacterMoment,'',2);
+                    characterOne = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
+                    if (i === 0) {
+                        addCharacterMoment(newScreenplay.acts.act1, i, characterOne, randomCharacterMoment, '', 1);
+                    } else if (i === 1) {
+                        addCharacterMoment(newScreenplay.acts.act2, i, characterOne, randomCharacterMoment, '', 2);
+                    } else {
+                        addCharacterMoment(newScreenplay.acts.act3, i, characterOne, randomCharacterMoment, '', 3);
+                    }
                 } else {
-                    addCharacterMoment(newScreenplay.acts.act3,i,characterOne,randomCharacterMoment,'',3);
-                }
-            } else {
-                characterOne = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
-                characterTwo = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
-                while (characterTwo === characterOne){
+                    characterOne = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
                     characterTwo = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
-                }
+                    while (characterTwo === characterOne) {
+                        characterTwo = screenplayCharacters[Math.floor(Math.random() * screenplayCharacters.length)].name;
+                    }
 
-                if(i === 0){
-                    addCharacterMoment(newScreenplay.acts.act1,i,characterOne,randomCharacterMoment,characterTwo,1);
-                } else if(i === 1){
-                    addCharacterMoment(newScreenplay.acts.act2,i,characterOne,randomCharacterMoment,characterTwo,2);
+                    if (i === 0) {
+                        addCharacterMoment(newScreenplay.acts.act1, i, characterOne, randomCharacterMoment, characterTwo, 1);
+                    } else if (i === 1) {
+                        addCharacterMoment(newScreenplay.acts.act2, i, characterOne, randomCharacterMoment, characterTwo, 2);
+                    } else {
+                        addCharacterMoment(newScreenplay.acts.act3, i, characterOne, randomCharacterMoment, characterTwo, 3);
+                    }
+                }
+            }
+
+            function addCharacterMoment(array, id, chOne, chMoment, chTwo, listNumber) {
+                if (chTwo === '') {
+                    array.push({
+                        id: id,
+                        characterOne: chOne,
+                        characterMoment: chMoment,
+                        characterTwo: '',
+                        textDe: 'Charakter Ereignis: ' + checkMoment(chOne, i18next.t(chMoment, {lng: 'de'}), ''),
+                        textEn: 'Character Moment: ' + checkMoment(chOne, i18next.t(chMoment, {lng: 'en'}), ''),
+                        list: listNumber,
+                        type: 'characterMoment'
+                    })
                 } else {
-                    addCharacterMoment(newScreenplay.acts.act3,i,characterOne,randomCharacterMoment,characterTwo,3);
+                    array.push({
+                        id: id,
+                        characterOne: chOne,
+                        characterMoment: chMoment,
+                        characterTwo: chTwo,
+                        textDe: 'Charakter Ereignis: ' + checkMoment(chOne, i18next.t(chMoment, {lng: 'de'}), chTwo),
+                        textEn: 'Character Moment: ' + checkMoment(chOne, i18next.t(chMoment, {lng: 'en'}), chTwo),
+                        list: listNumber,
+                        type: 'characterMoment'
+                    })
                 }
             }
-        }
 
-        function addCharacterMoment(array,id,chOne,chMoment,chTwo,listNumber){
-            if(chTwo === ''){
+            function checkMoment(chOne, chMoment, chTwo) {
+                let realMessage = chOne + ' ';
+                if (chTwo === '') {
+                    realMessage += chMoment;
+                } else if (chMoment === 'lets ... go') {
+                    realMessage += 'lets ' + chTwo + ' go';
+                } else if (chMoment === 'lasst ... gehen') {
+                    realMessage += 'lasst ' + chTwo + ' gehen';
+                } else if (chMoment === 'sends ... on a mission') {
+                    realMessage += 'sends ' + chTwo + ' on a mission';
+                } else if (chMoment === 'schickt ... auf eine Mission') {
+                    realMessage += 'schickt ' + chTwo + ' auf eine Mission';
+                } else if (chMoment === 'fordert ... heraus') {
+                    realMessage += 'fordert ' + chTwo + ' heraus';
+                } else {
+                    realMessage += chMoment + ' ' + chTwo;
+                }
+                return realMessage;
+            }
+
+            //set screenplay acts settings
+            for (let i = 0; i < 3; i++) {
+                let randomSetting = settings[Math.floor(Math.random() * settings.length)];
+                if (i === 0) {
+                    addSettingOrTimePeriod(newScreenplay.acts.act1, i + 3, randomSetting, randomSetting, 'setting', 'Setting: ', 'Ort: ', 1);
+                } else if (i === 1) {
+                    addSettingOrTimePeriod(newScreenplay.acts.act2, i + 3, randomSetting, randomSetting, 'setting', 'Setting: ', 'Ort: ', 2);
+                } else {
+                    addSettingOrTimePeriod(newScreenplay.acts.act3, i + 3, randomSetting, randomSetting, 'setting', 'Setting: ', 'Ort: ', 3);
+                }
+            }
+
+            //set screenplay acts time periods
+            for (let i = 0; i < 3; i++) {
+                let randomTimePeriod = timePeriods[Math.floor(Math.random() * timePeriods.length)];
+                if (i === 0) {
+                    addSettingOrTimePeriod(newScreenplay.acts.act1, i + 6, randomTimePeriod, randomTimePeriod, 'timePeriod', 'Time Period: ', 'Zeitspanne: ', 1);
+                } else if (i === 1) {
+                    addSettingOrTimePeriod(newScreenplay.acts.act2, i + 6, randomTimePeriod, randomTimePeriod, 'timePeriod', 'Time Period: ', 'Zeitspanne: ', 2);
+                } else {
+                    addSettingOrTimePeriod(newScreenplay.acts.act3, i + 6, randomTimePeriod, randomTimePeriod, 'timePeriod', 'Time Period: ', 'Zeitspanne: ', 3);
+                }
+            }
+
+            function addSettingOrTimePeriod(array, id, elementType, element, typeString, titleStringEn, titleStringDe, listNumber) {
                 array.push({
                     id: id,
-                    characterOne: chOne,
-                    characterMoment: chMoment,
-                    characterTwo: '',
-                    textDe: 'Charakter Ereignis: ' + checkMoment(chOne,i18next.t(chMoment,{lng: 'de'}),''),
-                    textEn: 'Character Moment: ' + checkMoment(chOne,i18next.t(chMoment,{lng: 'en'}),''),
+                    value: element,
+                    textDe: titleStringDe + i18next.t(elementType, {lng: 'de'}),
+                    textEn: titleStringEn + i18next.t(elementType, {lng: 'en'}),
                     list: listNumber,
-                    type: 'characterMoment'
-                })
-            } else {
-                array.push({
-                    id: id,
-                    characterOne: chOne,
-                    characterMoment: chMoment,
-                    characterTwo: chTwo,
-                    textDe: 'Charakter Ereignis: ' + checkMoment(chOne,i18next.t(chMoment,{lng: 'de'}),chTwo),
-                    textEn: 'Character Moment: ' + checkMoment(chOne,i18next.t(chMoment,{lng: 'en'}),chTwo),
-                    list: listNumber,
-                    type: 'characterMoment'
+                    type: typeString
                 })
             }
-        }
-        function checkMoment(chOne, chMoment, chTwo){
-            let realMessage = chOne + ' ';
-            if(chTwo === ''){
-                realMessage += chMoment;
-            } else if(chMoment === 'lets ... go') {
-                realMessage += 'lets ' + chTwo + ' go';
-            } else if(chMoment === 'lasst ... gehen'){
-                realMessage += 'lasst ' + chTwo + ' gehen';
-            } else if(chMoment === 'sends ... on a mission') {
-                realMessage += 'sends ' + chTwo + ' on a mission';
-            } else if(chMoment === 'schickt ... auf eine Mission'){
-                realMessage += 'schickt ' + chTwo + ' auf eine Mission';
-            } else if(chMoment === 'fordert ... heraus'){
-                realMessage += 'fordert ' + chTwo + ' heraus';
+
+            //set screenplay length
+            if (newScreenplay.type === 'Feature') {
+                newScreenplay.length = Math.floor(Math.random() * (300 - 60) + 60);
             } else {
-                realMessage += chMoment + ' ' + chTwo;
+                newScreenplay.length = Math.floor(Math.random() * (300 - 40) + 40);
             }
-            return realMessage;
-        }
 
-        //set screenplay acts settings
-        for (let i = 0; i < 3; i++) {
-            let randomSetting = settings[Math.floor(Math.random() * settings.length)];
-            if(i === 0){
-                addSettingOrTimePeriod(newScreenplay.acts.act1,i+3,randomSetting,randomSetting,'setting', 'Setting: ','Ort: ',1);
-            } else if(i === 1){
-                addSettingOrTimePeriod(newScreenplay.acts.act2,i+3,randomSetting,randomSetting,'setting', 'Setting: ','Ort: ',2);
+            //set screenplay writing phase
+            if (newScreenplay.type === 'Feature' || newScreenplay.type === 'Animation') {
+                newScreenplay.setWritingPhase(12)
             } else {
-                addSettingOrTimePeriod(newScreenplay.acts.act3,i+3,randomSetting,randomSetting,'setting', 'Setting: ','Ort: ',3);
+                newScreenplay.setWritingPhase(8)
             }
-        }
 
-        //set screenplay acts time periods
-        for (let i = 0; i < 3; i++) {
-            let randomTimePeriod = timePeriods[Math.floor(Math.random() * timePeriods.length)];
-            if(i === 0){
-                addSettingOrTimePeriod(newScreenplay.acts.act1,i+6,randomTimePeriod,randomTimePeriod,'timePeriod','Time Period: ', 'Zeitspanne: ',1);
-            } else if(i === 1){
-                addSettingOrTimePeriod(newScreenplay.acts.act2,i+6,randomTimePeriod,randomTimePeriod,'timePeriod','Time Period: ', 'Zeitspanne: ',2);
-            } else {
-                addSettingOrTimePeriod(newScreenplay.acts.act3,i+6,randomTimePeriod,randomTimePeriod,'timePeriod','Time Period: ', 'Zeitspanne: ',3);
+            //set screenplay writer
+            let screenplayWriter = allWriters[Math.floor(Math.random() * allWriters.length)];
+            newScreenplay.writer = screenplayWriter;
+
+            //set screenplay rating
+            let minTalent;
+            let maxTalent;
+            if (screenplayWriter._experience > 0 && screenplayWriter._experience <= 50) {
+                minTalent = screenplayWriter._talent - 15;
+                maxTalent = screenplayWriter._talent + 5;
+            } else if (screenplayWriter._experience > 50 && screenplayWriter._experience <= 75) {
+                minTalent = screenplayWriter._talent - 10;
+                maxTalent = screenplayWriter._talent + 5;
+            } else if (screenplayWriter._experience > 75) {
+                minTalent = screenplayWriter._talent - 5;
+                maxTalent = screenplayWriter._talent + 5;
             }
+            let writerTalent = minTalent + ((maxTalent - minTalent) / (Math.floor(Math.random() * (100 - 20 + 1)) + 20))
+            let writerGenre = '';
+            switch (newScreenplay.genre) {
+                case 'Action':
+                    writerGenre = screenplayWriter._action;
+                    break;
+                case 'Adventure':
+                    writerGenre = screenplayWriter._adventure;
+                    break;
+                case 'Comedy':
+                    writerGenre = screenplayWriter._comedy;
+                    break;
+                case 'Documentary':
+                    writerGenre = screenplayWriter._documentary;
+                    break;
+                case 'Drama':
+                    writerGenre = screenplayWriter._drama;
+                    break;
+                case 'Fantasy':
+                    writerGenre = screenplayWriter._fantasy;
+                    break;
+                case 'Horror':
+                    writerGenre = screenplayWriter._horror;
+                    break;
+                case 'Musical':
+                    writerGenre = screenplayWriter._musical;
+                    break;
+                case 'Romance':
+                    writerGenre = screenplayWriter._romance;
+                    break;
+                case 'ScienceFiction':
+                    writerGenre = screenplayWriter._scienceFiction;
+                    break;
+                case 'Thriller':
+                    writerGenre = screenplayWriter._thriller;
+                    break;
+                case 'War':
+                    writerGenre = screenplayWriter._war;
+                    break;
+                default:
+                    break;
+            }
+            let screenplayRating = Math.floor((writerTalent * 65 + writerGenre * 35) / 100);
+            newScreenplay.setRating(screenplayRating)
+            newScreenplay.setRatingRange((Math.ceil(newScreenplay.rating / 10) * 10) - 9 + ' - ' + (Math.ceil(newScreenplay.rating / 10) * 10))
+
+            //set screenplay price
+            let index = Math.round((screenplayWriter._talent * 35 + screenplayWriter._experience * 25 + screenplayWriter._popularity * 40) / 100);
+            let screenplayWriterSalary = store.getters.getWriterSalaries[index - 1];
+
+            let screenplayPrice = 0;
+            if (screenplayWriter._talent <= 50) {
+                let calculator = Math.random() * (1.5 - 1) + 1;
+                screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriterSalary;
+            } else if (screenplayWriter._talent >= 51 && screenplayWriter._talent <= 75) {
+                let calculator = Math.random() * (2 - 1.5) + 1.5;
+                screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriterSalary;
+            } else if (screenplayWriter._talent >= 76) {
+                let calculator = Math.random() * (3 - 2) + 2;
+                screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriterSalary;
+            }
+            newScreenplay.setPrice(screenplayPrice);
+
+            //add screenplay to screenplayFromWriters array
+            console.log(newScreenplay);
+            store.commit('addScreenplaysFromWriters', newScreenplay);
+
+            store.state.screenplayTitles.splice(store.state.screenplayTitles.indexOf(screenplayTitle), 1);
         }
-
-        function addSettingOrTimePeriod(array,id,elementType,element,typeString,titleStringEn,titleStringDe,listNumber){
-            array.push({
-                id: id,
-                value: element,
-                textDe: titleStringDe + i18next.t(elementType,{lng: 'de'}),
-                textEn: titleStringEn + i18next.t(elementType,{lng: 'en'}),
-                list: listNumber,
-                type: typeString
-            })
-        }
-
-        //set screenplay length
-        if(newScreenplay.type === 'Feature'){
-            newScreenplay.length = Math.floor(Math.random() * (300 - 60) + 60);
-        } else {
-            newScreenplay.length = Math.floor(Math.random() * (300 - 40) + 40);
-        }
-
-        //set screenplay writing phase
-        if(newScreenplay.type === 'Feature' || newScreenplay.type === 'Animation'){
-            newScreenplay.setWritingPhase(12)
-        } else {
-            newScreenplay.setWritingPhase(8)
-        }
-
-        //set screenplay writer
-        let screenplayWriter = allWriters[Math.floor(Math.random() * allWriters.length)];
-        newScreenplay.writer = screenplayWriter;
-
-        //set screenplay rating
-        let minTalent;
-        let maxTalent;
-        if(screenplayWriter._experience > 0 && screenplayWriter._experience <= 50){
-            minTalent = screenplayWriter._talent - 15;
-            maxTalent = screenplayWriter._talent + 5;
-        } else if(screenplayWriter._experience > 50 && screenplayWriter._experience <= 75){
-            minTalent = screenplayWriter._talent - 10;
-            maxTalent = screenplayWriter._talent + 5;
-        } else if(screenplayWriter._experience > 75){
-            minTalent = screenplayWriter._talent - 5;
-            maxTalent = screenplayWriter._talent + 5;
-        }
-        let writerTalent = minTalent + ((maxTalent - minTalent) / (Math.floor(Math.random() * (100 - 20 + 1)) + 20))
-        let writerGenre = '';
-        switch(newScreenplay.genre) {
-            case 'Action':
-                writerGenre = screenplayWriter._action;
-                break;
-            case 'Adventure':
-                writerGenre = screenplayWriter._adventure;
-                break;
-            case 'Comedy':
-                writerGenre = screenplayWriter._comedy;
-                break;
-            case 'Documentary':
-                writerGenre = screenplayWriter._documentary;
-                break;
-            case 'Drama':
-                writerGenre = screenplayWriter._drama;
-                break;
-            case 'Fantasy':
-                writerGenre = screenplayWriter._fantasy;
-                break;
-            case 'Horror':
-                writerGenre = screenplayWriter._horror;
-                break;
-            case 'Musical':
-                writerGenre = screenplayWriter._musical;
-                break;
-            case 'Romance':
-                writerGenre = screenplayWriter._romance;
-                break;
-            case 'ScienceFiction':
-                writerGenre = screenplayWriter._scienceFiction;
-                break;
-            case 'Thriller':
-                writerGenre = screenplayWriter._thriller;
-                break;
-            case 'War':
-                writerGenre = screenplayWriter._war;
-                break;
-            default:
-                break;
-        }
-        let screenplayRating = Math.floor((writerTalent * 65 + writerGenre * 35) / 100);
-        newScreenplay.setRating(screenplayRating)
-        newScreenplay.setRatingRange((Math.ceil(newScreenplay.rating / 10) * 10) - 9 + ' - ' + (Math.ceil(newScreenplay.rating / 10) * 10))
-
-        //set screenplay price
-        let index = Math.round((screenplayWriter._talent * 35 + screenplayWriter._experience * 25 + screenplayWriter._popularity * 40) / 100);
-        let screenplayWriterSalary = store.getters.getWriterSalaries[index - 1];
-
-        let screenplayPrice = 0;
-        if(screenplayWriter._talent <= 50){
-            let calculator = Math.random() * (1.5 - 1) + 1;
-            screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriterSalary;
-        } else if(screenplayWriter._talent >= 51 && screenplayWriter._talent <= 75){
-            let calculator = Math.random() * (2 - 1.5) + 1.5;
-            screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriterSalary;
-        } else if(screenplayWriter._talent >= 76){
-            let calculator = Math.random() * (3 - 2) + 2;
-            screenplayPrice = (Math.round(calculator * 10) / 10) * screenplayWriterSalary;
-        }
-        newScreenplay.setPrice(screenplayPrice);
-
-        //add screenplay to screenplayFromWriters array
-        console.log(newScreenplay);
-        store.commit('addScreenplaysFromWriters',newScreenplay);
-
-        store.state.screenplayTitles.splice(store.state.screenplayTitles.indexOf(screenplayTitle),1);
     }
 }
 

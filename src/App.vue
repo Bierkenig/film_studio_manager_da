@@ -125,9 +125,19 @@ export default {
       genres.push(new Genre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
     })
 
+    let counter = 1;
+    let index = 0;
     window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
     window.ipcRenderer.receive('gotSubGenres', (data) => {
       subgenres.push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
+
+      let allGenres = ['Action','Adventure','Comedy','Documentary','Drama','Fantasy','Horror','Musical','Romance','Science-Fiction','Thriller','War'];
+      this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity));
+
+      if(counter % 5 === 0){
+        index++;
+      }
+      counter++;
     })
 
     //test
@@ -334,6 +344,7 @@ export default {
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(3500000,new Date('02.01.2023')))
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(750000,new Date('03.01.2023')))
     this.$store.getters.getFinishedMovies[0].totalOutgoings = 5526000;
+    console.log(this.$store.getters.getAllGenres);
   }
 }
 </script>

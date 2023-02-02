@@ -22,7 +22,7 @@
                 <info-circle class="movieDetailsInfoCircle"
                              :text="movie._preProduction.screenplay.ageRating.substring(movie._preProduction.screenplay.ageRating.indexOf('/') + 1)"
                              size="60px" large-font/>
-                <info-circle class="movieDetailsInfoCircle" :icon="movie._preProduction.screenplay.genre.toLowerCase()"
+                <info-circle class="movieDetailsInfoCircle" :icon="movie._preProduction.screenplay.genre.genreName.toLowerCase()"
                              size="60px"/>
               </div>
             </div>

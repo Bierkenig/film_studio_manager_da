@@ -55,20 +55,15 @@
                         v-model="genre"
                     >
                       <option :value="null" disabled selected hidden>Genre</option>
-                      <option value="Action">Action</option>
-                      <option value="Adventure">{{ $t('genres.adventure') }}</option>
-                      <option value="Comedy">{{ $t('genres.comedy') }}</option>
-                      <option value="Documentary">{{ $t('genres.documentary') }}</option>
-                      <option value="Drama">Drama</option>
-                      <option value="Fantasy">Fantasy</option>
-                      <option value="Horror">Horror</option>
-                      <option value="Musical">Musical</option>
-                      <option value="Romance">{{ $t('genres.romance') }}</option>
-                      <option value="Science-Fiction">Science-Fiction</option>
-                      <option value="Thriller">Thriller</option>
-                      <option value="War">{{ $t('genres.war') }}</option>
+                      <option
+                          v-for="(it,ind) in this.allGenres"
+                          :key="ind"
+                          :value="it">
+                        {{ $t('genres.'+ it.genreName.toLowerCase().replace('-','')) }}
+                      </option>
                     </select>
                     <select
+                        v-if="genre !== null"
                         class="createScreenplaySelect"
                         id="createScreenplaySubgenre"
                         :disabled="!this.genre"
@@ -76,9 +71,9 @@
                     >
                       <option :value="null" disabled selected hidden>Subgenre</option>
                       <option
-                          v-for="(it,ind) in this.allSubgenres[this.genre]"
+                          v-for="(it,ind) in this.allSubgenres[this.genre.genreName]"
                           :key="ind"
-                          :value="it">{{ $t('genres.' + it.toLowerCase()) }}</option>
+                          :value="it">{{ $t('genres.' + it.subGenreName.toLowerCase()) }}</option>
                     </select>
                   </div>
                 </div>
@@ -100,7 +95,7 @@
                           v-for="(it,ind) in this.allTopics"
                           :key="ind"
                           :value="it"
-                          :disabled="disableTopic(it,index)">{{ it }}</option>
+                          :disabled="disableTopic(it,index)">{{ it.topicName }}</option>
                     </select>
                   </div>
                 </div>
@@ -297,7 +292,8 @@ export default {
       numberOfMinorCharacters: this.$store.getters.getCurrentScreenplay.roles.minor.length,
       numberOfCameoCharacters: this.$store.getters.getCurrentScreenplay.roles.cameo.length,
 
-      allSubgenres: this.$store.getters.getAllSubgenres,
+      allGenres: this.$store.getters.getAllGenres,
+      allSubgenres: this.$store.getters.getSubgenresFromEachGenre,
     }
   },
 

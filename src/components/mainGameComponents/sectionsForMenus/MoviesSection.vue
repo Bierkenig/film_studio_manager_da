@@ -53,8 +53,8 @@
           viewers="99"
           critics="99"
           :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]"
-          :genre="it._preProduction.screenplay.genre"
-          :genre-icon="it._preProduction.screenplay.genre.toLowerCase()"
+          :genre="it._preProduction.screenplay.genre.genreName"
+          :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()"
           release="2025"
           earnings="$ 999,999"
           @open-clicked="movieInfo(it)"/>

@@ -19,7 +19,7 @@
             </div>
             <div class="screenplayDetailsInfoFlexRight">
               <div id="screenplayDetailsInfoCircleContainer">
-                <info-circle class="screenplayDetailsInfoCircle" :icon="source.genre.toLowerCase()" data-title="Genre" size="50px"/>
+                <info-circle class="screenplayDetailsInfoCircle" :icon="this.source.genre.genreName.toLowerCase()" data-title="Genre" size="50px"/>
                 <info-circle class="screenplayDetailsInfoCircle" :text="RegExp('\\+\\d+$').exec(source.ageRating)[0]" data-title="Age Rating" size="50px"/>
               </div>
               <div id="screenplayDetailsInfoIcon">
@@ -64,7 +64,7 @@
                 </div>
                 <div>
                   <span v-for="(it, index) in sourceTopics" :key="index" class="screenplayDetailsTopicValues">
-                    {{ it }}<span v-if="index !== sourceTopics.length - 1">, </span>
+                    {{ it.topicName }}<span v-if="index !== sourceTopics.length - 1">, </span>
                   </span>
                 </div>
               </div>
@@ -128,7 +128,7 @@
             :dark="false"
             size="small"
             :disabled="checkBalance"
-            @click="buyScreenplay">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+            @click="showBuyScreenplayModal = true">{{ $t('buyScreenplaySection.buy') }}</custom-button>
       </div>
     </div>
     <div v-else-if="sourceType === 'Movie' && source !== null" class="sourceDetailsBackground">
@@ -138,21 +138,46 @@
           :dark="false"
           size="small"
           :disabled="checkBalance"
-          @click="buyMovie">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+          @click="showBuyMovieModal = true">{{ $t('buyScreenplaySection.buy') }}</custom-button>
     </div>
     <div v-else id="sourceDetailsEmptyBackground" class="sourceDetailsBackground">
 
     </div>
+
+    <transition name="modal">
+      <buy-modal
+          v-if="showBuyScreenplayModal"
+          headline="buyScreenplay"
+          @buyScreenplay="buyScreenplay"
+          @close="showBuyScreenplayModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </buy-modal>
+    </transition>
+
+    <transition name="modal">
+      <buy-modal
+          v-if="showBuyMovieModal"
+          headline="buyMovie"
+          @buyMovie="buyMovie"
+          @close="showBuyMovieModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </buy-modal>
+    </transition>
   </div>
 </template>
 
 <script>
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 
 export default {
   name: "SourcesDetails",
-  components: {CustomButton, InfoCircle},
+  components: {BuyModal, CustomButton, InfoCircle},
 
   props: {
     source: Object,
@@ -166,13 +191,17 @@ export default {
       sourcePrice: 0,
       sourceRating: 0,
       sourceTopics: [],
-      characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L']
+      characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
+      showBuyScreenplayModal: false,
+      showBuyMovieModal: false,
     }
   },
 
   watch: {
     source: function(){
       if (this.source !== null) {
+        console.log(this.source);
+        console.log(this.source.genre.genreName.toLowerCase())
         this.sourceTopics = [];
         if(this.sourceType === 'Screenplay'){
           this.sourceRating = this.source.rating

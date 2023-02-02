@@ -52,23 +52,36 @@
           <div class="createStudioBoxInnerElement" id="createStudioBoxModificationInformation">
             <div id="createStudioBoxText">{{ $t('modificationsMsg') }}</div>
           </div>
-          <div class="createStudioBoxDatabaseSelection">
-            <div>
-              <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="current">
-              <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">{{ $t('modified') }}</label>
+          <div class="createStudioOutsideBoxDatabaseSelection">
+            <div class="createStudioBoxDatabaseSelection">
+              <div>
+                <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="current">
+                <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">{{ $t('modified') }}</label>
+              </div>
+              <div>
+                <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="default">
+                <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">{{ $t('default') }}</label>
+              </div>
             </div>
-
-            <div>
-              <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="default">
-              <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">{{ $t('default') }}</label>
+            <div v-if="databaseType === 'current'">
+              <select
+                  id="createStudioDatabaseSelect"
+                  v-model="databaseVersion"
+              >
+                <option :value="null" disabled selected hidden>Database Number</option>
+                <option :value="1">Database 1</option>
+                <option :value="2">Database 2</option>
+                <option :value="3">Database 3</option>
+              </select>
             </div>
           </div>
+
         </div>
         <custom-button
             id="createStudioContinueButton"
             :dark="false"
             size="medium"
-            :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === ''"
+            :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === '' || (databaseType === 'current' && databaseVersion === null)"
             @clicked="startGame">{{ $t('createStudioButton') }}</custom-button>
       </div>
     </div>
@@ -91,6 +104,7 @@ export default {
     return {
       name: '',
       budget: "250000000",
+      databaseVersion: null,
       chosenLogo: null,
       databaseType: "default",
       iconSelected: [false,false,false,false,false,false,false,false,false,false],
@@ -225,6 +239,12 @@ export default {
   flex: 0 1 calc(20% - 8px);
 }
 
+.createStudioOutsideBoxDatabaseSelection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
 .createStudioBoxDatabaseSelection {
   margin-top: 10px;
   margin-left: 16px;
@@ -265,5 +285,20 @@ input[type='radio']:checked:after {
   display: inline-block;
   visibility: visible;
   border: 5px solid #252D3E;
+}
+
+#createStudioDatabaseSelect {
+  margin-bottom: 15px;
+  margin-left: 16px;
+  font-size: 15px;
+  padding: 0.25em;
+  width: 50%;
+  border-radius: 10px;
+  position: relative;
+  background-color: #252D3E;
+  display: inline-block;
+  visibility: visible;
+  border-style: none;
+  outline: none;
 }
 </style>

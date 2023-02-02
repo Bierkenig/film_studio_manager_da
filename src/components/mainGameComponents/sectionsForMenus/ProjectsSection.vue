@@ -7,21 +7,21 @@
         <div class="projectsSectionElement verticalScroll">
           <div v-for="(it, index) in this.all" :key="index">
             <div v-if="it.earnings === undefined">
-              <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
+              <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
             </div>
             <div v-else>
-              <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre" :genre-icon="it._preProduction.screenplay.genre.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo"/>
+              <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo"/>
             </div>
           </div>
         </div>
         <div class="projectsSectionElement verticalScroll">
           <div v-for="(it, index) in this.screenplays" :key="index">
-            <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre" :genre-icon="it.genre.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
+            <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
           </div>
         </div>
         <div class="projectsSectionElement verticalScroll">
           <div v-for="(it, index) in this.productions" :key="index">
-            <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre" :genre-icon="it._preProduction.screenplay.genre.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo"/>
+            <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo"/>
           </div>
         </div>
       </tile-pages-nav>

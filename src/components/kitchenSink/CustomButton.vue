@@ -31,7 +31,7 @@ export default {
       },
       themeDisabled: {
         bgColor: 'var(--fsm-dark-blue-3)',
-        fontColor: 'var(--fsm-dark-blue-4)'
+        fontColor: 'var(--fsm-grey-font-color)'
       },
       sizeValues: {},
       themeValues: { bgImage: 'none', bgColor: 'none' },

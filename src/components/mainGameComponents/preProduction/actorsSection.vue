@@ -196,8 +196,8 @@ export default {
 
   mounted() {
     console.log(this.$store.state.currentMovie)
-    this.$store.state.currentMovie._status = 'Release'
-    this.$store.state.currentMovie.setRelease()
+    //this.$store.state.currentMovie._status = 'Release'
+    //this.$store.state.currentMovie.setRelease()
     console.log(this.$store.state.currentMovie)
   }
 }
