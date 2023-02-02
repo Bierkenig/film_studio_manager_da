@@ -146,7 +146,10 @@ export default {
   watch: {
     invertTheme: function() {
       this.setSVG();
-    }
+    },
+    icon: function() {
+      this.setSVG();
+    },
   },
 }
 </script>
