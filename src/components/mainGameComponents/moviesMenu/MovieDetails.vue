@@ -22,7 +22,8 @@
                 <info-circle class="movieDetailsInfoCircle"
                              :text="movie._preProduction.screenplay.ageRating.substring(movie._preProduction.screenplay.ageRating.indexOf('/') + 1)"
                              size="60px" large-font/>
-                <info-circle class="movieDetailsInfoCircle" :icon="movie._preProduction.screenplay.genre.genreName.toLowerCase()"
+                <info-circle class="movieDetailsInfoCircle"
+                             :icon="movie._preProduction.screenplay.genre.genreName.toLowerCase()"
                              size="60px"/>
               </div>
             </div>
@@ -103,7 +104,14 @@
           </div>
         </div>
       </div>
-      <custom-button v-show="movie._status !== 'wennDerButtonVerstecktWerdenSoll'" class="movieDetailsButton">{{ $t('movieDetailsElement.newMovie') }}</custom-button>
+      <div class="movieDetailsButtons">
+        <custom-button v-show="movie._status !== 'wennDerButtonVerstecktWerdenSoll'" class="movieDetailsButton">
+          {{ $t('movieDetailsElement.newMovie') }}
+        </custom-button>
+        <custom-button v-show="movie._status !== 'wennDerButtonVerstecktWerdenSoll'" class="movieDetailsButton">
+          {{ $t('movieDetailsElement.newFranchise') }}
+        </custom-button>
+      </div>
     </background-tile>
   </div>
 </div>
@@ -274,7 +282,11 @@ export default {
   justify-content: flex-start;
 }
 
-.movieDetailsButton {
+.movieDetailsButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
   margin-top: 20px;
 }
 
