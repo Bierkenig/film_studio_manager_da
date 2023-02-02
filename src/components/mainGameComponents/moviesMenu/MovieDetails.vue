@@ -108,7 +108,10 @@
         <custom-button v-show="movie._status !== 'wennDerButtonVerstecktWerdenSoll'" class="movieDetailsButton">
           {{ $t('movieDetailsElement.newMovie') }}
         </custom-button>
-        <custom-button v-show="movie._status !== 'wennDerButtonVerstecktWerdenSoll'" class="movieDetailsButton">
+        <custom-button
+            v-if="movie._franchiseType === null && movie._owner === this.ownStudio && !partOfFranchise"
+            class="movieDetailsButton"
+            @click="createFranchise">
           {{ $t('movieDetailsElement.newFranchise') }}
         </custom-button>
       </div>
@@ -130,9 +133,23 @@ export default {
   data() {
     return {
       movie: this.$store.getters.getCurrentMovieDetails,
+      ownStudio: this.$store.getters.getStudio,
       moviePosterSVG: 'none',
+      partOfFranchise: false,
     }
   },
+
+  mounted() {
+    if(this.movie._preProduction.screenplay.franchise !== null){
+      this.partOfFranchise = true;
+    }
+  },
+
+  methods: {
+    createFranchise(){
+      this.$router.push({name: 'createFranchise'})
+    },
+  }
 }
 </script>
 

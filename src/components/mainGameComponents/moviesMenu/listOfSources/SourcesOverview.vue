@@ -49,7 +49,7 @@ export default {
         this.sourcePrice = this.clickedItem.price;
       } else {
         this.itemType = 'Movie'
-        this.sourcePrice = this.clickedItem.totalOutgoings;
+        this.sourcePrice = this.clickedItem._totalCosts;
       }
       this.checkBalance = (this.$store.getters.getBalance - parseInt(this.sourcePrice)) < 0;
     }

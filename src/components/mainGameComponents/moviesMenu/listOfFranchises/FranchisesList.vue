@@ -143,8 +143,11 @@ export default {
 
 <style scoped>
 #franchisesListMainDiv {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
   padding: 15px;
   width: 350px;
 }

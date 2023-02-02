@@ -1,130 +1,128 @@
 <template>
   <div id="franchisesDetailsMainDiv">
-    <h2 class="franchiseDetailsHeader">{{ $t('general') }}</h2>
-    <div class="franchiseDetailsOuterBox">
-      <div class="franchiseDetailsBox">
-        <div id="franchiseDetailsPosterBox">
-        </div>
-        <div v-if="franchise !== null" class="franchiseDetailsFranchiseInfo">
-          <div id="franchiseDetailsFranchiseName">
-            {{ franchise.name }}
-          </div>
-          <div class="franchiseDetailsGeneralInfo">
-            <div>
-              {{ $t('creationDate') }}
+    <background-tile :title="$t('general')">
+      <div class="franchiseDetailsOuterBox">
+        <div class="franchiseDetailsBox">
+          <div class="franchiseDetailsPosterBox"/>
+          <div v-if="franchise !== null" class="franchiseDetailsFranchiseInfo">
+            <div id="franchiseDetailsFranchiseName">
+              {{ franchise.name }}
             </div>
-            <div>
-              {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+            <div class="franchiseDetailsGeneralInfo">
+              <div>
+                {{ $t('creationDate') }}
+              </div>
+              <div>
+                {{ franchise.foundationDate.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}
+              </div>
             </div>
-          </div>
-          <div class="franchiseDetailsGeneralInfo">
-            <div>
-              {{ $t('numberOfMovies') }}
+            <div class="franchiseDetailsGeneralInfo">
+              <div>
+                {{ $t('numberOfMovies') }}
+              </div>
+              <div>
+                {{ franchiseMovies.length }}
+              </div>
             </div>
-            <div>
-              {{ franchiseMovies.length }}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div v-if="franchise !== null" class="franchiseDetailsBox">
-        <div class="franchiseDetailsPeople">
-          <div class="franchiseDetailsPeopleRating">
-            <div>
-              {{ $t('children') }}
-            </div>
-            <input class="franchiseDetailsRangeSlider"
-                   type="range"
-                   :min="0"
-                   :max="100"
-                   :step="1"
-                   v-model="childrenRating" disabled>
-          </div>
-          <div class="franchiseDetailsPeopleRating">
-            <div>
-              {{ $t('teenagers') }}
-            </div>
-            <input class="franchiseDetailsRangeSlider"
-                   type="range"
-                   :min="0"
-                   :max="100"
-                   :step="1"
-                   v-model="teenagerRating" disabled>
-          </div>
-          <div class="franchiseDetailsPeopleRating">
-            <div>
-              {{ $t('adults') }}
-            </div>
-            <input class="franchiseDetailsRangeSlider"
-                   type="range"
-                   :min="0"
-                   :max="100"
-                   :step="1"
-                   v-model="adultRating" disabled>
           </div>
         </div>
-        <div class="franchiseDetailsFinances">
-          <div class="franchiseDetailsFinancesDetails">
-            <div class="franchiseDetailsFinancesDetailsHeader">
-              {{ $t('price') }}
+        <div v-if="franchise !== null" class="franchiseDetailsBox">
+          <div class="franchiseDetailsPeople">
+            <div class="franchiseDetailsPeopleRating">
+              <div>
+                {{ $t('children') }}
+              </div>
+              <input type="range"
+                     :min="0"
+                     :max="100"
+                     :step="1"
+                     v-model="childrenRating" disabled>
             </div>
-            <div>
-              $ {{ currencyFormatDE(franchisePrice) }}
+            <div class="franchiseDetailsPeopleRating">
+              <div>
+                {{ $t('teenagers') }}
+              </div>
+              <input type="range"
+                     :min="0"
+                     :max="100"
+                     :step="1"
+                     v-model="teenagerRating" disabled>
+            </div>
+            <div class="franchiseDetailsPeopleRating">
+              <div>
+                {{ $t('adults') }}
+              </div>
+              <input type="range"
+                     :min="0"
+                     :max="100"
+                     :step="1"
+                     v-model="adultRating" disabled>
             </div>
           </div>
-          <div class="franchiseDetailsFinancesDetails">
-            <div class="franchiseDetailsFinancesDetailsHeader">
-              {{ $t('expenses') }}
+          <div class="franchiseDetailsFinances">
+            <div class="franchiseDetailsFinancesDetails">
+              <div class="franchiseDetailsFinancesDetailsHeader">
+                {{ $t('price') }}
+              </div>
+              <div>
+                $ {{ currencyFormatDE(franchisePrice) }}
+              </div>
             </div>
-            <div>
-              $ {{ currencyFormatDE(franchiseExpenses) }}
+            <div class="franchiseDetailsFinancesDetails">
+              <div class="franchiseDetailsFinancesDetailsHeader">
+                {{ $t('expenses') }}
+              </div>
+              <div>
+                $ {{ currencyFormatDE(franchiseExpenses) }}
+              </div>
             </div>
-          </div>
-          <div class="franchiseDetailsFinancesDetails">
-            <div class="franchiseDetailsFinancesDetailsHeader">
-              {{ $t('worldwideGross') }}
-            </div>
-            <div>
-              $ {{ currencyFormatDE(franchisePrice) }}
+            <div class="franchiseDetailsFinancesDetails">
+              <div class="franchiseDetailsFinancesDetailsHeader">
+                {{ $t('worldwideGross') }}
+              </div>
+              <div>
+                $ {{ currencyFormatDE(franchisePrice) }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <h2 class="franchiseDetailsHeader" id="franchiseDetailsMovieHeader">{{ $t('movies') }}</h2>
-    <div class="franchiseDetailsOuterBox">
-      <div v-if="franchiseMovies.length !== 0" class="franchiseDetailsMovieBox verticalScroll">
-        <div v-for="(it, index) in franchiseMovies" :key="index" class="franchiseDetailsMovieItem">
-          <div>
-            {{ it._preProduction.screenplay.title }}
-          </div>
-          <div>
-            <!--TODO: mit den Einnahmen des Filmes ersetzen-->
-            $ {{ currencyFormatDE(franchiseMovieEarnings[index]) }}
-          </div>
-          <div>
-            {{ it._foundationDate.getFullYear() }}
+      <h2 class="franchiseDetailsHeader" id="franchiseDetailsMovieHeader">{{ $t('movies') }}</h2>
+      <div class="franchiseDetailsOuterBox">
+        <div v-if="franchiseMovies.length !== 0" class="franchiseDetailsMovieBox verticalScroll">
+          <div v-for="(it, index) in franchiseMovies" :key="index" class="franchiseDetailsMovieItem">
+            <div>
+              {{ it._preProduction.screenplay.title }}
+            </div>
+            <div>
+              <!--TODO: mit den Einnahmen des Filmes ersetzen-->
+              $ {{ currencyFormatDE(franchiseMovieEarnings[index]) }}
+            </div>
+            <div>
+              {{ it._foundationDate.getFullYear() }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <custom-button
-        v-if="franchise !== null && franchise.owner !== this.$store.getters.getStudio"
-        id="franchiseDetailsBuyButton"
-        :dark="false"
-        size="small"
-        :disabled="checkBalance"
-        @clicked="buyFranchise">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+      <custom-button
+          v-if="franchise !== null && franchise.owner !== this.$store.getters.getStudio"
+          id="franchiseDetailsBuyButton"
+          :dark="false"
+          size="small"
+          :disabled="checkBalance"
+          @clicked="buyFranchise">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+    </background-tile>
   </div>
 </template>
 
 <script>
 import Franchises from "@/classes/Franchises";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "FranchisesDetails",
-  components: {CustomButton},
+  components: {BackgroundTile, CustomButton},
 
   props: {
     franchise: Franchises,
@@ -220,8 +218,6 @@ export default {
 
 <style scoped>
 #franchisesDetailsMainDiv {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
   width: 550px;
   padding: 15px;
 }
@@ -248,21 +244,24 @@ export default {
   gap: 15px;
 }
 
-#franchiseDetailsPosterBox {
+.franchiseDetailsPosterBox {
+  height: 160px;
+  border-radius: var(--fsm-s-border-radius);
+  flex-basis: 120px;
+  flex-grow: 0;
+  flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
+  background-image: v-bind('sourcePosterSVG');
+  background-size: 120px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #franchiseDetailsFranchiseName {
   font-size: 28px;
   font-weight: var(--fsm-fw-bold);
   margin: 10px 0 10px 0;
+  flex: 1;
 }
 
 .franchiseDetailsFranchiseInfo {
@@ -291,6 +290,7 @@ export default {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
   padding: 7px 10px 7px 10px;
+  font-size: 14px;
 }
 
 .franchiseDetailsGeneralInfo {
@@ -299,8 +299,8 @@ export default {
   justify-content: space-between;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
-  flex: 1;
   padding: 7px 10px 7px 10px;
+  font-size: 14px;
 }
 
 .franchiseDetailsPeople, .franchiseDetailsFinances {
@@ -313,21 +313,13 @@ export default {
 .franchiseDetailsPeopleRating, .franchiseDetailsFinancesDetails {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
-  padding: 5px;
+  padding: 7px 10px 7px 10px;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-}
-
-.franchiseDetailsRangeSlider {
-  width: 100px;
-  height: 10px;
-}
-
-.franchiseDetailsRangeSlider::-webkit-slider-thumb {
-  background: linear-gradient(to right, var(--fsm-pink-1) 0%, var(--fsm-pink-1) 50%, var(--fsm-dark-blue-4) 50%, var(--fsm-dark-blue-4) 100%);
+  font-size: 14px;
 }
 
 #franchiseDetailsBuyButton {
@@ -336,5 +328,6 @@ export default {
 
 .franchiseDetailsFinancesDetailsHeader {
   flex: 1;
+  font-size: 14px;
 }
 </style>

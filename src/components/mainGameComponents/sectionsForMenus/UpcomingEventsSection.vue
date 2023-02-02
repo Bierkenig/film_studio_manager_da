@@ -1,8 +1,7 @@
 <template>
   <div id="eventsSection">
-    <h1 id="eventHeading">{{ $t('upcomingEvents') }}</h1>
-
-    <div class="scroll verticalScroll">
+    <background-tile :title="$t('upcomingEvents')">
+      <div class="scroll verticalScroll">
         <div>
           <h2 class="date">{{ $t('today') }}</h2>
           <div class="event" v-for="(it,index) in todayEvents" :key="index">
@@ -29,15 +28,17 @@
             <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
           </div>
         </div>
-    </div>
+      </div>
+    </background-tile>
   </div>
 </template>
 
 <script>
 import EventElement from "@/components/kitchenSink/EventElement";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 export default {
   name: "UpcomingEventsSection",
-  components: {EventElement},
+  components: {BackgroundTile, EventElement},
   data(){
     return {
       todayEvents: [],
@@ -94,24 +95,15 @@ export default {
 #eventsSection {
   display: flex;
   flex-direction: column;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
 }
 
-#eventHeading{
-  font-size: 28px;
-  color: var(--fsm-pink-1);
-  margin-top: 0.7em;
-  margin-left: 0.7em;
-  margin-bottom: 0
-}
 
 .date{
   margin-left: 0.7em
 }
 
 .scroll{
-  height: 730px;
+  height: 649px;
 }
 
 .event{

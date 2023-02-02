@@ -38,7 +38,7 @@ export default {
   display: flex;
   flex: 1;
   flex-direction: row;
-  gap: 15px;
+  justify-content: space-between;
 }
 
 .upcomingEvents, #homeMenuRightSide {
@@ -46,7 +46,7 @@ export default {
 }
 
 .projectsSection {
-  width: 45%;
+  width: 48%;
 }
 
 .news, .earnings {

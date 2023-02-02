@@ -207,25 +207,17 @@
             </div>
           </div>
           <div>
-            <p class="screenplayInformationSubHeader">More</p>
+            <!--<p class="screenplayInformationSubHeader">More</p>
             <div class="screenplayInformationTextDiv">
               <div class="screenplayInformationText">
-                <div >
-                  {{ $t('screenplayLength') }}
-                </div>
-                <div>
-                  {{ screenplay.length }}
-                </div>
-              </div>
-              <!--<div class="screenplayInformationText">
                 <div >
                   {{ $t('writingPhase') }}
                 </div>
                 <div>
                   {{ screenplay.writingPhase }}
                 </div>
-              </div>-->
-            </div>
+              </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -341,8 +333,12 @@ export default {
 }
 
 #screenplayInformationBackground {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
+
   height: 750px;
   padding-right: 15px;
   padding-left: 15px;

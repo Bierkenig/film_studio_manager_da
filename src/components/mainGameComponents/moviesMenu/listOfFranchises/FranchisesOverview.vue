@@ -68,7 +68,7 @@ export default {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  gap: 15px;
+  gap: 10px;
 }
 
 #franchisesListHeader {

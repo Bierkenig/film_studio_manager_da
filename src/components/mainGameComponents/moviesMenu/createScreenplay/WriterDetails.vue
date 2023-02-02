@@ -133,15 +133,14 @@
           <div v-if="writerDecision !== null && writerDecision">{{ $t('hireDirectorSection.accepted') }}</div>
         </div>
       </div>
-
-      <custom-button
-          id="writerContinue"
-          class="writerDetailsHireButton"
-          :dark="false"
-          size="medium"
-          :disabled="writerDecision === null && writerDecision !== true"
-          @clicked="hireWriter">{{ $t('continue') }}</custom-button>
     </div>
+    <custom-button
+        id="writerContinue"
+        class="writerDetailsHireButton"
+        :dark="false"
+        size="medium"
+        :disabled="writerDecision === null && writerDecision !== true"
+        @clicked="hireWriter">{{ $t('continue') }}</custom-button>
   </div>
 </template>
 
@@ -450,8 +449,12 @@ export default {
 
 <style scoped>
 #writerDetailsVertical {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
+
   width: 550px;
   padding: 15px;
 }

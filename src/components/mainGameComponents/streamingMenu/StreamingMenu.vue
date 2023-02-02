@@ -77,7 +77,7 @@ export default {
       this.showBuyModal = false;
     }
     //TODO: auf 2 500 000 000 ändern
-    this.checkBalance = (this.$store.getters.getBalance - 2500000000) < 0;
+    this.checkBalance = (this.$store.getters.getBalance - 0) < 0;
   },
 
   methods: {
@@ -85,7 +85,7 @@ export default {
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       updateServicePopularityAndSubscribers();
       //TODO: auf 2 500 000 000 ändern
-      this.$store.commit('subtractBalance', 2500000000)
+      this.$store.commit('subtractBalance', 0)
     }
   }
 }
