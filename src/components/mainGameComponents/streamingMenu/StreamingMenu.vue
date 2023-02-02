@@ -25,21 +25,18 @@
       </div>
     </div>
     <div v-else class="streamingMenuEmptyMessageMainDiv">
-      <div class="streamingMenuEmptyMessage">
-        <h2 id="streamingMenuEmptyHeader">{{ $t('createService') }}</h2>
+      <background-tile class="streamingMenuEmptyMessage" :title="$t('createService')">
         <div class="streamingMenuNameInputDiv">
-          <label id="streamingServiceNameLabel" for="streamingServiceName">Name</label>
           <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" placeholder="Name">
         </div>
         <custom-button
             id="streamingMenuCreateButton"
             :dark="false"
-            size="small"
             :disabled="checkBalance || !name"
             @clicked="createService">
           {{ $t('createService') }}
         </custom-button>
-      </div>
+      </background-tile>
     </div>
   </div>
 </template>
@@ -55,10 +52,12 @@ import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
 import {updateServicePopularityAndSubscribers} from "@/simulation/simulation";
 import CompetitorSection from "@/components/mainGameComponents/streamingMenu/CompetitorSection.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 export default {
   name: "StreamingMenu",
 
   components: {
+    BackgroundTile,
     CompetitorSection,
     ActionSection,
     CustomButton,
@@ -109,7 +108,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 30%;
-  gap: 15px;
+  gap: 20px;
 }
 
 .moviesSectionTag {
@@ -117,22 +116,16 @@ export default {
 }
 
 .streamingMenuEmptyMessageMainDiv {
+  flex-grow: 1;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .streamingMenuEmptyMessage {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
   width: 30%;
-  padding: 5px 20px 20px 20px;
-}
-
-#streamingMenuEmptyHeader {
-  text-align: center;
-  font-weight: var(--fsm-fw-bold);
-  color: var(--fsm-pink-1);
 }
 
 #streamingServiceName {

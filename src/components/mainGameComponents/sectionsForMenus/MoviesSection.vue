@@ -178,20 +178,31 @@ export default {
 </script>
 
 <style scoped>
+.moviesSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .moviesSectionDetails {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 15px;
-  gap: 15px;
-  height: 500px;
-  overflow-x: hidden;
+  margin-top: 20px;
+  gap: 10px;
+  height: auto;
+  box-sizing: border-box;
+  flex-grow: 1;
 }
 
 #moviesSectionSelectDiv {
   display: flex;
   flex-direction: row;
-  gap: 15px;
-  width: 40%;
+  gap: 10px;
+  width: 50%;
+}
+
+.moviesSectionMovieElement {
+  max-width: 49%;
 }
 </style>
