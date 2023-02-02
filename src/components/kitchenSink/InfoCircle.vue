@@ -1,13 +1,17 @@
 <template>
   <div class="infoCircleMainDiv">
     <div class="infoCircleSubDiv" ref="infoCircleSubDiv">
-      <custom-icon class="infoCircleSVG" ref="infoCircleSVG" size="25px" :theme="iconThemes[dark ? 1 : 0]" :gradient="false" :icon="icon" :shadow="false"/>
+      <custom-icon v-show="text === ''" class="infoCircleSVG" ref="infoCircleSVG" size="25px"
+                   :theme="iconThemes[dark ? 1 : 0]"
+                   :gradient="false" :icon="icon" :shadow="false"/>
+      <div v-show="text !== ''" class="infoCircleText">{{ text }}</div>
     </div>
   </div>
 </template>
 
 <script>
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
+
 export default {
   name: "infoCircle",
   components: {CustomIcon},
@@ -82,16 +86,18 @@ export default {
           this.fontStyleValues = {...this.fontStyleDefault};
         }
       }
-      if (this.text !== '') {
-        this.$refs.infoCircleSubDiv.innerHTML = this.text;
-        if (this.largeFont) {
-          this.fontStyleValues = {...this.fontStyleLarge};
-        }
+      if (this.largeFont) {
+        this.fontStyleValues = {...this.fontStyleLarge};
       }
     },
   },
   mounted() {
     this.setCSSVariables();
+  },
+  watch: {
+    icon: function () {
+      this.setCSSVariables();
+    },
   },
 }
 </script>
@@ -111,6 +117,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.infoCircleText {
   color: v-bind('themeValues.ctColor');
   font-size: v-bind('fontStyleValues.fontSize');
   font-weight: v-bind('fontStyleValues.fontWeight');

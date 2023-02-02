@@ -240,10 +240,10 @@
       <code-view code='<info-circle text="1" size="30px" alternative-style/>'/>
       <code-view code='<info-circle :dark="false"/>'/>
       <code-view code='<info-circle text="13+" :dark="false"/>'/>
-      <div class="kitchenSinkFlexRow">
-        <info-circle/>
+      <div class="kitchenSinkFlexRow" @click="changeInfoCircle">
+        <info-circle :icon="iconTest"/>
         <div class="kitchenSinkSpacer"/>
-        <info-circle text="13+"/>
+        <info-circle :text="languageTest"/>
         <div class="kitchenSinkSpacer"/>
         <info-circle text="1" size="30px" alternative-style/>
         <div class="kitchenSinkSpacer"/>
@@ -437,6 +437,7 @@ export default {
       doubleQuote: '"',
       invertThemeTest: false,
       languageTest: 'DE',
+      iconTest: 'movies',
     }
   },
   methods: {
@@ -458,7 +459,13 @@ export default {
       } else {
         this.languageTest = 'DE';
       }
-      console.log(this.languageTest);
+    },
+    changeInfoCircle() {
+      if (this.iconTest === 'movies') {
+        this.iconTest = 'placeholder';
+      } else {
+        this.iconTest = 'movies';
+      }
     },
   },
 }
