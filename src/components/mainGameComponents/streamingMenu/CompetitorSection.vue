@@ -5,7 +5,7 @@
                      @select-change="setSelectedSortByWhat"/>
       <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
     </div>
-    <div class="verticalScroll">
+    <div class="verticalScroll competitorElements">
       <streaming-competitor-element class="competitorElement" v-for="(service, index) in services" :key="index"
                                     :streaming-service="service._name" icon="placeholder"
                                     :subscribers="service._subscribers"/>
@@ -51,7 +51,10 @@ export default {
   margin-right: 10px;
 }
 
-.competitorElement {
-  margin-bottom: 10px;
+.competitorElements {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
 }
 </style>
