@@ -60,7 +60,7 @@ export default {
 .backgroundTileMainDiv {
   display: inline-block;
   border-radius: var(--fsm-l-border-radius);
-  padding: var(--fsm-l-border-radius);
+  padding: 20px;
   width: 100%;
   box-sizing: border-box;
   font-weight: var(--fsm-fw-regular);
