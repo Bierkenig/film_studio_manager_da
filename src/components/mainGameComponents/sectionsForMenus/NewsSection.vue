@@ -1,52 +1,44 @@
 <template>
   <div id="newsSection">
-    <h1 id="newsHeading">{{ $t('news2') }}</h1>
+    <background-tile :title="$t('news2')">
+      <div>
+        <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
 
-    <!--    <div>-->
-    <!--      <select-->
-    <!--        v-model="selectedSortType">-->
-    <!--        <option value="People">{{ $t('people') }}</option>-->
-    <!--        <option value="Movies">{{ $t('movies') }}</option>-->
-    <!--        <option value="Studios">Studios</option>-->
-    <!--      </select>-->
-    <!--    </div>-->
-    <div>
-
-    <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
-
-        <div class="newsTextSection scroll verticalScroll">
-          <div v-for="(it, index) in this.peopleNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+          <div class="newsTextSection scroll verticalScroll">
+            <div v-for="(it, index) in this.peopleNews" :key="index">
+              <news-element svg-code="" :heading-text="it._title"
+                            :info-text="it._description" class="newsElement"/>
+            </div>
           </div>
-        </div>
 
-        <div class="newsTextSection scroll verticalScroll">
-          <div v-for="(it, index) in this.movieNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+          <div class="newsTextSection scroll verticalScroll">
+            <div v-for="(it, index) in this.movieNews" :key="index">
+              <news-element svg-code="" :heading-text="it._title"
+                            :info-text="it._description" class="newsElement"/>
+            </div>
           </div>
-        </div>
 
-        <div class="newsTextSection scroll verticalScroll">
-          <div v-for="(it, index) in this.studioNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+          <div class="newsTextSection scroll verticalScroll">
+            <div v-for="(it, index) in this.studioNews" :key="index">
+              <news-element svg-code="" :heading-text="it._title"
+                            :info-text="it._description" class="newsElement"/>
+            </div>
           </div>
-        </div>
 
-    </tile-pages-nav>
-    </div>
+        </tile-pages-nav>
+      </div>
+    </background-tile>
   </div>
 </template>
 
 <script>
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import NewsElement from "@/components/kitchenSink/NewsElement";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "NewsSection",
-  components: {NewsElement, TilePagesNav},
+  components: {BackgroundTile, NewsElement, TilePagesNav},
   data() {
     return {
       peopleNews: [],
@@ -89,16 +81,6 @@ export default {
 #newsSection {
   display: flex;
   flex-direction: column;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-}
-
-#newsHeading {
-  font-size: 28px;
-  color: var(--fsm-pink-1);
-  margin-top: 0.7em;
-  margin-left: 0.7em;
-  margin-bottom: 0
 }
 
 .newsTextSection {
@@ -112,7 +94,7 @@ export default {
   margin-bottom: 10px;
 }
 .scroll{
-  height:250px;
+  height:190px;
 }
 
 .newsNavigation {

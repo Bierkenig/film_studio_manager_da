@@ -42,8 +42,6 @@ export class Screenplay {
         //TYPE -> Object
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         //TYPE -> Integer
-        this.length = 0;
-        //TYPE -> Integer
         this.writingPhase = null;
         //TYPE -> Integer
         this.rewritingValue = 3;

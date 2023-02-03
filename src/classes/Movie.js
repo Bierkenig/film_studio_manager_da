@@ -50,7 +50,7 @@ export class Movie {
         this._franchiseType = null;
         //TYPE -> Date (for films in which rights have been acquired)
         this._boughtRightDate = null;
-        //TYPE -> Integer (for films in which rights have been acquired)
+        //TYPE -> Integer (for films in which rights have been acquired or for films from other studios which are able to buy)
         this._totalCosts = null;
         //TYPE -> Date
         this._foundationDate = null;

@@ -1,14 +1,24 @@
 <template>
   <div>
-    <div v-if="sourceType === 'Screenplay' && source !== null" class="sourceDetailsBackground">
-      <div>
-        <h2 class="screenplayDetailsHeading">Information</h2>
+    <div v-if="sourceType === 'Screenplay' && source !== null" class="screenplayDetailsContent">
+      <background-tile class="screenplayDetailsContentTile" title="Information">
         <div class="screenplayDetailsInformationContainer">
           <div class="screenplayDetailsInfoFlex">
             <div class="screenplayDetailsInfoFlexLeft">
-              <div id="screenplayDetailsTitle">{{ source.title }}</div>
-              <div id="screenplayDetailsDesc">{{ source.description }}</div>
-              <div class="screenplayDetailsText" id="screenplayDetailsWriter">
+              <div class="screenplayDetailsScreenplayTitle">{{ source.title }}</div>
+              <div class="screenplayDetailsDescription">{{ source.description }}</div>
+            </div>
+            <div class="screenplayDetailsInfoFlexRight">
+              <div id="screenplayDetailsInfoCircleContainer">
+                <info-circle class="screenplayDetailsInfoCircle" :icon="this.source.genre.genreName.toLowerCase()" data-title="Genre" size="60px"/>
+                <info-circle class="screenplayDetailsInfoCircle" :text="RegExp('\\+\\d+$').exec(source.ageRating)[0]" data-title="Age Rating" size="60px" large-font/>
+              </div>
+              <div class="screenplayDetailsPoster"/>
+            </div>
+          </div>
+          <div id="screenplayDetailsMoreInfoContainer">
+            <div class="screenplayDetailsInfoFlex">
+              <div class="screenplayDetailsGeneralInfoLine">
                 <div>
                   {{ $t('writer') }}
                 </div>
@@ -16,31 +26,22 @@
                   {{ source.writer._first_name + ' ' + source.writer._last_name}}
                 </div>
               </div>
-            </div>
-            <div class="screenplayDetailsInfoFlexRight">
-              <div id="screenplayDetailsInfoCircleContainer">
-                <info-circle class="screenplayDetailsInfoCircle" :icon="this.source.genre.genreName.toLowerCase()" data-title="Genre" size="50px"/>
-                <info-circle class="screenplayDetailsInfoCircle" :text="RegExp('\\+\\d+$').exec(source.ageRating)[0]" data-title="Age Rating" size="50px"/>
-              </div>
-              <div id="screenplayDetailsInfoIcon">
+              <div class="screenplayDetailsGeneralInfoLine" style="background-color: inherit">
 
               </div>
             </div>
-          </div>
-          <div id="screenplayDetailsMoreInfoContainer">
             <div class="screenplayDetailsInfoFlex">
-              <div class="screenplayDetailsText">
+              <div class="screenplayDetailsGeneralInfoLine">
                 <div>
                   {{ $t('quality') }}
                 </div>
-                <input class="writerDetailsRangeSlider"
-                       type="range"
+                <input type="range"
                        :min="0"
                        :max="100"
                        :step="1"
                        v-model="sourceRating" disabled>
               </div>
-              <div class="screenplayDetailsText">
+              <div class="screenplayDetailsGeneralInfoLine">
                 <div>
                   {{ $t('price') }}
                 </div>
@@ -50,7 +51,7 @@
               </div>
             </div>
             <div class="screenplayDetailsInfoFlex">
-              <div class="screenplayDetailsText">
+              <div class="screenplayDetailsGeneralInfoLine">
                 <div>
                   Type
                 </div>
@@ -58,7 +59,7 @@
                   {{ source.type }}
                 </div>
               </div>
-              <div class="screenplayDetailsText">
+              <div class="screenplayDetailsGeneralInfoLine">
                 <div>
                   {{ $t('topics') }}
                 </div>
@@ -71,74 +72,181 @@
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <h2 class="screenplayDetailsHeading">{{ $t('characters') }}</h2>
-        <div class="screenplayDetailsInformationContainer">
-          <div id="screenplayDetailsCharacterContainer" class="verticalScroll">
-            <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['main']" :key="index">
-              <div class="screenplayDetailsCharacterElementLeft">
-                {{ it.name }}
+        <div>
+          <h2 class="screenplayDetailsHeading">{{ $t('characters') }}</h2>
+          <div class="screenplayDetailsInformationContainer">
+            <div id="screenplayDetailsCharacterContainer" class="verticalScroll">
+              <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['main']" :key="index">
+                <div class="screenplayDetailsCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplayDetailsCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[index] }}
+                </div>
+                <div class="screenplayDetailsCharacterElementRight">
+                  {{ $t('main') }} {{ $t('role') }}
+                </div>
               </div>
-              <div class="screenplayDetailsCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[index] }}
+              <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['support']" :key="index">
+                <div class="screenplayDetailsCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplayDetailsCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[source.roles['main'].length + index] }}
+                </div>
+                <div class="screenplayDetailsCharacterElementRight">
+                  {{ $t('support') }} {{ $t('role') }}
+                </div>
               </div>
-              <div class="screenplayDetailsCharacterElementRight">
-                {{ $t('main') }} {{ $t('role') }}
+              <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['minor']" :key="index">
+                <div class="screenplayDetailsCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplayDetailsCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[source.roles['main'].length + source.roles['support'].length + index] }}
+                </div>
+                <div class="screenplayDetailsCharacterElementRight">
+                  Minor {{ $t('role') }}
+                </div>
               </div>
-            </div>
-            <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['support']" :key="index">
-              <div class="screenplayDetailsCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplayDetailsCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[source.roles['main'].length + index] }}
-              </div>
-              <div class="screenplayDetailsCharacterElementRight">
-                {{ $t('support') }} {{ $t('role') }}
-              </div>
-            </div>
-            <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['minor']" :key="index">
-              <div class="screenplayDetailsCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplayDetailsCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[source.roles['main'].length + source.roles['support'].length + index] }}
-              </div>
-              <div class="screenplayDetailsCharacterElementRight">
-                Minor {{ $t('role') }}
-              </div>
-            </div>
-            <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['cameo']" :key="index">
-              <div class="screenplayDetailsCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplayDetailsCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[source.roles['main'].length + source.roles['support'].length + source.roles['minor'].length + index] }}
-              </div>
-              <div class="screenplayDetailsCharacterElementRight">
-                Cameo {{ $t('role') }}
+              <div class="screenplayDetailsCharacter" v-for="(it, index) in source.roles['cameo']" :key="index">
+                <div class="screenplayDetailsCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplayDetailsCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[source.roles['main'].length + source.roles['support'].length + source.roles['minor'].length + index] }}
+                </div>
+                <div class="screenplayDetailsCharacterElementRight">
+                  Cameo {{ $t('role') }}
+                </div>
               </div>
             </div>
           </div>
+          <custom-button
+              v-if="listType === 'Sale'"
+              id="screenplayDetailsBuyButton"
+              :dark="false"
+              size="small"
+              :disabled="checkBalance"
+              @click="showBuyScreenplayModal = true">{{ $t('buyScreenplaySection.buy') }}</custom-button>
         </div>
-        <custom-button
-            v-if="listType === 'Sale'"
-            id="screenplayDetailsBuyButton"
-            :dark="false"
-            size="small"
-            :disabled="checkBalance"
-            @click="showBuyScreenplayModal = true">{{ $t('buyScreenplaySection.buy') }}</custom-button>
-      </div>
+      </background-tile>
     </div>
-    <div v-else-if="sourceType === 'Movie' && source !== null" class="sourceDetailsBackground">
-      <custom-button
-          v-if="listType === 'Sale'"
-          id="movieDetailsBuyButton"
-          :dark="false"
-          size="small"
-          :disabled="checkBalance"
-          @click="showBuyMovieModal = true">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+    <div v-else-if="sourceType === 'Movie' && source !== null" class="movieDetailsContent">
+      <background-tile class="movieDetailsContentTile" :title="$t('movieDetailsElement.general.heading')">
+        <div class="movieDetailsGeneral">
+          <div class="movieDetailsGeneralTopInfo">
+            <div class="movieDetailsGeneralTopInfoLeft">
+              <div class="movieDetailsMovieTitle">{{ source._preProduction.screenplay.title }}</div>
+              <div class="movieDetailsDescription">{{ source._preProduction.screenplay.description }}</div>
+            </div>
+            <div class="movieDetailsGeneralTopInfoRight">
+              <div class="movieDetailsInfoCircles">
+                <div class="movieDetailsInfoCirclesTop">
+                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/>
+                </div>
+                <div class="movieDetailsInfoCirclesBottom">
+                  <info-circle class="movieDetailsInfoCircle"
+                               :text="source._preProduction.screenplay.ageRating.substring(source._preProduction.screenplay.ageRating.indexOf('/') + 1)"
+                               size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle"
+                               :icon="source._preProduction.screenplay.genre.genreName.toLowerCase()"
+                               size="60px"/>
+                </div>
+              </div>
+              <div class="movieDetailsPoster"/>
+            </div>
+          </div>
+          <div class="movieDetailsGeneralBottomInfo">
+            <div class="movieDetailsGeneralBottomInfoLeft">
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.children') }}</div>
+                <input type="range" min="1" max="100" step="1" :value="50" disabled>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.teenagers') }}</div>
+                <input type="range" min="1" max="100" step="1" :value="50" disabled>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.adults') }}</div>
+                <input type="range" min="1" max="100" step="1" :value="50" disabled>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.setting') }}</div>
+                <div>Placeholder</div>
+              </div>
+            </div>
+            <div class="movieDetailsGeneralBottomInfoRight">
+              <div v-if="listType !== 'Sale'" class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.release') }}</div>
+                <div>{{ source._release }}</div>
+              </div>
+              <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('price') }}</div>
+                <div>{{ source._totalCosts }}</div>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.writer') }}</div>
+                <div>{{ source._preProduction.screenplay.writer.getFullName() }}</div>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.director') }}</div>
+                <div>{{ source.director.getFullName() }}</div>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.era') }}</div>
+                <div>Placeholder</div>
+              </div>
+            </div>
+          </div>
+          <div class="movieDetailsGeneralInfoLine">
+            <div>{{ $t('movieDetailsElement.general.topics') }}</div>
+            <div>Placeholder, Placeholder, Placeholder</div>
+          </div>
+        </div>
+        <div class="movieDetailsFinancesHeading">{{ $t('movieDetailsElement.finances.heading') }}</div>
+        <div class="movieDetailsFinances">
+          <div class="movieDetailsFinancesLeft">
+            <div class="noMargin movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
+              <div>Placeholder</div>
+            </div>
+            <div class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
+              <div>Placeholder</div>
+            </div>
+            <div class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
+              <div>{{ source._totalCosts }}</div>
+            </div>
+          </div>
+          <div class="movieDetailsFinancesRight">
+            <div class="noMargin movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
+              <div>Placeholder</div>
+            </div>
+            <div class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
+              <div>Placeholder</div>
+            </div>
+            <div class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
+              <div>Placeholder</div>
+            </div>
+          </div>
+        </div>
+        <div class="movieDetailsButtons">
+          <custom-button
+              v-if="listType === 'Sale'"
+              class="movieDetailsButton"
+              id="movieDetailsBuyButton"
+              :dark="false"
+              size="small"
+              :disabled="checkBalance"
+              @click="showBuyMovieModal = true">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+        </div>
+      </background-tile>
     </div>
     <div v-else id="sourceDetailsEmptyBackground" class="sourceDetailsBackground">
 
@@ -174,10 +282,11 @@
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "SourcesDetails",
-  components: {BuyModal, CustomButton, InfoCircle},
+  components: {BackgroundTile, BuyModal, CustomButton, InfoCircle},
 
   props: {
     source: Object,
@@ -194,14 +303,13 @@ export default {
       characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
       showBuyScreenplayModal: false,
       showBuyMovieModal: false,
+      sourcePosterSVG: 'none',
     }
   },
 
   watch: {
     source: function(){
       if (this.source !== null) {
-        console.log(this.source);
-        console.log(this.source.genre.genreName.toLowerCase())
         this.sourceTopics = [];
         if(this.sourceType === 'Screenplay'){
           this.sourceRating = this.source.rating
@@ -214,7 +322,6 @@ export default {
             }
           })
         }
-        //TODO: Source Preis setzen (Movie)
       }
     },
   },
@@ -235,7 +342,18 @@ export default {
     },
 
     buyMovie(){
+      let allOtherMovies = this.$store.getters.getMoviesFromOtherStudios;
+      let chosenMovie = null;
+      for (let i = 0; i < allOtherMovies.length; i++) {
+        if(allOtherMovies[i]._preProduction.screenplay.id === this.source._preProduction.screenplay.id){
+          chosenMovie = allOtherMovies[i];
+        }
+      }
 
+      this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
+      this.$store.commit('addFinishedMovie',chosenMovie)
+      this.$store.commit('subtractBalance',chosenMovie._totalCosts)
+      this.$router.push({name: 'movies'})
     },
 
     currencyFormatDE(num) {
@@ -299,31 +417,6 @@ export default {
   align-items: center;
 }
 
-#screenplayDetailsTitle {
-  font-weight: var(--fsm-fw-bold);
-  color: var(--fsm-white);
-  font-size: 28px;
-}
-
-#screenplayDetailsDesc {
-  margin-top: 20px;
-  color: #848891;
-  font-size: 14px;
-}
-
-.screenplayDetailsText {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 8px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
-  width: 100%;
-  margin-top: 10px;
-}
-
 #screenplayDetailsInfoCircleContainer {
   display: flex;
   flex-direction: column;
@@ -338,19 +431,8 @@ export default {
   order: 2;
 }
 
-#screenplayDetailsInfoIcon {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
-  height: 100%;
-  width: 40%;
-}
-
 #screenplayDetailsMoreInfoContainer {
   margin-top: 20px;
-}
-
-#screenplayDetailsWriter {
-  width: 94%;
 }
 
 .screenplayDetailsTopicValues {
@@ -369,8 +451,10 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 8px;
-  width: 95%;
+  padding: 7px 10px 7px 10px;
+  font-size: 14px;
+  height: 20px;
+  width: 96%;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
 }
@@ -387,5 +471,149 @@ export default {
 
 .screenplayDetailsCharacterElementRight {
   width: 21%;
+}
+
+
+/*Movie Section*/
+.movieDetailsContent, .screenplayDetailsContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.movieDetailsContentTile, .screenplayDetailsContentTile {
+  text-align: left;
+  width: 650px;
+}
+
+.movieDetailsGeneral, .movieDetailsFinances {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 20px;
+}
+
+.movieDetailsGeneral {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.movieDetailsGeneralTopInfo, .movieDetailsGeneralBottomInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.movieDetailsGeneralTopInfo {
+  margin-bottom: 10px;
+}
+
+.movieDetailsGeneralTopInfoLeft, .movieDetailsGeneralTopInfoRight, .movieDetailsGeneralBottomInfoLeft, .movieDetailsGeneralBottomInfoRight, .movieDetailsFinancesLeft, .movieDetailsFinancesRight {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.movieDetailsGeneralTopInfoLeft, .movieDetailsGeneralBottomInfoLeft, .movieDetailsFinancesLeft {
+  margin-right: 20px;
+}
+
+.movieDetailsGeneralTopInfoRight {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.movieDetailsMovieTitle, .screenplayDetailsScreenplayTitle {
+  font-size: 28px;
+  font-weight: var(--fsm-fw-bold);
+  margin-bottom: 15px;
+}
+
+.movieDetailsDescription, .screenplayDetailsDescription {
+  font-size: 14px;
+  font-weight: var(--fsm-fw-semibold);
+  color: var(--fsm-grey-font-color);
+}
+
+.movieDetailsInfoCircles {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.movieDetailsInfoCirclesTop, .movieDetailsInfoCirclesBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.movieDetailsInfoCircle {
+  margin: 10px;
+  font-size: 28px;
+  font-weight: var(--fsm-fw-bold);
+}
+
+.movieDetailsPoster, .screenplayDetailsPoster {
+  height: 160px;
+  border-radius: var(--fsm-s-border-radius);
+  flex-basis: 120px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: var(--fsm-dark-blue-3);
+  background-image: v-bind('sourcePosterSVG');
+  background-size: 120px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.movieDetailsGeneralInfoLine, .movieDetailsFinancesInfoLine, .screenplayDetailsGeneralInfoLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
+  padding: 0 10px 0 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: var(--fsm-fw-semibold);
+}
+
+.movieDetailsFinancesHeading {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 28px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.movieDetailsFinances {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.movieDetailsFinancesLeft, .movieDetailsFinancesRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.movieDetailsButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.noMargin {
+  margin: 0;
 }
 </style>

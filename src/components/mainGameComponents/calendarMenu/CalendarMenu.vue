@@ -123,7 +123,7 @@ export default {
 
     checkEvent(arg){
       arg.backgroundColor = 'inherit';
-      arg.borderColor = 'var(--fsm-dark-blue-4)';
+      arg.borderColor = 'var(--fsm-dark-blue-2)';
 
       if(arg.event._def.extendedProps.type === 'productionFinished'){
         return {html: '<img ' +
@@ -153,21 +153,21 @@ export default {
 
 <style>
 .fc-day-today {
-  background-color: var(--fsm-dark-blue-4) !important;
+  background-color: var(--fsm-dark-blue-2) !important;
 }
 
 .fc-day {
-  background-color: var(--fsm-dark-blue-4);
+  background-color: var(--fsm-dark-blue-2);
 }
 
 .fc-button {
-  background-color: var(--fsm-dark-blue-4) !important;
+  background-color: var(--fsm-dark-blue-2) !important;
   border-style: none !important;
   box-shadow: none !important
 }
 
 .fc-day-other, .fc-day-disabled {
-  background-color: var(--fsm-dark-blue-5) !important;
+  background-color: var(--fsm-dark-blue-3) !important;
 }
 
 .fc td, .fc th {
@@ -188,12 +188,6 @@ export default {
 
 .fc-scrollgrid {
   border: none !important;
-}
-
-@media screen and (min-height: 975px) {
-  ::-webkit-scrollbar {
-    display: none;
-  }
 }
 
 .fc-scroller {
@@ -217,7 +211,7 @@ export default {
 .fc-toolbar-chunk {
   display: flex;
   flex-direction: row;
-  background-color: #1C222F;
+  background-color: var(--fsm-dark-blue-2);
   border-radius: var(--fsm-m-border-radius);
 }
 
@@ -237,10 +231,13 @@ export default {
 }
 
 #calendar {
-  background-color: var(--fsm-dark-blue-3);
   width: 70%;
   padding: 1em;
-  border-radius: var(--fsm-m-border-radius);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
 }
 
 #dayEventsElement {

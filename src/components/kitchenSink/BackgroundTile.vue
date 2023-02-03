@@ -60,11 +60,11 @@ export default {
 .backgroundTileMainDiv {
   display: inline-block;
   border-radius: var(--fsm-l-border-radius);
-  padding: var(--fsm-l-border-radius);
+  padding: 20px;
   width: 100%;
   box-sizing: border-box;
   font-weight: var(--fsm-fw-regular);
-  font-size: 22px;
+  font-size: 18px;
   color: v-bind('colorValue');
   background: rgba(37, 45, 62, 0.66);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);

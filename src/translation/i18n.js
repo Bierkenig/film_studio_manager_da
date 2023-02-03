@@ -928,6 +928,7 @@ i18next
                             dvdGross: 'DVD Gross',
                         },
                         newMovie: 'New Movie',
+                        newFranchise: 'New Franchise',
                     },
                     loading: 'Loading',
                     buyMovie: 'Buy movie'
@@ -1804,10 +1805,10 @@ i18next
                             dvdGross: 'DVD-Einnahmen',
                         },
                         newMovie: 'Neuer Film',
+                        newFranchise: 'Neues Franchise',
                     },
                     loading: 'Laden',
                     buyMovie: 'Film kaufen',
-
                 }
             }
         }

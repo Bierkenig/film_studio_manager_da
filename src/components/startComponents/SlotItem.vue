@@ -137,6 +137,7 @@ export default {
 
 #slotItemNoSavingsHeader {
   color: #848891;
+  font-size: 23px;
 }
 
 #slotItemButtonContainer {

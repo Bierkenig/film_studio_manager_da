@@ -232,18 +232,18 @@
               </div>
             </div>
           </div>
-          <custom-button
-              id="createScreenplayContinueButton"
-              :dark="false"
-              size="medium"
-              :disabled="!genre || !title || !desc || !type || topics[0] === null
-            || !selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
-            || !selectedCursing || !selectedLoveScenes || numberOfMainCharacters === 0 ||
-            numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0"
-              @clicked="continueCreateScreenplay">{{ $t('continue')}}</custom-button>
         </div>
       </div>
     </div>
+    <custom-button
+        id="createScreenplayContinueButton"
+        :dark="false"
+        size="medium"
+        :disabled="!genre || !title || !desc || !type || topics[0] === null
+            || !selectedScope || !selectedTone || !selectedSpecialEffects || !selectedViolence
+            || !selectedCursing || !selectedLoveScenes || numberOfMainCharacters === 0 ||
+            numberOfSupportCharacters === 0 || numberOfMinorCharacters === 0"
+        @clicked="continueCreateScreenplay">{{ $t('continue')}}</custom-button>
   </div>
 </template>
 
@@ -452,8 +452,12 @@ export default {
   flex-direction: column;
   gap: 15px;
 
-  background-color: var(--fsm-dark-blue-3);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border-radius: var(--fsm-l-border-radius);
+
   width: 600px;
   height: 650px;
   padding: 20px;

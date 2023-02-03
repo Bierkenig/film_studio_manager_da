@@ -1,6 +1,5 @@
 <template>
-  <div class="moviesSection">
-    <h1>{{ $t(headline) }}</h1>
+  <background-tile class="moviesSection" :title="$t(headline)">
     <div v-if="data.length !== 0" id="moviesSectionSelectDiv">
       <custom-select v-if="headline === 'contentManagement'" :options="[$t('contract'),$t('owner'),$t('popularity')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
       <custom-select v-if="headline === 'producedMovies'" :options="[$t('newsData.year'),$t('earnings'),$t('quality')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
@@ -72,7 +71,7 @@
           :contract="it._contract +  ' Years'"
           @open-clicked="movieInfo(it)"/>
     </div>
-  </div>
+  </background-tile>
 </template>
 
 <script>
@@ -80,9 +79,10 @@ import MovieElement from "@/components/kitchenSink/MovieElement.vue";
 import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
 import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
 import StreamingElement from "@/components/kitchenSink/StreamingElement.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 export default {
   name: "MoviesSection",
-  components: {StreamingElement, CustomListSort, CustomSelect, MovieElement},
+  components: {BackgroundTile, StreamingElement, CustomListSort, CustomSelect, MovieElement},
 
   props: {
     headline: String
@@ -179,31 +179,30 @@ export default {
 
 <style scoped>
 .moviesSection {
-  justify-content: center;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  padding: 0 20px 20px 20px;
-}
-
-.moviesSection h1 {
-  font-weight: var(--fsm-fw-bold);
-  color: var(--fsm-pink-1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .moviesSectionDetails {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 15px;
-  gap: 15px;
-  height: 500px;
-  overflow-x: hidden;
+  margin-top: 20px;
+  gap: 10px;
+  height: auto;
+  box-sizing: border-box;
+  flex-grow: 1;
 }
 
 #moviesSectionSelectDiv {
   display: flex;
   flex-direction: row;
-  gap: 15px;
-  width: 40%;
+  gap: 10px;
+  width: 50%;
+}
+
+.moviesSectionMovieElement {
+  max-width: 49%;
 }
 </style>

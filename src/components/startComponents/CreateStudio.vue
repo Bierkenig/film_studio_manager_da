@@ -12,77 +12,76 @@
             @click="goBack()"/>
       </div>
       <div class="createStudioBackground">
-        <h1 class="createStudioHeading">
-          {{ $t('createStudioHeader') }}
-        </h1>
-        <div class="createStudioBox">
-          <div class="createStudioBoxInnerElement">
-            <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
-            <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
-            <div id="radioBox">
-              <div id="budgetHint">
-                Studio Budget
+        <background-tile :title="$t('createStudioHeader')">
+          <div class="createStudioBox">
+            <div class="createStudioBoxInnerElement">
+              <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
+              <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
+              <div id="radioBox">
+                <div id="budgetHint">
+                  Studio Budget
+                </div>
+                <budget-select id="budgetSelectElement" @send-budget-value="setSelectedBudget"/>
               </div>
-              <budget-select id="budgetSelectElement" @send-budget-value="setSelectedBudget"/>
-            </div>
-            <div id="chooseLogoBox">
-              <div id="logoHint">
-                Studio Logo
-              </div>
-              <div class="selectLogoElement">
-                <div v-for="i in 10" :key="i">
-                  <icon-button
-                      class="availableIconsElements"
-                      size="small"
-                      :dark="true"
-                      :bg-gradient="true"
-                      :icon-gradient="false"
-                      :shadow="false"
-                      :invertTheme="iconSelected[i-1]"
-                      @click="selectIcon(i)"/>
+              <div id="chooseLogoBox">
+                <div id="logoHint">
+                  Studio Logo
+                </div>
+                <div class="selectLogoElement">
+                  <div v-for="i in 10" :key="i">
+                    <icon-button
+                        class="availableIconsElements"
+                        size="small"
+                        :dark="true"
+                        :bg-gradient="true"
+                        :icon-gradient="false"
+                        :shadow="false"
+                        :invertTheme="iconSelected[i-1]"
+                        @click="selectIcon(i)"/>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <h1 class="createStudioHeading" id="createStudioModificationHeading">
-          {{ $t('modifications') }}
-        </h1>
-        <div class="createStudioBox">
-          <div class="createStudioBoxInnerElement" id="createStudioBoxModificationInformation">
-            <div id="createStudioBoxText">{{ $t('modificationsMsg') }}</div>
-          </div>
-          <div class="createStudioOutsideBoxDatabaseSelection">
-            <div class="createStudioBoxDatabaseSelection">
-              <div>
-                <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="current">
-                <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">{{ $t('modified') }}</label>
+          <h2 class="createStudioHeading" id="createStudioModificationHeading">
+            {{ $t('modifications') }}
+          </h2>
+          <div class="createStudioBox">
+            <div class="createStudioBoxInnerElement" id="createStudioBoxModificationInformation">
+              <div id="createStudioBoxText">{{ $t('modificationsMsg') }}</div>
+            </div>
+            <div class="createStudioOutsideBoxDatabaseSelection">
+              <div class="createStudioBoxDatabaseSelection">
+                <div>
+                  <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="current">
+                  <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">{{ $t('modified') }}</label>
+                </div>
+                <div>
+                  <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="default">
+                  <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">{{ $t('default') }}</label>
+                </div>
               </div>
-              <div>
-                <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType" value="default">
-                <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">{{ $t('default') }}</label>
+              <div v-if="databaseType === 'current'">
+                <select
+                    id="createStudioDatabaseSelect"
+                    v-model="databaseVersion"
+                >
+                  <option :value="null" disabled selected hidden>Database Number</option>
+                  <option :value="1">Database 1</option>
+                  <option :value="2">Database 2</option>
+                  <option :value="3">Database 3</option>
+                </select>
               </div>
             </div>
-            <div v-if="databaseType === 'current'">
-              <select
-                  id="createStudioDatabaseSelect"
-                  v-model="databaseVersion"
-              >
-                <option :value="null" disabled selected hidden>Database Number</option>
-                <option :value="1">Database 1</option>
-                <option :value="2">Database 2</option>
-                <option :value="3">Database 3</option>
-              </select>
-            </div>
-          </div>
 
-        </div>
-        <custom-button
-            id="createStudioContinueButton"
-            :dark="false"
-            size="medium"
-            :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === '' || (databaseType === 'current' && databaseVersion === null)"
-            @clicked="startGame">{{ $t('createStudioButton') }}</custom-button>
+          </div>
+          <custom-button
+              id="createStudioContinueButton"
+              :dark="false"
+              size="medium"
+              :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === '' || (databaseType === 'current' && databaseVersion === null)"
+              @clicked="startGame">{{ $t('createStudioButton') }}</custom-button>
+        </background-tile>
       </div>
     </div>
   </div>
@@ -94,10 +93,11 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import BudgetSelect from "@/components/startComponents/BudgetSelect";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "CreateStudio",
-  components: {BudgetSelect, CustomButton, IconButton},
+  components: {BackgroundTile, BudgetSelect, CustomButton, IconButton},
   mixins: [soundeffectMixin('button','click')],
 
   data() {
@@ -113,6 +113,9 @@ export default {
   },
   methods: {
     startGame() {
+      if(this.databaseType === 'current'){
+        window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.databaseVersion +".db")
+      }
       this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),0), logo: this.chosenLogo});
       this.$store.getters.getFinishedMovies[0]._owner = this.$store.getters.getStudio;
       this.$router.push({name: 'home'})
@@ -163,10 +166,7 @@ export default {
 .createStudioBackground {
   display: flex;
   flex-direction: column;
-
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  width: 350px;
+  width: 400px;
   padding: 10px 20px 10px 20px;
 }
 
@@ -229,10 +229,9 @@ export default {
   display: flex;
   flex-direction: row;
   flex-flow: row wrap;
-  position: relative;
   width: 70%;
   gap: 15px;
-  margin-bottom: 20px;
+  padding-bottom: 15px;
 }
 .availableIconsElements {
   margin-top: 10px;

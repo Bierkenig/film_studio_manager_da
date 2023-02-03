@@ -1,5 +1,5 @@
 <template>
-  <div id="screenplaySummaryMainDiv">
+  <div>
     <div>
       <icon-button
           id="screenplaySummaryBackButton"
@@ -11,15 +11,25 @@
           :shadow="false"
           @click="goBack()"/>
     </div>
-    <div id="screenplaySummaryBackground">
-      <div>
-        <h2 class="screenplaySummaryHeading">Information</h2>
+    <div class="screenplaySummaryContent">
+      <background-tile class="screenplaySummaryContentTile" title="Information">
         <div class="screenplaySummaryInformationContainer">
           <div class="screenplaySummaryInfoFlex">
             <div class="screenplaySummaryInfoFlexLeft">
-              <div id="screenplaySummaryTitle">{{ screenplayTitle }}</div>
-              <div id="screenplaySummaryDesc">{{ screenplayDesc }}</div>
-              <div class="screenplaySummaryText" id="screenplaySummaryWriter">
+              <div class="screenplaySummaryScreenplayTitle">{{ screenplayTitle }}</div>
+              <div class="screenplaySummaryDescription">{{ screenplayDesc }}</div>
+            </div>
+            <div class="screenplaySummaryInfoFlexRight">
+              <div id="screenplaySummaryInfoCircleContainer">
+                <info-circle class="screenplaySummaryInfoCircle" :icon="screenplayGenre.genreName.toLowerCase()" data-title="Genre" size="60px"/>
+                <info-circle class="screenplaySummaryInfoCircle" :text="RegExp('\\+\\d+$').exec(screenplayAgeRating)[0]" data-title="Age Rating" size="60px" large-font/>
+              </div>
+              <div class="screenplaySummaryPoster"/>
+            </div>
+          </div>
+          <div id="screenplaySummaryMoreInfoContainer">
+            <div class="screenplaySummaryInfoFlex">
+              <div class="screenplaySummaryGeneralInfoLine">
                 <div>
                   {{ $t('writer') }}
                 </div>
@@ -27,31 +37,22 @@
                   {{ screenplayWriter }}
                 </div>
               </div>
-            </div>
-            <div class="screenplaySummaryInfoFlexRight">
-              <div id="screenplaySummaryInfoCircleContainer">
-                <info-circle class="screenplaySummaryInfoCircle" :icon="screenplayGenre.genreName.toLowerCase()" data-title="Genre" size="50px"/>
-                <info-circle class="screenplaySummaryInfoCircle" :text="RegExp('\\+\\d+$').exec(screenplayAgeRating)[0]" data-title="Age Rating" size="50px"/>
-              </div>
-              <div id="screenplaySummaryInfoIcon">
+              <div class="screenplaySummaryGeneralInfoLine" style="background-color: inherit">
 
               </div>
             </div>
-          </div>
-          <div id="screenplaySummaryMoreInfoContainer">
             <div class="screenplaySummaryInfoFlex">
-              <div class="screenplaySummaryText">
+              <div class="screenplaySummaryGeneralInfoLine">
                 <div>
                   {{ $t('quality') }}
                 </div>
-                <input class="writerDetailsRangeSlider"
-                       type="range"
+                <input type="range"
                        :min="0"
                        :max="100"
                        :step="1"
                        v-model="screenplayRating" disabled>
               </div>
-              <div class="screenplaySummaryText">
+              <div class="screenplaySummaryGeneralInfoLine">
                 <div>
                   {{ $t('price') }}
                 </div>
@@ -61,7 +62,7 @@
               </div>
             </div>
             <div class="screenplaySummaryInfoFlex">
-              <div class="screenplaySummaryText">
+              <div class="screenplaySummaryGeneralInfoLine">
                 <div>
                   Type
                 </div>
@@ -69,7 +70,7 @@
                   {{ screenplayType }}
                 </div>
               </div>
-              <div class="screenplaySummaryText">
+              <div class="screenplaySummaryGeneralInfoLine">
                 <div>
                   {{ $t('topics') }}
                 </div>
@@ -82,64 +83,64 @@
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        <h2 class="screenplaySummaryHeading">{{ $t('characters') }}</h2>
-        <div class="screenplaySummaryInformationContainer">
-          <div id="screenplaySummaryCharacterContainer" class="verticalScroll">
-            <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['main']" :key="index">
-              <div class="screenplaySummaryCharacterElementLeft">
-                {{ it.name }}
+        <div>
+          <h2 class="screenplaySummaryHeading">{{ $t('characters') }}</h2>
+          <div class="screenplaySummaryInformationContainer">
+            <div id="screenplaySummaryCharacterContainer" class="verticalScroll">
+              <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['main']" :key="index">
+                <div class="screenplaySummaryCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplaySummaryCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[index] }}
+                </div>
+                <div class="screenplaySummaryCharacterElementRight">
+                  {{ $t('main') }} {{ $t('role') }}
+                </div>
               </div>
-              <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[index] }}
+              <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['support']" :key="index">
+                <div class="screenplaySummaryCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplaySummaryCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + index] }}
+                </div>
+                <div class="screenplaySummaryCharacterElementRight">
+                  {{ $t('support') }} {{ $t('role') }}
+                </div>
               </div>
-              <div class="screenplaySummaryCharacterElementRight">
-                {{ $t('main') }} {{ $t('role') }}
+              <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['minor']" :key="index">
+                <div class="screenplaySummaryCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplaySummaryCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + screenplayRoles['support'].length + index] }}
+                </div>
+                <div class="screenplaySummaryCharacterElementRight">
+                  Minor {{ $t('role') }}
+                </div>
               </div>
-            </div>
-            <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['support']" :key="index">
-              <div class="screenplaySummaryCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + index] }}
-              </div>
-              <div class="screenplaySummaryCharacterElementRight">
-                {{ $t('support') }} {{ $t('role') }}
-              </div>
-            </div>
-            <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['minor']" :key="index">
-              <div class="screenplaySummaryCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + screenplayRoles['support'].length + index] }}
-              </div>
-              <div class="screenplaySummaryCharacterElementRight">
-                Minor {{ $t('role') }}
-              </div>
-            </div>
-            <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['cameo']" :key="index">
-              <div class="screenplaySummaryCharacterElementLeft">
-                {{ it.name }}
-              </div>
-              <div class="screenplaySummaryCharacterElementCenter">
-                {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + screenplayRoles['support'].length + screenplayRoles['minor'].length + index] }}
-              </div>
-              <div class="screenplaySummaryCharacterElementRight">
-                Cameo {{ $t('role') }}
+              <div class="screenplaySummaryCharacter" v-for="(it, index) in screenplayRoles['cameo']" :key="index">
+                <div class="screenplaySummaryCharacterElementLeft">
+                  {{ it.name }}
+                </div>
+                <div class="screenplaySummaryCharacterElementCenter">
+                  {{ $t('character') }} {{ characterIndex[screenplayRoles['main'].length + screenplayRoles['support'].length + screenplayRoles['minor'].length + index] }}
+                </div>
+                <div class="screenplaySummaryCharacterElementRight">
+                  Cameo {{ $t('role') }}
+                </div>
               </div>
             </div>
           </div>
+          <custom-button
+              id="screenplaySummaryRewriteButton"
+              :dark="false"
+              size="small"
+              :disabled="this.$store.getters.getCurrentScreenplay.rewritingValue === 0"
+              @clicked="rewrite">{{ $t('rewrite') }}</custom-button>
         </div>
-        <custom-button
-            id="screenplaySummaryRewriteButton"
-            :dark="false"
-            size="small"
-            :disabled="this.$store.getters.getCurrentScreenplay.rewritingValue === 0"
-            @clicked="rewrite">{{ $t('rewrite') }}</custom-button>
-      </div>
+      </background-tile>
     </div>
   </div>
 </template>
@@ -148,10 +149,11 @@
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "ScreenplaySummary",
-  components: {CustomButton, InfoCircle, IconButton},
+  components: {BackgroundTile, CustomButton, InfoCircle, IconButton},
 
   data(){
     return {
@@ -165,7 +167,8 @@ export default {
       screenplayTopics: [],
       screenplayRoles: this.$store.getters.getCurrentScreenplay.roles,
       screenplayWriter: this.$store.getters.getCurrentScreenplay.writer._first_name + ' ' + this.$store.getters.getCurrentScreenplay.writer._last_name,
-      characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L']
+      characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
+      screenplayPosterSVG: 'none',
     }
   },
 
@@ -201,29 +204,18 @@ export default {
 </script>
 
 <style scoped>
-#screenplaySummaryMainDiv {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-#screenplaySummaryBackground {
-  display: flex;
-  flex-direction: column;
-
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  width: 550px;
-  padding: 10px 20px 10px 20px;
-}
-
 #screenplaySummaryBackButton {
   position: absolute;
   float: left;
   left: 100px;
   top: 20px;
+}
+
+
+#screenplaySummaryRewriteButton:disabled,
+#screenplaySummaryRewriteButton[disabled] {
+  background-color: var(--fsm-white);
+  color: var(--fsm-dark-blue-1);
 }
 
 .screenplaySummaryHeading {
@@ -261,31 +253,6 @@ export default {
   align-items: center;
 }
 
-#screenplaySummaryTitle {
-  font-weight: var(--fsm-fw-bold);
-  color: var(--fsm-white);
-  font-size: 28px;
-}
-
-#screenplaySummaryDesc {
-  margin-top: 20px;
-  color: #848891;
-  font-size: 14px;
-}
-
-.screenplaySummaryText {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 8px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
-  width: 100%;
-  margin-top: 10px;
-}
-
 #screenplaySummaryInfoCircleContainer {
   display: flex;
   flex-direction: column;
@@ -300,19 +267,8 @@ export default {
   order: 2;
 }
 
-#screenplaySummaryInfoIcon {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
-  height: 100%;
-  width: 40%;
-}
-
 #screenplaySummaryMoreInfoContainer {
   margin-top: 20px;
-}
-
-#screenplaySummaryWriter {
-  width: 94%;
 }
 
 .screenplaySummaryTopicValues {
@@ -331,16 +287,12 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 8px;
-  width: 95%;
+  padding: 7px 10px 7px 10px;
+  font-size: 14px;
+  height: 20px;
+  width: 96%;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
-}
-
-#screenplaySummaryRewriteButton:disabled,
-#screenplaySummaryRewriteButton[disabled] {
-  background-color: var(--fsm-white);
-  color: var(--fsm-dark-blue-1);
 }
 
 .screenplaySummaryCharacterElementLeft {
@@ -355,5 +307,59 @@ export default {
 
 .screenplaySummaryCharacterElementRight {
   width: 21%;
+}
+
+.screenplaySummaryContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screenplaySummaryContentTile {
+  text-align: left;
+  width: 650px;
+}
+
+.screenplaySummaryScreenplayTitle {
+   font-size: 28px;
+   font-weight: var(--fsm-fw-bold);
+   margin-bottom: 15px;
+}
+
+.screenplaySummaryDescription {
+  font-size: 14px;
+  font-weight: var(--fsm-fw-semibold);
+  color: var(--fsm-grey-font-color);
+}
+
+.screenplaySummaryPoster {
+  height: 160px;
+  border-radius: var(--fsm-s-border-radius);
+  flex-basis: 120px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: var(--fsm-dark-blue-3);
+  background-image: v-bind('screenplayPosterSVG');
+  background-size: 120px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.screenplaySummaryGeneralInfoLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
+  padding: 0 10px 0 10px;
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: var(--fsm-fw-semibold);
 }
 </style>

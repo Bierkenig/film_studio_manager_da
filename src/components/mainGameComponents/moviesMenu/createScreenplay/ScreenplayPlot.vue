@@ -1,42 +1,42 @@
 <template>
   <div id="screenplayPlotMainDiv">
+    <div>
+      <transition name="modal">
+        <time-period-modal
+            v-if="showTimePeriodModal"
+            @close="showTimePeriodModal = false"
+            @send-time-period="addTimePeriod">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </time-period-modal>
+      </transition>
+
+      <transition name="modal">
+        <character-moments-modal
+            v-if="showCharacterMomentsModal"
+            @close="showCharacterMomentsModal = false"
+            @send-character-moments="addCharacterMoments">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </character-moments-modal>
+      </transition>
+
+      <transition name="modal">
+        <setting-modal
+            v-if="showSettingModal"
+            @close="showSettingModal = false"
+            @send-setting="addSetting">
+          <template v-slot:header>
+            <h3>custom header</h3>
+          </template>
+        </setting-modal>
+      </transition>
+    </div>
+
     <div class="screenplayPlotBackground">
       <h1 class="screenplayPlotHeader">{{ $t('screenplayPlot') }}</h1>
-
-      <div>
-        <transition name="modal">
-          <time-period-modal
-              v-if="showTimePeriodModal"
-              @close="showTimePeriodModal = false"
-              @send-time-period="addTimePeriod">
-            <template v-slot:header>
-              <h3>custom header</h3>
-            </template>
-          </time-period-modal>
-        </transition>
-
-        <transition name="modal">
-          <character-moments-modal
-              v-if="showCharacterMomentsModal"
-              @close="showCharacterMomentsModal = false"
-              @send-character-moments="addCharacterMoments">
-            <template v-slot:header>
-              <h3>custom header</h3>
-            </template>
-          </character-moments-modal>
-        </transition>
-
-        <transition name="modal">
-          <setting-modal
-              v-if="showSettingModal"
-              @close="showSettingModal = false"
-              @send-setting="addSetting">
-            <template v-slot:header>
-              <h3>custom header</h3>
-            </template>
-          </setting-modal>
-        </transition>
-      </div>
 
       <div id="dropZones">
         <div
@@ -148,22 +148,6 @@
       </div>
     </div>
 
-    <div class="screenplayPlotBackground">
-      <h1 class="screenplayPlotHeader">{{ $t('screenplayLength') }}</h1>
-      <div>
-        <p id="screenplayLengthWarningMsg">{{ $t('screenplayLengthMsgPart1') }} {{ this.minScreenplayLength }} {{ $t('screenplayLengthMsgPart2') }}</p>
-        <div id="screenplayLengthSelectSection">
-          <div id="screenplayLengthSelectSectionValue">{{ this.screenplayLength }}</div>
-          <div id="screenplayLengthSelectSectionInput">
-            <div>{{ this.minScreenplayLength }}</div>
-            <input type="range" :min="this.minScreenplayLength" :max="300" :step="1"
-                   v-model="screenplayLength" style="outline: none" @change="checkStatusOfLists">
-            <div>300</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div>
       <icon-button
           v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
@@ -213,9 +197,6 @@ export default {
       showCharacterMomentsModal: false,
       showSettingModal: false,
       items: [],
-
-      screenplayLength: this.$store.getters.getCurrentScreenplay.length,
-      minScreenplayLength: null,
     }
   },
 
@@ -230,12 +211,6 @@ export default {
       this.disableAddButton(this.items,'timePeriod','addTimePeriodButton');
       this.disableAddButton(this.items,'characterMoment','addCharacterMomentButton');
       this.checkStatusOfLists();
-    }
-
-    if(this.$store.getters.getCurrentScreenplay.getType() === 'Feature'){
-      this.minScreenplayLength = 60;
-    } else {
-      this.minScreenplayLength = 40;
     }
   },
 
@@ -354,8 +329,7 @@ export default {
                   && listThree.filter((i) => i.type === 'timePeriod').length === 1) &&
               (listTwo.filter((i) => i.type === 'characterMoment').length === 1
                   && listOne.filter((i) => i.type === 'characterMoment').length === 1
-                  && listThree.filter((i) => i.type === 'characterMoment').length === 1))) || !this.screenplayLength
-          || this.screenplayLength > 300 || this.screenplayLength < this.minScreenplayLength;
+                  && listThree.filter((i) => i.type === 'characterMoment').length === 1)));
 
       document.getElementById('screenplayPlotWarningMsg').hidden = !document.getElementById('screenplayPlotContinueButton').disabled;
     },
@@ -418,8 +392,12 @@ export default {
 }
 
 .screenplayPlotBackground {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
+
   width: 100%;
 }
 
@@ -435,8 +413,11 @@ export default {
   margin-right: 50px;
   margin-left: 50px;
   margin-bottom: 25px;
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-m-border-radius);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
   padding: 0 10px 10px 10px;
   min-height: 10px;
 }
@@ -449,7 +430,7 @@ export default {
 }
 
 .drag-el {
-  background-color: var(--fsm-dark-blue-3);
+  background-color: var(--fsm-dark-blue-1);
   border-radius: var(--fsm-s-border-radius);
   padding: 5px;
   margin-bottom: 10px;
@@ -492,7 +473,7 @@ export default {
   color: var(--fsm-dark-blue-1);
 }
 
-#screenplayPlotWarningMsg, #screenplayLengthWarningMsg {
+#screenplayPlotWarningMsg {
   text-align: center;
   margin-top: 0 !important;
 }
@@ -510,32 +491,5 @@ export default {
   right: 100px;
   bottom: 20px;
   width: 15%;
-}
-
-#screenplayLengthSelectSection {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-
-#screenplayLengthSelectSectionInput {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 15px;
-}
-
-#screenplayLengthSelectSectionValue {
-  text-align: center;
-  color: var(--fsm-pink-1);
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-s-border-radius);
-  font-weight: var(--fsm-fw-bold);
-  font-size: 20px;
-  padding: 10px;
-  width: 10%;
 }
 </style>

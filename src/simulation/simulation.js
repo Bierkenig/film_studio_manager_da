@@ -632,13 +632,6 @@ function createScreenplaysFromWriters(){
                 })
             }
 
-            //set screenplay length
-            if (newScreenplay.type === 'Feature') {
-                newScreenplay.length = Math.floor(Math.random() * (300 - 60) + 60);
-            } else {
-                newScreenplay.length = Math.floor(Math.random() * (300 - 40) + 40);
-            }
-
             //set screenplay writing phase
             if (newScreenplay.type === 'Feature' || newScreenplay.type === 'Animation') {
                 newScreenplay.setWritingPhase(12)

@@ -1,43 +1,36 @@
 <template>
   <div id="earningSection">
-    <h1 id="earningsHeading">{{ $t('newsData.earnings') }}</h1>
-
-    <!--    <div>-->
-    <!--      <select-->
-    <!--          v-model="selectedTime">-->
-    <!--        <option value="Week">{{ $t('week') }}</option>-->
-    <!--        <option value="Month">{{ $t('month') }}</option>-->
-    <!--      </select>-->
-    <!--    </div>-->
-
-    <div>
-      <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
-        <div class="earningTextSection scroll verticalScroll">
-          <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
+    <background-tile :title="$t('newsData.earnings')">
+      <div>
+        <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
+          <div class="earningTextSection scroll verticalScroll">
+            <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
-               :key="index">
-            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+                 :key="index">
+              <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+            </div>
           </div>
-        </div>
-        <div class="earningTextSection scroll verticalScroll">
-          <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
+          <div class="earningTextSection scroll verticalScroll">
+            <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
-               :key="index">
-            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+                 :key="index">
+              <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+            </div>
           </div>
-        </div>
-      </tile-pages-nav>
-    </div>
+        </tile-pages-nav>
+      </div>
+    </background-tile>
   </div>
 </template>
 
 <script>
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import EarningElement from "@/components/kitchenSink/EarningElement";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "EarningsSection",
-  components: {EarningElement, TilePagesNav},
+  components: {BackgroundTile, EarningElement, TilePagesNav},
   data() {
     return {
       weekEarnings: [],
@@ -87,9 +80,6 @@ export default {
 #earningSection {
   display: flex;
   flex-direction: column;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  color: white;
 }
 
 .earningTextSection {
@@ -97,16 +87,8 @@ export default {
   overflow-y: scroll;
 }
 
-#earningsHeading {
-  font-size: 28px;
-  color: var(--fsm-pink-1);
-  margin-top: 0.7em;
-  margin-left: 0.7em;
-  margin-bottom: 0
-}
-
 .scroll {
-  height:255px
+  height:190px
 }
 .earningElement {
   margin-bottom: 5px;

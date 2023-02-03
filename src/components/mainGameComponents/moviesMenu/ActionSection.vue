@@ -1,31 +1,22 @@
 <template>
-  <div id="actionSectionContainer">
-    <div id="actionSectionHeaderContainer">
-      <h2 class="actionSectionHeader">{{ $t(headline) }}</h2>
-      <info-circle
-          id="actionSectionHeaderIcon"
-          :icon="icon"
-          :dark="false"/>
-    </div>
-    <div class="actionSectionInfoText">
-      {{ $t(infoText) }}
-    </div>
+  <background-tile id="actionSectionContainer" :title="$t(headline)" icon="placeholder" content-color="grey">
+    {{ $t(infoText) }}
     <custom-button
         class="actionButton"
         :dark="false"
+        size="small"
         @clicked="goToSite">{{ $t(buttonText) }}</custom-button>
-
-  </div>
+  </background-tile>
 </template>
 
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import {Movie} from "@/classes/Movie";
-import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "ActionSection",
-  components: {InfoCircle, CustomButton},
+  components: {BackgroundTile, CustomButton},
   props: {
     headline: String,
     infoText: String,
@@ -52,13 +43,6 @@ export default {
 </script>
 
 <style scoped>
-#actionSectionContainer {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  padding: 0 20px 20px 20px;
-}
 
 #actionSectionHeaderContainer {
   display: flex;
@@ -68,11 +52,6 @@ export default {
 
 #actionSectionHeaderIcon {
   margin-top: 20px;
-}
-
-.actionSectionInfoText {
-  color: #848891;
-  width: 75%;
 }
 
 .actionSectionHeader {
