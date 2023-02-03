@@ -25,14 +25,14 @@ const nationality = ["Algeria", " Angola", " Benin", "Botswana", "Burkina Faso",
 const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 
-
-
 export default function simulate() {
     console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
-    renewPeople();
     createScreenplaysFromWriters();
+
+    //MONTHLY
+    renewPeople();
 
     //FETCHING DB
     //clear
@@ -79,7 +79,7 @@ export default function simulate() {
 
 //function to create new studios
 function createStudios() {
-    if(store.state.studioNames.length !== 0) {
+    if (store.state.studioNames.length !== 0) {
         let num = randomNumber(0.10);
         if (num === 0) {
             //get all existing studio names
@@ -377,8 +377,8 @@ export function updateServicePopularityAndSubscribers() {
 }
 
 //create screenplays from other writers
-function createScreenplaysFromWriters(){
-    if(store.state.screenplayTitles.length !== 0) {
+function createScreenplaysFromWriters() {
+    if (store.state.screenplayTitles.length !== 0) {
         if (randomNumber(0.50) === 0) {
             //get all necessary values
             const randomProfile = require('random-profile-generator');
@@ -731,57 +731,49 @@ function createScreenplaysFromWriters(){
 function renewPeople() {
     //kill and refresh people
     const roles = killAndRefreshPeople()
-    const diedPeople = roles.actor + roles.director + roles.writer
-    console.log("Died: " + diedPeople)
+    let died = roles.actor + roles.director + roles.writer
     console.log("Roles: " + roles)
 
     //generate new ones
-    for (let i = 0; i < diedPeople; i++) {
+    /*for (let i = 0; i < diedPeople; i++) {
         generatePersonValues(roles)
         roles.actor--;
         roles.director--;
         roles.writer--;
-    }
+    }*/
 }
 
-function killAndRefreshPeople() {
-    let allActors = store.state.allActors
-    let allDirectors = store.state.allDirectors
-    let allWriters = store.state.allWriters
+async function killAndRefreshPeople() {
+    let allPeople = store.state.allPeople
     let roles = {actor: 0, director: 0, writer: 0}
+    let id = []
 
-    //loop Actors
-    allActors.forEach((el) => {
+    //loop People
+    for (const el of allPeople) {
         if (checkAge(el)) {
-            window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Actor " + el._first_name + el._last_name + " died", null, el))
-            roles.actor++
+            id.push(el._id)
+            let type = ""
+            if (el._isActor) {
+                type += "Actor | "
+                roles.actor++
+            }
+            if (el._isDirector) {
+                type += "Director | "
+                roles.director++
+            }
+            if (el._isWriter) {
+                type += "Writer"
+                roles.writer++
+            }
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The " + type + " " + el._first_name + el._last_name + " died", null, el))
         } else refreshPerson(el)
-    })
-
-    //loop Directors
-    allDirectors.forEach((el) => {
-        if (checkAge(el)) {
-            window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Director " + el._first_name + el._last_name + " died", null, el))
-            roles.director++
-        } else refreshPerson(el)
-    })
-
-    //loop Writers
-    allWriters.forEach((el) => {
-        if (checkAge(el)) {
-            window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", el._id])
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The Writer " + el._first_name + el._last_name + " died", null, el))
-            roles.writer++
-        } else refreshPerson(el)
-    })
-
+    }
+    window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", id])
     return roles
 }
 
 function checkAge(person) {
-    const deathAge = person._deathAge
+    const deathAge = person._deathAge > 30 ? person._deathAge - 20 : person._deathAge
     if (deathAge < 10) {
         return Math.random() * 100 <= 0.5
     } else if (deathAge >= 10 && deathAge < 20) {
@@ -795,15 +787,15 @@ function checkAge(person) {
     } else if (deathAge >= 50 && deathAge < 60) {
         return Math.round(Math.random() * 99) + 1 <= 10
     } else if (deathAge >= 60 && deathAge < 70) {
-        return Math.round(Math.random() * 99) + 1 <= 17
+        return Math.round(Math.random() * 99) + 1 <= 15
     } else if (deathAge >= 70 && deathAge < 80) {
-        return Math.round(Math.random() * 99) + 1 <= 25
+        return Math.round(Math.random() * 99) + 1 <= 20
     } else if (deathAge >= 80 && deathAge < 90) {
-        return Math.round(Math.random() * 99) + 1 <= 30
+        return Math.round(Math.random() * 99) + 1 <= 23
     } else if (deathAge >= 90 && deathAge < 100) {
-        return Math.round(Math.random() * 99) + 1 <= 45
+        return Math.round(Math.random() * 99) + 1 <= 29
     } else if (deathAge >= 100) {
-        return Math.round(Math.random() * 99) + 1 <= 60
+        return Math.round(Math.random() * 99) + 1 <= 35
     }
 }
 
