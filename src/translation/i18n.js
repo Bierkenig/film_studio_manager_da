@@ -931,7 +931,8 @@ i18next
                         newFranchise: 'New Franchise',
                     },
                     loading: 'Loading',
-                    buyMovie: 'Buy movie'
+                    buyMovie: 'Buy movie',
+                    databaseSlots: 'Database Slots',
                 }
             },
             de: {
@@ -1809,6 +1810,7 @@ i18next
                     },
                     loading: 'Laden',
                     buyMovie: 'Film kaufen',
+                    databaseSlots: 'Datenbank Versionen',
                 }
             }
         }

@@ -64,7 +64,6 @@ export default {
   gap: 15px;
 
   width: 350px;
-  padding: 10px 20px 20px 20px;
 }
 
 #selectSlotWindowSaveItems {

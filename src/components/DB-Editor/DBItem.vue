@@ -1,18 +1,29 @@
 <template>
   <div id="card">
-    <h1>DBv{{slotNr}}</h1>
+    <h2>{{ $t('database') }} {{slotNr}}</h2>
     <!-- -->
-    <button id="selectButton" class="buttonStyle" @click="select">Edit</button>
-    <button id="deleteButton" class="buttonStyle" @click="reset">Reset</button>
-
+    <div id="dbItemButtonContainer">
+      <custom-button
+          id="selectButton"
+          :dark="false"
+          size="small"
+          @clicked="select">Edit</custom-button>
+      <custom-button
+          id="deleteButton"
+          :dark="false"
+          size="small"
+          @clicked="reset">Reset</custom-button>
+    </div>
   </div>
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "DBItem",
+  components: {CustomButton},
   mixins: [soundeffectMixin('button', 'click')],
 
   props: {
@@ -45,9 +56,16 @@ export default {
 
 <style scoped>
 #card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
   transition: 0.3s;
-  border-radius: 5px;
-  padding: 2em;
+  padding: 1px 20px 20px 20px;
+}
+
+#dbItemButtonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 15px;
 }
 </style>
