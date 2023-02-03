@@ -280,3 +280,19 @@ if (isDevelopment) {
         })
     }
 }
+/**
+// Set this to true if building for steam
+const useSteam = true
+if (useSteam) {
+    const steamworks = require("steamworks.js")
+    console.log("stesmworks, ", steamworks)
+    const client = steamworks.init()
+
+    console.log("client", client)
+    console.log(client.localplayer.getName())
+    // /!\ Those 3 lines are important for Steam compatibility!
+    app.commandLine.appendSwitch("in-process-gpu")
+    app.commandLine.appendSwitch("disable-direct-composition")
+    app.allowRendererProcessReuse = false
+}
+ **/

@@ -41,8 +41,8 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
-          :data-title="$t('saving')"
-          @click="save"/>
+          :data-title="saving"
+          @click="save(); changeTitle()"/>
           <!--TODO: @click="" zum Speichern einfügen-->
       <icon-button
           class="button"
@@ -125,6 +125,7 @@ export default {
       language: null,
       showCloseModal: false,
       showMenuModal: false,
+      saving: i18next.t("saving")
     }
   },
 
@@ -177,6 +178,14 @@ export default {
       console.log(this.$store.state)
       console.log(reducedStateSettings)
       window.ipcRenderer.send('saveSettingData', JSON.stringify(reducedStateSettings))
+    },
+
+    changeTitle(){
+      this.saving = i18next.t("saved")
+      setTimeout(() => {
+        this.saving = i18next.t("saving")
+      }, 2000);
+
     }
   }
 }

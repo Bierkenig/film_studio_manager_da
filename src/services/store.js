@@ -38,6 +38,7 @@ export default createStore({
         currentMovie: new Movie(new Studio(100,"Jakob ist Cool", "2023",50000000,80), null),
         currentMovieDetails: null,
         currentProdEventType: "",
+        currentPostProdEventType: "postProductionProblem",
         //movies which are still in cinema and generate profit
         createdMovies: [],
         //muss das ins save file?
