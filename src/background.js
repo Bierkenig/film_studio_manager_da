@@ -168,7 +168,7 @@ async function createWindow() {
 
     //simulation
     //kill a Person
-    ipcMain.on('killPerson', (event, data) => {
+    ipcMain.on('killPerson', async (event, data) => {
         db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
             if (err) console.error('Database opening error: ', err);
         });
@@ -176,12 +176,15 @@ async function createWindow() {
         let sql = data[0]
         let params = data[1]
 
-        db.serialize(() => {
-            db.each(sql, params, (err) => {
-                if (err) console.log(err)
-                else console.log("DB: Killed a Person")
+        for (let i = 0; i < params.length; i++) {
+            db.serialize(() => {
+                db.each(sql, params[i], (err) => {
+                    if (err) console.log(err)
+                    else event.sender.send('killedPerson', "KILLED")
+                })
             })
-        })
+        }
+
         db.close()
     })
 
