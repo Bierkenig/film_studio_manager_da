@@ -185,8 +185,8 @@ export default {
   border-radius: var(--fsm-l-border-radius);
   background: rgba(37, 45, 62, 0.66);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
 
   border-style: none;
   width: 350px;

@@ -143,8 +143,8 @@
             <div class="movieDetailsGeneralTopInfoRight">
               <div class="movieDetailsInfoCircles">
                 <div class="movieDetailsInfoCirclesTop">
-                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/>
-                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/><!--:text="source.quality"-->
+                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/><!--:text="source._release.popularityFormula"-->
                 </div>
                 <div class="movieDetailsInfoCirclesBottom">
                   <info-circle class="movieDetailsInfoCircle"
@@ -162,15 +162,15 @@
             <div class="movieDetailsGeneralBottomInfoLeft">
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.children') }}</div>
-                <input type="range" min="1" max="100" step="1" :value="50" disabled>
+                <input type="range" min="1" max="100" step="1" :value="50" disabled><!--:value="source._release.childrenMoviePopularity"-->
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.teenagers') }}</div>
-                <input type="range" min="1" max="100" step="1" :value="50" disabled>
+                <input type="range" min="1" max="100" step="1" :value="50" disabled><!--:value="source._release.teenagersMoviePopularity"-->
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.adults') }}</div>
-                <input type="range" min="1" max="100" step="1" :value="50" disabled>
+                <input type="range" min="1" max="100" step="1" :value="50" disabled><!--:value="source._release.adultsMoviePopularity"-->
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.setting') }}</div>
