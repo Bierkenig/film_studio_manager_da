@@ -11,6 +11,8 @@
   <br>
   {{new Date(this.releaseDate.setDate(this.releaseDate.getDate() - 7 * this.addedWeeks))}}
   <br>
+  You can further postpone the release date in the movie details!
+  <br>
   <div v-if="(this.flags % 3) === 1">
   Editing Budget Increase:
   {{JSON.parse(this.editingBudgetIncrease).value}}
