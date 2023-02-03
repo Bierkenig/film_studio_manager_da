@@ -3,7 +3,6 @@ import {Studio} from "@/classes/Studio";
 import News from "@/classes/News";
 import {Avataaars} from "@/avatar/avataaars";
 import {Screenplay} from "@/classes/Screenplay";
-import randomProfile from "random-profile-generator";
 import {Character} from "@/classes/Character";
 import {i18next} from "@/translation/i18n";
 
@@ -32,49 +31,54 @@ export default function simulate() {
     createScreenplaysFromWriters();
 
     //MONTHLY
-    renewPeople();
+    if (store.getters.getCurrentDate.getDate() === 1 /*&&
+        store.getters.getCurrentDate.getMonth() !== "January" &&
+        store.getters.getCurrentDate.getFullYear() !== 2023*/)
+    {
+        renewPeople();
 
-    //FETCHING DB
-    //clear
-    /*store.state.allActors = []
-    store.state.allDirectors = []
-    store.state.allWriters = []
-    //Fill
-    let actors = [], writers = [], directors = [], people = []
-    window.ipcRenderer.send('toGetPeople', "SELECT * FROM people")
-    window.ipcRenderer.receive('fromGetPeople', (data) => {
-        if(data.isWriter == "true"){
-            writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+        //FETCHING DB
+        //clear
+        /*store.state.allActors = []
+        store.state.allDirectors = []
+        store.state.allWriters = []
+        //Fill
+        let actors = [], writers = [], directors = [], people = []
+        window.ipcRenderer.send('toGetPeople', "SELECT * FROM people")
+        window.ipcRenderer.receive('fromGetPeople', (data) => {
+            if(data.isWriter == "true"){
+                writers.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                    data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                    data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+                    data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+                    data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+            }
+            if(data.isDirector == "true"){
+                directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                    data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                    data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+                    data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+                    data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+            }
+            if(data.isActor == "true"){
+                actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                    data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                    data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
+                    data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
+                    data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
+            }
+            people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
                 data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
                 data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
                 data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
                 data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
-        }
-        if(data.isDirector == "true"){
-            directors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
-                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-                data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-                data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-                data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
-        }
-        if(data.isActor == "true"){
-            actors.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
-                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-                data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-                data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-                data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
-        }
-        people.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
-            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
-            data.rating, data.action, data.adventure, data.biography, data.comedy, data.crime, data.documentary, data.drama, data.erotic,
-            data.family, data.fantasy, data.history, data.horror, data.musical, data.mystery, data.romance, data.scienceFiction, data.sport,
-            data.thriller, data.war, data.western, data.isActor, data.isDirector, data.isWriter))
 
-        this.$store.commit('setAllWriters', writers);
-        this.$store.commit('setAllDirectors', directors);
-        this.$store.commit('setAllActors', actors);
-        this.$store.commit('setAllPeople', people);
-    })*/
+            this.$store.commit('setAllWriters', writers);
+            this.$store.commit('setAllDirectors', directors);
+            this.$store.commit('setAllActors', actors);
+            this.$store.commit('setAllPeople', people);
+        })*/
+    }
 }
 
 //function to create new studios
@@ -730,26 +734,12 @@ function createScreenplaysFromWriters() {
 
 function renewPeople() {
     //kill and refresh people
-    const roles = killAndRefreshPeople()
-    let died = roles.actor + roles.director + roles.writer
-    console.log("Roles: " + roles)
-
-    //generate new ones
-    /*for (let i = 0; i < diedPeople; i++) {
-        generatePersonValues(roles)
-        roles.actor--;
-        roles.director--;
-        roles.writer--;
-    }*/
-}
-
-async function killAndRefreshPeople() {
     let allPeople = store.state.allPeople
     let roles = {actor: 0, director: 0, writer: 0}
     let id = []
+    let refresh = []
 
-    //loop People
-    for (const el of allPeople) {
+    allPeople.forEach((el) =>  {
         if (checkAge(el)) {
             id.push(el._id)
             let type = ""
@@ -766,36 +756,57 @@ async function killAndRefreshPeople() {
                 roles.writer++
             }
             store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The " + type + " " + el._first_name + el._last_name + " died", null, el))
-        } else refreshPerson(el)
-    }
+        } else {
+            refresh.push(refreshPerson(el))
+        }
+    })
     window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", id])
-    return roles
+    window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", refresh])
+
+    console.log(roles)
+    console.log("Died: " + id.length)
+
+    //generate new ones
+    let newOnes = []
+    for (let i = 0; i < id.length; i++) {
+        newOnes.push(generatePersonValues(roles))
+        roles.actor--;
+        roles.director--;
+        roles.writer--;
+    }
+
+    console.log(newOnes)
+
+    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", newOnes])
+    id = []
 }
 
 function checkAge(person) {
     const deathAge = person._deathAge > 30 ? person._deathAge - 20 : person._deathAge
+    const random = Math.random() * 100
+    console.log(random + " / " + deathAge)
     if (deathAge < 10) {
-        return Math.random() * 100 <= 0.5
+        return random <= 0.5
     } else if (deathAge >= 10 && deathAge < 20) {
-        return Math.round(Math.random() * 99) + 1 === 1
+        return random === 1
     } else if (deathAge >= 20 && deathAge < 30) {
-        return Math.round(Math.random() * 99) + 1 <= 3
+        return random <= 3
     } else if (deathAge >= 30 && deathAge < 40) {
-        return Math.round(Math.random() * 99) + 1 <= 5
+        return random <= 5
     } else if (deathAge >= 40 && deathAge < 50) {
-        return Math.round(Math.random() * 99) + 1 <= 7
+        return random <= 7
     } else if (deathAge >= 50 && deathAge < 60) {
-        return Math.round(Math.random() * 99) + 1 <= 10
+        return random <= 10
     } else if (deathAge >= 60 && deathAge < 70) {
-        return Math.round(Math.random() * 99) + 1 <= 15
+        return random <= 13
     } else if (deathAge >= 70 && deathAge < 80) {
-        return Math.round(Math.random() * 99) + 1 <= 20
+        return random <= 20
     } else if (deathAge >= 80 && deathAge < 90) {
-        return Math.round(Math.random() * 99) + 1 <= 23
+        return random <= 23
     } else if (deathAge >= 90 && deathAge < 100) {
-        return Math.round(Math.random() * 99) + 1 <= 29
+        return random <= 29
     } else if (deathAge >= 100) {
-        return Math.round(Math.random() * 99) + 1 <= 35
+        return random <= 35
     }
 }
 
@@ -822,7 +833,7 @@ function refreshPerson(person) {
     if (person.audienceRating >= 50 && person.audienceRating < 75) newPopularity += 2
     if (person.audienceRating >= 75) newPopularity += 3
     //send new Values to DB
-    window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", [newExperience, newPopularity, person._id]])
+    return {id: person._id, exp: newExperience, pop: newPopularity}
 }
 
 function dateDiff(date1, date2) {
@@ -964,13 +975,7 @@ function generatePersonValues(roles) {
     let rating = Math.round((performance + experience + talent) / 3)
 
     //Insert Person into the db
-    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        [svg, firstName, lastName, birthday, deathAge, gender, nationalityValue, ethnicityValue, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter]])
-    window.ipcRenderer.receive('personStatus', (data) => {
-        if (data === 200) {
-            store.commit('addNews', new News("New Person joined", "New Person joined the Film Studio Manager Community", null))
-        }
-    })
+    return [svg, firstName, lastName, birthday, deathAge, gender, nationalityValue, ethnicityValue, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter]
 }
 
 function generateNationalityAndEthnicity() {

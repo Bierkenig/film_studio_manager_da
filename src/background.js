@@ -188,6 +188,26 @@ async function createWindow() {
         db.close()
     })
 
+    //refresh stats
+    ipcMain.on('refreshPerson', (event, data) => {
+        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+
+        let sql = data[0]
+        let values = data[1]
+
+        for (let i = 0; i < values.length; i++) {
+            db.serialize(() => {
+                db.each(sql, [values[i].exp, values[i].pop, values[i].id], (err) => {
+                    if (err) console.log(err)
+                    else console.log("DB: Person refreshed")
+                })
+            })
+        }
+        db.close()
+    })
+
     //generate a new one
     ipcMain.on('generatePerson', (event, data) => {
         db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
@@ -197,31 +217,14 @@ async function createWindow() {
         const sql = data[0]
         const params = data[1]
 
-        db.serialize(() => {
-            db.each(sql, params, (err) => {
-                if (err) console.log(err)
-                console.log("DB: Person created")
-                event.sender.send('personStatus', 200)
+        for (let i = 0; i < params.length; i++) {
+            db.serialize(() => {
+                db.each(sql, params[i], (err) => {
+                    if (err) console.log(err)
+                    else console.log("DB: Person created")
+                })
             })
-        })
-        db.close()
-    })
-
-    //refresh stats
-    ipcMain.on('refreshPerson', (event, data) => {
-        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
-            if (err) console.error('Database opening error: ', err);
-        });
-
-        let sql = data[0]
-        let params = data[1]
-
-        db.serialize(() => {
-            db.each(sql, params, (err) => {
-                if (err) console.log(err)
-                console.log("DB: Person refreshed")
-            })
-        })
+        }
         db.close()
     })
 
