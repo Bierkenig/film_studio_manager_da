@@ -15,7 +15,7 @@
   <br>
   <div v-if="(this.flags % 3) === 1">
   Editing Budget Increase:
-  {{JSON.parse(this.editingBudgetIncrease).value}}
+  {{JSON.parse(this.editingBudgetIncrease).value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
   Editing Budget Increase %:
   {{JSON.parse(this.editingBudgetIncrease).percentage}}
   </div>
@@ -25,7 +25,7 @@
 
   <div v-if="(Math.floor(this.flags / 3) % 3) === 1">
   Sound Budget Increase:
-  {{JSON.parse(this.soundBudgetIncrease).value}}
+  {{JSON.parse(this.soundBudgetIncrease).value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
   Sound Budget Increase %:
   {{JSON.parse(this.soundBudgetIncrease).percentage}}
   </div>
@@ -36,7 +36,7 @@
 
   <div v-if="(Math.floor(this.flags / 9) % 3) === 1">
   VFX Budget Increase:
-  {{JSON.parse(this.vfxBudgetIncrease).value}}
+  {{JSON.parse(this.vfxBudgetIncrease).value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
   VFX Budget Increase %:
   {{JSON.parse(this.vfxBudgetIncrease).percentage}}
   </div>
@@ -47,7 +47,7 @@
 
   <div v-if="(Math.floor(this.flags / 27) % 3) === 1">
   Whole Production Budget Increase:
-  {{JSON.parse(this.actingConsequence).value}}
+  {{JSON.parse(this.actingConsequence).value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
     <br>
     Whole Production Budget Increase %:
   {{JSON.parse(this.actingConsequence).percentage}}
@@ -63,7 +63,7 @@
 
   <div v-if="(Math.floor(this.flags / 81) % 3) === 1">
   Whole Production Budget Increase:
-  {{JSON.parse(this.storyConsequence).value}}
+  {{JSON.parse(this.storyConsequence).value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
     <br>
   Whole Production Budget Increase %:
   {{JSON.parse(this.storyConsequence).percentage}}
