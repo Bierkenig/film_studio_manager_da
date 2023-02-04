@@ -19,13 +19,15 @@ export default {
   props: {
     nextRoute: String,
     title: String,
+    duration: String
   },
   mounted() {
-    setTimeout(this.startBar, 500)
-    setTimeout(() => this.$router.push({name: this.nextRoute}), 7000)
+    setTimeout(this.animateBar, 10)
+    setTimeout(() => this.$router.push({name: this.nextRoute}), Math.floor(parseFloat(this.duration) * 1000) + 500)
   },
   methods: {
-    startBar: function () {
+    animateBar() {
+      this.$refs.bar.style.setProperty("transition", "width " +  this.duration + "s ease-in-out")
       this.$refs.bar.style.setProperty("width", "100%")
     }
   },

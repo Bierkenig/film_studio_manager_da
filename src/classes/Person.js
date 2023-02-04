@@ -74,12 +74,12 @@ export default class Person {
         //TYPE -> Integer
         if (isDirector) this.dirMorale = 5
         if (isActor) this.actorMorale = 5
-        this.calcAge(this._birthday)
+        this.calcAge()
     }
 
-    calcAge(birthday) {
-        if (store !== undefined) {
-            this._age = store.getters.getCurrentDate.getFullYear() - (parseInt(birthday.toString().slice(-4)))
+    calcAge() {
+        if (store !== undefined && this._birthday != null) {
+            this._age = store.getters.getCurrentDate.getFullYear() - (parseInt(this._birthday.toString().slice(-4)))
         }
     }
 
@@ -152,6 +152,8 @@ export default class Person {
     }
 
     static fromJSON(jsonObject){
-        return Object.assign(new Person(), jsonObject)
+        let instance =  Object.assign(new Person(), jsonObject)
+        instance.calcAge()
+        return instance
     }
 }

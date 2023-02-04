@@ -131,7 +131,7 @@ export default {
 
   methods: {
     goToStartMenu(){
-      this.$router.push({name: 'default'});
+      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'default', title: i18next.t('returnToMain') + '...', duration: '1.5'}})
     },
 
     exit() {

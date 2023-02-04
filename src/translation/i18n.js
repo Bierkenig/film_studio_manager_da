@@ -931,6 +931,9 @@ i18next
                         newFranchise: 'New Franchise',
                     },
                     loading: 'Loading',
+                    creatingStudio: 'Creating your Studio',
+                    returnToMain: 'Returning to Main-Menu',
+                    loadingSaveFile: 'Loading Save File',
                     buyMovie: 'Buy movie',
                     databaseSlots: 'Database Slots',
                 }
@@ -1809,6 +1812,9 @@ i18next
                         newFranchise: 'Neues Franchise',
                     },
                     loading: 'Laden',
+                    creatingStudio: 'Dein Studio wird erstellt',
+                    returnToMain: 'Rückkehr zum Hauptmenü',
+                    loadingSaveFile: 'Spielstand wird geladen',
                     buyMovie: 'Film kaufen',
                     databaseSlots: 'Datenbank Versionen',
                 }

@@ -85,7 +85,7 @@ const routes = [
 
 
     { name: 'mainSettings', path: '/mainSettings', component: MainSettings, props: true },
-    { name: 'loadingScreen', path: '/loadingScreen/:nextRoute/:title', component: LoadingScreen, props: true },
+    { name: 'loadingScreen', path: '/loadingScreen/:nextRoute/:title/:duration', component: LoadingScreen, props: true },
 
     //PreProduction
     { name: 'screenplaySection', path: '/screenplaySection', component: screenplaySection, props: true},

@@ -29,6 +29,7 @@
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton";
+import i18next from "i18next";
 
 export default {
   name: "LoadItem",
@@ -107,6 +108,9 @@ export default {
           console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File von' + this.date + 'laden? : ' + data[1])
         }
       })
+
+      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
+
     },
 
     async deleting(){

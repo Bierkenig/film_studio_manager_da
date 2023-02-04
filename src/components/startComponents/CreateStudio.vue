@@ -94,6 +94,7 @@ import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import BudgetSelect from "@/components/startComponents/BudgetSelect";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import i18next from "i18next";
 
 export default {
   name: "CreateStudio",
@@ -119,7 +120,9 @@ export default {
       }
       this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),0), logo: this.chosenLogo});
       //this.$store.getters.getFinishedMovies[0]._owner = this.$store.getters.getStudio;
-      this.$router.push({name: 'home'})
+
+      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}})
+
     },
 
     test(){

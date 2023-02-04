@@ -75,7 +75,7 @@
               <button id="chooseMedium" class="buttonStyle">chooseMedium</button>
             </router-link>
 
-            <router-link :to="{ name: 'loadingScreen', params: {nextRoute: 'default', title: $t('loading') + '...'}}">
+            <router-link :to="{ name: 'loadingScreen', params: {nextRoute: 'default', title: $t('loading') + '...', duration: '10'}}">
               <button id="loadingScreen" class="buttonStyle">loadingScreen</button>
             </router-link>
             <!--<div>

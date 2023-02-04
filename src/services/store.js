@@ -176,7 +176,7 @@ export default createStore({
 
         inProductionMovies: [],
 
-        finishedMovies: [new Movie(null, 0)],
+        finishedMovies: [new Movie(new Studio(100,"JJJJ"), 0)],
 
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
@@ -877,7 +877,6 @@ export default createStore({
         },
 
         loadFromSave(state, responseData){
-
             // Object.keys(state).forEach(key => delete state[key]);
             // Object.assign(state, responseData)
 
@@ -908,7 +907,7 @@ export default createStore({
             ])
 
             state.currentDate = new Date(responseData.currentDate)
-            state.ownStreamingService = StreamingService.fromJSON(responseData.ownStreamingService)
+            state.ownStreamingService = responseData.ownStreamingService != null ? StreamingService.fromJSON(responseData.ownStreamingService) : null
             state.streamingServicesFromOtherStudios = responseData.streamingServicesFromOtherStudios.map(jsonObject => StreamingService.fromJSON(jsonObject))
             state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
             state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
@@ -919,25 +918,26 @@ export default createStore({
             state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
             state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.happeningEvent = Event.fromJSON(responseData.happeningEvent)
+
+            state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
             //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
             state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
 
 
-            state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
-                isPreProduction: value => value,
-                currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
-                hiredDirector: obj => obj && Person.fromJSON(obj),
-                feature: value => value,
-                indie: value => value,
-                animated: value => value,
-                outgoings: value => value,
-                directorMood: value => value,
-                duration: value => value,
-                budget: value => value ,
-                budgetPop: value => value,
-            })
+            // state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
+            //     isPreProduction: value => value,
+            //     currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
+            //     hiredDirector: obj => obj && Person.fromJSON(obj),
+            //     feature: value => value,
+            //     indie: value => value,
+            //     animated: value => value,
+            //     outgoings: value => value,
+            //     directorMood: value => value,
+            //     duration: value => value,
+            //     budget: value => value ,
+            //     budgetPop: value => value,
+            // })
             console.log(state)
             //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
             // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
@@ -966,7 +966,6 @@ export default createStore({
         },
 
         resetState(state){
-            state.slot = null
             state.screenplay = []
             state.boughtScreenplays = []
             state.studio = null
