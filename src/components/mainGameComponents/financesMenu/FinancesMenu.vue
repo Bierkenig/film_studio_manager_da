@@ -3,7 +3,7 @@
     <div class="financesMenuLeftSide">
       <background-tile class="loanTile" :title="$t('labelTakeCredit')" content-color="grey" icon="placeholder">
         {{ $t('descCredit') }}
-        <custom-button class="loanButton">{{ $t('takeCredit') }}</custom-button>
+        <custom-button class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">{{ $t('takeCredit') }}</custom-button>
       </background-tile>
       <background-tile class="buyStudioTile" :title="$t('labelBuyStudio')" content-color="grey" icon="placeholder">
         {{ $t('descStudio') }}

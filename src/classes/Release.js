@@ -467,9 +467,4 @@ export default class Release {
         }
         return o;
     }
-
-    //FOR TESTING
-    printAllValues() {
-
-    }
 }

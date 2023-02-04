@@ -65,14 +65,6 @@ i18next
                         outgoing: "Outgoing",
                         accumulated: "Accumulated",
                     },
-                    production: "Production",
-                    marketing: "Marketing",
-                    loan: "Loan",
-                    cinema: "Cinema",
-                    total: "Total",
-                    marketShare: {
-                        name: "Market Share",
-                    },
                     financialHistory: {
                         name: "Financial History",
                         event1: "Studio acquired",
@@ -81,6 +73,30 @@ i18next
                         desc2: "Of the Movie",
                         event3: "New Studio has been founded",
                         desc3: "Of the Movie",
+                    },
+                    takeALoan: {
+                        title: "Types of Loan",
+                        low: "Low",
+                        medium: "Medium",
+                        high: "High",
+                        interests: "Interests",
+                        take: "Take",
+                        title2: "Current Loans",
+                        repay: "Repay",
+                        errMsg: "You can't take any Loans, because your balance is to low!"
+                    },
+                    buyAStudio: {
+                        foundationDate: "Foundation Date",
+                        ascending: "Ascending",
+                        descending: "Descending"
+                    },
+                    production: "Production",
+                    marketing: "Marketing",
+                    loan: "Loan",
+                    cinema: "Cinema",
+                    total: "Total",
+                    marketShare: {
+                        name: "Market Share",
                     },
                     dates: {
                         january: "January",
@@ -989,14 +1005,6 @@ i18next
                         accumulated: "Kumuliert",
                         total: "Gesamt"
                     },
-                    production: "Produktion",
-                    marketing: "Vermarktung",
-                    loan: "Kredit",
-                    cinema: "Kino",
-                    total: "Total",
-                    marketShare: {
-                        name: "Marktanteil",
-                    },
                     financialHistory: {
                         name: "Finanzielle Geschichte",
                         event1: "Studio wurde erworben",
@@ -1005,6 +1013,14 @@ i18next
                         desc2: "Von dem Film",
                         event3: "Neues Studio wurde gegründet",
                         desc3: "Von dem Film",
+                    },
+                    production: "Produktion",
+                    marketing: "Vermarktung",
+                    loan: "Kredit",
+                    cinema: "Kino",
+                    total: "Total",
+                    marketShare: {
+                        name: "Marktanteil",
                     },
                     dates: {
                         january: "Jänner",
