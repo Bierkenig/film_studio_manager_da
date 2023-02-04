@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="polygon14" x="11.063" y="42.155" width="97.875" height="71.689" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="polygon14-2" x="11.063" y="42.155" width="97.875" height="71.689" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-actionMoviePoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="actionMoviePoster" clip-path="url(#clip-actionMoviePoster)">
+    <rect width="120" height="160" fill="#ff8f9a"/>
+    <g id="g18" transform="translate(20.063 42.197)">
+      <g id="g16" transform="translate(0 3.958)">
+        <g data-type="innerShadowGroup">
+          <g transform="matrix(1, 0, 0, 1, -20.06, -46.16)" filter="url(#polygon14)">
+            <path id="polygon14-3" data-name="polygon14" d="M36.129,27.591,31.09,16.5l3.279,11.77ZM75.86,32.526l-8.981,8.009,1.336,1.355ZM19.967,41.676,0,25.633,18.754,43.158ZM62.822,3.958,52.207,27.645l1.732.741Zm-19.206,50.4a3.242,3.242,0,0,0-3.191,3.291h6.389A3.243,3.243,0,0,0,43.616,54.356Zm13.62-4.927,2.2-12.889L48.532,42.381,43.577,32.042l-4.934,10.3L27.762,36.388,29.87,49.44,17.951,51.224l5.814,5.845h6.975l-2.328-2.341,7.08-1.062-1.308-8.081,6.6,3.62,2.791-5.827,2.788,5.813,6.568-3.511-1.371,7.973,7.182,1.077-2.328,2.341h6.971l5.825-5.845Zm5.642-4.017L66.031,26.97l-15.492,8.3-6.922-14.45L36.708,35.235,21.215,26.757l3.023,18.67L7.357,47.955l9.072,9.114h3.489l-7.329-7.362,14.458-2.171L24.431,31.355l13.346,7.312,5.839-12.185,5.839,12.192L62.78,31.54,60.041,47.521l14.6,2.186-7.325,7.362H70.8l9.075-9.114Z" transform="translate(20.06 42.2)"/>
+          </g>
+          <g transform="matrix(1, 0, 0, 1, -20.06, -46.16)" filter="url(#polygon14-2)">
+            <path id="polygon14-4" data-name="polygon14" d="M36.129,27.591,31.09,16.5l3.279,11.77ZM75.86,32.526l-8.981,8.009,1.336,1.355ZM19.967,41.676,0,25.633,18.754,43.158ZM62.822,3.958,52.207,27.645l1.732.741Zm-19.206,50.4a3.242,3.242,0,0,0-3.191,3.291h6.389A3.243,3.243,0,0,0,43.616,54.356Zm13.62-4.927,2.2-12.889L48.532,42.381,43.577,32.042l-4.934,10.3L27.762,36.388,29.87,49.44,17.951,51.224l5.814,5.845h6.975l-2.328-2.341,7.08-1.062-1.308-8.081,6.6,3.62,2.791-5.827,2.788,5.813,6.568-3.511-1.371,7.973,7.182,1.077-2.328,2.341h6.971l5.825-5.845Zm5.642-4.017L66.031,26.97l-15.492,8.3-6.922-14.45L36.708,35.235,21.215,26.757l3.023,18.67L7.357,47.955l9.072,9.114h3.489l-7.329-7.362,14.458-2.171L24.431,31.355l13.346,7.312,5.839-12.185,5.839,12.192L62.78,31.54,60.041,47.521l14.6,2.186-7.325,7.362H70.8l9.075-9.114Z" transform="translate(20.06 42.2)" fill="#fff"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

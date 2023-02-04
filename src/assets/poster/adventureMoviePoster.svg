@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path55" x="23.26" y="48.125" width="73.479" height="73.75" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path55-2" x="23.26" y="48.125" width="73.479" height="73.75" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-adventureMoviePoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="adventureMoviePoster" clip-path="url(#clip-adventureMoviePoster)">
+    <rect width="120" height="160" fill="#ff8f9a"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path55)">
+        <path id="path55-3" data-name="path55" d="M3.5,59.4V45.936L27.248,13.8,22.512,7.371l5.21-3.721,3.518,4.8,3.518-4.8,5.21,3.721L35.3,13.8l23.68,32.137V59.4Zm17.862-6.36H41.05l-9.81-13.8Z" transform="translate(28.76 48.48)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path55-2)">
+        <path id="path55-4" data-name="path55" d="M3.5,59.4V45.936L27.248,13.8,22.512,7.371l5.21-3.721,3.518,4.8,3.518-4.8,5.21,3.721L35.3,13.8l23.68,32.137V59.4Zm17.862-6.36H41.05l-9.81-13.8Z" transform="translate(28.76 48.48)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

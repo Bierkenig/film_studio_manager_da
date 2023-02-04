@@ -51,7 +51,7 @@ export class Movie {
         //TYPE -> Date (for films in which rights have been acquired)
         this._boughtRightDate = null;
         //TYPE -> Integer (for films in which rights have been acquired or for films from other studios which are able to buy)
-        this._totalCosts = null;
+        this._totalCosts = 0;
         //TYPE -> Date
         this._foundationDate = null;
         //TYPE -> Integer (TODO POSTPRODUCTION)

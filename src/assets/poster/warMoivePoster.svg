@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path77" x="23.569" y="48.667" width="72.863" height="72.667" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path77-2" x="23.569" y="48.667" width="72.863" height="72.667" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-warMoivePoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="warMoivePoster" clip-path="url(#clip-warMoivePoster)">
+    <rect width="120" height="160" fill="#ff8f9a"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path77)">
+        <path id="path77-3" data-name="path77" d="M48.669,56.7l-7.25-7.315-5.748,5.748L33.19,52.653a6.15,6.15,0,0,1,0-8.621l11.1-11.1a6.15,6.15,0,0,1,8.621,0L55.4,35.41l-5.748,5.748,7.25,7.25a3.154,3.154,0,0,1,0,4.441L53.11,56.7a3.154,3.154,0,0,1-4.441,0Zm9.013-41.735L27.9,44.75l1.045,1.11a6.2,6.2,0,0,1,.392,3.56,5.927,5.927,0,0,1-1.7,3.233l-2.482,2.482-5.748-5.748L12.159,56.7a3.075,3.075,0,0,1-4.376,0L3.93,52.849a3.007,3.007,0,0,1,0-4.441l7.315-7.25L5.5,35.41l2.417-2.482a6.265,6.265,0,0,1,3.3-1.7,5.879,5.879,0,0,1,3.56.457l1.11,1.045L45.664,2.95H57.682ZM16.274,28.1,3.211,14.968V2.95H15.294L28.422,16.078Z" transform="translate(29.62 49.72)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path77-2)">
+        <path id="path77-4" data-name="path77" d="M48.669,56.7l-7.25-7.315-5.748,5.748L33.19,52.653a6.15,6.15,0,0,1,0-8.621l11.1-11.1a6.15,6.15,0,0,1,8.621,0L55.4,35.41l-5.748,5.748,7.25,7.25a3.154,3.154,0,0,1,0,4.441L53.11,56.7a3.154,3.154,0,0,1-4.441,0Zm9.013-41.735L27.9,44.75l1.045,1.11a6.2,6.2,0,0,1,.392,3.56,5.927,5.927,0,0,1-1.7,3.233l-2.482,2.482-5.748-5.748L12.159,56.7a3.075,3.075,0,0,1-4.376,0L3.93,52.849a3.007,3.007,0,0,1,0-4.441l7.315-7.25L5.5,35.41l2.417-2.482a6.265,6.265,0,0,1,3.3-1.7,5.879,5.879,0,0,1,3.56.457l1.11,1.045L45.664,2.95H57.682ZM16.274,28.1,3.211,14.968V2.95H15.294L28.422,16.078Z" transform="translate(29.62 49.72)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

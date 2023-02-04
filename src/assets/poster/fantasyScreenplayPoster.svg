@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path15" x="24" y="49" width="73" height="73" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path15-2" x="24" y="49" width="73" height="73" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-fantasyScreenplayPoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="fantasyScreenplayPoster" clip-path="url(#clip-fantasyScreenplayPoster)">
+    <rect width="120" height="160" fill="#8fd5ff"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path15)">
+        <path id="path15-3" data-name="path15" d="M45.861,20.472l-3.032-6.838-7.076-3.151,7.076-3.092L45.861.85l2.914,6.541,7.076,3.092-7.076,3.151Zm0,35.378-3.032-6.6-7.076-3.092,7.076-3.092,3.032-6.9,2.914,6.9,7.076,3.092L48.774,49.25Zm-25.924-8.8L13.931,34.207.85,28.32l13.081-5.886L19.936,9.65,26,22.434,38.964,28.32,26,34.207Z" transform="translate(32.15 52.15)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path15-2)">
+        <path id="path15-4" data-name="path15" d="M45.861,20.472l-3.032-6.838-7.076-3.151,7.076-3.092L45.861.85l2.914,6.541,7.076,3.092-7.076,3.151Zm0,35.378-3.032-6.6-7.076-3.092,7.076-3.092,3.032-6.9,2.914,6.9,7.076,3.092L48.774,49.25Zm-25.924-8.8L13.931,34.207.85,28.32l13.081-5.886L19.936,9.65,26,22.434,38.964,28.32,26,34.207Z" transform="translate(32.15 52.15)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

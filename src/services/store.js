@@ -194,6 +194,10 @@ export default createStore({
             {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
         ],
 
+        currentLoans: [
+            {id: 0, value: 20394, date: new Date(2023, 3, 2)}
+        ],
+
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"],
         animation: ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"],
@@ -385,6 +389,10 @@ export default createStore({
 
         getFinancialPerformance(state) {
             return state.financialPerformance;
+        },
+
+        getCurrentLoans(state) {
+            return state.currentLoans
         },
 
         getAllActors(state){
@@ -592,6 +600,18 @@ export default createStore({
 
         addCurrentMovieMinorCharacter(state, actor) {
             state.currentMovie.addMinorCharacter(actor);
+        },
+
+        addCurrentLoan(state, payload) {
+            state.currentLoans.push(payload)
+        },
+
+        changeDateOfLoan(state, payload) {
+            state.currentLoans.forEach((el) => {
+                if (el.id === payload) {
+                    el.date = state.currentDate
+                }
+            })
         },
 
         setCurrentMovieBudget(state, budget) {

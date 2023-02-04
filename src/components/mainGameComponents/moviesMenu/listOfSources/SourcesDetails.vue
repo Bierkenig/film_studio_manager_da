@@ -142,9 +142,13 @@
             </div>
             <div class="movieDetailsGeneralTopInfoRight">
               <div class="movieDetailsInfoCircles">
-                <div class="movieDetailsInfoCirclesTop">
-                  <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/><!--:text="source.quality"-->
-                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/><!--:text="source._release.popularityFormula"-->
+                <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsInfoCirclesTop">
+                  <info-circle class="movieDetailsInfoCircle" :text="source.quality" size="60px" large-font/><!--:text="source.quality"-->
+                  <info-circle class="movieDetailsInfoCircle" :text="source._release.popularityFormula" size="60px" large-font/><!--:text="source._release.popularityFormula"-->
+                </div>
+                <div v-else class="movieDetailsInfoCirclesTop">
+                  <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" text="P" size="60px" large-font/>
                 </div>
                 <div class="movieDetailsInfoCirclesBottom">
                   <info-circle class="movieDetailsInfoCircle"
@@ -159,28 +163,42 @@
             </div>
           </div>
           <div class="movieDetailsGeneralBottomInfo">
-            <div class="movieDetailsGeneralBottomInfoLeft">
+            <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsGeneralBottomInfoLeft">
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.children') }}</div>
-                <input type="range" min="1" max="100" step="1" :value="50" disabled><!--:value="source._release.childrenMoviePopularity"-->
+                <input type="range" min="1" max="100" step="1" :value="source._release.childrenMoviePopularity" disabled>
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.teenagers') }}</div>
-                <input type="range" min="1" max="100" step="1" :value="50" disabled><!--:value="source._release.teenagersMoviePopularity"-->
+                <input type="range" min="1" max="100" step="1" :value="source._release.teenagersMoviePopularity" disabled>
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.adults') }}</div>
-                <input type="range" min="1" max="100" step="1" :value="50" disabled><!--:value="source._release.adultsMoviePopularity"-->
+                <input type="range" min="1" max="100" step="1" :value="source._release.adultsMoviePopularity" disabled>
+              </div>
+            </div>
+            <div v-else class="movieDetailsGeneralBottomInfoLeft">
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.children') }}</div>
+                <input type="range" min="1" max="100" step="1" :value="0" disabled>
               </div>
               <div class="movieDetailsGeneralInfoLine">
-                <div>{{ $t('movieDetailsElement.general.setting') }}</div>
-                <div>Placeholder</div>
+                <div>{{ $t('movieDetailsElement.general.teenagers') }}</div>
+                <input type="range" min="1" max="100" step="1" :value="0" disabled>
+              </div>
+              <div class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('movieDetailsElement.general.adults') }}</div>
+                <input type="range" min="1" max="100" step="1" :value="0" disabled>
               </div>
             </div>
             <div class="movieDetailsGeneralBottomInfoRight">
-              <div v-if="listType !== 'Sale'" class="movieDetailsGeneralInfoLine">
+              <div v-if="listType !== 'Sale' && (source._status === 'Finished' || source._status === 'Released')" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.release') }}</div>
                 <div>{{ source._release }}</div>
+              </div>
+              <div v-if="listType !== 'Sale' && (source._status !== 'Finished' && source._status !== 'Released')" class="movieDetailsGeneralInfoLine">
+                <div>Status</div>
+                <div>{{ source._status }}</div>
               </div>
               <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('price') }}</div>
@@ -194,15 +212,15 @@
                 <div>{{ $t('movieDetailsElement.general.director') }}</div>
                 <div>{{ source.director.getFullName() }}</div>
               </div>
-              <div class="movieDetailsGeneralInfoLine">
-                <div>{{ $t('movieDetailsElement.general.era') }}</div>
-                <div>Placeholder</div>
-              </div>
             </div>
           </div>
           <div class="movieDetailsGeneralInfoLine">
             <div>{{ $t('movieDetailsElement.general.topics') }}</div>
-            <div>Placeholder, Placeholder, Placeholder</div>
+            <div>
+              <span v-for="(it, index) in sourceTopics" :key="index">
+                {{ it.topicName }}<span v-if="index !== sourceTopics.length - 1">, </span>
+              </span>
+            </div>
           </div>
         </div>
         <div class="movieDetailsFinancesHeading">{{ $t('movieDetailsElement.finances.heading') }}</div>
@@ -210,29 +228,48 @@
           <div class="movieDetailsFinancesLeft">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-              <div>Placeholder</div>
+              <div>{{ source._preProduction.budget.production }}</div>
             </div>
-            <div class="movieDetailsFinancesInfoLine">
+            <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>Placeholder</div>
+              <div>0</div>
+            </div>
+            <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
+              <div>{{ source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
               <div>{{ source._totalCosts }}</div>
             </div>
           </div>
-          <div class="movieDetailsFinancesRight">
+          <!--TODO Einnahmen von Kino, Opening Week und DVD einbauen-->
+          <div v-if="source._status === 'Finished'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>Placeholder</div>
+              <div>0</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>Placeholder</div>
+              <div>0</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>Placeholder</div>
+              <div>0</div>
+            </div>
+          </div>
+          <div v-if="source._status !== 'Finished'" class="movieDetailsFinancesRight">
+            <div class="noMargin movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
+              <div>0</div>
+            </div>
+            <div class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
+              <div>0</div>
+            </div>
+            <div class="movieDetailsFinancesInfoLine">
+              <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
+              <div>0</div>
             </div>
           </div>
         </div>
@@ -315,6 +352,14 @@ export default {
           this.sourceRating = this.source.rating
 
           let allTopics = this.source.topics;
+
+          Object.values(allTopics).forEach((i) => {
+            if(i !== null) {
+              this.sourceTopics.push(i);
+            }
+          })
+        } else if(this.sourceType === 'Movie'){
+          let allTopics = this.source._preProduction.screenplay.topics;
 
           Object.values(allTopics).forEach((i) => {
             if(i !== null) {

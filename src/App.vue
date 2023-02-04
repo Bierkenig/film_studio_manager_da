@@ -82,9 +82,6 @@ export default {
       }
     }, 600000);
 
-    this.$store.state.dbFetcher.clear()
-    this.$store.state.dbFetcher.fetch()
-
     this.$store.getters.getBoughtScreenplays[0].setRatingRange('61 - 70');
     this.$store.getters.getBoughtScreenplays[0].addMainCharacter(new Character('Woodie','male',18));
     this.$store.getters.getBoughtScreenplays[0].addSupportCharacter(new Character('Buzz','male',16));

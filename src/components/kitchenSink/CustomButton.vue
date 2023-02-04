@@ -11,7 +11,7 @@ export default {
     return {
       sizeSmall: {
         fontSize: '16px',
-        fontWeight: 'var(--fsm-fw-regular)'
+        fontWeight: 'var(--fsm-fw-bold)'
       },
       sizeMedium: {
         fontSize: '24px',

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path57" x="29.753" y="49.833" width="60.494" height="70.333" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path57-2" x="29.753" y="49.833" width="60.494" height="70.333" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-documentaryMoviePoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="documentaryMoviePoster" clip-path="url(#clip-documentaryMoviePoster)">
+    <rect width="120" height="160" fill="#ff8f9a"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path57)">
+        <path id="path57-3" data-name="path57" d="M27.966,36.215a4.827,4.827,0,0,0,3.413-8.21,4.827,4.827,0,0,0-6.826,6.826A4.637,4.637,0,0,0,27.966,36.215ZM12.531,55.033A5.774,5.774,0,0,1,6.75,49.253V8.542a5.673,5.673,0,0,1,1.691-4.12A5.521,5.521,0,0,1,12.531,2.7h23L49.244,18.32v31.3L36.268,36.769a6.716,6.716,0,0,0,1.2-2.275,10.461,10.461,0,0,0,.4-3.075,9.766,9.766,0,0,0-9.9-9.9,9.468,9.468,0,0,0-7.011,2.86,9.623,9.623,0,0,0-2.829,7.041,9.615,9.615,0,0,0,9.839,9.839,15.279,15.279,0,0,0,2.952-.246,6.037,6.037,0,0,0,2.4-1.107L47.092,53.68a7.007,7.007,0,0,1-1.753.984,5.326,5.326,0,0,1-1.937.369Z" transform="translate(32 51.13)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path57-2)">
+        <path id="path57-4" data-name="path57" d="M27.966,36.215a4.827,4.827,0,0,0,3.413-8.21,4.827,4.827,0,0,0-6.826,6.826A4.637,4.637,0,0,0,27.966,36.215ZM12.531,55.033A5.774,5.774,0,0,1,6.75,49.253V8.542a5.673,5.673,0,0,1,1.691-4.12A5.521,5.521,0,0,1,12.531,2.7h23L49.244,18.32v31.3L36.268,36.769a6.716,6.716,0,0,0,1.2-2.275,10.461,10.461,0,0,0,.4-3.075,9.766,9.766,0,0,0-9.9-9.9,9.468,9.468,0,0,0-7.011,2.86,9.623,9.623,0,0,0-2.829,7.041,9.615,9.615,0,0,0,9.839,9.839,15.279,15.279,0,0,0,2.952-.246,6.037,6.037,0,0,0,2.4-1.107L47.092,53.68a7.007,7.007,0,0,1-1.753.984,5.326,5.326,0,0,1-1.937.369Z" transform="translate(32 51.13)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

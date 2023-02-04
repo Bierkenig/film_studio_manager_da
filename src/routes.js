@@ -47,6 +47,7 @@ import cinemaNegotiation from "@/components/mainGameComponents/postProduction/me
 import SimulationScreen from "@/components/mainGameComponents/calendarSimulation/SimulationScreen";
 import MovieDetails from "@/components/mainGameComponents/moviesMenu/MovieDetails.vue";
 import LoadingScreen from "@/components/mainGameComponents/LoadingScreen.vue";
+import takeALoan from "@/components/mainGameComponents/financesMenu/TakeALoan";
 
 
 const routes = [
@@ -109,6 +110,9 @@ const routes = [
 
     { name: 'MarketingBudgetSelect', path: '/MarketingBudgetSelect', component: MarketingBudgetSelect, props: true},
 
+
+    //Finances
+    { name: 'TakeALoan', path: '/TakeALoan', component: takeALoan, props: true},
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true},
     { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},
