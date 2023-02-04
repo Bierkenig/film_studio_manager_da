@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path42" x="25.167" y="50.167" width="69.667" height="69.667" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path42-2" x="25.167" y="50.167" width="69.667" height="69.667" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-comedyMoviePoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="comedyMoviePoster" clip-path="url(#clip-comedyMoviePoster)">
+    <rect width="120" height="160" fill="#ff8f9a"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path42)">
+        <path id="path42-3" data-name="path42" d="M28.553,41.86a13.5,13.5,0,0,0,7.65-2.307A12.223,12.223,0,0,0,41.06,33.3H16.046a12.6,12.6,0,0,0,4.887,6.253A13.355,13.355,0,0,0,28.553,41.86ZM17.625,25.892l2.854-2.854,2.854,2.854,2.732-2.671L20.478,17.7l-5.525,5.525Zm16.21,0,2.854-2.854,2.854,2.854,2.732-2.671L36.688,17.7l-5.525,5.525ZM28.553,54.367a25.378,25.378,0,0,1-10.048-2A25.7,25.7,0,0,1,4.754,38.612a25.378,25.378,0,0,1-2-10.048,25.378,25.378,0,0,1,2-10.048,25.811,25.811,0,0,1,5.525-8.227A26.231,26.231,0,0,1,18.5,4.734,25.05,25.05,0,0,1,28.553,2.7,25.05,25.05,0,0,1,38.6,4.734,26.083,26.083,0,0,1,52.383,18.516a25.05,25.05,0,0,1,2.034,10.048,25.05,25.05,0,0,1-2.034,10.048,26.231,26.231,0,0,1-5.555,8.227A25.811,25.811,0,0,1,38.6,52.363,25.378,25.378,0,0,1,28.553,54.367Z" transform="translate(31.42 51.47)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path42-2)">
+        <path id="path42-4" data-name="path42" d="M28.553,41.86a13.5,13.5,0,0,0,7.65-2.307A12.223,12.223,0,0,0,41.06,33.3H16.046a12.6,12.6,0,0,0,4.887,6.253A13.355,13.355,0,0,0,28.553,41.86ZM17.625,25.892l2.854-2.854,2.854,2.854,2.732-2.671L20.478,17.7l-5.525,5.525Zm16.21,0,2.854-2.854,2.854,2.854,2.732-2.671L36.688,17.7l-5.525,5.525ZM28.553,54.367a25.378,25.378,0,0,1-10.048-2A25.7,25.7,0,0,1,4.754,38.612a25.378,25.378,0,0,1-2-10.048,25.378,25.378,0,0,1,2-10.048,25.811,25.811,0,0,1,5.525-8.227A26.231,26.231,0,0,1,18.5,4.734,25.05,25.05,0,0,1,28.553,2.7,25.05,25.05,0,0,1,38.6,4.734,26.083,26.083,0,0,1,52.383,18.516a25.05,25.05,0,0,1,2.034,10.048,25.05,25.05,0,0,1-2.034,10.048,26.231,26.231,0,0,1-5.555,8.227A25.811,25.811,0,0,1,38.6,52.363,25.378,25.378,0,0,1,28.553,54.367Z" transform="translate(31.42 51.47)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

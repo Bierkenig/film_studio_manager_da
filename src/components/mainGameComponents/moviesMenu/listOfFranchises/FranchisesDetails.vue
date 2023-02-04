@@ -104,29 +104,20 @@
           </div>
         </div>
       </div>
-      <custom-button
-          v-if="franchise !== null && franchise.owner !== this.$store.getters.getStudio"
-          id="franchiseDetailsBuyButton"
-          :dark="false"
-          size="small"
-          :disabled="checkBalance"
-          @clicked="buyFranchise">{{ $t('buyScreenplaySection.buy') }}</custom-button>
     </background-tile>
   </div>
 </template>
 
 <script>
 import Franchises from "@/classes/Franchises";
-import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "FranchisesDetails",
-  components: {BackgroundTile, CustomButton},
+  components: {BackgroundTile},
 
   props: {
     franchise: Franchises,
-    checkBalance: Boolean
   },
 
   data(){
@@ -200,11 +191,6 @@ export default {
   },
 
   methods: {
-    buyFranchise(){
-      this.$emit('boughtFranchise')
-      this.$store.commit('buyFranchiseFromOtherStudios',[this.franchise,this.franchisePrice])
-    },
-
     currencyFormatDE(num) {
       return (
           num

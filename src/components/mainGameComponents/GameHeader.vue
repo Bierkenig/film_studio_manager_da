@@ -17,6 +17,10 @@
           {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
           {{ this.$store.getters.getCurrentDate.getFullYear() }}
         </p>
+        <p class="headerBoxStudioPopularity">
+          <custom-icon class="headerInfoIcon" icon="party" size="30px" :dark="false" :gradient="true" :shadow="true"/>
+          {{ this.$store.getters.getStudio.popularity }}
+        </p>
       </div>
 
       <p class="headerBoxHiddenElement"></p>
@@ -31,11 +35,12 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import PageHeading from "@/components/kitchenSink/PageHeading";
 import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 //import CustomButton from "@/components/kitchenSink/CustomButton";
 
 export default {
   name: "GameHeader",
-  components: {HeaderInfo, SettingsHeader, PageHeading, /*CustomButton*/},
+  components: {CustomIcon, HeaderInfo, SettingsHeader, PageHeading, /*CustomButton*/},
   mixins: [soundeffectMixin('button','click')],
 
   props: {
@@ -96,5 +101,16 @@ img {
 
 .headerBoxHiddenElement {
   width: 167px;
+}
+
+.headerBoxStudioPopularity {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.headerInfoIcon {
+  margin-right: 1em;
 }
 </style>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path156" x="28.481" y="48.167" width="63.038" height="73.667" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path156-2" x="28.481" y="48.167" width="63.038" height="73.667" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-thrillerScreenplayPoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="thrillerScreenplayPoster" clip-path="url(#clip-thrillerScreenplayPoster)">
+    <rect width="120" height="160" fill="#8fd5ff"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path156)">
+        <path id="path156-3" data-name="path156" d="M21.316,61.767H25.7l5.846-16.076,20.593,7.44L43.768,6.1,7.1,36.79l20.593,7.44ZM36.328,22.308l2.923,1.063-3.72,10.5L32.608,32.8ZM31.014,36.391a1.313,1.313,0,0,1,.93-.93,1.207,1.207,0,0,1,1.329,0,1.313,1.313,0,0,1,.93.93,2.4,2.4,0,0,1,.133,1.329,1.313,1.313,0,0,1-.93.93,2.4,2.4,0,0,1-1.329.133,1.313,1.313,0,0,1-.93-.93,1.882,1.882,0,0,1-.133-1.461Z" transform="translate(30.38 46.07)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path156-2)">
+        <path id="path156-4" data-name="path156" d="M21.316,61.767H25.7l5.846-16.076,20.593,7.44L43.768,6.1,7.1,36.79l20.593,7.44ZM36.328,22.308l2.923,1.063-3.72,10.5L32.608,32.8ZM31.014,36.391a1.313,1.313,0,0,1,.93-.93,1.207,1.207,0,0,1,1.329,0,1.313,1.313,0,0,1,.93.93,2.4,2.4,0,0,1,.133,1.329,1.313,1.313,0,0,1-.93.93,2.4,2.4,0,0,1-1.329.133,1.313,1.313,0,0,1-.93-.93,1.882,1.882,0,0,1-.133-1.461Z" transform="translate(30.38 46.07)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -933,6 +933,7 @@ i18next
                     loading: 'Loading',
                     buyMovie: 'Buy movie',
                     databaseSlots: 'Database Slots',
+                    franchiseInfoText: 'You are currently creating a franchise of the following movie: ',
                 }
             },
             de: {
@@ -1811,6 +1812,7 @@ i18next
                     loading: 'Laden',
                     buyMovie: 'Film kaufen',
                     databaseSlots: 'Datenbank Versionen',
+                    franchiseInfoText: 'Du erstellst gerade von dem folgendem Film ein Franchise: ',
                 }
             }
         }

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path89" x="24" y="50.583" width="72" height="68.834" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path89-2" x="24" y="50.583" width="72" height="68.834" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-musicalScreenplayPoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="musicalScreenplayPoster" clip-path="url(#clip-musicalScreenplayPoster)">
+    <rect width="120" height="160" fill="#8fd5ff"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path89)">
+        <path id="path89-3" data-name="path89" d="M2.45,53.834V8.57A5.432,5.432,0,0,1,4.033,4.612,5.284,5.284,0,0,1,7.961,3H34.346a5.506,5.506,0,0,1,5.57,5.57v3.518A11.092,11.092,0,0,0,33,22.349,10.872,10.872,0,0,0,34.873,28.5a10.488,10.488,0,0,0,5.042,4.046V37.3A5.284,5.284,0,0,1,38.3,41.228a5.432,5.432,0,0,1-3.958,1.583H13.414ZM12.066,33.02h11.14V28.388H12.066Zm32.072-3.635A7.007,7.007,0,0,1,37.1,22.349a7.007,7.007,0,0,1,7.036-7.036,5.217,5.217,0,0,1,1,.117q.586.117,1.349.352V3H56.45V7.691H51.173V22.349a6.758,6.758,0,0,1-2.052,5.013A6.835,6.835,0,0,1,44.137,29.384Zm-32.072-4.1H30.242V20.59H12.066Zm0-7.8H30.242V12.792H12.066Z" transform="translate(30.55 51.58)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path89-2)">
+        <path id="path89-4" data-name="path89" d="M2.45,53.834V8.57A5.432,5.432,0,0,1,4.033,4.612,5.284,5.284,0,0,1,7.961,3H34.346a5.506,5.506,0,0,1,5.57,5.57v3.518A11.092,11.092,0,0,0,33,22.349,10.872,10.872,0,0,0,34.873,28.5a10.488,10.488,0,0,0,5.042,4.046V37.3A5.284,5.284,0,0,1,38.3,41.228a5.432,5.432,0,0,1-3.958,1.583H13.414ZM12.066,33.02h11.14V28.388H12.066Zm32.072-3.635A7.007,7.007,0,0,1,37.1,22.349a7.007,7.007,0,0,1,7.036-7.036,5.217,5.217,0,0,1,1,.117q.586.117,1.349.352V3H56.45V7.691H51.173V22.349a6.758,6.758,0,0,1-2.052,5.013A6.835,6.835,0,0,1,44.137,29.384Zm-32.072-4.1H30.242V20.59H12.066Zm0-7.8H30.242V12.792H12.066Z" transform="translate(30.55 51.58)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="160" viewBox="0 0 120 160">
+  <defs>
+    <filter id="path113" x="24.167" y="48.779" width="71.667" height="72.441" filterUnits="userSpaceOnUse">
+      <feOffset dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="path113-2" x="24.167" y="48.779" width="71.667" height="72.441" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.161" result="color"/>
+      <feComposite operator="out" in="SourceGraphic" in2="blur-2"/>
+      <feComposite operator="in" in="color"/>
+      <feComposite operator="in" in2="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-romanceMoviePoster">
+      <rect width="120" height="160"/>
+    </clipPath>
+  </defs>
+  <g id="romanceMoviePoster" clip-path="url(#clip-romanceMoviePoster)">
+    <rect width="120" height="160" fill="#ff8f9a"/>
+    <g data-type="innerShadowGroup">
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path113)">
+        <path id="path113-3" data-name="path113" d="M39.316,28.538q-3.038-2.68-5.748-5.212A60.544,60.544,0,0,1,28.8,18.382a25.415,25.415,0,0,1-3.246-4.706,9.712,9.712,0,0,1-1.191-4.5A8.139,8.139,0,0,1,32.645.9a7.666,7.666,0,0,1,3.455.864,13.1,13.1,0,0,1,3.216,2.293,13.1,13.1,0,0,1,3.216-2.293A7.666,7.666,0,0,1,45.987.9a8.139,8.139,0,0,1,8.279,8.279,9.712,9.712,0,0,1-1.191,4.5,25.415,25.415,0,0,1-3.246,4.706,60.544,60.544,0,0,1-4.765,4.944Q42.354,25.857,39.316,28.538Zm-6.075,26.8-17.81-5.122V27.168h5.182L35.981,33a7.39,7.39,0,0,1,3.365,2.383,7.232,7.232,0,0,1,1.34,4.646H35.5a35.088,35.088,0,0,1-4.229-.179,20.834,20.834,0,0,1-3.1-.715l-4.11-1.37-1.013,2.978,4.825,1.608a17.8,17.8,0,0,0,3.038.6,28.483,28.483,0,0,0,3.514.238H46.107q4.229,0,5.718.983a3.6,3.6,0,0,1,1.489,3.246v1.846ZM.6,53.376V27.168h9.828V53.376Z" transform="translate(32.57 51.88)"/>
+      </g>
+      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path113-2)">
+        <path id="path113-4" data-name="path113" d="M39.316,28.538q-3.038-2.68-5.748-5.212A60.544,60.544,0,0,1,28.8,18.382a25.415,25.415,0,0,1-3.246-4.706,9.712,9.712,0,0,1-1.191-4.5A8.139,8.139,0,0,1,32.645.9a7.666,7.666,0,0,1,3.455.864,13.1,13.1,0,0,1,3.216,2.293,13.1,13.1,0,0,1,3.216-2.293A7.666,7.666,0,0,1,45.987.9a8.139,8.139,0,0,1,8.279,8.279,9.712,9.712,0,0,1-1.191,4.5,25.415,25.415,0,0,1-3.246,4.706,60.544,60.544,0,0,1-4.765,4.944Q42.354,25.857,39.316,28.538Zm-6.075,26.8-17.81-5.122V27.168h5.182L35.981,33a7.39,7.39,0,0,1,3.365,2.383,7.232,7.232,0,0,1,1.34,4.646H35.5a35.088,35.088,0,0,1-4.229-.179,20.834,20.834,0,0,1-3.1-.715l-4.11-1.37-1.013,2.978,4.825,1.608a17.8,17.8,0,0,0,3.038.6,28.483,28.483,0,0,0,3.514.238H46.107q4.229,0,5.718.983a3.6,3.6,0,0,1,1.489,3.246v1.846ZM.6,53.376V27.168h9.828V53.376Z" transform="translate(32.57 51.88)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

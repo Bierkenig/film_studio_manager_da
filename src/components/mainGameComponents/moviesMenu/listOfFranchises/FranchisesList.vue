@@ -2,34 +2,19 @@
   <div>
     <div id="franchisesListMainDiv">
       <div>
-        <tile-pages-nav id="franchisesListNavigation" :pages='[$t("owning"),$t("forSale")]' :gradient='true'>
-          <div class="franchiseList">
-            <div class="franchiseListScroll verticalScroll">
-              <div v-for="(it, index) in allOwningFranchises" :id="'franchiseItem' + index" :key="index" class="franchiseListElement" @click="getFranchiseInfo(it,index)">
-                <div class="franchiseListElementTitle" :id="'franchiseListElementName' + index">
-                  {{it.name}}
-                </div>
+        <div class="franchiseList">
+          <div class="franchiseListSortDiv">
+            <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
+            <custom-list-sort @sort-changed="setSelectedTypeOfSortOwningFranchises"/>
+          </div>
+          <div class="franchiseListScroll verticalScroll">
+            <div v-for="(it, index) in allOwningFranchises" :id="'franchiseItem' + index" :key="index" class="franchiseListElement" @click="getFranchiseInfo(it,index)">
+              <div class="franchiseListElementTitle" :id="'franchiseListElementName' + index">
+                {{it.name}}
               </div>
             </div>
-            <div class="franchiseListSortDiv">
-              <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatOwningFranchises"/>
-              <custom-list-sort @sort-changed="setSelectedTypeOfSortOwningFranchises"/>
-            </div>
           </div>
-          <div class="franchiseList">
-            <div class="franchiseListScroll verticalScroll">
-              <div v-for="(it, index) in allForSalesFranchises" :id="'franchiseItem' + index" :key="index" class="franchiseListElement" @click="getFranchiseInfo(it,index)">
-                <div class="franchiseListElementTitle" :id="'franchiseListElementName' + index">
-                  {{it.name}}
-                </div>
-              </div>
-            </div>
-            <div class="franchiseListSortDiv">
-              <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForSalesFranchises"/>
-              <custom-list-sort @sort-changed="setSelectedTypeOfSortForSalesFranchises"/>
-            </div>
-          </div>
-        </tile-pages-nav>
+        </div>
       </div>
     </div>
   </div>
@@ -38,10 +23,9 @@
 <script>
 import CustomSelect from "@/components/kitchenSink/CustomSelect";
 import CustomListSort from "@/components/kitchenSink/CustomListSort";
-import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 export default {
   name: "FranchisesList",
-  components: {TilePagesNav, CustomListSort, CustomSelect},
+  components: {CustomListSort, CustomSelect},
 
   data(){
     return {
@@ -64,16 +48,6 @@ export default {
       this.lastIndex = index;
 
       this.$emit('sendFranchise',franchise);
-    },
-
-    setSelectedSortByWhatForSalesFranchises(arg){
-      this.selectedSortByWhat = arg;
-      this.sortFranchiseList(this.allForSalesFranchises);
-    },
-
-    setSelectedTypeOfSortForSalesFranchises(arg){
-      this.selectedTypeOfSort = arg;
-      this.sortFranchiseList(this.allForSalesFranchises);
     },
 
     setSelectedSortByWhatOwningFranchises(arg){
@@ -157,6 +131,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  margin-top: 20px;
 }
 
 .franchiseListSortDiv {
@@ -164,17 +139,12 @@ export default {
   flex-direction: row;
   width: 100%;
   gap: 15px;
-  margin-top: 20px;
 }
 
 .franchiseListElement {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-s-border-radius);
   padding: 10px 0 10px 15px;
-}
-
-#franchisesListNavigation{
-  margin: 15px;
 }
 
 .franchiseList {

@@ -11,7 +11,7 @@
         :shadow="false"
         @click="goBack"/>
     <franchises-list @sendFranchise="receiveFranchise"/>
-    <franchises-details :franchise="clickedFranchise" :check-balance="checkBalance" @bought-franchise="setClickedFranchise"/>
+    <franchises-details :franchise="clickedFranchise"/>
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
   data(){
     return{
       clickedFranchise: null,
-      checkBalance: null
     }
   },
 
@@ -38,25 +37,7 @@ export default {
 
     receiveFranchise(franchise){
       this.clickedFranchise = franchise;
-
-
-      let franchisePrice = 0;
-      for (let i = 0; i < franchise.allMovies.length; i++) {
-        let movieEarnings = 0;
-        if(franchise.allMovies[i]._earnings.length !== 0){
-          for (let j = 0; j < franchise.allMovies[i]._earnings.length; j++) {
-            movieEarnings += franchise.allMovies[i]._earnings[j].amount
-          }
-          franchisePrice += movieEarnings;
-        }
-      }
-
-      this.checkBalance = (this.$store.getters.getBalance - franchisePrice) < 0;
     },
-
-    setClickedFranchise(){
-      this.clickedFranchise = null;
-    }
   }
 }
 </script>
