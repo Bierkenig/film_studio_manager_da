@@ -13,6 +13,7 @@ import FinancialPerformance from '@/classes/FinancialPerformance'
 import i18next from "i18next";
 import Topic from "@/classes/Topic";
 import Genre from "@/classes/Genre";
+import DBFetcher from "@/classes/DBFetcher";
 
 export default createStore({
     /** Application state */
@@ -275,12 +276,13 @@ export default createStore({
             "War": []
         },
 
+        //Fetcher
+        dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],
-        allMovies: [],
         allAwards: [],
         allTopics: [],
         allScreenplays: [],
@@ -412,6 +414,10 @@ export default createStore({
 
         getAllWriters(state){
             return state.allWriters;
+        },
+
+        getAllPeople(state) {
+            return state.allPeople
         },
 
         getSubgenresFromEachGenre(state){
