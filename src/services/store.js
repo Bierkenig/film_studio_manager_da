@@ -39,21 +39,15 @@ export default createStore({
         currentMovie: new Movie(new Studio(100,"Jakob ist Cool", "2023",50000000,80), null),
         currentMovieDetails: null,
         currentProdEventType: "",
-        currentPostProdEventType: "postProductionProblem",
-        //movies which are still in cinema and generate profit
+        currentPostProdEventType: "sound",
         createdMovies: [],
-        //muss das ins save file?
         currentScreenplay: null,
-        //TODO: changes
         logo: null,
         soundeffects: true,
         backgroundMusic: true,
         currentDate: new Date("2023-01-01T00:00:00.000Z"),
-        //currentDate: new Date("January 01, 2023"),
         currentLanguage: 'en',
-        //news: ['Studio XYZ gegründet', 'Studio XYZ in Konkurs','A','B','C'],
         news: [],
-        //nicht fertig
         earnings: [
             {
                 value: 245000,
@@ -94,7 +88,6 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 0)),
             new FinancialPerformance(new Date(2024, 1))
         ],
-        //nicht fertig
         calendarEvents: [
             {
                 id: 1,
@@ -181,13 +174,10 @@ export default createStore({
         franchises: [],
         currentFranchise: null,
 
-        //movies which are in currentProduction
         inProductionMovies: [],
 
-        //movies which aren't in cinema anymore and are completely finished
         finishedMovies: [new Movie(null, 0)],
 
-        // variables for sale
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
         franchisesFromOtherStudios: [],
@@ -195,7 +185,6 @@ export default createStore({
 
         //TODO: schauen, ob bei save file dabei
         boughtMovies: [],
-        //bought movie rights
         //TODO: neu hinzugeben bei save
         boughtMovieRights: [],
 
@@ -204,11 +193,7 @@ export default createStore({
             {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
             {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
         ],
-        allYears: [2023, 2024, 2025],
 
-        //movie State
-        movieState: "",
-        //preProduction
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"],
         animation: ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"],
@@ -289,10 +274,8 @@ export default createStore({
         allGenres: [],
         allSubGenres: [],
 
-        //editor
         editPerson: null,
 
-        //salary
         //TODO need to cut 20
         allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000,29500000, 31000000],
         allWriterSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000,525000,550000,575000,600000,625000,650000,675000,700000,725000,750000,825000,900000,975000,1050000,1125000,1200000,1275000,1350000,1425000,1500000,1600000,1700000,1800000,1900000,2000000,2100000,2200000,2300000,2400000,2500000,2750000,3000000,3250000,3500000,3750000,4000000,4250000,4500000,4750000,5000000,5500000,6000000,6500000,7000000,7500000,8000000,8500000,9000000,9500000,10000000,10500000,11000000,11500000,12000000],
@@ -980,6 +963,104 @@ export default createStore({
             else{
                 state.dbCustomName2  = name
             }
+        },
+
+        resetState(state){
+            state.slot = null
+            state.screenplay = []
+            state.boughtScreenplays = []
+            state.studio = null
+            state.currentMovieExpenses = 0
+            state.currentMovieBudget = 0
+            state.currentMovie = null
+            state.currentMovieDetails = null
+            state.currentProdEventType = ""
+            state.currentPostProdEventType = ""
+            state.createdMovies = []
+            state.currentScreenplay = null
+            state.logo = null
+            state.currentDate = new Date("2023-01-01T00:00:00.000Z")
+            state.news = []
+            state.earnings = []
+            state.financialPerformance = []
+            state.calenderEvents = []
+            state.happeningEvent = null
+            state.franchise = []
+            state.currentFranchise = null
+            state.inProductionMovies = []
+            state.finishedMovies = []
+            state.moviesFromOtherStudios = []
+            state.screenplaysFromWriters = []
+            state.franchisesFromOtherStudios = []
+            state.otherStudios = []
+            state.boughtMovies = []
+            state.boughtMovieRights = []
+            state.financialHistory = []
+            state.feature = ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"]
+            state.indie = ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"]
+            state.animation = ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"]
+            state.preProductionEvents.actorWhoWantsToDropOut = null
+            state.preProductionEvents.directorWithDispute = null
+            state.type.editing = null
+            state.type.sound = null
+            state.type.vfx = null
+            state.type.acting = null
+            state.type.story = null
+            state.streamingServicesFromOtherStudios = []
+            state.ownStreamingService = null
+            state.studioNames = ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
+                "Pictures", "Emberlight Films", "Sandstorm Productions", "Greenlight Films", "Incandescent Pictures", "Velvet Vision Studio", "Luna Productions", "Terra studios", "Roaring 20s Productions", "Heart of Life Studios", "Maze Pictures", "Radiant Pictures",
+                "Glowing Lantern", "Indigo Studios", "Phoenix Rising Productions", "Serene Cinema", "Summer Moon Cinema", "Vintage Reel Productions", "Digital Cinema Foundry", "Red Pigment", "Burning Torch Studios", "Celestial Pictures", "Mammoth Pictures", "Everchanging Productions",
+                "Mystic Moon Studios", "Digital Wonderland", "Eclipse Studios", "Cosmic Connect", "Astral Motion", "Mystic Arts Pictures", "Morningstar Films", "Sparkling Sky Productions", "Flicker Fields", "Silver Cloud Productions", "Wildheart Productions", "Open Sky Pictures",
+                "Fairland Pictures", "Valley River Studios", "Golden Moon Cinemas", "Dancing Star Productions", "Starstruck Productions", "Sun Sparkle Pictures", "Dream Makers Cinema", "Lullaby Moon Studio", "Dizzy Eyes Studios", "Cozy Theater Productions", "Raven Productions",
+                "Screen Arts", "Scorpio Productions", "Star Bird Studios", "Twinkle Pictures", "Silver Oak Pictures", "Mystic Cloud Pictures", "Riversong Pictures", "Gentle Breeze Cinemas", "Golden Globe Studios", "Visionary Productions", "Shining Star Pictures", "Oceanside Pictures",
+                "Reflections Studios", "Dragonfly Filmworks", "Glittering Lights Pictures", "Sunset Pictures", "Broadwing Studio", "Glowing Galaxy Cinema", "Featherlight Pictures", "Starlight Cinema", "Bright Moon Pictures", "Celestial Express", "Cottonwood Pictures", "Roaring River Studios",
+                "Midsummer Night Studios", "Radiant Wave Productions", "Infinity Pictures", "Mystic Meadows Studios", "Starlight Films", "Pacific Pictures", "Mystic Canyon Pictures", "Creative Chaos Studios", "Shooting Star Pictures", "Evergreen Productions", "Mystic Cat Studios",
+                "Enchanted Forest Productions", "Vision Craft Studio", "Skydancer Pictures", "Morning Glory Films", "Shadow Moon Films", "Winding Path Cinemas", "Mystic Productions", "Daydream Pictures", "Sweetwater Studios", "Everlasting Films", "Sleeping Forest Studio",
+                "Lyrical Lights Pictures", "Blue Horizon Films", "Reflections Pictures", "Blazing Sword Productions", "Serendipity Films", "Rainbow Valley Pictures", "Star Vision Productions", "Dreamtime Pictures", "Dreamweaver Pictures", "Dancing Sun Pictures", "Sunrise Studios",
+                "Creations Pictures", "Dreaming Stars Pictures", "Waterfall Studios", "Mystic Land Picture", "Moonstone Cinemas", "Electric Light Cinema", "Wildland Pictures", "Cloud Nine Cinema", "Silver Spur Pictures", "Twilight Pictures", "Everland Pictures", "Silver Tree Pictures",
+                "Moonlit Cinema", "Trailblazer Productions", "Fading Light Studios", "Silver Sky Pictures", "Dreamcatcher Studios", "Brightstar Pictures", "Mystic Flames Pictures", "Shooting Star Cinemas", "Illumine Pictures", "Wild Wind Studios", "Sunburst Cinema", "Stardust Pictures",
+                "Arcadian Pictures", "Endless Summer Cinema", "Northern Lights Studio", "Solar Pictures", "Rising Sun Productions", "Mystic River Pictures", "Starry Night Pictures", "Oceanside Cinemas", "Dreamscape Pictures", "Dreamland Pictures", "Dreamweaver Studios", "Celestial Pictures",
+                "Dreamweaver Productions", "Celestial Sky productions", "Twilight Zone Productions", "Shooting Star Cinemas", "Moonbeam Pictures", "Mystic Moonlight Pictures", "Southern Star Pictures", "Starlight Pictures", "Stardust Studios", "Cloudland Productions", "Shadow Moon Pictures",
+                "Astral Pictures", "Mystic Memories Films", "Starlight Films", "Heavenly Dreams Films", "Stargazer Films", "Mystic Sunrise Pictures", "Sunlight Pictures", "Stardust Films", "Mystic Moon Studios", "Blue Skies Studios", "Enchanted Forest Pictures", "Starstream Pictures",
+                "Mystic Light Pictures", "Glowing Embers Studios", "Dreamland Films", "Dreamwalker Pictures", "Dreamcatcher Studios", "Starry Night Films", "Moonlight Studios", "Mystic Visions Films", "Mystic Valley Pictures", "Celestial Dream Pictures"]
+            state.screenplay.title = ["The Waning Moon", "The Burning Flame", "The Unspoken Truth", "The Road to Nowhere", "Into the Abyss", "Shadows of the Night", "The Secret Garden", "The Unseen Path", "The Legend of Time", "The Labyrinth of Fate",
+                "The Lost Soul", "The Edge of Time", "The Call of the Wild", "Celestial Rising", "Late Night Serenade", "The Last Dance", "A Long Journey", "Emerald Bay", "The Fortune Teller", "Chasing the Horizon", "Frozen Fire",
+                "Dreamweaver", "The Phoenix Rises", "Starlight in the Dark", "Eternal Flame", "Moonlight Memory", "Starstruck", "To the Ends of the Earth", "The Big Sky", "The Final Act", "Road to Redemption", "Midnight Magic", "A Wish Upon a Star",
+                "The Golden Hour", "Legend of the Lake", "The Siren Song", "The Labyrinth of Fate", "Silver Lining", "The Dreamcatcher", "The Edge of the World", "The Star-Crossed Lovers", "The Storm Before the Calm", "The Silver Screen",
+                "Summer Solstice", "A New Dawn", "The Witching Hour", "Flash of Lightning", "The Endless Summer", "The Road Less Traveled", "The Deep Blue Sea", "The Phoenix Reborn", "The Alchemist's Tale",
+                "Heart of Gold", "A Night to Remember", "The Lost Paradise", "The Rising Sun", "The Mystic Mountain", "A Moment in Time", "The Frozen North", "The Great Escape", "The Gilded Cage",
+                "The Seventh Heaven", "The Night Circus", "The Garden of Dreams", "The Tempest", "The Crimson Moon", "A Dream Come True", "The Mystic Forest", "The Shadow of the Moon", "The Star-Gazer",
+                "The Golden Age", "The Lost City", "Midnight Star", "The Wanderer's Path", "Frozen in Fear", "Lost in the Shadows", "The Lonely Road Ahead", "Into the Unknown", "Where the Night Begins",
+                "Within the Silence", "Nightfall's Embrace", "In the Depths of Darkness", "The Secrets of the Forest", "Echoes of the Past", "Stranded in a Storm", "Ice and Fire", "Memories of Tomorrow", "Tides of Change",
+                "A Stranger's Tale", "The Path Unseen", "The Final Act", "Captive of the Night", "A Whisper in the Wind", "The Forgotten Story", "The Curse of the Moon", "The Endless Journey", "A New Dawn", "The Howling Wind",
+                "The Crossroads of Fate", "Beyond the Horizon", "Burning in the Dark", "The Journey Home", "The Chilling Midnight", "The Curse of the Stars", "The Road Not Taken", "The Whispering Woods", "Into the Wild"]
+            state.subgenresFromEachGenre = {
+                "Action": [],
+                    "Adventure": [],
+                    "Comedy": [],
+                    "Documentary": [],
+                    "Drama": [],
+                    "Fantasy": [],
+                    "Horror":[],
+                    "Musical": [],
+                    "Romance": [],
+                    "Science-Fiction": [],
+                    "Thriller": [],
+                    "War": []
+            }
+            state.allPeople = []
+            state.Actors = []
+            state.allDirectors =[]
+            state.allWriters = []
+            state.allAwards = []
+            state.allTopics = []
+            state.allScreenplays = []
+            state.allGenres = []
+            state.allSubGenres = []
+            state.editPerson = []
+            state.allDirectorSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000,29500000, 31000000]
+            state.allWriterSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000,525000,550000,575000,600000,625000,650000,675000,700000,725000,750000,825000,900000,975000,1050000,1125000,1200000,1275000,1350000,1425000,1500000,1600000,1700000,1800000,1900000,2000000,2100000,2200000,2300000,2400000,2500000,2750000,3000000,3250000,3500000,3750000,4000000,4250000,4500000,4750000,5000000,5500000,6000000,6500000,7000000,7500000,8000000,8500000,9000000,9500000,10000000,10500000,11000000,11500000,12000000]
         }
 
     },
