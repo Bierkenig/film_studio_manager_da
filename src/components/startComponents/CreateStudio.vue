@@ -114,6 +114,8 @@ export default {
   methods: {
     startGame() {
       this.$store.commit('resetState')
+      this.$store.state.dbFetcher.clear()
+      this.$store.state.dbFetcher.fetch()
       if(this.databaseType === 'current'){
         window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.databaseVersion +".db")
       }
