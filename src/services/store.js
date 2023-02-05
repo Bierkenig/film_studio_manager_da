@@ -181,7 +181,10 @@ export default createStore({
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
         franchisesFromOtherStudios: [],
-        otherStudios: [],
+        otherStudios: [
+            new Studio(0, "Studio 1", 2002, 203002, 100),
+            new Studio(1, "Atudio 2", 2020, 2098, 100)
+        ],
 
         //TODO: schauen, ob bei save file dabei
         boughtMovies: [],
@@ -197,6 +200,8 @@ export default createStore({
         currentLoans: [
             {id: 0, value: 20394, date: new Date(2023, 3, 2)}
         ],
+
+        currentStudioTakeOverRequests: [],
 
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"],
@@ -393,6 +398,10 @@ export default createStore({
 
         getCurrentLoans(state) {
             return state.currentLoans
+        },
+
+        getCurrentStudioTakeOverRequests(state) {
+            return state.currentStudioTakeOverRequests
         },
 
         getAllActors(state){
@@ -604,6 +613,10 @@ export default createStore({
 
         addCurrentLoan(state, payload) {
             state.currentLoans.push(payload)
+        },
+
+        addStudioTakeOverRequest(state, payload) {
+            state.currentStudioTakeOverRequests.push(payload)
         },
 
         changeDateOfLoan(state, payload) {

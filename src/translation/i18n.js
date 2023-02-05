@@ -88,7 +88,16 @@ i18next
                     buyAStudio: {
                         foundationDate: "Foundation Date",
                         ascending: "Ascending",
-                        descending: "Descending"
+                        descending: "Descending",
+                        general: "General",
+                        revenue: "Revenue",
+                        profit: "Profit",
+                        share: "Market Share",
+                        streaming: "Streaming",
+                        popularity: "Popularity",
+                        subs: "Subscribers",
+                        franchises: "Franchises",
+                        contact: "Contact Studio"
                     },
                     production: "Production",
                     marketing: "Marketing",
