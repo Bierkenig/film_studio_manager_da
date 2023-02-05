@@ -753,7 +753,7 @@ i18next
                     open: 'Open',
                     createMovieInfoText: 'Produce new movies from existing scripts or buy new.',
                     listOfSourcesInfoText: 'View your own sources or buy them from your competitors.',
-                    listOfFranchisesInfoText: 'View your own franchises or buy them from your competitors.',
+                    listOfFranchisesInfoText: 'View your own franchises.',
                     closeGame: 'Close Game',
                     goBackMenu: 'Back to main menu',
                     startMenu: 'Main Menu',
@@ -1054,6 +1054,12 @@ i18next
                     buyMovie: 'Buy movie',
                     databaseSlots: 'Database Slots',
                     franchiseInfoText: 'You are currently creating a franchise of the following movie: ',
+                    listOfMovies: 'List of Movies',
+                    listOfPeople: 'List of People',
+                    listOfAwards: 'List of Awards',
+                    listOfMoviesInfoText: 'View a list of all movies..',
+                    listOfPeopleInfoText: 'View a list of all people..',
+                    listOfAwardsInfoText: 'View a list of every award..',
                 }
             },
             de: {
@@ -1641,7 +1647,7 @@ i18next
                     open: 'Öffnen',
                     createMovieInfoText: 'Erstelle neue Filme von bestehenden Drehbüchern oder kaufe Filme.',
                     listOfSourcesInfoText: 'Sieh dir deine eigenen Quellen an oder kaufe welche von anderen Studios.',
-                    listOfFranchisesInfoText: 'Sieh dir deine eigenen Franchises an oder kaufe welche von anderen Studios.',
+                    listOfFranchisesInfoText: 'Sieh dir deine eigenen Franchises an.',
                     closeGame: 'Spiel beenden',
                     goBackMenu: 'Zurück zum Hauptmenü',
                     startMenu: 'Hauptmenü',
@@ -2028,6 +2034,12 @@ i18next
                     buyMovie: 'Film kaufen',
                     databaseSlots: 'Datenbank Versionen',
                     franchiseInfoText: 'Du erstellst gerade von dem folgendem Film ein Franchise: ',
+                    listOfMovies: 'Liste der Filme',
+                    listOfPeople: 'Liste der Personen',
+                    listOfAwards: 'Liste der Auszeichnungen',
+                    listOfMoviesInfoText: 'Sieh dir die Liste deiner Filme an.',
+                    listOfPeopleInfoText: 'Sieh dir die Liste aller Personen an.',
+                    listOfAwardsInfoText: 'Sieh dir die Liste aller Auszeichnungen an.',
                 }
             }
         }
