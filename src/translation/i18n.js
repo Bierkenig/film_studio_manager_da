@@ -786,25 +786,117 @@ i18next
                     screenplayPlot: 'Screenplay Plot',
                     contractOffer: 'Contract Offer',
                     events: {
+                        actorDropsOut: {
+                            title: 'Actor drops out',
+                            description: 'In the movie',
+                        },
+                        callForRecast: {
+                            title: 'Director calls for recast',
+                            description: 'In the movie',
+                        },
+                        directorDropsOut: {
+                            title: 'Director drops out',
+                            description: 'In the movie',
+                        },
+                        directorWantsMoreBudget: {
+                            title: 'Director wants more budget',
+                            description: 'In the movie',
+                        },
+                        directorWantsExtendPhase: {
+                            title: 'Director wants to extend duration',
+                            description: 'In the movie',
+                        },
                         preProductionFinished: {
                             title: 'Preproduction finished',
                             description: 'Of the movie',
                         },
+                        badWeather: {
+                            title: 'Bad weather',
+                            description: 'Production cannot be resumed in the movie',
+                        },
+                        castMakesProblems: {
+                            title: 'Cast makes problems',
+                            description: 'In the movie',
+                        },
+                        insufficientBudget: {
+                            title: 'Insufficient budget',
+                            description: 'During production in the movie',
+                        },
+                        equipmentMalfunctions: {
+                            title: 'Equipment malfunctions',
+                            description: 'In the movie',
+                        },
+                        budgetProblems: {
+                            title: 'Budget problems',
+                            description: 'During production in the movie',
+                        },
+                        setBreakdown: {
+                            title: 'Set breakdown',
+                            description: 'During production in the movie',
+                        },
+                        insufficientProductionPhase: {
+                            title: 'Insufficient production phase',
+                            description: 'In the movie',
+                        },
+                        directorWantsChanges: {
+                            title: 'Director wants changes',
+                            description: 'In the movie',
+                        },
+                        injuryOfCast: {
+                            title: 'Injury of cast member',
+                            description: 'In the movie'
+                        },
                         productionFinished: {
                             title: 'Production finished',
+                            description: 'Of the movie',
+                        },
+                        testScreening: {
+                            title: 'Test screening',
+                            description: 'Of the movie',
+                        },
+                        soundQualityProblem: {
+                            title: 'Sound quality problems',
+                            description: 'In the movie',
+                        },
+                        postProductionProblem: {
+                            title: 'Postproduction problems',
+                            description: 'In the movie',
+                        },
+                        visualEffectsProblem: {
+                            title: 'Visual effects problems',
+                            description: 'In the movie',
+                        },
+                        visualQualityProblem: {
+                            title: 'Visual quality problems',
+                            description: 'In the movie',
+                        },
+                        reshootingOfScenes: {
+                            title: 'Reshooting of scenes',
                             description: 'Of the movie',
                         },
                         postProductionFinished: {
                             title: 'Postproduction finished',
                             description: 'Of the movie',
                         },
-                        featureRelease: {
-                            title: 'Feature Film Release',
+                        release: {
+                            title: 'Release',
                             description: 'Of the movie',
                         },
-                        blockbusterRelease: {
-                            title: 'Blockbuster Release',
-                            description: 'Of the movie',
+                        releaseSummary: {
+                            title: 'Release summary',
+                            description: 'Of the movie'
+                        },
+                        dvdSummary: {
+                            title: 'DVD summary',
+                            description: 'Of the movie'
+                        },
+                        studioTakeover: {
+                            title: 'Studio takeover',
+                            description: 'Of the studio',
+                        },
+                        bankrupt: {
+                            title: 'Bankrupt',
+                            description: 'Your own studio',
                         },
                         awards: {
                             title: 'International Film Awards',
@@ -1668,25 +1760,117 @@ i18next
                     screenplayPlot: 'Drehbuchhandlung',
                     contractOffer: 'Vertragsangebot',
                     events: {
+                        actorDropsOut: {
+                            title: 'Schauspieler steigt aus',
+                            description: 'In dem Film',
+                        },
+                        callForRecast: {
+                            title: 'Regisseur fordert Neubesetzung',
+                            description: 'In dem Film',
+                        },
+                        directorDropsOut: {
+                            title: 'Regisseur steigt aus',
+                            description: 'In dem Film',
+                        },
+                        directorWantsMoreBudget: {
+                            title: 'Regisseur möchte mehr Budget',
+                            description: 'In dem Film',
+                        },
+                        directorWantsExtendPhase: {
+                            title: 'Regisseur möchte mehr Zeit',
+                            description: 'In dem Film',
+                        },
                         preProductionFinished: {
                             title: 'Vorproduktion abgeschlossen',
                             description: 'Von dem Film',
+                        },
+                        badWeather: {
+                            title: 'Schlechtes Wetter',
+                            description: 'Fortsetzung von Film nicht möglich',
+                        },
+                        castMakesProblems: {
+                            title: 'Schauspieler macht Probleme',
+                            description: 'In dem Film',
+                        },
+                        insufficientBudget: {
+                            title: 'Zu wenig Budget',
+                            description: 'Während der Produktion des Films',
+                        },
+                        equipmentMalfunctions: {
+                            title: 'Fehlfunktionen des Equipments',
+                            description: 'In dem Film',
+                        },
+                        budgetProblems: {
+                            title: 'Budget Probleme',
+                            description: 'Während der Produktion des Films',
+                        },
+                        setBreakdown: {
+                            title: 'Zerstörung des Sets',
+                            description: 'Während der Produktion des Films',
+                        },
+                        insufficientProductionPhase: {
+                            title: 'Zu kurze Produktionsphase',
+                            description: 'In dem Film',
+                        },
+                        directorWantsChanges: {
+                            title: 'Regisseur möchte Änderungen',
+                            description: 'In dem Film',
+                        },
+                        injuryOfCast: {
+                            title: 'Verletzung eines Schauspielers',
+                            description: 'In dem Film',
                         },
                         productionFinished: {
                             title: 'Produktion abgeschlossen',
                             description: 'Von dem Film',
                         },
+                        testScreening: {
+                            title: 'Test',
+                            description: 'Von dem Film',
+                        },
+                        soundQualityProblem: {
+                            title: 'Probleme mit der Tonqualität',
+                            description: 'In dem Film',
+                        },
+                        postProductionProblem: {
+                            title: 'Probleme in der Nachbearbeitung',
+                            description: 'In dem Film',
+                        },
+                        visualEffectsProblem: {
+                            title: 'Probleme mit visuellen Effekten',
+                            description: 'In dem Film',
+                        },
+                        visualQualityProblem: {
+                            title: 'Probleme mit der visuellen Qualität',
+                            description: 'In dem Film',
+                        },
+                        reshootingOfScenes: {
+                            title: 'Neuaufnahme von Szenen',
+                            description: 'In dem Film',
+                        },
                         postProductionFinished: {
                             title: 'Nachbearbeitng abgeschlossen',
                             description: 'Von dem Film',
                         },
-                        featureRelease: {
-                            title: 'Spielfilm-Veröffentlichung',
+                        release: {
+                            title: 'Veröffentlichung',
                             description: 'Von dem Film',
                         },
-                        blockbusterRelease: {
-                            title: 'Blockbuster-Veröffentlichung',
-                            description: 'Von dem Film',
+                        releaseSummary: {
+                            title: 'Zusammenfassung der Veröffentlichung',
+                            description: 'Von dem Film'
+                        },
+                        dvdSummary: {
+                            title: 'DVD Zusammenfassung',
+                            description: 'Von dem Film'
+                        },
+                        studioTakeover: {
+                            title: 'Studio Übernahme',
+                            description: 'Von dem Studio',
+                        },
+                        bankrupt: {
+                            title: 'Konkurs',
+                            description: 'Dein eigenes Studio',
                         },
                         awards: {
                             title: 'Internationale Filmpreise',

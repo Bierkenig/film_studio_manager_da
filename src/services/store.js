@@ -102,7 +102,7 @@ export default createStore({
                 movie: "NICHTS",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'featureFilm',
+                type: 'badWeather',
                 completed: false,
             },
             {
@@ -110,7 +110,7 @@ export default createStore({
                 movie: "ALLES",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'blockbuster',
+                type: 'preProductionFinished',
                 completed: false,
             },
             {
@@ -118,7 +118,7 @@ export default createStore({
                 movie: "VIELLEICHT",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'award',
+                type: 'directorWantsChanges',
                 completed: false,
             },
             {
@@ -126,7 +126,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'featureFilm',
+                type: 'postProductionProblem',
                 completed: false,
             },
             {
@@ -134,7 +134,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'award',
+                type: 'reshootingOfScenes',
                 completed: false,
             },
             {
@@ -142,7 +142,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'award',
+                type: 'releaseSummary',
                 completed: false,
             },
             {
@@ -150,7 +150,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'award',
+                type: 'bankrupt',
                 completed: false,
             },
             {
@@ -158,7 +158,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'award',
+                type: 'actorDropsOut',
                 completed: false,
             },
             {
