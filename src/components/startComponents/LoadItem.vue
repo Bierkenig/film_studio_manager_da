@@ -24,41 +24,17 @@
       </div>
     </div>
 
-    <transition name="modal">
-      <close-modal
-          v-if="showAutoSaveModal"
-          headline="autoSaveModal"
-          @useAutoSave="useAutoSave = true; autoSaving()"
-          @normal="useAutoSave = false; showAutoSaveModal = false; autoSaving()">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </close-modal>
-    </transition>
 
-    <transition name="modal">
-      <close-modal
-          v-if="showCorruptModal"
-          headline="saveCorruptModal"
-          @deleteFile="deleting(); showCorruptModal = false"
-          @close="showCorruptModal = false">
-        <template v-slot:header>
-          <h3>custom header</h3>
-        </template>
-      </close-modal>
-    </transition>
   </div>
 </template>
 
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton";
-import i18next from "i18next";
-import CloseModal from "@/components/mainGameComponents/CloseModal";
 
 export default {
   name: "LoadItem",
-  components: {CloseModal, CustomButton},
+  components: {CustomButton},
   mixins: [soundeffectMixin('button','click')],
 
   props: {
@@ -72,7 +48,7 @@ export default {
       studioName: null,
       showAutoSaveModal: false,
       showCorruptModal: false,
-      useAutoSave: false
+      useAutoSave: false,
     }
   },
 
@@ -82,7 +58,6 @@ export default {
 
   methods: {
     init(){
-      window.ipcRenderer.send('r2mChecking', this.slotNr)
       window.ipcRenderer.receive('m2rChecking', data => {
         console.log(data[0])
         console.log(this.slotNr)
@@ -96,8 +71,7 @@ export default {
         }
       })
 
-      window.ipcRenderer.send('r2mLoading', this.slotNr)
-      window.ipcRenderer.receive('m2rLoading', data => {
+      window.ipcRenderer.receive('m2rSaveSlot' + this.slotNr, data => {
         console.log(data[1])
         if(data[0] !== null) {
           if (data[1] !== '102' && data[1] !== '106') {
@@ -110,50 +84,14 @@ export default {
           }
         }
       })
+
+      window.ipcRenderer.send('r2mChecking', this.slotNr)
+      window.ipcRenderer.send('r2mLoading', {slotNr: this.slotNr, responseChannel: 'm2rSaveSlot' + this.slotNr})
+
     },
 
     load(){
-      window.ipcRenderer.send('r2mLoading',this.slotNr)
-      window.ipcRenderer.receive('m2rLoading', data => {
-        if(data[1]==='100') {
-          let saveData = data[0].state
-          console.log(saveData)
-          console.log(data[0].en_date)
-          this.$store.commit("loadFromSave", saveData)
-          console.log('Save-File was loaded : ' + data[1])
-          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
-        }
-        else if(data[1] === '101') {
-          console.log('Save-File corrupted - Save State was recovered : ' + data[1])
-          let saveData = data[0].state
-          this.$store.commit("loadFromSave", saveData)
-          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
-        }
-        else if(data[1] === '102'){
-          this.showCorruptModal = true
-          console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered : " + data[1])
-        }
-        else if(data[1] === '103'){
-          console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File von' + this.date + 'laden? : ' + data[1])
-          this.showAutoSaveModal = true
-        }
-      })
-    },
-
-    autoSaving(){
-      window.ipcRenderer.send('r2mLoading',this.slotNr)
-      window.ipcRenderer.receive('m2rLoading', data => {
-        if(this.useAutoSave === true){
-          let saveData = data[3].state
-          this.$store.commit("loadFromSave", saveData)
-          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
-      }
-        else if(this.useAutoSave === false){
-          let saveData = data[0].state
-          this.$store.commit("loadFromSave", saveData)
-          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
-        }
-    })
+      window.ipcRenderer.send('r2mLoading',{slotNr: this.slotNr, responseChannel: 'm2rLoading'})
     },
 
     async deleting(){
@@ -161,6 +99,13 @@ export default {
       await new Promise(resolve => setTimeout(resolve, 20))
       this.init()
       this.date = null
+    },
+
+    removeListeners(){
+      window.ipcRenderer.removeAllListeners('m2rLoading')
+      window.ipcRenderer.removeAllListeners('m2rChecking')
+      window.ipcRenderer.removeAllListeners('m2rAutoSaveLoading')
+      window.ipcRenderer.removeAllListeners('m2rSaveSlot')
     }
   }
 }
