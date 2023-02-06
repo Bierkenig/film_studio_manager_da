@@ -66,7 +66,6 @@ export default {
       showCorruptModal: false,
       useAutoSave: false,
       slotForAutoSave: null,
-      componentKey: 0
     }
   },
 
@@ -76,15 +75,11 @@ export default {
       this.slotForAutoSave = data[2]
       if(data[1]==='100') {
         let saveData = data[0].state
-        console.log(saveData)
-        console.log(data[0].en_date)
         this.$store.commit("loadFromSave", saveData)
-        console.log('Save-File was loaded : ' + data[1])
         this.removeListeners()
         this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
       }
       else if(data[1] === '101') {
-        console.log('Save-File corrupted - Save State was recovered : ' + data[1])
         let saveData = data[0].state
         this.$store.commit("loadFromSave", saveData)
         this.removeListeners()
@@ -92,11 +87,8 @@ export default {
       }
       else if(data[1] === '102'){
         this.showCorruptModal = true
-        console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered : " + data[1])
-
       }
       else if(data[1] === '103'){
-        console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File von' + this.date + 'laden? : ' + data[1])
         this.showAutoSaveModal = true
       }
     })

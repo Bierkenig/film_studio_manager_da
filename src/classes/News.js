@@ -1,6 +1,7 @@
 import Person from "@/classes/Person";
 import Award from "@/classes/Award";
 import {Movie} from "@/classes/Movie";
+import {Studio} from "@/classes/Studio";
 
 export default class News {
     constructor(title, description, type, date, person = null, movie = null, award = null, studio = null) {
@@ -52,6 +53,7 @@ export default class News {
         instance._person = Person.fromJSON(jsonObject._person)
         instance._award = Award.fromJSON(jsonObject._award)
         instance._movie = Movie.fromJSON(jsonObject._movie)
+        instance._studio = Studio.fromJSON(jsonObject._studio)
         return instance
     }
 }

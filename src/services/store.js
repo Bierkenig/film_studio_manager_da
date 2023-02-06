@@ -1038,6 +1038,7 @@ export default createStore({
             state.screenplaysFromWriters = []
             state.franchisesFromOtherStudios = []
             //state.otherStudios = []
+            state.marketYears = [2023]
             state.boughtMovies = []
             state.boughtMovieRights = []
             state.financialHistory = []
