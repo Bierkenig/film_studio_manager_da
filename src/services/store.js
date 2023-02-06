@@ -14,6 +14,7 @@ import i18next from "i18next";
 import Topic from "@/classes/Topic";
 import Genre from "@/classes/Genre";
 import DBFetcher from "@/classes/DBFetcher";
+import FinancialHistoryEntry from "@/classes/FinancialHistoryEntry";
 
 export default createStore({
     /** Application state */
@@ -194,9 +195,7 @@ export default createStore({
         boughtMovieRights: [],
 
         financialHistory: [
-            {title: "financialHistory.event1", desc: "financialHistory.desc1", iconPath: ""},
-            {title: "financialHistory.event2", desc: "financialHistory.desc2", iconPath: ""},
-            {title: "financialHistory.event3", desc: "financialHistory.desc3", iconPath: ""},
+            new FinancialHistoryEntry('event1', 'desc1', null)
         ],
 
         currentLoans: [
@@ -1041,7 +1040,7 @@ export default createStore({
             state.marketYears = [2023]
             state.boughtMovies = []
             state.boughtMovieRights = []
-            state.financialHistory = []
+            //state.financialHistory = []
             state.feature = ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"]
             state.indie = ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"]
             state.animation = ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"]

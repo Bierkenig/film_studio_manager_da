@@ -75,17 +75,17 @@
             <td>$ {{el.calcRevenue()}}</td>
             <td>$ {{el.calcProfit()}}</td>
             <td>{{el.marketShare[selectedMarketYear]}}%</td>
-            <td>{{el.marketShare[selectedMarketYear] - el.marketShare[selectedMarketYear-1]}}%</td>
+            <td>{{el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear-1] !== undefined ? el.marketShare[selectedMarketYear-1] : 0)}}%</td>
           </tr>
         </table>
 
       </div>
         <div>
           <h3>{{ $t('financialHistory.name') }}</h3>
-          <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
+          <div v-for="(el, index) in financialHistory" :key="index">
             <!-- TODO icon -->
-            <h2>{{ $t(el.title) }}</h2>
-            <p>{{ $t(el.desc) }}</p>
+            <div>{{ $t("financialHistory." + el.title) }}</div>
+            <div>{{ $t("financialHistory." + el.description) }}</div>
           </div>
         </div>
       </div>
@@ -119,6 +119,7 @@ export default {
         total: {name: "total", incoming: 0, outgoing: 0, accumulated: 0}
       },
       otherStudios: [],
+      financialHistory: this.$store.getters.getFinancialHistory
     }
   },
 
