@@ -97,7 +97,11 @@ i18next
                         popularity: "Popularity",
                         subs: "Subscribers",
                         franchises: "Franchises",
-                        contact: "Contact Studio"
+                        contact: "Contact Studio",
+                        response: "Studio Response",
+                        offer: "Offer",
+                        accept: "Accept",
+                        deny: "Deny",
                     },
                     production: "Production",
                     marketing: "Marketing",
