@@ -2,7 +2,6 @@ import store from '@/services/store'
 import Person from "@/classes/Person";
 import Topic from "@/classes/Topic";
 import Genre from "@/classes/Genre";
-import SubGenre from "@/classes/SubGenre";
 
 export default class DBFetcher {
     constructor() {
@@ -14,7 +13,6 @@ export default class DBFetcher {
         this.allTopics = []
         this.allScreenplays = []
         this.allGenres = []
-        this.allSubGenres = []
     }
 
     clear() {
@@ -26,7 +24,6 @@ export default class DBFetcher {
         store.state.allTopics = []
         store.state.allScreenplays = []
         store.state.allGenres = []
-        store.state.allSubGenres = []
     }
 
     fetch() {
@@ -69,21 +66,6 @@ export default class DBFetcher {
             this.allGenres.push(new Genre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
         })
 
-        //Fetch Subgenre
-        let counter = 1;
-        let index = 0;
-        window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
-        window.ipcRenderer.receive('gotSubGenres', (data) => {
-            this.allSubGenres.push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
-
-            let allGenres = ['Action','Adventure','Comedy','Documentary','Drama','Fantasy','Horror','Musical','Romance','Science-Fiction','Thriller','War'];
-            store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity));
-
-            if(counter % 5 === 0){
-                index++;
-            }
-            counter++;
-        })
 
         //Set in Store
         store.commit('setAllWriters', this.allWriters);
@@ -92,6 +74,5 @@ export default class DBFetcher {
         store.commit('setAllTopics',this.allTopics);
         store.commit('setAllPeople', this.allPeople);
         store.commit('setAllGenres', this.allGenres)
-        store.commit('setAllSubGenres', this.allSubGenres)
     }
 }
