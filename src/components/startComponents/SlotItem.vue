@@ -106,7 +106,8 @@ export default {
       // })
       window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom1.db")
 
-      this.$router.push({name: 'createStudio'})
+      this.$router.push({name: 'createStudio', params: {slot: this.slotNr}})
+
     },
 
     async deleting(){

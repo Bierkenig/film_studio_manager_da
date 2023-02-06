@@ -23,6 +23,30 @@
             @clicked="deleting">{{ $t('delete') }}</custom-button>
       </div>
     </div>
+
+    <transition name="modal">
+      <close-modal
+          v-if="showAutoSaveModal"
+          headline="autoSaveModal"
+          @useAutoSave="useAutoSave = true; autoSaving()"
+          @normal="useAutoSave = false; showAutoSaveModal = false; autoSaving()">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </close-modal>
+    </transition>
+
+    <transition name="modal">
+      <close-modal
+          v-if="showCorruptModal"
+          headline="saveCorruptModal"
+          @deleteFile="deleting(); showCorruptModal = false"
+          @close="showCorruptModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </close-modal>
+    </transition>
   </div>
 </template>
 
@@ -30,10 +54,11 @@
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import i18next from "i18next";
+import CloseModal from "@/components/mainGameComponents/CloseModal";
 
 export default {
   name: "LoadItem",
-  components: {CustomButton},
+  components: {CloseModal, CustomButton},
   mixins: [soundeffectMixin('button','click')],
 
   props: {
@@ -44,7 +69,10 @@ export default {
     return {
       disabledButton: null,
       date: null,
-      studioName: null
+      studioName: null,
+      showAutoSaveModal: false,
+      showCorruptModal: false,
+      useAutoSave: false
     }
   },
 
@@ -70,8 +98,9 @@ export default {
 
       window.ipcRenderer.send('r2mLoading', this.slotNr)
       window.ipcRenderer.receive('m2rLoading', data => {
+        console.log(data[1])
         if(data[0] !== null) {
-          if (data[1] === '100') {
+          if (data[1] !== '102' && data[1] !== '106') {
             if (data[2] === this.slotNr) {
               console.log(data[0].de_date)
               this.date = data[0].de_date
@@ -92,25 +121,39 @@ export default {
           console.log(data[0].en_date)
           this.$store.commit("loadFromSave", saveData)
           console.log('Save-File was loaded : ' + data[1])
-
+          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
         }
         else if(data[1] === '101') {
           console.log('Save-File corrupted - Save State was recovered : ' + data[1])
           let saveData = data[0].state
           this.$store.commit("loadFromSave", saveData)
+          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
         }
         else if(data[1] === '102'){
-          //TODO code hier wenn save-file kaputt ist - Möglicherweise löschen
+          this.showCorruptModal = true
           console.log("Konnte nicht geladen werden - File Corrupted! - Save State could not be recovered : " + data[1])
         }
         else if(data[1] === '103'){
-          //TODO Popup für User entscheidung ob neues oder altes File + Falls Noch kein save vorhanden Auto benutzen?
           console.log('Das Auto-Save-File ist aktueller als deines... Möchtest du das Auto-Save-File von' + this.date + 'laden? : ' + data[1])
+          this.showAutoSaveModal = true
         }
       })
+    },
 
-      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
-
+    autoSaving(){
+      window.ipcRenderer.send('r2mLoading',this.slotNr)
+      window.ipcRenderer.receive('m2rLoading', data => {
+        if(this.useAutoSave === true){
+          let saveData = data[3].state
+          this.$store.commit("loadFromSave", saveData)
+          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
+      }
+        else if(this.useAutoSave === false){
+          let saveData = data[0].state
+          this.$store.commit("loadFromSave", saveData)
+          this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('loadingSaveFile') + '...', duration: '3'}})
+        }
+    })
     },
 
     async deleting(){

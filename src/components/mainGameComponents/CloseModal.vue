@@ -15,32 +15,67 @@
                 {{ $t('goBackMenuMsg') }}
               </div>
               -->
+              <div v-if="headline === 'autoSaveModal'">
+                {{ $t('autoSaveMsg') }}
+              </div>
+              <div v-if="headline === 'saveCorruptModal'">
+                {{ $t('saveCorruptModalMsg') }}
+              </div>
             </slot>
           </div>
 
           <div class="modal-footer closeModalFooter">
             <slot name="footer">
-                <custom-button
-                    v-if="headline === 'closeGame'"
-                    class="modal-default-button"
-                    :dark="false"
-                    size="small"
-                    style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
-                    @clicked="$emit('closeGame')">{{ $t('closeGame') }} </custom-button>
-                <custom-button
-                    v-else
-                    class="modal-default-button"
-                    :dark="false"
-                    size="small"
-                    style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
-                    @clicked="$emit('backToStartmenu')">{{ $t('startMenu') }}</custom-button>
               <custom-button
+                  v-if="headline === 'closeGame'"
                   class="modal-default-button"
                   :dark="false"
                   size="small"
                   style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
-                  @clicked="$emit('close')">{{ $t('resume') }}</custom-button>
-            </slot>
+                  @clicked="$emit('closeGame')">{{ $t('closeGame') }}
+              </custom-button>
+              <custom-button
+                  v-else-if="headline === 'goBackMenu'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('backToStartmenu')">{{ $t('startMenu') }}
+              </custom-button>
+              <custom-button
+                  v-else-if="headline === 'autoSaveModal'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('useAutoSave')">{{ $t('autoSaveModal1') }}
+              </custom-button>
+              <custom-button
+                  v-else-if="headline === 'saveCorruptModal'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('deleteFile')">{{ $t('saveCorruptModal1') }}
+              </custom-button>
+              <custom-button
+                  v-if="headline === 'autoSaveModal'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('normal')">{{ $t('autoSaveModal2') }}
+              </custom-button>
+
+              <custom-button
+                  v-else-if="headline !== 'saveCorruptModal'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('close')">{{ $t('resume') }}
+              </custom-button>
+              </slot>
           </div>
         </div>
       </div>
@@ -50,6 +85,7 @@
 
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton";
+
 export default {
   name: "CloseModal",
   components: {CustomButton},

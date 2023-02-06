@@ -101,6 +101,10 @@ export default {
   components: {BackgroundTile, BudgetSelect, CustomButton, IconButton},
   mixins: [soundeffectMixin('button','click')],
 
+  props: {
+    slot: String
+  },
+
   data() {
     return {
       name: '',
@@ -115,6 +119,8 @@ export default {
   methods: {
     startGame() {
       this.$store.commit('resetState')
+      this.$store.commit("setSlot", parseInt(this.slot))
+      console.log(this.$store.state)
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
       if(this.databaseType === 'current'){

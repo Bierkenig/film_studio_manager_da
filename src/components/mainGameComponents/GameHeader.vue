@@ -1,6 +1,7 @@
 <template>
   <div id="headerBox">
     <div class="headerSectionBox">
+      <!-- TODO pageName ist immer englisch-->
       <page-heading :heading="pageName">{{ $t('managerDashboard') }}</page-heading>
 
       <!--<div>

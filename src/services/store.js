@@ -986,6 +986,7 @@ export default createStore({
         },
 
         resetState(state){
+            state.slot = null
             state.screenplay = []
             state.boughtScreenplays = []
             state.studio = null

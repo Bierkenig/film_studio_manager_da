@@ -28,6 +28,7 @@ import GameHeader from "@/components/mainGameComponents/GameHeader";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import {Character} from "@/classes/Character";
 import Earnings from "@/classes/Earnings";
+import store from "@/services/store";
 
 export default {
   name: 'App',
@@ -71,14 +72,14 @@ export default {
     })
   },
 
-  created(){
+  async created(){
     setInterval(function() {
-      //window.ipcRenderer.send('autoSave', [JSON.stringify(store.state),store.getters.getSlot])
-      if(this.$store.getters.getSlot !== null){
+      console.log("tried auto save")
+      if(store.getters.getSlot !== null){
         let reducedState = {}
-        this.$store.commit("stateToSave", reducedState)
-        window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), this.$store.getters.getSlot])
-        console.log(this.$store);
+        store.commit("stateToSave", reducedState)
+        window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), store.getters.getSlot])
+        console.log("auto save finished")
       }
     }, 600000);
 

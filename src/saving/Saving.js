@@ -83,10 +83,10 @@ export function save(data, slot) {
 //(Error-)Codes:
 //100 - File loaded - Save-File was loaded
 //101 - Save File corrupt - Backup will be used - recovery possible!
-//102 - Backup File corrupt - No recovery!
+//102 - Save File & Backup File corrupt or No File
 //103 - Auto File newer
-//104 - Save & Backup corrupted - Auto Save File exists and could be used - Abuseable
-//105 - No Save File, but Auto Save available - Not Needed right now
+//104 - Save & Backup corrupted - Auto Save File exists and could be used
+//105 - No Save File, but Auto Save available
 //106 - No Save File
 export function load(slot){
     let save = null;
@@ -112,6 +112,11 @@ export function load(slot){
             code = '103'
             return [save, code, slot, compareDate(slot)[1]]
         }
+    }
+
+    if(checkIfExists(slot)[0] === false){
+        code = '106'
+        return [null, code, slot]
     }
 
     //getSaveName(slot)
@@ -184,47 +189,57 @@ export function deleteSaveFile(slot) {
 
 }
 
-// export function checkIfExists(slot){
-//     console.log("check")
-//         try{
-//             fs.statSync(path.join('.','.data' ,'saves', slot.toString(), 'save.json'))
-//         }
-//         catch(e){
-//             console.log("no file")
-//             return [false, slot]
-//         }
-//         console.log("exists")
-//         return [true, slot]
-// }
 export function checkIfExists(slot = null){
     console.log("check")
-    let result;
-
     if(slot !== null) {
-        const filePath = path.join('.','.data' ,'saves', slot.toString(), 'save.json');
-
         try {
-            fs.statSync(filePath);
-            result = [true, slot];
+            fs.statSync(path.join('.', '.data', 'saves', slot.toString(), 'save.json'))
         } catch (e) {
-            result = [false, slot];
+            console.log("no file")
+            return [false, slot]
         }
+        console.log("exists")
+        return [true, slot]
     }
-    if(slot === null){
-        const filePath = path.join('.','.data','settings.json');
-
+     if(slot === null){
         try{
-            fs.statSync(filePath);
-            result = true;
+            fs.statSync(path.join('.','.data','settings.json'));
+            return true;
         }
         catch(e) {
-            result = false;
+            return false;
         }
     }
-
-    console.log(result[0] ? "exists" : "no file");
-    return result;
 }
+// export function checkIfExists(slot = null){
+//     console.log("check")
+//     let result;
+//
+//     if(slot !== null) {
+//         const filePath = path.join('.','.data' ,'saves', slot.toString(), 'save.json');
+//
+//         try {
+//             fs.statSync(filePath);
+//             result = [true, slot];
+//         } catch (e) {
+//             result = [false, slot];
+//         }
+//     }
+//     if(slot === null){
+//         const filePath = path.join('.','.data','settings.json');
+//
+//         try{
+//             fs.statSync(filePath);
+//             result = true;
+//         }
+//         catch(e) {
+//             result = false;
+//         }
+//     }
+//
+//     console.log(result[0] ? "exists" : "no file");
+//     return result;
+// }
 
 
 //If file exists returns true/false

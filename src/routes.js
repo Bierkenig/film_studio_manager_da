@@ -78,7 +78,7 @@ const routes = [
     { name: 'hireWriter', path: '/hireWriter', component: HireWriter, props: true },
     { name: 'screenplayInformation', path: '/screenplayInformation', component: ScreenplayInformation, props: true },
 
-    { name: 'createStudio', path: '/createStudio', component: CreateStudio, props: true },
+    { name: 'createStudio', path: '/createStudio/:slot', component: CreateStudio, props: true },
     { name: 'home', path: '/home', component: Home, props: true },
     { name: 'loadWindow', path: '/loadings', component: LoadWindow, props: true },
     { name: 'SelectSlotWindow', path: '/SelectSlotWindow', component: SelectSlotWindow, props: true },
