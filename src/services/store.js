@@ -275,6 +275,8 @@ export default createStore({
             "july", "august", "september", "october", "november", "december"
         ],
 
+        marketYears: [2023, 2024],
+
         //Fetcher
         dbFetcher: new DBFetcher(),
         //data from database
@@ -383,6 +385,10 @@ export default createStore({
 
         getCurrentLanguage(state){
             return state.currentLanguage;
+        },
+
+        getMarketYears(state) {
+            return state.marketYears
         },
 
         getFinishedMovies(state){
@@ -1030,7 +1036,7 @@ export default createStore({
             state.moviesFromOtherStudios = []
             state.screenplaysFromWriters = []
             state.franchisesFromOtherStudios = []
-            state.otherStudios = []
+            //state.otherStudios = []
             state.boughtMovies = []
             state.boughtMovieRights = []
             state.financialHistory = []
