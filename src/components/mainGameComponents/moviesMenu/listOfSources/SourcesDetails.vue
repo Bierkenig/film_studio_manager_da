@@ -244,21 +244,21 @@
             </div>
           </div>
           <!--TODO Einnahmen von Kino, Opening Week und DVD einbauen-->
-          <div v-if="source._status === 'Finished'" class="movieDetailsFinancesRight">
+          <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>0</div>
+              <div>{{ source._release.openingWeekGross }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>0</div>
+              <div>{{ source._release.cinemaGross }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>0</div>
+              <div>{{ source._release.dvdGross }}</div>
             </div>
           </div>
-          <div v-if="source._status !== 'Finished'" class="movieDetailsFinancesRight">
+          <div v-if="source._status !== 'Finished' && source._status === 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
               <div>0</div>
