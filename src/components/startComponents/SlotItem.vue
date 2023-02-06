@@ -79,8 +79,8 @@ export default {
     })
 
       //TODO use getName & getDate instead
-    window.ipcRenderer.send('r2mLoading', this.slotNr)
-    window.ipcRenderer.receive('m2rLoading', data => {
+    window.ipcRenderer.send('r2mLoading', {slotNr: this.slotNr, responseChannel: 'm2rSaveSlot'})
+    window.ipcRenderer.receive('m2rSaveSlot', data => {
       console.log(data[0])
       if (data[0] !== null) {
         console.log("not null")

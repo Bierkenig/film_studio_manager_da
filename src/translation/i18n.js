@@ -65,6 +65,14 @@ i18next
                         outgoing: "Outgoing",
                         accumulated: "Accumulated",
                     },
+                    marketShare: {
+                        name: "Market Share",
+                        studio: "Studio",
+                        revenue: "Revenue",
+                        profit: "Profit",
+                        share: "Share",
+                        change: "Change",
+                    },
                     financialHistory: {
                         name: "Financial History",
                         event1: "Studio acquired",
@@ -108,9 +116,6 @@ i18next
                     loan: "Loan",
                     cinema: "Cinema",
                     total: "Total",
-                    marketShare: {
-                        name: "Market Share",
-                    },
                     dates: {
                         january: "January",
                         february: "February",

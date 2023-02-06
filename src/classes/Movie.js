@@ -16,11 +16,17 @@ export class Movie {
         //TYPE -> String
         this._status = null;
         //TYPE -> a preProduction Class Object
+        //TODO
         this._preProduction = new preProductionTest()
         //TYPE -> a production Class Object
+        //TODO
         this._production = null
+
+        //TODO
         //TYPE -> a postProduction Class Object
         this._postProduction = null
+
+        //TODO
         //TYPE -> releaseMovie class object
         this._release = null
         //TYPE -> director Class Object
@@ -32,7 +38,7 @@ export class Movie {
         // null -> no rights bought / 0 -> unlimited rights (own created movie, bought movie)
         this._contract = contract;
         //NOT DONE YET
-        this._earnings = []
+        this._earnings = [new Earnings(100, new Date()), new Earnings(200, new Date())]
         //TYPE -> Integer
         this.genrePopularity = null
         //TYPE -> Integer
@@ -181,6 +187,8 @@ export class Movie {
         instance._date = new Date(jsonObject._date)
         instance.director = Person.fromJSON(jsonObject.director)
         instance._earnings = jsonObject._earnings.map(object => Earnings.fromJSON(object))
+        instance.boughtRightDate = new Date(jsonObject.boughtRightDate)
+        instance._foundationDate = new Date(jsonObject._foundationDate)
         return instance;
     }
 }

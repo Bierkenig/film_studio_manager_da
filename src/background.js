@@ -124,7 +124,7 @@ async function createWindow() {
     })
 
     ipcMain.on('r2mLoading', (event, data) => {
-        event.sender.send('m2rLoading', saving.load(data))
+        event.sender.send(data.responseChannel, saving.load(data.slotNr))
     })
 
     ipcMain.on('r2mChecking', (event, data) => {

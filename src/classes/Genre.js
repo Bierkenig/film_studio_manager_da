@@ -5,4 +5,8 @@ export default class Genre {
         this.teenPopularity = teenPopularity
         this.adultPopularity = adultPopularity
     }
+
+    static fromJSON(jsonObject){
+        return Object.assign(new Genre(), jsonObject)
+    }
 }

@@ -29,9 +29,6 @@
     <div class="hide">
       <div id="fiscalPerformance">
         <h3>{{ $t('fiscalPerformance.name') }}</h3>
-        <!--<i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
-        <p>{{ this.availablePerformanceDates[index] }}</p>
-        <i class="arrow right" @click="updateFiscalPerformance(1)"></i>-->
         <div>
           <select v-model="selectedMonth" @change="updateFiscalPerformance()">
             <option v-for="(el, index) in availableMonths" :key="index" :value="el">
@@ -62,20 +59,36 @@
 
       <div id="marketShare">
         <h3>{{ $t('marketShare.name') }}</h3>
-        <select>
-          <option v-for="year in this.availableMarketYears" :key="year" :value="year">{{ year }}</option>
+        <select v-model="selectedMarketYear" @change="updateMarketShare">
+          <option v-for="year in availableMarketYears" :key="year" :value="year">{{ year }}</option>
         </select>
+        <table>
+          <tr>
+            <th>{{$t('marketShare.studio')}}</th>
+            <th>{{$t('marketShare.revenue')}}</th>
+            <th>{{$t('marketShare.profit')}}</th>
+            <th>{{$t('marketShare.share')}}</th>
+            <th>{{$t('marketShare.change')}}</th>
+          </tr>
+          <tr v-for="(el, index) in otherStudios" :key="index">
+            <td>{{el.name}}</td>
+            <td>$ {{el.calcRevenue()}}</td>
+            <td>$ {{el.calcProfit()}}</td>
+            <td>{{el.marketShare[selectedMarketYear]}}%</td>
+            <td>{{el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear-1] !== undefined ? el.marketShare[selectedMarketYear-1] : 0)}}%</td>
+          </tr>
+        </table>
 
+      </div>
         <div>
           <h3>{{ $t('financialHistory.name') }}</h3>
-          <div v-for="el in this.$store.getters.getFinancialHistory" :key="el">
+          <div v-for="(el, index) in financialHistory" :key="index">
             <!-- TODO icon -->
-            <h2>{{ $t(el.title) }}</h2>
-            <p>{{ $t(el.desc) }}</p>
+            <div>{{ $t("financialHistory." + el.title) }}</div>
+            <div>{{ $t("financialHistory." + el.description) }}</div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 <script>
@@ -92,11 +105,11 @@ export default {
       selectedYear: 2023,
       selectedMonth: 0,
       selectDate: null,
-      index: -1,
+      selectedMarketYear: 2023,
       availablePerformanceDates: [],
       availablePerformanceYears: [],
       availableMonths: [],
-      availableMarketYears: [],
+      availableMarketYears: this.$store.getters.getMarketYears,
       fiscalPerformanceData: {
         production: {name: "production", incoming: 0, outgoing: 0, accumulated: 0},
         marketing: {name: "marketing", incoming: 0, outgoing: 0, accumulated: 0},
@@ -105,7 +118,8 @@ export default {
         streaming: {name: "streaming", incoming: 0, outgoing: 0, accumulated: 0},
         total: {name: "total", incoming: 0, outgoing: 0, accumulated: 0}
       },
-      otherStudiosPieChart: []
+      otherStudios: [],
+      financialHistory: this.$store.getters.getFinancialHistory
     }
   },
 
@@ -167,6 +181,12 @@ export default {
         this.fiscalPerformanceData.total.accumulated = this.fiscalPerformanceData.total.incoming - this.fiscalPerformanceData.total.outgoing
       })
     },
+
+    updateMarketShare() {
+      this.otherStudios.sort((a,b) => {
+        return a.marketShare[this.selectedMarketYear] - b.marketShare[this.selectedMarketYear]
+      })
+    }
   },
 
   mounted() {
@@ -178,6 +198,12 @@ export default {
 
     this.calcMonths()
     this.updateFiscalPerformance()
+
+    this.otherStudios = this.$store.getters.getOtherStudios
+    this.otherStudios.push(this.$store.getters.getStudio)
+    console.log(this.otherStudios)
+
+    this.updateMarketShare()
   }
 }
 </script>

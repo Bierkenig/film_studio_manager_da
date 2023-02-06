@@ -1,4 +1,4 @@
-export default class financialPerformance {
+export default class FinancialPerformance {
     constructor(date, production = {incoming: 0, outgoing: 0},
                 marketing = {incoming: 0, outgoing: 0},
                 loan = {incoming: 0, outgoing: 0},
@@ -39,5 +39,11 @@ export default class financialPerformance {
 
     get streaming() {
         return this._streaming;
+    }
+
+    static fromJSON(jsonObject){
+        let instance = Object.assign(new FinancialPerformance, jsonObject)
+        instance.date = new Date(jsonObject.foundationDate)
+        return instance
     }
 }
