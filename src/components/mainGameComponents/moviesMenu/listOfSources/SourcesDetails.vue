@@ -143,8 +143,8 @@
             <div class="movieDetailsGeneralTopInfoRight">
               <div class="movieDetailsInfoCircles">
                 <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsInfoCirclesTop">
-                  <info-circle class="movieDetailsInfoCircle" :text="source.quality" size="60px" large-font/><!--:text="source.quality"-->
-                  <info-circle class="movieDetailsInfoCircle" :text="source._release.popularityFormula" size="60px" large-font/><!--:text="source._release.popularityFormula"-->
+                  <info-circle class="movieDetailsInfoCircle" :text="source.quality" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" :text="source._release.popularityFormula" size="60px" large-font/>
                 </div>
                 <div v-else class="movieDetailsInfoCirclesTop">
                   <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/>
@@ -243,7 +243,6 @@
               <div>{{ source._totalCosts }}</div>
             </div>
           </div>
-          <!--TODO Einnahmen von Kino, Opening Week und DVD einbauen-->
           <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
@@ -349,6 +348,7 @@ export default {
       if (this.source !== null) {
         this.sourceTopics = [];
         if(this.sourceType === 'Screenplay'){
+          //TODO: Poster für Screenplay setzen: this.sourcePosterSVG = this.
           this.sourceRating = this.source.rating
 
           let allTopics = this.source.topics;
@@ -359,6 +359,7 @@ export default {
             }
           })
         } else if(this.sourceType === 'Movie'){
+          //TODO: Poster für Movie setzen: this.sourcePosterSVG = this.
           let allTopics = this.source._preProduction.screenplay.topics;
 
           Object.values(allTopics).forEach((i) => {
@@ -417,8 +418,12 @@ export default {
   display: flex;
   flex-direction: column;
 
-  background-color: var(--fsm-dark-blue-3);
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
   border-radius: var(--fsm-l-border-radius);
+
   width: 550px;
   padding: 10px 20px 10px 20px;
 }
