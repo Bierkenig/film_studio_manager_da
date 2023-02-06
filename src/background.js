@@ -83,6 +83,7 @@ async function createWindow() {
             })
         })
         db.close()
+        db = null
     })
 
     ipcMain.on('getGenres', (event, data) => {
@@ -96,6 +97,7 @@ async function createWindow() {
             })
         })
         db.close()
+        db = null
     })
 
     ipcMain.on('getSubGenres', (event, data) => {
@@ -109,6 +111,7 @@ async function createWindow() {
             })
         })
         db.close()
+        db = null
     })
 
     // IPC Saving
@@ -155,6 +158,7 @@ async function createWindow() {
             })
         })
         db.close()
+        db = null
     })
 
     ipcMain.on('changeDBPath', (event, data) => {
@@ -186,6 +190,7 @@ async function createWindow() {
         }
 
         db.close()
+        db = null
     })
 
     //refresh stats
@@ -206,6 +211,7 @@ async function createWindow() {
             })
         }
         db.close()
+        db = null
     })
 
     //generate a new one
@@ -226,6 +232,7 @@ async function createWindow() {
             })
         }
         db.close()
+        db = null
     })
 
     if (process.env.WEBPACK_DEV_SERVER_URL) {

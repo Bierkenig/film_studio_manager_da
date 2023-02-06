@@ -27,6 +27,11 @@ export default class Release {
         this.marketingInternet = marketingInternet
         this.marketingCommericals = marketingCommericals
 
+        //Earnings for movies
+        this.openingWeekGross = 0;
+        this.cinemaGross = 0;
+        this.dvdGross = 0;
+
         //Equations
         //QUALITY
         //Production Budget

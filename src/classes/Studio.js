@@ -1,7 +1,7 @@
 import {Movie} from "@/classes/Movie";
 
 export class Studio {
-    constructor(id, name, year, budget, popularity, share) {
+    constructor(id, name, year, budget, popularity) {
         //TYPE -> Integer
         this.id = id;
         //TYPE -> String
@@ -13,7 +13,7 @@ export class Studio {
         //TYPE -> Integer
         this.popularity = popularity;
         //TYPE -> Integer
-        this.marketShare = share
+        this.marketShare = {"2023": 23, "2024": 45}
         //TYPE -> Array
         this.movies = [];
     }
@@ -38,7 +38,23 @@ export class Studio {
         return this.popularity;
     }
 
+    calcRevenue() {
+        let amount = 0
+        this.movies.forEach((movie) => {
+            movie._earnings.forEach((el) => {
+                amount += el.amount
+            })
+        })
+        return amount
+    }
 
+    calcProfit() {
+        let amount = 0
+        this.movies.forEach((movie) => {
+            amount += movie._totalCosts
+        })
+        return this.calcRevenue() - amount
+    }
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Studio(), jsonObject)

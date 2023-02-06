@@ -9,16 +9,16 @@
       <background-tile class="newsMenuCenterBoxBackground" title="Earning Statistics">
         <div>
           <tile-pages-nav class="newsMenuNavigation" :pages='["This Week","This Month", "This Year", "All Time"]' :gradient='true'>
-            <div>
+            <div class="scroll verticalScroll">
 
             </div>
-            <div>
+            <div class="scroll verticalScroll">
 
             </div>
-            <div>
+            <div class="scroll verticalScroll">
 
             </div>
-            <div>
+            <div class="scroll verticalScroll">
 
             </div>
           </tile-pages-nav>
@@ -29,7 +29,6 @@
       <background-tile class="newsMenuRightBoxBackground" title="News">
         <div>
           <tile-pages-nav class="newsMenuNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
-
             <div class="newsTextSection scroll verticalScroll">
               <div v-for="(it, index) in this.peopleNews" :key="index">
                 <news-element svg-code="" :heading-text="it._title"
@@ -50,7 +49,6 @@
                               :info-text="it._description" class="newsElement"/>
               </div>
             </div>
-
           </tile-pages-nav>
         </div>
       </background-tile>
@@ -315,6 +313,10 @@ export default {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.scroll{
+  height: 565px;
 }
 
 .newsMenuNavigation {

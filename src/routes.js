@@ -49,9 +49,14 @@ import MovieDetails from "@/components/mainGameComponents/moviesMenu/MovieDetail
 import LoadingScreen from "@/components/mainGameComponents/LoadingScreen.vue";
 import takeALoan from "@/components/mainGameComponents/financesMenu/TakeALoan";
 import BuyAStudio from "@/components/mainGameComponents/financesMenu/BuyAStudio";
+import PeopleOverview from "@/components/mainGameComponents/newsMenu/listOfPeople/PeopleOverview.vue";
+import MoviesOverview from "@/components/mainGameComponents/newsMenu/listOfMovies/MoviesOverview.vue";
 
 
 const routes = [
+    { name: 'moviesOverview', path: '/moviesOverview', component: MoviesOverview, props: true },
+    { name: 'peopleOverview', path: '/peopleOverview', component: PeopleOverview, props: true },
+
     { name: 'simulationScreen', path: '/simulationScreen', component: SimulationScreen, props: true },
 
     { name: 'movieSummary', path: '/movieSummary', component: MovieSummary, props: true },

@@ -37,9 +37,9 @@ export default {
       } else if(this.headline === 'buyStreamingRights'){
         this.$router.push({name: 'buyMovieRights'});
       } else if(this.headline === 'listOfMovies'){
-        //TODO: Link einfügen
+        this.$router.push({name: 'moviesOverview'});
       } else if(this.headline === 'listOfPeople'){
-        //TODO: Link einfügen
+        this.$router.push({name: 'peopleOverview'});
       } else if(this.headline === 'listOfAwards'){
         //TODO: Link einfügen
       }

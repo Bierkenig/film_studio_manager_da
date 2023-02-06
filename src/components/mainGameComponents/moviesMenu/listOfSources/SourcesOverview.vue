@@ -1,8 +1,8 @@
 <template>
   <div id="sourcesOverviewMainDiv">
-    <h1 id="sourcesListHeader">{{ $t('listOfSources') }}</h1>
+    <h1 id="sourcesOverviewHeader">{{ $t('listOfSources') }}</h1>
     <icon-button
-        id="sourcesListBackButton"
+        id="sourcesOverviewBackButton"
         icon="simple-arrow-left"
         size="medium"
         :dark="true"
@@ -67,7 +67,7 @@ export default {
   gap: 15px;
 }
 
-#sourcesListHeader {
+#sourcesOverviewHeader {
   position: absolute;
   top: 15px;
   left: 50%;
@@ -76,7 +76,7 @@ export default {
   font-weight: var(--fsm-fw-bold);
 }
 
-#sourcesListBackButton {
+#sourcesOverviewBackButton {
   position: absolute;
   float: left;
   left: 100px;

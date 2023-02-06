@@ -43,7 +43,7 @@ export default createStore({
         createdMovies: [],
         currentScreenplay: null,
         logo: null,
-        soundeffects: true,
+        soundeffects: false,
         backgroundMusic: true,
         currentDate: new Date("2023-01-01T00:00:00.000Z"),
         currentLanguage: 'en',
@@ -84,10 +84,11 @@ export default createStore({
             }
         ],
         financialPerformance: [
-            new FinancialPerformance(new Date(2023, 0)),
-            new FinancialPerformance(new Date(2023, 1)),
-            new FinancialPerformance(new Date(2024, 0)),
-            new FinancialPerformance(new Date(2024, 1))
+            new FinancialPerformance(new Date(2023, 0), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
+            new FinancialPerformance(new Date(2023, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
+            new FinancialPerformance(new Date(2024, 0), {incoming: 1, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
+            new FinancialPerformance(new Date(2024, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
+            new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
         ],
         calendarEvents: [
             {
@@ -271,6 +272,12 @@ export default createStore({
             "War": []
         },
 
+        months:["january", "february", "march", "april", "may", "june",
+            "july", "august", "september", "october", "november", "december"
+        ],
+
+        marketYears: [2023, 2024],
+
         //Fetcher
         dbFetcher: new DBFetcher(),
         //data from database
@@ -379,6 +386,10 @@ export default createStore({
 
         getCurrentLanguage(state){
             return state.currentLanguage;
+        },
+
+        getMarketYears(state) {
+            return state.marketYears
         },
 
         getFinishedMovies(state){
@@ -1016,7 +1027,7 @@ export default createStore({
             state.currentDate = new Date("2023-01-01T00:00:00.000Z")
             state.news = []
             state.earnings = []
-            state.financialPerformance = []
+            //state.financialPerformance = []
             state.calenderEvents = []
             state.happeningEvent = null
             state.franchise = []
@@ -1026,7 +1037,7 @@ export default createStore({
             state.moviesFromOtherStudios = []
             state.screenplaysFromWriters = []
             state.franchisesFromOtherStudios = []
-            state.otherStudios = []
+            //state.otherStudios = []
             state.boughtMovies = []
             state.boughtMovieRights = []
             state.financialHistory = []

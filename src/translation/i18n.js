@@ -65,6 +65,14 @@ i18next
                         outgoing: "Outgoing",
                         accumulated: "Accumulated",
                     },
+                    marketShare: {
+                        name: "Market Share",
+                        studio: "Studio",
+                        revenue: "Revenue",
+                        profit: "Profit",
+                        share: "Share",
+                        change: "Change",
+                    },
                     financialHistory: {
                         name: "Financial History",
                         event1: "Studio acquired",
@@ -97,16 +105,17 @@ i18next
                         popularity: "Popularity",
                         subs: "Subscribers",
                         franchises: "Franchises",
-                        contact: "Contact Studio"
+                        contact: "Contact Studio",
+                        response: "Studio Response",
+                        offer: "Offer",
+                        accept: "Accept",
+                        deny: "Deny",
                     },
                     production: "Production",
                     marketing: "Marketing",
                     loan: "Loan",
                     cinema: "Cinema",
                     total: "Total",
-                    marketShare: {
-                        name: "Market Share",
-                    },
                     dates: {
                         january: "January",
                         february: "February",
@@ -1068,6 +1077,11 @@ i18next
                     listOfMoviesInfoText: 'View a list of all movies..',
                     listOfPeopleInfoText: 'View a list of all people..',
                     listOfAwardsInfoText: 'View a list of every award..',
+                    ethnicity: 'Ethnicity',
+                    workingSince: 'Working since',
+                    directors: 'Directors',
+                    writers: 'Writers',
+                    actors: 'Actors',
                 }
             },
             de: {
@@ -2027,7 +2041,7 @@ i18next
                             setting: 'Kulisse',
                             topics: 'Inhalt',
                             release: 'Veröffentlichung',
-                            writer: 'Autos',
+                            writer: 'Autor',
                             director: 'Regisseur',
                             era: 'Zeitraum',
                         },
@@ -2056,6 +2070,11 @@ i18next
                     listOfMoviesInfoText: 'Sieh dir die Liste deiner Filme an.',
                     listOfPeopleInfoText: 'Sieh dir die Liste aller Personen an.',
                     listOfAwardsInfoText: 'Sieh dir die Liste aller Auszeichnungen an.',
+                    ethnicity: 'Herkunft',
+                    workingSince: 'Arbeitet seit',
+                    directors: 'Regisseure',
+                    writers: 'Autore',
+                    actors: 'Schauspieler',
                 }
             }
         }

@@ -2,6 +2,7 @@ import {Studio} from "@/classes/Studio";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import Earnings from "@/classes/Earnings";
+import store from "@/services/store";
 
 export default class PreProduction {
     constructor() {
@@ -15,7 +16,7 @@ export default class PreProduction {
         this.productionLength = 0
         this.postProductionLength = 0
         this.releaseDate = null
-        this.startDate = new Date()
+        this.startDate = store.getters.getCurrentDate;
         this.budget = {
             production: 0,
             extras: 0,

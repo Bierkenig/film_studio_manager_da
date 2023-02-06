@@ -2,7 +2,7 @@
   <div>
     <div id="writerList">
       <div class="writerListSortDiv">
-        <custom-select :options="[$t('popularity'),$t('rating'),$t('salary')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+        <custom-select :options="[$t('popularity'),$t('rating'),'Name']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
       <div class="writerListScroll verticalScroll">
@@ -60,10 +60,10 @@ export default {
         this.writers.sort((a, b) => a._rating - b._rating)
       } else if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Descending'){
         this.writers.sort((a, b) => b._rating - a._rating)
-      } else if((this.selectedSortByWhat === 'Salary' || this.selectedSortByWhat === 'Gehalt') && this.selectedTypeOfSort === 'Ascending'){
-        this.writers.sort((a, b) => a._salary - b._salary)
-      } else if((this.selectedSortByWhat === 'Salary' || this.selectedSortByWhat === 'Gehalt') && this.selectedTypeOfSort === 'Descending'){
-        this.writers.sort((a,b) => b._salary - a._salary)
+      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+        this.writers.sort((a, b) => a._last_name.localeCompare(b._last_name))
+      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+        this.writers.sort((a,b) => b._last_name.localeCompare(a._last_name))
       }
     },
 

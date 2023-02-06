@@ -1,11 +1,15 @@
 export default class financialPerformance {
-    constructor(date) {
+    constructor(date, production = {incoming: 0, outgoing: 0},
+                marketing = {incoming: 0, outgoing: 0},
+                loan = {incoming: 0, outgoing: 0},
+                cinema = {incoming: 0, outgoing: 0},
+                streaming = {incoming: 0, outgoing: 0}) {
         //incoming & outgoing can be an integer or null
-        this._production = {incoming: 0, outgoing: 0}
-        this._marketing = {incoming: 0, outgoing: 0}
-        this._loan = {incoming: 0, outgoing: 0}
-        this._cinema = {incoming: 0, outgoing: 0}
-        this._streaming = {incoming: 0, outgoing: 0}
+        this._production = {incoming: production.incoming, outgoing: production.outgoing}
+        this._marketing = {incoming: marketing.incoming, outgoing: marketing.outgoing}
+        this._loan = {incoming: loan.incoming, outgoing: loan.outgoing}
+        this._cinema = {incoming: cinema.incoming, outgoing: cinema.outgoing}
+        this._streaming = {incoming: streaming.incoming, outgoing: streaming.outgoing}
         this._date = date;
     }
 
@@ -14,7 +18,7 @@ export default class financialPerformance {
     }
 
     get year() {
-        return this._year;
+        return this._date.getFullYear();
     }
 
     get production() {
