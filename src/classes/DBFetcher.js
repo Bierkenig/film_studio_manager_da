@@ -51,7 +51,7 @@ export default class DBFetcher {
                     data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
                     data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
             }
-            this.allPeople.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            this.allPeople.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
                 data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
                 data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
                 data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))

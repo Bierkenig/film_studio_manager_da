@@ -3,11 +3,17 @@
     <div class="financesMenuLeftSide">
       <background-tile class="loanTile" :title="$t('labelTakeCredit')" content-color="grey" icon="placeholder">
         {{ $t('descCredit') }}
-        <custom-button class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">{{ $t('takeCredit') }}</custom-button>
+        <custom-button class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">{{
+            $t('takeCredit')
+          }}
+        </custom-button>
       </background-tile>
       <background-tile class="buyStudioTile" :title="$t('labelBuyStudio')" content-color="grey" icon="placeholder">
         {{ $t('descStudio') }}
-        <custom-button class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">{{ $t('buyStudio') }}</custom-button>
+        <custom-button class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">{{
+            $t('buyStudio')
+          }}
+        </custom-button>
       </background-tile>
     </div>
     <div class="financesMenuCenter">
@@ -23,9 +29,21 @@
     <div class="hide">
       <div id="fiscalPerformance">
         <h3>{{ $t('fiscalPerformance.name') }}</h3>
-        <i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
+        <!--<i class="arrow left" @click="updateFiscalPerformance(-1)"></i>
         <p>{{ this.availablePerformanceDates[index] }}</p>
-        <i class="arrow right" @click="updateFiscalPerformance(1)"></i>
+        <i class="arrow right" @click="updateFiscalPerformance(1)"></i>-->
+        <div>
+          <select v-model="selectedMonth" @change="updateFiscalPerformance()">
+            <option v-for="(el, index) in availableMonths" :key="index" :value="el">
+              {{ $t('dates.' + el) }}
+            </option>
+          </select>
+          <select v-model="selectedYear" @change="calcMonths(); updateFiscalPerformance()">
+            <option v-for="(el, index) in availablePerformanceYears" :key="index" :value="el">
+              {{ el }}
+            </option>
+          </select>
+        </div>
         <table>
           <tr>
             <th>{{ $t('fiscalPerformance.area') }}</th>
@@ -33,11 +51,11 @@
             <th>{{ $t('fiscalPerformance.outgoing') }}</th>
             <th>{{ $t('fiscalPerformance.accumulated') }}</th>
           </tr>
-          <tr v-for="element in fiscalPerformanceData" :key="element">
+          <tr v-for="(element, index) in fiscalPerformanceData" :key="index">
             <td>{{ $t(element.name) }}</td>
-            <td>{{ element.incoming }}</td>
-            <td>{{ element.outgoing }}</td>
-            <td>{{ element.accumulated }}</td>
+            <td>$ {{ element.incoming }}</td>
+            <td>$ {{ element.outgoing }}</td>
+            <td>$ {{ element.accumulated }}</td>
           </tr>
         </table>
       </div>
@@ -71,9 +89,13 @@ export default {
 
   data() {
     return {
-      selectDate: "",
+      selectedYear: 2023,
+      selectedMonth: 0,
+      selectDate: null,
       index: -1,
       availablePerformanceDates: [],
+      availablePerformanceYears: [],
+      availableMonths: [],
       availableMarketYears: [],
       fiscalPerformanceData: {
         production: {name: "production", incoming: 0, outgoing: 0, accumulated: 0},
@@ -88,83 +110,74 @@ export default {
   },
 
   methods: {
-    updateFiscalPerformance(higherLower = 1) {
-      this.index += higherLower
-      this.selectDate = this.availablePerformanceDates[this.index]
-      let data = this.$store.getters.getFinancialPerformance
-      data.forEach((el) => {
-        if (el.date.name === this.selectDate) {
-          this.fiscalPerformanceData.production.incoming = el.date.data.production.incoming
-          this.fiscalPerformanceData.production.outgoing = el.date.data.production.outgoing
-          this.fiscalPerformanceData.production.accumulated =
-              Number.isInteger(el.date.data.production.incoming) ? el.date.data.production.incoming : 0 + el.date.data.production.outgoing
-
-          this.fiscalPerformanceData.marketing.incoming = el.date.data.marketing.incoming
-          this.fiscalPerformanceData.marketing.outgoing = el.date.data.marketing.outgoing
-          this.fiscalPerformanceData.marketing.accumulated =
-              Number.isInteger(el.date.data.marketing.incoming) ? el.date.data.marketing.incoming : 0 + el.date.data.marketing.outgoing
-
-          this.fiscalPerformanceData.loan.incoming = el.date.data.loan.incoming
-          this.fiscalPerformanceData.loan.outgoing = el.date.data.loan.outgoing
-          this.fiscalPerformanceData.loan.accumulated =
-              Number.isInteger(el.date.data.loan.incoming) ? el.date.data.loan.incoming : 0 + el.date.data.loan.outgoing
-
-          this.fiscalPerformanceData.cinema.incoming = el.date.data.cinema.incoming
-          this.fiscalPerformanceData.cinema.outgoing = el.date.data.cinema.outgoing
-          this.fiscalPerformanceData.cinema.accumulated =
-              Number.isInteger(el.date.data.cinema.incoming) ? el.date.data.cinema.incoming : 0 + el.date.data.cinema.outgoing
-
-          this.fiscalPerformanceData.streaming.incoming = el.date.data.streaming.incoming
-          this.fiscalPerformanceData.streaming.outgoing = el.date.data.streaming.outgoing
-          this.fiscalPerformanceData.streaming.accumulated =
-              Number.isInteger(el.date.data.streaming.incoming) ? el.date.data.streaming.incoming : 0 + el.date.data.streaming.outgoing
-
-          //total
-          this.fiscalPerformanceData.total.incoming =
-              (Number.isInteger(el.date.data.production.incoming) ? el.date.data.production.incoming : 0) +
-              (Number.isInteger(el.date.data.marketing.incoming) ? el.date.data.marketing.incoming : 0) +
-              (Number.isInteger(el.date.data.loan.incoming) ? el.date.data.loan.incoming : 0) +
-              (Number.isInteger(el.date.data.cinema.incoming) ? el.date.data.cinema.incoming : 0) +
-              (Number.isInteger(el.date.data.streaming.incoming) ? el.date.data.streaming.incoming : 0)
-
-          this.fiscalPerformanceData.total.outgoing =
-              (Number.isInteger(el.date.data.production.outgoing) ? el.date.data.production.outgoing : 0) +
-              (Number.isInteger(el.date.data.marketing.outgoing) ? el.date.data.marketing.outgoing : 0) +
-              (Number.isInteger(el.date.data.loan.outgoing) ? el.date.data.loan.outgoing : 0) +
-              (Number.isInteger(el.date.data.cinema.outgoing) ? el.date.data.cinema.outgoing : 0) +
-              (Number.isInteger(el.date.data.streaming.outgoing) ? el.date.data.streaming.outgoing : 0)
-
-          this.fiscalPerformanceData.total.accumulated = this.fiscalPerformanceData.total.incoming -
-              this.fiscalPerformanceData.total.outgoing
+    calcMonths() {
+      let months = []
+      this.$store.getters.getFinancialPerformance.forEach((el) => {
+        if (el._date.getFullYear() === this.selectedYear) {
+          months.push(this.$store.state.months[el._date.getMonth()])
         }
+      })
+      this.selectedMonth = months[0]
+      this.availableMonths = months
+    },
+
+    updateFiscalPerformance() {
+      //set values to 0
+      this.fiscalPerformanceData.production = {name: "production", incoming: 0, outgoing: 0, accumulated: 0}
+      this.fiscalPerformanceData.marketing = {name: "marketing", incoming: 0, outgoing: 0, accumulated: 0}
+      this.fiscalPerformanceData.loan = {name: "loan", incoming: 0, outgoing: 0, accumulated: 0}
+      this.fiscalPerformanceData.cinema = {name: "cinema", incoming: 0, outgoing: 0, accumulated: 0}
+      this.fiscalPerformanceData.streaming = {name: "streaming", incoming: 0, outgoing: 0, accumulated: 0}
+      this.fiscalPerformanceData.total = {name: "total", incoming: 0, outgoing: 0, accumulated: 0}
+
+      let neededData = this.$store.getters.getFinancialPerformance.filter((el) => {
+        return el._date.getFullYear() === this.selectedYear && el._date.getMonth() === this.$store.state.months.indexOf(this.selectedMonth)
+      })
+
+      neededData.forEach((el) => {
+        this.fiscalPerformanceData.production.incoming += el._production.incoming
+        this.fiscalPerformanceData.production.outgoing += el._production.outgoing
+        this.fiscalPerformanceData.production.accumulated = this.fiscalPerformanceData.production.incoming - this.fiscalPerformanceData.production.outgoing
+
+        this.fiscalPerformanceData.marketing.incoming += el._marketing.incoming
+        this.fiscalPerformanceData.marketing.outgoing += el._marketing.outgoing
+        this.fiscalPerformanceData.marketing.accumulated = this.fiscalPerformanceData.marketing.incoming - this.fiscalPerformanceData.marketing.outgoing
+
+        this.fiscalPerformanceData.loan.incoming += el._loan.incoming
+        this.fiscalPerformanceData.loan.outgoing += el._loan.outgoing
+        this.fiscalPerformanceData.loan.accumulated = this.fiscalPerformanceData.loan.incoming - this.fiscalPerformanceData.loan.outgoing
+
+        this.fiscalPerformanceData.cinema.incoming += el._cinema.incoming
+        this.fiscalPerformanceData.cinema.outgoing += el._cinema.outgoing
+        this.fiscalPerformanceData.cinema.accumulated = this.fiscalPerformanceData.cinema.incoming - this.fiscalPerformanceData.cinema.outgoing
+
+        this.fiscalPerformanceData.streaming.incoming += el._streaming.incoming
+        this.fiscalPerformanceData.streaming.outgoing += el._streaming.outgoing
+        this.fiscalPerformanceData.streaming.accumulated = this.fiscalPerformanceData.streaming.incoming - this.fiscalPerformanceData.streaming.outgoing
+
+        //total
+        this.fiscalPerformanceData.total.incoming = this.fiscalPerformanceData.production.incoming +
+            this.fiscalPerformanceData.marketing.incoming + this.fiscalPerformanceData.loan.incoming +
+            this.fiscalPerformanceData.cinema.incoming + this.fiscalPerformanceData.streaming.incoming
+
+        this.fiscalPerformanceData.total.outgoing = this.fiscalPerformanceData.production.outgoing +
+            this.fiscalPerformanceData.marketing.outgoing + this.fiscalPerformanceData.loan.outgoing +
+            this.fiscalPerformanceData.cinema.outgoing+ this.fiscalPerformanceData.streaming.outgoing
+
+        this.fiscalPerformanceData.total.accumulated = this.fiscalPerformanceData.total.incoming - this.fiscalPerformanceData.total.outgoing
       })
     },
   },
 
   mounted() {
-    //fetch financial dates
-    let array = this.$store.getters.getFinancialPerformance;
-    console.log('-----------------------------------------------------')
-    console.log(array)
-    array.forEach((el) => {
-      this.availablePerformanceDates.push(el)
+    //get available dates
+    this.$store.state.financialPerformance.forEach((el) => {
+      !this.availablePerformanceYears.includes(el._date.getFullYear()) ? this.availablePerformanceYears.push(el._date.getFullYear()) : ""
+      this.availablePerformanceDates.push(el._date)
     })
-    //fetch other Studio years
-    let studios = this.$store.getters.getOtherStudios
-    studios.forEach((el) => {
-      console.log(this.availableMarketYears.indexOf(el[1]))
-      if (this.availableMarketYears.indexOf(el[1]) === -1) this.availableMarketYears.push(el[1]);
-    })
-    console.log("available years: " + this.availableMarketYears)
 
-    //set Studios
-    /*this.otherStudiosPieChart = this.$store.getters.getOtherStudios
-    this.otherStudiosPieChart.forEach((el) => {
-      el.splice(1, 1)
-    })*/
-
-    //call the updateFiscalPerformance Method once
-    //this.updateFiscalPerformance()
+    this.calcMonths()
+    this.updateFiscalPerformance()
   }
 }
 </script>
@@ -203,7 +216,7 @@ export default {
 
 
 .hide {
-  display: none;
+
 }
 
 /*.arrow {
