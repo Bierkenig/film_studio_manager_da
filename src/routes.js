@@ -48,6 +48,7 @@ import SimulationScreen from "@/components/mainGameComponents/calendarSimulation
 import MovieDetails from "@/components/mainGameComponents/moviesMenu/MovieDetails.vue";
 import LoadingScreen from "@/components/mainGameComponents/LoadingScreen.vue";
 import takeALoan from "@/components/mainGameComponents/financesMenu/TakeALoan";
+import BuyAStudio from "@/components/mainGameComponents/financesMenu/BuyAStudio";
 
 
 const routes = [
@@ -113,6 +114,8 @@ const routes = [
 
     //Finances
     { name: 'TakeALoan', path: '/TakeALoan', component: takeALoan, props: true},
+    { name: 'BuyAStudio', path: '/BuyAStudio', component: BuyAStudio, props: true},
+
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true},
     { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},

@@ -7,7 +7,7 @@
       </background-tile>
       <background-tile class="buyStudioTile" :title="$t('labelBuyStudio')" content-color="grey" icon="placeholder">
         {{ $t('descStudio') }}
-        <custom-button class="buyStudioButton">{{ $t('buyStudio') }}</custom-button>
+        <custom-button class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">{{ $t('buyStudio') }}</custom-button>
       </background-tile>
     </div>
     <div class="financesMenuCenter">
@@ -158,10 +158,10 @@ export default {
     console.log("available years: " + this.availableMarketYears)
 
     //set Studios
-    this.otherStudiosPieChart = this.$store.getters.getOtherStudios
+    /*this.otherStudiosPieChart = this.$store.getters.getOtherStudios
     this.otherStudiosPieChart.forEach((el) => {
       el.splice(1, 1)
-    })
+    })*/
 
     //call the updateFiscalPerformance Method once
     //this.updateFiscalPerformance()

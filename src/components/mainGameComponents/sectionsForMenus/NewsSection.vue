@@ -50,6 +50,7 @@ export default {
   methods: {
     loadData() {
       let sourceData = this.$store.getters.getCurrentNews;
+      sourceData.sort((a, b) => b._date - a._date)
       for (let i = 0; i < sourceData.length; i++) {
         if (sourceData[i]._type === 'People') {
           this.peopleNews.push(sourceData[i])
@@ -60,20 +61,16 @@ export default {
         if (sourceData[i]._type === 'Studios') {
           this.studioNews.push(sourceData[i])
         }
+        if(i === 9){
+          break;
+        }
       }
-    }
+    },
   },
 
   mounted() {
     this.loadData();
   },
-
-  watch: {
-    selectedSortType() {
-      this.data = []
-      this.loadData();
-    }
-  }
 }
 </script>
 
@@ -98,6 +95,6 @@ export default {
 }
 
 .newsNavigation {
-  margin: 15px
+  margin: 15px 0 15px 0;
 }
 </style>

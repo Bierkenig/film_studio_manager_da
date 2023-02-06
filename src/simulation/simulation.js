@@ -74,7 +74,7 @@ function createStudios() {
             //create news of new studio
             let newsTitle = newStudio.getName() + ' gegründet';
             let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
-            store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', null, null, null, newStudio));
+            store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate,null, null, null, newStudio));
             store.state.studioNames.splice(store.state.studioNames.indexOf(studioName), 1);
         }
     }
@@ -718,7 +718,7 @@ function renewPeople() {
                 type += "Writer"
                 roles.writer++
             }
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The " + type + " " + el._first_name + el._last_name + " died", null, el))
+            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The " + type + " " + el._first_name + el._last_name + " died", null, store.getters.getCurrentDate, el))
         } else {
             refresh.push(refreshPerson(el))
         }

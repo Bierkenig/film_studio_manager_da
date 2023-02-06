@@ -71,7 +71,7 @@ export class Movie {
     }
 
     setRelease() {
-        if (this.status === 'Release' /*&& this._postProduction instanceof PostProduction*/) {
+        if (this.status === 'Release' && this._postProduction instanceof PostProduction) {
             this.genrePopularity = this.calcGenrePopularities()
             this.subgenrePopularity = this.calcSubGenrePopularities()
             this.topicPopularity = this.calcTopicPopularities()

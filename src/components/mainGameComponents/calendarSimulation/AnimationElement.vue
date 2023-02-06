@@ -11,9 +11,9 @@
           <img
               v-for="(it, index) in dayEvents"
               :key="index"
-              :class="'eventIconElements ' + it + 'Events'"
-              :src="require('../../../assets/icons/' + icons[it] + '.svg')"
-              :alt="it + 'Icon'"/>
+              :class="'eventIconElements ' + icons[it][1] + 'Events'"
+              :src="require('../../../assets/icons/' + icons[it][0] + '.svg')"
+              :alt="icons[it][0].replace('-','') + 'Icon'"/>
         </div>
       </div>
     </div>
@@ -32,10 +32,36 @@ export default {
     return {
       dayEvents: [],
       icons: {
-        'productionFinished': 'simple-tick',
-        'featureFilm':'rising-chart',
-        'blockbuster':'rising-chart',
-        'award':'award'
+        'actorDropsOut': ['action','preProduction'],
+        'callForRecast': ['action','preProduction'],
+        'directorDropsOutPreProduction': ['action','preProduction'],
+        'directorWantsMoreBudget': ['action','preProduction'],
+        'directorWantsExtendPhaseOut': ['action','preProduction'],
+        'preProductionFinished': ['simple-tick','preProduction'],
+        'badWeather': ['action','production'],
+        'castMakesProblems': ['action','production'],
+        'insufficientBudget': ['action','production'],
+        'equipmentMalfunctions': ['action','production'],
+        'budgetProblems': ['action','production'],
+        'setBreakdown': ['action','production'],
+        'insufficientProductionPhase': ['action','production'],
+        'directorDropsOutProduction': ['action','production'],
+        'directorWantsChanges': ['action','production'],
+        'injuryOfCast': ['action','production'],
+        'productionFinished': ['simple-tick','production'],
+        'testScreening': ['action','postProduction'],
+        'soundQualityProblem': ['action','postProduction'],
+        'postProductionProblem': ['action','postProduction'],
+        'visualEffectsProblem': ['action','postProduction'],
+        'visualQualityProblem': ['action','postProduction'],
+        'reshootingOfScenes': ['action','postProduction'],
+        'postProductionFinished': ['simple-tick','postProduction'],
+        'release': ['party','remaining'],
+        'releaseSummary': ['documentary','remaining'],
+        'dvdSummary': ['documentary','remaining'],
+        'studioTakeover': ['studio','remaining'],
+        'bankrupt': ['falling-chart','remaining'],
+        'award': ['award','remaining']
       },
     }
   },
@@ -123,19 +149,19 @@ export default {
   padding: 5px
 }
 
-.awardEvents {
+.remainingEvents {
   background-color: var(--fsm-light-yellow)
 }
 
-.blockbusterEvents {
+.preProductionEvents{
   background-color: var(--fsm-light-blue)
 }
 
-.featureFilmEvents {
+.postProductionEvents {
   background-color: var(--fsm-light-green)
 }
 
-.productionFinishedEvents {
+.productionEvents {
   background-color: var(--fsm-pink-1)
 }
 </style>

@@ -125,26 +125,69 @@ export default {
       arg.backgroundColor = 'inherit';
       arg.borderColor = 'var(--fsm-dark-blue-2)';
 
-      if(arg.event._def.extendedProps.type === 'productionFinished'){
+      if(arg.event._def.extendedProps.type === 'actorDropsOut' || arg.event._def.extendedProps.type === 'callForRecast'
+        || arg.event._def.extendedProps.type === 'directorDropsOutPreProduction' || arg.event._def.extendedProps.type === 'directorWantsMoreBudget'
+        || arg.event._def.extendedProps.type === 'directorWantsExtendPhase'){
         return {html: '<img ' +
-              ' class="eventIconElements productionFinishedEvents"' +
+              ' class="eventIconElements preProductionEvents"' +
+              ' src="' + require('../../../assets/icons/action.svg') + '" ' +
+              ' alt="preProductionIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'preProductionFinished') {
+        return {html: '<img ' +
+              ' class="eventIconElements preProductionEvents"' +
               ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
-              ' alt="productionFinishedIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'featureFilm'){
+              ' alt="preProductionIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'badWeather' || arg.event._def.extendedProps.type === 'castMakesProblems'
+          || arg.event._def.extendedProps.type === 'insufficientBudget' || arg.event._def.extendedProps.type === 'equipmentMalfunctions'
+          || arg.event._def.extendedProps.type === 'budgetProblems' || arg.event._def.extendedProps.type === 'setBreakdown'
+          || arg.event._def.extendedProps.type === 'insufficientProductionPhase' || arg.event._def.extendedProps.type === 'directorDropsOutProduction'
+          || arg.event._def.extendedProps.type === 'directorWantsChanges' || arg.event._def.extendedProps.type === 'injuryOfCast') {
         return {html: '<img ' +
-              ' class="eventIconElements featureFilmEvents"' +
-              ' src="' + require('../../../assets/icons/rising-chart.svg') + '" ' +
-              ' alt="featureFilmIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'blockbuster'){
+              ' class="eventIconElements productionEvents"' +
+              ' src="' + require('../../../assets/icons/action.svg') + '" ' +
+              ' alt="productionIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'productionFinished'){
         return {html: '<img ' +
-              ' class="eventIconElements blockbusterEvents"' +
-              ' src="' + require('../../../assets/icons/rising-chart.svg') + '" ' +
-              ' alt="blockbusterIcon"/>'}
+              ' class="eventIconElements productionEvents"' +
+              ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
+              ' alt="productionIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'testScreening' || arg.event._def.extendedProps.type === 'soundQualityProblem'
+          || arg.event._def.extendedProps.type === 'postProductionProblem' || arg.event._def.extendedProps.type === 'visualEffectsProblem'
+          || arg.event._def.extendedProps.type === 'visualQualityProblem' || arg.event._def.extendedProps.type === 'reshootingOfScenes') {
+        return {html: '<img ' +
+              ' class="eventIconElements postProductionEvents"' +
+              ' src="' + require('../../../assets/icons/action.svg') + '" ' +
+              ' alt="postProductionIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'postProductionFinished'){
+        return {html: '<img ' +
+              ' class="eventIconElements postProductionEvents"' +
+              ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
+              ' alt="postProductionIcon"/>'}
       } else if(arg.event._def.extendedProps.type === 'award'){
         return {html: '<img ' +
-              ' class="eventIconElements awardEvents"' +
+              ' class="eventIconElements remainingEvents"' +
               ' src="' + require('../../../assets/icons/award.svg') + '" ' +
-              ' alt="awardIcon"/>'}
+              ' alt="remainingEventsIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'release'){
+        return {html: '<img ' +
+              ' class="eventIconElements remainingEvents"' +
+              ' src="' + require('../../../assets/icons/party.svg') + '" ' +
+              ' alt="remainingEventsIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'releaseSummary' || arg.event._def.extendedProps.type === 'dvdSummary'){
+        return {html: '<img ' +
+              ' class="eventIconElements remainingEvents"' +
+              ' src="' + require('../../../assets/icons/documentary.svg') + '" ' +
+              ' alt="remainingEventsIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'studioTakeover'){
+        return {html: '<img ' +
+              ' class="eventIconElements remainingEvents"' +
+              ' src="' + require('../../../assets/icons/studio.svg') + '" ' +
+              ' alt="remainingEventsIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'bankrupt'){
+        return {html: '<img ' +
+              ' class="eventIconElements remainingEvents"' +
+              ' src="' + require('../../../assets/icons/falling-chart.svg') + '" ' +
+              ' alt="remainingEventsIcon"/>'}
       }
     }
   },
@@ -257,19 +300,19 @@ export default {
   padding: 5px
 }
 
-.awardEvents {
+.remainingEvents {
   background-color: var(--fsm-light-yellow)
 }
 
-.blockbusterEvents {
+.preProductionEvents {
   background-color: var(--fsm-light-blue)
 }
 
-.featureFilmEvents {
+.postProductionEvents {
   background-color: var(--fsm-light-green)
 }
 
-.productionFinishedEvents {
+.productionEvents {
   background-color: var(--fsm-pink-1)
 }
 </style>

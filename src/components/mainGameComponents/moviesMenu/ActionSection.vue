@@ -1,5 +1,5 @@
 <template>
-  <background-tile id="actionSectionContainer" :title="$t(headline)" icon="placeholder" content-color="grey">
+  <background-tile id="actionSectionContainer" :title="$t(headline)" :icon="icon" content-color="grey">
     {{ $t(infoText) }}
     <custom-button
         class="actionButton"
@@ -36,6 +36,12 @@ export default {
         this.$router.push({name: 'franchisesOverview'});
       } else if(this.headline === 'buyStreamingRights'){
         this.$router.push({name: 'buyMovieRights'});
+      } else if(this.headline === 'listOfMovies'){
+        //TODO: Link einfügen
+      } else if(this.headline === 'listOfPeople'){
+        //TODO: Link einfügen
+      } else if(this.headline === 'listOfAwards'){
+        //TODO: Link einfügen
       }
     }
   }
@@ -43,22 +49,6 @@ export default {
 </script>
 
 <style scoped>
-
-#actionSectionHeaderContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#actionSectionHeaderIcon {
-  margin-top: 20px;
-}
-
-.actionSectionHeader {
-  font-weight: var(--fsm-fw-bold);
-  color: var(--fsm-pink-1);
-}
-
 .actionButton {
   margin-top: 15px;
 }
