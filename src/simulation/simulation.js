@@ -47,7 +47,7 @@ export default function simulate() {
 //function to create new studios
 function createStudios() {
     if (store.state.studioNames.length !== 0) {
-        let num = randomNumber(0.10);
+        let num = randomNumber(0.50);
         if (num === 0) {
             //get all existing studio names
             let allStudios = [store.getters.getStudio.getName()];
@@ -346,7 +346,7 @@ export function updateServicePopularityAndSubscribers() {
 //create screenplays from other writers
 function createScreenplaysFromWriters() {
     if (store.state.screenplayTitles.length !== 0) {
-        if (randomNumber(0.50) === 0) {
+        if (randomNumber(0.15) === 0) {
             //get all necessary values
             const randomProfile = require('random-profile-generator');
             let allScreenplayTitles = store.state.screenplayTitles;

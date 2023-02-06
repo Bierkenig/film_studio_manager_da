@@ -127,7 +127,7 @@ export default {
         window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.databaseVersion +".db")
       }
       this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1), logo: this.chosenLogo});
-      this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),0), logo: this.chosenLogo});
+      this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1), logo: this.chosenLogo});
       this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}})
 
     },

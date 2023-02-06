@@ -1,10 +1,36 @@
 <template>
   <div class="simulationScreenMainDiv">
-    <div class="simulationScreenElementDiv">
+    <!--<div class="simulationScreenElementDiv">
       <Transition name="slide-fade" id="transition">
         <animation-element v-if="show" :date="currentDate" @stop-animate="stopAnimate"/>
         <animation-element v-else :date="currentDate" @stop-animate="stopAnimate"/>
       </Transition>
+    </div>-->
+    <div class="simulationScreenNewsBox">
+      <background-tile :title="$t('news2')">
+        <div class="simulationScreenNewsContainer">
+          <div v-for="(it, index) in this.news" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description" class="newsElement"/>
+          </div>
+        </div>
+      </background-tile>
+    </div>
+
+    <div class="simulationScreenCalendarBox">
+      <div class="simulationScreenCalendarItemsBox">
+        <div class="simulationScreenCalendarItems">
+          <animation-element :date="currentDate" @stopAnimate="stopAnimate"/>
+          <animation-element :date="currentDatePlusOne" @stopAnimate="stopAnimate"/>
+          <animation-element :date="currentDatePlusTwo" @stopAnimate="stopAnimate"/>
+          <animation-element :date="currentDatePlusThree" @stopAnimate="stopAnimate"/>
+        </div>
+        <div class="meterBox">
+          <div class="meter">
+            <span ref="simulationBar" style="width:0"></span>
+          </div>
+        </div>
+      </div>
     </div>
 
     <custom-button
@@ -17,38 +43,74 @@
 </template>
 
 <script>
-import AnimationElement from "@/components/mainGameComponents/calendarSimulation/AnimationElement";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import simulate from "@/simulation/simulation";
+import NewsElement from "@/components/kitchenSink/NewsElement.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import AnimationElement from "@/components/mainGameComponents/calendarSimulation/AnimationElement.vue";
 export default {
   name: "SimulationScreen",
-  components: {CustomButton, AnimationElement},
+  components: {AnimationElement, BackgroundTile, NewsElement, CustomButton},
 
 
   data(){
     return {
       show: true,
       currentDate: this.$store.getters.getCurrentDate,
+      currentDatePlusOne: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 1),
+      currentDatePlusTwo: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 2),
+      currentDatePlusThree: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 3),
       animationStatus: false,
       interval: null,
       stopButtonDisabled: false,
+      news: [],
     }
   },
 
+  watch: {
+    "$store.state.news.length"() {
+      this.loadData();
+    },
+    "$store.state.currentDate"() {
+      this.currentDatePlusOne = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 1);
+      this.currentDatePlusTwo = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 2);
+      this.currentDatePlusThree = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 3);
+
+    },
+  },
+
   mounted() {
+    this.loadData();
+    setTimeout(this.animateBar, 10)
+    setTimeout(this.resetBar,5990);
     this.stopButtonDisabled = false;
+
     this.interval = setInterval(() => {
+      setTimeout(this.animateBar, 10)
+      setTimeout(this.resetBar,5990);
       this.animate()
-    }, 4000)
+    }, 6000)
   },
 
   methods: {
+    loadData() {
+      this.news = [];
+      let sourceData = this.$store.getters.getCurrentNews;
+      sourceData.sort((a, b) => b._date - a._date)
+      for (let i = 0; i < sourceData.length; i++) {
+        this.news.push(sourceData[i])
+        if(i === 2){
+          break;
+        }
+      }
+    },
+
     stopAnimate(){
       this.stopButtonDisabled = true;
       clearInterval(this.interval)
       setTimeout(() => {
         this.$router.go(-1);
-      }, 4000)
+      }, 5500)
     },
 
     animate(){
@@ -58,45 +120,119 @@ export default {
           this.currentDate.getDate() + 1);
       simulate();
       this.$store.commit('updateCurrentDate');
+    },
+
+    animateBar() {
+      this.$refs.simulationBar.style.setProperty("transition", "width 5s ease-in-out")
+      this.$refs.simulationBar.style.setProperty("width", "100%")
+    },
+
+    resetBar(){
+      this.$refs.simulationBar.style.setProperty("transition", "none")
+      this.$refs.simulationBar.style.setProperty("width", "0")
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 .simulationScreenMainDiv {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.simulationScreenElementDiv {
+.simulationScreenNewsBox {
+  width: 85%;
+}
+
+.simulationScreenNewsContainer {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
+  height: 150px;
+}
+
+.simulationScreenCalendarBox {
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
+
+  height: 350px;
+  width: 85%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.simulationScreenCalendarItemsBox {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-l-border-radius);
+
+  padding-top: 20px;
+
+  width: 95%;
+  height: 78%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.simulationScreenCalendarItems {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  width: 100%;
 }
 
 #stopSimulationButton {
-  margin-top: 15px;
-  width: 300px;
+  position: absolute;
+  float: right;
+  right: 100px;
+  bottom: 20px;
+  width: 15%;
 }
 
-.slide-fade-enter-active {
-  transition: all 1s ease-in;
+.newsElement {
+  width: 100%;
 }
 
-.slide-fade-leave-active {
-  transition: all 1s cubic-bezier(1, 0.5, 0.8, 1);
+.meterBox {
+  padding: 5px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+  margin-right: 20px;
+  margin-left: 20px;
+  text-align: center;
 }
 
-.slide-fade-leave-to {
-  transform: translateX(-50px);
-  opacity: 0;
+.meter {
+  box-sizing: content-box;
+  height: 10px;
+  width: 100%;
+  position: relative;
+
+  background: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-l-border-radius);
 }
 
-.slide-fade-enter-from{
-  transform: translateX(50px);
-  opacity: 0;
+.meter > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--fsm-l-border-radius);
+  background-color: var(--fsm-pink-1);
+  position: relative;
+  overflow: hidden;
+  transition: width 6s ease-in-out;
 }
 </style>

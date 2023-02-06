@@ -1,19 +1,102 @@
 <template>
   <div>
-    <div class="animationBody">
-      <div class="animationElementDate">
-        {{ ("0" + date.getDate()).slice(-2) }}
-        {{ date.toLocaleString('en-US', {month: 'short'}) }},
-        {{ date.getFullYear() }}
+    <div v-if="this.dateOfDay === this.currentDateString" class="animationBodyCurrentDate">
+      <div class="animationElementCurrentDate">
+        {{ dateOfDay }}
       </div>
-      <div class="animationElementIcons">
-        <div class="animationElementIconsBox verticalScroll">
+      <div v-if="this.dayEvents.length === 0" class="animationElementIconsBox" id="animationElementNoEvents">
+        {{ $t('noEvents') }}
+      </div>
+      <div v-else-if="this.dayEvents.length <= 3" class="animationElementEventBox">
+        <div v-for="(it, index) in dayEvents"
+             :key="index"
+             class="animationElementIconsBox">
           <img
-              v-for="(it, index) in dayEvents"
-              :key="index"
               :class="'eventIconElements ' + icons[it][1] + 'Events'"
               :src="require('../../../assets/icons/' + icons[it][0] + '.svg')"
               :alt="icons[it][0].replace('-','') + 'Icon'"/>
+          <div class="animationElementTitle">
+            {{ $t('events.' + it + '.title') }}
+          </div>
+        </div>
+      </div>
+      <div v-else class="animationElementEventBox">
+        <div v-for="pos in 2"
+             :key="pos"
+             class="animationElementIconsBox">
+          <img
+              :class="'eventIconElements ' + icons[this.dayEvents[pos - 1]][1] + 'Events'"
+              :src="require('../../../assets/icons/' + icons[this.dayEvents[pos - 1]][0] + '.svg')"
+              :alt="icons[this.dayEvents[pos - 1]][0].replace('-','') + 'Icon'"/>
+          <div class="animationElementTitle">
+            {{ $t('events.' + this.dayEvents[pos - 1] + '.title') }}
+          </div>
+        </div>
+        <div class="animationElementAdditionalEvents">
+          <div>
+            {{ $t('additional') }}
+          </div>
+          <div class="animationElementAdditionalEventsIcons">
+            <div
+                v-for="pos in 4"
+                :key="pos + 1">
+              <img
+                  v-if="(pos + 2) <= this.dayEvents.length"
+                  :class="'eventIconElements ' + icons[this.dayEvents[pos + 1]][1] + 'Events'"
+                  :src="require('../../../assets/icons/' + icons[this.dayEvents[pos + 1]][0] + '.svg')"
+                  :alt="icons[this.dayEvents[pos + 1]][0].replace('-','') + 'Icon'"/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-else class="animationBodyNotCurrentDate">
+      <div class="animationElementNotCurrentDate">
+        {{ dateOfDay }}
+      </div>
+      <div v-if="this.dayEvents.length === 0" class="animationElementIconsBox" id="animationElementNoEvents">
+        {{ $t('noEvents') }}
+      </div>
+      <div v-else-if="this.dayEvents.length <= 3" class="animationElementEventBox">
+        <div v-for="(it, index) in dayEvents"
+             :key="index"
+             class="animationElementIconsBox">
+          <img
+              :class="'eventIconElements ' + icons[it][1] + 'Events'"
+              :src="require('../../../assets/icons/' + icons[it][0] + '.svg')"
+              :alt="icons[it][0].replace('-','') + 'Icon'"/>
+          <div class="animationElementTitle">
+            {{ $t('events.' + it + '.title') }}
+          </div>
+        </div>
+      </div>
+      <div v-else class="animationElementEventBox">
+        <div v-for="pos in 2"
+             :key="pos"
+             class="animationElementIconsBox">
+          <img
+              :class="'eventIconElements ' + icons[this.dayEvents[pos - 1]][1] + 'Events'"
+              :src="require('../../../assets/icons/' + icons[this.dayEvents[pos - 1]][0] + '.svg')"
+              :alt="icons[this.dayEvents[pos - 1]][0].replace('-','') + 'Icon'"/>
+          <div class="animationElementTitle">
+            {{ $t('events.' + this.dayEvents[pos - 1] + '.title') }}
+          </div>
+        </div>
+        <div class="animationElementAdditionalEvents">
+          <div>
+            {{ $t('additional') }}
+          </div>
+          <div class="animationElementAdditionalEventsIcons">
+            <div
+                v-for="pos in 4"
+                :key="pos + 1">
+              <img
+                  v-if="(pos + 2) <= this.dayEvents.length"
+                  :class="'eventIconElements ' + icons[this.dayEvents[pos + 1]][1] + 'Events'"
+                  :src="require('../../../assets/icons/' + icons[this.dayEvents[pos + 1]][0] + '.svg')"
+                  :alt="icons[this.dayEvents[pos + 1]][0].replace('-','') + 'Icon'"/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -21,6 +104,8 @@
 </template>
 
 <script>
+import dateFormat from "dateformat";
+import { i18n } from "dateformat";
 export default {
   name: "AnimationElement",
 
@@ -30,6 +115,8 @@ export default {
 
   data(){
     return {
+      dateOfDay: '',
+      currentDateString: '',
       dayEvents: [],
       icons: {
         'actorDropsOut': ['action','preProduction'],
@@ -66,28 +153,49 @@ export default {
     }
   },
 
-  mounted() {
-    let allCalendarEvents = this.$store.getters.getCalendarEvents;
-    let allEventsCompleted = null;
-    for (let i = 0; i < allCalendarEvents.length; i++) {
-      if(allCalendarEvents[i].start === this.formatDate(this.$store.getters.getCurrentDate.toDateString())){
-        this.dayEvents.push(allCalendarEvents[i].type)
-        if(allEventsCompleted === null || allEventsCompleted === true){
-          allEventsCompleted = allCalendarEvents[i].completed;
-        }
-      }
-    }
-    if(this.dayEvents.length !== 0 && !allEventsCompleted){
-      setTimeout(() => {
-        this.$emit('stopAnimate')
-      }, 2000)
-      /*for (let i = 0; i < allCalendarEvents.length; i++) {
-        allCalendarEvents[i].completed = true;
-      }*/
+  watch: {
+    date: function (){
+      this.updateDate();
     }
   },
 
+  mounted() {
+    this.updateDate();
+  },
+
   methods: {
+    updateDate(){
+      if(this.$store.getters.getCurrentLanguage === 'en'){
+        i18n.dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",];
+        i18n.monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      } else {
+        i18n.dayNames = ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam",];
+        i18n.monthNames = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"];
+      }
+
+      this.currentDateString = dateFormat(this.$store.getters.getCurrentDate, 'ddd, d mmm')
+      this.dateOfDay = dateFormat(this.date, 'ddd, d mmm')
+
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let allEventsCompleted = null;
+      this.dayEvents = [];
+
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].start === this.formatDate(this.date.toDateString())){
+          this.dayEvents.push(allCalendarEvents[i].type)
+          if(allEventsCompleted === null || allEventsCompleted === true){
+            allEventsCompleted = allCalendarEvents[i].completed;
+          }
+        }
+      }
+
+      if((this.dayEvents.length !== 0 && allEventsCompleted === false) && this.date.getTime() === this.$store.getters.getCurrentDate.getTime()){
+        setTimeout(() => {
+          this.$emit('stopAnimate')
+        }, 500)
+      }
+    },
+
     formatDate(date) {
       let d = new Date(date),
           month = '' + (d.getMonth() + 1),
@@ -106,10 +214,10 @@ export default {
 </script>
 
 <style scoped>
-.animationBody {
-  background-color: var(--fsm-dark-blue-2);
+.animationBodyNotCurrentDate, .animationBodyCurrentDate {
+  background-color: var(--fsm-dark-blue-5);
   border-radius: var(--fsm-m-border-radius);
-  height: 250px;
+  height: 215px;
   width: 300px;
   padding: 5px;
   display: flex;
@@ -117,29 +225,69 @@ export default {
   gap: 5px;
 }
 
-.animationElementDate {
-  margin-top: 8px;
-  color: var(--fsm-pink-1);
-  font-weight: var(--fsm-fw-bold);
-  text-align: center;
+.animationBodyCurrentDate {
+  background-color: var(--fsm-dark-blue-3) !important;
 }
 
-.animationElementIcons {
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-m-border-radius);
+.animationElementCurrentDate, .animationElementNotCurrentDate {
+  margin: 8px 10px 0 10px;
+  font-weight: var(--fsm-fw-bold);
+  font-size: 22px;
+}
 
-  flex: 1;
-  padding: 5px;
-  margin: 5px;
+.animationElementNotCurrentDate {
+  color: var(--fsm-white);
+}
+
+.animationElementCurrentDate {
+  color: var(--fsm-pink-1);
+}
+
+.animationElementEventBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 10px 0 10px;
+}
+
+.animationElementIconsBox, .animationElementAdditionalEvents {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.animationElementAdditionalEvents {
+  margin-top: 10px;
+  padding: 0 !important;
+}
+
+.animationElementAdditionalEventsIcons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
 }
 
 .animationElementIconsBox {
-  flex: 1;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+}
 
+#animationElementNoEvents {
   display: flex;
   flex-direction: row;
-  gap: 10px;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 10px;
+}
+
+.animationElementTitle {
+  flex: 1;
 }
 
 .eventIconElements {

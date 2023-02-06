@@ -2,7 +2,7 @@
   <div class="mainDivContainer">
     <game-header
         class="gameHeaderComponent"
-        v-if="this.showOnPage.includes(this.$route.name)"
+        v-if="this.showOnPage.includes(this.$route.name) || this.$route.name === 'simulation'"
         :studioname="this.$store.getters.getStudio.name"
         :budget="this.$store.getters.getBalance"
         :page-name="this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1)"/>

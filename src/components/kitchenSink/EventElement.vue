@@ -247,8 +247,8 @@ export default {
           break;
         case 'award':
           document.getElementById('awardIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.awards.title');
-          this.description = this.$t('events.awards.description');
+          this.title = this.$t('events.award.title');
+          this.description = this.$t('events.award.description');
           break;
         default:
           throw('Invalid event type!');

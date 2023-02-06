@@ -88,7 +88,7 @@
           :dark="false"
           size="medium"
           :disabled="this.allEventsCompleted === false"
-          @clicked="this.$router.push({name: 'simulationScreen'})">{{ $t('continue') }}</custom-button>
+          @clicked="this.$router.push({name: 'simulation'})">{{ $t('continue') }}</custom-button>
     </div>
   </div>
 </template>

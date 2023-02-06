@@ -57,7 +57,7 @@ const routes = [
     { name: 'moviesOverview', path: '/moviesOverview', component: MoviesOverview, props: true },
     { name: 'peopleOverview', path: '/peopleOverview', component: PeopleOverview, props: true },
 
-    { name: 'simulationScreen', path: '/simulationScreen', component: SimulationScreen, props: true },
+    { name: 'simulation', path: '/simulationScreen', component: SimulationScreen, props: true },
 
     { name: 'movieSummary', path: '/movieSummary', component: MovieSummary, props: true },
     { name: 'createFranchise', path: '/createFranchise', component: CreateFranchise, props: true },

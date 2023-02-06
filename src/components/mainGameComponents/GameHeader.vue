@@ -25,7 +25,7 @@
       </div>
 
       <p class="headerBoxHiddenElement"></p>
-      <settings-header id="headerBoxSettingHeader"/>
+      <settings-header id="headerBoxSettingHeader" v-if="pageName !== 'Simulation'"/>
       <!--<custom-button :dark="false" size="small" @click="onUpdateDate">{{ $t('skipWeek') }}</custom-button>-->
     </div>
   </div>

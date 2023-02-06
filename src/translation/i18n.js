@@ -910,7 +910,7 @@ i18next
                             title: 'Bankrupt',
                             description: 'Your own studio',
                         },
-                        awards: {
+                        award: {
                             title: 'International Film Awards',
                             description: 'Nomination Announcements',
                         },
@@ -1077,6 +1077,8 @@ i18next
                     directors: 'Directors',
                     writers: 'Writers',
                     actors: 'Actors',
+                    noEvents: 'No events',
+                    additional: 'Additional',
                 }
             },
             de: {
@@ -1903,7 +1905,7 @@ i18next
                             title: 'Konkurs',
                             description: 'Dein eigenes Studio',
                         },
-                        awards: {
+                        award: {
                             title: 'Internationale Filmpreise',
                             description: 'Ankündigung der Nominierungen',
                         },
@@ -2070,6 +2072,8 @@ i18next
                     directors: 'Regisseure',
                     writers: 'Autore',
                     actors: 'Schauspieler',
+                    noEvents: 'Keine Events',
+                    additional: 'Weiters',
                 }
             }
         }
