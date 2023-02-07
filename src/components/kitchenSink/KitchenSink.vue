@@ -365,6 +365,14 @@
       <code-view code='<avatar-element :svg-code="exampleAvatar" size="100px"/>'/>
       <avatar-element :svg-code="exampleAvatar" size="100px"/>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<movie-earning-element movie-title="Title" :opening-week-gross="1500" :current-time-title="$t("thisYear")" :current-time-gross="25000"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <movie-earning-element movie-title="Title" :opening-week-gross="1500" :current-time-title="$t('thisYear')" :current-time-gross="25000"/>
+        <div class="kitchenSinkSpacer"/>
+        <movie-earning-element movie-title="Title" :opening-week-gross="3000" :current-time-title="$t('thisWeek')" :current-time-gross="500"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -395,10 +403,12 @@ import EarningStatisticsElement from "@/components/kitchenSink/EarningStatistics
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
 import ProjectElement from "@/components/kitchenSink/ProjectElement.vue";
 import StreamingInfoElement from "@/components/kitchenSink/StreamingInfoElement.vue";
+import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vue";
 
 export default {
   name: "KitchenSink",
   components: {
+    MovieEarningElement,
     StreamingInfoElement,
     ProjectElement,
     AvatarElement,

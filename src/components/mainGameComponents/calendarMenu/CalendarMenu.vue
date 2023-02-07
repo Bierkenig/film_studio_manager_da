@@ -241,6 +241,12 @@ export default {
   overflow: hidden scroll !important;
 }
 
+@media screen and (min-height: 975px) {
+  .fc-scroller-liquid-absolute {
+    overflow: hidden !important;
+  }
+}
+
 .fc-col-header-cell {
   text-align: center;
   height: 30px;

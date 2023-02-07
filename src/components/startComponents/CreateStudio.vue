@@ -15,8 +15,10 @@
         <background-tile :title="$t('createStudioHeader')">
           <div class="createStudioBox">
             <div class="createStudioBoxInnerElement">
-              <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
-              <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
+              <div class="createStudioNameBox">
+                <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
+                <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' />
+              </div>
               <div id="radioBox">
                 <div id="budgetHint">
                   Studio Budget
@@ -220,14 +222,18 @@ export default {
   padding-top: 20px;
 }
 
+.createStudioNameBox {
+  display: flex;
+  flex-direction: column;
+}
+
 #createStudioName {
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-s-border-radius);
   border-style: none;
-  height: 30px;
-  width: 80%;
+  flex: 1;
   margin-top: 10px;
-  padding-left: 10px;
+  padding: 10px;
   margin-bottom: 20px;
 }
 

@@ -202,8 +202,8 @@ export default createStore({
         currentFranchise: null,
 
         inProductionMovies: [],
-
         finishedMovies: [new Movie(new Studio(100,"JJJJ"), 0)],
+        awardsOfOwnStudio: [],
 
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
@@ -491,10 +491,6 @@ export default createStore({
             return state.allScreenplays;
         },
 
-        getAllDirectorSalary(state) {
-            return state.allDirectorSalary;
-        },
-
         getOwnStreamingService(state) {
             return state.ownStreamingService;
         },
@@ -567,6 +563,10 @@ export default createStore({
 
         getScreenplaysFromWriters(state){
             return state.screenplaysFromWriters;
+        },
+
+        getAwardsOfOwnStudio(state){
+            return state.awardsOfOwnStudio;
         }
     },
 
@@ -899,6 +899,10 @@ export default createStore({
             state.screenplaysFromWriters.splice(state.screenplaysFromWriters.indexOf(movie), 1);
         },
 
+        addAwardToOwnStudio(state, award){
+            state.awardsOfOwnStudio.push(award)
+        },
+
         stateToSave(state, reducedState){
             DataUtil.transferProperties(state, reducedState, [
                 "slot",
@@ -1050,7 +1054,7 @@ export default createStore({
             state.currentDate = new Date("2023-01-01T00:00:00.000Z")
             state.news = []
             state.earnings = []
-            //state.financialPerformance = []
+            state.financialPerformance = []
             state.calenderEvents = []
             state.happeningEvent = null
             state.franchise = []
@@ -1060,11 +1064,11 @@ export default createStore({
             state.moviesFromOtherStudios = []
             state.screenplaysFromWriters = []
             state.franchisesFromOtherStudios = []
-            //state.otherStudios = []
+            state.otherStudios = []
             state.marketYears = [2023]
             state.boughtMovies = []
             state.boughtMovieRights = []
-            //state.financialHistory = []
+            state.financialHistory = []
             state.feature = ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"]
             state.indie = ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"]
             state.animation = ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"]
@@ -1093,7 +1097,7 @@ export default createStore({
                 "Dreamweaver Productions", "Celestial Sky productions", "Twilight Zone Productions", "Shooting Star Cinemas", "Moonbeam Pictures", "Mystic Moonlight Pictures", "Southern Star Pictures", "Starlight Pictures", "Stardust Studios", "Cloudland Productions", "Shadow Moon Pictures",
                 "Astral Pictures", "Mystic Memories Films", "Starlight Films", "Heavenly Dreams Films", "Stargazer Films", "Mystic Sunrise Pictures", "Sunlight Pictures", "Stardust Films", "Mystic Moon Studios", "Blue Skies Studios", "Enchanted Forest Pictures", "Starstream Pictures",
                 "Mystic Light Pictures", "Glowing Embers Studios", "Dreamland Films", "Dreamwalker Pictures", "Dreamcatcher Studios", "Starry Night Films", "Moonlight Studios", "Mystic Visions Films", "Mystic Valley Pictures", "Celestial Dream Pictures"]
-            state.screenplay.title = ["The Waning Moon", "The Burning Flame", "The Unspoken Truth", "The Road to Nowhere", "Into the Abyss", "Shadows of the Night", "The Secret Garden", "The Unseen Path", "The Legend of Time", "The Labyrinth of Fate",
+            state.screenplayTitles = ["The Waning Moon", "The Burning Flame", "The Unspoken Truth", "The Road to Nowhere", "Into the Abyss", "Shadows of the Night", "The Secret Garden", "The Unseen Path", "The Legend of Time", "The Labyrinth of Fate",
                 "The Lost Soul", "The Edge of Time", "The Call of the Wild", "Celestial Rising", "Late Night Serenade", "The Last Dance", "A Long Journey", "Emerald Bay", "The Fortune Teller", "Chasing the Horizon", "Frozen Fire",
                 "Dreamweaver", "The Phoenix Rises", "Starlight in the Dark", "Eternal Flame", "Moonlight Memory", "Starstruck", "To the Ends of the Earth", "The Big Sky", "The Final Act", "Road to Redemption", "Midnight Magic", "A Wish Upon a Star",
                 "The Golden Hour", "Legend of the Lake", "The Siren Song", "The Labyrinth of Fate", "Silver Lining", "The Dreamcatcher", "The Edge of the World", "The Star-Crossed Lovers", "The Storm Before the Calm", "The Silver Screen",

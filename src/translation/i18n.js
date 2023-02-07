@@ -130,6 +130,22 @@ i18next
                         november: "November",
                         december: "December",
                     },
+                    summaries: {
+                        preProduction: {
+                            title: "Pre Production Summary",
+                            progress: "Progress",
+                            events: "Events happened"
+                        },
+                        production: {
+                            title: "Production Summary",
+                        },
+                        postProduction: {
+
+                        },
+                        release: {
+
+                        }
+                    },
                     buyScreenplaySection: {
                         buyScreenplay: "Buy a Screenplay",
                         buy: "Buy",
@@ -179,6 +195,7 @@ i18next
                         readjust: "Try to readjust the Salary",
                         continue: "Finish preproduction",
                         add: "Add Actor",
+                        cant: "Can't add this Actor because, he / she is already working on at least 3 Projects"
                     },
                     budgetSection: {
                         overall: "Set the Budget for your Movie",
@@ -730,7 +747,7 @@ i18next
                     descending: 'Descending',
                     sortBy: 'Sort by',
                     competitorServices: 'Competitor Services',
-                    createService: 'Create Servce',
+                    createService: 'Create Service',
                     saveScreenplay: 'Save Screenplay',
                     popularity: 'Popularity',
                     viewServices: 'View Services',
@@ -754,6 +771,8 @@ i18next
                     today: 'Today',
                     thisWeek: 'This Week',
                     thisMonth: 'This Month',
+                    thisYear: 'This Year',
+                    allTime: 'All Time',
                     producedMovies: 'Produced Movies',
                     quality: 'Quality',
                     listOfSources: 'List of Sources',
@@ -1074,9 +1093,9 @@ i18next
                     listOfMovies: 'List of Movies',
                     listOfPeople: 'List of People',
                     listOfAwards: 'List of Awards',
-                    listOfMoviesInfoText: 'View a list of all movies..',
-                    listOfPeopleInfoText: 'View a list of all people..',
-                    listOfAwardsInfoText: 'View a list of every award..',
+                    listOfMoviesInfoText: 'View a list of all movies.',
+                    listOfPeopleInfoText: 'View a list of all people.',
+                    listOfAwardsInfoText: 'View a list of every award.',
                     ethnicity: 'Ethnicity',
                     workingSince: 'Working since',
                     directors: 'Directors',
@@ -1663,6 +1682,8 @@ i18next
                     today: 'Heute',
                     thisWeek: 'Diese Woche',
                     thisMonth: 'Dieses Monat',
+                    thisYear: 'Dieses Jahr',
+                    allTime: 'Seit Beginn',
                     producedMovies: 'Produzierte Filme',
                     quality: 'Qualität',
                     listOfSources: 'Liste von Quellen',

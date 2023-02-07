@@ -1,8 +1,8 @@
 <template>
-  <div id="buyMovieRightsMainDiv">
-    <h1 id="buyMovieRightsHeader">{{ $t('buyStreamingRights') }}</h1>
+  <div id="awardOverviewMainDiv">
+    <h1 id="awardOverviewHeader">{{ $t('listOfAwards') }}</h1>
     <icon-button
-        id="buyMovieRightsBackButton"
+        id="awardOverviewBackButton"
         icon="simple-arrow-left"
         size="medium"
         :dark="true"
@@ -10,39 +10,40 @@
         :icon-gradient="false"
         :shadow="false"
         @click="goBack"/>
-    <movie-list @sendMovie="receiveMovie"/>
-    <movie-details :movie="clickedMovie"/>
+    <award-list/>
+    <award-details/>
   </div>
 </template>
 
 <script>
-import MovieList from "@/components/mainGameComponents/streamingMenu/MovieList";
-import MovieDetails from "@/components/mainGameComponents/streamingMenu/MovieDetails";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import AwardList from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardList.vue";
+import AwardDetails from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardDetails.vue";
+
 export default {
-  name: "BuyMovieRights",
-  components: {IconButton, MovieDetails, MovieList},
+  name: "AwardOverview",
+  components: {AwardDetails, AwardList, IconButton},
 
   data() {
     return {
-      clickedMovie: null,
+      clickedAward: {},
     }
   },
 
   methods: {
-    receiveMovie: function (movie){
-      this.clickedMovie = movie;
+    goBack() {
+      this.$router.push({name: 'news'})
     },
 
-    goBack(){
-      this.$router.push({name: 'streaming'})
+    receiveAward(award) {
+      this.clickedAward = award;
     }
   }
 }
 </script>
 
 <style scoped>
-#buyMovieRightsMainDiv {
+#awardOverviewMainDiv {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -51,7 +52,7 @@ export default {
   gap: 15px;
 }
 
-#buyMovieRightsHeader {
+#awardOverviewHeader {
   position: absolute;
   top: 15px;
   left: 50%;
@@ -60,7 +61,7 @@ export default {
   font-weight: var(--fsm-fw-bold);
 }
 
-#buyMovieRightsBackButton {
+#awardOverviewBackButton {
   position: absolute;
   float: left;
   left: 100px;

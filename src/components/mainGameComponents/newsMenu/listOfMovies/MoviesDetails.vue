@@ -1,5 +1,5 @@
 <template>
-  <div v-if="movie !== null" class="moviesDetailsContent">
+  <div v-if="movie !== null">
     <background-tile class="moviesDetailsContentTile" :title="$t('movieDetailsElement.general.heading')">
       <div class="moviesDetailsGeneral">
         <div class="moviesDetailsGeneralTopInfo">
@@ -44,32 +44,24 @@
               <input type="range" min="1" max="100" step="1" :value="movie._release.adultsMoviePopularity" disabled>
             </div>
           </div>
-          <div v-if="movie._status === 'Finished' && movie._status === 'Released'" class="moviesDetailsGeneralBottomInfoLeft">
+          <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="moviesDetailsGeneralBottomInfoLeft">
             <div class="moviesDetailsGeneralInfoLine">
-              <div>{{ $t('moviesDetailsElement.general.children') }}</div>
+              <div>{{ $t('movieDetailsElement.general.children') }}</div>
               <input type="range" min="1" max="100" step="1" :value="0" disabled>
             </div>
             <div class="moviesDetailsGeneralInfoLine">
-              <div>{{ $t('moviesDetailsElement.general.teenagers') }}</div>
+              <div>{{ $t('movieDetailsElement.general.teenagers') }}</div>
               <input type="range" min="1" max="100" step="1" :value="0" disabled>
             </div>
             <div class="moviesDetailsGeneralInfoLine">
-              <div>{{ $t('moviesDetailsElement.general.adults') }}</div>
+              <div>{{ $t('movieDetailsElement.general.adults') }}</div>
               <input type="range" min="1" max="100" step="1" :value="0" disabled>
             </div>
           </div>
           <div class="moviesDetailsGeneralBottomInfoRight">
-            <div v-if="listType !== 'Sale' && (movie._status === 'Finished' || movie._status === 'Released')" class="moviesDetailsGeneralInfoLine">
-              <div>{{ $t('movieDetailsElement.general.release') }}</div>
-              <div>{{ movie._release }}</div>
-            </div>
-            <div v-if="listType !== 'Sale' && (movie._status !== 'Finished' && movie._status !== 'Released')" class="moviesDetailsGeneralInfoLine">
+            <div class="moviesDetailsGeneralInfoLine">
               <div>Status</div>
               <div>{{ movie._status }}</div>
-            </div>
-            <div v-if="listType === 'Sale'" class="moviesDetailsGeneralInfoLine">
-              <div>{{ $t('price') }}</div>
-              <div>{{ movie._totalCosts }}</div>
             </div>
             <div class="moviesDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.writer') }}</div>
@@ -124,7 +116,7 @@
             <div>{{ movie._release.dvdGross }}</div>
           </div>
         </div>
-        <div v-if="movie._status !== 'Finished' && movie._status === 'Released'" class="moviesDetailsFinancesRight">
+        <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="moviesDetailsFinancesRight">
           <div class="noMargin moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
             <div>0</div>
@@ -184,14 +176,6 @@ export default {
 </script>
 
 <style scoped>
-.moviesDetailsContent {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .moviesDetailsBackground {
   display: flex;
   flex-direction: column;

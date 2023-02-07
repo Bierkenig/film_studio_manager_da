@@ -13,7 +13,7 @@
                 </div>
               </div>
               <div class="sourcesListSortDiv">
-                <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOwningMovies"/>
+                <custom-select :options="[$t('quality'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOwningMovies"/>
                 <custom-list-sort @sort-changed="setSelectedTypeOfSortForAllOwningMovies"/>
               </div>
             </div>
@@ -26,7 +26,7 @@
                 </div>
               </div>
               <div class="sourcesListSortDiv">
-                <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOtherStudiosMovies"/>
+                <custom-select :options="[$t('quality'),'Name',$t('price')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOtherStudiosMovies"/>
                 <custom-list-sort @sort-changed="setSelectedTypeOfSortForAllOtherStudiosMovies"/>
               </div>
             </div>
@@ -41,7 +41,7 @@
                 </div>
               </div>
               <div class="sourcesListSortDiv">
-                <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOwningScreenplays"/>
+                <custom-select :options="[$t('rating'),'Name',$t('price')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOwningScreenplays"/>
                 <custom-list-sort @sort-changed="setSelectedTypeOfSortForAllOwningScreenplays"/>
               </div>
             </div>
@@ -54,7 +54,7 @@
                 </div>
               </div>
               <div class="sourcesListSortDiv">
-                <custom-select :options="[$t('popularity'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOtherStudiosScreenplays"/>
+                <custom-select :options="[$t('rating'),'Name',$t('price')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhatForAllOtherStudiosScreenplays"/>
                 <custom-list-sort @sort-changed="setSelectedTypeOfSortForAllOtherStudiosScreenplays"/>
               </div>
             </div>
@@ -109,79 +109,106 @@ export default {
 
     setSelectedSortByWhatForAllOwningMovies(arg) {
       this.selectedSortByWhat = arg;
-      this.sortSourceList(this.allOwningMovies);
+      this.sortSourceList(this.allOwningMovies, 'Movies','Owning');
     },
 
     setSelectedTypeOfSortForAllOwningMovies(arg) {
       this.selectedTypeOfSort = arg;
-      this.sortSourceList(this.allOwningMovies);
+      this.sortSourceList(this.allOwningMovies, 'Movies','Owning');
     },
 
     setSelectedSortByWhatForAllOtherStudiosMovies(arg) {
       this.selectedSortByWhat = arg;
-      this.sortSourceList(this.allOtherStudiosMovies);
+      this.sortSourceList(this.allOtherStudiosMovies, 'Movies','Sale');
     },
 
     setSelectedTypeOfSortForAllOtherStudiosMovies(arg) {
       this.selectedTypeOfSort = arg;
-      this.sortSourceList(this.allOtherStudiosMovies);
+      this.sortSourceList(this.allOtherStudiosMovies, 'Movies','Sale');
     },
 
     setSelectedSortByWhatForAllOwningScreenplays(arg) {
       this.selectedSortByWhat = arg;
-      this.sortSourceList(this.allOwningScreenplays);
+      this.sortSourceList(this.allOwningScreenplays, 'Screenplays','Owning');
     },
 
     setSelectedTypeOfSortForAllOwningScreenplays(arg) {
       this.selectedTypeOfSort = arg;
-      this.sortSourceList(this.allOwningScreenplays);
+      this.sortSourceList(this.allOwningScreenplays, 'Screenplays','Owning');
     },
 
     setSelectedSortByWhatForAllOtherStudiosScreenplays(arg) {
       this.selectedSortByWhat = arg;
-      this.sortSourceList(this.allOtherStudiosScreenplays);
+      this.sortSourceList(this.allOtherStudiosScreenplays, 'Screenplays','Sale');
     },
 
     setSelectedTypeOfSortForAllOtherStudiosScreenplays(arg) {
       this.selectedTypeOfSort = arg;
-      this.sortSourceList(this.allOtherStudiosScreenplays);
+      this.sortSourceList(this.allOtherStudiosScreenplays, 'Screenplays','Sale');
     },
 
-    sortSourceList(array) {
-      console.log(array)
-      /*if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Ascending'){
-        array.sort(function (a, b) {
-          let franchiseAPopularity = 0;
-          let franchiseBPopularity = 0;
-          for (let i = 0; i < a.allMovies.length; i++) {
-            franchiseAPopularity += a.allMovies[i].popularity;
+    sortSourceList(array, sourceType, listType) {
+      if(sourceType === 'Movies'){
+        if(listType === 'Owning'){
+          if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOwningMovies.sort((a, b) => a.quality - b.quality)
+          } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending') {
+            this.allOwningMovies.sort((a, b) => b.quality - a.quality)
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+            this.allOwningMovies.sort((a, b) => a._title.localeCompare(b._title))
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+            this.allOwningMovies.sort((a, b) => b._title.localeCompare(a._title))
+          } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOwningMovies.sort((a, b) => a._preProduction.startDate - b._preProduction.startDate)
+          } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending'){
+            this.allOwningMovies.sort((a,b) => b._preProduction.startDate - a._preProduction.startDate)
           }
-          for (let i = 0; i < b.allMovies.length; i++) {
-            franchiseBPopularity += b.allMovies[i].popularity;
+        } else {
+          if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOtherStudiosMovies.sort((a, b) => a.quality - b.quality)
+          } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending') {
+            this.allOtherStudiosMovies.sort((a, b) => b.quality - a.quality)
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+            this.allOtherStudiosMovies.sort((a, b) => a._title.localeCompare(b._title))
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+            this.allOtherStudiosMovies.sort((a, b) => b._title.localeCompare(a._title))
+          } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOtherStudiosMovies.sort((a, b) => a._totalCosts - b._totalCosts)
+          } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Descending'){
+            this.allOtherStudiosMovies.sort((a,b) => b._totalCosts - a._totalCosts)
           }
-          return (franchiseAPopularity / a.allMovies.length) - (franchiseBPopularity / b.allMovies.length)
-        })
-      } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Descending') {
-        array.sort(function (a, b) {
-          let franchiseAPopularity = 0;
-          let franchiseBPopularity = 0;
-          for (let i = 0; i < a.allMovies.length; i++) {
-            franchiseAPopularity += a.allMovies[i].popularity;
+        }
+      } else {
+        if(listType === 'Owning'){
+          if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOwningScreenplays.sort((a, b) => a.rating - b.rating)
+          } else if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Descending') {
+            this.allOwningScreenplays.sort((a, b) => b.rating - a.rating)
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+            this.allOwningScreenplays.sort((a, b) => a.title.localeCompare(b.title))
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+            this.allOwningScreenplays.sort((a, b) => b.title.localeCompare(a.title))
+          } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOwningScreenplays.sort((a, b) => a.price - b.price)
+          } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Descending'){
+            this.allOwningScreenplays.sort((a,b) => b.price - a.price)
           }
-          for (let i = 0; i < b.allMovies.length; i++) {
-            franchiseBPopularity += b.allMovies[i].popularity;
+        } else {
+          if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOtherStudiosScreenplays.sort((a, b) => a.rating - b.rating)
+          } else if((this.selectedSortByWhat === 'Rating' || this.selectedSortByWhat === 'Bewertung') && this.selectedTypeOfSort === 'Descending') {
+            this.allOtherStudiosScreenplays.sort((a, b) => b.rating - a.rating)
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+            this.allOtherStudiosScreenplays.sort((a, b) => a.title.localeCompare(b.title))
+          } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+            this.allOtherStudiosScreenplays.sort((a, b) => b.title.localeCompare(a.title))
+          } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Ascending'){
+            this.allOtherStudiosScreenplays.sort((a, b) => a.price - b.price)
+          } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Descending'){
+            this.allOtherStudiosScreenplays.sort((a,b) => b.price - a.price)
           }
-          return (franchiseBPopularity / b.allMovies.length) - (franchiseAPopularity / a.allMovies.length)
-        })
-      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
-        array.sort((a, b) => a.name.localeCompare(b.name))
-      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
-        array.sort((a, b) => b.name.localeCompare(a.name))
-      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
-        array.sort((a, b) => a.foundationDate - b.foundationDate)
-      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending'){
-        array.sort((a, b) => b.foundationDate - a.foundationDate)
-      }*/
+        }
+      }
     },
 
     roundSalary(labelValue) {

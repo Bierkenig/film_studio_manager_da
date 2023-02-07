@@ -265,6 +265,7 @@ export default {
     this.$store.getters.getScreenplays[0].setLength('152');
     this.$store.getters.getScreenplays[0].setWritingPhase(14);
 
+    this.$store.getters.getFinishedMovies[0]._status = 'Pre Production';
     this.$store.getters.getFinishedMovies[0]._preProduction.screenplay = this.$store.getters.getScreenplays[0];
     this.$store.getters.getFinishedMovies[0]._foundationDate = this.$store.getters.getCurrentDate;
     this.$store.getters.getFinishedMovies[0].genrePopularity = {children: 18, teenager: 85, adult: 59};
@@ -277,7 +278,8 @@ export default {
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(3500000,new Date('02.01.2023')))
     this.$store.getters.getFinishedMovies[0]._earnings.push(new Earnings(750000,new Date('03.01.2023')))
     this.$store.getters.getFinishedMovies[0].totalOutgoings = 5526000;
-    console.log(this.$store.getters.getAllGenres);
+    this.$store.commit('addMoviesFromOtherStudios',this.$store.getters.getFinishedMovies[0]);
+    this.$store.getters.getMoviesFromOtherStudios[0]._contract = null;
   }
 }
 </script>

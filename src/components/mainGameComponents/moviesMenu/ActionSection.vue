@@ -41,7 +41,7 @@ export default {
       } else if(this.headline === 'listOfPeople'){
         this.$router.push({name: 'peopleOverview'});
       } else if(this.headline === 'listOfAwards'){
-        //TODO: Link einfügen
+        this.$router.push({name: 'awardOverview'});
       }
     }
   }
