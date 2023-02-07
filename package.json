@@ -1,10 +1,10 @@
 {
   "name": "film_studio_manager_da",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "description": "FSM is a Simulation with the Film Industry as topic",
   "author": {
-    "name": "FSM TEAM (Jakob Mucherl, Harman Dhanoya, Benedikt Schmid, Julian Singer, Benjamin Zeeh"
+    "name": "FSM TEAM (Jakob Mucherl, Harman Dhanoya, Benedikt Schmid, Julian Singer, Benjamin Zeeh)"
   },
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -31,7 +31,6 @@
     "date-fns": "^2.29.3",
     "dateformat": "^5.0.3",
     "electron": "^13.6.9",
-    "electron-builder": "^23.6.0",
     "hidefile": "^3.0.0",
     "i18next": "^21.10.0",
     "i18next-browser-languagedetector": "^6.1.8",
@@ -61,7 +60,8 @@
     "electron-devtools-installer": "^3.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "vue-cli-plugin-electron-builder": "~2.1.1"
+    "vue-cli-plugin-electron-builder": "~2.1.1",
+    "electron-builder": "^23.6.0"
   },
   "eslintConfig": {
     "root": true,

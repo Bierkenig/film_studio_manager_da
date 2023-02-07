@@ -73,16 +73,16 @@ export default {
       console.log(this.salaryLevel)
       if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random())
+          const random = Math.round(Math.random() * 3)
           if (random === 0) this.decision = true
-          else if (random === 1) {
+          else {
             this.decision = false
             this.currentDirector._no += 1
           }
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
           const random = Math.round(Math.random() * 3)
-          if (random === 0 || random === 1 || random === 2) this.decision = true
-          else if (random === 3) {
+          if (random === 0 || random === 1) this.decision = true
+          else {
             this.decision = false
             this.currentDirector._no += 1
           }
@@ -97,16 +97,16 @@ export default {
             this.currentDirector._no += 1
           } else if (random === 3) this.decision = true
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random())
+          const random = Math.round(Math.random() * 2)
           if (random === 0) this.decision = true
-          else if (random === 1) {
+          else {
             this.decision = false
             this.currentDirector._no += 1
           }
         } else if (this.salaryLevel <= 50) {
           const random = Math.round(Math.random() * 3)
-          if (random === 0 || random === 1 || random === 2) this.decision = true
-          else if (random === 3) {
+          if (random === 0 || random === 1) this.decision = true
+          else {
             this.decision = false
             this.currentDirector._no += 1
           }
@@ -122,12 +122,12 @@ export default {
             this.decision = false
             this.currentDirector._no += 1
           }
-          else if (random === 3) this.decision = true
+          else this.decision = true
         } else if (this.salaryLevel <= 50) {
           const random = Math.round(Math.random())
           console.log(random)
           if (random === 0) this.decision = true
-          else if (random === 1) {
+          else {
             this.decision = false
             this.currentDirector._no += 1
           }
