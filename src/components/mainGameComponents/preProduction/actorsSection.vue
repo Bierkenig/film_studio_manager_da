@@ -82,16 +82,16 @@ export default {
       let salValue = (Object.values(this.calcSalValue(this.proposedSalary))[0]);
       if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random())
+          const random = Math.round(Math.random() * 3)
           if (random === 0) this.actorDecision = true
-          else if (random === 1) {
+          else {
             this.actorDecision = false
             this.currentActor._no += 1
           }
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
           const random = Math.round(Math.random() * 3)
-          if (random === 0 || random === 1 || random === 2) this.actorDecision = true
-          else if (random === 3) {
+          if (random === 0 || random === 1) this.actorDecision = true
+          else {
             this.actorDecision = false
             this.currentActor._no += 1
           }
@@ -104,25 +104,25 @@ export default {
           if (random === 0 || random === 1 || random === 2) {
             this.actorDecision = false
             this.currentActor._no += 1
-          } else if (random === 3) this.actorDecision = true
+          } else this.actorDecision = true
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
-          const random = Math.round(Math.random())
+          const random = Math.round(Math.random() * 2)
           if (random === 0) this.actorDecision = true
-          else if (random === 1) {
+          else {
             this.actorDecision = false
             this.currentActor._no += 1
           }
         } else if (this.salaryLevel <= 50) {
           const random = Math.round(Math.random() * 3)
-          if (random === 0 || random === 1 || random === 2) this.actorDecision = true
-          else if (random === 3) {
+          if (random === 0 || random === 1) this.actorDecision = true
+          else {
             this.actorDecision = false
             this.currentActor._no += 1
           }
         }
       } else if (this.salary.min === salValue) {
         if (this.salaryLevel > 75) {
-          const random = Math.round(Math.random() * 7)
+          const random = Math.round(Math.random() * 8)
           this.actorDecision = random === 7;
           if (!this.actorDecision) this.currentActor._no += 1
         } else if (this.salaryLevel <= 75 && this.salaryLevel > 50) {
@@ -131,11 +131,11 @@ export default {
             this.actorDecision = false
             this.currentActor._no += 1
           }
-          else if (random === 3) this.actorDecision = true
+          else this.actorDecision = true
         } else if (this.salaryLevel <= 50) {
           const random = Math.round(Math.random())
           if (random === 0) this.actorDecision = true
-          else if (random === 1) {
+          else {
             this.actorDecision = false
             this.currentActor._no += 1
           }
@@ -193,13 +193,6 @@ export default {
       this.$router.push({name: "movies"})
     },
   },
-
-  mounted() {
-    console.log(this.$store.state.currentMovie)
-    //this.$store.state.currentMovie._status = 'Release'
-    //this.$store.state.currentMovie.setRelease()
-    console.log(this.$store.state.currentMovie)
-  }
 }
 </script>
 
