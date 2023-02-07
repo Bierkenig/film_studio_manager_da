@@ -24,9 +24,9 @@
 
       <div v-if="release">{{$t('durationSection.estimated')}}</div>
       <div v-if="release">{{calcReleaseDate.toDateString()}}</div>
-    </div>
 
-    <button :disabled="disabled" @click="setStoreWeeks(); this.$router.push({name: 'budgetSection'})">{{$t('durationSection.continue')}}</button>
+      <button :disabled="disabled" @click="setStoreWeeks(); this.$router.push({name: 'budgetSection'})">{{$t('durationSection.continue')}}</button>
+    </div>
 
   </div>
 </template>

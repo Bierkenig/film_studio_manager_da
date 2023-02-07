@@ -3,55 +3,55 @@
     <div>{{$t('budgetSection.overall')}}</div>
 
     <div>{{$t('budgetSection.production')}}</div>
-    <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value">
+    <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value" @change="calcSum()">
     <div>{{production.value}}</div>
 
     <div>{{$t('budgetSection.extras')}}</div>
-    <input type="range" :min="extras.min" :max="extras.max" step="1" v-model="extras.value">
+    <input type="range" :min="extras.min" :max="extras.max" step="1" v-model="extras.value" @change="calcSum()">
     <div>{{extras.value}}</div>
 
     <div>{{$t('budgetSection.cinematography')}}</div>
-    <input type="range" :min="cinematography.min" :max="cinematography.max" step="1" v-model="cinematography.value">
+    <input type="range" :min="cinematography.min" :max="cinematography.max" step="1" v-model="cinematography.value" @change="calcSum()">
     <div>{{cinematography.value}}</div>
 
     <div>{{$t('budgetSection.sound')}}</div>
-    <input type="range" :min="sound.min" :max="sound.max" step="1" v-model="sound.value">
+    <input type="range" :min="sound.min" :max="sound.max" step="1" v-model="sound.value" @change="calcSum()">
     <div>{{sound.value}}</div>
 
     <div>{{$t('budgetSection.editing')}}</div>
-    <input type="range" :min="editing.min" :max="editing.max" step="1" v-model="editing.value">
+    <input type="range" :min="editing.min" :max="editing.max" step="1" v-model="editing.value" @change="calcSum()">
     <div>{{editing.value}}</div>
 
     <div>{{$t('budgetSection.score')}}</div>
-    <input type="range" :min="score.min" :max="score.max" step="1" v-model="score.value">
+    <input type="range" :min="score.min" :max="score.max" step="1" v-model="score.value" @change="calcSum()">
     <div>{{score.value}}</div>
 
     <div>{{$t('budgetSection.set')}}</div>
-    <input type="range" :min="set.min" :max="set.max" step="1" v-model="set.value">
+    <input type="range" :min="set.min" :max="set.max" step="1" v-model="set.value" @change="calcSum()">
     <div>{{set.value}}</div>
 
     <div>{{$t('budgetSection.stunts')}}</div>
-    <input type="range" :min="stunts.min" :max="stunts.max" step="1" v-model="stunts.value">
+    <input type="range" :min="stunts.min" :max="stunts.max" step="1" v-model="stunts.value" @change="calcSum()">
     <div>{{stunts.value}}</div>
 
     <div>{{$t('budgetSection.costume')}}</div>
-    <input type="range" :min="costume.min" :max="costume.max" step="1" v-model="costume.value">
+    <input type="range" :min="costume.min" :max="costume.max" step="1" v-model="costume.value" @change="calcSum()">
     <div>{{costume.value}}</div>
 
     <div>{{$t('budgetSection.makeup')}}</div>
-    <input type="range" :min="makeup.min" :max="makeup.max" step="1" v-model="makeup.value">
+    <input type="range" :min="makeup.min" :max="makeup.max" step="1" v-model="makeup.value" @change="calcSum()">
     <div>{{makeup.value}}</div>
 
     <div>{{$t('budgetSection.sfx')}}</div>
-    <input type="range" :min="sfx.min" :max="sfx.max" step="1" v-model="sfx.value">
+    <input type="range" :min="sfx.min" :max="sfx.max" step="1" v-model="sfx.value" @change="calcSum()">
     <div>{{sfx.value}}</div>
 
     <div>{{$t('budgetSection.vfx')}}</div>
-    <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value">
+    <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value" @change="calcSum()">
     <div>{{vfx.value}}</div>
 
 
-    <button @click="calcSum(); disabled = false">{{$t('budgetSection.button')}}</button>
+    <button @click="setBudgetPop(); disabled = false">{{$t('budgetSection.button')}}</button>
 
     <div>{{$t('budgetSection.total')}}{{total}}</div>
 
@@ -205,7 +205,9 @@ export default {
       this.$store.state.currentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
 
       this.total = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget()
+    },
 
+    setBudgetPop() {
       switch (this.screenplayScope) {
         case "Little":
           if (this.between(this.production.value, (this.production.max - this.production.min)*0.01, (this.production.max - this.production.min)*0.2)) this.$store.state.currentMovie._preProduction.budgetPop--;

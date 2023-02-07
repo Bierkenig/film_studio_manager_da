@@ -491,10 +491,6 @@ export default createStore({
             return state.allScreenplays;
         },
 
-        getAllDirectorSalary(state) {
-            return state.allDirectorSalary;
-        },
-
         getOwnStreamingService(state) {
             return state.ownStreamingService;
         },
@@ -1050,7 +1046,7 @@ export default createStore({
             state.currentDate = new Date("2023-01-01T00:00:00.000Z")
             state.news = []
             state.earnings = []
-            //state.financialPerformance = []
+            state.financialPerformance = []
             state.calenderEvents = []
             state.happeningEvent = null
             state.franchise = []
@@ -1060,11 +1056,11 @@ export default createStore({
             state.moviesFromOtherStudios = []
             state.screenplaysFromWriters = []
             state.franchisesFromOtherStudios = []
-            //state.otherStudios = []
+            state.otherStudios = []
             state.marketYears = [2023]
             state.boughtMovies = []
             state.boughtMovieRights = []
-            //state.financialHistory = []
+            state.financialHistory = []
             state.feature = ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"]
             state.indie = ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"]
             state.animation = ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"]

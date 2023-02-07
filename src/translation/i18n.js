@@ -179,6 +179,7 @@ i18next
                         readjust: "Try to readjust the Salary",
                         continue: "Finish preproduction",
                         add: "Add Actor",
+                        cant: "Can't add this Actor because, he / she is already working on at least 3 Projects"
                     },
                     budgetSection: {
                         overall: "Set the Budget for your Movie",
