@@ -2,7 +2,7 @@
   <div id="movieListMainDiv">
     <div class="movieList">
       <div class="movieListSortDiv">
-        <custom-select :options="[$t('quality'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+        <custom-select :options="[$t('quality'),'Name',$t('price')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
       <div class="movieListScroll verticalScroll">
@@ -62,10 +62,10 @@ export default {
         this.allOwningMovies.sort((a, b) => a._title.localeCompare(b._title))
       } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
         this.allOwningMovies.sort((a, b) => b._title.localeCompare(a._title))
-      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
-        this.allOwningMovies.sort((a, b) => a._preProduction.startDate - b._preProduction.startDate)
-      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending'){
-        this.allOwningMovies.sort((a,b) => b._preProduction.startDate - a._preProduction.startDate)
+      } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Ascending'){
+        this.allOwningMovies.sort((a, b) => a._totalCosts - b._totalCosts)
+      } else if((this.selectedSortByWhat === 'Price' || this.selectedSortByWhat === 'Preis') && this.selectedTypeOfSort === 'Descending'){
+        this.allOwningMovies.sort((a,b) => b._totalCosts - a._totalCosts)
       }
     },
 

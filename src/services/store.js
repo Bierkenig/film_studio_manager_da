@@ -202,8 +202,8 @@ export default createStore({
         currentFranchise: null,
 
         inProductionMovies: [],
-
         finishedMovies: [new Movie(new Studio(100,"JJJJ"), 0)],
+        awardsOfOwnStudio: [],
 
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
@@ -567,6 +567,10 @@ export default createStore({
 
         getScreenplaysFromWriters(state){
             return state.screenplaysFromWriters;
+        },
+
+        getAwardsOfOwnStudio(state){
+            return state.awardsOfOwnStudio;
         }
     },
 
@@ -897,6 +901,10 @@ export default createStore({
 
         removeScreenplayFromWriters(state, movie){
             state.screenplaysFromWriters.splice(state.screenplaysFromWriters.indexOf(movie), 1);
+        },
+
+        addAwardToOwnStudio(state, award){
+            state.awardsOfOwnStudio.push(award)
         },
 
         stateToSave(state, reducedState){

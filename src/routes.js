@@ -51,9 +51,11 @@ import takeALoan from "@/components/mainGameComponents/financesMenu/TakeALoan";
 import BuyAStudio from "@/components/mainGameComponents/financesMenu/BuyAStudio";
 import PeopleOverview from "@/components/mainGameComponents/newsMenu/listOfPeople/PeopleOverview.vue";
 import MoviesOverview from "@/components/mainGameComponents/newsMenu/listOfMovies/MoviesOverview.vue";
+import AwardOverview from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardOverview.vue";
 
 
 const routes = [
+    { name: 'awardOverview', path: '/awardOverview', component: AwardOverview, props: true },
     { name: 'moviesOverview', path: '/moviesOverview', component: MoviesOverview, props: true },
     { name: 'peopleOverview', path: '/peopleOverview', component: PeopleOverview, props: true },
 

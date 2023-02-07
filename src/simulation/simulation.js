@@ -111,6 +111,9 @@ function streamingService() {
             }
         })
 
+        //update streaming service popularity and number of subscribers
+        updateServicePopularityAndSubscribers();
+
         //earnings / costs per month
         if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
             //get subscriber number
@@ -184,9 +187,6 @@ function streamingService() {
             contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
 
             store.commit('subtractBalance', contentMaintainmentCosts);
-
-            //update streaming service popularity and number of subscribers
-            updateServicePopularityAndSubscribers();
 
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(

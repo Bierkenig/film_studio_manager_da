@@ -13,8 +13,13 @@
         <!--<img :src="this.$store.getters.getCurrentLogo" alt="Logo"/>
         <p>{{ studioname }}</p>-->
         <header-info :icon="this.$store.getters.getCurrentLogo">{{ studioname }}</header-info>
-        <p>{{ roundBudget(budget) }}</p>
-        <p>{{ ("0" + this.$store.getters.getCurrentDate.getDate()).slice(-2) }}
+        <p class="headerBoxStudioPopularity">
+          <custom-icon class="headerInfoIcon" icon="money" size="30px" :dark="false" :gradient="true" :shadow="true"/>
+          {{ roundBudget(budget) }}
+        </p>
+        <p class="headerBoxStudioPopularity">
+          <custom-icon class="headerInfoIcon" icon="calendar" size="30px" :dark="false" :gradient="true" :shadow="true"/>
+          {{ ("0" + this.$store.getters.getCurrentDate.getDate()).slice(-2) }}
           {{ this.$store.getters.getCurrentDate.toLocaleString('en-US', {month: 'short'}) }},
           {{ this.$store.getters.getCurrentDate.getFullYear() }}
         </p>
