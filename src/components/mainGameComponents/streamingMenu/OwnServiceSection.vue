@@ -4,8 +4,8 @@
         :streaming-info-title="streamingService._name"
         :icon="this.$store.getters.getCurrentLogo"
         :popularity="streamingService._popularity"
-        :subscribers="roundBudget(this.streamingService._subscribers)"
-        :revenue="this.streamingService._profit.toString()"
+        :subscribers="currencyFormatDE(this.streamingService._subscribers)"
+        :revenue="currencyFormatDE(this.streamingService._profit)"
         :initial-price="this.streamingService._price"/>
   </background-tile>
 </template>
@@ -31,21 +31,13 @@ export default {
   },
 
   methods: {
-    roundBudget(labelValue) {
-      return Math.abs(Number(labelValue)) >= 1.0e+9
-
-          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-          // Six Zeroes for Millions
-          : Math.abs(Number(labelValue)) >= 1.0e+6
-
-              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
-              // Three Zeroes for Thousands
-              : Math.abs(Number(labelValue)) >= 1.0e+3
-
-                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
-
-                  : Math.abs(Number(labelValue));
-    },
+    currencyFormatDE(num) {
+      return (
+          num
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      ) // use . as a separator
+    }
   }
 }
 </script>

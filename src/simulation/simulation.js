@@ -226,7 +226,7 @@ export function updateServicePopularityAndSubscribers() {
 
     // count movies of each genre
     allStreamingServiceMovies.forEach(function (movie) {
-        allGenreRatings[movie._preProduction.screenplay.genre]++;
+        allGenreRatings[movie._preProduction.screenplay.genre.genreName]++;
     })
 
     // determine rating for each genre
@@ -265,7 +265,10 @@ export function updateServicePopularityAndSubscribers() {
     });
 
     // divide counterForRatings by counterForGenreNumbers to get average
-    let averageOfEachGenre = counterForRatings / counterForGenreNumbers;
+    let averageOfEachGenre = 0;
+    if(allStreamingServiceMovies.length !== 0){
+        averageOfEachGenre = counterForRatings / counterForGenreNumbers;
+    }
 
     // get number of all movies
     let totalContent = 0;
@@ -291,23 +294,28 @@ export function updateServicePopularityAndSubscribers() {
         totalContent = 100;
     }
 
-    let streamingContent = (averageOfEachGenre * 40 + totalContent * 60) / 100;
+    let streamingContent = 0;
+    if (allStreamingServiceMovies.length !== 0){
+        streamingContent = (averageOfEachGenre * 40 + totalContent * 60) / 100;
+    }
 
     // calculate streaming service price potential, depends on the price of the service
     let streamingServicePricePotential = 0;
-    let streamingPrice = store.getters.getOwnStreamingService._price;
-    if (streamingPrice >= 1.00 && streamingPrice <= 7.50) {
-        streamingServicePricePotential = 1;
-    } else if (streamingPrice >= 8.00 && streamingPrice <= 15.00) {
-        streamingServicePricePotential = 0.90;
-    } else if (streamingPrice >= 15.50 && streamingPrice <= 25.00) {
-        streamingServicePricePotential = 0.75;
-    } else if (streamingPrice >= 25.50 && streamingPrice <= 35.00) {
-        streamingServicePricePotential = 0.45;
-    } else if (streamingPrice >= 35.50 && streamingPrice <= 45.00) {
-        streamingServicePricePotential = 0.25;
-    } else if (streamingPrice >= 45.50 && streamingPrice <= 50.00) {
-        streamingServicePricePotential = 0.10;
+    if(allStreamingServiceMovies.length !== 0){
+        let streamingPrice = store.getters.getOwnStreamingService._price;
+        if (streamingPrice >= 1.00 && streamingPrice <= 7.50) {
+            streamingServicePricePotential = 1;
+        } else if (streamingPrice >= 8.00 && streamingPrice <= 15.00) {
+            streamingServicePricePotential = 0.90;
+        } else if (streamingPrice >= 15.50 && streamingPrice <= 25.00) {
+            streamingServicePricePotential = 0.75;
+        } else if (streamingPrice >= 25.50 && streamingPrice <= 35.00) {
+            streamingServicePricePotential = 0.45;
+        } else if (streamingPrice >= 35.50 && streamingPrice <= 45.00) {
+            streamingServicePricePotential = 0.25;
+        } else if (streamingPrice >= 45.50 && streamingPrice <= 50.00) {
+            streamingServicePricePotential = 0.10;
+        }
     }
 
     // calculate streaming service hype = popularity
@@ -335,7 +343,10 @@ export function updateServicePopularityAndSubscribers() {
         sumOfHype += movie._preProduction.hype;
     })
 
-    let streamingServiceHype = sumOfHype / allStreamingServiceMovies.length;
+    let streamingServiceHype = 0;
+    if(allStreamingServiceMovies.length !== 0){
+        streamingServiceHype = sumOfHype / allStreamingServiceMovies.length;
+    }
     store.getters.getOwnStreamingService._popularity = streamingServiceHype;
 
     //set streaming service services

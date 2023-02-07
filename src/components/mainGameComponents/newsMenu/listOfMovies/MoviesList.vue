@@ -6,7 +6,7 @@
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
       <div class="moviesListScroll verticalScroll">
-        <div v-for="(it, index) in allOwningMovies" :id="'movieOwningItem' + index" :key="index" class="moviesListElement" @click="getMovieInfo(it,index)">
+        <div v-for="(it, index) in allOwningMovies" :id="'movieItem' + index" :key="index" class="moviesListElement" @click="getMovieInfo(it,index)">
           <div class="moviesListElementTitle" :id="'moviesListElementName' + index">
             {{it._preProduction.screenplay.title}}
           </div>
@@ -27,6 +27,9 @@ export default {
   data(){
     return {
       allOwningMovies: this.$store.getters.getInProductionMovies.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies),
+      lastIndex: null,
+      selectedSortByWhat: null,
+      selectedTypeOfSort: 'Ascending',
     }
   },
 
@@ -58,10 +61,10 @@ export default {
     },
 
     getMovieInfo(movie, index) {
-      document.getElementById('movieOwningItem' + index).style.backgroundColor = 'var(--fsm-pink-1)';
+      document.getElementById('movieItem' + index).style.backgroundColor = 'var(--fsm-pink-1)';
       document.getElementById('moviesListElementName' + index).style.color = 'var(--fsm-dark-blue-4)';
       if (this.lastIndex !== null) {
-        document.getElementById('movieOwningItem' + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
+        document.getElementById('movieItem' + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
         document.getElementById('moviesListElementName' + this.lastIndex).style.color = 'unset';
       }
       this.lastIndex = index;

@@ -257,7 +257,7 @@
               <div>{{ source._release.dvdGross }}</div>
             </div>
           </div>
-          <div v-if="source._status !== 'Finished' && source._status === 'Released'" class="movieDetailsFinancesRight">
+          <div v-if="source._status !== 'Finished' && source._status !== 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
               <div>0</div>

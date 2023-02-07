@@ -1,46 +1,37 @@
 <template>
-  <!--TODO: Preis für Rechte einbauen-->
-  <div>
-    {{ $t('buyRights') }}
-    <div id="buyMovieRightsBackground">
-      <movie-list id="buyMovieRightsList" :movie-data="data" @sendMovie="receiveMovie"/>
-      <movie-details
-          id="buyMovieRightsDetails"
-          :movie="clickedMovie"
-          :check-balance="checkBalance"
-      />
-    </div>
+  <div id="buyMovieRightsMainDiv">
+    <h1 id="buyMovieRightsHeader">{{ $t('buyStreamingRights') }}</h1>
+    <icon-button
+        id="buyMovieRightsBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="goBack"/>
+    <movie-list @sendMovie="receiveMovie"/>
+    <movie-details :movie="clickedMovie"/>
   </div>
 </template>
 
 <script>
 import MovieList from "@/components/mainGameComponents/streamingMenu/MovieList";
 import MovieDetails from "@/components/mainGameComponents/streamingMenu/MovieDetails";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
 export default {
   name: "BuyMovieRights",
-  components: {MovieDetails, MovieList},
+  components: {IconButton, MovieDetails, MovieList},
 
   data() {
     return {
-      data: [],
       clickedMovie: null,
-      checkBalance: true
-    }
-  },
-
-  mounted() {
-    let moviesFromOtherStudios = this.$store.getters.getMoviesFromOtherStudios;
-    for (let i = 0; i < moviesFromOtherStudios.length; i++) {
-      if(moviesFromOtherStudios[i].contract === null){
-        this.data.push(moviesFromOtherStudios[i])
-      }
     }
   },
 
   methods: {
     receiveMovie: function (movie){
       this.clickedMovie = movie;
-      this.checkBalance = false; //TODO: Preis für Rechte einfügen
     },
 
     goBack(){
@@ -51,14 +42,28 @@ export default {
 </script>
 
 <style scoped>
-#buyMovieRightsBackground {
+#buyMovieRightsMainDiv {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  gap:8em
+  align-items: center;
+  min-height: 100vh;
+  gap: 15px;
 }
 
-#buyMovieRightsDetails {
-  width: 30%;
+#buyMovieRightsHeader {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+}
+
+#buyMovieRightsBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
 }
 </style>

@@ -1,33 +1,14 @@
 <template>
-  <div class="movieListContainer">
-    <div v-if="movieData.length !== 0">
-      <select
-          id="sortByWhatMovies"
-          v-model="selectedSortByWhat"
-      >
-        <option :value="null" disabled selected hidden>{{ $t('sortBy') }}</option>
-        <option value="Title">{{ $t('newsData.title') }}</option>
-        <option value="Price">{{ $t('price') }}</option>
-        <option value="Studio">Studio</option>
-        <option value="Popularity">{{ $t('popularity') }}</option>
-      </select>
-      <select
-          id="typeOfSortMovies"
-          v-model="selectedTypeOfSort"
-      >
-        <option value="Ascending">{{ $t('ascending') }}</option>
-        <option value="Descending">{{ $t('descending') }}</option>
-      </select>
-    </div>
-
-    <div id="movieList">
-      <div class="movieListScroll">
-        <div v-for="(item, index) in copiedMovieData" :id="'item' + index" :key="index" class="movieListElement" @click="getStaffInfo(index, item)">
-          <div class="movieListElementTitle">
-            {{ item.title }}
-          </div>
-          <div class="movieListElementPopularity">
-            78
+  <div id="movieListMainDiv">
+    <div class="movieList">
+      <div class="movieListSortDiv">
+        <custom-select :options="[$t('quality'),'Name',$t('newsData.year')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+        <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
+      </div>
+      <div class="movieListScroll verticalScroll">
+        <div v-for="(it, index) in allOwningMovies" :id="'movieItem' + index" :key="index" class="movieListElement" @click="getMovieInfo(it,index)">
+          <div class="movieListElementTitle" :id="'moviesListElementName' + index">
+            {{it._preProduction.screenplay.title}}
           </div>
         </div>
       </div>
@@ -36,84 +17,106 @@
 </template>
 
 <script>
+import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
+import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
+
 export default {
   name: "MovieList",
-
-  props: {
-    movieData: Array
-  },
+  components: {CustomListSort, CustomSelect},
 
   data(){
     return {
+      allOwningMovies: [],
       lastIndex: null,
       selectedSortByWhat: null,
       selectedTypeOfSort: 'Ascending',
-      copiedMovieData: this.movieData
     }
   },
 
-  watch: {
-    selectedTypeOfSort: function (){
-      this.sortMovies();
-    },
-
-    selectedSortByWhat: function (){
-      this.sortMovies();
+  mounted() {
+    let moviesFromOtherStudios = this.$store.getters.getMoviesFromOtherStudios;
+    for (let i = 0; i < moviesFromOtherStudios.length; i++) {
+      if(moviesFromOtherStudios[i].contract === null){
+        this.allOwningMovies.push(moviesFromOtherStudios[i])
+      }
     }
   },
 
   methods: {
-    getStaffInfo(index, movie) {
-      document.getElementById('item' + index).style.backgroundColor = 'rgb(255, 70, 85)';
+    setSelectedSortByWhat(arg) {
+      this.selectedSortByWhat = arg;
+      this.sortMovieList();
+    },
+
+    setSelectedTypeOfSort(arg) {
+      this.selectedTypeOfSort = arg;
+      this.sortMovieList();
+    },
+
+    sortMovieList() {
+      if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
+        this.allOwningMovies.sort((a, b) => a.quality - b.quality)
+      } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending') {
+        this.allOwningMovies.sort((a, b) => b.quality - a.quality)
+      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Ascending'){
+        this.allOwningMovies.sort((a, b) => a._title.localeCompare(b._title))
+      } else if(this.selectedSortByWhat === 'Name' && this.selectedTypeOfSort === 'Descending'){
+        this.allOwningMovies.sort((a, b) => b._title.localeCompare(a._title))
+      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
+        this.allOwningMovies.sort((a, b) => a._preProduction.startDate - b._preProduction.startDate)
+      } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending'){
+        this.allOwningMovies.sort((a,b) => b._preProduction.startDate - a._preProduction.startDate)
+      }
+    },
+
+    getMovieInfo(movie, index) {
+      document.getElementById('movieItem' + index).style.backgroundColor = 'var(--fsm-pink-1)';
+      document.getElementById('moviesListElementName' + index).style.color = 'var(--fsm-dark-blue-4)';
       if (this.lastIndex !== null) {
-        document.getElementById('item' + this.lastIndex).style.backgroundColor = 'unset';
+        document.getElementById('movieItem' + this.lastIndex).style.backgroundColor = 'var(--fsm-dark-blue-4)';
+        document.getElementById('moviesListElementName' + this.lastIndex).style.color = 'unset';
       }
       this.lastIndex = index;
 
       this.$emit('sendMovie',movie);
     },
-
-    sortMovies(){
-      if(this.selectedSortByWhat === 'Title' && this.selectedTypeOfSort === 'Ascending'){
-        this.copiedMovieData.sort((a, b) => a._title.localeCompare(b._title))
-      } else if(this.selectedSortByWhat === 'Title' && this.selectedTypeOfSort === 'Descending') {
-        this.copiedMovieData.sort((a, b) => b._title.localeCompare(a._title))
-      } else if(this.selectedSortByWhat === 'Studio' && this.selectedTypeOfSort === 'Ascending') {
-        this.copiedMovieData.sort((a, b) => b._owner.localeCompare(a._owner))
-      } else if(this.selectedSortByWhat === 'Studio' && this.selectedTypeOfSort === 'Descending') {
-        this.copiedMovieData.sort((a, b) => a._owner.localeCompare(b._owner))
-      } /*else if(this.selectedSortByWhat === 'Price' && this.selectedTypeOfSort === 'Ascending'){
-        this.copiedMovieData.sort((a, b) => a._price - b._price)
-      } else if(this.selectedSortByWhat === 'Price' && this.selectedTypeOfSort === 'Descending'){
-        this.copiedMovieData.sort((a, b) => b._price - a._price)
-      } /*else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => a._popularity.localeCompare(b._owner))
-      } else if(this.selectedSortByWhat === 'Popularity' && this.selectedTypeOfSort === 'Descending'){
-        this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
-      }*/
-    }
   }
 }
 </script>
 
 <style scoped>
-.movieListContainer {
-  background-color: #2c3e50;
-  color: white;
-  width: 30%;
-  padding: 1em;
+#movieListMainDiv {
+  background: rgba(37, 45, 62, 0.66);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: var(--fsm-l-border-radius);
+  padding: 15px;
+  width: 350px;
 }
 
 .movieListScroll {
+  height: 400px;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 10px;
+}
+
+.movieListSortDiv {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .movieListElement {
-  background-color: black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+  padding: 10px 0 10px 15px;
+}
+
+.movieList {
+  width: 100%;
 }
 </style>

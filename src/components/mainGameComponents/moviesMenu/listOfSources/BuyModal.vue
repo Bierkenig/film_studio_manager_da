@@ -20,6 +20,13 @@
                   style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
                   @clicked="$emit('buyScreenplay')">{{ $t('buyScreenplaySection.buy') }} </custom-button>
               <custom-button
+                  v-else-if="headline === 'buyRights'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('buyRights')">{{ $t('buyScreenplaySection.buy') }}</custom-button>
+              <custom-button
                   v-else
                   class="modal-default-button"
                   :dark="false"
