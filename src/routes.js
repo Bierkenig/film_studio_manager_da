@@ -52,6 +52,8 @@ import BuyAStudio from "@/components/mainGameComponents/financesMenu/BuyAStudio"
 import PeopleOverview from "@/components/mainGameComponents/newsMenu/listOfPeople/PeopleOverview.vue";
 import MoviesOverview from "@/components/mainGameComponents/newsMenu/listOfMovies/MoviesOverview.vue";
 import AwardOverview from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardOverview.vue";
+import preProductionSummary from "@/components/mainGameComponents/preProduction/preProductionSummary";
+import productionSummary from "@/components/mainGameComponents/currentProduction/productionSummary";
 
 
 const routes = [
@@ -122,6 +124,10 @@ const routes = [
     //Finances
     { name: 'TakeALoan', path: '/TakeALoan', component: takeALoan, props: true},
     { name: 'BuyAStudio', path: '/BuyAStudio', component: BuyAStudio, props: true},
+
+    //Summaries
+    { name: "preProductionSummary", path: "/preProductionSummary", component: preProductionSummary, props: true},
+    { name: "productionSummary", path: "/productionSummary", component: productionSummary, props: true},
 
     { name: 'Editor', path: '/Editor', component: Editor, props: true},
     { name: 'SelectDBWindow', path: '/SelectDBWindow', component: SelectDBWindow, props: true},

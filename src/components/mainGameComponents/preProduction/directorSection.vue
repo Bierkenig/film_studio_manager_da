@@ -11,7 +11,7 @@
       <div>
         <div>{{$t('hireDirectorSection.salary')}} {{this.currentDirector._first_name}} {{this.currentDirector._last_name}}</div>
         <input type="range" v-model="selectedSalary" :min="salaryRange.min" :max="salaryRange.max" :step="salaryRange.step">
-        <div>{{selectedSalary}}</div>
+        <div>$ {{selectedSalary}}</div>
       </div>
 
       <button v-if="decision !== true" @click="calcDirectorsDecision(); decision2 = true">{{$t('hireDirectorSection.offer')}}</button>
@@ -49,6 +49,7 @@ export default {
       salaryLevel: 0,
       perfectSalary: 0,
       perfectSalary1: 0,
+      allSalaries: [],
     }
   },
 
@@ -57,13 +58,14 @@ export default {
       this.currentDirector = director;
       this.showNegotiation = true;
       this.salaryLevel = Math.round((this.currentDirector._talent * 35 + this.currentDirector._experience * 25 + this.currentDirector._popularity * 40) / 100)
-      this.salaryRange.min = this.$store.state.allDirectorSalary[this.salaryLevel - 1 - 2]
-      this.perfectSalary = this.$store.state.allDirectorSalary[this.salaryLevel - 1]
+      console.log(this.$store.getters.getDirectorAndActorSalaries)
+      this.salaryRange.min = this.allSalaries[this.salaryLevel - 1 - 2]
+      this.perfectSalary = this.allSalaries[this.salaryLevel - 1]
       console.log(this.perfectSalary)
-      this.perfectSalary1 = this.$store.state.allDirectorSalary[this.salaryLevel - 1 - 1]
+      this.perfectSalary1 = this.allSalaries[this.salaryLevel - 1 - 1]
       console.log(this.perfectSalary1)
       console.log(this.salaryRange.min)
-      this.salaryRange.max = this.$store.state.allDirectorSalary[this.salaryLevel - 1 + 2]
+      this.salaryRange.max = this.allSalaries[this.salaryLevel - 1 + 2]
       this.disabled = true
       this.selectedSalary = this.salaryRange.min
     },
@@ -150,7 +152,7 @@ export default {
     },
 
     calcSalValue(salValue) {
-      return this.$store.state.allDirectorSalary.sort((a, b) => {
+      return [...this.allSalaries].sort((a, b) => {
         a = Math.abs(a - salValue);
         b = Math.abs(b - salValue);
 
@@ -165,6 +167,10 @@ export default {
       this.$router.push({name: 'durationSection'})
     }
   },
+
+  mounted() {
+    this.allSalaries = this.$store.getters.getDirectorAndActorSalaries
+  }
 }
 </script>
 

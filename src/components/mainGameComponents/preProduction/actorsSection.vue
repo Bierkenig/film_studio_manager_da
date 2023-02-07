@@ -4,22 +4,26 @@
     <div v-for="(el, index) in allActors" :key="index">
       <avatar-element :svg-code="el._avatar"/>
       {{ el._first_name }} | {{ el._last_name }} | {{ el._age }} | {{ el._gender }} | {{ el._nationality }} |
-      {{ el._ethnicity }} | {{ el._depth }} | {{ el._rating }}
+      {{ el._ethnicity }} | {{ el._talent }} | {{ el._rating }}
       <button @click="negotiateContract(el); disabled = true" :disabled="disabled">{{ $t('actorSection.negotiate') }}</button>
     </div>
     <div v-if="negotiate">
       <div>{{ $t('actorSection.salary') }}{{ this.currentActor._first_name }} {{ this.currentActor._last_name }}</div>
       <input type="range" :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
-      <div>{{ proposedSalary }}</div>
+      <div>$ {{ proposedSalary }}</div>
       <div>
-        <input type="radio" id="main" :value="$t('main')" v-model="radio">
+        <input type="radio" id="main" :value="$t('main')" v-model="radio" :disabled="!availableSpots.main >= 1">
         <label for="main">{{$t('main')}}</label>
-        <input type="radio" id="minor" value="Minor" v-model="radio">
+        <div>{{availableSpots.main}}</div>
+        <input type="radio" id="minor" value="Minor" v-model="radio" :disabled="!availableSpots.minor >= 1">
         <label for="minor">Minor</label>
-        <input type="radio" id="support" :value="$t('support')" v-model="radio">
+        <div>{{availableSpots.minor}}</div>
+        <input type="radio" id="support" :value="$t('support')" v-model="radio" :disabled="!availableSpots.support >= 1">
         <label for="support">{{$t('support')}}</label>
-        <input type="radio" id="cameo" value="Cameo" v-model="radio">
+        <div>{{availableSpots.support}}</div>
+        <input type="radio" id="cameo" value="Cameo" v-model="radio" :disabled="!availableSpots.cameo >= 1">
         <label for="cameo">Cameo</label>
+        <div>{{availableSpots.cameo}}</div>
       </div>
       <button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</button>
       <div v-if="sendOfferBool">{{ currentActor._first_name }}
@@ -27,6 +31,7 @@
         {{ actorDecision ? $t('actorSection.yes') :  $t('actorSection.no') }}
       </div>
       <button v-if="sendOfferBool" @click="saveActors()">{{$t('actorSection.add')}}</button><br/>
+      <div v-if="cant">{{$t('actorSection.cant')}}</div>
     </div>
     <button @click="finishPreProd()">{{ $t('actorSection.continue') }}</button>
   </div>
@@ -51,10 +56,18 @@ export default {
       proposedSalary: 0,
       sendOfferBool: false,
       actorDecision: false,
+      allSalaries: [],
       radio: "",
       disabled: false,
       perfectSalary: 0,
       perfectSalary1: 0,
+      availableSpots: {
+        main: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.main.length,
+        minor: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.minor.length,
+        support: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.support.length,
+        cameo: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.cameo.length
+      },
+      cant: false,
     }
   },
 
@@ -65,11 +78,13 @@ export default {
 
       //calc min & max
       console.log(this.salaryLevel)
-      this.salary.min = this.$store.state.allDirectorSalary[this.salaryLevel -1 - 2]
+      console.log(this.allSalaries)
+      console.log(this.allSalaries[this.salaryLevel])
+      this.salary.min = this.allSalaries[(this.salaryLevel - 3)]
       console.log(this.salary.min)
-      this.perfectSalary = this.$store.state.allDirectorSalary[this.salaryLevel - 1]
-      this.perfectSalary1 = this.$store.state.allDirectorSalary[this.salaryLevel - 1 -1]
-      this.salary.max = this.$store.state.allDirectorSalary[this.salaryLevel - 1 + 2]
+      this.perfectSalary = this.allSalaries[(this.salaryLevel - 1)]
+      this.perfectSalary1 = this.allSalaries[(this.salaryLevel -2)]
+      this.salary.max = this.allSalaries[(this.salaryLevel +1)]
       console.log(this.salary.max)
 
       //set negotiate true
@@ -153,7 +168,7 @@ export default {
     },
 
     calcSalValue(salValue) {
-      return this.$store.state.allDirectorSalary.sort((a, b) => {
+      return [...this.allSalaries].sort((a, b) => {
         a = Math.abs(a - salValue);
         b = Math.abs(b - salValue);
 
@@ -162,21 +177,31 @@ export default {
     },
 
     saveActors() {
+      if (this.currentActor._workingOnProjects < 3) {
+        this.currentActor._workingOnProjects++
+      } else {
+        this.cant = true
+        this.sendOfferBool = true
+        return
+      }
       switch (this.radio) {
         case "Main" || "Hauptdarsteller":
           this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
+            this.availableSpots.main--;
           break
         case "Minor":
           this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
+          this.availableSpots.minor--;
           break
         case "Support" || "Nebendarsteller":
           this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
+          this.availableSpots.support--;
           break
         case "Cameo":
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
+          this.availableSpots.cameo--;
           break
       }
-      this.currentActor._workingOnProjects++
       this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
       this.negotiate = false
       this.disabled = false
@@ -193,6 +218,10 @@ export default {
       this.$router.push({name: "movies"})
     },
   },
+
+  mounted() {
+    this.allSalaries = this.$store.getters.getDirectorAndActorSalaries
+  }
 }
 </script>
 

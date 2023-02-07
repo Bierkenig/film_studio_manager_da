@@ -35,6 +35,7 @@ export default class PreProduction {
             actorSalary: 0,
         }
         this.budgetPop = 12
+        this.happenedEvents = []
     }
 
     static fromJSON(jsonObject) {

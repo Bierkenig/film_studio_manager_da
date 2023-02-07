@@ -83,22 +83,27 @@ export default {
     aOption() {
       switch (this.type) {
         case "dropOut":
-          this.$store.state.currentMovie._preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
+          this.$store.state.preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
           break
         case "recast":
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("recast")
           break
         case "creative":
-          this.$store.state.currentMovie._preProductionEvents.directorWithDispute._paidSalary *= 1.25
+          this.$store.state.preProductionEvents.directorWithDispute._paidSalary *= 1.25
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("creative")
           break
         case "difficulty":
           this.$store.state.currentMovie._preProduction.budget.production *= 1.15
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
         case "extend":
           this.calcDireMorale(true)
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
           this.crewMoraleGoes(1)
           break
       }
@@ -109,20 +114,25 @@ export default {
         case "dropOut":
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           this.actorSection = true
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
           break
         case "recast":
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 1
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("recast")
           break
         case "creative":
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.75
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("creative")
           this.directorSection = true
           this.crewMoraleGoes(-1)
           break
         case "difficulty":
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
         case "extend":
           this.calcDireMorale(false)
+          this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
           break
       }
     },

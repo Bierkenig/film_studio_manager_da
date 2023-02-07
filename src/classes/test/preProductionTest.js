@@ -11,9 +11,9 @@ export default class PreProductionTest {
         if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
             this.hype = this.createTotal()
-        this.preProductionLength = 0
-        this.productionLength = 0
-        this.postProductionLength = 0
+        this.preProductionLength = 12
+        this.productionLength = 60
+        this.postProductionLength = 20
         this.releaseDate = new Date(2025, 2, 26)
         this.startDate = new Date()
         this.budget = {
@@ -34,6 +34,7 @@ export default class PreProductionTest {
             actorSalary: 0,
         }
         this.budgetPop = 12
+        this.happenedEvents = ["dropOut", "recast"]
     }
 
     static fromJSON(jsonObject) {

@@ -130,6 +130,22 @@ i18next
                         november: "November",
                         december: "December",
                     },
+                    summaries: {
+                        preProduction: {
+                            title: "Pre Production Summary",
+                            progress: "Progress",
+                            events: "Events happened"
+                        },
+                        production: {
+                            title: "Production Summary",
+                        },
+                        postProduction: {
+
+                        },
+                        release: {
+
+                        }
+                    },
                     buyScreenplaySection: {
                         buyScreenplay: "Buy a Screenplay",
                         buy: "Buy",
@@ -179,6 +195,7 @@ i18next
                         readjust: "Try to readjust the Salary",
                         continue: "Finish preproduction",
                         add: "Add Actor",
+                        cant: "Can't add this Actor because, he / she is already working on at least 3 Projects"
                     },
                     budgetSection: {
                         overall: "Set the Budget for your Movie",
