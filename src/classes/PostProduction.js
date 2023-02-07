@@ -15,7 +15,7 @@ export default class PostProduction {
         this.remainingWeeksShareCinema = null
         this.openingLevel = null
         this.remainingLevel = null
-
+        this.happenedEvents = []
     }
 
     calcTestScreeningRating() {

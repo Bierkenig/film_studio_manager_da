@@ -130,6 +130,22 @@ i18next
                         november: "November",
                         december: "December",
                     },
+                    summaries: {
+                        preProduction: {
+                            title: "Pre Production Summary",
+                            progress: "Progress",
+                            events: "Events happened"
+                        },
+                        production: {
+                            title: "Production Summary",
+                        },
+                        postProduction: {
+
+                        },
+                        release: {
+
+                        }
+                    },
                     buyScreenplaySection: {
                         buyScreenplay: "Buy a Screenplay",
                         buy: "Buy",

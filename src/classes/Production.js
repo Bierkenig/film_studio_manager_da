@@ -8,6 +8,7 @@ export default class Production {
         this.haltedEndDate = null
         this.haltedDuration = 0
         this.outgoings = 0
+        this.happenedEvents = []
     }
 
     calcHaltedEndDate() {

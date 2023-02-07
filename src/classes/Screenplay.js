@@ -31,7 +31,7 @@ export class Screenplay {
         this.topics = topics;
         //scope = little, small, normal, large, epic
         //TYPE -> Object [Character]
-        this.roles = {main: [new Character("CH1"), new Character("CH1.1")], support: [new Character("CH2")], minor: [new Character("CH3")], cameo: [new Character("CH4")]};
+        this.roles = {main: [], support: [], minor: [], cameo: []};
         //TYPE -> Object [Persons]
         this.actors = {main: [], support: [], minor: [], cameo: []};
         //TYPE -> Object
