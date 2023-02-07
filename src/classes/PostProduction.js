@@ -1,5 +1,10 @@
+import DataUtil from "@/classes/DataUtil";
+
 export default class PostProduction {
     constructor(postProductionLength, screenplay) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         this.postProductionStart = null
         this.postProductionLength = postProductionLength
         this.marketingPrint = null
@@ -19,5 +24,10 @@ export default class PostProduction {
     }
 
     calcTestScreeningRating() {
+    }
+
+    //TODO benni
+    static fromJSON(jsonObject){
+        return Object.assign(new PostProduction(DataUtil.skip), jsonObject)
     }
 }

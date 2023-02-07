@@ -1,3 +1,5 @@
+import DataUtil from "@/classes/DataUtil";
+
 export default class FinancialPerformance {
     constructor(date, production = {incoming: 0, outgoing: 0},
                 marketing = {incoming: 0, outgoing: 0},
@@ -5,6 +7,9 @@ export default class FinancialPerformance {
                 cinema = {incoming: 0, outgoing: 0},
                 streaming = {incoming: 0, outgoing: 0}) {
         //incoming & outgoing can be an integer or null
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         this._production = {incoming: production.incoming, outgoing: production.outgoing}
         this._marketing = {incoming: marketing.incoming, outgoing: marketing.outgoing}
         this._loan = {incoming: loan.incoming, outgoing: loan.outgoing}
@@ -42,7 +47,7 @@ export default class FinancialPerformance {
     }
 
     static fromJSON(jsonObject){
-        let instance = Object.assign(new FinancialPerformance, jsonObject)
+        let instance = Object.assign(new FinancialPerformance(DataUtil.skip), jsonObject)
         instance.date = new Date(jsonObject.foundationDate)
         return instance
     }

@@ -1,7 +1,11 @@
 import {Studio} from "@/classes/Studio";
+import DataUtil from "@/classes/DataUtil";
 
 export class StreamingService {
     constructor(name, price, profit, subscribers, popularity, owner, foundationDate) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         //TYPE -> String
         this._name = name;
         //TYPE -> Integer/Float
@@ -80,7 +84,7 @@ export class StreamingService {
     }
 
     static fromJSON(jsonObject){
-        let instance =  Object.assign(new StreamingService(), jsonObject)
+        let instance =  Object.assign(new StreamingService(DataUtil.skip), jsonObject)
         instance._owner = Studio.fromJSON(jsonObject._owner)
         instance._foundationDate = new Date(jsonObject._foundationDate)
         instance._lastCheckedDate = new Date(jsonObject._lastCheckedDate)

@@ -1,7 +1,11 @@
 import {Movie} from "@/classes/Movie";
+import DataUtil from "@/classes/DataUtil";
 
 export class Studio {
     constructor(id, name, year, budget, popularity) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         //TYPE -> Integer
         this.id = id;
         //TYPE -> String
@@ -57,7 +61,7 @@ export class Studio {
     }
 
     static fromJSON(jsonObject){
-        let instance = Object.assign(new Studio(), jsonObject)
+        let instance = Object.assign(new Studio(DataUtil.skip), jsonObject)
         instance.movies = jsonObject.movies?.map(object => Movie.fromJSON(object)) || []
         return instance
     }

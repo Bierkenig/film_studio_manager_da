@@ -1,5 +1,10 @@
+import DataUtil from "@/classes/DataUtil";
+
 export default class Event {
     constructor(title, start, end) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         this.title = title
         this.start = start
         this.end = end
@@ -21,7 +26,7 @@ export default class Event {
     }
 
     static fromJSON(jsonObject) {
-        let instance = Object.assign(new Event(), jsonObject)
+        let instance = Object.assign(new Event(DataUtil.skip), jsonObject)
         instance.start = new Date(jsonObject.start)
         instance.end = new Date(jsonObject.end)
         return instance;

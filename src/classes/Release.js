@@ -1,8 +1,14 @@
 import store from '@/services/store'
+import {Screenplay} from "@/classes/Screenplay";
+import Person from "@/classes/Person";
+import DataUtil from "@/classes/DataUtil";
 
 export default class Release {
-    constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2
-        , marketingPrint, marketingInternet, marketingCommericals) {
+    constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2,
+                marketingPrint, marketingInternet, marketingCommericals) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         //Important Variables
         this.preProduction = preProduction
         this.budget = preProduction.budget
@@ -10,7 +16,7 @@ export default class Release {
         this.genrePopularity = genrePopularity
         this.subgenrePopularity = subgenrePopularity
         this.hype = preProduction.hype
-        //Example -> {topic1: {children: 0, teenager: 1, adult: 2}, }
+        //Example -> {topic1:{children: 0, teenager: 1, adult: 2}, }
         this.topicPopularity = topicPopularity
         this.numberOfMovieTopics = this.calcNumberOfMovieTopics()
         this.owner = owner
@@ -471,5 +477,14 @@ export default class Release {
             }
         }
         return o;
+    }
+
+    static fromJSON(jsonObject){
+        let instance = Object.assign(new Release(DataUtil.skip), jsonObject)
+        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        instance.releaseDate = new Date(jsonObject.releaseDate)
+        instance.startDate = new Date(jsonObject.startDate)
+        instance.director = Person.fromJSON(jsonObject.director)
+        return instance;
     }
 }

@@ -5,6 +5,9 @@ import DataUtil from "@/classes/DataUtil"
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false) {
+        if(arguments[0] === 'skip '){
+            return
+        }
         //TYPE -> Integer
         this.id = id;
         //TYPE -> String
@@ -276,7 +279,7 @@ export class Screenplay {
     }
 
     static fromJSON(jsonObject) {
-        let instance = Object.assign(new Screenplay(), jsonObject)
+        let instance = Object.assign(new Screenplay(DataUtil.skip), jsonObject)
         instance.writer = Person.fromJSON(jsonObject.writer)
         if(instance.franchise !== null){
             instance.franchise = Franchises.fromJSON(jsonObject.franchise)

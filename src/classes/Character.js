@@ -1,5 +1,10 @@
+import DataUtil from "@/classes/DataUtil";
+
 export class Character {
     constructor(name, gender, age) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         //TYPE -> String
         this.name = name;
         //TYPE -> String
@@ -33,7 +38,7 @@ export class Character {
     }
 
     static fromJSON(jsonObject){
-        return Object.assign(new Character(), jsonObject)
+        return Object.assign(new Character(DataUtil.skip), jsonObject)
     }
     toString() {
         return "Character(Name: " + this.name +  ", Gender: " + this.gender + ", Age: " + this.age + ")";

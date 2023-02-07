@@ -1,5 +1,11 @@
+import DataUtil from "@/classes/DataUtil";
+
 export default class Award {
     constructor(desc, type, year) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
+
         this.desc = desc
         this.type = type
         this.year = year
@@ -18,6 +24,6 @@ export default class Award {
     }
 
     static fromJSON(jsonObject){
-        return Object.assign(new Award() ,jsonObject)
+        return Object.assign(new Award(DataUtil.skip) ,jsonObject)
     }
 }

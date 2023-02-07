@@ -2,9 +2,13 @@ import Person from "@/classes/Person";
 import Award from "@/classes/Award";
 import {Movie} from "@/classes/Movie";
 import {Studio} from "@/classes/Studio";
+import DataUtil from "@/classes/DataUtil";
 
 export default class News {
     constructor(title, description, type, date, person = null, movie = null, award = null, studio = null) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         this._title = title;
         this._person = person;
         this._movie = movie;
@@ -49,7 +53,7 @@ export default class News {
     }
 
     static fromJSON(jsonObject){
-        let instance = Object.assign(new News(), jsonObject)
+        let instance = Object.assign(new News(DataUtil.skip), jsonObject)
         instance._person = Person.fromJSON(jsonObject._person)
         instance._award = Award.fromJSON(jsonObject._award)
         instance._movie = Movie.fromJSON(jsonObject._movie)

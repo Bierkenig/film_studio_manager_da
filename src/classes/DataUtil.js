@@ -1,4 +1,6 @@
+
 export default class DataUtil {
+    static skip = {}
     static transferProperties(from, to, keys) {
         return keys.reduce((current, key) => {
             current[key] = from[key]

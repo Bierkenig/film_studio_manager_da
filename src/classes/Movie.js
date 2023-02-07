@@ -8,9 +8,13 @@ import PostProduction from "@/classes/PostProduction";
 import Release from "@/classes/Release"
 import preProductionTest from '@/classes/test/preProductionTest'
 import store from "@/services/store";
+import DataUtil from "@/classes/DataUtil";
 
 export class Movie {
     constructor(owner, contract) {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         //TYPE -> String from another Class
         this._title = this._screenplay?.title
         //TYPE -> String
@@ -180,7 +184,7 @@ export class Movie {
     }
 
     static fromJSON(jsonObject) {
-        let instance = Object.assign(new Movie(), jsonObject)
+        let instance = Object.assign(new Movie(DataUtil.skip), jsonObject)
         //TODO Cannot create Studio from String
         instance._owner = Studio.fromJSON(jsonObject._owner)
         instance._screenplay = Screenplay.fromJSON(jsonObject._screenplay)

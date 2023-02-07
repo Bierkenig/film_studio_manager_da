@@ -1,11 +1,13 @@
-import {Studio} from "@/classes/Studio";
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
-import Earnings from "@/classes/Earnings";
 import store from "@/services/store";
+import DataUtil from "@/classes/DataUtil";
 
 export default class PreProduction {
     constructor() {
+        if(arguments[0] === DataUtil.skip){
+            return
+        }
         this.screenplay = null
         this.hiredDirector = null
         this.outgoings = 0
@@ -38,14 +40,11 @@ export default class PreProduction {
     }
 
     static fromJSON(jsonObject) {
-        //TODO modify
-        let instance = Object.assign(new PreProduction(), jsonObject)
-        instance.owner = Studio.fromJSON(jsonObject.owner)
+        let instance = Object.assign(new PreProduction(DataUtil.skip), jsonObject)
         instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
-        instance.date = new Date(jsonObject.date)
+        instance.releaseDate = new Date(jsonObject.releaseDate)
+        instance.startDate = new Date(jsonObject.startDate)
         instance.director = Person.fromJSON(jsonObject.director)
-        instance.earnings = jsonObject.earnings.map(object => Earnings.fromJSON(object))
-
         return instance;
     }
 
