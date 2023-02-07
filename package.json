@@ -15,6 +15,9 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
+  "build": {
+    "appId": "com.fsm.app"
+  },
   "main": "background.js",
   "dependencies": {
     "@fullcalendar/daygrid": "^5.11.3",

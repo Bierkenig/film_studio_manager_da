@@ -95,6 +95,7 @@ import CustomButton from "@/components/kitchenSink/CustomButton";
 import BudgetSelect from "@/components/startComponents/BudgetSelect";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import i18next from "i18next";
+import SubGenre from "@/classes/SubGenre";
 
 export default {
   name: "CreateStudio",
@@ -123,6 +124,25 @@ export default {
       console.log(this.$store.state)
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
+      //Fetch Subgenre once
+      let allSubGenres = []
+      let counter = 1;
+      let index = 0;
+      window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
+      window.ipcRenderer.receive('gotSubGenres', (data) => {
+        allSubGenres.push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
+
+        let allGenres = ['Action','Adventure','Comedy','Documentary','Drama','Fantasy','Horror','Musical','Romance','Science-Fiction','Thriller','War'];
+        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity));
+
+        if(counter % 5 === 0){
+          index++;
+        }
+        counter++;
+      })
+      this.$store.commit('setAllSubGenres', allSubGenres)
+      console.log(this.$store.state.allSubGenres)
+      console.log(this.$store.state.subgenresFromEachGenre)
       if(this.databaseType === 'current'){
         window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.databaseVersion +".db")
       }
