@@ -20,7 +20,7 @@ export class Movie {
         //TYPE -> String
         this._status = null;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new preProductionTest()
+        this._preProduction = new PreProduction()
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object
@@ -58,18 +58,18 @@ export class Movie {
         this._totalCosts = 0;
         //TYPE -> Date
         this._foundationDate = null;
-        //TYPE -> Integer (TODO POSTPRODUCTION)
-        if (this._status === 'Release') this.totalOutgoings = this._preProduction.outgoings + this._production.outgoings
+        //TYPE -> Integer
+        this._totalOutgoings = this._preProduction.outgoings
     }
 
     setProduction() {
         if (this._status === 'Production' && this._preProduction instanceof PreProduction || this._preProduction instanceof preProductionTest) {
-            this._production = new Production(this._preProduction.releaseDate)
+            this._production = new Production(this._preProduction.releaseDate, this._preProduction.productionLength)
         }
     }
 
     setPostProduction() {
-        if (this._status === 'Postproduction' && this._production instanceof Production) {
+        if (this._status === 'Post Production' && this._production instanceof Production) {
             this._postProduction = new PostProduction(this._preProduction.postProductionLength, this._preProduction.screenplay)
         }
     }

@@ -134,17 +134,20 @@ i18next
                         preProduction: {
                             title: "Pre Production Summary",
                             progress: "Progress",
-                            events: "Events happened"
+                            events: "Events happened",
+                            close: "Close",
                         },
                         production: {
                             title: "Production Summary",
                             progress: "Progress",
-                            events: "Events happened"
+                            events: "Events happened",
+                            close: "Close",
                         },
                         postProduction: {
                             title: "Post Production Summary",
                             progress: "Progress",
-                            events: "Events happened"
+                            events: "Events happened",
+                            close: "Close",
                         },
                     },
                     beforeRelease: {
@@ -177,6 +180,7 @@ i18next
                         audienceRating: "Audience Rating",
                         release: "Release Popularity",
                         open: "Opening Week Earnings",
+                        close: "Close"
                     },
                     afterRelease: {
                         summary: "Movie Performance",
@@ -185,6 +189,7 @@ i18next
                         plan: "Release Plan",
                         create: "Create Franchise",
                         dvd: "DVD Release",
+                        cinema: "Cinema Release",
                         streaming: "Your Streaming Service owns the Movie",
                         streamingList: "Your Movies from your Streaming Service"
                     },

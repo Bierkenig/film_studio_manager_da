@@ -7,17 +7,25 @@
       <div>{{$t('afterReleaseWithCinema.release')}}: {{release.popularityFormula}}</div>
       <div>{{$t('afterReleaseWithCinema.open')}}: {{release.openingEarnings}}</div>
     </div>
+    <button @click="close()">{{$t('afterReleaseWithCinema.close')}}</button>
   </div>
 </template>
 
 <script>
-import Release from "@/classes/Release";
 
 export default {
   name: "afterReleaseWithCinemaRun",
 
-  props: {
-    release: Release
+  data() {
+    return {
+      release: this.$store.getters.getCurrentMovie._release
+    }
+  },
+
+  methods: {
+    close() {
+
+    }
   }
 }
 </script>

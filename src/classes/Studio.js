@@ -55,7 +55,7 @@ export class Studio {
     calcProfit() {
         let amount = 0
         this.movies.forEach((movie) => {
-            amount += movie._totalCosts
+            amount += movie._totalOutgoings
         })
         return this.calcRevenue() - amount
     }

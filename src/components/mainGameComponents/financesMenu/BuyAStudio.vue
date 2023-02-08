@@ -112,7 +112,7 @@ export default {
         movie._earnings.forEach((el) =>{
           earnings += el.amount
         })
-        totalCosts += movie._totalCosts
+        totalCosts += movie._totalOutgoings
       })
 
       this.general.revenue = earnings

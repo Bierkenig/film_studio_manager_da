@@ -6,7 +6,7 @@
           <div class="modal-body">
             <slot name="body">
               <div>{{$t('continueProduction.qst')}}</div>
-              <button class="modal-default-button" @click="$emit('close')">{{$t('continueProduction.continue')}}</button>
+              <button class="modal-default-button" @click="movieOnGoing()">{{$t('continueProduction.continue')}}</button>
               <button class="modal-default-button" @click="cancelMovie()">{{$t('continueProduction.cancel')}}</button>
             </slot>
           </div>
@@ -25,6 +25,13 @@ export default {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
       this.$store.state.currentMovie = null
+      this.$emit('close')
+    },
+
+    movieOnGoing() {
+      this.$store.getters.getCurrentMovie._status = 'Production'
+      this.$store.getters.getCurrentMovie.setProduction()
+      this.$store.getters.getCurrentMovie._production.startDate = this.$store.getters.getCurrentDate
       this.$emit('close')
     }
   }

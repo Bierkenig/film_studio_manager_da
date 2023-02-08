@@ -9,7 +9,6 @@ export default class PreProduction {
         }
         this.screenplay = null
         this.hiredDirector = null
-        this.outgoings = this.getTotalBudget()
         if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
         this.hype = this.createTotal()
@@ -38,6 +37,7 @@ export default class PreProduction {
         }
         this.budgetPop = 12
         this.happenedEvents = []
+        this.outgoings = this.getTotalBudget()
     }
 
     static fromJSON(jsonObject) {

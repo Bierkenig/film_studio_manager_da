@@ -20,6 +20,11 @@
                 <div>$ {{release.dvdGross}}</div>
               </div>
 
+              <div>
+                <div>{{$t('afterRelease.cinema')}}</div>
+                <div>$ {{release.cinemaGross}}</div>
+              </div>
+
               <div v-if="this.$store.getters.getOwnStreamingService !== null">
                 <div>{{$t('afterRelease.streamingList')}}</div>
                 <div v-for="(el, index) in streamMovies" :key="index">
@@ -75,9 +80,9 @@ export default {
     },
 
     finishMovie() {
-      this.$store.commit('addFinishedMovie', this.movie)
+      this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
       this.$store.state.currentMovie = null
-      let index = this.$store.getters.getCreatedMovies.indexOf(this.movie)
+      let index = this.$store.getters.getCreatedMovies.indexOf(this.$store.getters.getCurrentMovie)
       this.$store.state.createdMovies.slice(index, 1)
     },
   },
