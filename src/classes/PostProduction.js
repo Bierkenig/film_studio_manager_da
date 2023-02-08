@@ -12,6 +12,7 @@ export default class PostProduction {
         this.marketingCommercial = null
         this.earningPotential = null
         this.distributionCosts = null
+        this.releaseScope = null
         this.screenplay = screenplay
         this.releaseWeeks = null
         this.openingWeekShareStudio = null

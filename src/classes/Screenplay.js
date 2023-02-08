@@ -2,6 +2,7 @@ import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
 import {Character} from "@/classes/Character";
 import DataUtil from "@/classes/DataUtil"
+import Topic from "@/classes/Topic";
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false) {
@@ -284,6 +285,7 @@ export class Screenplay {
         if(instance.franchise !== null){
             instance.franchise = Franchises.fromJSON(jsonObject.franchise)
         }
+        instance.topics = DataUtil.objectMap(jsonObject.topics, topic => topic.map(topic => Topic.fromJSON(topic)))
         instance.roles = DataUtil.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
         instance.actors = DataUtil.objectMap(jsonObject.actors, actors => actors.map(actor => Person.fromJSON(actor)))
         return instance

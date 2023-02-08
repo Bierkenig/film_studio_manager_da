@@ -2,6 +2,8 @@ import store from '@/services/store'
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
 import DataUtil from "@/classes/DataUtil";
+import PreProduction from "@/classes/PreProduction";
+import {Studio} from "@/classes/Studio";
 
 export default class Release {
     constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2,
@@ -481,10 +483,14 @@ export default class Release {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Release(DataUtil.skip), jsonObject)
+        instance.preProduction = PreProduction.fromJSON(jsonObject.preProduction)
         instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        instance.owner = Studio.fromJSON(jsonObject.owner)
         instance.releaseDate = new Date(jsonObject.releaseDate)
         instance.startDate = new Date(jsonObject.startDate)
         instance.director = Person.fromJSON(jsonObject.director)
+        instance.setAudienceRating()
+
         return instance;
     }
 }

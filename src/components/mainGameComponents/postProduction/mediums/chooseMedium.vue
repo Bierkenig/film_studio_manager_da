@@ -21,6 +21,7 @@ export default {
   data(){
     return{
     scope: this.$store.getters.getCurrentMovie._preProduction.screenplay.details.scope,
+    releaseScope: 0,
     potential: 0,
     cost: 0,
     continueDisable: true
@@ -30,6 +31,7 @@ export default {
   methods:{
     choose(type){
       if(type === 'wide'){
+        this.releaseScope = 1
         this.potential = 1
         this.continueDisable = false
 
@@ -52,6 +54,7 @@ export default {
         }
       }
       if(type === 'limited'){
+        this.releaseScope = 2
         this.potential = 0.5
         this.continueDisable = false
 
@@ -81,6 +84,7 @@ export default {
       this.$store.getters.getCurrentMovie.setPostProduction()
       this.$store.getters.getCurrentMovie._postProduction.earningPotential = this.potential
       this.$store.getters.getCurrentMovie._postProduction.distributionCosts = this.cost
+      this.$store.getters.getCurrentMovie._postProduction.releaseScope = this.releaseScope
       this.$router.push({ name: 'cinemaNegotiation'})
     }
   }
