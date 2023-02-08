@@ -7,6 +7,7 @@
             <icon-button
                 id="startMenuCloseButton"
                 size="medium"
+                icon="exit"
                 :dark="true"
                 :bg-gradient="true"
                 :icon-gradient="false"
@@ -179,6 +180,7 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 35px;
+  margin-bottom: 30px;
 }
 
 .startMenuButton {

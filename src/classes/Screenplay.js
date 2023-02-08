@@ -130,10 +130,6 @@ export class Screenplay {
         return this.roles;
     }
 
-    getLength() {
-        return this.length;
-    }
-
     getWritingPhase() {
         return this.writingPhase;
     }
@@ -249,10 +245,6 @@ export class Screenplay {
 
     setAgeRating(value) {
         this.ageRating = value;
-    }
-
-    setLength(value) {
-        this.length = value;
     }
 
     setWritingPhase(value) {

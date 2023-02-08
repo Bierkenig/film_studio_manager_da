@@ -18,77 +18,70 @@
     </div>
     <div class="financesMenuCenter">
       <background-tile class="fiscalPerformanceTile" :title="$t('fiscalPerformance.name')">
-
-      </background-tile>
-    </div>
-    <div class="financesMenuRightSide">
-      <background-tile title="Title" content-color="grey" icon="placeholder">Test</background-tile>
-    </div>
-
-
-    <div class="hide">
-      <div id="fiscalPerformance">
-        <h3>{{ $t('fiscalPerformance.name') }}</h3>
-        <div>
-          <select v-model="selectedMonth" @change="updateFiscalPerformance()">
-            <option v-for="(el, index) in availableMonths" :key="index" :value="el">
-              {{ $t('dates.' + el) }}
-            </option>
-          </select>
-          <select v-model="selectedYear" @change="calcMonths(); updateFiscalPerformance()">
-            <option v-for="(el, index) in availablePerformanceYears" :key="index" :value="el">
-              {{ el }}
-            </option>
-          </select>
+        <div id="fiscalPerformance">
+          <div>
+            <select v-model="selectedMonth" @change="updateFiscalPerformance()">
+              <option v-for="(el, index) in availableMonths" :key="index" :value="el">
+                {{ $t('dates.' + el) }}
+              </option>
+            </select>
+            <select v-model="selectedYear" @change="calcMonths(); updateFiscalPerformance()">
+              <option v-for="(el, index) in availablePerformanceYears" :key="index" :value="el">
+                {{ el }}
+              </option>
+            </select>
+          </div>
+          <div class="scroll verticalScroll">
+            <table class="financesMenuTable">
+              <tr class="financesMenuTableRow">
+                <th>{{ $t('fiscalPerformance.area') }}</th>
+                <th>{{ $t('fiscalPerformance.incoming') }}</th>
+                <th>{{ $t('fiscalPerformance.outgoing') }}</th>
+                <th>{{ $t('fiscalPerformance.accumulated') }}</th>
+              </tr>
+              <tr v-for="(element, index) in fiscalPerformanceData" :key="index" class="financesMenuTableRow">
+                <td>{{ $t(element.name) }}</td>
+                <td>$ {{ element.incoming }}</td>
+                <td>$ {{ element.outgoing }}</td>
+                <td>$ {{ element.accumulated }}</td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <table>
-          <tr>
-            <th>{{ $t('fiscalPerformance.area') }}</th>
-            <th>{{ $t('fiscalPerformance.incoming') }}</th>
-            <th>{{ $t('fiscalPerformance.outgoing') }}</th>
-            <th>{{ $t('fiscalPerformance.accumulated') }}</th>
-          </tr>
-          <tr v-for="(element, index) in fiscalPerformanceData" :key="index">
-            <td>{{ $t(element.name) }}</td>
-            <td>$ {{ element.incoming }}</td>
-            <td>$ {{ element.outgoing }}</td>
-            <td>$ {{ element.accumulated }}</td>
-          </tr>
-        </table>
-      </div>
-
-      <div id="marketShare">
-        <h3>{{ $t('marketShare.name') }}</h3>
+      </background-tile>
+      <background-tile class="marketShareTile" :title="$t('marketShare.name')">
         <select v-model="selectedMarketYear" @change="updateMarketShare">
           <option v-for="year in availableMarketYears" :key="year" :value="year">{{ year }}</option>
         </select>
-        <table>
-          <tr>
-            <th>{{$t('marketShare.studio')}}</th>
-            <th>{{$t('marketShare.revenue')}}</th>
-            <th>{{$t('marketShare.profit')}}</th>
-            <th>{{$t('marketShare.share')}}</th>
-            <th>{{$t('marketShare.change')}}</th>
-          </tr>
-          <tr v-for="(el, index) in otherStudios" :key="index">
-            <td>{{el.name}}</td>
-            <td>$ {{el.calcRevenue()}}</td>
-            <td>$ {{el.calcProfit()}}</td>
-            <td>{{el.marketShare[selectedMarketYear]}}%</td>
-            <td>{{el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear-1] !== undefined ? el.marketShare[selectedMarketYear-1] : 0)}}%</td>
-          </tr>
-        </table>
-
-      </div>
-        <div>
-          <h3>{{ $t('financialHistory.name') }}</h3>
-          <div v-for="(el, index) in financialHistory" :key="index">
-            <!-- TODO icon -->
-            <div>{{ $t("financialHistory." + el.title) }}</div>
-            <div>{{ $t("financialHistory." + el.description) }}</div>
-          </div>
+        <div class="financesMenuTable scroll verticalScroll">
+          <table class="financesMenuTable">
+            <tr class="financesMenuTableRow">
+              <th>{{$t('marketShare.studio')}}</th>
+              <th>{{$t('marketShare.revenue')}}</th>
+              <th>{{$t('marketShare.profit')}}</th>
+              <th>{{$t('marketShare.share')}}</th>
+              <th>{{$t('marketShare.change')}}</th>
+            </tr>
+            <tr v-for="(el, index) in otherStudios" :key="index" class="financesMenuTableRow">
+              <td>{{el.name}}</td>
+              <td>$ {{el.calcRevenue()}}</td>
+              <td>$ {{el.calcProfit()}}</td>
+              <td>{{el.marketShare[selectedMarketYear]}}%</td>
+              <td>{{el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear-1] !== undefined ? el.marketShare[selectedMarketYear-1] : 0)}}%</td>
+            </tr>
+          </table>
         </div>
-      </div>
+      </background-tile>
+    </div>
+    <div class="financesMenuRightSide">
+      <background-tile :title="$t('financialHistory.name')" content-color="grey" icon="placeholder">
+        <div v-for="(el, index) in financialHistory" :key="index">
+          <!-- TODO icon -->
+          <div>{{ $t("financialHistory." + el.title) }}</div>
+          <div>{{ $t("financialHistory." + el.description) }}</div>
+        </div>
+      </background-tile>
+    </div>
   </div>
 </template>
 <script>
@@ -213,6 +206,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .financesMenuLeftSide, .financesMenuRightSide {
@@ -228,8 +222,12 @@ export default {
   flex-basis: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  margin: 0 20px 0 20px;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.fiscalPerformanceTile, .marketShareTile {
+  height: 50%;
 }
 
 .buyStudioTile {
@@ -240,25 +238,16 @@ export default {
   margin-top: 20px;
 }
 
-
-.hide {
-
+.financesMenuTable {
+  width: 100%;
 }
 
-/*.arrow {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
+.financesMenuTableRow {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-l-border-radius);
 }
 
-.right {
-  transform: rotate(-45deg);
-  -webkit-transform: rotate(-45deg);
+.scroll {
+  height: 250px;
 }
-
-.left {
-  transform: rotate(135deg);
-  -webkit-transform: rotate(135deg);
-}*/
 </style>

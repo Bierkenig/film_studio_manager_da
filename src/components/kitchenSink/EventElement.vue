@@ -1,39 +1,50 @@
 <template>
 <div class="eventElementMainDiv" ref="eventElementMainDiv">
   <div class="eventElementMainContent">
-    <custom-icon class="eventElementIcon" :id="'actorDropsOutIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
-    <custom-icon class="eventElementIcon" :id="'callForRecastIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
-    <custom-icon class="eventElementIcon" :id="'directorDropsOutPreProductionIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
-    <custom-icon class="eventElementIcon" :id="'directorWantsMoreBudgetIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
-    <custom-icon class="eventElementIcon" :id="'directorWantsExtendPhaseIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
+    <!--Event Modal-->
+    <custom-icon class="eventElementIcon" :id="'dropOutIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
+    <custom-icon class="eventElementIcon" :id="'recastIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
+    <custom-icon class="eventElementIcon" :id="'creativeIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
+    <custom-icon class="eventElementIcon" :id="'difficultyIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
+    <custom-icon class="eventElementIcon" :id="'extendIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
+
+    <!--Components-->
     <custom-icon class="eventElementIcon" :id="'preProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="blue"/>
 
-    <custom-icon class="eventElementIcon" :id="'badWeatherIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'castMakesProblemsIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'insufficientBudgetIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'equipmentMalfunctionsIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'budgetProblemsIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'setBreakdownIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'insufficientProductionPhaseIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'directorDropsOutProductionIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'directorWantsChangesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
-    <custom-icon class="eventElementIcon" :id="'injuryOfCastIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <!--Event Modal-->
+    <custom-icon class="eventElementIcon" :id="'weatherIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'castMemberIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'budgetForCostumesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'equipmentIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'budgetIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'breakdownIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'durationIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'directorLeavesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'changesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+    <custom-icon class="eventElementIcon" :id="'injuredIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
+
+    <!--Components-->
     <custom-icon class="eventElementIcon" :id="'productionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="red"/>
 
-    <custom-icon class="eventElementIcon" :id="'testScreeningIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
-    <custom-icon class="eventElementIcon" :id="'soundQualityProblemIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
+    <!--Event Modal-->
+    <custom-icon class="eventElementIcon" :id="'soundIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'postProductionProblemIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
-    <custom-icon class="eventElementIcon" :id="'visualEffectsProblemIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
-    <custom-icon class="eventElementIcon" :id="'visualQualityProblemIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
-    <custom-icon class="eventElementIcon" :id="'reshootingOfScenesIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
-    <custom-icon class="eventElementIcon" :id="'postProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="green"/>
+    <custom-icon class="eventElementIcon" :id="'visualEffectsIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
+    <custom-icon class="eventElementIcon" :id="'visualQualityIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
+    <custom-icon class="eventElementIcon" :id="'reshootingIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
 
-    <custom-icon class="eventElementIcon" :id="'releaseIcon' + randomId" icon="party" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'releaseSummaryIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'dvdSummaryIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
+    <!--Components-->
+    <custom-icon class="eventElementIcon" :id="'postProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="green"/>
+    <custom-icon class="eventElementIcon" :id="'testScreeningIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
+
+    <!--Components-->
+    <custom-icon class="eventElementIcon" :id="'beforeReleaseIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'afterReleaseWithCinemaRunIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'afterReleaseIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'studioTakeoverIcon' + randomId" icon="studio" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'bankruptIcon' + randomId" icon="falling-chart" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'awardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'internationalAwardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'independentAwardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'audienceAwardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <div class="eventElementText">
       <div class="eventElementTitle">{{title}}</div>
       <div class="eventElementDescription">{{description}}</div>
@@ -67,14 +78,11 @@ export default {
       type: String,
       default: 'productionFinished',
       validator(value) {
-        return ['actorDropsOut', 'callForRecast', 'directorDropsOutPreProduction', 'directorWantsMoreBudget',
-          'directorWantsExtendPhase', 'preProductionFinished',
-          'badWeather', 'castMakesProblems', 'insufficientBudget', 'equipmentMalfunctions', 'budgetProblems',
-          'setBreakdown', 'insufficientProductionPhase', 'directorDropsOutProduction', 'directorWantsChanges',
-          'injuryOfCast', 'productionFinished',
-          'testScreening', 'soundQualityProblem', 'postProductionProblem', 'visualEffectsProblem',
-          'visualQualityProblem', 'reshootingOfScenes', 'postProductionFinished',
-          'release', 'releaseSummary', 'dvdSummary', 'studioTakeover', 'bankrupt', 'award'].includes(value);
+        return ['dropOut', 'recast', 'creative', 'difficulty', 'extend', 'preProductionFinished',
+          'weather', 'castMember', 'budgetForCostumes', 'equipment', 'budget', 'breakdown', 'duration',
+          'directorLeavesProduction', 'changes', 'injured', 'productionFinished',
+          'testScreening', 'sound', 'postProductionProblem', 'visualEffects', 'visualQuality', 'reshooting', 'postProductionFinished',
+          'beforeRelease', 'afterReleaseWithCinemaRun', 'afterRelease', 'studioTakeover', 'internationalAward', 'independentAward', 'audienceAward'].includes(value);
       }
     },
     movieTitle: {
@@ -97,30 +105,30 @@ export default {
     setupElement() {
       this.updateStatus();
       switch (this.type) {
-        case 'actorDropsOut':
-          document.getElementById('actorDropsOutIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.actorDropsOut.title');
-          this.description = this.$t('events.actorDropsOut.description') + ' "' + this.movieTitle + '"';
+        case 'dropOut':
+          document.getElementById('dropOutIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.dropOut.title');
+          this.description = this.$t('events.dropOut.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'callForRecast':
-          document.getElementById('callForRecastIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.callForRecast.title');
-          this.description = this.$t('events.callForRecast.description') + ' "' + this.movieTitle + '"';
+        case 'recast':
+          document.getElementById('recastIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.recast.title');
+          this.description = this.$t('events.recast.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'directorDropsOutPreProduction':
-          document.getElementById('directorDropsOutPreProductionIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.directorDropsOut.title');
-          this.description = this.$t('events.directorDropsOut.description') + ' "' + this.movieTitle + '"';
+        case 'creative':
+          document.getElementById('creativeIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.creative.title');
+          this.description = this.$t('events.creative.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'directorWantsMoreBudget':
-          document.getElementById('directorWantsMoreBudgetIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.directorWantsMoreBudget.title');
-          this.description = this.$t('events.directorWantsMoreBudget.description') + ' "' + this.movieTitle + '"';
+        case 'difficulty':
+          document.getElementById('difficultyIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.difficulty.title');
+          this.description = this.$t('events.difficulty.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'directorWantsExtendPhase':
-          document.getElementById('directorWantsExtendPhaseIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.directorWantsExtendPhase.title');
-          this.description = this.$t('events.directorWantsExtendPhase.description') + ' "' + this.movieTitle + '"';
+        case 'extend':
+          document.getElementById('extendIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.extend.title');
+          this.description = this.$t('events.extend.description') + ' "' + this.movieTitle + '"';
           break;
         case 'preProductionFinished':
           document.getElementById('preProductionFinishedIcon' + this.randomId).style.display = 'block';
@@ -128,55 +136,55 @@ export default {
           this.description = this.$t('events.preProductionFinished.description') + ' "' + this.movieTitle + '"';
           break;
 
-        case 'badWeather':
-          document.getElementById('badWeatherIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.badWeather.title');
-          this.description = this.$t('events.badWeather.description') + ' "' + this.movieTitle + '"';
+        case 'weather':
+          document.getElementById('weatherIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.weather.title');
+          this.description = this.$t('events.weather.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'castMakesProblems':
-          document.getElementById('castMakesProblemsIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.castMakesProblems.title');
-          this.description = this.$t('events.castMakesProblems.description') + ' "' + this.movieTitle + '"';
+        case 'castMember':
+          document.getElementById('castMemberIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.castMember.title');
+          this.description = this.$t('events.castMember.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'insufficientBudget':
-          document.getElementById('insufficientBudgetIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.insufficientBudget.title');
-          this.description = this.$t('events.insufficientBudget.description') + ' "' + this.movieTitle + '"';
+        case 'budgetForCostumes':
+          document.getElementById('budgetForCostumesIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.budgetForCostumes.title');
+          this.description = this.$t('events.budgetForCostumes.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'equipmentMalfunctions':
-          document.getElementById('equipmentMalfunctionsIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.equipmentMalfunctions.title');
-          this.description = this.$t('events.equipmentMalfunctions.description') + ' "' + this.movieTitle + '"';
+        case 'equipment':
+          document.getElementById('equipmentIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.equipment.title');
+          this.description = this.$t('events.equipment.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'budgetProblems':
-          document.getElementById('budgetProblemsIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.budgetProblems.title');
-          this.description = this.$t('events.budgetProblems.description') + ' "' + this.movieTitle + '"';
+        case 'budget':
+          document.getElementById('budgetIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.budget.title');
+          this.description = this.$t('events.budget.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'setBreakdown':
-          document.getElementById('setBreakdownIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.setBreakdown.title');
-          this.description = this.$t('events.setBreakdown.description') + ' "' + this.movieTitle + '"';
+        case 'breakdown':
+          document.getElementById('breakdownIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.breakdown.title');
+          this.description = this.$t('events.breakdown.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'insufficientProductionPhase':
-          document.getElementById('insufficientProductionPhaseIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.insufficientProductionPhase.title');
-          this.description = this.$t('events.insufficientProductionPhase.description') + ' "' + this.movieTitle + '"';
+        case 'duration':
+          document.getElementById('durationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.duration.title');
+          this.description = this.$t('events.duration.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'directorDropsOutProduction':
-          document.getElementById('directorDropsOutProductionIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.directorDropsOut.title');
-          this.description = this.$t('events.directorDropsOut.description') + ' "' + this.movieTitle + '"';
+        case 'directorLeavesProduction':
+          document.getElementById('directorLeavesProductionIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.creative.title');
+          this.description = this.$t('events.creative.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'directorWantsChanges':
-          document.getElementById('directorWantsChangesIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.directorWantsChanges.title');
-          this.description = this.$t('events.directorWantsChanges.description') + ' "' + this.movieTitle + '"';
+        case 'changes':
+          document.getElementById('changesIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.changes.title');
+          this.description = this.$t('events.changes.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'injuryOfCast':
-          document.getElementById('injuryOfCastIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.injuryOfCast.title');
-          this.description = this.$t('events.injuryOfCast.description') + ' "' + this.movieTitle + '"';
+        case 'injured':
+          document.getElementById('injuredIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.injured.title');
+          this.description = this.$t('events.injured.description') + ' "' + this.movieTitle + '"';
           break;
         case 'productionFinished':
           document.getElementById('productionFinishedIcon' + this.randomId).style.display = 'block';
@@ -189,30 +197,30 @@ export default {
           this.title = this.$t('events.testScreening.title');
           this.description = this.$t('events.testScreening.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'soundQualityProblem':
-          document.getElementById('soundQualityProblemIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.soundQualityProblem.title');
-          this.description = this.$t('events.soundQualityProblem.description') + ' "' + this.movieTitle + '"';
+        case 'sound':
+          document.getElementById('soundIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.sound.title');
+          this.description = this.$t('events.sound.description') + ' "' + this.movieTitle + '"';
           break;
         case 'postProductionProblem':
           document.getElementById('postProductionProblemIcon' + this.randomId).style.display = 'block';
           this.title = this.$t('events.postProductionProblem.title');
           this.description = this.$t('events.postProductionProblem.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'visualEffectsProblem':
-          document.getElementById('visualEffectsProblemIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.visualEffectsProblem.title');
-          this.description = this.$t('events.visualEffectsProblem.description') + ' "' + this.movieTitle + '"';
+        case 'visualEffects':
+          document.getElementById('visualEffectsIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.visualEffects.title');
+          this.description = this.$t('events.visualEffects.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'visualQualityProblem':
-          document.getElementById('visualQualityProblemIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.visualQualityProblem.title');
-          this.description = this.$t('events.visualQualityProblem.description') + ' "' + this.movieTitle + '"';
+        case 'visualQuality':
+          document.getElementById('visualQualityIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.visualQuality.title');
+          this.description = this.$t('events.visualQuality.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'reshootingOfScenes':
-          document.getElementById('reshootingOfScenesIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.reshootingOfScenes.title');
-          this.description = this.$t('events.reshootingOfScenes.description') + ' "' + this.movieTitle + '"';
+        case 'reshooting':
+          document.getElementById('reshootingIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.reshooting.title');
+          this.description = this.$t('events.reshooting.description') + ' "' + this.movieTitle + '"';
           break;
         case 'postProductionFinished':
           document.getElementById('postProductionFinishedIcon' + this.randomId).style.display = 'block';
@@ -220,35 +228,40 @@ export default {
           this.description = this.$t('events.postProductionFinished.description') + ' "' + this.movieTitle + '"';
           break;
 
-        case 'release':
-          document.getElementById('releaseIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.release.title');
-          this.description = this.$t('events.release.description') + ' "' + this.movieTitle + '"';
+        case 'beforeRelease':
+          document.getElementById('beforeReleaseIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.beforeRelease.title');
+          this.description = this.$t('events.beforeRelease.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'releaseSummary':
-          document.getElementById('releaseSummaryIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.releaseSummary.title');
-          this.description = this.$t('events.releaseSummary.description') + ' "' + this.movieTitle + '"';
+        case 'afterReleaseWithCinemaRun':
+          document.getElementById('afterReleaseWithCinemaRunIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.afterReleaseWithCinemaRun.title');
+          this.description = this.$t('events.afterReleaseWithCinemaRun.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'dvdSummary':
-          document.getElementById('dvdSummaryIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.dvdSummary.title');
-          this.description = this.$t('events.dvdSummary.description') + ' "' + this.movieTitle + '"';
+        case 'afterRelease':
+          document.getElementById('afterReleaseIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.afterRelease.title');
+          this.description = this.$t('events.afterRelease.description') + ' "' + this.movieTitle + '"';
           break;
         case 'studioTakeover':
           document.getElementById('studioTakeoverIcon' + this.randomId).style.display = 'block';
           this.title = this.$t('events.studioTakeover.title');
           this.description = this.$t('events.studioTakeover.description') + ' "' + this.studioName + '"';
           break;
-        case 'bankrupt':
-          document.getElementById('bankruptIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.bankrupt.title');
-          this.description = this.$t('events.bankrupt.description');
+        case 'internationalAward':
+          document.getElementById('internationalAwardIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.internationalAward.title');
+          this.description = this.$t('events.internationalAward.description');
           break;
-        case 'award':
-          document.getElementById('awardIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.award.title');
-          this.description = this.$t('events.award.description');
+        case 'independentAward':
+          document.getElementById('independentAwardIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.independentAward.title');
+          this.description = this.$t('events.independentAward.description');
+          break;
+        case 'audienceAward':
+          document.getElementById('audienceAwardIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.audienceAward.title');
+          this.description = this.$t('events.audienceAward.description');
           break;
         default:
           throw('Invalid event type!');

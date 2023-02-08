@@ -274,7 +274,7 @@
         </div>
         <div class="movieDetailsButtons">
           <custom-button
-              v-if="listType === 'Sale'"
+              v-if="listType === 'Sale' && source._contract === null"
               class="movieDetailsButton"
               id="movieDetailsBuyButton"
               :dark="false"
@@ -319,6 +319,8 @@ import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import store from "@/services/store";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "SourcesDetails",
@@ -383,6 +385,7 @@ export default {
       }
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
+      store.commit('addEarnings',new Earnings(chosenScreenplay.price, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
       this.$router.push({name: 'movies'})
     },
@@ -398,6 +401,7 @@ export default {
 
       this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
       this.$store.commit('addFinishedMovie',chosenMovie)
+      store.commit('addEarnings',new Earnings(chosenMovie._totalCosts, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenMovie._totalCosts)
       this.$router.push({name: 'movies'})
     },

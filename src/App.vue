@@ -171,7 +171,6 @@ export default {
     this.$store.getters.getBoughtScreenplays[0].setViolence('G / +3');
     this.$store.getters.getBoughtScreenplays[0].setCursing('G / +3');
     this.$store.getters.getBoughtScreenplays[0].setLoveScenes('G / +3');
-    this.$store.getters.getBoughtScreenplays[0].setLength('152');
     this.$store.getters.getBoughtScreenplays[0].setWritingPhase(14);
 
     this.$store.getters.getScreenplays[0].setRatingRange('61 - 70');
@@ -262,7 +261,6 @@ export default {
     this.$store.getters.getScreenplays[0].setViolence('G / +3');
     this.$store.getters.getScreenplays[0].setCursing('G / +3');
     this.$store.getters.getScreenplays[0].setLoveScenes('G / +3');
-    this.$store.getters.getScreenplays[0].setLength('152');
     this.$store.getters.getScreenplays[0].setWritingPhase(14);
 
     this.$store.getters.getFinishedMovies[0]._status = 'Pre Production';

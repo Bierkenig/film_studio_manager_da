@@ -55,7 +55,6 @@ export default {
 
   data(){
     return {
-      show: true,
       currentDate: this.$store.getters.getCurrentDate,
       currentDatePlusOne: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 1),
       currentDatePlusTwo: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 2),
@@ -114,7 +113,6 @@ export default {
     },
 
     animate(){
-      this.show = !this.show;
       this.currentDate = new Date(this.currentDate.getFullYear(),
           this.currentDate.getMonth(),
           this.currentDate.getDate() + 1);

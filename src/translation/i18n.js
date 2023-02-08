@@ -803,7 +803,8 @@ i18next
                     listOfFranchises: 'List of Franchises',
                     create: 'Create',
                     open: 'Open',
-                    createMovieInfoText: 'Produce new movies from existing scripts or buy new.',
+                    createMovieInfoText: 'Produce new movies.',
+                    createScreenplayInfoText: 'Produce new screenplays.',
                     listOfSourcesInfoText: 'View your own sources or buy them from your competitors.',
                     listOfFranchisesInfoText: 'View your own franchises.',
                     closeGame: 'Close Game',
@@ -846,23 +847,23 @@ i18next
                     screenplayPlot: 'Screenplay Plot',
                     contractOffer: 'Contract Offer',
                     events: {
-                        actorDropsOut: {
+                        dropOut: {
                             title: 'Actor drops out',
                             description: 'In the movie',
                         },
-                        callForRecast: {
+                        recast: {
                             title: 'Director calls for recast',
                             description: 'In the movie',
                         },
-                        directorDropsOut: {
+                        creative: {
                             title: 'Director drops out',
                             description: 'In the movie',
                         },
-                        directorWantsMoreBudget: {
+                        difficulty: {
                             title: 'Director wants more budget',
                             description: 'In the movie',
                         },
-                        directorWantsExtendPhase: {
+                        extend: {
                             title: 'Director wants to extend duration',
                             description: 'In the movie',
                         },
@@ -870,39 +871,39 @@ i18next
                             title: 'Preproduction finished',
                             description: 'Of the movie',
                         },
-                        badWeather: {
+                        weather: {
                             title: 'Bad weather',
                             description: 'Production cannot be resumed in the movie',
                         },
-                        castMakesProblems: {
+                        castMember: {
                             title: 'Cast makes problems',
                             description: 'In the movie',
                         },
-                        insufficientBudget: {
+                        budgetForCostumes: {
                             title: 'Insufficient budget',
                             description: 'During production in the movie',
                         },
-                        equipmentMalfunctions: {
+                        equipment: {
                             title: 'Equipment malfunctions',
                             description: 'In the movie',
                         },
-                        budgetProblems: {
+                        budget: {
                             title: 'Budget problems',
                             description: 'During production in the movie',
                         },
-                        setBreakdown: {
+                        breakdown: {
                             title: 'Set breakdown',
                             description: 'During production in the movie',
                         },
-                        insufficientProductionPhase: {
+                        duration: {
                             title: 'Insufficient production phase',
                             description: 'In the movie',
                         },
-                        directorWantsChanges: {
+                        changes: {
                             title: 'Director wants changes',
                             description: 'In the movie',
                         },
-                        injuryOfCast: {
+                        injured: {
                             title: 'Injury of cast member',
                             description: 'In the movie'
                         },
@@ -914,7 +915,7 @@ i18next
                             title: 'Test screening',
                             description: 'Of the movie',
                         },
-                        soundQualityProblem: {
+                        sound: {
                             title: 'Sound quality problems',
                             description: 'In the movie',
                         },
@@ -922,15 +923,15 @@ i18next
                             title: 'Postproduction problems',
                             description: 'In the movie',
                         },
-                        visualEffectsProblem: {
+                        visualEffects: {
                             title: 'Visual effects problems',
                             description: 'In the movie',
                         },
-                        visualQualityProblem: {
+                        visualQuality: {
                             title: 'Visual quality problems',
                             description: 'In the movie',
                         },
-                        reshootingOfScenes: {
+                        reshooting: {
                             title: 'Reshooting of scenes',
                             description: 'Of the movie',
                         },
@@ -938,28 +939,32 @@ i18next
                             title: 'Postproduction finished',
                             description: 'Of the movie',
                         },
-                        release: {
-                            title: 'Release',
+                        beforeRelease: {
+                            title: 'Before release',
                             description: 'Of the movie',
                         },
-                        releaseSummary: {
-                            title: 'Release summary',
-                            description: 'Of the movie'
+                        afterReleaseWithCinemaRun: {
+                            title: 'During cinema',
+                            description: 'Of the movie',
                         },
-                        dvdSummary: {
-                            title: 'DVD summary',
+                        afterRelease: {
+                            title: 'Release summary',
                             description: 'Of the movie'
                         },
                         studioTakeover: {
                             title: 'Studio takeover',
                             description: 'Of the studio',
                         },
-                        bankrupt: {
-                            title: 'Bankrupt',
-                            description: 'Your own studio',
-                        },
-                        award: {
+                        internationalAward: {
                             title: 'International Film Awards',
+                            description: 'Nomination Announcements',
+                        },
+                        independentAward: {
+                            title: 'Independent Film Awards',
+                            description: 'Nomination Announcements',
+                        },
+                        audienceAward: {
+                            title: 'Audience Film Awards',
                             description: 'Nomination Announcements',
                         },
                     },
@@ -1127,6 +1132,10 @@ i18next
                     actors: 'Actors',
                     noEvents: 'No events',
                     additional: 'Additional',
+                    established: ' established',
+                    theStudio: 'The studio ',
+                    theStreamingService: 'The streaming service ',
+                    wasFounded: ' was founded',
                 }
             },
             de: {
@@ -1714,7 +1723,8 @@ i18next
                     listOfFranchises: 'Liste von Franchises',
                     create: 'Erstellen',
                     open: 'Öffnen',
-                    createMovieInfoText: 'Erstelle neue Filme von bestehenden Drehbüchern oder kaufe Filme.',
+                    createMovieInfoText: 'Erstelle neue Filme von bestehenden Drehbüchern.',
+                    createScreenplayInfoText: 'Erstelle neue Drehbücher.',
                     listOfSourcesInfoText: 'Sieh dir deine eigenen Quellen an oder kaufe welche von anderen Studios.',
                     listOfFranchisesInfoText: 'Sieh dir deine eigenen Franchises an.',
                     closeGame: 'Spiel beenden',
@@ -1843,23 +1853,23 @@ i18next
                     screenplayPlot: 'Drehbuchhandlung',
                     contractOffer: 'Vertragsangebot',
                     events: {
-                        actorDropsOut: {
+                        dropOut: {
                             title: 'Schauspieler steigt aus',
                             description: 'In dem Film',
                         },
-                        callForRecast: {
+                        recast: {
                             title: 'Regisseur fordert Neubesetzung',
                             description: 'In dem Film',
                         },
-                        directorDropsOut: {
+                        creative: {
                             title: 'Regisseur steigt aus',
                             description: 'In dem Film',
                         },
-                        directorWantsMoreBudget: {
+                        difficulty: {
                             title: 'Regisseur möchte mehr Budget',
                             description: 'In dem Film',
                         },
-                        directorWantsExtendPhase: {
+                        extend: {
                             title: 'Regisseur möchte mehr Zeit',
                             description: 'In dem Film',
                         },
@@ -1867,39 +1877,39 @@ i18next
                             title: 'Vorproduktion abgeschlossen',
                             description: 'Von dem Film',
                         },
-                        badWeather: {
+                        weather: {
                             title: 'Schlechtes Wetter',
                             description: 'Fortsetzung von Film nicht möglich',
                         },
-                        castMakesProblems: {
+                        castMember: {
                             title: 'Schauspieler macht Probleme',
                             description: 'In dem Film',
                         },
-                        insufficientBudget: {
+                        budgetForCostumes: {
                             title: 'Zu wenig Budget',
                             description: 'Während der Produktion des Films',
                         },
-                        equipmentMalfunctions: {
+                        equipment: {
                             title: 'Fehlfunktionen des Equipments',
                             description: 'In dem Film',
                         },
-                        budgetProblems: {
+                        budget: {
                             title: 'Budget Probleme',
                             description: 'Während der Produktion des Films',
                         },
-                        setBreakdown: {
+                        breakdown: {
                             title: 'Zerstörung des Sets',
                             description: 'Während der Produktion des Films',
                         },
-                        insufficientProductionPhase: {
+                        duration: {
                             title: 'Zu kurze Produktionsphase',
                             description: 'In dem Film',
                         },
-                        directorWantsChanges: {
+                        changes: {
                             title: 'Regisseur möchte Änderungen',
                             description: 'In dem Film',
                         },
-                        injuryOfCast: {
+                        injured: {
                             title: 'Verletzung eines Schauspielers',
                             description: 'In dem Film',
                         },
@@ -1911,7 +1921,7 @@ i18next
                             title: 'Test',
                             description: 'Von dem Film',
                         },
-                        soundQualityProblem: {
+                        sound: {
                             title: 'Probleme mit der Tonqualität',
                             description: 'In dem Film',
                         },
@@ -1919,15 +1929,15 @@ i18next
                             title: 'Probleme in der Nachbearbeitung',
                             description: 'In dem Film',
                         },
-                        visualEffectsProblem: {
+                        visualEffects: {
                             title: 'Probleme mit visuellen Effekten',
                             description: 'In dem Film',
                         },
-                        visualQualityProblem: {
+                        visualQuality: {
                             title: 'Probleme mit der visuellen Qualität',
                             description: 'In dem Film',
                         },
-                        reshootingOfScenes: {
+                        reshooting: {
                             title: 'Neuaufnahme von Szenen',
                             description: 'In dem Film',
                         },
@@ -1935,28 +1945,32 @@ i18next
                             title: 'Nachbearbeitng abgeschlossen',
                             description: 'Von dem Film',
                         },
-                        release: {
-                            title: 'Veröffentlichung',
+                        beforeRelease: {
+                            title: 'Vor der Veröffentlichung',
                             description: 'Von dem Film',
                         },
-                        releaseSummary: {
-                            title: 'Zusammenfassung der Veröffentlichung',
-                            description: 'Von dem Film'
+                        afterReleaseWithCinemaRun: {
+                            title: 'Während dem Kino',
+                            description: 'Von dem Film',
                         },
-                        dvdSummary: {
-                            title: 'DVD Zusammenfassung',
+                        afterRelease: {
+                            title: 'Zusammenfassung der Veröffentlichung',
                             description: 'Von dem Film'
                         },
                         studioTakeover: {
                             title: 'Studio Übernahme',
                             description: 'Von dem Studio',
                         },
-                        bankrupt: {
-                            title: 'Konkurs',
-                            description: 'Dein eigenes Studio',
-                        },
-                        award: {
+                        internationalAward: {
                             title: 'Internationale Filmpreise',
+                            description: 'Ankündigung der Nominierungen',
+                        },
+                        independentAward: {
+                            title: 'Eigenständiger Filmpreise',
+                            description: 'Ankündigung der Nominierungen',
+                        },
+                        audienceAward: {
+                            title: 'Publikum Filmpreise',
                             description: 'Ankündigung der Nominierungen',
                         },
                     },
@@ -2124,6 +2138,10 @@ i18next
                     actors: 'Schauspieler',
                     noEvents: 'Keine Events',
                     additional: 'Weiters',
+                    established: ' gegründet',
+                    theStudio: 'Das Studio ',
+                    theStreamingService: 'Das Streaming Service ',
+                    wasFounded: ' wurde gegründet',
                 }
             }
         }

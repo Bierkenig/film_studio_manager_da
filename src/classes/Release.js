@@ -102,6 +102,8 @@ export default class Release {
         this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
         this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
+        this.audiencePopularity = (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3;
+
         //Hype
         //Marketing
         let print = this.calcMarketing(this.marketingPrint)

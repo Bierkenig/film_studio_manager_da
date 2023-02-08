@@ -13,6 +13,7 @@
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import {Movie} from "@/classes/Movie";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default {
   name: "ActionSection",
@@ -42,6 +43,11 @@ export default {
         this.$router.push({name: 'peopleOverview'});
       } else if(this.headline === 'listOfAwards'){
         this.$router.push({name: 'awardOverview'});
+      } else if(this.headline === 'createScreenplay'){
+        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
+            null,null, null, null, null, null,
+            {firstTopic: null, secondTopic: null, thirdTopic: null}));
+        this.$router.push({name: 'newScreenplay'});
       }
     }
   }

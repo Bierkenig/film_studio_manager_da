@@ -135,9 +135,9 @@
           </div>
           <custom-button
               id="screenplaySummaryRewriteButton"
+              v-if="this.$store.getters.getCurrentScreenplay.rewritingValue !== 0 || this.checkIfScreenplayIsInUse !== true"
               :dark="false"
               size="small"
-              :disabled="this.$store.getters.getCurrentScreenplay.rewritingValue === 0"
               @clicked="rewrite">{{ $t('rewrite') }}</custom-button>
         </div>
       </background-tile>
@@ -169,6 +169,8 @@ export default {
       screenplayWriter: this.$store.getters.getCurrentScreenplay.writer._first_name + ' ' + this.$store.getters.getCurrentScreenplay.writer._last_name,
       characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
       screenplayPosterSVG: 'none',
+
+      checkIfScreenplayIsInUse: false,
     }
   },
 
@@ -180,6 +182,13 @@ export default {
         this.screenplayTopics.push(i);
       }
     })
+
+    let allMovies = this.$store.getters.getInProductionMovies.concat(this.$store.getters.getCreatedMovies,this.$store.getters.getFinishedMovies, this.$store.getters.getMoviesFromOtherStudios, this.$store.getters.getBoughtMovies, this.$store.getters.getBoughtMovieRights);
+    for (let i = 0; i < allMovies.length; i++) {
+      if(allMovies._preProduction.screenplay === this.$store.getters.getCurrentScreenplay){
+        this.checkIfScreenplayIsInUse = true;
+      }
+    }
   },
 
   methods: {
