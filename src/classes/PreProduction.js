@@ -1,6 +1,5 @@
 import {Screenplay} from "@/classes/Screenplay";
 import Person from "@/classes/Person";
-import store from "@/services/store";
 import DataUtil from "@/classes/DataUtil";
 
 export default class PreProduction {
@@ -10,7 +9,7 @@ export default class PreProduction {
         }
         this.screenplay = null
         this.hiredDirector = null
-        this.outgoings = 0
+        this.outgoings = this.getTotalBudget()
         if (this.hiredDirector instanceof Person) this.crewMorale = this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
         this.hype = this.createTotal()
@@ -18,7 +17,8 @@ export default class PreProduction {
         this.productionLength = 0
         this.postProductionLength = 0
         this.releaseDate = null
-        this.startDate = store.getters.getCurrentDate;
+        this.startDate = null
+        if (this.startDate instanceof Date)this.endDate = this.calcEndDate()
         this.budget = {
             production: 0,
             extras: 0,
@@ -48,13 +48,6 @@ export default class PreProduction {
         instance.startDate = new Date(jsonObject.startDate)
 
         return instance;
-    }
-
-    getWholeBudget() {
-        return this.budget.production + this.budget.extras +
-            this.budget.cinematography + this.budget.sound + this.budget.editing + this.budget.score +
-            this.budget.set + this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
-            this.budget.sfx
     }
 
     calcCrewMorale() {
@@ -139,6 +132,10 @@ export default class PreProduction {
         return (this.budget.production + this.budget.extras + this.budget.cinematography +
             this.budget.sound + this.budget.editing + this.budget.score + this.budget.set +
             this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
-            this.budget.sfx + this.budget.problemBudget)
+            this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary + this.budget.actorSalary)
+    }
+
+    calcEndDate() {
+        return this.startDate.setDate(this.startDate.getDate() + this.preProductionLength * 7);
     }
 }
