@@ -174,6 +174,8 @@ import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import store from "@/services/store";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "MovieDetails",
@@ -250,6 +252,8 @@ export default {
       sendMovie._totalCosts = this.price;
       sendMovie._preProduction.hype = 100;
       this.$store.commit('addBoughtMovieRights',sendMovie);
+      store.commit('addEarnings',new Earnings(this.price, store.getters.getCurrentDate))
+      this.$store.commit('subtractBalance', this.price)
       this.$router.push({name: 'streaming'})
     },
 

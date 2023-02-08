@@ -5,6 +5,8 @@ import {Avataaars} from "@/avatar/avataaars";
 import {Screenplay} from "@/classes/Screenplay";
 import {Character} from "@/classes/Character";
 import {i18next} from "@/translation/i18n";
+import {StreamingService} from "@/classes/StreamingService";
+import Earnings from "@/classes/Earnings";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -29,6 +31,10 @@ export default function simulate() {
     createStudios();
     streamingService();
     createScreenplaysFromWriters();
+    otherStudioCreatesStreamingService();
+
+    updateStudioPopularity();
+    updateOtherStudiosPopularity();
 
     //MONTHLY
     if (store.getters.getCurrentDate.getDate() === 1 /*&&
@@ -42,6 +48,11 @@ export default function simulate() {
         //FETCHING DB
         store.state.dbFetcher.fetch()
     }
+}
+
+//function to get 0 or 1 with specific probability
+function randomNumber(probability) {
+    return Math.random() < probability ? 0 : 1;
 }
 
 //function to create new studios
@@ -72,17 +83,119 @@ function createStudios() {
             store.getters.getOtherStudios.push(newStudio);
 
             //create news of new studio
-            let newsTitle = newStudio.getName() + ' gegründet';
-            let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
+            let newsTitle = newStudio.getName() + i18next.t('established');
+            let newsDescription = i18next.t('theStudio') + newStudio.getName() + i18next.t('wasFounded') + '.';
             store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate,null, null, null, newStudio));
             store.state.studioNames.splice(store.state.studioNames.indexOf(studioName), 1);
         }
     }
 }
+//function for other studios to create streaming services
+function otherStudioCreatesStreamingService(){
+    if(randomNumber(0.15) === 0){
+        let allOtherStudios = store.getters.getOtherStudios;
+        for (let i = 0; i < allOtherStudios.length; i++) {
+            if(allOtherStudios[i].budget > 2500000000){
+                allOtherStudios[i].budget -= 2500000000;
+                store.commit('addStreamingServicesFromOtherStudios', new StreamingService(allOtherStudios[i].name, 1,0,0,allOtherStudios[i].popularity,allOtherStudios[i], store.getters.getCurrentDate));
+                //create news of new streaming service
+                let newsTitle = 'Streaming Service' + i18next.t('established');
+                let newsDescription = i18next.t('theStreamingService') + allOtherStudios[i] + i18next.t('wasFounded') + '.';
+                store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate,null, null, null, allOtherStudios[i]));
+            }
+        }
+    }
+}
 
-//function to get 0 or 1 with specific probability
-function randomNumber(probability) {
-    return Math.random() < probability ? 0 : 1;
+//function to update own studio popularity
+function updateStudioPopularity(){
+    let allMovies = store.getters.getCreatedMovies.concat(store.getters.getFinishedMovies, store.getters.getBoughtMovies, store.getters.getBoughtMovieRights);
+    let sumOfAudiencePopularity = 0;
+    for (let i = 0; i < allMovies.length; i++) {
+        sumOfAudiencePopularity += allMovies[i]._release.audiencePopularity;
+    }
+
+    let averageOfAudiencePopularity = 0;
+    if(allMovies.length !== 0){
+        averageOfAudiencePopularity = sumOfAudiencePopularity / allMovies.length;
+    }
+
+    if(averageOfAudiencePopularity < 25){
+        if(store.getters.getStudio.popularity < 4){
+            store.getters.getStudio.popularity = 1;
+        } else {
+            store.getters.getStudio.popularity -= 3;
+        }
+    } else if(averageOfAudiencePopularity >= 25 && averageOfAudiencePopularity < 50){
+        if(store.getters.getStudio.popularity < 3){
+            store.getters.getStudio.popularity = 1;
+        } else {
+            store.getters.getStudio.popularity -= 2;
+        }
+    } else if(averageOfAudiencePopularity >= 50 && averageOfAudiencePopularity < 75){
+        if(store.getters.getStudio.popularity > 98){
+            store.getters.getStudio.popularity = 100;
+        } else {
+            store.getters.getStudio.popularity += 2;
+        }
+    } else if(averageOfAudiencePopularity >= 75){
+        if(store.getters.getStudio.popularity > 97){
+            store.getters.getStudio.popularity = 100;
+        } else {
+            store.getters.getStudio.popularity += 3;
+        }
+    }
+}
+
+//function to update other studios popularity
+function updateOtherStudiosPopularity(){
+    let allOtherMovies = store.getters.getMoviesFromOtherStudios;
+    let allOtherStudios = store.getters.getOtherStudios;
+
+    for (let i = 0; i < allOtherStudios.length; i++) {
+        let studioMovies = [];
+        for (let j = 0; j < allOtherMovies.length; j++) {
+            if(allOtherMovies[j]._owner === allOtherStudios[i]){
+                studioMovies.push(allOtherMovies[j]);
+            }
+        }
+
+        let sumOfAudiencePopularity = 0;
+        for (let i = 0; i < studioMovies.length; i++) {
+            sumOfAudiencePopularity += studioMovies[i]._release.audiencePopularity;
+        }
+
+        let averageOfAudiencePopularity = 0;
+        if(studioMovies.length !== 0){
+            averageOfAudiencePopularity = sumOfAudiencePopularity / studioMovies.length;
+        }
+
+        if(averageOfAudiencePopularity < 25){
+            if(allOtherStudios[i].popularity < 4){
+                allOtherStudios[i].popularity = 1;
+            } else {
+                allOtherStudios[i].popularity -= 3;
+            }
+        } else if(averageOfAudiencePopularity >= 25 && averageOfAudiencePopularity < 50){
+            if(allOtherStudios[i].popularity < 3){
+                allOtherStudios[i].popularity = 1;
+            } else {
+                allOtherStudios[i].popularity -= 2;
+            }
+        } else if(averageOfAudiencePopularity >= 50 && averageOfAudiencePopularity < 75){
+            if(allOtherStudios[i].popularity > 98){
+                allOtherStudios[i].popularity = 100;
+            } else {
+                allOtherStudios[i].popularity += 2;
+            }
+        } else if(averageOfAudiencePopularity >= 75){
+            if(allOtherStudios[i].popularity > 97){
+                allOtherStudios[i].popularity = 100;
+            } else {
+                allOtherStudios[i].popularity += 3;
+            }
+        }
+    }
 }
 
 //function for streaming service costs / earnings
@@ -103,6 +216,8 @@ function streamingService() {
 
             if (store.getters.getCurrentDate > checkDate) {
                 if (movie._contract === 1) {
+                    movie._boughtRightDate = null;
+                    movie._contract = null;
                     store.commit('removeBoughtMovieRights', movie)
                 } else {
                     movie._boughtRightDate = checkDate;
@@ -119,11 +234,13 @@ function streamingService() {
             //get subscriber number
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
             //substract maintainment costs from balance
+            store.commit('addEarnings',new Earnings(serviceMaintainmentCosts, store.getters.getCurrentDate))
             store.commit('subtractBalance', serviceMaintainmentCosts);
 
             //calculate revenue for subscribers
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
             //add revenue to balance
+            store.commit('addEarnings',new Earnings(revenue, store.getters.getCurrentDate))
             store.commit('addBalance', revenue);
 
             //content maintainment costs
@@ -186,6 +303,7 @@ function streamingService() {
             contentMaintainmentCosts += (fourYearsMoviesPrice / 4 / 12)
             contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
 
+            store.commit('addEarnings',new Earnings(contentMaintainmentCosts, store.getters.getCurrentDate))
             store.commit('subtractBalance', contentMaintainmentCosts);
 
             //set new last checked date to know if one month has passed
@@ -729,7 +847,7 @@ function renewPeople() {
                 type += "Writer"
                 roles.writer++
             }
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The " + type + " " + el._first_name + el._last_name + " died", null, store.getters.getCurrentDate, el))
+            store.commit('addNews', new News(el._first_name + ' ' + el._last_name + " died!", "The " + type + " " + el._first_name + ' ' + el._last_name + " died", null, store.getters.getCurrentDate, el))
         } else {
             refresh.push(refreshPerson(el))
         }

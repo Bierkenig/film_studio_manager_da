@@ -35,6 +35,7 @@ export default class PreProduction {
             problemBudget: 0,
             directorSalary: 0,
             actorSalary: 0,
+            writerSalary: 0,
         }
         this.budgetPop = 12
         this.happenedEvents = []
@@ -132,7 +133,7 @@ export default class PreProduction {
         return (this.budget.production + this.budget.extras + this.budget.cinematography +
             this.budget.sound + this.budget.editing + this.budget.score + this.budget.set +
             this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
-            this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary + this.budget.actorSalary)
+            this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary + this.budget.actorSalary + this.budget.writerSalary)
     }
 
     calcEndDate() {

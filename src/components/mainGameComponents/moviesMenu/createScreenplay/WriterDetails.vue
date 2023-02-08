@@ -22,6 +22,8 @@
                     {{ writerAge }}
                   </div>
                 </div>
+              </div>
+              <div class="writerDetailsInfoTextRow">
                 <div class="writerDetailsSpecificInfoDiv">
                   <div>
                     {{ $t('nationality') }}
@@ -150,6 +152,8 @@ import AvatarElement from "@/components/kitchenSink/AvatarElement.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import store from "@/services/store";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "WriterDetails",
@@ -347,8 +351,22 @@ export default {
     },
 
     hireWriter(){
-      console.log('ASASAS')
       this.screenplay.setWriter(this.writer);
+
+      if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
+        if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
+          this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
+          store.commit('addEarnings',new Earnings((this.selectedSalary/2), store.getters.getCurrentDate))
+          this.$store.commit('subtractBalance', (this.selectedSalary/2));
+        } else {
+          this.screenplay.setPrice(this.copiedPrice + this.selectedSalary);
+          store.commit('addEarnings',new Earnings(this.selectedSalary, store.getters.getCurrentDate))
+          this.$store.commit('subtractBalance', this.selectedSalary);
+        }
+      } else {
+        this.$store.state.currentMovie._preProduction.budget.writerSalary += this.selectedSalary
+      }
+
       if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
         this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
         this.$store.commit('subtractBalance', (this.selectedSalary/2));

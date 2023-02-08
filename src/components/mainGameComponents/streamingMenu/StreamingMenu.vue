@@ -53,6 +53,8 @@ import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSect
 import {updateServicePopularityAndSubscribers} from "@/simulation/simulation";
 import CompetitorSection from "@/components/mainGameComponents/streamingMenu/CompetitorSection.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import store from "@/services/store";
+import Earnings from "@/classes/Earnings";
 export default {
   name: "StreamingMenu",
 
@@ -76,16 +78,15 @@ export default {
     if(this.$store.getters.getOwnStreamingService !== null){
       this.showBuyModal = false;
     }
-    //TODO: auf 2 500 000 000 ändern
-    this.checkBalance = (this.$store.getters.getBalance - 0) < 0;
+    this.checkBalance = (this.$store.getters.getBalance - 2500000000) < 0;
   },
 
   methods: {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       updateServicePopularityAndSubscribers();
-      //TODO: auf 2 500 000 000 ändern
-      this.$store.commit('subtractBalance', 0)
+      store.commit('addEarnings',new Earnings(2500000000, store.getters.getCurrentDate))
+      this.$store.commit('subtractBalance', 2500000000)
     }
   }
 }

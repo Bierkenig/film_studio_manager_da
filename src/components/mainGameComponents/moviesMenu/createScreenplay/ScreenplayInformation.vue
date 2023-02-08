@@ -254,13 +254,17 @@ export default {
     }
   },
 
+  mounted() {
+    console.log(this.$store.getters.getCurrentMovie);
+  },
+
   methods: {
     onButtonClick(){
-      if (!this.screenplay.rewritingStatus) {
+      if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
+        this.$router.push({name: 'home'});
+      } else {
         this.$store.state.currentMovie._preProduction.screenplay = this.screenplay
         this.$router.push({name: 'directorSection'})
-      } else {
-        this.$router.push({name: 'home'});
       }
 
       let screenplays = this.$store.getters.getScreenplays;
