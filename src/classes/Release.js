@@ -12,6 +12,8 @@ export default class Release {
             return
         }
         //Important Variables
+        this.startDateCinema = null
+        if (this.startDateCinema instanceof Date) this.endDateCinema = this.startDateCinema.setDate(this.startDateCinema.getDate() + 4 * 7);
         this.preProduction = preProduction
         this.budget = preProduction.budget
         this.screenplay = preProduction.screenplay

@@ -5,9 +5,10 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>{{$t('continueProduction.qst2')}}</div>
-              <button class="modal-default-button" @click="setMovieAgain()">{{$t('continueProduction.continue')}}</button>
-              <button class="modal-default-button" @click="cancelMovie()">{{$t('continueProduction.cancel')}}</button>
+              <div>{{ $t('continueProduction.qst2') }}</div>
+              <button class="modal-default-button" @click="setMovieAgain()">{{ $t('continueProduction.continue') }}
+              </button>
+              <button class="modal-default-button" @click="cancelMovie()">{{ $t('continueProduction.cancel') }}</button>
             </slot>
           </div>
         </div>
@@ -29,6 +30,12 @@ export default {
     },
 
     setMovieAgain() {
+      this.$store.getters.getCurrentMovie._status = 'Post Production'
+      this.$store.getters.getCurrentMovie.setPostProduction()
+      this.$store.getters.getCurrentMovie._postProduction.postProductionStart = this.$store.getters.getCurrentDate
+
+      //set current movie null
+      this.$store.commit('setCurrentMovie', null)
       this.$emit('close')
     }
   }

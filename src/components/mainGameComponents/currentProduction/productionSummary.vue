@@ -14,6 +14,7 @@
               <div v-for="(el, index) in happenedEvents" :key="index">
                 {{$t('productionEvents.' + el + ".problem")}}
               </div>
+              <button @close="this.$emit('close')">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>

@@ -41,30 +41,30 @@
 </template>
 
 <script>
-
-import {Movie} from "@/classes/Movie";
-
 export default {
   name: "before-release",
-  props: {
-    movie: Movie
-  },
 
   data() {
     return {
-      movieTitle: this.movie._title,
-      screenplay: this.movie._preProduction.screenplay,
-      director: this.movie._preProduction.hiredDirector
+      movieTitle: this.$store.getters.getCurrentMovie._title,
+      screenplay: this.$store.getters.getCurrentMovie._preProduction.screenplay,
+      director: this.$store.getters.getCurrentMovie._preProduction.hiredDirector
     }
   },
 
   methods: {
     changeToCinema() {
+      this.$store.getters.getCurrentMovie._status = 'Release'
+      this.$store.getters.getCurrentMovie.setRelease()
+
       //clear from production
-      this.$store.commit('removeInProductionMovie', this.movie)
+      this.$store.commit('removeInProductionMovie', this.$store.getters.getCurrentMovie)
 
       //add to cinema
-      this.$store.commit('addCreatedMovie', this.movie)
+      this.$store.commit('addCreatedMovie', this.$store.getters.getCurrentMovie)
+
+      //set null
+      this.$store.commit('setCurrentMovie', null)
 
       this.$emit('close')
     }

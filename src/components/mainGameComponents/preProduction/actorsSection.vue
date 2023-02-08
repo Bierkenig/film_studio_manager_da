@@ -215,6 +215,10 @@ export default {
       console.log(this.$store.state.currentMovie)
       this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
       console.log(this.$store.getters.getInProductionMovies)
+      this.$store.getters.getCurrentMovie.startDate = this.$store.getters.getCurrentDate
+
+      //set current movie null
+      this.$store.commit('setCurrentMovie', null)
       this.$router.push({name: "movies"})
     },
   },

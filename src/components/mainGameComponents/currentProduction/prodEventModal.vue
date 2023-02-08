@@ -123,7 +123,7 @@ export default {
         case "changes":
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
-          this.$store.state.currentMovie._preProduction.budget.problemBudget += this.$store.state.currentMovie._preProduction.getWholeBudget() * 0.1
+          this.$store.state.currentMovie._preProduction.budget.problemBudget += this.$store.state.currentMovie._preProduction.getTotalBudget() * 0.1
           this.$emit('close')
           break
         case "injured":

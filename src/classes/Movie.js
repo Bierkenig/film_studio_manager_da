@@ -20,7 +20,7 @@ export class Movie {
         //TYPE -> String
         this._status = null;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new preProductionTest()
+        this._preProduction = new PreProduction()
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object
@@ -28,15 +28,15 @@ export class Movie {
         //TYPE -> releaseMovie class object
         this._release = null
         //TYPE -> director Class Object
-        this.director = this._preProduction.hiredDirector;
+        this.director = this._preProduction?.hiredDirector;
         //TYPE -> screenplay class Object
-        this._screenplay = this._preProduction.screenplay;
+        this._screenplay = this._preProduction?.screenplay;
         //TYPE -> Studio Class Object
         this._owner = owner;
         // null -> no rights bought / 0 -> unlimited rights (own created movie, bought movie)
         this._contract = contract;
         //NOT DONE YET
-        this._earnings = [new Earnings(100, new Date()), new Earnings(200, new Date())]
+        this._earnings = []
         //TYPE -> Integer
         this.genrePopularity = null
         //TYPE -> Integer
@@ -59,29 +59,30 @@ export class Movie {
         //TYPE -> Date
         this._foundationDate = null;
         //TYPE -> Integer | totalOutgoings - AUSGABEN während Filmherstellung (TODO POSTPRODUCTION)
-        if (this._status === 'Release') this.totalOutgoings = this._preProduction.outgoings + this._production.outgoings
+        this._totalOutgoings = this._preProduction.outgoings
     }
 
     setProduction() {
         if (this._status === 'Production' && this._preProduction instanceof PreProduction || this._preProduction instanceof preProductionTest) {
-            this._production = new Production(this._preProduction.releaseDate)
+            this._production = new Production(this._preProduction.releaseDate, this._preProduction.productionLength)
         }
     }
 
     setPostProduction() {
-        if (this._status === 'Postproduction' && this._production instanceof Production) {
+        if (this._status === 'Post Production' && this._production instanceof Production) {
             this._postProduction = new PostProduction(this._preProduction.postProductionLength, this._preProduction.screenplay)
         }
     }
 
     setRelease() {
-        if (this.status === 'Release' && this._postProduction instanceof PostProduction) {
+        if (this._status === 'Released' && this._postProduction instanceof PostProduction) {
             this.genrePopularity = this.calcGenrePopularities()
             this.subgenrePopularity = this.calcSubGenrePopularities()
             this.topicPopularity = this.calcTopicPopularities()
             console.log(this.genrePopularity)
             console.log(this.subgenrePopularity)
             console.log(this.topicPopularity)
+            //TODO releaseScope
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this.owner, 2,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
