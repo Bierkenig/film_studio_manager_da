@@ -26,7 +26,7 @@ async function createWindow() {
         resizable: true,
         movable: true,
         useContentSize: true,
-        title: "Film Studio Manager",
+        //frame: false,
     })
 
     console.log(screen.getPrimaryDisplay())

@@ -54,7 +54,7 @@ export default {
 
   methods: {
     changeToCinema() {
-      this.$store.getters.getCurrentMovie._status = 'Release'
+      this.$store.getters.getCurrentMovie._status = 'Released'
       this.$store.getters.getCurrentMovie.setRelease()
 
       //clear from production

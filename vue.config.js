@@ -7,8 +7,8 @@ module.exports = {
                 "productName": "Film Studio Manager",
                 "target": "NSIS",
                 "nsis": {
-                    "allowToChangeInstallationDirectory": true,
-                    "oneClick": false
+                    "allowToChangeInstallationDirectory": false,
+                    "oneClick": true
                 },
             },
             // Use this to change the entrypoint of your app's main process

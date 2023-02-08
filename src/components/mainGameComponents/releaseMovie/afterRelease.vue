@@ -80,6 +80,7 @@ export default {
     },
 
     finishMovie() {
+      this.$store.getters.getCurrentMovie._status = "Finished"
       this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
       this.$store.state.currentMovie = null
       let index = this.$store.getters.getCreatedMovies.indexOf(this.$store.getters.getCurrentMovie)
