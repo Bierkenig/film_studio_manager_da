@@ -16,6 +16,7 @@ import Genre from "@/classes/Genre";
 import DBFetcher from "@/classes/DBFetcher";
 import FinancialHistoryEntry from "@/classes/FinancialHistoryEntry";
 import Loan from "@/classes/Loan";
+import Award from "@/classes/Award";
 
 export default createStore({
     /** Application state */
@@ -49,7 +50,6 @@ export default createStore({
         currentDate: new Date("2023-01-01T00:00:00.000Z"),
         currentLanguage: 'en',
         news: [],
-        reloading: false,
         earnings: [
             {
                 value: 245000,
@@ -913,31 +913,30 @@ export default createStore({
                 "screenplays",
                 "boughtScreenplays",
                 "studio",
-                "balance",
-                "currentMovieBudget",
-                "currentMovieExpenses",
                 "createdMovies",
                 "logo",
                 "currentDate",
                 "news",
                 "earnings",
                 "financialPerformance",
-                "inProductionMovies",
-                "finishedMovies",
                 "calendarEvents",
                 "happeningEvent",
                 "franchises",
+                "inProductionMovies",
+                "finishedMovies",
+                "awardsOfOwnStudio",
+                "moviesFromOtherStudios",
+                "screenplaysFromWriters",
+                "franchisesFromOtherStudios",
                 "otherStudios",
+                "boughtMovies",
+                "boughtMoviesRights",
                 "financialHistory",
-                "allYears",
-                "movieState",
-                "preProduction",
-                "marketing",
+                "currentLoans",
+                "preProductionEvents",
                 "streamingServicesFromOtherStudios",
                 "ownStreamingService",
-                "boughtMovies",
-                "moviesFromOtherStudios",
-                "allDirectorSalary",
+                "type"
             ])
 
             return reducedState
@@ -958,29 +957,14 @@ export default createStore({
 
             DataUtil.transferProperties(responseData, state, [
                 "slot",
-                "balance",
-                "currentMovieBudget",
-                "currentMovieExpenses",
-                "financialHistory",
-                "financialPerformance",
-                "allYears",
-                "allDirectorSalary",
-                "boughtMovies",
-                "moviesFromOtherStudios",
                 "logo",
-                "calenderEvents"
-
-                /**
-                 *                 //Store Daten falsch
-                 *                 "otherStudios",
-                 *                 //Store Daten leer
-                 *                 "movieState",
-                 *                 //Store Daten leer
-                 *                 "marketing",
-                 *                 preProduction
-                 */
-
+                "type",
+                "currentStudioTakeOverRequests",
+                "calenderEvents",
             ])
+
+                   //TODO objectMapPerProperty
+                    "preProductionEvents",
 
             state.currentDate = new Date(responseData.currentDate)
             state.ownStreamingService = responseData.ownStreamingService != null ? StreamingService.fromJSON(responseData.ownStreamingService) : null
@@ -994,13 +978,26 @@ export default createStore({
             state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
             state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-
             state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
-            //state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
+            state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
             state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
             state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.financialPerformance = responseData.financialPerformance.map(jsonObject => FinancialPerformance.fromJSON(jsonObject))
+            state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.awardsOfOwnStudio = responseData.awardsOfOwnStudio.map(jsonObject => Award.fromJSON(jsonObject))
+            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.screenplaysFromWriters = responseData.screenplaysFromWriters.map(jsonObject => Screenplay.fromJSON(jsonObject))
+            state.franchisesFromOtherStudios = responseData.franchisesFromOtherStudios.map(jsonObject => Franchises.fromJSON(jsonObject))
+            state.boughtMoviesRights = responseData.boughtMoviesRights.map(jsonObject => Movie.fromJSON(jsonObject))
+            state.financialHistory = responseData.financialHistory.map(jsonObject => FinancialHistoryEntry.fromJSON(jsonObject))
+            state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
 
-
+            //TODO entweder Person oder null
+            state.preProductionEvents = DataUtil.objectMapPerProperty(responseData.preProductionEvents,{
+                actorWhoWantsToDropOut: obj => obj && Person.fromJSON(obj),
+                directorWithDispute: obj => obj && Person.fromJSON(obj),
+            })
             // state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
             //     isPreProduction: value => value,
             //     currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
@@ -1126,6 +1123,9 @@ export default createStore({
                     "Thriller": [],
                     "War": []
             }
+            state.months = ["january", "february", "march", "april", "may", "june",
+                "july", "august", "september", "october", "november", "december"]
+            state.dbFetcher = new DBFetcher(),
             state.allPeople = []
             state.Actors = []
             state.allDirectors =[]
