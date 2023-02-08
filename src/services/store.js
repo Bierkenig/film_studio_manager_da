@@ -993,10 +993,9 @@ export default createStore({
             state.financialHistory = responseData.financialHistory.map(jsonObject => FinancialHistoryEntry.fromJSON(jsonObject))
             state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
 
-            //TODO entweder Person oder null
             state.preProductionEvents = DataUtil.objectMapPerProperty(responseData.preProductionEvents,{
-                actorWhoWantsToDropOut: obj => obj && Person.fromJSON(obj),
-                directorWithDispute: obj => obj && Person.fromJSON(obj),
+                actorWhoWantsToDropOut: obj => obj == null ? null : Person.fromJSON(obj),
+                directorWithDispute: obj => obj == null ? null : Person.fromJSON(obj),
             })
             // state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
             //     isPreProduction: value => value,
