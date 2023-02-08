@@ -58,6 +58,7 @@ export default class News {
         instance._award = Award.fromJSON(jsonObject._award)
         instance._movie = Movie.fromJSON(jsonObject._movie)
         instance._studio = Studio.fromJSON(jsonObject._studio)
+        instance._date = new Date(jsonObject._date)
         return instance
     }
 }

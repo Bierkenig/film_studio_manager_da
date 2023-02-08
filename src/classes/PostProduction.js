@@ -1,4 +1,5 @@
 import DataUtil from "@/classes/DataUtil";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default class PostProduction {
     constructor(postProductionLength, screenplay) {
@@ -27,8 +28,10 @@ export default class PostProduction {
     calcTestScreeningRating() {
     }
 
-    //TODO benni
     static fromJSON(jsonObject){
-        return Object.assign(new PostProduction(DataUtil.skip), jsonObject)
+        let instance = Object.assign(new PostProduction(DataUtil.skip), jsonObject)
+        instance.postProductionStart = new Date(jsonObject.postProductionStart)
+        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        return instance
     }
 }

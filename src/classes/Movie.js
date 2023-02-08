@@ -16,21 +16,15 @@ export class Movie {
             return
         }
         //TYPE -> String from another Class
-        this._title = this._screenplay?.title
+        this._title = this._screenplay.title
         //TYPE -> String
         this._status = null;
         //TYPE -> a preProduction Class Object
-        //TODO
         this._preProduction = new preProductionTest()
         //TYPE -> a production Class Object
-        //TODO
         this._production = null
-
-        //TODO
         //TYPE -> a postProduction Class Object
         this._postProduction = null
-
-        //TODO
         //TYPE -> releaseMovie class object
         this._release = null
         //TYPE -> director Class Object
@@ -186,6 +180,17 @@ export class Movie {
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Movie(DataUtil.skip), jsonObject)
         //TODO Cannot create Studio from String
+        instance._preProduction = new PreProduction(jsonObject._preProduction)
+        if(instance._production !== null){
+            instance._production = new Production(jsonObject._production)
+        }
+        if(instance._postProduction !== null) {
+            instance._postProduction = new PostProduction(jsonObject._postProduction)
+        }
+
+        if(instance._release !== null) {
+            instance._release = new Release(jsonObject._release)
+        }
         instance._owner = Studio.fromJSON(jsonObject._owner)
         instance._screenplay = Screenplay.fromJSON(jsonObject._screenplay)
         instance._date = new Date(jsonObject._date)

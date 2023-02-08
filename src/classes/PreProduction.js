@@ -43,9 +43,10 @@ export default class PreProduction {
     static fromJSON(jsonObject) {
         let instance = Object.assign(new PreProduction(DataUtil.skip), jsonObject)
         instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        instance.director = Person.fromJSON(jsonObject.director)
         instance.releaseDate = new Date(jsonObject.releaseDate)
         instance.startDate = new Date(jsonObject.startDate)
-        instance.director = Person.fromJSON(jsonObject.director)
+
         return instance;
     }
 
