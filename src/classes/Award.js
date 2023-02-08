@@ -5,7 +5,6 @@ export default class Award {
         if(arguments[0] === DataUtil.skip){
             return
         }
-
         this.desc = desc
         this.type = type
         this.year = year

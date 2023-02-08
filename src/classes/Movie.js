@@ -28,15 +28,15 @@ export class Movie {
         //TYPE -> releaseMovie class object
         this._release = null
         //TYPE -> director Class Object
-        this.director = this._preProduction.hiredDirector;
+        this.director = this._preProduction?.hiredDirector;
         //TYPE -> screenplay class Object
-        this._screenplay = this._preProduction.screenplay;
+        this._screenplay = this._preProduction?.screenplay;
         //TYPE -> Studio Class Object
         this._owner = owner;
         // null -> no rights bought / 0 -> unlimited rights (own created movie, bought movie)
         this._contract = contract;
         //NOT DONE YET
-        this._earnings = [new Earnings(100, new Date()), new Earnings(200, new Date())]
+        this._earnings = []
         //TYPE -> Integer
         this.genrePopularity = null
         //TYPE -> Integer
@@ -82,6 +82,7 @@ export class Movie {
             console.log(this.genrePopularity)
             console.log(this.subgenrePopularity)
             console.log(this.topicPopularity)
+            //TODO releaseScope
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this.owner, 2,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
