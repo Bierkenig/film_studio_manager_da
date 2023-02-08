@@ -1,12 +1,11 @@
 'use strict'
-import {app, BrowserWindow, ipcMain, protocol} from 'electron'
+import {app, BrowserWindow, ipcMain, protocol, screen} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 
 const path = require('path')
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const saving = require("./saving/Saving");
-const { screen } = require('electron')
 
 
 // Scheme must be registered before the app is ready
@@ -20,7 +19,7 @@ async function createWindow() {
         width: 1500,
         height: 600,
         webPreferences: {
-            nodeIntegration: false,
+            nodeIntegration: true,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js')
         },

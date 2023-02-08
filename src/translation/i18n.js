@@ -138,13 +138,14 @@ i18next
                         },
                         production: {
                             title: "Production Summary",
+                            progress: "Progress",
+                            events: "Events happened"
                         },
                         postProduction: {
-
+                            title: "Post Production Summary",
+                            progress: "Progress",
+                            events: "Events happened"
                         },
-                        release: {
-
-                        }
                     },
                     buyScreenplaySection: {
                         buyScreenplay: "Buy a Screenplay",
