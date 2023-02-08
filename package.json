@@ -1,11 +1,12 @@
 {
   "name": "film_studio_manager_da",
   "version": "1.0.0",
-  "private": true,
-  "description": "FSM is a Simulation with the Film Industry as topic",
+  "description": "Film Studio Manager is a Simulation with the Film Industry as Topic",
+  "license": "MIT",
   "author": {
     "name": "FSM TEAM (Jakob Mucherl, Harman Dhanoya, Benedikt Schmid, Julian Singer, Benjamin Zeeh)"
   },
+
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -15,9 +16,7 @@
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps"
   },
-  "build": {
-    "appId": "com.fsm.app"
-  },
+
   "main": "background.js",
   "dependencies": {
     "@fullcalendar/daygrid": "^5.11.3",
@@ -30,7 +29,6 @@
     "core-js": "^3.25.2",
     "date-fns": "^2.29.3",
     "dateformat": "^5.0.3",
-    "electron": "^13.6.9",
     "hidefile": "^3.0.0",
     "i18next": "^21.10.0",
     "i18next-browser-languagedetector": "^6.1.8",
@@ -50,6 +48,7 @@
     "vue3-observe-visibility": "^0.1.2",
     "vuex": "^4.0.2"
   },
+
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
@@ -63,6 +62,7 @@
     "vue-cli-plugin-electron-builder": "~2.1.1",
     "electron-builder": "^23.6.0"
   },
+
   "eslintConfig": {
     "root": true,
     "env": {
@@ -77,6 +77,7 @@
     },
     "rules": {}
   },
+
   "browserslist": [
     "> 1%",
     "last 2 versions",
