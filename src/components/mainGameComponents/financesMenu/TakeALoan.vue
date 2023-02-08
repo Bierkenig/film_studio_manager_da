@@ -8,19 +8,19 @@
               <div>
                 <div v-if="loansAvailable">
                   <h3>{{$t('takeALoan.title')}}</h3>
-                  <div v-if="this.$store.getters.getStudio.budget > 50000000">
+                  <div v-if="this.$store.getters.getStudio.budget >= 1">
                     <div>{{$t('takeALoan.low')}}</div>
                     <div>$ {{low.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}</div>
                     <div>{{low.interests}}% {{$t('takeALoan.Interests')}}</div>
                     <button @click="takeLoan(50000000)">{{$t('takeALoan.take')}}</button>
                   </div>
-                  <div v-if="this.$store.getters.getStudio.budget > 250000000">
+                  <div v-if="this.$store.getters.getStudio.budget >= 1">
                     <div>{{$t('takeALoan.medium')}}</div>
                     <div>$ {{medium.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}</div>
                     <div>{{medium.interests}}% {{$t('takeALoan.interests')}}</div>
                     <button @click="takeLoan(250000000)">{{$t('takeALoan.take')}}</button>
                   </div>
-                  <div v-if="this.$store.getters.getStudio.budget > 1000000000">
+                  <div v-if="this.$store.getters.getStudio.budget >= 1">
                     <div>{{$t('takeALoan.high')}}</div>
                     <div>$ {{high.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}</div>
                     <div>{{high.interests}}% {{$t('takeALoan.interests')}}</div>
