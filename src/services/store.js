@@ -15,6 +15,7 @@ import Topic from "@/classes/Topic";
 import Genre from "@/classes/Genre";
 import DBFetcher from "@/classes/DBFetcher";
 import FinancialHistoryEntry from "@/classes/FinancialHistoryEntry";
+import Loan from "@/classes/Loan";
 
 export default createStore({
     /** Application state */
@@ -41,7 +42,6 @@ export default createStore({
         currentMovieDetails: null,
         currentProdEventType: "",
         currentPostProdEventType: "sound",
-        createdMovies: [],
         currentScreenplay: null,
         logo: null,
         soundeffects: false,
@@ -201,7 +201,11 @@ export default createStore({
         franchises: [],
         currentFranchise: null,
 
+        //while cinema
+        createdMovies: [],
+        //while production
         inProductionMovies: [],
+        //when finished
         finishedMovies: [new Movie(new Studio(100,"JJJJ"), 0)],
         awardsOfOwnStudio: [],
 
@@ -216,14 +220,14 @@ export default createStore({
         //TODO: schauen, ob bei save file dabei
         boughtMovies: [],
         //TODO: neu hinzugeben bei save
-        boughtMovieRights: [],
+        boughtMovieRights: [new Movie(new Studio(0, "hallo", 2023, 23455, 12), 0)],
 
         financialHistory: [
             new FinancialHistoryEntry('event1', 'desc1', null)
         ],
 
         currentLoans: [
-            {id: 0, value: 20394, date: new Date(2023, 3, 2)}
+            new Loan(0, 203930, new Date(2023, 3, 2))
         ],
 
         currentStudioTakeOverRequests: [],

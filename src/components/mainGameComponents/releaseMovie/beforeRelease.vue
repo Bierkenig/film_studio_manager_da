@@ -10,13 +10,28 @@
               <div>
                 <div>{{$t('beforeRelease.screenplay.msg')}}</div>
                 <div>{{$t('beforeRelease.screenplay.writer')}}: {{screenplay.writer}}</div>
+                <div>
+                  <div>{{$t('beforeRelease.screenplay.topics')}}</div>
+                  <div>{{$t('beforeRelease.screenplay.topic1')}}: {{screenplay.firstTopic !== null ? screenplay.firstTopic : $t('beforeRelease.screenplay.error')}}</div>
+                  <div>{{$t('beforeRelease.screenplay.topic2')}}: {{screenplay.secondTopic !== null ? screenplay.secondTopic : $t('beforeRelease.screenplay.error')}}</div>
+                  <div>{{$t('beforeRelease.screenplay.topic3')}}: {{screenplay.thirdTopic !== null ? screenplay.thirdTopic : $t('beforeRelease.screenplay.error')}}</div>
+                </div>
               </div>
-
-              <!-- Waiting for PostProduction -->
-              <div>{{$t('beforeRelease.criticsRating')}}</div>
-              <div>{{$t('beforeRelease.audienceRating')}}</div>
-              <div>{{$t('beforeRelease.open')}}</div>
-              <div>{{$t('beforeRelease.feedbacks')}}</div>
+              <div>
+                <div>{{$t('beforeRelease.director.msg')}}</div>
+                <div>{{$t('beforeRelease.director.name')}}: {{director._first_name}} {{director._last_name}}</div>
+                <div>{{$t('beforeRelease.director.age')}}: {{director._age}}</div>
+                <div>{{$t('beforeRelease.director.gender')}}: {{director._gender}}</div>
+                <div>{{$t('beforeRelease.director.talent')}}: {{director._talent}}</div>
+                <div>{{$t('beforeRelease.director.pop')}}: {{director._popularity}}</div>
+                <div>{{$t('beforeRelease.director.rating')}}: {{director._rating}}</div>
+              </div>
+              <div>
+                <div>{{$t('beforeRelease.quality')}}: {{movie.quality}}</div>
+              </div>
+              <div>
+                <button @click="changeToCinema()">{{$t('beforeRelease.release')}}</button>
+              </div>
             </slot>
           </div>
         </div>
@@ -39,8 +54,21 @@ export default {
     return {
       movieTitle: this.movie._title,
       screenplay: this.movie._preProduction.screenplay,
+      director: this.movie._preProduction.hiredDirector
     }
   },
+
+  methods: {
+    changeToCinema() {
+      //clear from production
+      this.$store.commit('removeInProductionMovie', this.movie)
+
+      //add to cinema
+      this.$store.commit('addCreatedMovie', this.movie)
+
+      this.$emit('close')
+    }
+  }
 }
 </script>
 

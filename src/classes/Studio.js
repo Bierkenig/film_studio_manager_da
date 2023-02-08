@@ -16,7 +16,7 @@ export class Studio {
         this.budget = budget;
         //TYPE -> Integer
         this.popularity = popularity;
-        //TYPE -> Integer
+        //TYPE -> Object
         this.marketShare = {"2023": 23, "2024": 45}
         //TYPE -> Array
         this.movies = [];

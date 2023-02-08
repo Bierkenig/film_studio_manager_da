@@ -147,6 +147,47 @@ i18next
                             events: "Events happened"
                         },
                     },
+                    beforeRelease: {
+                        details: "Movie Details",
+                        screenplay: {
+                            msg: "Screenplay",
+                            writer: "Writer",
+                            topics: "Topics",
+                            topic1: "Topic 1",
+                            topic2: "Topic 2",
+                            topic3: "Topic 3",
+                            error: "No Topic was selected"
+                        },
+                        director: {
+                            msg: "Director",
+                            name: "Name",
+                            age: "Age",
+                            gender: "Gender",
+                            talent: "Talent",
+                            pop: "Popularity",
+                            rating: "Rating",
+
+                        },
+                        quality: "Quality",
+                        release: "Release",
+                    },
+                    afterReleaseWithCinema: {
+                        details: "Release Details",
+                        criticsRating: "Critics Rating",
+                        audienceRating: "Audience Rating",
+                        release: "Release Popularity",
+                        open: "Opening Week Earnings",
+                    },
+                    afterRelease: {
+                        summary: "Movie Performance",
+                        next: "Next Steps",
+                        qst: "Do you want to create a Franchise?",
+                        plan: "Release Plan",
+                        create: "Create Franchise",
+                        dvd: "DVD Release",
+                        streaming: "Your Streaming Service owns the Movie",
+                        streamingList: "Your Movies from your Streaming Service"
+                    },
                     buyScreenplaySection: {
                         buyScreenplay: "Buy a Screenplay",
                         buy: "Buy",
@@ -419,29 +460,6 @@ i18next
                             optionB: "Do not allow any reshootings",
                             consequenceB1: "Director’s morale goes down according to director’s overall rating",
                         },
-                    },
-                    beforeRelease: {
-                        details: "Movie Details",
-                        title: "Title",
-                        screenplay: {
-                            msg: "Screenplay",
-                            writer: "Writer",
-                            topics: "Topics",
-                        },
-                        director: "Director",
-                        popularity: "Popularity",
-                        criticsRating: "Critics Rating",
-                        audienceRating: "Audience Rating",
-                        open: "Opening Week Earnings",
-                        feedbacks: "Feedbacks"
-                    },
-                    afterRelease: {
-                        summary: "Movie Performance",
-                        next: "Next Steps",
-                        qst: "Do you want to create a Franchise?",
-                        create: "Create Franchise",
-                        dvd: "DVD Release",
-                        streaming: "Your Streaming Service owns the Movie"
                     },
                     finishMovie: "Finish Movie",
                     postProductionEvents: {

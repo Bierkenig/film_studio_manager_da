@@ -6,7 +6,6 @@
           <div class="modal-body">
             <slot name="body">
               <h3>{{$t('afterRelease.summary')}}</h3>
-              <!-- TODO WAIT FOR DOCU-->
               <h4>{{$t('afterRelease.next')}}></h4>
               <div>
                 <div>{{$t('afterRelease.qst')}}</div>
@@ -14,11 +13,18 @@
                 <button @click="createFranchise">{{$t('afterRelease.create')}}</button>
               </div>
 
-              <div>
-                <div>{{$t('afterRelease.dvd')}}</div>
-              </div>
+              <h3>{{$t('afterRelease.plan')}}</h3>
 
               <div>
+                <div>{{$t('afterRelease.dvd')}}</div>
+                <div>$ {{release.dvdGross}}</div>
+              </div>
+
+              <div v-if="this.$store.getters.getOwnStreamingService !== null">
+                <div>{{$t('afterRelease.streamingList')}}</div>
+                <div v-for="(el, index) in streamMovies" :key="index">
+                  {{el._preProduction.screenplay.title}}
+                </div>
                 <div>{{$t('afterRelease.streaming')}}</div>
               </div>
 
@@ -34,6 +40,7 @@
 <script>
 
 import {Movie} from "@/classes/Movie";
+import Franchises from "@/classes/Franchises";
 
 export default {
   name: "after-release",
@@ -44,25 +51,39 @@ export default {
   data() {
     return {
       inputFranchise: "",
+      release: this.movie._release,
+      streamMovies: this.$store.getters.getBoughtMovieRights
     }
   },
 
   methods: {
     createFranchise() {
-      this.$store.commit('addFranchise', this.inputFranchise)
-      this.$store.state.currentMovie._franchiseType = this.inputFranchise
+      const id = this.$store.getters.getFranchises.length
+      const studio = this.$store.getters.getStudio
+      let franchise = new Franchises(id, this.inputFranchise, studio, this.$store.getters.getCurrentDate)
+      franchise.addAllMovies(this.movie)
+      let check = this.$store.getters.getFranchises.forEach((el) => {
+        if (el.name === franchise.name) {
+          return true
+        }
+      })
+
+      if (!check) {
+        this.$store.commit('addFranchise', franchise)
+
+      }
     },
 
     finishMovie() {
       this.$store.commit('addFinishedMovie', this.movie)
       this.$store.state.currentMovie = null
-      let index = this.$store.state.createdMovies.indexOf(this.movie)
+      let index = this.$store.getters.getCreatedMovies.indexOf(this.movie)
       this.$store.state.createdMovies.slice(index, 1)
+    },
+  },
 
-      if (this.$store.state.ownStreamingService !== null) {
-        //TODO add to Streaming Service
-      }
-    }
+  mounted() {
+    this.$store.commit('addBoughtMovieRights', this.movie)
   }
 }
 </script>

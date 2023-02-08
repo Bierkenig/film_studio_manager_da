@@ -35,11 +35,6 @@ export default class Release {
         this.marketingInternet = marketingInternet
         this.marketingCommericals = marketingCommericals
 
-        //Earnings for movies
-        this.openingWeekGross = 0;
-        this.cinemaGross = 0;
-        this.dvdGross = 0;
-
         //Equations
         //QUALITY
         //Production Budget
@@ -177,10 +172,25 @@ export default class Release {
 
         this.totalEarnings = this.openingEarnings + this.continuingEarnings
 
+        //Earnings for movies
+        this.openingWeekGross = this.openingEarnings;
+        this.cinemaGross = 0;
+        this.dvdGross = this.getDVDEarnings();
+
+    }
+
+    getDVDEarnings() {
+        if (this.audienceFormula < 50) {
+            return ((Math.round(Math.random() * (15 - 5)) + 5) / 100) * this.cinemaGross
+        } else if (this.audienceFormula >= 50 && this.audienceFormula < 75) {
+            return ((Math.round(Math.random() * (25 - 15)) + 15) / 100) * this.cinemaGross
+        } else if (this.audienceFormula >= 75) {
+            return ((Math.round(Math.random() * (35 - 25)) + 25) / 100) * this.cinemaGross
+        }
     }
 
     calcNumberOfMovieTopics() {
-        let amount;
+        let amount = 0
         if (this.topicPopularity.first !== null) amount++;
         else if (this.topicPopularity.second !== null) amount++;
         else if (this.topicPopularity.third !== null) amount++;

@@ -16,7 +16,7 @@ export class Movie {
             return
         }
         //TYPE -> String from another Class
-        this._title = this._screenplay.title
+        this._title = this._screenplay?.title
         //TYPE -> String
         this._status = null;
         //TYPE -> a preProduction Class Object
