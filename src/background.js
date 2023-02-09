@@ -26,7 +26,7 @@ async function createWindow() {
         resizable: true,
         movable: true,
         useContentSize: true,
-        //frame: false,
+        icon: 'assets/FSM_Icon_256x.png',
     })
 
     console.log(screen.getPrimaryDisplay())

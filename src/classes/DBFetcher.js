@@ -63,7 +63,7 @@ export default class DBFetcher {
         //Fetch Genre
         window.ipcRenderer.send('getGenres', 'SELECT * FROM genre');
         window.ipcRenderer.receive('gotGenres', (data) => {
-            this.allGenres.push(new Genre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
+            this.allGenres.push(new Genre(data.genreName.replaceAll(' ','-'), data.childrenPopularity, data.teenPopularity, data.adultPopularity))
         })
 
 

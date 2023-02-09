@@ -5,7 +5,16 @@
         <div>
           <h2 class="date">{{ $t('today') }}</h2>
           <div class="event" v-for="(it,index) in todayEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" @open-clicked="goToEvent(it)" :status="elementStatus"/>
+            <event-element v-if="it.type === 'beforeRelease'"
+                           :type="it.type"
+                           :movie-title="it.movie"
+                           @open-clicked="goToEvent(it)"
+                           :status="beforeReleaseCompleted"/>
+            <event-element v-else
+                           :type="it.type"
+                           :movie-title="it.movie"
+                           @open-clicked="goToEvent(it)"
+                           :status="it.completed === false ? 'open' : 'done'"/>
           </div>
         </div>
         <div>
@@ -109,6 +118,39 @@
         </template>
       </post-production-summary>
     </transition>
+
+    <!--BEFORE RELEASE MODAL-->
+    <transition name="modal">
+      <before-release
+          v-if="showBeforeReleaseModal"
+          @close="showBeforeReleaseModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </before-release>
+    </transition>
+
+    <!--AFTER RELEASE WITH CINEMA RUN MODAL-->
+    <transition name="modal">
+      <after-release-with-cinema-run
+          v-if="showAfterReleaseWithCinemaRunModal"
+          @close="showAfterReleaseWithCinemaRunModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </after-release-with-cinema-run>
+    </transition>
+
+    <!--AFTER RELEASE MODAL-->
+    <transition name="modal">
+      <after-release-with-cinema-run
+          v-if="showAfterReleaseModal"
+          @close="showAfterReleaseModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </after-release-with-cinema-run>
+    </transition>
   </div>
 </template>
 
@@ -123,9 +165,13 @@ import ContinueProd from "@/components/mainGameComponents/currentProduction/cont
 import ProductionSummary from "@/components/mainGameComponents/currentProduction/productionSummary.vue";
 import ContinuePostProd from "@/components/mainGameComponents/postProduction/continueProductionPost.vue";
 import PostProductionSummary from "@/components/mainGameComponents/postProduction/postProductionSummary.vue";
+import BeforeRelease from "@/components/mainGameComponents/releaseMovie/beforeRelease.vue";
+import AfterReleaseWithCinemaRun from "@/components/mainGameComponents/releaseMovie/afterReleaseWithCinemaRun.vue";
 export default {
   name: "UpcomingEventsSection",
   components: {
+    AfterReleaseWithCinemaRun,
+    BeforeRelease,
     PostProductionSummary,
     ContinuePostProd, ProductionSummary, ContinueProd, PreProductionSummary, PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
   data(){
@@ -148,8 +194,13 @@ export default {
       showContinuePostProdModal: false,
       showContinueProdModal: false,
 
+      // data for showing release modals
+      showBeforeReleaseModal: false,
+      showAfterReleaseWithCinemaRunModal: false,
+      showAfterReleaseModal: false,
+
       chosenType: '',
-      elementStatus: 'open',
+      beforeReleaseCompeted: 'none',
     }
   },
 
@@ -173,10 +224,17 @@ export default {
         this.showProductionSummaryModal = true;
       } else if(event.type === 'postProductionFinished'){
         this.showPostProductionSummaryModal = true;
+        this.beforeReleaseCompeted = 'open';
+      } else if(event.type === 'beforeRelease'){
+        this.showBeforeReleaseModal = true;
+        this.beforeReleaseCompeted = 'done';
+      } else if(event.type === 'afterReleaseWithCinemaRun'){
+        this.showAfterReleaseWithCinemaRunModal = true;
+      } else if(event.type === 'afterRelease'){
+        this.showAfterReleaseModal = true;
       }
 
       this.$store.commit('setCurrentCalendarEvent',event);
-      this.elementStatus = 'done';
     },
 
     getNextWeeksDate() {

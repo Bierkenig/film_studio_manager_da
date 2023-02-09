@@ -85,7 +85,19 @@ export default {
       this.$store.state.currentMovie = null
       let index = this.$store.getters.getCreatedMovies.indexOf(this.$store.getters.getCurrentMovie)
       this.$store.state.createdMovies.slice(index, 1)
+      this.closeModal();
     },
+
+    closeModal(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
+    }
   },
 
   mounted() {
