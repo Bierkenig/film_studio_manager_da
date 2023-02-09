@@ -27,7 +27,7 @@
                 <div>{{$t('beforeRelease.director.rating')}}: {{director._rating}}</div>
               </div>
               <div>
-                <div>{{$t('beforeRelease.quality')}}: {{movie.quality}}</div>
+                <div>{{$t('beforeRelease.quality')}}: {{this.$store.getters.getCurrentMovie.quality}}</div>
               </div>
               <div>
                 <button @click="changeToCinema()">{{$t('beforeRelease.release')}}</button>
@@ -64,8 +64,6 @@ export default {
       this.$store.commit('addCreatedMovie', this.$store.getters.getCurrentMovie)
 
       //set null
-      this.$store.commit('setCurrentMovie', null)
-
       this.$emit('close')
     }
   }
