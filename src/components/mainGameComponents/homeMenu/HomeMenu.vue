@@ -32,10 +32,6 @@ export default {
       window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), this.$store.getters.getSlot])
     }
   },
-
-  mounted() {
-    console.log(this.$store.getters.getCalendarEvents)
-  }
 }
 </script>
 
