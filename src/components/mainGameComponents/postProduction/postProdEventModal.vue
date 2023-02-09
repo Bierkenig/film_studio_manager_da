@@ -62,7 +62,9 @@ export default {
       releaseDate: null,
       dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
       type: this.$store.state.currentPostProdEventType,
-      wholeBudget: this.$store.getters.getCurrentMovie._preProduction.getWholeBudget()
+      wholeBudget: this.$store.getters.getCurrentMovie._preProduction.getWholeBudget(),
+      screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
+
     }
   },
 
@@ -74,9 +76,27 @@ export default {
           this.$emit('close')
           break
         case "postProductionProblem":
-          this.$store.state.currentMovie._preProduction.hype *= 0.85
-          this.calcDireMorale(true)
-          this.$router.push({name: "actorSection"})
+          //TODO hype abziehen wenn releasedate drüber
+          if(this.screenplayScope === 'Little'){
+            this.durWeeks += 1;
+          }
+          else if(this.screenplayScope === 'Small'){
+            this.durWeeks += 2;
+          }
+          else if(this.screenplayScope === 'Normal'){
+            this.durWeeks += 4;
+          }
+          else if(this.screenplayScope === 'Large'){
+            this.durWeeks += 6;
+          }
+          else if(this.screenplayScope === 'Epic'){
+            this.durWeeks += 8;
+          }
+          //this.$store.state.currentMovie._preProduction.hype *= 0.85
+
+          this.check()
+          this.$emit('close')
+
           break
         case "visualEffects":
           this.$store.state.currentMovie._preProduction.budget.vfx *= 1.2
@@ -87,11 +107,27 @@ export default {
           this.$emit('close')
           break
         case "reshooting":
-          //TODO nicht fertig
-          //this.wholeBudget = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * 1.1
-          this.calcDireMorale(true)
-          this.crewMoraleGoes(1)
+          //TODO hype abziehen wenn releasedate drüber
+          this.wholeBudget = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * 1.2
+          if(this.screenplayScope === 'Little'){
+            this.durWeeks += 2;
+
+          }
+          else if(this.screenplayScope === 'Small'){
+            this.durWeeks += 4;
+          }
+          else if(this.screenplayScope === 'Normal'){
+            this.durWeeks += 6;
+          }
+          else if(this.screenplayScope === 'Large'){
+            this.durWeeks += 8;
+          }
+          else if(this.screenplayScope === 'Epic'){
+            this.durWeeks += 10;
+          }
+          this.check()
           this.$emit('close')
+
           break
       }
     },
@@ -99,9 +135,7 @@ export default {
     bOption() {
       switch (this.type) {
         case "sound":
-          this.$store.state.currentMovie._production.haltedStartDate = this.$store.state.currentDate
-          this.$store.state.currentMovie._production.haltedDuration += 4
-          this.$store.state.currentMovie._production.calcHaltedEndDate()
+          this.calcDireMorale(false)
           break
         case "postProductionProblem":
           this.calcDireMorale(false)

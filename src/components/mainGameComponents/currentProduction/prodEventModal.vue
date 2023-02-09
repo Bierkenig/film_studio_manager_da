@@ -193,7 +193,8 @@ export default {
       //TODO releaseDate
       this.$store.state.currentMovie._preProduction.productionLength += this.durWeeks
       if (this.type === 'duration') {
-        if(this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength === this.$store.state.currentMovie._preProduction.releaseDate) {
+        if(this.$store.state.currentMovie._preProduction.startDate.getDate() + (7 * this.$store.state.currentMovie._preProduction.productionLength)
+            === this.$store.state.currentMovie._preProduction.releaseDate ) {
           this.releaseDate = this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength
           this.date = true
         } else {

@@ -191,18 +191,18 @@ export default {
     },
 
     calcSum() {
-      this.$store.state.currentMovie._preProduction.budget.production = parseInt(this.production.value)
-      this.$store.state.currentMovie._preProduction.budget.extras = parseInt(this.extras.value)
-      this.$store.state.currentMovie._preProduction.budget.cinematography = parseInt(this.cinematography.value)
-      this.$store.state.currentMovie._preProduction.budget.sound = parseInt(this.sound.value)
-      this.$store.state.currentMovie._preProduction.budget.editing = parseInt(this.editing.value)
-      this.$store.state.currentMovie._preProduction.budget.score = parseInt(this.score.value)
-      this.$store.state.currentMovie._preProduction.budget.set = parseInt(this.set.value)
-      this.$store.state.currentMovie._preProduction.budget.stunts = parseInt(this.stunts.value)
-      this.$store.state.currentMovie._preProduction.budget.costume = parseInt(this.costume.value)
-      this.$store.state.currentMovie._preProduction.budget.makeup = parseInt(this.makeup.value)
-      this.$store.state.currentMovie._preProduction.budget.sfx = parseInt(this.sfx.value)
-      this.$store.state.currentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.production = parseInt(this.production.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.extras = parseInt(this.extras.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.cinematography = parseInt(this.cinematography.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.sound = parseInt(this.sound.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.editing = parseInt(this.editing.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.score = parseInt(this.score.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.set = parseInt(this.set.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.stunts = parseInt(this.stunts.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.costume = parseInt(this.costume.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.makeup = parseInt(this.makeup.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.sfx = parseInt(this.sfx.value)
+      this.$store.getters.getCurrentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
 
       this.total = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget()
     },

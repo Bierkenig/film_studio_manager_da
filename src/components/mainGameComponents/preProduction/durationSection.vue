@@ -89,40 +89,40 @@ export default {
         this.preProduction.max = 4
         this.production.min = 4
         this.production.max = 8
-        this.production.min = 4
-        this.production.max = 8
+        this.postProduction.min = 4
+        this.postProduction.max = 8
         break
       case "Small":
         this.preProduction.min = 4
         this.preProduction.max = 6
         this.production.min = 8
         this.production.max = 12
-        this.production.min = 8
-        this.production.max = 12
+        this.postProduction.min = 8
+        this.postProduction.max = 12
         break
       case "Normal":
         this.preProduction.min = 6
         this.preProduction.max = 8
         this.production.min = 12
         this.production.max = 16
-        this.production.min = 12
-        this.production.max = 16
+        this.postProduction.min = 12
+        this.postProduction.max = 16
         break
       case "Large":
         this.preProduction.min = 8
         this.preProduction.max = 10
         this.production.min = 16
         this.production.max = 20
-        this.production.min = 16
-        this.production.max = 20
+        this.postProduction.min = 16
+        this.postProduction.max = 20
         break
       case "Epic":
         this.preProduction.min = 10
         this.preProduction.max = 12
         this.production.min = 20
         this.production.max = 24
-        this.production.min = 20
-        this.production.max = 24
+        this.postProduction.min = 20
+        this.postProduction.max = 24
         break
     }
 
