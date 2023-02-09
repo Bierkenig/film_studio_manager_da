@@ -27,8 +27,6 @@ export default {
     cancelMovie() {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
-      this.$store.state.currentMovie = null
-      this.$store.state.summaries.preProductionClose = true
       this.closeModal();
     },
 
@@ -49,10 +47,7 @@ export default {
         type: 'postProductionFinished',
         completed: false,
       })
-      this.$store.state.summaries.preProductionClose = true
 
-      //set current movie null
-      this.$store.commit('setCurrentMovie', null)
       this.closeModal();
     },
 
