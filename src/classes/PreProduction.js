@@ -17,7 +17,6 @@ export default class PreProduction {
         this.postProductionLength = 0
         this.releaseDate = null
         this.startDate = null
-        if (this.startDate instanceof Date)this.endDate = this.calcEndDate()
         this.budget = {
             production: 0,
             extras: 0,
@@ -134,9 +133,5 @@ export default class PreProduction {
             this.budget.sound + this.budget.editing + this.budget.score + this.budget.set +
             this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
             this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary + this.budget.actorSalary + this.budget.writerSalary)
-    }
-
-    calcEndDate() {
-        return this.startDate.setDate(this.startDate.getDate() + this.preProductionLength * 7);
     }
 }

@@ -93,6 +93,16 @@
         </template>
       </continue-post-prod>
     </transition>
+
+    <transition name="modal">
+      <post-production-summary
+          v-if="showPostProductionSummaryModal"
+          @close="showPostProductionSummaryModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </post-production-summary>
+    </transition>
   </div>
 </template>
 
@@ -106,13 +116,12 @@ import PreProductionSummary from "@/components/mainGameComponents/preProduction/
 import ContinueProd from "@/components/mainGameComponents/currentProduction/continueProduction.vue";
 import ProductionSummary from "@/components/mainGameComponents/currentProduction/productionSummary.vue";
 import ContinuePostProd from "@/components/mainGameComponents/postProduction/continueProductionPost.vue";
+import PostProductionSummary from "@/components/mainGameComponents/postProduction/postProductionSummary.vue";
 export default {
   name: "UpcomingEventsSection",
   components: {
-    ContinuePostProd,
-    ProductionSummary,
-    ContinueProd,
-    PreProductionSummary, PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
+    PostProductionSummary,
+    ContinuePostProd, ProductionSummary, ContinueProd, PreProductionSummary, PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
   data(){
     return {
       todayEvents: [],
@@ -140,8 +149,8 @@ export default {
         this.showPreProductionModal = true;
         this.chosenType = type;
       } else if(type === 'weather' || type === 'castMember' || type === 'budgetForCostumes' || type === 'equipment'
-                || type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves'
-                || type === 'changes' || type === 'injured'){
+          || type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves'
+          || type === 'changes' || type === 'injured'){
         this.$store.commit('setCurrentProdEventType',type)
         this.showProductionModal = true;
       } else if(type === 'sound' || type === 'postProductionProblem' || type === 'visualEffects' || type === 'visualQuality'
@@ -153,7 +162,7 @@ export default {
       } else if(type === 'productionFinished'){
         this.showProductionSummaryModal = true;
       } else if(type === 'postProductionFinished'){
-        this.showProductionSummaryModal = true;
+        this.showPostProductionSummaryModal = true;
       }
     },
 

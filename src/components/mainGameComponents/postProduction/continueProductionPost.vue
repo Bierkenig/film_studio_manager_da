@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import store from "@/services/store";
+
 export default {
   name: "continue-post-prod",
 
@@ -26,6 +28,7 @@ export default {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
       this.$store.state.currentMovie = null
+      this.$store.state.summaries.preProductionClose = true
       this.$emit('close')
     },
 
@@ -33,6 +36,20 @@ export default {
       this.$store.getters.getCurrentMovie._status = 'Post Production'
       this.$store.getters.getCurrentMovie.setPostProduction()
       this.$store.getters.getCurrentMovie._postProduction.postProductionStart = this.$store.getters.getCurrentDate
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.postProductionLength * 7))
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'postProductionFinished',
+        completed: false,
+      })
+      this.$store.state.summaries.preProductionClose = true
 
       //set current movie null
       this.$store.commit('setCurrentMovie', null)

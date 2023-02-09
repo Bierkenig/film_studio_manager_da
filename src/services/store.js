@@ -171,7 +171,7 @@ export default createStore({
                 end: '2023-01-30',
                 type: 'internationalAward',
                 completed: false,
-            },*/
+            },
             {
                 id: 11,
                 movie: "SOMETHING",
@@ -197,7 +197,6 @@ export default createStore({
                 completed: false,
             },*/
         ],
-        happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
         currentFranchise: null,
 
@@ -310,6 +309,7 @@ export default createStore({
         dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
+        allPeopleTest: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],

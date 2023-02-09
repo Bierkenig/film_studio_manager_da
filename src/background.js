@@ -31,27 +31,6 @@ async function createWindow() {
 
     console.log(screen.getPrimaryDisplay())
 
-    //Resize to 16:9
-    // set aspect ratio to 16:9 on Windows
-    /*if (process.platform === 'win32') {
-        let size = win.getSize()
-        win.setSize(size[0], parseInt(size[0] * 9 / 16))
-    }*/
-    //win.setAspectRatio(win.getSize()[0] * 9 /16)
-    /*let screenDimension = screen.getPrimaryDisplay().workAreaSize
-    let width = screenDimension.width
-
-    const scaleFactor = 1 / (1920 / width);
-    win.once("ready-to-show", () => {
-            win.maximize();
-            win.setFullScreen(true);
-
-        //Adjust zoom factor according to DPI or scale factor that we determined before
-        console.log("Display with current scale factor: %o", scaleFactor);
-        win.webContents.setZoomFactor(scaleFactor);
-        win.show()
-    });*/
-
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
     let dbPath = "src/DB/database/fsm.db"
@@ -66,6 +45,20 @@ async function createWindow() {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
                 else event.sender.send('fromGetPeople', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('toGetPeopleTest', (event, data) => {
+        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('fromGetPeopleTest', row)
             })
         })
         db.close()
@@ -184,7 +177,7 @@ async function createWindow() {
             db.serialize(() => {
                 db.each(sql, params[i], (err) => {
                     if (err) console.log(err)
-                    else event.sender.send('killedPerson', "KILLED")
+                    else console.log("DB: Person KILLED")
                 })
             })
         }

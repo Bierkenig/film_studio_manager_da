@@ -36,10 +36,13 @@ export default function simulate() {
     updateStudioPopularity();
     updateOtherStudiosPopularity();
 
+    //Tracking Production Movies
+    console.log(store.getters.getCalendarEvents)
+
     //MONTHLY
-    if (store.getters.getCurrentDate.getDate() === 1 /*&&
-        store.getters.getCurrentDate.getMonth() !== "January" &&
-        store.getters.getCurrentDate.getFullYear() !== 2023*/)
+    if (store.getters.getCurrentDate.getDate() === 1 &&
+        store.getters.getCurrentDate.getMonth() !== 0 &&
+        store.getters.getCurrentDate.getFullYear() !== 2023)
     {
         renewPeople();
 
@@ -47,6 +50,12 @@ export default function simulate() {
         store.state.dbFetcher.clear()
         //FETCHING DB
         store.state.dbFetcher.fetch()
+    }
+
+    //YEARLY
+    if (store.getters.getCurrentDate.getDate() === 31
+        && store.getters.getCurrentDate.getMonth() === 11) {
+
     }
 }
 
@@ -827,9 +836,11 @@ function createScreenplaysFromWriters() {
     }
 }
 
+let counter = 0
+
 function renewPeople() {
     //kill and refresh people
-    let allPeople = store.state.allPeople
+    let allPeople = store.state.allPeopleTest
     let roles = {actor: 0, director: 0, writer: 0}
     let id = []
     let refresh = []
@@ -838,15 +849,15 @@ function renewPeople() {
         if (checkAge(el)) {
             id.push(el._id)
             let type = ""
-            if (el._isActor) {
+            if (el._isActor === "true") {
                 type += "Actor | "
                 roles.actor++
             }
-            if (el._isDirector) {
+            if (el._isDirector === "true") {
                 type += "Director | "
                 roles.director++
             }
-            if (el._isWriter) {
+            if (el._isWriter === "true") {
                 type += "Writer"
                 roles.writer++
             }
@@ -855,6 +866,7 @@ function renewPeople() {
             refresh.push(refreshPerson(el))
         }
     })
+    console.log(counter)
     window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", id])
     window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", refresh])
 
@@ -874,34 +886,35 @@ function renewPeople() {
 
     window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", newOnes])
     id = []
+    window.ipcRenderer.removeAllListeners('generatePerson')
+    window.ipcRenderer.removeAllListeners('killPerson')
+    window.ipcRenderer.removeAllListeners('refreshPerson')
 }
 
 function checkAge(person) {
-    const deathAge = person._deathAge > 30 ? person._deathAge - 20 : person._deathAge
-    const random = Math.random() * 100
-    console.log(random + " / " + deathAge)
+    const deathAge = person._deathAge
     if (deathAge < 10) {
-        return random <= 0.5
+        return randomNumber(0.0005) === 0
     } else if (deathAge >= 10 && deathAge < 20) {
-        return random === 1
+        return randomNumber(0.001) === 0
     } else if (deathAge >= 20 && deathAge < 30) {
-        return random <= 3
+        return randomNumber(0.002) === 0
     } else if (deathAge >= 30 && deathAge < 40) {
-        return random <= 5
+        return randomNumber(0.003) === 0
     } else if (deathAge >= 40 && deathAge < 50) {
-        return random <= 7
+        return randomNumber(0.005) === 0
     } else if (deathAge >= 50 && deathAge < 60) {
-        return random <= 10
+        return randomNumber(0.007) === 0
     } else if (deathAge >= 60 && deathAge < 70) {
-        return random <= 13
+        return randomNumber(0.009) === 0
     } else if (deathAge >= 70 && deathAge < 80) {
-        return random <= 20
+        return randomNumber(0.011) === 0
     } else if (deathAge >= 80 && deathAge < 90) {
-        return random <= 23
+        return randomNumber(0.014) === 0
     } else if (deathAge >= 90 && deathAge < 100) {
-        return random <= 29
+        return randomNumber(0.018) === 0
     } else if (deathAge >= 100) {
-        return random <= 35
+        return randomNumber(0.020) === 0
     }
 }
 
@@ -1036,8 +1049,15 @@ function generatePersonValues(roles) {
     let birthday = (Math.round(Math.random() * 29) + 1).toString() + "-" + (Math.round(Math.random() * 11) + 1).toString() + "-" + (store.getters.getCurrentDate.getFullYear() - age).toString()
 
     //create first + lastname
-    let firstName = "Benni"
-    let lastName = "Franklin"
+    const randomProfile = require('random-profile-generator');
+    let profile;
+    if (gender === 'diverse') {
+        profile = randomProfile.profile()
+    } else {
+        profile = randomProfile.profile(gender)
+    }
+    let firstName = profile.firstName
+    let lastName = profile.lastName
 
     //deathAge
     let diff = store.getters.getCurrentDate.getFullYear() - parseInt(birthday.split('-')[2])
