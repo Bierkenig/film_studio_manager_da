@@ -134,6 +134,16 @@ export default {
     },
 
     '$store.getters.getCurrentDate': function (){
+      this.checkCalendarEvents();
+    },
+
+    '$store.getters.getCurrentCalendarEvent.completed': function (){
+      this.checkCalendarEvents();
+    }
+  },
+
+  methods: {
+    checkCalendarEvents(){
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       this.allEventsCompleted = null;
       for (let i = 0; i < allCalendarEvents.length; i++) {
@@ -143,10 +153,8 @@ export default {
           }
         }
       }
-    }
-  },
+    },
 
-  methods: {
     focusButton(name){
       if(name === 'homeButton'){
         this.highlightButton[name] = false;
