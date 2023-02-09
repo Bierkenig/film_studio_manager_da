@@ -5,7 +5,7 @@
         <div>
           <h2 class="date">{{ $t('today') }}</h2>
           <div class="event" v-for="(it,index) in todayEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" @open-clicked="goToEvent(it.type)" status="open"/>
+            <event-element :type="it.type" :movie-title="it.movie" @open-clicked="goToEvent(it)" :status="elementStatus"/>
           </div>
         </div>
         <div>
@@ -23,6 +23,7 @@
       </div>
     </background-tile>
 
+    <!--EVENTS DURING PRE PRODUCTION-->
     <transition name="modal">
       <pre-production-event
           v-if="showPreProductionModal"
@@ -34,6 +35,7 @@
       </pre-production-event>
     </transition>
 
+    <!--EVENTS DURING PRODUCTION-->
     <transition name="modal">
       <prod-event-modal
           v-if="showProductionModal"
@@ -44,6 +46,7 @@
       </prod-event-modal>
     </transition>
 
+    <!--EVENTS DURING POST PRODUCTION-->
     <transition name="modal">
       <post-prod-modal
           v-if="showPostProductionModal"
@@ -54,6 +57,7 @@
       </post-prod-modal>
     </transition>
 
+    <!--PRE PRODUCTION SUMMARY WITH CONTINUE PRODUCTION MODAL-->
     <transition name="modal">
       <pre-production-summary
           v-if="showPreProductionSummaryModal"
@@ -74,6 +78,7 @@
       </continue-prod>
     </transition>
 
+    <!--PRODUCTION SUMMARY WITH CONTINUE POST PRODUCTION MODAL-->
     <transition name="modal">
       <production-summary
           v-if="showProductionSummaryModal"
@@ -94,6 +99,7 @@
       </continue-post-prod>
     </transition>
 
+    <!--POST PRODUCTION SUMMARY-->
     <transition name="modal">
       <post-production-summary
           v-if="showPostProductionSummaryModal"
@@ -128,42 +134,49 @@ export default {
       weekEvents: [],
       monthEvents: [],
 
+      // data for showing events during each production phase
       showPreProductionModal: false,
       showProductionModal: false,
       showPostProductionModal: false,
 
+      // data for showing summaries
       showPreProductionSummaryModal: false,
       showProductionSummaryModal: false,
       showPostProductionSummaryModal: false,
 
+      // data for showing continue modals
       showContinuePostProdModal: false,
       showContinueProdModal: false,
 
       chosenType: '',
+      elementStatus: 'open',
     }
   },
 
   methods: {
-    goToEvent(type){
-      if(type === 'dropOut' || type === 'recast' || type === 'creative' || type === 'difficulty' || type === 'extend'){
+    goToEvent(event){
+      if(event.type === 'dropOut' || event.type === 'recast' || event.type === 'creative' || event.type === 'difficulty' || event.type === 'extend'){
         this.showPreProductionModal = true;
-        this.chosenType = type;
-      } else if(type === 'weather' || type === 'castMember' || type === 'budgetForCostumes' || type === 'equipment'
-          || type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves'
-          || type === 'changes' || type === 'injured'){
-        this.$store.commit('setCurrentProdEventType',type)
+        this.chosenType = event.type;
+      } else if(event.type === 'weather' || event.type === 'castMember' || event.type === 'budgetForCostumes' || event.type === 'equipment'
+          || event.type === 'budget' || event.type === 'breakdown' || event.type === 'duration' || event.type === 'directorLeaves'
+          || event.type === 'changes' || event.type === 'injured'){
+        this.$store.commit('setCurrentProdEventType',event.type)
         this.showProductionModal = true;
-      } else if(type === 'sound' || type === 'postProductionProblem' || type === 'visualEffects' || type === 'visualQuality'
-          || type === 'reshooting'){
-        this.$store.commit('setCurrentPostProdEventType',type)
+      } else if(event.type === 'sound' || event.type === 'postProductionProblem' || event.type === 'visualEffects' || event.type === 'visualQuality'
+          || event.type === 'reshooting'){
+        this.$store.commit('setCurrentPostProdEventType',event.type)
         this.showPostProductionModal = true;
-      } else if(type === 'preProductionFinished'){
+      } else if(event.type === 'preProductionFinished'){
         this.showPreProductionSummaryModal = true;
-      } else if(type === 'productionFinished'){
+      } else if(event.type === 'productionFinished'){
         this.showProductionSummaryModal = true;
-      } else if(type === 'postProductionFinished'){
+      } else if(event.type === 'postProductionFinished'){
         this.showPostProductionSummaryModal = true;
       }
+
+      this.$store.commit('setCurrentCalendarEvent',event);
+      this.elementStatus = 'done';
     },
 
     getNextWeeksDate() {

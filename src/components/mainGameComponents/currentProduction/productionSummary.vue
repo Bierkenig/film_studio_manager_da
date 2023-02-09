@@ -14,7 +14,7 @@
               <div v-for="(el, index) in happenedEvents" :key="index">
                 {{$t('productionEvents.' + el + ".problem")}}
               </div>
-              <button @close="this.$emit('close')">{{$t('summaries.preProduction.close')}}</button>
+              <button @close="closeSummary">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>
@@ -45,6 +45,19 @@ export default {
     this.currentWeeks = this.$store.getters.getCurrentMovie._preProduction.productionLength
 
     this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
+  },
+
+  methods: {
+    closeSummary(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
+    }
   }
 }
 </script>

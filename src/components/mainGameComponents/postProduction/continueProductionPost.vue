@@ -29,7 +29,7 @@ export default {
       this.$store.state.inProductionMovies.slice(index, 1)
       this.$store.state.currentMovie = null
       this.$store.state.summaries.preProductionClose = true
-      this.$emit('close')
+      this.closeModal();
     },
 
     setMovieAgain() {
@@ -53,7 +53,18 @@ export default {
 
       //set current movie null
       this.$store.commit('setCurrentMovie', null)
-      this.$emit('close')
+      this.closeModal();
+    },
+
+    closeModal(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
     }
   }
 }

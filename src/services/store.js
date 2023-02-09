@@ -91,6 +91,7 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
             new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
         ],
+        currentCalendarEvent: null,
         calendarEvents: [
             /*{
                 id: 1,
@@ -583,6 +584,10 @@ export default createStore({
         getAwardsOfOwnStudio(state){
             return state.awardsOfOwnStudio;
         },
+
+        getCurrentCalendarEvent(state){
+            return state.currentCalendarEvent;
+        }
     },
 
     /** Methods that change the application state synchronously */
@@ -928,6 +933,10 @@ export default createStore({
 
         setCurrentPostProdEventType(state, type){
             state.currentPostProdEventType = type;
+        },
+
+        setCurrentCalendarEvent(state, event){
+            state.currentCalendarEvent = event;
         },
 
         stateToSave(state, reducedState){

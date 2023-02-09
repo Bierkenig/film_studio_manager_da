@@ -5,7 +5,7 @@
         <div class="modal-container" @click.stop="">
           <div class="modal-body">
             <slot name="body">
-              <button @click="this.$emit('close')">{{$t('summaries.preProduction.close')}}</button>
+              <button @click="this.closeSummary">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>
@@ -16,7 +16,20 @@
 
 <script>
 export default {
-  name: "postProductionSummary"
+  name: "postProductionSummary",
+
+  methods: {
+    closeSummary(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
+    }
+  }
 }
 </script>
 
