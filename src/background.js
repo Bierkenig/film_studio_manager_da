@@ -2,8 +2,8 @@
 import {app, BrowserWindow, ipcMain, protocol, screen} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
+const path = require('path');
 
-const path = require('path')
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const saving = require("./saving/Saving");
 
@@ -235,7 +235,8 @@ async function createWindow() {
         db = null
     })
 
-    if (process.env.WEBPACK_DEV_SERVER_URL) {
+    //if (process.env.WEBPACK_DEV_SERVER_URL)
+    if (isDevelopment) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
         if (!process.env.IS_TEST) win.webContents.openDevTools()

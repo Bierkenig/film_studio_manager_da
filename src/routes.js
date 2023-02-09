@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from "vue-router";
+import {createWebHistory, createRouter, createWebHashHistory} from "vue-router";
 import CreateStudio from "@/components/startComponents/CreateStudio";
 import StartMenu from "@/components/startComponents/StartMenu";
 import Home from "@/components/mainGameComponents/homeMenu/HomeMenu";
@@ -141,7 +141,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: process.env.IS_ELECTRON ? createWebHashHistory() : createWebHistory(),
     routes
 })
 
