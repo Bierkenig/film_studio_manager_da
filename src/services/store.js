@@ -92,112 +92,7 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
         ],
         calendarEvents: [
-            {
-                id: 1,
-                movie: "SOMETHING",
-                start: '2023-01-15',
-                end: '2023-01-16',
-                type: 'productionFinished',
-                completed: false,
-            },
-            {
-                id: 2,
-                movie: "NICHTS",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'weather',
-                completed: false,
-            },
-            {
-                id: 3,
-                movie: "ALLES",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'preProductionFinished',
-                completed: false,
-            },
-            {
-                id: 4,
-                movie: "VIELLEICHT",
-                start: '2023-01-29',
-                end: '2023-01-30',
-                type: 'changes',
-                completed: false,
-            },
-            {
-                id: 5,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'postProductionProblem',
-                completed: false,
-            },
-            {
-                id: 6,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'reshooting',
-                completed: false,
-            },
-            {
-                id: 7,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'afterRelease',
-                completed: false,
-            },
-            {
-                id: 8,
-                movie: "SOMETHING",
-                start: '2023-01-29',
-                end: '2023-01-30',
-                type: 'studioTakeover',
-                completed: false,
-            },
-            {
-                id: 9,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'dropOut',
-                completed: false,
-            },
-            {
-                id: 10,
-                movie: "SOMETHING",
-                start: '2023-01-29',
-                end: '2023-01-30',
-                type: 'internationalAward',
-                completed: false,
-            },
-            {
-                id: 11,
-                movie: "SOMETHING",
-                start: '2023-01-05',
-                end: '2023-01-06',
-                type: 'dropOut',
-                completed: false,
-            },
-            {
-                id: 12,
-                movie: "SOMETHING",
-                start: '2023-01-05',
-                end: '2023-01-06',
-                type: 'sound',
-                completed: false,
-            },
-            {
-                id: 13,
-                movie: "SOMETHING",
-                start: '2023-01-05',
-                end: '2023-01-06',
-                type: 'visualQuality',
-                completed: false,
-            },
         ],
-        happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
         currentFranchise: null,
 
@@ -310,6 +205,7 @@ export default createStore({
         dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
+        allPeopleTest: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],
@@ -539,6 +435,16 @@ export default createStore({
             state.otherStudios.forEach(studio => {
                 if (studio.getId() > nextId) {
                     nextId = studio.getId();
+                }
+            })
+            return nextId + 1;
+        },
+
+        getNextEventId(state){
+            let nextId = 0;
+            state.calendarEvents.forEach(calendarEvent => {
+                if(calendarEvent['id'] > nextId){
+                    nextId = calendarEvent['id'];
                 }
             })
             return nextId + 1;

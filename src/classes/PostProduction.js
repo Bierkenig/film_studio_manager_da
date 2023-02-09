@@ -7,7 +7,6 @@ export default class PostProduction {
             return
         }
         this.postProductionStart = null
-        if (this.postProductionStart instanceof Date) this.postProductionEnd = this.calcEndDate()
         this.postProductionLength = postProductionLength
         this.marketingPrint = null
         this.marketingInternet = null
@@ -24,10 +23,6 @@ export default class PostProduction {
         this.openingLevel = null
         this.remainingLevel = null
         this.happenedEvents = []
-    }
-
-    calcEndDate() {
-        return this.postProductionStart.setDate(this.postProductionStart.getDate() + this.postProductionLength * 7);
     }
 
     calcTestScreeningRating() {

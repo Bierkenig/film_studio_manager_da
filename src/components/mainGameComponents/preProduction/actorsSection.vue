@@ -39,6 +39,7 @@
 
 <script>
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
+import store from "@/services/store";
 
 export default {
   name: "actorsSection",
@@ -213,12 +214,24 @@ export default {
 
     finishPreProd() {
       console.log(this.$store.state.currentMovie)
+      this.$store.getters.getCurrentMovie._preProduction.startDate = this.$store.getters.getCurrentDate
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.preProductionLength * 7))
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'preProductionFinished',
+        completed: false,
+      })
       this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
       console.log(this.$store.getters.getInProductionMovies)
-      this.$store.getters.getCurrentMovie.startDate = this.$store.getters.getCurrentDate
 
       //set current movie null
-      this.$store.commit('setCurrentMovie', null)
       this.$router.push({name: "movies"})
     },
   },

@@ -14,7 +14,7 @@
               <div v-for="(el, index) in happenedEvents" :key="index">
                 {{$t('preProductionEvents.' + el + ".problem")}}
               </div>
-              <button @close="this.$emit('close')">{{$t('summaries.preProduction.close')}}</button>
+              <button @click="this.$emit('close')">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>
@@ -37,6 +37,7 @@ export default {
   },
 
   mounted() {
+    this.$store.state.summaries.preProductionClose = false
     this.happenedEvents = this.$store.getters.getCurrentMovie._preProduction.happenedEvents
     this.maxWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
         this.$store.getters.getCurrentMovie._preProduction.productionLength +

@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import store from "@/services/store";
+
 export default {
   name: "continue-prod",
 
@@ -25,6 +27,7 @@ export default {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
       this.$store.state.currentMovie = null
+      this.$store.state.summaries.preProductionClose = true
       this.$emit('close')
     },
 
@@ -32,9 +35,22 @@ export default {
       this.$store.getters.getCurrentMovie._status = 'Production'
       this.$store.getters.getCurrentMovie.setProduction()
       this.$store.getters.getCurrentMovie._production.startDate = this.$store.getters.getCurrentDate
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.productionLength * 7))
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'productionFinished',
+        completed: false,
+      })
       this.$emit('close')
     }
-  }
+  },
 }
 </script>
 

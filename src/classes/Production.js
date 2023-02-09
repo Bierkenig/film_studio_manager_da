@@ -7,7 +7,6 @@ export default class Production {
         }
         this.duration = duration
         this.startDate = null
-        if (this.startDate instanceof Date)this.endDate = this.calcEndDate()
         this.releaseDate = releaseDate
         this.haltedStartDate = null
         this.haltedEndDate = null
@@ -20,10 +19,6 @@ export default class Production {
         if (this.releaseDate instanceof Date) this.releaseDate.setDate(this.releaseDate.getDate() + 7 * this.haltedDuration)
     }
 
-    calcEndDate() {
-        return this.startDate.setDate(this.startDate.getDate() + this.duration * 7);
-    }
-
     static fromJSON(jsonObject){
         let instance = Object.assign(new Production(DataUtil.skip), jsonObject)
         instance.startDate = new Date(jsonObject.startDate)
@@ -32,6 +27,5 @@ export default class Production {
         instance.haltedStartDate = new Date(jsonObject.haltedStartDate)
         instance.haltedEndDate = new Date(jsonObject.haltedEndDate)
         return instance
-
     }
 }

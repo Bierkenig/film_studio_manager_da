@@ -76,9 +76,9 @@ export default {
 
     setStoreWeeks() {
       this.$store.state.currentMovie._preProduction.releaseDate = this.calcReleaseDate;
-      this.$store.state.currentMovie._preProduction.preProductionLength = this.preProduction
-      this.$store.state.currentMovie._preProduction.productionLength = this.production
-      this.$store.state.currentMovie._preProduction.postProductionLength = this.postProduction
+      this.$store.state.currentMovie._preProduction.preProductionLength = this.preProductionInput
+      this.$store.state.currentMovie._preProduction.productionLength = this.productionInput
+      this.$store.state.currentMovie._preProduction.postProductionLength = this.postProductionInput
     }
   },
 

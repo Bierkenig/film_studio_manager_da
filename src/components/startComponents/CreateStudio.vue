@@ -98,6 +98,7 @@ import BudgetSelect from "@/components/startComponents/BudgetSelect";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import i18next from "i18next";
 import SubGenre from "@/classes/SubGenre";
+import Person from "@/classes/Person";
 
 export default {
   name: "CreateStudio",
@@ -124,6 +125,13 @@ export default {
       this.$store.commit('resetState')
       this.$store.commit("setSlot", parseInt(this.slot))
       console.log(this.$store.state)
+      window.ipcRenderer.send('toGetPeopleTest', 'SELECT * FROM people')
+      window.ipcRenderer.receive('fromGetPeopleTest', (data) => {
+        this.$store.state.allPeopleTest.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+            data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+            data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
+      })
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
       //Fetch Subgenre once

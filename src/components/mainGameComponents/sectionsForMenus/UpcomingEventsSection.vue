@@ -53,6 +53,26 @@
         </template>
       </post-prod-modal>
     </transition>
+
+    <transition name="modal">
+      <pre-production-summary
+          v-if="showPreProductionSummaryModal"
+          @close="showPreProductionSummaryModal = false; showContinueProdModal = true;">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </pre-production-summary>
+    </transition>
+
+    <transition name="modal">
+      <continue-prod
+          v-if="showContinueProdModal"
+          @close="showContinueProdModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </continue-prod>
+    </transition>
   </div>
 </template>
 
@@ -62,9 +82,13 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import PreProductionEvent from "@/components/mainGameComponents/preProduction/modals/preProductionEvent.vue";
 import ProdEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal.vue";
 import PostProdModal from "@/components/mainGameComponents/postProduction/postProdEventModal.vue";
+import PreProductionSummary from "@/components/mainGameComponents/preProduction/preProductionSummary.vue";
+import ContinueProd from "@/components/mainGameComponents/currentProduction/continueProduction.vue";
 export default {
   name: "UpcomingEventsSection",
-  components: {PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
+  components: {
+    ContinueProd,
+    PreProductionSummary, PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
   data(){
     return {
       todayEvents: [],
@@ -73,6 +97,8 @@ export default {
       showPreProductionModal: false,
       showProductionModal: false,
       showPostProductionModal: false,
+      showPreProductionSummaryModal: false,
+      showContinueProdModal: false,
       chosenType: '',
     }
   },
@@ -83,14 +109,16 @@ export default {
         this.showPreProductionModal = true;
         this.chosenType = type;
       } else if(type === 'weather' || type === 'castMember' || type === 'budgetForCostumes' || type === 'equipment'
-                || type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves'
-                || type === 'changes' || type === 'injured'){
+          || type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves'
+          || type === 'changes' || type === 'injured'){
         this.$store.commit('setCurrentProdEventType',type)
         this.showProductionModal = true;
       } else if(type === 'sound' || type === 'postProductionProblem' || type === 'visualEffects' || type === 'visualQuality'
           || type === 'reshooting'){
         this.$store.commit('setCurrentPostProdEventType',type)
         this.showPostProductionModal = true;
+      } else if(type === 'preProductionFinished'){
+        this.showPreProductionSummaryModal = true;
       }
     },
 
