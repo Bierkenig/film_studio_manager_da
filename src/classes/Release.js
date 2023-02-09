@@ -12,6 +12,8 @@ export default class Release {
             return
         }
         //Important Variables
+        this.startDateCinema = null
+        if (this.startDateCinema instanceof Date) this.endDateCinema = this.startDateCinema.setDate(this.startDateCinema.getDate() + 4 * 7);
         this.preProduction = preProduction
         this.budget = preProduction.budget
         this.screenplay = preProduction.screenplay
@@ -99,6 +101,8 @@ export default class Release {
         this.childrenMoviePopularity = (this.childrenTopicsPopularity * 20 + this.childrenGenrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 40) / 100
         this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
         this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
+
+        this.audiencePopularity = (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3;
 
         //Hype
         //Marketing

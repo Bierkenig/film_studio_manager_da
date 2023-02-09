@@ -13,6 +13,7 @@
 import CustomButton from "@/components/kitchenSink/CustomButton";
 import {Movie} from "@/classes/Movie";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import {Screenplay} from "@/classes/Screenplay";
 
 export default {
   name: "ActionSection",
@@ -27,7 +28,7 @@ export default {
   methods: {
     goToSite(){
       if(this.headline === 'createMovie'){
-        this.$store.state.currentMovie = new Movie(this.$store.state.studio, null, {children: 0, teenager: 0, adult: 0})
+        this.$store.state.currentMovie = new Movie(this.$store.state.studio, null)
         this.$store.getters.getCurrentMovie._foundationDate = this.$store.getters.getCurrentDate;
         this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){
@@ -42,6 +43,11 @@ export default {
         this.$router.push({name: 'peopleOverview'});
       } else if(this.headline === 'listOfAwards'){
         this.$router.push({name: 'awardOverview'});
+      } else if(this.headline === 'createScreenplay'){
+        this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
+            null,null, null, null, null, null,
+            {firstTopic: null, secondTopic: null, thirdTopic: null}));
+        this.$router.push({name: 'newScreenplay'});
       }
     }
   }

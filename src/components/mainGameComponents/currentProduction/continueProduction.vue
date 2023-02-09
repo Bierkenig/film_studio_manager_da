@@ -6,7 +6,7 @@
           <div class="modal-body">
             <slot name="body">
               <div>{{$t('continueProduction.qst')}}</div>
-              <button class="modal-default-button" @click="$emit('close')">{{$t('continueProduction.continue')}}</button>
+              <button class="modal-default-button" @click="movieOnGoing()">{{$t('continueProduction.continue')}}</button>
               <button class="modal-default-button" @click="cancelMovie()">{{$t('continueProduction.cancel')}}</button>
             </slot>
           </div>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import store from "@/services/store";
+
 export default {
   name: "continue-prod",
 
@@ -25,9 +27,41 @@ export default {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
       this.$store.state.currentMovie = null
-      this.$emit('close')
+      this.$store.state.summaries.preProductionClose = true
+      this.closeModal();
+    },
+
+    movieOnGoing() {
+      this.$store.getters.getCurrentMovie._status = 'Production'
+      this.$store.getters.getCurrentMovie.setProduction()
+      this.$store.getters.getCurrentMovie._production.startDate = this.$store.getters.getCurrentDate
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.productionLength * 7))
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'productionFinished',
+        completed: false,
+      })
+      this.closeModal();
+    },
+
+    closeModal(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
     }
-  }
+  },
 }
 </script>
 

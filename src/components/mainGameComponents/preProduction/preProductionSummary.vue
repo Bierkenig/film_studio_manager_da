@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="modal-mask">
-      <div class="modal-wrapper" @click="$emit('close')">
-        <div class="modal-container" @click.stop="">
+      <div class="modal-wrapper">
+        <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
               <h2>{{$t('summaries.preProduction.title')}}</h2>
@@ -14,6 +14,7 @@
               <div v-for="(el, index) in happenedEvents" :key="index">
                 {{$t('preProductionEvents.' + el + ".problem")}}
               </div>
+              <button @click="closeSummary">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>
@@ -43,6 +44,19 @@ export default {
     this.currentWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength
 
     this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
+  },
+
+  methods: {
+    closeSummary(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
+    }
   }
 }
 </script>

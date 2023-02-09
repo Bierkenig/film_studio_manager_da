@@ -123,7 +123,7 @@ export default {
         case "changes":
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
-          this.$store.state.currentMovie._preProduction.budget.problemBudget += this.$store.state.currentMovie._preProduction.getWholeBudget() * 0.1
+          this.$store.state.currentMovie._preProduction.budget.problemBudget += this.$store.state.currentMovie._preProduction.getTotalBudget() * 0.1
           this.$emit('close')
           break
         case "injured":
@@ -193,7 +193,8 @@ export default {
       //TODO releaseDate
       this.$store.state.currentMovie._preProduction.productionLength += this.durWeeks
       if (this.type === 'duration') {
-        if(this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength === this.$store.state.currentMovie._preProduction.releaseDate) {
+        if(this.$store.state.currentMovie._preProduction.startDate.getDate() + (7 * this.$store.state.currentMovie._preProduction.productionLength)
+            === this.$store.state.currentMovie._preProduction.releaseDate ) {
           this.releaseDate = this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength
           this.date = true
         } else {

@@ -125,9 +125,9 @@ export default {
       arg.backgroundColor = 'inherit';
       arg.borderColor = 'var(--fsm-dark-blue-2)';
 
-      if(arg.event._def.extendedProps.type === 'actorDropsOut' || arg.event._def.extendedProps.type === 'callForRecast'
-        || arg.event._def.extendedProps.type === 'directorDropsOutPreProduction' || arg.event._def.extendedProps.type === 'directorWantsMoreBudget'
-        || arg.event._def.extendedProps.type === 'directorWantsExtendPhase'){
+      if(arg.event._def.extendedProps.type === 'dropOut' || arg.event._def.extendedProps.type === 'recast'
+        || arg.event._def.extendedProps.type === 'creative' || arg.event._def.extendedProps.type === 'difficulty'
+        || arg.event._def.extendedProps.type === 'extend'){
         return {html: '<img ' +
               ' class="eventIconElements preProductionEvents"' +
               ' src="' + require('../../../assets/icons/action.svg') + '" ' +
@@ -137,11 +137,11 @@ export default {
               ' class="eventIconElements preProductionEvents"' +
               ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
               ' alt="preProductionIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'badWeather' || arg.event._def.extendedProps.type === 'castMakesProblems'
-          || arg.event._def.extendedProps.type === 'insufficientBudget' || arg.event._def.extendedProps.type === 'equipmentMalfunctions'
-          || arg.event._def.extendedProps.type === 'budgetProblems' || arg.event._def.extendedProps.type === 'setBreakdown'
-          || arg.event._def.extendedProps.type === 'insufficientProductionPhase' || arg.event._def.extendedProps.type === 'directorDropsOutProduction'
-          || arg.event._def.extendedProps.type === 'directorWantsChanges' || arg.event._def.extendedProps.type === 'injuryOfCast') {
+      } else if(arg.event._def.extendedProps.type === 'weather' || arg.event._def.extendedProps.type === 'castMember'
+          || arg.event._def.extendedProps.type === 'budgetForCostumes' || arg.event._def.extendedProps.type === 'equipment'
+          || arg.event._def.extendedProps.type === 'budget' || arg.event._def.extendedProps.type === 'breakdown'
+          || arg.event._def.extendedProps.type === 'duration' || arg.event._def.extendedProps.type === 'directorLeavesProduction'
+          || arg.event._def.extendedProps.type === 'changes' || arg.event._def.extendedProps.type === 'injured') {
         return {html: '<img ' +
               ' class="eventIconElements productionEvents"' +
               ' src="' + require('../../../assets/icons/action.svg') + '" ' +
@@ -151,9 +151,9 @@ export default {
               ' class="eventIconElements productionEvents"' +
               ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
               ' alt="productionIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'testScreening' || arg.event._def.extendedProps.type === 'soundQualityProblem'
-          || arg.event._def.extendedProps.type === 'postProductionProblem' || arg.event._def.extendedProps.type === 'visualEffectsProblem'
-          || arg.event._def.extendedProps.type === 'visualQualityProblem' || arg.event._def.extendedProps.type === 'reshootingOfScenes') {
+      } else if(arg.event._def.extendedProps.type === 'testScreening' || arg.event._def.extendedProps.type === 'sound'
+          || arg.event._def.extendedProps.type === 'postProductionProblem' || arg.event._def.extendedProps.type === 'visualEffects'
+          || arg.event._def.extendedProps.type === 'visualQuality' || arg.event._def.extendedProps.type === 'reshooting') {
         return {html: '<img ' +
               ' class="eventIconElements postProductionEvents"' +
               ' src="' + require('../../../assets/icons/action.svg') + '" ' +
@@ -163,17 +163,14 @@ export default {
               ' class="eventIconElements postProductionEvents"' +
               ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
               ' alt="postProductionIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'award'){
+      } else if(arg.event._def.extendedProps.type === 'internationalAward' || arg.event._def.extendedProps.type === 'independentAward'
+          || arg.event._def.extendedProps.type === 'audienceAward'){
         return {html: '<img ' +
               ' class="eventIconElements remainingEvents"' +
               ' src="' + require('../../../assets/icons/award.svg') + '" ' +
               ' alt="remainingEventsIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'release'){
-        return {html: '<img ' +
-              ' class="eventIconElements remainingEvents"' +
-              ' src="' + require('../../../assets/icons/party.svg') + '" ' +
-              ' alt="remainingEventsIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'releaseSummary' || arg.event._def.extendedProps.type === 'dvdSummary'){
+      } else if(arg.event._def.extendedProps.type === 'beforeRelease' || arg.event._def.extendedProps.type === 'afterReleaseWithCinemaRun'
+          || arg.event._def.extendedProps.type === 'afterRelease'){
         return {html: '<img ' +
               ' class="eventIconElements remainingEvents"' +
               ' src="' + require('../../../assets/icons/documentary.svg') + '" ' +
@@ -182,11 +179,6 @@ export default {
         return {html: '<img ' +
               ' class="eventIconElements remainingEvents"' +
               ' src="' + require('../../../assets/icons/studio.svg') + '" ' +
-              ' alt="remainingEventsIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'bankrupt'){
-        return {html: '<img ' +
-              ' class="eventIconElements remainingEvents"' +
-              ' src="' + require('../../../assets/icons/falling-chart.svg') + '" ' +
               ' alt="remainingEventsIcon"/>'}
       }
     }

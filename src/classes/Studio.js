@@ -17,7 +17,7 @@ export class Studio {
         //TYPE -> Integer
         this.popularity = popularity;
         //TYPE -> Object
-        this.marketShare = {"2023": 23, "2024": 45}
+        this.marketShare = {"2023": 0}
         //TYPE -> Array
         this.movies = [];
     }
@@ -55,7 +55,7 @@ export class Studio {
     calcProfit() {
         let amount = 0
         this.movies.forEach((movie) => {
-            amount += movie._totalCosts
+            amount += movie._totalOutgoings
         })
         return this.calcRevenue() - amount
     }

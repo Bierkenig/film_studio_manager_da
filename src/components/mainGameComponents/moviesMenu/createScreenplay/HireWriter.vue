@@ -2,13 +2,18 @@
   <div id="hireWriterMainDiv">
     <h1 id="hireWriterHeader">{{ $t('hireWriter') }}</h1>
     <div id="hireWriterBackground">
-      <writer-list v-if="!this.$store.getters.getCurrentScreenplay.rewritingStatus" id="hireWriterList" :writer-list="writers" @sendWriter="receiveWriter"/>
+      <writer-list v-if="!this.$store.getters.getCurrentScreenplay.rewritingStatus"
+                   id="hireWriterList"
+                   :writer-list="writers"
+                   :disable-writer-list="disableList"
+                   @sendWriter="receiveWriter"/>
       <div id="hireWriterDetailsVertical">
         <writer-details
             id="hireWriterDetails"
             :writer="clickedWriter"
             :screenplay="this.$store.getters.getCurrentScreenplay"
             :check-balance="checkBalance"
+            @hiredWriter="hiredWriter"
         />
         <icon-button
             v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
@@ -37,7 +42,8 @@ export default {
     return {
       writers: this.$store.getters.getAllWriters,
       clickedWriter: {},
-      checkBalance: true
+      checkBalance: true,
+      disableList: false,
     }
   },
 
@@ -52,6 +58,10 @@ export default {
     receiveWriter: function (writer){
       this.clickedWriter = writer;
       this.checkBalance = (this.$store.getters.getBalance - parseInt(writer.salary)) < 0;
+    },
+
+    hiredWriter: function (){
+      this.disableList = true;
     },
 
     goBack(){

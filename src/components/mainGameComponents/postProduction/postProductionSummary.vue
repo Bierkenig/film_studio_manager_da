@@ -5,16 +5,7 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h2>{{$t('summaries.production.title')}}</h2>
-              <div>{{$t('summaries.production.progress')}}</div>
-              <progress :max="maxWeeks" :value="currentWeeks">
-              </progress>
-              <div>{{percent}}%</div>
-              <div>{{$t('summaries.production.events')}}</div>
-              <div v-for="(el, index) in happenedEvents" :key="index">
-                {{$t('productionEvents.' + el + ".problem")}}
-              </div>
-              <button @click="closeSummary">{{$t('summaries.preProduction.close')}}</button>
+              <button @click="this.closeSummary">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>
@@ -25,26 +16,7 @@
 
 <script>
 export default {
-  name: "productionSummary",
-
-  data() {
-    return {
-      happenedEvents: [],
-      maxWeeks: 0,
-      currentWeeks: 0,
-      percent: 0,
-    }
-  },
-
-  mounted() {
-    this.happenedEvents = this.$store.getters.getCurrentMovie._production.happenedEvents
-    this.maxWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
-        this.$store.getters.getCurrentMovie._preProduction.productionLength +
-        this.$store.getters.getCurrentMovie._preProduction.postProductionLength
-    this.currentWeeks = this.$store.getters.getCurrentMovie._preProduction.productionLength
-
-    this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
-  },
+  name: "postProductionSummary",
 
   methods: {
     closeSummary(){

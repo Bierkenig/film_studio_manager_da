@@ -5,10 +5,12 @@
         <custom-select :options="[$t('popularity'),$t('rating'),'Name']" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
         <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
       </div>
-      <div class="writerListScroll verticalScroll">
-        <div v-for="(item, index) in writers" :id="'writerItem' + index" :key="index" class="writerListElement" @click="getWriterInfo(index, item)">
-          <div class="writerListElementTitle" :id="'writerListElementTitle' + index">
-            {{ item._first_name }} {{ item._last_name }}
+      <div class="writerListScroll">
+        <div v-show="!disableWriterList" class="writerListScrollContainer verticalScroll">
+          <div v-for="(item, index) in writers" :id="'writerItem' + index" :key="index" class="writerListElement" @click="getWriterInfo(index, item)">
+            <div class="writerListElementTitle" :id="'writerListElementTitle' + index">
+              {{ item._first_name }} {{ item._last_name }}
+            </div>
           </div>
         </div>
       </div>
@@ -28,6 +30,9 @@ export default {
     writerList: {
       type: Array,
       required: true,
+    },
+    disableWriterList: {
+      type: Boolean
     }
   },
 
@@ -112,9 +117,13 @@ export default {
 
 .writerListScroll {
   height: 500px;
+}
+
+.writerListScrollContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 500px;
 }
 
 .writerListSortDiv {

@@ -7,12 +7,10 @@ export default class Production {
         }
         this.duration = duration
         this.startDate = null
-        this.endDate = null
         this.releaseDate = releaseDate
         this.haltedStartDate = null
         this.haltedEndDate = null
         this.haltedDuration = 0
-        this.outgoings = 0
         this.happenedEvents = []
     }
 
@@ -29,6 +27,5 @@ export default class Production {
         instance.haltedStartDate = new Date(jsonObject.haltedStartDate)
         instance.haltedEndDate = new Date(jsonObject.haltedEndDate)
         return instance
-
     }
 }

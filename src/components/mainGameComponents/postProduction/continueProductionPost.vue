@@ -5,9 +5,10 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>{{$t('continueProduction.qst2')}}</div>
-              <button class="modal-default-button" @click="setMovieAgain()">{{$t('continueProduction.continue')}}</button>
-              <button class="modal-default-button" @click="cancelMovie()">{{$t('continueProduction.cancel')}}</button>
+              <div>{{ $t('continueProduction.qst2') }}</div>
+              <button class="modal-default-button" @click="setMovieAgain()">{{ $t('continueProduction.continue') }}
+              </button>
+              <button class="modal-default-button" @click="cancelMovie()">{{ $t('continueProduction.cancel') }}</button>
             </slot>
           </div>
         </div>
@@ -17,19 +18,48 @@
 </template>
 
 <script>
+import store from "@/services/store";
+
 export default {
-  name: "pre-production-event",
+  name: "continue-post-prod",
 
   methods: {
     cancelMovie() {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
       this.$store.state.inProductionMovies.slice(index, 1)
-      this.$store.state.currentMovie = null
-      this.$emit('close')
+      this.closeModal();
     },
 
     setMovieAgain() {
-      this.$emit('close')
+      this.$store.getters.getCurrentMovie._status = 'Post Production'
+      this.$store.getters.getCurrentMovie.setPostProduction()
+      this.$store.getters.getCurrentMovie._postProduction.postProductionStart = this.$store.getters.getCurrentDate
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.postProductionLength * 7))
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'postProductionFinished',
+        completed: false,
+      })
+
+      this.closeModal();
+    },
+
+    closeModal(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
     }
   }
 }

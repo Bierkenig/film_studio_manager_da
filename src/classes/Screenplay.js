@@ -41,8 +41,7 @@ export class Screenplay {
         //TYPE -> Object
         this.acts = {act1: [], act2: [], act3: []};
         //TYPE -> Object
-        //TODO change scope
-        this.details = {scope: 'Epic', tone: '', specialEffects: 'Spectacle'};
+        this.details = {scope: '', tone: '', specialEffects: ''};
         //TYPE -> Object
         this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         //TYPE -> Integer
@@ -129,10 +128,6 @@ export class Screenplay {
 
     getRoles() {
         return this.roles;
-    }
-
-    getLength() {
-        return this.length;
     }
 
     getWritingPhase() {
@@ -250,10 +245,6 @@ export class Screenplay {
 
     setAgeRating(value) {
         this.ageRating = value;
-    }
-
-    setLength(value) {
-        this.length = value;
     }
 
     setWritingPhase(value) {

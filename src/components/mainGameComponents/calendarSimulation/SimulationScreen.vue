@@ -38,7 +38,7 @@
         :dark="false"
         size="medium"
         :disabled="stopButtonDisabled"
-        @click="stopAnimate">Stop</custom-button>
+        @clicked="stopAnimate">Stop</custom-button>
   </div>
 </template>
 
@@ -55,7 +55,6 @@ export default {
 
   data(){
     return {
-      show: true,
       currentDate: this.$store.getters.getCurrentDate,
       currentDatePlusOne: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 1),
       currentDatePlusTwo: new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate() + 2),
@@ -82,14 +81,14 @@ export default {
   mounted() {
     this.loadData();
     setTimeout(this.animateBar, 10)
-    setTimeout(this.resetBar,5990);
+    setTimeout(this.resetBar,3990);
     this.stopButtonDisabled = false;
 
     this.interval = setInterval(() => {
       setTimeout(this.animateBar, 10)
-      setTimeout(this.resetBar,5990);
+      setTimeout(this.resetBar,3990);
       this.animate()
-    }, 6000)
+    }, 4000)
   },
 
   methods: {
@@ -110,11 +109,10 @@ export default {
       clearInterval(this.interval)
       setTimeout(() => {
         this.$router.go(-1);
-      }, 5500)
+      }, 3500)
     },
 
     animate(){
-      this.show = !this.show;
       this.currentDate = new Date(this.currentDate.getFullYear(),
           this.currentDate.getMonth(),
           this.currentDate.getDate() + 1);
@@ -123,7 +121,7 @@ export default {
     },
 
     animateBar() {
-      this.$refs.simulationBar.style.setProperty("transition", "width 5s ease-in-out")
+      this.$refs.simulationBar.style.setProperty("transition", "width 3s ease-in-out")
       this.$refs.simulationBar.style.setProperty("width", "100%")
     },
 

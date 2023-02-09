@@ -122,7 +122,7 @@
         </div>
       </div>
 
-      <p id="screenplayPlotWarningMsg">{{ $t('warningMsgScreenplayPlot') }}</p>
+      <p id="screenplayPlotWarningMsg" :hidden="this.hideInfoMessage">{{ $t('warningMsgScreenplayPlot') }}</p>
 
       <div id="screenplayPlotButtonDiv">
         <div id="screenplayPlotButtonInnerDiv">
@@ -131,18 +131,21 @@
               class="screenplayPlotAddButtons"
               :dark="false"
               size="small"
+              :disabled="this.disableAddCharacterMomentButton"
               @clicked="characterMomentButtonClick">{{ $t('addCharacterMoment') }}</custom-button>
           <custom-button
               id="addSettingButton"
               class="screenplayPlotAddButtons"
               :dark="false"
               size="small"
+              :disabled="this.disableAddSettingButton"
               @clicked="settingButtonClick">{{ $t('addLocation') }}</custom-button>
           <custom-button
               id="addTimePeriodButton"
               class="screenplayPlotAddButtons"
               :dark="false"
               size="small"
+              :disabled="this.disableAddTimePeriodButton"
               @clicked="timePeriodButtonClick">{{ $t('addTimePeriod') }}</custom-button>
         </div>
       </div>
@@ -163,7 +166,7 @@
           id="screenplayPlotContinueButton"
           :dark="false"
           size="medium"
-          :disabled="true"
+          :disabled="this.disableContinueButton"
           @click="clickButton">{{ $t('continue')}}</custom-button>
     </div>
 
@@ -197,6 +200,11 @@ export default {
       showCharacterMomentsModal: false,
       showSettingModal: false,
       items: [],
+      disableAddCharacterMomentButton: false,
+      disableAddTimePeriodButton: false,
+      disableAddSettingButton: false,
+      disableContinueButton: true,
+      hideInfoMessage: false,
     }
   },
 
@@ -312,7 +320,13 @@ export default {
     },
 
     disableAddButton(item,type,buttonId)  {
-      document.getElementById(buttonId).disabled = item.filter((i) => i.type === type).length === 3;
+      if(buttonId === 'addCharacterMomentButton'){
+        this.disableAddCharacterMomentButton = item.filter((i) => i.type === type).length === 3;
+      } else if(buttonId === 'addTimePeriodButton'){
+        this.disableAddTimePeriodButton = item.filter((i) => i.type === type).length === 3;
+      } else if(buttonId === 'addSettingButton'){
+        this.disableAddSettingButton = item.filter((i) => i.type === type).length === 3;
+      }
     },
 
     checkStatusOfLists() {
@@ -320,7 +334,7 @@ export default {
       let listTwo = this.getList(2);
       let listThree = this.getList(3);
 
-      document.getElementById('screenplayPlotContinueButton').disabled =
+      this.disableContinueButton =
           (!((listTwo.filter((i) => i.type === 'setting').length === 1
                   && listOne.filter((i) => i.type === 'setting').length === 1
                   && listThree.filter((i) => i.type === 'setting').length === 1) &&
@@ -331,7 +345,7 @@ export default {
                   && listOne.filter((i) => i.type === 'characterMoment').length === 1
                   && listThree.filter((i) => i.type === 'characterMoment').length === 1)));
 
-      document.getElementById('screenplayPlotWarningMsg').hidden = !document.getElementById('screenplayPlotContinueButton').disabled;
+      this.hideInfoMessage = !this.disableContinueButton;
     },
 
     checkMoment(chOne, chMoment, chTwo){
@@ -358,7 +372,6 @@ export default {
       this.$store.getters.getCurrentScreenplay.setAct1(this.getList(1));
       this.$store.getters.getCurrentScreenplay.setAct2(this.getList(2));
       this.$store.getters.getCurrentScreenplay.setAct3(this.getList(3));
-      this.$store.getters.getCurrentScreenplay.setLength(this.screenplayLength);
       this.$router.push({name: 'hireWriter'});
     },
 
@@ -463,14 +476,6 @@ export default {
   justify-content: center;
   gap: 15px;
   width: 50%;
-}
-
-.screenplayPlotAddButtons:disabled,
-#screenplayPlotContinueButton:disabled,
-#screenplayPlotContinueButton[disabled],
-.screenplayPlotAddButtons[disabled]{
-  background-color: var(--fsm-white);
-  color: var(--fsm-dark-blue-1);
 }
 
 #screenplayPlotWarningMsg {

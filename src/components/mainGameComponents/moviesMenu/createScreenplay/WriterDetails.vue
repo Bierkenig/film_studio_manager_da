@@ -22,6 +22,8 @@
                     {{ writerAge }}
                   </div>
                 </div>
+              </div>
+              <div class="writerDetailsInfoTextRow">
                 <div class="writerDetailsSpecificInfoDiv">
                   <div>
                     {{ $t('nationality') }}
@@ -125,7 +127,7 @@
             class="writerDetailsOfferButton"
             :dark="false"
             size="medium"
-            :disabled="this.currentWriter?._no === 3 || this.writerDecision === null"
+            :disabled="this.currentWriter?._no === 3 || this.writerDecision === null || this.writerDecision === true"
             @clicked="calcWriterDecision">{{ $t('hireDirectorSection.offer') }} ({{ this.currentWriter?._no }}/3)</custom-button>
 
         <div class="writerDetailsWriterAnswer">
@@ -139,7 +141,7 @@
         class="writerDetailsHireButton"
         :dark="false"
         size="medium"
-        :disabled="writerDecision === null && writerDecision !== true"
+        :disabled="this.writerDecision !== true"
         @clicked="hireWriter">{{ $t('continue') }}</custom-button>
   </div>
 </template>
@@ -150,6 +152,8 @@ import AvatarElement from "@/components/kitchenSink/AvatarElement.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import store from "@/services/store";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "WriterDetails",
@@ -343,12 +347,28 @@ export default {
 
       if(!this.writerDecision){
         this.currentWriter._no++;
+      } else {
+        this.$emit('hiredWriter')
       }
     },
 
     hireWriter(){
-      console.log('ASASAS')
       this.screenplay.setWriter(this.writer);
+
+      if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
+        if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
+          this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
+          store.commit('addEarnings',new Earnings((this.selectedSalary/2), store.getters.getCurrentDate))
+          this.$store.commit('subtractBalance', (this.selectedSalary/2));
+        } else {
+          this.screenplay.setPrice(this.copiedPrice + this.selectedSalary);
+          store.commit('addEarnings',new Earnings(this.selectedSalary, store.getters.getCurrentDate))
+          this.$store.commit('subtractBalance', this.selectedSalary);
+        }
+      } else {
+        this.$store.state.currentMovie._preProduction.budget.writerSalary += this.selectedSalary
+      }
+
       if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
         this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
         this.$store.commit('subtractBalance', (this.selectedSalary/2));
@@ -415,16 +435,20 @@ export default {
     },
 
     subtractSalary(){
-      if(this.selectedSalary > this.salaryRange.min){
-        this.changingIndex--;
-        this.selectedSalary = this.salaryValues[this.changingIndex];
+      if(this.writerDecision === false){
+        if(this.selectedSalary > this.salaryRange.min){
+          this.changingIndex--;
+          this.selectedSalary = this.salaryValues[this.changingIndex];
+        }
       }
     },
 
     addSalary(){
-      if(this.selectedSalary < this.salaryRange.max){
-        this.changingIndex++;
-        this.selectedSalary = this.salaryValues[this.changingIndex];
+      if(this.writerDecision === false){
+        if(this.selectedSalary < this.salaryRange.max){
+          this.changingIndex++;
+          this.selectedSalary = this.salaryValues[this.changingIndex];
+        }
       }
     },
 

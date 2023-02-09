@@ -122,7 +122,7 @@ export default {
 
 <style scoped>
 #card {
-  background-color: var(--fsm-dark-blue-5);
+  background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   transition: 0.3s;
   padding: 1px 20px 20px 20px;
@@ -154,7 +154,7 @@ export default {
   justify-content: space-between;
   padding: 10px 5px 10px 5px;
   border-radius: var(--fsm-m-border-radius);
-  background-color: var(--fsm-dark-blue-4);
+  background-color: var(--fsm-dark-blue-3);
 }
 
 #slotItemDateInfoHeader {

@@ -5,6 +5,8 @@ import {Avataaars} from "@/avatar/avataaars";
 import {Screenplay} from "@/classes/Screenplay";
 import {Character} from "@/classes/Character";
 import {i18next} from "@/translation/i18n";
+import {StreamingService} from "@/classes/StreamingService";
+import Earnings from "@/classes/Earnings";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -29,11 +31,18 @@ export default function simulate() {
     createStudios();
     streamingService();
     createScreenplaysFromWriters();
+    otherStudioCreatesStreamingService();
+
+    updateStudioPopularity();
+    updateOtherStudiosPopularity();
+
+    //Tracking Production Movies
+    console.log(store.getters.getCalendarEvents)
 
     //MONTHLY
-    if (store.getters.getCurrentDate.getDate() === 1 /*&&
-        store.getters.getCurrentDate.getMonth() !== "January" &&
-        store.getters.getCurrentDate.getFullYear() !== 2023*/)
+    if (store.getters.getCurrentDate.getDate() === 1 &&
+        store.getters.getCurrentDate.getMonth() !== 0 &&
+        store.getters.getCurrentDate.getFullYear() !== 2023)
     {
         renewPeople();
 
@@ -42,12 +51,23 @@ export default function simulate() {
         //FETCHING DB
         store.state.dbFetcher.fetch()
     }
+
+    //YEARLY
+    if (store.getters.getCurrentDate.getDate() === 31
+        && store.getters.getCurrentDate.getMonth() === 11) {
+
+    }
+}
+
+//function to get 0 or 1 with specific probability
+function randomNumber(probability) {
+    return Math.random() < probability ? 0 : 1;
 }
 
 //function to create new studios
 function createStudios() {
     if (store.state.studioNames.length !== 0) {
-        let num = randomNumber(0.50);
+        let num = randomNumber(0.10);
         if (num === 0) {
             //get all existing studio names
             let allStudios = [store.getters.getStudio.getName()];
@@ -68,21 +88,126 @@ function createStudios() {
             } else {
                 studioId = store.getters.getNextStudioId;
             }
-            let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), 50000000, 0);
+
+            let budgetValues = [50000000, 250000000, 1000000000];
+            let budgetOfStudio = budgetValues[Math.floor(Math.random() * budgetValues.length)]
+            let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), budgetOfStudio, 0);
             store.getters.getOtherStudios.push(newStudio);
 
             //create news of new studio
-            let newsTitle = newStudio.getName() + ' gegründet';
-            let newsDescription = 'Das Studio ' + newStudio.getName() + ' wurde gegründet.';
+            let newsTitle = newStudio.getName() + i18next.t('established');
+            let newsDescription = i18next.t('theStudio') + newStudio.getName() + i18next.t('wasFounded') + '.';
             store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate,null, null, null, newStudio));
             store.state.studioNames.splice(store.state.studioNames.indexOf(studioName), 1);
         }
     }
 }
+//function for other studios to create streaming services
+function otherStudioCreatesStreamingService(){
+    if(randomNumber(0.15) === 0){
+        let allOtherStudios = store.getters.getOtherStudios;
+        for (let i = 0; i < allOtherStudios.length; i++) {
+            if(allOtherStudios[i].budget > 2500000000){
+                allOtherStudios[i].budget -= 2500000000;
+                store.commit('addStreamingServicesFromOtherStudios', new StreamingService(allOtherStudios[i].name, 1,0,0,allOtherStudios[i].popularity,allOtherStudios[i], store.getters.getCurrentDate));
+                //create news of new streaming service
+                let newsTitle = 'Streaming Service' + i18next.t('established');
+                let newsDescription = i18next.t('theStreamingService') + allOtherStudios[i] + i18next.t('wasFounded') + '.';
+                store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate,null, null, null, allOtherStudios[i]));
+            }
+        }
+    }
+}
 
-//function to get 0 or 1 with specific probability
-function randomNumber(probability) {
-    return Math.random() < probability ? 0 : 1;
+//function to update own studio popularity
+function updateStudioPopularity(){
+    let allMovies = store.getters.getCreatedMovies.concat(store.getters.getFinishedMovies, store.getters.getBoughtMovies, store.getters.getBoughtMovieRights);
+    let sumOfAudiencePopularity = 0;
+    for (let i = 0; i < allMovies.length; i++) {
+        sumOfAudiencePopularity += allMovies[i]._release.audiencePopularity;
+    }
+
+    let averageOfAudiencePopularity = 0;
+    if(allMovies.length !== 0){
+        averageOfAudiencePopularity = sumOfAudiencePopularity / allMovies.length;
+    }
+
+    if(averageOfAudiencePopularity < 25){
+        if(store.getters.getStudio.popularity < 4){
+            store.getters.getStudio.popularity = 1;
+        } else {
+            store.getters.getStudio.popularity -= 3;
+        }
+    } else if(averageOfAudiencePopularity >= 25 && averageOfAudiencePopularity < 50){
+        if(store.getters.getStudio.popularity < 3){
+            store.getters.getStudio.popularity = 1;
+        } else {
+            store.getters.getStudio.popularity -= 2;
+        }
+    } else if(averageOfAudiencePopularity >= 50 && averageOfAudiencePopularity < 75){
+        if(store.getters.getStudio.popularity > 98){
+            store.getters.getStudio.popularity = 100;
+        } else {
+            store.getters.getStudio.popularity += 2;
+        }
+    } else if(averageOfAudiencePopularity >= 75){
+        if(store.getters.getStudio.popularity > 97){
+            store.getters.getStudio.popularity = 100;
+        } else {
+            store.getters.getStudio.popularity += 3;
+        }
+    }
+}
+
+//function to update other studios popularity
+function updateOtherStudiosPopularity(){
+    let allOtherMovies = store.getters.getMoviesFromOtherStudios;
+    let allOtherStudios = store.getters.getOtherStudios;
+
+    for (let i = 0; i < allOtherStudios.length; i++) {
+        let studioMovies = [];
+        for (let j = 0; j < allOtherMovies.length; j++) {
+            if(allOtherMovies[j]._owner === allOtherStudios[i]){
+                studioMovies.push(allOtherMovies[j]);
+            }
+        }
+
+        let sumOfAudiencePopularity = 0;
+        for (let i = 0; i < studioMovies.length; i++) {
+            sumOfAudiencePopularity += studioMovies[i]._release.audiencePopularity;
+        }
+
+        let averageOfAudiencePopularity = 0;
+        if(studioMovies.length !== 0){
+            averageOfAudiencePopularity = sumOfAudiencePopularity / studioMovies.length;
+        }
+
+        if(averageOfAudiencePopularity < 25){
+            if(allOtherStudios[i].popularity < 4){
+                allOtherStudios[i].popularity = 1;
+            } else {
+                allOtherStudios[i].popularity -= 3;
+            }
+        } else if(averageOfAudiencePopularity >= 25 && averageOfAudiencePopularity < 50){
+            if(allOtherStudios[i].popularity < 3){
+                allOtherStudios[i].popularity = 1;
+            } else {
+                allOtherStudios[i].popularity -= 2;
+            }
+        } else if(averageOfAudiencePopularity >= 50 && averageOfAudiencePopularity < 75){
+            if(allOtherStudios[i].popularity > 98){
+                allOtherStudios[i].popularity = 100;
+            } else {
+                allOtherStudios[i].popularity += 2;
+            }
+        } else if(averageOfAudiencePopularity >= 75){
+            if(allOtherStudios[i].popularity > 97){
+                allOtherStudios[i].popularity = 100;
+            } else {
+                allOtherStudios[i].popularity += 3;
+            }
+        }
+    }
 }
 
 //function for streaming service costs / earnings
@@ -103,6 +228,8 @@ function streamingService() {
 
             if (store.getters.getCurrentDate > checkDate) {
                 if (movie._contract === 1) {
+                    movie._boughtRightDate = null;
+                    movie._contract = null;
                     store.commit('removeBoughtMovieRights', movie)
                 } else {
                     movie._boughtRightDate = checkDate;
@@ -111,19 +238,18 @@ function streamingService() {
             }
         })
 
-        //update streaming service popularity and number of subscribers
-        updateServicePopularityAndSubscribers();
-
         //earnings / costs per month
         if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
             //get subscriber number
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
             //substract maintainment costs from balance
+            store.commit('addEarnings',new Earnings(serviceMaintainmentCosts, store.getters.getCurrentDate))
             store.commit('subtractBalance', serviceMaintainmentCosts);
 
             //calculate revenue for subscribers
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
             //add revenue to balance
+            store.commit('addEarnings',new Earnings(revenue, store.getters.getCurrentDate))
             store.commit('addBalance', revenue);
 
             //content maintainment costs
@@ -186,7 +312,11 @@ function streamingService() {
             contentMaintainmentCosts += (fourYearsMoviesPrice / 4 / 12)
             contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
 
+            store.commit('addEarnings',new Earnings(contentMaintainmentCosts, store.getters.getCurrentDate))
             store.commit('subtractBalance', contentMaintainmentCosts);
+
+            //update streaming service popularity and number of subscribers
+            updateServicePopularityAndSubscribers();
 
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(
@@ -706,9 +836,11 @@ function createScreenplaysFromWriters() {
     }
 }
 
+let counter = 0
+
 function renewPeople() {
     //kill and refresh people
-    let allPeople = store.state.allPeople
+    let allPeople = store.state.allPeopleTest
     let roles = {actor: 0, director: 0, writer: 0}
     let id = []
     let refresh = []
@@ -717,23 +849,24 @@ function renewPeople() {
         if (checkAge(el)) {
             id.push(el._id)
             let type = ""
-            if (el._isActor) {
+            if (el._isActor === "true") {
                 type += "Actor | "
                 roles.actor++
             }
-            if (el._isDirector) {
+            if (el._isDirector === "true") {
                 type += "Director | "
                 roles.director++
             }
-            if (el._isWriter) {
+            if (el._isWriter === "true") {
                 type += "Writer"
                 roles.writer++
             }
-            store.commit('addNews', new News(el._first_name + el._last_name + " died!", "The " + type + " " + el._first_name + el._last_name + " died", null, store.getters.getCurrentDate, el))
+            store.commit('addNews', new News(el._first_name + ' ' + el._last_name + " died!", "The " + type + " " + el._first_name + ' ' + el._last_name + " died", null, store.getters.getCurrentDate, el))
         } else {
             refresh.push(refreshPerson(el))
         }
     })
+    console.log(counter)
     window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", id])
     window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", refresh])
 
@@ -753,34 +886,35 @@ function renewPeople() {
 
     window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", newOnes])
     id = []
+    window.ipcRenderer.removeAllListeners('generatePerson')
+    window.ipcRenderer.removeAllListeners('killPerson')
+    window.ipcRenderer.removeAllListeners('refreshPerson')
 }
 
 function checkAge(person) {
-    const deathAge = person._deathAge > 30 ? person._deathAge - 20 : person._deathAge
-    const random = Math.random() * 100
-    console.log(random + " / " + deathAge)
+    const deathAge = person._deathAge
     if (deathAge < 10) {
-        return random <= 0.5
+        return randomNumber(0.0005) === 0
     } else if (deathAge >= 10 && deathAge < 20) {
-        return random === 1
+        return randomNumber(0.001) === 0
     } else if (deathAge >= 20 && deathAge < 30) {
-        return random <= 3
+        return randomNumber(0.002) === 0
     } else if (deathAge >= 30 && deathAge < 40) {
-        return random <= 5
+        return randomNumber(0.003) === 0
     } else if (deathAge >= 40 && deathAge < 50) {
-        return random <= 7
+        return randomNumber(0.005) === 0
     } else if (deathAge >= 50 && deathAge < 60) {
-        return random <= 10
+        return randomNumber(0.007) === 0
     } else if (deathAge >= 60 && deathAge < 70) {
-        return random <= 13
+        return randomNumber(0.009) === 0
     } else if (deathAge >= 70 && deathAge < 80) {
-        return random <= 20
+        return randomNumber(0.011) === 0
     } else if (deathAge >= 80 && deathAge < 90) {
-        return random <= 23
+        return randomNumber(0.014) === 0
     } else if (deathAge >= 90 && deathAge < 100) {
-        return random <= 29
+        return randomNumber(0.018) === 0
     } else if (deathAge >= 100) {
-        return random <= 35
+        return randomNumber(0.020) === 0
     }
 }
 
@@ -915,8 +1049,15 @@ function generatePersonValues(roles) {
     let birthday = (Math.round(Math.random() * 29) + 1).toString() + "-" + (Math.round(Math.random() * 11) + 1).toString() + "-" + (store.getters.getCurrentDate.getFullYear() - age).toString()
 
     //create first + lastname
-    let firstName = "Benni"
-    let lastName = "Franklin"
+    const randomProfile = require('random-profile-generator');
+    let profile;
+    if (gender === 'diverse') {
+        profile = randomProfile.profile()
+    } else {
+        profile = randomProfile.profile(gender)
+    }
+    let firstName = profile.firstName
+    let lastName = profile.lastName
 
     //deathAge
     let diff = store.getters.getCurrentDate.getFullYear() - parseInt(birthday.split('-')[2])

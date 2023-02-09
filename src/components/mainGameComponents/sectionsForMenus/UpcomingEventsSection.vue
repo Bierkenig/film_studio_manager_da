@@ -5,7 +5,7 @@
         <div>
           <h2 class="date">{{ $t('today') }}</h2>
           <div class="event" v-for="(it,index) in todayEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" @open-clicked="goToEvent" status="open"/>
+            <event-element :type="it.type" :movie-title="it.movie" @open-clicked="goToEvent(it)" :status="elementStatus"/>
           </div>
         </div>
         <div>
@@ -22,27 +22,161 @@
         </div>
       </div>
     </background-tile>
+
+    <!--EVENTS DURING PRE PRODUCTION-->
+    <transition name="modal">
+      <pre-production-event
+          v-if="showPreProductionModal"
+          :type="chosenType"
+          @close="showPreProductionModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </pre-production-event>
+    </transition>
+
+    <!--EVENTS DURING PRODUCTION-->
+    <transition name="modal">
+      <prod-event-modal
+          v-if="showProductionModal"
+          @close="showProductionModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </prod-event-modal>
+    </transition>
+
+    <!--EVENTS DURING POST PRODUCTION-->
+    <transition name="modal">
+      <post-prod-modal
+          v-if="showPostProductionModal"
+          @close="showPostProductionModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </post-prod-modal>
+    </transition>
+
+    <!--PRE PRODUCTION SUMMARY WITH CONTINUE PRODUCTION MODAL-->
+    <transition name="modal">
+      <pre-production-summary
+          v-if="showPreProductionSummaryModal"
+          @close="showPreProductionSummaryModal = false; showContinueProdModal = true;">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </pre-production-summary>
+    </transition>
+
+    <transition name="modal">
+      <continue-prod
+          v-if="showContinueProdModal"
+          @close="showContinueProdModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </continue-prod>
+    </transition>
+
+    <!--PRODUCTION SUMMARY WITH CONTINUE POST PRODUCTION MODAL-->
+    <transition name="modal">
+      <production-summary
+          v-if="showProductionSummaryModal"
+          @close="showProductionSummaryModal = false; showContinuePostProdModal = true;">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </production-summary>
+    </transition>
+
+    <transition name="modal">
+      <continue-post-prod
+          v-if="showContinuePostProdModal"
+          @close="showContinuePostProdModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </continue-post-prod>
+    </transition>
+
+    <!--POST PRODUCTION SUMMARY-->
+    <transition name="modal">
+      <post-production-summary
+          v-if="showPostProductionSummaryModal"
+          @close="showPostProductionSummaryModal = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </post-production-summary>
+    </transition>
   </div>
 </template>
 
 <script>
 import EventElement from "@/components/kitchenSink/EventElement";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import PreProductionEvent from "@/components/mainGameComponents/preProduction/modals/preProductionEvent.vue";
+import ProdEventModal from "@/components/mainGameComponents/currentProduction/prodEventModal.vue";
+import PostProdModal from "@/components/mainGameComponents/postProduction/postProdEventModal.vue";
+import PreProductionSummary from "@/components/mainGameComponents/preProduction/preProductionSummary.vue";
+import ContinueProd from "@/components/mainGameComponents/currentProduction/continueProduction.vue";
+import ProductionSummary from "@/components/mainGameComponents/currentProduction/productionSummary.vue";
+import ContinuePostProd from "@/components/mainGameComponents/postProduction/continueProductionPost.vue";
+import PostProductionSummary from "@/components/mainGameComponents/postProduction/postProductionSummary.vue";
 export default {
   name: "UpcomingEventsSection",
-  components: {BackgroundTile, EventElement},
+  components: {
+    PostProductionSummary,
+    ContinuePostProd, ProductionSummary, ContinueProd, PreProductionSummary, PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
   data(){
     return {
       todayEvents: [],
       weekEvents: [],
       monthEvents: [],
+
+      // data for showing events during each production phase
+      showPreProductionModal: false,
+      showProductionModal: false,
+      showPostProductionModal: false,
+
+      // data for showing summaries
+      showPreProductionSummaryModal: false,
+      showProductionSummaryModal: false,
+      showPostProductionSummaryModal: false,
+
+      // data for showing continue modals
+      showContinuePostProdModal: false,
+      showContinueProdModal: false,
+
+      chosenType: '',
+      elementStatus: 'open',
     }
   },
 
   methods: {
-    goToEvent(){
-      //TODO: ZU Movie gehen
-      this.$router.push('calendar')
+    goToEvent(event){
+      if(event.type === 'dropOut' || event.type === 'recast' || event.type === 'creative' || event.type === 'difficulty' || event.type === 'extend'){
+        this.showPreProductionModal = true;
+        this.chosenType = event.type;
+      } else if(event.type === 'weather' || event.type === 'castMember' || event.type === 'budgetForCostumes' || event.type === 'equipment'
+          || event.type === 'budget' || event.type === 'breakdown' || event.type === 'duration' || event.type === 'directorLeaves'
+          || event.type === 'changes' || event.type === 'injured'){
+        this.$store.commit('setCurrentProdEventType',event.type)
+        this.showProductionModal = true;
+      } else if(event.type === 'sound' || event.type === 'postProductionProblem' || event.type === 'visualEffects' || event.type === 'visualQuality'
+          || event.type === 'reshooting'){
+        this.$store.commit('setCurrentPostProdEventType',event.type)
+        this.showPostProductionModal = true;
+      } else if(event.type === 'preProductionFinished'){
+        this.showPreProductionSummaryModal = true;
+      } else if(event.type === 'productionFinished'){
+        this.showProductionSummaryModal = true;
+      } else if(event.type === 'postProductionFinished'){
+        this.showPostProductionSummaryModal = true;
+      }
+
+      this.$store.commit('setCurrentCalendarEvent',event);
+      this.elementStatus = 'done';
     },
 
     getNextWeeksDate() {

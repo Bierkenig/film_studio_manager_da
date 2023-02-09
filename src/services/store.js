@@ -91,8 +91,9 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
             new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
         ],
+        currentCalendarEvent: null,
         calendarEvents: [
-            {
+            /*{
                 id: 1,
                 movie: "SOMETHING",
                 start: '2023-01-15',
@@ -105,7 +106,7 @@ export default createStore({
                 movie: "NICHTS",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'badWeather',
+                type: 'weather',
                 completed: false,
             },
             {
@@ -121,7 +122,7 @@ export default createStore({
                 movie: "VIELLEICHT",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'directorWantsChanges',
+                type: 'changes',
                 completed: false,
             },
             {
@@ -137,7 +138,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'reshootingOfScenes',
+                type: 'reshooting',
                 completed: false,
             },
             {
@@ -145,7 +146,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'releaseSummary',
+                type: 'afterRelease',
                 completed: false,
             },
             {
@@ -153,7 +154,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'bankrupt',
+                type: 'studioTakeover',
                 completed: false,
             },
             {
@@ -161,7 +162,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-08',
                 end: '2023-01-09',
-                type: 'actorDropsOut',
+                type: 'dropOut',
                 completed: false,
             },
             {
@@ -169,7 +170,7 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-29',
                 end: '2023-01-30',
-                type: 'award',
+                type: 'internationalAward',
                 completed: false,
             },
             {
@@ -177,15 +178,15 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-05',
                 end: '2023-01-06',
-                type: 'award',
+                type: 'dropOut',
                 completed: false,
             },
-            {
+            /*{
                 id: 12,
                 movie: "SOMETHING",
                 start: '2023-01-05',
                 end: '2023-01-06',
-                type: 'award',
+                type: 'sound',
                 completed: false,
             },
             {
@@ -193,11 +194,10 @@ export default createStore({
                 movie: "SOMETHING",
                 start: '2023-01-05',
                 end: '2023-01-06',
-                type: 'award',
+                type: 'visualQuality',
                 completed: false,
-            },
+            },*/
         ],
-        happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
         currentFranchise: null,
 
@@ -212,6 +212,7 @@ export default createStore({
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
         franchisesFromOtherStudios: [],
+
         otherStudios: [
             new Studio(0, "Studio 1", 2002, 203002, 100),
             new Studio(1, "Atudio 2", 2020, 2098, 100)
@@ -309,6 +310,7 @@ export default createStore({
         dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
+        allPeopleTest: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],
@@ -543,6 +545,16 @@ export default createStore({
             return nextId + 1;
         },
 
+        getNextEventId(state){
+            let nextId = 0;
+            state.calendarEvents.forEach(calendarEvent => {
+                if(calendarEvent['id'] > nextId){
+                    nextId = calendarEvent['id'];
+                }
+            })
+            return nextId + 1;
+        },
+
         getFranchisesFromOtherStudios(state){
             return state.franchisesFromOtherStudios;
         },
@@ -571,6 +583,10 @@ export default createStore({
 
         getAwardsOfOwnStudio(state){
             return state.awardsOfOwnStudio;
+        },
+
+        getCurrentCalendarEvent(state){
+            return state.currentCalendarEvent;
         }
     },
 
@@ -850,6 +866,10 @@ export default createStore({
             state.streamingServicesFromOtherStudios.push(service)
         },
 
+        removeStreamingServiceFromOtherStudios(state, service){
+            state.streamingServicesFromOtherStudios.splice(state.streamingServicesFromOtherStudios.indexOf(service), 1);
+        },
+
         addFranchiseFromOtherStudios(state, franchise){
             state.franchisesFromOtherStudios.push(franchise)
         },
@@ -905,6 +925,18 @@ export default createStore({
 
         addAwardToOwnStudio(state, award){
             state.awardsOfOwnStudio.push(award)
+        },
+
+        setCurrentProdEventType(state, type){
+            state.currentProdEventType = type;
+        },
+
+        setCurrentPostProdEventType(state, type){
+            state.currentPostProdEventType = type;
+        },
+
+        setCurrentCalendarEvent(state, event){
+            state.currentCalendarEvent = event;
         },
 
         stateToSave(state, reducedState){
