@@ -1,3 +1,5 @@
+import Discord from "discord-game";
+
 const fs = require("fs");
 const hash = require("object-hash");
 const moment = require("moment");
@@ -403,5 +405,42 @@ export function loadSettings() {
     }
 
     return save;
+}
+
+discord()
+
+async function discord(){
+
+    console.log('discord')
+    const isRequireDiscord = true;
+    Discord.create('1072990962814570526', isRequireDiscord);
+
+    console.log(Discord.version)
+
+    // All property are optional
+    const activity = {
+        details: 'Details',
+        state: 'State',
+        assets: {
+            largeImage: 'large',
+            largeText: 'Large',
+            smallImage: 'small',
+            smallText: 'Small'
+        },
+        timestamps: {
+            startAt: new Date(),
+            endAt: new Date()
+        },
+
+    }
+
+
+    //const start_at = new Date();
+    Discord.Activity
+         .update(activity)
+         .then(function() { console.log('Rich Presence updated') });
+     setInterval(function() {
+         console.log(Discord.runCallback()) // => true
+     }, 100000/60)
 
 }

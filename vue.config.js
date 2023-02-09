@@ -23,7 +23,8 @@ module.exports = {
             // Note that it is ignored when --debug flag is used with "electron:serve", as you must launch Electron yourself
             // Command line args (excluding --debug, --dashboard, and --headless) are passed to Electron as well
             //mainProcessArgs: ['--arg-name', 'arg-value']
-            outputDir: 'build'
+            outputDir: 'build',
+            externals: ['discord-game', 'discord_game']
         }
-    }
+    },
 }
