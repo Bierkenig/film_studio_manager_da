@@ -12,7 +12,7 @@
                 <div>{{$t('afterReleaseWithCinema.release')}}: {{release.popularityFormula}}</div>
                 <div>{{$t('afterReleaseWithCinema.open')}}: {{release.openingEarnings}}</div>
               </div>
-              <button @click="close()">{{$t('afterReleaseWithCinema.close')}}</button>
+              <button @click="closeModal">{{$t('afterReleaseWithCinema.close')}}</button>
             </slot>
           </div>
         </div>
@@ -33,10 +33,15 @@ export default {
   },
 
   methods: {
-    close() {
-
-
-      this.$emit('close')
+    closeModal(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
     }
   }
 }
