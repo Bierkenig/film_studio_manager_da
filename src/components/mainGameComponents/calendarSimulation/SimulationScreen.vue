@@ -38,7 +38,7 @@
         :dark="false"
         size="medium"
         :disabled="stopButtonDisabled"
-        @click="stopAnimate">Stop</custom-button>
+        @clicked="stopAnimate">Stop</custom-button>
   </div>
 </template>
 

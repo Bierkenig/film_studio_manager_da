@@ -30,7 +30,7 @@ export default {
         fontColor: 'var(--fsm-pink-1)'
       },
       themeDisabled: {
-        bgColor: 'var(--fsm-dark-blue-3)',
+        bgColor: 'var(--fsm-light-blue)',
         fontColor: 'var(--fsm-grey-font-color)'
       },
       sizeValues: {},
@@ -84,6 +84,7 @@ export default {
   },
   mounted() {
     this.setCSSVariables();
+    this.applyAbilityStyle();
   },
   watch: {
     disabled: function () {

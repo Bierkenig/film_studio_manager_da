@@ -58,7 +58,7 @@ function randomNumber(probability) {
 //function to create new studios
 function createStudios() {
     if (store.state.studioNames.length !== 0) {
-        let num = randomNumber(0.50);
+        let num = randomNumber(0.10);
         if (num === 0) {
             //get all existing studio names
             let allStudios = [store.getters.getStudio.getName()];
@@ -79,7 +79,10 @@ function createStudios() {
             } else {
                 studioId = store.getters.getNextStudioId;
             }
-            let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), 50000000, 0);
+
+            let budgetValues = [50000000, 250000000, 1000000000];
+            let budgetOfStudio = budgetValues[Math.floor(Math.random() * budgetValues.length)]
+            let newStudio = new Studio(studioId, studioName, store.getters.getCurrentDate.getFullYear(), budgetOfStudio, 0);
             store.getters.getOtherStudios.push(newStudio);
 
             //create news of new studio
@@ -226,9 +229,6 @@ function streamingService() {
             }
         })
 
-        //update streaming service popularity and number of subscribers
-        updateServicePopularityAndSubscribers();
-
         //earnings / costs per month
         if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
             //get subscriber number
@@ -305,6 +305,9 @@ function streamingService() {
 
             store.commit('addEarnings',new Earnings(contentMaintainmentCosts, store.getters.getCurrentDate))
             store.commit('subtractBalance', contentMaintainmentCosts);
+
+            //update streaming service popularity and number of subscribers
+            updateServicePopularityAndSubscribers();
 
             //set new last checked date to know if one month has passed
             store.getters.getOwnStreamingService._lastCheckedDate = new Date(

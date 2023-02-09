@@ -127,7 +127,7 @@
             class="writerDetailsOfferButton"
             :dark="false"
             size="medium"
-            :disabled="this.currentWriter?._no === 3 || this.writerDecision === null"
+            :disabled="this.currentWriter?._no === 3 || this.writerDecision === null || this.writerDecision === true"
             @clicked="calcWriterDecision">{{ $t('hireDirectorSection.offer') }} ({{ this.currentWriter?._no }}/3)</custom-button>
 
         <div class="writerDetailsWriterAnswer">
@@ -141,7 +141,7 @@
         class="writerDetailsHireButton"
         :dark="false"
         size="medium"
-        :disabled="writerDecision === null && writerDecision !== true"
+        :disabled="this.writerDecision !== true"
         @clicked="hireWriter">{{ $t('continue') }}</custom-button>
   </div>
 </template>
@@ -347,6 +347,8 @@ export default {
 
       if(!this.writerDecision){
         this.currentWriter._no++;
+      } else {
+        this.$emit('hiredWriter')
       }
     },
 
@@ -433,16 +435,20 @@ export default {
     },
 
     subtractSalary(){
-      if(this.selectedSalary > this.salaryRange.min){
-        this.changingIndex--;
-        this.selectedSalary = this.salaryValues[this.changingIndex];
+      if(this.writerDecision === false){
+        if(this.selectedSalary > this.salaryRange.min){
+          this.changingIndex--;
+          this.selectedSalary = this.salaryValues[this.changingIndex];
+        }
       }
     },
 
     addSalary(){
-      if(this.selectedSalary < this.salaryRange.max){
-        this.changingIndex++;
-        this.selectedSalary = this.salaryValues[this.changingIndex];
+      if(this.writerDecision === false){
+        if(this.selectedSalary < this.salaryRange.max){
+          this.changingIndex++;
+          this.selectedSalary = this.salaryValues[this.changingIndex];
+        }
       }
     },
 

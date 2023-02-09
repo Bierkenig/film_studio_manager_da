@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: "pre-production-event",
+  name: "continue-post-prod",
 
   methods: {
     cancelMovie() {

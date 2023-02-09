@@ -92,7 +92,7 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
         ],
         calendarEvents: [
-            {
+            /*{
                 id: 1,
                 movie: "SOMETHING",
                 start: '2023-01-15',
@@ -171,7 +171,7 @@ export default createStore({
                 end: '2023-01-30',
                 type: 'internationalAward',
                 completed: false,
-            },
+            },*/
             {
                 id: 11,
                 movie: "SOMETHING",
@@ -180,7 +180,7 @@ export default createStore({
                 type: 'dropOut',
                 completed: false,
             },
-            {
+            /*{
                 id: 12,
                 movie: "SOMETHING",
                 start: '2023-01-05',
@@ -195,7 +195,7 @@ export default createStore({
                 end: '2023-01-06',
                 type: 'visualQuality',
                 completed: false,
-            },
+            },*/
         ],
         happeningEvent: new Event("Breakdown", new Date("2020-12-21"), new Date("2022-09-01")),
         franchises: [],
@@ -539,6 +539,16 @@ export default createStore({
             state.otherStudios.forEach(studio => {
                 if (studio.getId() > nextId) {
                     nextId = studio.getId();
+                }
+            })
+            return nextId + 1;
+        },
+
+        getNextEventId(state){
+            let nextId = 0;
+            state.calendarEvents.forEach(calendarEvent => {
+                if(calendarEvent['id'] > nextId){
+                    nextId = calendarEvent['id'];
                 }
             })
             return nextId + 1;

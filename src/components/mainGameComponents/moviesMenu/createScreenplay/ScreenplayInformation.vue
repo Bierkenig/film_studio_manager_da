@@ -261,7 +261,7 @@ export default {
   methods: {
     onButtonClick(){
       if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
-        this.$router.push({name: 'home'});
+        this.$router.push({name: 'movies'});
       } else {
         this.$store.state.currentMovie._preProduction.screenplay = this.screenplay
         this.$router.push({name: 'directorSection'})
