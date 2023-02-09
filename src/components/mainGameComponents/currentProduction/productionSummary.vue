@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="modal-mask">
-      <div class="modal-wrapper" @click="$emit('close')">
-        <div class="modal-container" @click.stop="">
+      <div class="modal-wrapper">
+        <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
               <h2>{{$t('summaries.production.title')}}</h2>
@@ -14,7 +14,7 @@
               <div v-for="(el, index) in happenedEvents" :key="index">
                 {{$t('productionEvents.' + el + ".problem")}}
               </div>
-              <button @close="closeSummary">{{$t('summaries.preProduction.close')}}</button>
+              <button @click="closeSummary">{{$t('summaries.preProduction.close')}}</button>
             </slot>
           </div>
         </div>
