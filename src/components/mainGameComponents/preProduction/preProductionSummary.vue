@@ -37,7 +37,6 @@ export default {
   },
 
   mounted() {
-    this.$store.state.summaries.preProductionClose = false
     this.happenedEvents = this.$store.getters.getCurrentMovie._preProduction.happenedEvents
     this.maxWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
         this.$store.getters.getCurrentMovie._preProduction.productionLength +
