@@ -39,7 +39,7 @@ export default createStore({
         studio: null,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
-        currentMovie: new Movie(new Studio(100,"Jakob ist Cool", "2023",50000000,80), null),
+        currentMovie: new Movie(new Studio(100, "Jakob ist Cool", "2023", 50000000, 80), null),
         currentMovieDetails: null,
         currentProdEventType: "",
         currentPostProdEventType: "sound",
@@ -53,35 +53,35 @@ export default createStore({
         earnings: [
             {
                 value: 245000,
-                date: new Date(2022,11,25)
+                date: new Date(2022, 11, 25)
             },
             {
                 value: 500000,
-                date: new Date(2023,0,15)
+                date: new Date(2023, 0, 15)
             },
             {
                 value: 245000,
-                date: new Date(2022,11,25)
+                date: new Date(2022, 11, 25)
             },
             {
                 value: 500000,
-                date: new Date(2023,0,15)
+                date: new Date(2023, 0, 15)
             },
             {
                 value: 245000,
-                date: new Date(2022,11,25)
+                date: new Date(2022, 11, 25)
             },
             {
                 value: 500000,
-                date: new Date(2023,0,15)
+                date: new Date(2023, 0, 15)
             },
             {
                 value: 245000,
-                date: new Date(2022,11,25)
+                date: new Date(2022, 11, 25)
             },
             {
                 value: 500000,
-                date: new Date(2023,0,15)
+                date: new Date(2023, 0, 15)
             }
         ],
         financialPerformance: [
@@ -206,7 +206,7 @@ export default createStore({
         //while production
         inProductionMovies: [],
         //when finished
-        finishedMovies: [new Movie(new Studio(100,"JJJJ"), 0)],
+        finishedMovies: [new Movie(new Studio(100, "JJJJ"), 0)],
         awardsOfOwnStudio: [],
 
         moviesFromOtherStudios: [],
@@ -242,7 +242,7 @@ export default createStore({
             directorWithDispute: null,
         },
 
-        type:{
+        type: {
             editing: null,
             sound: null,
             vfx: null,
@@ -250,9 +250,9 @@ export default createStore({
             story: null
         },
 
-        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio',1,0,0,10,new Studio('AS'),new Date("January 25, 2023")),
-            new StreamingService('TUV Studio',1,0,0,10,new Studio('TU'),new Date("January 24, 2023")),
-            new StreamingService('HUA Studio',1,0,0,10,new Studio('HU'),new Date("January 23, 2023"))],
+        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio', 1, 0, 0, 10, new Studio('AS'), new Date("January 25, 2023")),
+            new StreamingService('TUV Studio', 1, 0, 0, 10, new Studio('TU'), new Date("January 24, 2023")),
+            new StreamingService('HUA Studio', 1, 0, 0, 10, new Studio('HU'), new Date("January 23, 2023"))],
         ownStreamingService: null,
 
         studioNames: ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
@@ -292,7 +292,7 @@ export default createStore({
             "Documentary": [],
             "Drama": [],
             "Fantasy": [],
-            "Horror":[],
+            "Horror": [],
             "Musical": [],
             "Romance": [],
             "Science-Fiction": [],
@@ -300,7 +300,7 @@ export default createStore({
             "War": []
         },
 
-        months:["january", "february", "march", "april", "may", "june",
+        months: ["january", "february", "march", "april", "may", "june",
             "july", "august", "september", "october", "november", "december"
         ],
 
@@ -323,8 +323,8 @@ export default createStore({
         editPerson: null,
 
         //TODO need to cut 20
-        allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000,29500000, 31000000],
-        allWriterSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000,525000,550000,575000,600000,625000,650000,675000,700000,725000,750000,825000,900000,975000,1050000,1125000,1200000,1275000,1350000,1425000,1500000,1600000,1700000,1800000,1900000,2000000,2100000,2200000,2300000,2400000,2500000,2750000,3000000,3250000,3500000,3750000,4000000,4250000,4500000,4750000,5000000,5500000,6000000,6500000,7000000,7500000,8000000,8500000,9000000,9500000,10000000,10500000,11000000,11500000,12000000],
+        allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000, 29500000, 31000000],
+        allWriterSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 525000, 550000, 575000, 600000, 625000, 650000, 675000, 700000, 725000, 750000, 825000, 900000, 975000, 1050000, 1125000, 1200000, 1275000, 1350000, 1425000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 2100000, 2200000, 2300000, 2400000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 10500000, 11000000, 11500000, 12000000],
     },
 
     /** Methods that read the application state */
@@ -353,7 +353,7 @@ export default createStore({
             return state.createdMovies;
         },
 
-        getCurrentMovie(state){
+        getCurrentMovie(state) {
             return state.currentMovie;
         },
 
@@ -361,15 +361,15 @@ export default createStore({
             return state.currentMovieDetails;
         },
 
-        getCurrentScreenplay(state){
+        getCurrentScreenplay(state) {
             return state.currentScreenplay;
         },
 
-        getBoughtScreenplays(state){
+        getBoughtScreenplays(state) {
             return state.boughtScreenplays;
         },
 
-        getNextScreenplayId(state){
+        getNextScreenplayId(state) {
             let nextId = 0;
             let allScreenplays = state.screenplays.concat(state.boughtScreenplays, state.screenplaysFromWriters)
             allScreenplays.forEach(screenplay => {
@@ -381,23 +381,23 @@ export default createStore({
         },
 
         //TODO: changes
-        getCurrentLogo(state){
+        getCurrentLogo(state) {
             return state.logo;
         },
 
-        getCurrentStatusOfSoundeffect(state){
+        getCurrentStatusOfSoundeffect(state) {
             return state.soundeffects;
         },
 
-        getCurrentStatusOfBackgroundMusic(state){
+        getCurrentStatusOfBackgroundMusic(state) {
             return state.backgroundMusic;
         },
 
-        getCurrentNews(state){
+        getCurrentNews(state) {
             return state.news;
         },
 
-        getEarnings(state){
+        getEarnings(state) {
             return state.earnings;
         },
 
@@ -405,15 +405,15 @@ export default createStore({
             return state.inProductionMovies;
         },
 
-        getCurrentDate(state){
+        getCurrentDate(state) {
             return state.currentDate;
         },
 
-        getCalendarEvents(state){
+        getCalendarEvents(state) {
             return state.calendarEvents;
         },
 
-        getCurrentLanguage(state){
+        getCurrentLanguage(state) {
             return state.currentLanguage;
         },
 
@@ -421,11 +421,11 @@ export default createStore({
             return state.marketYears
         },
 
-        getFinishedMovies(state){
+        getFinishedMovies(state) {
             return state.finishedMovies;
         },
 
-        getFranchises(state){
+        getFranchises(state) {
             return state.franchises;
         },
 
@@ -445,15 +445,15 @@ export default createStore({
             return state.currentStudioTakeOverRequests
         },
 
-        getAllActors(state){
+        getAllActors(state) {
             return state.allActors;
         },
 
-        getAllDirectors(state){
+        getAllDirectors(state) {
             return state.allDirectors;
         },
 
-        getAllWriters(state){
+        getAllWriters(state) {
             return state.allWriters;
         },
 
@@ -461,11 +461,11 @@ export default createStore({
             return state.allPeople
         },
 
-        getSubgenresFromEachGenre(state){
+        getSubgenresFromEachGenre(state) {
             return state.subgenresFromEachGenre;
         },
 
-        getAllSubGenres(state){
+        getAllSubGenres(state) {
             return state.allSubGenres;
         },
 
@@ -473,11 +473,11 @@ export default createStore({
             return state.financialHistory;
         },
 
-        getAllTopics(state){
+        getAllTopics(state) {
             return state.allTopics;
         },
 
-        getAllGenres(state){
+        getAllGenres(state) {
             return state.allGenres;
         },
 
@@ -509,23 +509,23 @@ export default createStore({
             return state.boughtMovies;
         },
 
-        getStreamingServicesFromOtherStudios(state){
+        getStreamingServicesFromOtherStudios(state) {
             return state.streamingServicesFromOtherStudios;
         },
 
-        getSlot(state){
+        getSlot(state) {
             return state.slot
         },
 
-        getDirectorAndActorSalaries(state){
+        getDirectorAndActorSalaries(state) {
             return state.allDirectorSalary;
         },
 
-        getWriterSalaries(state){
+        getWriterSalaries(state) {
             return state.allWriterSalary;
         },
 
-        getNextFranchiseId(state){
+        getNextFranchiseId(state) {
             let nextId = 0;
             state.franchises.forEach(franchise => {
                 if (franchise.getId() > nextId) {
@@ -535,7 +535,7 @@ export default createStore({
             return nextId + 1;
         },
 
-        getNextStudioId(state){
+        getNextStudioId(state) {
             let nextId = 0;
             state.otherStudios.forEach(studio => {
                 if (studio.getId() > nextId) {
@@ -545,21 +545,21 @@ export default createStore({
             return nextId + 1;
         },
 
-        getNextEventId(state){
+        getNextEventId(state) {
             let nextId = 0;
             state.calendarEvents.forEach(calendarEvent => {
-                if(calendarEvent['id'] > nextId){
+                if (calendarEvent['id'] > nextId) {
                     nextId = calendarEvent['id'];
                 }
             })
             return nextId + 1;
         },
 
-        getFranchisesFromOtherStudios(state){
+        getFranchisesFromOtherStudios(state) {
             return state.franchisesFromOtherStudios;
         },
 
-        getNextOtherStudiosFranchiseId(state){
+        getNextOtherStudiosFranchiseId(state) {
             let nextId = 0;
             state.franchisesFromOtherStudios.forEach(franchise => {
                 if (franchise.getId() > nextId) {
@@ -569,7 +569,7 @@ export default createStore({
             return nextId + 1;
         },
 
-        getBoughtMovieRights(state){
+        getBoughtMovieRights(state) {
             return state.boughtMovieRights;
         },
 
@@ -577,15 +577,15 @@ export default createStore({
             return state.moviesFromOtherStudios;
         },
 
-        getScreenplaysFromWriters(state){
+        getScreenplaysFromWriters(state) {
             return state.screenplaysFromWriters;
         },
 
-        getAwardsOfOwnStudio(state){
+        getAwardsOfOwnStudio(state) {
             return state.awardsOfOwnStudio;
         },
 
-        getCurrentCalendarEvent(state){
+        getCurrentCalendarEvent(state) {
             return state.currentCalendarEvent;
         }
     },
@@ -650,7 +650,7 @@ export default createStore({
             state.currentMovie = new Movie(screenplay);
         },
 
-        setCurrentMovieDirector(state, director){
+        setCurrentMovieDirector(state, director) {
             state.currentMovie.setDirector(director);
         },
 
@@ -686,23 +686,23 @@ export default createStore({
             state.currentMovieBudget = budget;
         },
 
-        setNewCurrentScreenplay(state, screenplay){
+        setNewCurrentScreenplay(state, screenplay) {
             state.currentScreenplay = screenplay;
         },
 
-        setNewCurrentMovie(state,movie){
+        setNewCurrentMovie(state, movie) {
             state.currentMovie = movie;
         },
 
-        setCurrentScreenplayWriter(state, writer){
+        setCurrentScreenplayWriter(state, writer) {
             state.currentScreenplay.setWriter(writer);
         },
 
-        setCurrentScreenplayRating(state, rating){
+        setCurrentScreenplayRating(state, rating) {
             state.currentScreenplay.setRating(rating);
         },
 
-        setCurrentScreenplayPrice(state, price){
+        setCurrentScreenplayPrice(state, price) {
             state.currentScreenplay.setPrice(price);
         },
 
@@ -710,7 +710,7 @@ export default createStore({
             state.currentMovieExpenses += salary;
         },
 
-        addBoughtScreenplay(state, screenplayId){
+        addBoughtScreenplay(state, screenplayId) {
             state.boughtScreenplays.push(screenplayId);
         },
 
@@ -728,27 +728,27 @@ export default createStore({
         },
 
         //TODO: changes
-        setCurrentLogo(state, image){
+        setCurrentLogo(state, image) {
             state.logo = image;
         },
 
-        setCurrentSoundeffect(state, status){
+        setCurrentSoundeffect(state, status) {
             state.soundeffects = status;
         },
 
-        setCurrentBackgroundMusic(state, status){
+        setCurrentBackgroundMusic(state, status) {
             state.backgroundMusic = status;
         },
 
-        addNews(state, newNews){
+        addNews(state, newNews) {
             state.news.push(newNews);
         },
 
-        deleteNews(state, index){
-            state.news.splice(index,1);
+        deleteNews(state, index) {
+            state.news.splice(index, 1);
         },
 
-        addEarnings(state, payload){
+        addEarnings(state, payload) {
             state.earnings.push({value: payload[0], date: payload[1]})
         },
 
@@ -760,37 +760,37 @@ export default createStore({
             state.inProductionMovies.splice(state.inProductionMovies.indexOf(movie), 1);
         },
 
-        updateCurrentDate(state){
+        updateCurrentDate(state) {
             let lastDate = state.currentDate;
-            state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate()+1);
+            state.currentDate = new Date(lastDate.getFullYear(), lastDate.getMonth(), lastDate.getDate() + 1);
         },
 
-        addCalendarEvents(state, calendarEvent){
+        addCalendarEvents(state, calendarEvent) {
             state.calendarEvents.push(calendarEvent)
         },
 
-        addCalendarEvent(state, calendarEvent){
+        addCalendarEvent(state, calendarEvent) {
             state.calendarEvents.push(calendarEvent)
         },
 
-        addEvent(state, event){
+        addEvent(state, event) {
             state.happeningEvents.push(event);
         },
 
-        changeCurrentLanguage(state, value){
+        changeCurrentLanguage(state, value) {
             state.currentLanguage = value;
             i18next.changeLanguage(value)
         },
 
-        addFinishedMovie(state, movie){
+        addFinishedMovie(state, movie) {
             state.finishedMovies.push(movie);
         },
 
-        addFranchise(state, franchise){
+        addFranchise(state, franchise) {
             state.franchises.push(franchise);
         },
 
-        removeFranchise(state, franchise){
+        removeFranchise(state, franchise) {
             state.franchises.splice(state.franchises.indexOf(franchise), 1);
         },
 
@@ -826,19 +826,19 @@ export default createStore({
             state.currentScreenplay.removeCameoCharacter(character);
         },
 
-        setAllActors(state, value){
+        setAllActors(state, value) {
             state.allActors = value;
         },
 
-        setAllDirectors(state, value){
+        setAllDirectors(state, value) {
             state.allDirectors = value;
         },
 
-        setAllWriters(state, value){
+        setAllWriters(state, value) {
             state.allWriters = value;
         },
 
-        setAllTopics(state, value){
+        setAllTopics(state, value) {
             state.allTopics = value;
         },
 
@@ -850,7 +850,7 @@ export default createStore({
             state.allSubGenres = payload
         },
 
-        setOwnStreamingService(state, value){
+        setOwnStreamingService(state, value) {
             state.ownStreamingService = value;
         },
 
@@ -858,88 +858,88 @@ export default createStore({
             state.allPeople = payload;
         },
 
-        addBoughtMovie(state, movie){
+        addBoughtMovie(state, movie) {
             state.boughtMovies.push(movie);
         },
 
-        addStreamingServicesFromOtherStudios(state, service){
+        addStreamingServicesFromOtherStudios(state, service) {
             state.streamingServicesFromOtherStudios.push(service)
         },
 
-        removeStreamingServiceFromOtherStudios(state, service){
+        removeStreamingServiceFromOtherStudios(state, service) {
             state.streamingServicesFromOtherStudios.splice(state.streamingServicesFromOtherStudios.indexOf(service), 1);
         },
 
-        addFranchiseFromOtherStudios(state, franchise){
+        addFranchiseFromOtherStudios(state, franchise) {
             state.franchisesFromOtherStudios.push(franchise)
         },
 
         //payload[0] -> franchise, payload[1] -> movie
-        addMovieToFranchiseFromOtherStudios(state, payload){
+        addMovieToFranchiseFromOtherStudios(state, payload) {
             for (let i = 0; i < state.franchisesFromOtherStudios.length; i++) {
-                if(state.franchisesFromOtherStudios[i] === payload[0]){
+                if (state.franchisesFromOtherStudios[i] === payload[0]) {
                     state.franchisesFromOtherStudios[i].addAllMovies(payload[1])
                 }
             }
         },
 
         //payload -> [0] -> bought franchise, [1] -> price of franchise
-        buyFranchiseFromOtherStudios(state, payload){
-          let otherStudio = state.otherStudios.filter(st => st === payload[0].owner);
-          state.franchisesFromOtherStudios.splice(state.franchisesFromOtherStudios.indexOf(payload[0]), 1);
-          payload[0].owner = state.studio;
-          state.franchises.push(payload[0])
-          state.studio.budget = state.studio.budget - payload[1];
-          otherStudio.budget = otherStudio.budget + payload[1];
+        buyFranchiseFromOtherStudios(state, payload) {
+            let otherStudio = state.otherStudios.filter(st => st === payload[0].owner);
+            state.franchisesFromOtherStudios.splice(state.franchisesFromOtherStudios.indexOf(payload[0]), 1);
+            payload[0].owner = state.studio;
+            state.franchises.push(payload[0])
+            state.studio.budget = state.studio.budget - payload[1];
+            otherStudio.budget = otherStudio.budget + payload[1];
 
-          for (let i = 0; i < payload[0].allMovies.length; i++) {
-              state.finishedMovies.push(payload[0].allMovies[i]);
-          }
+            for (let i = 0; i < payload[0].allMovies.length; i++) {
+                state.finishedMovies.push(payload[0].allMovies[i]);
+            }
 
-          console.log(state.otherStudios)
+            console.log(state.otherStudios)
         },
 
-        addBoughtMovieRights(state, movie){
+        addBoughtMovieRights(state, movie) {
             state.boughtMovieRights.push(movie);
         },
 
-        removeBoughtMovieRights(state, movie){
+        removeBoughtMovieRights(state, movie) {
             state.boughtMovieRights.splice(state.boughtMovieRights.indexOf(movie), 1);
         },
 
-        addMoviesFromOtherStudios(state, movie){
+        addMoviesFromOtherStudios(state, movie) {
             state.moviesFromOtherStudios.push(movie);
         },
 
-        removeMovieFromOtherStudios(state, movie){
+        removeMovieFromOtherStudios(state, movie) {
             state.moviesFromOtherStudios.splice(state.moviesFromOtherStudios.indexOf(movie), 1);
         },
 
-        addScreenplaysFromWriters(state, movie){
+        addScreenplaysFromWriters(state, movie) {
             state.screenplaysFromWriters.push(movie)
         },
 
-        removeScreenplayFromWriters(state, movie){
+        removeScreenplayFromWriters(state, movie) {
             state.screenplaysFromWriters.splice(state.screenplaysFromWriters.indexOf(movie), 1);
         },
 
-        addAwardToOwnStudio(state, award){
+        addAwardToOwnStudio(state, award) {
             state.awardsOfOwnStudio.push(award)
         },
 
-        setCurrentProdEventType(state, type){
+        setCurrentProdEventType(state, type) {
             state.currentProdEventType = type;
         },
 
-        setCurrentPostProdEventType(state, type){
+        setCurrentPostProdEventType(state, type) {
             state.currentPostProdEventType = type;
         },
 
-        setCurrentCalendarEvent(state, event){
+        setCurrentCalendarEvent(state, event) {
             state.currentCalendarEvent = event;
         },
 
-        stateToSave(state, reducedState){
+        stateToSave(state, reducedState) {
             DataUtil.transferProperties(state, reducedState, [
                 "slot",
                 "screenplays",
@@ -962,7 +962,7 @@ export default createStore({
                 "franchisesFromOtherStudios",
                 "otherStudios",
                 "boughtMovies",
-                "boughtMoviesRights",
+                "boughtMovieRights",
                 "financialHistory",
                 "currentLoans",
                 "preProductionEvents",
@@ -973,7 +973,7 @@ export default createStore({
 
             return reducedState
         },
-        stateToSettings(state, reducedState){
+        stateToSettings(state, reducedState) {
             DataUtil.transferProperties(state, reducedState, [
                 "soundeffects",
                 "backgroundMusic",
@@ -983,93 +983,93 @@ export default createStore({
             return reducedState
         },
 
-        loadFromSave(state, responseData){
+        loadFromSave(state, responseData) {
             // Object.keys(state).forEach(key => delete state[key]);
             // Object.assign(state, responseData)
+            try {
+                DataUtil.transferProperties(responseData, state, [
+                    "slot",
+                    "logo",
+                    "type",
+                    "currentStudioTakeOverRequests",
+                    "calenderEvents",
+                ])
 
-            DataUtil.transferProperties(responseData, state, [
-                "slot",
-                "logo",
-                "type",
-                "currentStudioTakeOverRequests",
-                "calenderEvents",
-            ])
+                state.currentDate = new Date(responseData.currentDate)
+                state.ownStreamingService = responseData.ownStreamingService != null ? StreamingService.fromJSON(responseData.ownStreamingService) : null
+                state.streamingServicesFromOtherStudios = responseData.streamingServicesFromOtherStudios.map(jsonObject => StreamingService.fromJSON(jsonObject))
+                state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
+                state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+                state.boughtScreenplays = responseData.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+                state.studio = Studio.fromJSON(responseData.studio)
+                state.createdMovies = responseData.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.news = responseData.news.map(jsonObject => News.fromJSON(jsonObject))
+                state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
+                state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
+                state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
+                state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.financialPerformance = responseData.financialPerformance.map(jsonObject => FinancialPerformance.fromJSON(jsonObject))
+                state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.awardsOfOwnStudio = responseData.awardsOfOwnStudio.map(jsonObject => Award.fromJSON(jsonObject))
+                state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.screenplaysFromWriters = responseData.screenplaysFromWriters.map(jsonObject => Screenplay.fromJSON(jsonObject))
+                state.franchisesFromOtherStudios = responseData.franchisesFromOtherStudios.map(jsonObject => Franchises.fromJSON(jsonObject))
+                state.boughtMovieRights = responseData.boughtMovieRights.map(jsonObject => Movie.fromJSON(jsonObject))
+                state.financialHistory = responseData.financialHistory.map(jsonObject => FinancialHistoryEntry.fromJSON(jsonObject))
+                state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
 
-                   //TODO objectMapPerProperty
-                    "preProductionEvents",
+                state.preProductionEvents = DataUtil.objectMapPerProperty(responseData.preProductionEvents, {
+                    actorWhoWantsToDropOut: obj => obj == null ? null : Person.fromJSON(obj),
+                    directorWithDispute: obj => obj == null ? null : Person.fromJSON(obj),
+                })
+                // state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
+                //     isPreProduction: value => value,
+                //     currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
+                //     hiredDirector: obj => obj && Person.fromJSON(obj),
+                //     feature: value => value,
+                //     indie: value => value,
+                //     animated: value => value,
+                //     outgoings: value => value,
+                //     directorMood: value => value,
+                //     duration: value => value,
+                //     budget: value => value ,
+                //     budgetPop: value => value,
+                // })
+                console.log(state)
+                //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+                // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
+                // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
+                // //state.actors = store.state.actors.map(jsonObject => actors.find(actor => actor.id === jsonObject.id)).filter(actor => actor)
+                // state.currentMovie = store.state.currentMovie ? Movie.fromJSON(store.state.currentMovie) : null
+                // if (store.getters.getStudio(store.state) !== 'NO STUDIO') {
+                //     state.studio = Studio.fromJSON(store.state.studio)
+                // }
+            }catch(e){
+                console.log(e)
+                throw e
+            }
 
-            state.currentDate = new Date(responseData.currentDate)
-            state.ownStreamingService = responseData.ownStreamingService != null ? StreamingService.fromJSON(responseData.ownStreamingService) : null
-            state.streamingServicesFromOtherStudios = responseData.streamingServicesFromOtherStudios.map(jsonObject => StreamingService.fromJSON(jsonObject))
-            state.franchises = responseData.franchises.map(jsonObject => Franchises.fromJSON(jsonObject))
-            state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
-            state.boughtScreenplays = responseData.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
-            state.studio = Studio.fromJSON(responseData.studio)
-            state.createdMovies = responseData.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.news = responseData.news.map(jsonObject => News.fromJSON(jsonObject))
-            state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
-            state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
-            state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
-            state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.financialPerformance = responseData.financialPerformance.map(jsonObject => FinancialPerformance.fromJSON(jsonObject))
-            state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.awardsOfOwnStudio = responseData.awardsOfOwnStudio.map(jsonObject => Award.fromJSON(jsonObject))
-            state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.screenplaysFromWriters = responseData.screenplaysFromWriters.map(jsonObject => Screenplay.fromJSON(jsonObject))
-            state.franchisesFromOtherStudios = responseData.franchisesFromOtherStudios.map(jsonObject => Franchises.fromJSON(jsonObject))
-            state.boughtMoviesRights = responseData.boughtMoviesRights.map(jsonObject => Movie.fromJSON(jsonObject))
-            state.financialHistory = responseData.financialHistory.map(jsonObject => FinancialHistoryEntry.fromJSON(jsonObject))
-            state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
-
-            state.preProductionEvents = DataUtil.objectMapPerProperty(responseData.preProductionEvents,{
-                actorWhoWantsToDropOut: obj => obj == null ? null : Person.fromJSON(obj),
-                directorWithDispute: obj => obj == null ? null : Person.fromJSON(obj),
-            })
-            // state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
-            //     isPreProduction: value => value,
-            //     currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
-            //     hiredDirector: obj => obj && Person.fromJSON(obj),
-            //     feature: value => value,
-            //     indie: value => value,
-            //     animated: value => value,
-            //     outgoings: value => value,
-            //     directorMood: value => value,
-            //     duration: value => value,
-            //     budget: value => value ,
-            //     budgetPop: value => value,
-            // })
-            console.log(state)
-            //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
-            // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
-            // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-            // //state.actors = store.state.actors.map(jsonObject => actors.find(actor => actor.id === jsonObject.id)).filter(actor => actor)
-            // state.currentMovie = store.state.currentMovie ? Movie.fromJSON(store.state.currentMovie) : null
-            // if (store.getters.getStudio(store.state) !== 'NO STUDIO') {
-            //     state.studio = Studio.fromJSON(store.state.studio)
-            // }
         },
 
-            setSlot(state, payload){
+        setSlot(state, payload) {
             state.slot = payload
         },
 
-        setDBCustomName(state, name, slot){
-            if(slot === 1){
+        setDBCustomName(state, name, slot) {
+            if (slot === 1) {
                 state.dbCustomName1 = name
-            }
-            else if(slot === 2){
+            } else if (slot === 2) {
                 state.dbCustomName2 = name
-            }
-            else{
-                state.dbCustomName2  = name
+            } else {
+                state.dbCustomName2 = name
             }
         },
 
-        resetState(state){
+        resetState(state) {
             state.slot = null
             state.screenplay = []
             state.boughtScreenplays = []
@@ -1142,24 +1142,24 @@ export default createStore({
                 "The Crossroads of Fate", "Beyond the Horizon", "Burning in the Dark", "The Journey Home", "The Chilling Midnight", "The Curse of the Stars", "The Road Not Taken", "The Whispering Woods", "Into the Wild"]
             state.subgenresFromEachGenre = {
                 "Action": [],
-                    "Adventure": [],
-                    "Comedy": [],
-                    "Documentary": [],
-                    "Drama": [],
-                    "Fantasy": [],
-                    "Horror":[],
-                    "Musical": [],
-                    "Romance": [],
-                    "Science-Fiction": [],
-                    "Thriller": [],
-                    "War": []
+                "Adventure": [],
+                "Comedy": [],
+                "Documentary": [],
+                "Drama": [],
+                "Fantasy": [],
+                "Horror": [],
+                "Musical": [],
+                "Romance": [],
+                "Science-Fiction": [],
+                "Thriller": [],
+                "War": []
             }
             state.months = ["january", "february", "march", "april", "may", "june",
                 "july", "august", "september", "october", "november", "december"]
             state.dbFetcher = new DBFetcher(),
-            state.allPeople = []
+                state.allPeople = []
             state.Actors = []
-            state.allDirectors =[]
+            state.allDirectors = []
             state.allWriters = []
             state.allAwards = []
             state.allTopics = []
@@ -1167,8 +1167,8 @@ export default createStore({
             state.allGenres = []
             state.allSubGenres = []
             state.editPerson = []
-            state.allDirectorSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000,29500000, 31000000]
-            state.allWriterSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000,525000,550000,575000,600000,625000,650000,675000,700000,725000,750000,825000,900000,975000,1050000,1125000,1200000,1275000,1350000,1425000,1500000,1600000,1700000,1800000,1900000,2000000,2100000,2200000,2300000,2400000,2500000,2750000,3000000,3250000,3500000,3750000,4000000,4250000,4500000,4750000,5000000,5500000,6000000,6500000,7000000,7500000,8000000,8500000,9000000,9500000,10000000,10500000,11000000,11500000,12000000]
+            state.allDirectorSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000, 29500000, 31000000]
+            state.allWriterSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 525000, 550000, 575000, 600000, 625000, 650000, 675000, 700000, 725000, 750000, 825000, 900000, 975000, 1050000, 1125000, 1200000, 1275000, 1350000, 1425000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 2100000, 2200000, 2300000, 2400000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 10500000, 11000000, 11500000, 12000000]
         }
 
     },

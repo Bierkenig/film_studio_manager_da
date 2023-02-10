@@ -131,6 +131,10 @@ export default {
     }
   },
 
+  mounted(){
+    window.ipcRenderer.send("updateDiscordDetails", "In Startmenu")
+  },
+
   methods: {
     exit() {
       close();

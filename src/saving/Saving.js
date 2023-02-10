@@ -1,4 +1,3 @@
-import Discord from "discord-game";
 
 const fs = require("fs");
 const hash = require("object-hash");
@@ -34,16 +33,16 @@ export function save(data, slot) {
         }
 
         //creates directory if not already existing
-        fs.mkdir(path.join('.', '.data', 'saves', slot.toString()), (err) => {
-            if (err && err.code !== 'EEXIST') {
-                console.log(err)
-            }
-        })
+        // fs.mkdir(path.join('.', '.data', 'saves', slot.toString()), (err) => {
+        //     if (err && err.code !== 'EEXIST') {
+        //         console.log(err)
+        //     }
+        // })
 
 
         //Attributes for save file: {save, backup, auto}
         //writes save-file with additional values
-        fs.writeFile(path.join('.', '.data', 'saves', slot.toString(), 'save.json'), JSON.stringify({
+        fs.writeFile(path.join('.', '.data', 'saves','save' + slot.toString() + '.json'), JSON.stringify({
             en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
             de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
             slot: slot,
@@ -109,7 +108,7 @@ export function load(slot) {
         }
     } else {
         try {
-            save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', slot.toString(), 'save.json')).toString());
+            save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json')).toString());
             code = '100';
         } catch (e) {
             code = '102'
@@ -143,15 +142,15 @@ export function load(slot) {
 
 export function compareDate(slot) {
     let autoSave = null;
-    let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', slot.toString(), 'save.json')).toString());
+    let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json')).toString());
 
     let fileNames = fs.readdirSync(path.join('.', '.data', 'temp'));
 
     //listing all files using forEach
     fileNames.forEach(file => {
         console.log(file)
-        if (file.substr(9, 1) === slot.toString()) {
-            autoSave = JSON.parse(fs.readFileSync(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4) + '_' + slot.toString() + '.json')).toString())
+        if (file.substr(8, 1) === slot.toString()) {
+            autoSave = JSON.parse(fs.readFileSync(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4) + slot.toString() + '.json')).toString())
         }
     });
 
@@ -175,7 +174,7 @@ export function deleteSaveFile(slot) {
     //checks if file exists before deleting
     if (checkIfExists(slot)[0]) {
         //deleting file
-        fs.unlink(path.join('.', '.data', 'saves', slot.toString(), 'save.json'), function (err) {
+        fs.unlink(path.join('.', '.data', 'saves', 'save' + slot.toString()+ '.json'), function (err) {
             if (err) return console.log(err);
             console.log('file deleted successfully');
 
@@ -184,10 +183,10 @@ export function deleteSaveFile(slot) {
                 console.log('backup file deleted successfully');
             });
 
-            fs.rmdir(path.join('.', '.data', 'saves', slot.toString()), function (err) {
-                if (err) return console.log(err);
-                console.log('directory deleted successfully');
-            });
+            // fs.rmdir(path.join('.', '.data', 'saves', slot.toString()), function (err) {
+            //     if (err) return console.log(err);
+            //     console.log('directory deleted successfully');
+            // });
         });
     } else {
         console.log('not existing')
@@ -199,7 +198,7 @@ export function checkIfExists(slot = null) {
     console.log("check")
     if (slot !== null) {
         try {
-            fs.statSync(path.join('.', '.data', 'saves', slot.toString(), 'save.json'))
+            fs.statSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json'))
         } catch (e) {
             console.log("no file")
             return [false, slot]
@@ -267,7 +266,7 @@ export function checkFileStatus(slot, type) {
     if (checkIfExists(slot)[0]) {
         let saveFileLocation;
         if (type === 'default') {
-            saveFileLocation = path.join('.', '.data', 'saves', slot.toString(), 'save.json');
+            saveFileLocation = path.join('.', '.data', 'saves','save' + slot.toString() + '.json');
         } else if (type === 'backup') {
             saveFileLocation = path.join('.', '.data', 'recovery', 'b' + slot.toString() + '.json');
         } else {
@@ -288,7 +287,7 @@ export function checkFileStatus(slot, type) {
 
 export function getSaveName(slot) {
     if (checkIfExists(slot)[0] && checkFileStatus(slot)) {
-        let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', slot.toString(), 'save.json')).toString());
+        let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json')).toString());
         console.log(save.state.studio.name)
         return save.state.studio.name
     }
@@ -299,7 +298,7 @@ export function getSaveName(slot) {
 // getSaveDate(slot)[1] returns the date in german time system DD/MM/YYYY for de-language
 export function getSaveDate(slot) {
     if (checkIfExists(slot)[0] && checkFileStatus(slot)) {
-        let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', slot.toString(), 'save.json')).toString());
+        let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves','save' + slot.toString() + '.json')).toString());
         console.log(save.en_date)
         console.log(save.de_date)
         return [save.en_date, save.de_date]
@@ -327,7 +326,7 @@ export function autoSave(data, slot) {
 
         //Attributes for save file: {save, backup, auto}
         //writes save-file with additional values
-        fs.writeFile(path.join('.', '.data', 'temp', 'temp' + autoCounter.toString() + '_' + slot.toString() + '.json'), JSON.stringify({
+        fs.writeFile(path.join('.', '.data', 'temp', 'temp' + autoCounter.toString() + slot.toString() + '.json'), JSON.stringify({
             en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
             de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
             slot: slot,
@@ -346,7 +345,7 @@ export function autoSave(data, slot) {
     autoCounter++;
 
     if (autoCounter > 1001) {
-        fs.unlink(path.join('.', '.data', 'temp', 'temp' + (autoCounter - 1).toString() + '_' + slot.toString() + '.json'), function (err) {
+        fs.unlink(path.join('.', '.data', 'temp', 'temp' + (autoCounter - 1).toString() + slot.toString() + '.json'), function (err) {
             if (err) return console.log(err);
             console.log('auto file ' + (autoCounter - 1) + ' deleted successfully');
         })
@@ -364,9 +363,9 @@ export function autoSave(data, slot) {
             files.forEach(function (file) {
                 // Do whatever you want to do with the file
 
-                if (file.substr(9, 1) === slot.toString()) {
+                if (file.substr(8, 1) === slot.toString()) {
                     if (file.substr(4, 4) > 1001) {
-                        fs.unlink(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4).toString() + '_' + slot.toString() + '.json'), function (err) {
+                        fs.unlink(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4).toString() + slot.toString() + '.json'), function (err) {
                             if (err) return console.log(err);
                             console.log('auto file ' + file.substr(4, 4) + ' deleted successfully');
                         })
@@ -405,42 +404,4 @@ export function loadSettings() {
     }
 
     return save;
-}
-
-discord()
-
-async function discord(){
-
-    console.log('discord')
-    const isRequireDiscord = true;
-    Discord.create('1072990962814570526', isRequireDiscord);
-
-    console.log(Discord.version)
-
-    // All property are optional
-    const activity = {
-        details: 'Details',
-        state: 'State',
-        assets: {
-            largeImage: 'large',
-            largeText: 'Large',
-            smallImage: 'small',
-            smallText: 'Small'
-        },
-        timestamps: {
-            startAt: new Date(),
-            endAt: new Date()
-        },
-
-    }
-
-
-    //const start_at = new Date();
-    Discord.Activity
-         .update(activity)
-         .then(function() { console.log('Rich Presence updated') });
-     setInterval(function() {
-         console.log(Discord.runCallback()) // => true
-     }, 100000/60)
-
 }
