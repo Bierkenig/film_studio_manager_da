@@ -2,6 +2,8 @@
 import {app, BrowserWindow, ipcMain, protocol, screen} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
+import {spawn} from "child_process";
+import {streamWrite} from "@rauschma/stringio";
 const path = require('path');
 
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -12,6 +14,8 @@ const saving = require("./saving/Saving");
 protocol.registerSchemesAsPrivileged([
     {scheme: 'app', privileges: {secure: true, standard: true}}
 ])
+
+export let updatePresence
 
 async function createWindow() {
     // Create the browser window.
@@ -28,6 +32,8 @@ async function createWindow() {
         useContentSize: true,
         icon: 'assets/FSM_Icon_256x.png',
     })
+
+    launchDiscordGameSDK(win)
 
     console.log(screen.getPrimaryDisplay())
 
@@ -136,6 +142,10 @@ async function createWindow() {
 
     ipcMain.on('autoSave', (event, data) => {
         saving.autoSave(data[0], data[1])
+    })
+
+    ipcMain.on('updateDiscordDetails', (event, data) => {
+        updatePresence(data)
     })
 
     ipcMain.on('editDB', (event, data) => {
@@ -282,6 +292,20 @@ if (isDevelopment) {
         process.on('SIGTERM', () => {
             app.quit()
         })
+    }
+}
+async function launchDiscordGameSDK(win) {
+    let child
+    try{
+        child = spawn('java', [ '-jar', 'src/Discord.jar', process.pid.toString()],
+            {stdio: ['pipe', process.stdout, process.stderr]});
+        win.on('closed',() => {
+            streamWrite(child.stdin, 'kill\n');
+        })
+        updatePresence = (details) => {streamWrite(child.stdin, details+'\n');}
+
+    }catch(e){
+        console.log("No Java No Party")
     }
 }
 /**

@@ -81,7 +81,7 @@ export default {
         window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), store.getters.getSlot])
         console.log("auto save finished")
       }
-    }, 600000);
+    }, 300000);
 
     this.$store.getters.getBoughtScreenplays[0].setRatingRange('61 - 70');
     this.$store.getters.getBoughtScreenplays[0].addMainCharacter(new Character('Woodie','male',18));
