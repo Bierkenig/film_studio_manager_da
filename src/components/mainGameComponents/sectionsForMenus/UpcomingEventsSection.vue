@@ -9,7 +9,7 @@
                            :type="it.type"
                            :movie-title="it.movie"
                            @open-clicked="goToEvent(it)"
-                           :status="beforeReleaseCompleted"/>
+                           :status="beforeReleaseCompeted"/>
             <event-element v-else
                            :type="it.type"
                            :movie-title="it.movie"

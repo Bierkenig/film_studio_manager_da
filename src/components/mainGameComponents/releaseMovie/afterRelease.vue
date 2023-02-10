@@ -75,7 +75,6 @@ export default {
 
       if (!check) {
         this.$store.commit('addFranchise', franchise)
-
       }
     },
 

@@ -48,6 +48,15 @@ export default {
         completed: false,
       })
 
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'beforeRelease',
+        completed: false,
+      })
+
       this.closeModal();
     },
 
