@@ -90,11 +90,11 @@ export class Movie {
     }
 
     calcGenrePopularities() {
-        return store.state.allGenres.filter(el => el.genreName === this._screenplay.getGenre())
+        return store.state.allGenres.filter(el => el.genreName === this._preProduction.screenplay.genre.genreName)
     }
 
     calcSubGenrePopularities() {
-        return store.state.allSubGenres.filter(el => el.genreName === this._screenplay.subgenre)
+        return store.state.allSubGenres.filter(el => el.genreName === this._preProduction.screenplay.subgenre.genreName)
     }
 
     calcTopicPopularities() {

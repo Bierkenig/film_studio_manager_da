@@ -23,6 +23,8 @@
 
 <script>
 
+import store from "@/services/store";
+
 export default {
   name: "afterReleaseWithCinemaRun",
 
@@ -34,6 +36,20 @@ export default {
 
   methods: {
     closeModal(){
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + 21)
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'afterRelease',
+        completed: false,
+      })
+
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
       for (let i = 0; i < allCalendarEvents.length; i++) {

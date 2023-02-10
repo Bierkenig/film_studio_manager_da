@@ -30,7 +30,7 @@
                 <div>{{$t('beforeRelease.quality')}}: {{this.$store.getters.getCurrentMovie.quality}}</div>
               </div>
               <div>
-                <button @click="changeToCinema()">{{$t('beforeRelease.release')}}</button>
+                <button @click="changeToCinema">{{$t('beforeRelease.release')}}</button>
               </div>
             </slot>
           </div>
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import store from "@/services/store";
+
 export default {
   name: "before-release",
 
@@ -57,13 +59,26 @@ export default {
       this.$store.getters.getCurrentMovie._status = 'Released'
       this.$store.getters.getCurrentMovie.setRelease()
 
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + 7)
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'afterReleaseWithCinemaRun',
+        completed: false,
+      })
+
       //clear from production
       this.$store.commit('removeInProductionMovie', this.$store.getters.getCurrentMovie)
 
       //add to cinema
       this.$store.commit('addCreatedMovie', this.$store.getters.getCurrentMovie)
 
-      //set null
       this.closeModal();
     },
 
