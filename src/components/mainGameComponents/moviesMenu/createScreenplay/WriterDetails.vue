@@ -92,7 +92,7 @@
                      :min="0"
                      :max="100"
                      :step="1"
-                     v-model="writerRating" disabled>
+                     v-model="writerGenre" disabled>
             </div>
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
@@ -171,7 +171,7 @@ export default {
       writerAvatar: '',
       writerName: '',
       writerRating: 50,
-      writerGenre: '',
+      writerGenre: 50,
       writerAge: '',
       writerNationality: '',
       writerSalary: 0,
@@ -221,7 +221,7 @@ export default {
         this.writerSalary = this.writer._salary;
         this.writerGender = this.writer._gender;
 
-        switch(this.$store.getters.getCurrentScreenplay.genre) {
+        switch(this.$store.getters.getCurrentScreenplay.genre.genreName) {
           case 'Action':
             this.writerGenre = this.writer._action;
             break;
@@ -249,7 +249,7 @@ export default {
           case 'Romance':
             this.writerGenre = this.writer._romance;
             break;
-          case 'ScienceFiction':
+          case 'Science-Fiction':
             this.writerGenre = this.writer._scienceFiction;
             break;
           case 'Thriller':

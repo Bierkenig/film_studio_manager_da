@@ -77,24 +77,40 @@ export class Movie {
     setRelease() {
         if (this._status === 'Released' && this._postProduction instanceof PostProduction) {
             this.genrePopularity = this.calcGenrePopularities()
-            this.subgenrePopularity = this.calcSubGenrePopularities()
+            if(this._preProduction.screenplay.subgenre !== null){
+                this.subgenrePopularity = this.calcSubGenrePopularities()
+            }
             this.topicPopularity = this.calcTopicPopularities()
             console.log(this.genrePopularity)
             console.log(this.subgenrePopularity)
             console.log(this.topicPopularity)
             //TODO releaseScope
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
-                this.subgenrePopularity, this.topicPopularity, this.owner, 2,
+                this.subgenrePopularity, this.topicPopularity, this._owner, 2,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
         }
     }
 
     calcGenrePopularities() {
-        return store.state.allGenres.filter(el => el.genreName === this._preProduction.screenplay.genre.genreName)
+        let result = null;
+        store.state.allGenres.forEach((el) => {
+            console.log(el.genreName);
+            console.log(this._preProduction.screenplay.genre.genreName)
+            if(el.genreName === this._preProduction.screenplay.genre.genreName){
+                result = el;
+            }
+        })
+        return result
     }
 
     calcSubGenrePopularities() {
-        return store.state.allSubGenres.filter(el => el.genreName === this._preProduction.screenplay.subgenre.genreName)
+        let result = null;
+        store.state.allSubGenres.forEach((el) => {
+            if(el.genreName === this._preProduction.screenplay.subgenre.genreName){
+                result = el;
+            }
+        })
+        return result;
     }
 
     calcTopicPopularities() {
@@ -103,9 +119,25 @@ export class Movie {
             second: null,
             third: null
         }
-        allPops.first = store.state.allTopics.filter(el => el.topicName === this._screenplay.getTopics().firstTopic)
-        allPops.second= store.state.allTopics.filter(el => el.topicName === this._screenplay.getTopics().secondTopic)
-        allPops.third = store.state.allTopics.filter(el => el.topicName === this._screenplay.getTopics().thirdTopic)
+        store.state.allTopics.forEach((el) => {
+            if(el.topicName === this._preProduction.screenplay.topics.firstTopic.topicName){
+                allPops.first = el;
+            }
+        })
+        if(this._preProduction.screenplay.topics.secondTopic !== null){
+            store.state.allTopics.forEach((el) => {
+                if(el.topicName === this._preProduction.screenplay.topics.secondTopic.topicName){
+                    allPops.second = el;
+                }
+            })
+        }
+        if(this._preProduction.screenplay.topics.thirdTopic !== null){
+            store.state.allTopics.forEach((el) => {
+                if(el.topicName === this._preProduction.screenplay.topics.thirdTopic.topicName){
+                    allPops.third = el;
+                }
+            })
+        }
         return allPops
     }
 

@@ -16,9 +16,10 @@
                     <div v-show="!showDetails" class="peopleDetailsInvisible">______</div>
                   </div>
                   <div class="peopleDetailsInfoCircleBox">
-                    <info-circle class="peopleDetailsInfoCircle" :text="personAge.toString()" size="60px" large-font/>
+                    <info-circle class="peopleDetailsInfoCircle" :text="personAge.toString()" size="60px" :data-title="$t('age')" large-font/>
                     <info-circle class="peopleDetailsInfoCircle"
                                  icon="placeholder"
+                                 :data-title="$t('gender')"
                                  size="60px"/>
                   </div>
                 </div>

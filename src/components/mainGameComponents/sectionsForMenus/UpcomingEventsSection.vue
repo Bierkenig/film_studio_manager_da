@@ -9,7 +9,7 @@
                            :type="it.type"
                            :movie-title="it.movie"
                            @open-clicked="goToEvent(it)"
-                           :status="beforeReleaseCompeted"/>
+                           :status="beforeReleaseCompleted"/>
             <event-element v-else
                            :type="it.type"
                            :movie-title="it.movie"
@@ -143,13 +143,13 @@
 
     <!--AFTER RELEASE MODAL-->
     <transition name="modal">
-      <after-release-with-cinema-run
+      <after-release
           v-if="showAfterReleaseModal"
           @close="showAfterReleaseModal = false">
         <template v-slot:header>
           <h3>custom header</h3>
         </template>
-      </after-release-with-cinema-run>
+      </after-release>
     </transition>
   </div>
 </template>
@@ -167,9 +167,11 @@ import ContinuePostProd from "@/components/mainGameComponents/postProduction/con
 import PostProductionSummary from "@/components/mainGameComponents/postProduction/postProductionSummary.vue";
 import BeforeRelease from "@/components/mainGameComponents/releaseMovie/beforeRelease.vue";
 import AfterReleaseWithCinemaRun from "@/components/mainGameComponents/releaseMovie/afterReleaseWithCinemaRun.vue";
+import AfterRelease from "@/components/mainGameComponents/releaseMovie/afterRelease.vue";
 export default {
   name: "UpcomingEventsSection",
   components: {
+    AfterRelease,
     AfterReleaseWithCinemaRun,
     BeforeRelease,
     PostProductionSummary,
@@ -200,7 +202,13 @@ export default {
       showAfterReleaseModal: false,
 
       chosenType: '',
-      beforeReleaseCompeted: 'none',
+      beforeReleaseCompleted: 'none',
+    }
+  },
+
+  watch: {
+    '$store.getters.getCalendarEvents.length': function (){
+      this.updateShowingEvents();
     }
   },
 
@@ -224,10 +232,10 @@ export default {
         this.showProductionSummaryModal = true;
       } else if(event.type === 'postProductionFinished'){
         this.showPostProductionSummaryModal = true;
-        this.beforeReleaseCompeted = 'open';
+        this.beforeReleaseCompleted = 'open';
       } else if(event.type === 'beforeRelease'){
         this.showBeforeReleaseModal = true;
-        this.beforeReleaseCompeted = 'done';
+        this.beforeReleaseCompleted = 'done';
       } else if(event.type === 'afterReleaseWithCinemaRun'){
         this.showAfterReleaseWithCinemaRunModal = true;
       } else if(event.type === 'afterRelease'){
@@ -243,34 +251,33 @@ export default {
       return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
     },
 
-    getNextMonthDate() {
-      const now = this.$store.getters.getCurrentDate;
+    updateShowingEvents(){
+      this.todayEvents = [];
+      this.weekEvents = [];
+      this.monthEvents = [];
 
-      return new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
-    },
+      let sourceData = this.$store.getters.getCalendarEvents;
+      let today = this.$store.getters.getCurrentDate;
+      today.setHours(1,0,0)
+      let nextWeek = this.getNextWeeksDate;
+      let startDateOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      let endDateOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+      for (let i = 0; i < sourceData.length; i++) {
+        let dateCheck = new Date(sourceData[i].start);
+        if(dateCheck.getTime() === today.getTime()){
+          this.todayEvents.push(sourceData[i])
+        } else if (dateCheck > today && dateCheck < nextWeek()){
+          this.weekEvents.push(sourceData[i])
+        } else if (dateCheck >= startDateOfMonth && dateCheck < endDateOfMonth){
+          this.monthEvents.push(sourceData[i])
+        }
+      }
+    }
   },
 
   mounted(){
-    this.todayEvents = [];
-    this.weekEvents = [];
-    this.monthEvents = [];
-
-    let sourceData = this.$store.getters.getCalendarEvents;
-    let today = this.$store.getters.getCurrentDate;
-    today.setHours(1,0,0)
-    let nextWeek = this.getNextWeeksDate;
-    let nextMonth = this.getNextMonthDate;
-
-    for (let i = 0; i < sourceData.length; i++) {
-      let dateCheck = new Date(sourceData[i].start);
-      if(dateCheck.getTime() === today.getTime()){
-        this.todayEvents.push(sourceData[i])
-      } else if (dateCheck > today && dateCheck < nextWeek()){
-        this.weekEvents.push(sourceData[i])
-      } else if (dateCheck >= nextWeek() && dateCheck < nextMonth()){
-        this.monthEvents.push(sourceData[i])
-      }
-    }
+    this.updateShowingEvents();
   },
 }
 </script>

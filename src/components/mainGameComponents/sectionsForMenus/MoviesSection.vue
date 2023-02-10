@@ -127,7 +127,6 @@ export default {
 
   methods: {
     movieInfo(element){
-      this.$store.commit('setNewCurrentMovie',element)
       this.$store.commit('setCurrentMovieDetails',element)
       this.$router.push({name: 'movieDetails'});
     },

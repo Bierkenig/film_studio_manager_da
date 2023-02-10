@@ -147,9 +147,12 @@ export default {
         'afterReleaseWithCinemaRun': ['documentary','remaining'],
         'afterRelease': ['documentary','remaining'],
         'studioTakeover': ['studio','remaining'],
-        'internationalAward': ['award','remaining'],
-        'independentAward': ['award','remaining'],
-        'audienceAward': ['award','remaining']
+        'internationalAwardNomination': ['award','remaining'],
+        'independentAwardNomination': ['award','remaining'],
+        'audienceAwardNomination': ['award','remaining'],
+        'internationalAwardPresentation': ['award','remaining'],
+        'independentAwardPresentation': ['award','remaining'],
+        'audienceAwardPresentation': ['award','remaining'],
       },
     }
   },

@@ -955,17 +955,29 @@ i18next
                             title: 'Studio takeover',
                             description: 'Of the studio',
                         },
-                        internationalAward: {
+                        internationalAwardNomination: {
                             title: 'International Film Awards',
                             description: 'Nomination Announcements',
                         },
-                        independentAward: {
+                        independentAwardNomination: {
                             title: 'Independent Film Awards',
                             description: 'Nomination Announcements',
                         },
-                        audienceAward: {
+                        audienceAwardNomination: {
                             title: 'Audience Film Awards',
                             description: 'Nomination Announcements',
+                        },
+                        internationalAwardPresentation: {
+                            title: 'International Film Awards',
+                            description: 'Presentation of winners',
+                        },
+                        independentAwardPresentation: {
+                            title: 'Independent Film Awards',
+                            description: 'Presentation of winners',
+                        },
+                        audienceAwardPresentation: {
+                            title: 'Audience Film Awards',
+                            description: 'Presentation of winners',
                         },
                     },
                     productionElement: {

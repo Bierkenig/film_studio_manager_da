@@ -9,7 +9,7 @@
                 <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
               </div>
               <div v-else>
-                <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo"/>
+                <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
               </div>
             </div>
           </div>
@@ -20,7 +20,7 @@
           </div>
           <div class="projectsSectionElement verticalScroll">
             <div v-for="(it, index) in this.productions" :key="index">
-              <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.getYear()" :status="it._status" @open-clicked="movieInfo"/>
+              <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
             </div>
           </div>
         </tile-pages-nav>
@@ -49,6 +49,11 @@ export default {
     screenplayInfo(element){
       this.$store.commit('setNewCurrentScreenplay',element)
       this.$router.push({name: 'screenplaySummary'});
+    },
+
+    movieInfo(element){
+      this.$store.commit('setCurrentMovieDetails',element)
+      this.$router.push({name: 'movieDetails'});
     },
   }
 }

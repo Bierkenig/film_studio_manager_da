@@ -487,7 +487,7 @@ export function updateServicePopularityAndSubscribers() {
 //create screenplays from other writers
 function createScreenplaysFromWriters() {
     if (store.state.screenplayTitles.length !== 0) {
-        if (randomNumber(0.15) === 0) {
+        if (randomNumber(0.10) === 0) {
             //get all necessary values
             const randomProfile = require('random-profile-generator');
             let allScreenplayTitles = store.state.screenplayTitles;

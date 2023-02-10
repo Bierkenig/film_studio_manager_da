@@ -163,8 +163,9 @@ export default {
               ' class="eventIconElements postProductionEvents"' +
               ' src="' + require('../../../assets/icons/simple-tick.svg') + '" ' +
               ' alt="postProductionIcon"/>'}
-      } else if(arg.event._def.extendedProps.type === 'internationalAward' || arg.event._def.extendedProps.type === 'independentAward'
-          || arg.event._def.extendedProps.type === 'audienceAward'){
+      } else if(arg.event._def.extendedProps.type === 'internationalAwardNomination' || arg.event._def.extendedProps.type === 'independentAwardNomination'
+          || arg.event._def.extendedProps.type === 'audienceAwardNomination' || arg.event._def.extendedProps.type === 'internationalAwardPresentation'
+          || arg.event._def.extendedProps.type === 'independentAwardPresentation' || arg.event._def.extendedProps.type === 'audienceAwardPresentation'){
         return {html: '<img ' +
               ' class="eventIconElements remainingEvents"' +
               ' src="' + require('../../../assets/icons/award.svg') + '" ' +

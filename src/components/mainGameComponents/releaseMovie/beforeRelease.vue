@@ -9,7 +9,7 @@
               <div>{{movieTitle}}</div>
               <div>
                 <div>{{$t('beforeRelease.screenplay.msg')}}</div>
-                <div>{{$t('beforeRelease.screenplay.writer')}}: {{screenplay.writer}}</div>
+                <div>{{$t('beforeRelease.screenplay.writer')}}: {{screenplay.writer._first_name}} {{screenplay.writer._last_name}}</div>
                 <div>
                   <div>{{$t('beforeRelease.screenplay.topics')}}</div>
                   <div>{{$t('beforeRelease.screenplay.topic1')}}: {{screenplay.firstTopic !== null ? screenplay.firstTopic : $t('beforeRelease.screenplay.error')}}</div>
@@ -90,6 +90,7 @@ export default {
           allCalendarEvents[i].completed = true;
         }
       }
+
       this.$emit('close');
     }
   }
