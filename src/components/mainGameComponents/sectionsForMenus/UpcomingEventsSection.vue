@@ -164,6 +164,28 @@
         </template>
       </studio-take-over-response>
     </transition>
+
+    <!-- AWARD NOMINATION LIST -->
+    <transition name="modal">
+      <award-nomination
+          v-if="showAwardNomination"
+          @close="showAwardNomination = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </award-nomination>
+    </transition>
+
+    <!-- AWARD PRESENTATION LIST -->
+    <transition name="modal">
+      <award-presentation
+          v-if="showAwardPresentation"
+          @close="showAwardPresentation = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </award-presentation>
+    </transition>
   </div>
 </template>
 
@@ -182,9 +204,13 @@ import BeforeRelease from "@/components/mainGameComponents/releaseMovie/beforeRe
 import AfterReleaseWithCinemaRun from "@/components/mainGameComponents/releaseMovie/afterReleaseWithCinemaRun.vue";
 import AfterRelease from "@/components/mainGameComponents/releaseMovie/afterRelease.vue";
 import StudioTakeOverResponse from "@/components/mainGameComponents/financesMenu/StudioTakeOverResponse";
+import AwardNomination from "@/components/mainGameComponents/awards/AwardNomination.vue";
+import AwardPresentation from "@/components/mainGameComponents/awards/AwardPresentation.vue";
 export default {
   name: "UpcomingEventsSection",
   components: {
+    AwardPresentation,
+    AwardNomination,
     StudioTakeOverResponse,
     AfterRelease,
     AfterReleaseWithCinemaRun,
@@ -216,7 +242,12 @@ export default {
       showAfterReleaseWithCinemaRunModal: false,
       showAfterReleaseModal: false,
 
+      // data for showing studio takeover
       showStudioTakeover: false,
+
+      // data for showing award modals
+      showAwardNomination: false,
+      showAwardPresentation: false,
 
       chosenType: '',
       beforeReleaseCompleted: 'none',
@@ -259,6 +290,10 @@ export default {
         this.showAfterReleaseModal = true;
       } else if (event.type === 'studioTakeover') {
         this.showStudioTakeover = true
+      } else if(event.type === 'internationalAwardNomination' || event.type === 'independentAwardNomination' || event.type === 'audienceAwardNomination'){
+        this.showAwardNomination = true;
+      } else if(event.type === 'internationalAwardPresentation' || event.type === 'independentAwardPresentation' || event.type === 'audienceAwardPresentation'){
+        this.showAwardPresentation = true;
       }
 
       this.$store.commit('setCurrentCalendarEvent',event);
