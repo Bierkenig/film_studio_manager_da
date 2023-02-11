@@ -79,6 +79,8 @@ export default {
   },
 
   mounted() {
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: Simulating...")
+
     this.loadData();
     setTimeout(this.animateBar, 10)
     setTimeout(this.resetBar,3490);
