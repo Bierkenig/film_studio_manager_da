@@ -68,8 +68,40 @@ export default function simulate() {
     //YEARLY
     if (store.getters.getCurrentDate.getDate() === 31
         && store.getters.getCurrentDate.getMonth() === 11) {
-
+        //calc Market Share
+        calcMarketShare()
     }
+}
+
+function calcMarketShare() {
+    let allEarnings = 0
+    let studioEarnings = {}
+    let allStudios = store.getters.getOtherStudios
+    allStudios.push(store.getters.getStudio)
+
+    allStudios.forEach((el) => {
+        studioEarnings[el.id] = 0
+        el.movies.forEach((movie) => {
+            movie._earnings.forEach((ear) => {
+                allEarnings += ear.amount
+                studioEarnings[el.id] += ear.amount
+            })
+        })
+    })
+
+    console.log(allEarnings)
+    console.log(studioEarnings)
+    const year = store.getters.getCurrentDate.getFullYear()
+    //set Share other
+    store.getters.getOtherStudios.forEach((studio) => {
+        studio.marketShare[year.toString()] = (studioEarnings[studio.id] / allEarnings)
+    })
+    //set share
+    store.getters.getStudio.marketShare[year.toString()] = studioEarnings[store.getters.getStudio.id] / allEarnings
+
+    console.log(store.getters.getOtherStudios)
+
+    console.log(store.getters.getStudio)
 }
 
 //function to get 0 or 1 with specific probability
