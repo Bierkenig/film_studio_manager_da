@@ -15,7 +15,8 @@
                   <option value="descend">{{$t('buyAStudio.descending')}}</option>
                 </select>
                 <div v-for="(el, index) in otherStudios" :key="index">
-                  <div @click="showMovieDetails(el.id, el.name, el.year, el.marketShare, el.movies); showStreamingDetails()">{{el.name}}</div>
+                  <!-- v-if="el.marketShare[this.$store.getters.getCurrentDate.getFullYear().toString()] <= 50" TODO-->
+                  <div @click="showMovieDetails(el.id, el.name, el.year, el.marketShare, el.movies); showStreamingDetails(); currentStudio = el">{{el.name}}</div>
                 </div>
               </div>
               <div v-if="detail">
@@ -38,7 +39,7 @@
                     <div>{{$t('buyAStudio.subs')}} {{streaming.subs}}</div>
                   </div>
                 </div>
-                <button>{{$t('buyAStudio.contact')}}</button>
+                <button @click="contact()">{{$t('buyAStudio.contact')}}</button>
               </div>
             </slot>
           </div>
@@ -49,15 +50,18 @@
 </template>
 
 <script>
+import store from "@/services/store";
+
 export default {
   name: "BuyAStudio",
 
   data() {
     return {
-      otherStudios: this.$store.state.otherStudios,
+      otherStudios: this.$store.getters.getOtherStudios,
       selected1: "name",
       selected2: "ascend",
       detail: false,
+      currentStudio: null,
       general: {
         id: 0,
         name: "",
@@ -134,13 +138,30 @@ export default {
     },
 
     contact() {
-      this.$store.commit('addStudioTakeOverRequest', this.general.id)
+      this.$store.state.currentStudioTakeOver = this.currentStudio
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (Math.round(Math.random() * 5) + 1))
+      let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: "",
+        studio: this.general.name,
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'studioTakeover',
+        completed: false,
+      })
+
+      console.log(this.$store.calenderEvents)
+      this.$router.push({name: "finances"})
     }
   },
 
   mounted() {
     this.sortByNameOrFoundationDate()
-  }
+  },
 }
 </script>
 

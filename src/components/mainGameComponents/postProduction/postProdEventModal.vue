@@ -70,6 +70,10 @@ export default {
 
   methods: {
     aOption() {
+      //this.$store.state.currentMovie._preProduction.productionLength += 4
+      //this.$store.state.currentMovie._preProduction.calcReleaseDateAgain()
+      //die länge der post erhöhen
+      //die Methode calcReleaseDateAgain() aufrufen
       switch (this.type) {
         case "sound":
           this.$store.state.currentMovie._preProduction.budget.sound *= 1.2

@@ -7,6 +7,7 @@
             <slot name="body">
               <h2>{{$t('buyAStudio.response')}}</h2>
               <h4>{{studio.name}}</h4>
+              <div>{{$t('buyAStudio.popularity')}}</div>
               <div>{{$t('buyAStudio.offer')}}: $ {{offer}}</div>
               <button @click="accept(offer, studio.movies)">{{$t('buyAStudio.accept')}}</button>
               <button @click="this.$emit('close')">{{$t('buyAStudio.deny')}}</button>
@@ -19,14 +20,15 @@
 </template>
 
 <script>
-import {Studio} from "@/classes/Studio";
 
 export default {
   name: "StudioTakeOverResponse",
 
-  props: {
-    studio: Studio,
-    offer: Number,
+  data() {
+    return {
+      studio: this.$store.state.currentStudioTakeOver,
+      offer: 0,
+    }
   },
 
   methods: {
@@ -45,6 +47,22 @@ export default {
       })
 
       this.$emit('close')
+    }
+  },
+
+  mounted() {
+    this.studio.movies.forEach((el) => {
+      el.forEach((ear) => {
+        this.offer += ear.amount
+      })
+    })
+
+    if (this.studio.popularity < 50) {
+      this.offer *= 1.15
+    } else if (this.studio.popularity >= 50 && this.studio.popularity < 75) {
+      this.offer *= 1.25
+    } else if (this.studio.popularity >= 75) {
+      this.offer *= 1.35
     }
   }
 }

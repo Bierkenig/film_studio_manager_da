@@ -30,8 +30,10 @@ async function createWindow() {
         resizable: true,
         movable: true,
         useContentSize: true,
-        icon: 'assets/FSM_Icon_256x.png',
+        icon: path.join(__dirname, 'FSM_Icon_256x.png'),
     })
+
+    !isDevelopment ? win.removeMenu() :
 
     launchDiscordGameSDK(win)
 

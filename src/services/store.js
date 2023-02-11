@@ -41,9 +41,10 @@ export default createStore({
         currentMovieExpenses: 0,
         currentMovie: new Movie(new Studio(100, "Jakob ist Cool", "2023", 50000000, 80), null),
         currentMovieDetails: null,
-        currentProdEventType: "",
+        currentProdEventType: "duration",
         currentPostProdEventType: "sound",
         currentScreenplay: null,
+        currentStudioTakeOver: null,
         logo: null,
         soundeffects: false,
         backgroundMusic: true,
@@ -230,8 +231,6 @@ export default createStore({
         currentLoans: [
             new Loan(0, 203930, new Date(2023, 3, 2))
         ],
-
-        currentStudioTakeOverRequests: [],
 
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"],
@@ -439,10 +438,6 @@ export default createStore({
 
         getCurrentLoans(state) {
             return state.currentLoans
-        },
-
-        getCurrentStudioTakeOverRequests(state) {
-            return state.currentStudioTakeOverRequests
         },
 
         getAllActors(state) {
@@ -668,10 +663,6 @@ export default createStore({
 
         addCurrentLoan(state, payload) {
             state.currentLoans.push(payload)
-        },
-
-        addStudioTakeOverRequest(state, payload) {
-            state.currentStudioTakeOverRequests.push(payload)
         },
 
         changeDateOfLoan(state, payload) {
@@ -991,7 +982,6 @@ export default createStore({
                     "slot",
                     "logo",
                     "type",
-                    "currentStudioTakeOverRequests",
                     "calenderEvents",
                 ])
 

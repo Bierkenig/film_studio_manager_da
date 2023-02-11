@@ -42,11 +42,7 @@
               </div>
 
               <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('productionEvents.check')}}</button>
-
-              <div v-if="date">
-                <div>{{$t('productionEvents.date')}}</div>
-                <input type="date" v-model="releaseDate">
-              </div>
+              <div>{{$t('productionEvents.msg')}}</div>
 
               <button v-if="weeks || date || bool" class="modal-default-button" @click="closeWindow()">{{$t('productionEvents.close')}}</button>
             </slot>
@@ -68,7 +64,6 @@ export default {
       date: false,
       bool: false,
       durWeeks: 0,
-      releaseDate: null,
       dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
       type: this.$store.state.currentProdEventType
     }
@@ -117,7 +112,7 @@ export default {
           break
         case "directorLeaves":
           this.calcDireMorale(true)
-          this.$store.state.currentMovie._preProduction.hiredDirector._salary *= 1.25
+          this.$store.state.currentMovie._preProduction.budget.directorSalary *= 1.25
           this.$emit('close')
           break
         case "changes":
@@ -136,9 +131,8 @@ export default {
     bOption() {
       switch (this.type) {
         case "weather":
-          this.$store.state.currentMovie._production.haltedStartDate = this.$store.state.currentDate
-          this.$store.state.currentMovie._production.haltedDuration += 4
-          this.$store.state.currentMovie._production.calcHaltedEndDate()
+          this.$store.state.currentMovie._preProduction.productionLength += 4
+          this.$store.state.currentMovie._preProduction.calcReleaseDateAgain()
           break
         case "castMember":
           this.calcDireMorale(false)
@@ -172,7 +166,7 @@ export default {
           this.crewMoraleGoes(-1)
           break
         case "injured":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.90
+          this.$store.state.currentMovie._preProduction.hype *= 0.90
           if (this.$store.state.currentMovie._production.haltedStartDate === null) this.$store.state.currentMovie._production.haltedStartDate = this.$store.state.currentDate
           this.$store.state.currentMovie._production.haltedDuration += 4
           break
@@ -190,16 +184,12 @@ export default {
     },
 
     check() {
-      //TODO releaseDate
       this.$store.state.currentMovie._preProduction.productionLength += this.durWeeks
       if (this.type === 'duration') {
-        if(this.$store.state.currentMovie._preProduction.startDate.getDate() + (7 * this.$store.state.currentMovie._preProduction.productionLength)
-            === this.$store.state.currentMovie._preProduction.releaseDate ) {
-          this.releaseDate = this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength
-          this.date = true
-        } else {
-          this.$emit('close')
-        }
+        this.$store.getters.getCurrentMovie._preProduction.releaseDate =
+            new Date(this.$store.getters.getCurrentMovie._preProduction.releaseDate.getFullYear(),
+                this.$store.getters.getCurrentMovie._preProduction.releaseDate.getMonth(),
+                this.$store.getters.getCurrentMovie._preProduction.releaseDate + (this.durWeeks * 7))
       }
     },
 
@@ -219,9 +209,6 @@ export default {
     },
 
     closeWindow() {
-      if(this.type === 'duration') {
-        this.$store.state.currentMovie._preProduction.releaseDate = this.releaseDate
-      }
       this.$emit('close')
     }
   }

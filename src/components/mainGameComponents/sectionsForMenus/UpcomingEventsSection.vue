@@ -153,6 +153,17 @@
         </template>
       </after-release>
     </transition>
+
+    <!-- STUDIO TAKEOVER -->
+    <transition name="modal">
+      <studio-take-over-response
+          v-if="showStudioTakeover"
+          @close="showStudioTakeover = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </studio-take-over-response>
+    </transition>
   </div>
 </template>
 
@@ -170,9 +181,11 @@ import PostProductionSummary from "@/components/mainGameComponents/postProductio
 import BeforeRelease from "@/components/mainGameComponents/releaseMovie/beforeRelease.vue";
 import AfterReleaseWithCinemaRun from "@/components/mainGameComponents/releaseMovie/afterReleaseWithCinemaRun.vue";
 import AfterRelease from "@/components/mainGameComponents/releaseMovie/afterRelease.vue";
+import StudioTakeOverResponse from "@/components/mainGameComponents/financesMenu/StudioTakeOverResponse";
 export default {
   name: "UpcomingEventsSection",
   components: {
+    StudioTakeOverResponse,
     AfterRelease,
     AfterReleaseWithCinemaRun,
     BeforeRelease,
@@ -202,6 +215,8 @@ export default {
       showBeforeReleaseModal: false,
       showAfterReleaseWithCinemaRunModal: false,
       showAfterReleaseModal: false,
+
+      showStudioTakeover: false,
 
       chosenType: '',
       beforeReleaseCompleted: 'none',
@@ -242,6 +257,8 @@ export default {
         this.showAfterReleaseWithCinemaRunModal = true;
       } else if(event.type === 'afterRelease'){
         this.showAfterReleaseModal = true;
+      } else if (event.type === 'studioTakeover') {
+        this.showStudioTakeover = true
       }
 
       this.$store.commit('setCurrentCalendarEvent',event);
