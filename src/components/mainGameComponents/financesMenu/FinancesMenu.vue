@@ -192,9 +192,8 @@ export default {
     this.calcMonths()
     this.updateFiscalPerformance()
 
-    this.otherStudios = this.$store.getters.getOtherStudios
+    this.otherStudios = [...this.$store.getters.getOtherStudios]
     this.otherStudios.push(this.$store.getters.getStudio)
-    console.log(this.otherStudios)
 
     this.updateMarketShare()
 

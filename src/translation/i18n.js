@@ -325,6 +325,7 @@ i18next
                         close: "Close",
                         date: "Specify a new release Date",
                         check: "Check",
+                        msg: "You can further postpone the release date in the movie details!",
                         weather: {
                             problem: "Due to bad weather conditions the production cannot be resumed",
                             optionA: "Build another set on a different location",

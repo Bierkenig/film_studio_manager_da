@@ -66,12 +66,12 @@ export default {
     calcTheReleaseDate() {
       this.productionPhase = parseInt(this.preProductionInput) + parseInt(this.productionInput) + parseInt(this.postProductionInput)
       const weeks = this.productionPhase + parseInt(this.releaseDateInput)
-      this.calcReleaseDate = this.addWeeks(new Date(), weeks, this.$store.getters.getCurrentDate)
+      this.calcReleaseDate = this.addWeeks(weeks, this.$store.getters.getCurrentDate)
     },
 
-    addWeeks(date, weeks, startDate) {
-      date.setDate(startDate.getDate() + 7 * weeks);
-      return date;
+    addWeeks(weeks, startDate) {
+      startDate.setDate(startDate.getDate() + 7 * weeks);
+      return startDate;
     },
 
     setStoreWeeks() {

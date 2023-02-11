@@ -141,4 +141,10 @@ export default class PreProduction {
             this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
             this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary + this.budget.actorSalary + this.budget.writerSalary)
     }
+
+    calcReleaseDateAgain() {
+        this.releaseDate = new Date(this.startDate.getFullYear(), this.startDate.getMonth(),
+            this.startDate.getDate() +
+            ((this.preProductionLength + this.productionLength + this.postProductionLength) * 7))
+    }
 }
