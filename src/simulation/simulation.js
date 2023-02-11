@@ -891,8 +891,8 @@ function setInternationAwardEvents(){
     let internationalAwardNomination = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
     let internationalAwardPresentation = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
 
-    addElementToCalendarEvents('',internationalAwardNomination,'internationalAwardNomination');
-    addElementToCalendarEvents('',internationalAwardPresentation,'internationalAwardPresentation');
+    addElementToCalendarEvents('','',internationalAwardNomination,'internationalAwardNomination');
+    addElementToCalendarEvents('','',internationalAwardPresentation,'internationalAwardPresentation');
 }
 
 function nominationsForInternationAward(){
@@ -916,8 +916,8 @@ function setIndependentAwardEvents(){
     let independentAwardNomination = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
     let independentAwardPresentation = nthWeekdayOfMonth(1,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
 
-    addElementToCalendarEvents('',independentAwardNomination,'independentAwardNomination');
-    addElementToCalendarEvents('',independentAwardPresentation,'independentAwardPresentation');
+    addElementToCalendarEvents('','',independentAwardNomination,'independentAwardNomination');
+    addElementToCalendarEvents('','',independentAwardPresentation,'independentAwardPresentation');
 }
 
 function setAudienceAwardEvents(){
@@ -925,15 +925,16 @@ function setAudienceAwardEvents(){
     let audienceAwardNomination = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
     let audienceAwardPresentation = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
 
-    addElementToCalendarEvents('',audienceAwardNomination,'audienceAwardNomination');
-    addElementToCalendarEvents('',audienceAwardPresentation,'audienceAwardPresentation');
+    addElementToCalendarEvents('','',audienceAwardNomination,'audienceAwardNomination');
+    addElementToCalendarEvents('','',audienceAwardPresentation,'audienceAwardPresentation');
 }
 
-function addElementToCalendarEvents(movieTitle, startDate, type){
+function addElementToCalendarEvents(movieTitle, studioTitle, startDate, type){
     let endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
     store.commit('addCalendarEvent', {
         id: store.getters.getNextEventId,
         movie: movieTitle,
+        studio: studioTitle,
         start: startDate.toISOString().split('T')[0],
         end: endDate.toISOString().split('T')[0],
         type: type,

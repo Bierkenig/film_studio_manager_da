@@ -8,11 +8,13 @@
             <event-element v-if="it.type === 'beforeRelease'"
                            :type="it.type"
                            :movie-title="it.movie"
+                           :studio-name="it.studio"
                            @open-clicked="goToEvent(it)"
                            :status="beforeReleaseCompleted"/>
             <event-element v-else
                            :type="it.type"
                            :movie-title="it.movie"
+                           :studio-name="it.studio"
                            @open-clicked="goToEvent(it)"
                            :status="it.completed === false ? 'open' : 'done'"/>
           </div>
