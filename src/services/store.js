@@ -27,7 +27,7 @@ export default createStore({
                 'true','true','true', [{'Action':92,'Adventure':80,'Biography':19,'Comdey':55,'Crime':12,'Documentary':52,'Drama':62,'Erotic':52,
                     'Family':23,'Fantasy':20,'History':25,'Horror':65,'Musical':23,'Mystery':95,'Romance':75,'Science Fiction':41, 'Sport':25,'Thriller':25,'War':56,'Western':78}]),
             'Ein Film von Spielzeugen, die eine fantastische Reise um die Welt erleben und einiges durchmachen müssen',65.8,
-            2500000,{firstTopic: new Topic('Alcoholism',1,10,20),
+            2500000,{firstTopic: new Topic('Alcoholism',18,10,20),
                 secondTopic: new Topic('Baseball',10,15,20),thirdTopic: null},null)],
         boughtScreenplays: [new Screenplay(2,'Toy Story','Animation',new Genre('Adventure',15,20,25),null,'G / +3',
             new Person(5,null,'Franz','Huber',35,'male','Austria','Caucasian','5',78,25,62,58,57,65,'2.500.000',

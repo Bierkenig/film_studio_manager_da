@@ -8,7 +8,7 @@
     <custom-icon class="eventElementIcon" :id="'difficultyIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'extendIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
 
-    <!--Components-->
+    <!--Event Modal - ERLEDIGT -->
     <custom-icon class="eventElementIcon" :id="'preProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="blue"/>
 
     <!--Event Modal-->
@@ -23,7 +23,7 @@
     <custom-icon class="eventElementIcon" :id="'changesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
     <custom-icon class="eventElementIcon" :id="'injuredIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
 
-    <!--Components-->
+    <!--Event Modal - ERLEDIGT -->
     <custom-icon class="eventElementIcon" :id="'productionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="red"/>
 
     <!--Event Modal-->
@@ -33,18 +33,27 @@
     <custom-icon class="eventElementIcon" :id="'visualQualityIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'reshootingIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
 
-    <!--Components-->
-    <custom-icon class="eventElementIcon" :id="'postProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="green"/>
+    <!--Component-->
     <custom-icon class="eventElementIcon" :id="'testScreeningIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
 
-    <!--Components-->
+    <!--Event Modal - ERLEDIGT -->
+    <custom-icon class="eventElementIcon" :id="'postProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="green"/>
+
+    <!--Event Modal - ERLEDIGT -->
     <custom-icon class="eventElementIcon" :id="'beforeReleaseIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'afterReleaseWithCinemaRunIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'afterReleaseIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
+
+    <!--Components-->
     <custom-icon class="eventElementIcon" :id="'studioTakeoverIcon' + randomId" icon="studio" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'internationalAwardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'independentAwardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
-    <custom-icon class="eventElementIcon" :id="'audienceAwardIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+
+    <custom-icon class="eventElementIcon" :id="'internationalAwardNominationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'independentAwardNominationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'audienceAwardNominationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+
+    <custom-icon class="eventElementIcon" :id="'internationalAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'independentAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+    <custom-icon class="eventElementIcon" :id="'audienceAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <div class="eventElementText">
       <div class="eventElementTitle">{{title}}</div>
       <div class="eventElementDescription">{{description}}</div>
@@ -82,7 +91,9 @@ export default {
           'weather', 'castMember', 'budgetForCostumes', 'equipment', 'budget', 'breakdown', 'duration',
           'directorLeavesProduction', 'changes', 'injured', 'productionFinished',
           'testScreening', 'sound', 'postProductionProblem', 'visualEffects', 'visualQuality', 'reshooting', 'postProductionFinished',
-          'beforeRelease', 'afterReleaseWithCinemaRun', 'afterRelease', 'studioTakeover', 'internationalAward', 'independentAward', 'audienceAward'].includes(value);
+          'beforeRelease', 'afterReleaseWithCinemaRun', 'afterRelease', 'studioTakeover',
+          'internationalAwardNomination', 'independentAwardNomination', 'audienceAwardNomination',
+          'internationalAwardPresentation', 'independentAwardPresentation', 'audienceAwardPresentation',].includes(value);
       }
     },
     movieTitle: {
@@ -248,20 +259,35 @@ export default {
           this.title = this.$t('events.studioTakeover.title');
           this.description = this.$t('events.studioTakeover.description') + ' "' + this.studioName + '"';
           break;
-        case 'internationalAward':
-          document.getElementById('internationalAwardIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.internationalAward.title');
-          this.description = this.$t('events.internationalAward.description');
+        case 'internationalAwardNomination':
+          document.getElementById('internationalAwardNominationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.internationalAwardNomination.title');
+          this.description = this.$t('events.internationalAwardNomination.description');
           break;
-        case 'independentAward':
-          document.getElementById('independentAwardIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.independentAward.title');
-          this.description = this.$t('events.independentAward.description');
+        case 'independentAwardNomination':
+          document.getElementById('independentAwardNominationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.independentAwardNomination.title');
+          this.description = this.$t('events.independentAwardNomination.description');
           break;
-        case 'audienceAward':
-          document.getElementById('audienceAwardIcon' + this.randomId).style.display = 'block';
-          this.title = this.$t('events.audienceAward.title');
-          this.description = this.$t('events.audienceAward.description');
+        case 'audienceAwardNomination':
+          document.getElementById('audienceAwardNominationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.audienceAwardNomination.title');
+          this.description = this.$t('events.audienceAwardNomination.description');
+          break;
+        case 'internationalAwardPresentation':
+          document.getElementById('internationalAwardPresentationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.internationalAwardPresentation.title');
+          this.description = this.$t('events.internationalAwardPresentation.description');
+          break;
+        case 'independentAwardPresentation':
+          document.getElementById('independentAwardPresentationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.independentAwardPresentation.title');
+          this.description = this.$t('events.independentAwardPresentation.description');
+          break;
+        case 'audienceAwardPresentation':
+          document.getElementById('audienceAwardPresentationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.audienceAwardPresentation.title');
+          this.description = this.$t('events.audienceAwardPresentation.description');
           break;
         default:
           throw('Invalid event type!');

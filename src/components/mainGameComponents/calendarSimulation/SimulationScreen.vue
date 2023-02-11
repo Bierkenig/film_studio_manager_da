@@ -81,14 +81,17 @@ export default {
   mounted() {
     this.loadData();
     setTimeout(this.animateBar, 10)
-    setTimeout(this.resetBar,3990);
+    setTimeout(this.resetBar,3490);
     this.stopButtonDisabled = false;
 
     this.interval = setInterval(() => {
       setTimeout(this.animateBar, 10)
-      setTimeout(this.resetBar,3990);
+      setTimeout(this.resetBar,3490);
       this.animate()
-    }, 4000)
+      setTimeout(function() {
+
+      },500);
+    }, 3500)
   },
 
   methods: {
@@ -121,7 +124,7 @@ export default {
     },
 
     animateBar() {
-      this.$refs.simulationBar.style.setProperty("transition", "width 3s ease-in-out")
+      this.$refs.simulationBar.style.setProperty("transition", "width 2.5s ease-in-out")
       this.$refs.simulationBar.style.setProperty("width", "100%")
     },
 

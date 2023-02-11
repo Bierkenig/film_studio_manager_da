@@ -52,7 +52,7 @@ export default class Release {
         this.director = preProduction.hiredDirector
         this.directorTalent = this.calcMinMaxDir(this.director)[0] + ((this.calcMinMaxDir(this.director)[1] - this.calcMinMaxDir(this.director)[0]) / preProduction.hiredDirector.dirMorale)
 
-        this.directorFormula = (this.directorTalent * 65 + this.objectByString(preProduction.hiredDirector._genre, this.screenplay.genre) * 35) / 100
+        this.directorFormula = (this.directorTalent * 65 + this.getGenreRatingOfPerson(this.screenplay.genre.genreName, preProduction.hiredDirector) * 35) / 100
 
         //Cast
         //IndividualCastMember function below
@@ -68,16 +68,34 @@ export default class Release {
         //FINAL FORMULA
         this.qualityFormula = (this.productionBudget * 20 + this.productionPhases * 10 + this.directorFormula * 20 + this.castFormula * 20 + this.screenplayFormula * 30) / 100
 
+
         //Popularity
         //Genre
-        this.childrenGenrePopularity = (this.genrePopularity.childrenPopularity * 65 + this.subgenrePopularity.childrenPopularity * 35) / 100
-        this.teenagersGenrePopularity = (this.genrePopularity.teenPopularity * 65 + this.subgenrePopularity.teenPopularity * 35) / 100
-        this.adultsGenrePopularity = (this.genrePopularity.adultPopularity * 65 + this.subgenrePopularity.adultPopularity * 35) / 100
+        if(this.subgenrePopularity !== null){
+            this.childrenGenrePopularity = (parseInt(this.genrePopularity.childrenPopularity) * 65 + parseInt(this.subgenrePopularity.childrenPopularity) * 35) / 100
+            this.teenagersGenrePopularity = (parseInt(this.genrePopularity.teenPopularity) * 65 + parseInt(this.subgenrePopularity.teenPopularity) * 35) / 100
+            this.adultsGenrePopularity = (parseInt(this.genrePopularity.adultPopularity) * 65 + parseInt(this.subgenrePopularity.adultPopularity) * 35) / 100
+        } else {
+            this.childrenGenrePopularity = (parseInt(this.genrePopularity.childrenPopularity) * 65) / 100
+            this.teenagersGenrePopularity = (parseInt(this.genrePopularity.teenPopularity) * 65) / 100
+            this.adultsGenrePopularity = (parseInt(this.genrePopularity.adultPopularity) * 65) / 100
+        }
 
         //Topics
-        this.childrenTopicsPopularity = (this.topicPopularity.first.childrenPopularity + this.topicPopularity.second.childrenPopularity + this.topicPopularity.third.childrenPopularity) / this.numberOfMovieTopics
-        this.teenagersTopicsPopularity = (this.topicPopularity.first.teenPopularity + this.topicPopularity.second.teenPopularity + this.topicPopularity.third.teenPopularity) / this.numberOfMovieTopics
-        this.adultsTopicsPopularity = (this.topicPopularity.first.adultPopularity + this.topicPopularity.second.adultPopularity + this.topicPopularity.third.adultPopularity) / this.numberOfMovieTopics
+        if(this.topicPopularity.second === null){
+            this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity)) / this.numberOfMovieTopics
+            this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity)) / this.numberOfMovieTopics
+            this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity)) / this.numberOfMovieTopics
+        } else if(this.topicPopularity.third === null) {
+            this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity)) / this.numberOfMovieTopics
+            this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity)) / this.numberOfMovieTopics
+            this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity)) / this.numberOfMovieTopics
+        } else {
+            this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity) + parseInt(this.topicPopularity.third.childrenPopularity)) / this.numberOfMovieTopics
+            this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity) + parseInt(this.topicPopularity.third.teenPopularity)) / this.numberOfMovieTopics
+            this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity) + parseInt(this.topicPopularity.third.adultPopularity)) / this.numberOfMovieTopics
+
+        }
 
         //Studio Popularity
         this.studioPopularityFormula = this.owner.popularity
@@ -90,7 +108,7 @@ export default class Release {
         this.castPopularityFormula = (this.mainCastPopularity * 50 + this.supportCastPopularity * 25 + this.minorCameoCastPopularity * 15) / 100
 
         //Director
-        this.directorPopularityFormula = preProduction.hiredDirector.popularity
+        this.directorPopularityFormula = preProduction.hiredDirector._popularity
 
         //Writer
         this.writerPopularityFormula = this.screenplay.writer._popularity
@@ -335,7 +353,7 @@ export default class Release {
      * @returns {number}
      */
     getIndividualCastMember(castMember) {
-        return (castMember._talent * 65 + this.objectByString(castMember._genre, this.screenplay.genre) * 35) / 100
+        return (castMember._talent * 65 + this.getGenreRatingOfPerson(this.screenplay.genre.genreName, castMember) * 35) / 100
     }
 
     /**
@@ -480,19 +498,35 @@ export default class Release {
         }
     }
 
-    objectByString(o, s) {
-        s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
-        s = s.replace(/^\./, '');           // strip a leading dot
-        let a = s.split('.');
-        for (let i = 0, n = a.length; i < n; ++i) {
-            let k = a[i];
-            if (k in o) {
-                o = o[k];
-            } else {
-                return;
-            }
+    getGenreRatingOfPerson(screenplayGenre, castMember) {
+        switch (screenplayGenre) {
+            case 'Action':
+                return castMember._action;
+            case 'Adventure':
+                return castMember._adventure;
+            case 'Comedy':
+                return castMember._comedy;
+            case 'Documentary':
+                return castMember._documentary;
+            case 'Drama':
+                return castMember._drama;
+            case 'Fantasy':
+                return castMember._fantasy;
+            case 'Horror':
+                return castMember._horror;
+            case 'Musical':
+                return castMember._musical;
+            case 'Romance':
+                return castMember._romance;
+            case 'Science-Fiction':
+                return castMember._scienceFiction;
+            case 'Thriller':
+                return castMember._thriller;
+            case 'War':
+                return castMember._war;
+            default:
+                break;
         }
-        return o;
     }
 
     static fromJSON(jsonObject){

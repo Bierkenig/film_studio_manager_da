@@ -7,6 +7,7 @@ import {Character} from "@/classes/Character";
 import {i18next} from "@/translation/i18n";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
+import {Movie} from "@/classes/Movie";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -30,11 +31,23 @@ export default function simulate() {
     console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
-    createScreenplaysFromWriters();
+
+    createScreenplaysFromWriters('forRandomGeneration');
+    generateMoviesFromOtherStudios();
+
     otherStudioCreatesStreamingService();
 
     updateStudioPopularity();
     updateOtherStudiosPopularity();
+
+
+    if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(1,1,new Date(store.getters.getCurrentDate.getFullYear(),0)).getTime()){
+        setInternationAwardEvents()
+    } else if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(1,1,new Date(store.getters.getCurrentDate.getFullYear(),2)).getTime()){
+        setIndependentAwardEvents()
+    } else if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(1,1,new Date(store.getters.getCurrentDate.getFullYear(),5)).getTime()){
+        setAudienceAwardEvents()
+    }
 
     //Tracking Production Movies
     console.log(store.getters.getCalendarEvents)
@@ -55,8 +68,40 @@ export default function simulate() {
     //YEARLY
     if (store.getters.getCurrentDate.getDate() === 31
         && store.getters.getCurrentDate.getMonth() === 11) {
-
+        //calc Market Share
+        calcMarketShare()
     }
+}
+
+function calcMarketShare() {
+    let allEarnings = 0
+    let studioEarnings = {}
+    let allStudios = store.getters.getOtherStudios
+    allStudios.push(store.getters.getStudio)
+
+    allStudios.forEach((el) => {
+        studioEarnings[el.id] = 0
+        el.movies.forEach((movie) => {
+            movie._earnings.forEach((ear) => {
+                allEarnings += ear.amount
+                studioEarnings[el.id] += ear.amount
+            })
+        })
+    })
+
+    console.log(allEarnings)
+    console.log(studioEarnings)
+    const year = store.getters.getCurrentDate.getFullYear()
+    //set Share other
+    store.getters.getOtherStudios.forEach((studio) => {
+        studio.marketShare[year.toString()] = (studioEarnings[studio.id] / allEarnings)
+    })
+    //set share
+    store.getters.getStudio.marketShare[year.toString()] = studioEarnings[store.getters.getStudio.id] / allEarnings
+
+    console.log(store.getters.getOtherStudios)
+
+    console.log(store.getters.getStudio)
 }
 
 //function to get 0 or 1 with specific probability
@@ -485,9 +530,9 @@ export function updateServicePopularityAndSubscribers() {
 }
 
 //create screenplays from other writers
-function createScreenplaysFromWriters() {
+function createScreenplaysFromWriters(type) {
     if (store.state.screenplayTitles.length !== 0) {
-        if (randomNumber(0.15) === 0) {
+        if (randomNumber(0.10) === 0 || type === 'forMovieGeneration') {
             //get all necessary values
             const randomProfile = require('random-profile-generator');
             let allScreenplayTitles = store.state.screenplayTitles;
@@ -828,14 +873,90 @@ function createScreenplaysFromWriters() {
             newScreenplay.setPrice(screenplayPrice);
 
             //add screenplay to screenplayFromWriters array
-            console.log(newScreenplay);
-            store.commit('addScreenplaysFromWriters', newScreenplay);
+            if(type === 'forMovieGeneration'){
+                return newScreenplay;
+            } else {
+                console.log(newScreenplay);
+                store.commit('addScreenplaysFromWriters', newScreenplay);
+            }
 
             store.state.screenplayTitles.splice(store.state.screenplayTitles.indexOf(screenplayTitle), 1);
         }
     }
 }
 
+// functions to set award events
+function setInternationAwardEvents(){
+    // 'International Award'
+    let internationalAwardNomination = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
+    let internationalAwardPresentation = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+
+    addElementToCalendarEvents('','',internationalAwardNomination,'internationalAwardNomination');
+    addElementToCalendarEvents('','',internationalAwardPresentation,'internationalAwardPresentation');
+}
+
+function nominationsForInternationAward(){
+    let nominatedMovies = [];
+    let nominatedLeadingActors = [];
+    let nominatedSupportingActors = [];
+    let nominatedLeadingActress = [];
+    let nominatedSupportingActress = [];
+    let nominatedWriters = [];
+    let nominatedDirectors = [];
+
+    let allFinishedMovies = store.getters.getFinishedMovies.concat(store.getters.getMoviesFromOtherStudios);
+
+    for (let i = 0; i < allFinishedMovies.length; i++) {
+
+    }
+}
+
+function setIndependentAwardEvents(){
+    // 'Independent Award'
+    let independentAwardNomination = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
+    let independentAwardPresentation = nthWeekdayOfMonth(1,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+
+    addElementToCalendarEvents('','',independentAwardNomination,'independentAwardNomination');
+    addElementToCalendarEvents('','',independentAwardPresentation,'independentAwardPresentation');
+}
+
+function setAudienceAwardEvents(){
+    // 'Audience Award'
+    let audienceAwardNomination = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
+    let audienceAwardPresentation = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+
+    addElementToCalendarEvents('','',audienceAwardNomination,'audienceAwardNomination');
+    addElementToCalendarEvents('','',audienceAwardPresentation,'audienceAwardPresentation');
+}
+
+function addElementToCalendarEvents(movieTitle, studioTitle, startDate, type){
+    let endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
+    store.commit('addCalendarEvent', {
+        id: store.getters.getNextEventId,
+        movie: movieTitle,
+        studio: studioTitle,
+        start: startDate.toISOString().split('T')[0],
+        end: endDate.toISOString().split('T')[0],
+        type: type,
+        completed: false,
+    })
+}
+
+function nthWeekdayOfMonth(weekday, n, date) {
+    let count = 0,
+        idate = new Date(date.getFullYear(), date.getMonth(), 1);
+    while (true) {
+        if (idate.getDay() === weekday) {
+            if (++count == n) {
+                break;
+            }
+        }
+        idate.setDate(idate.getDate() + 1);
+    }
+    return idate;
+}
+
+// function to renew people
 let counter = 0
 
 function renewPeople() {
@@ -1143,4 +1264,21 @@ function generateAvatarValues(ethnicity) {
     array.push(clothingColor[Math.round(Math.random() * 14)])
 
     return array
+}
+
+// function to generate movies
+function generateMoviesFromOtherStudios(){
+    if(store.getters.getOtherStudios.length !== 0 && store.state.screenplayTitles.length !== 0){
+        if(randomNumber(0.10) === 0){
+            let allOtherStudios = store.getters.getOtherStudios;
+            let randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
+
+            let newMovie = new Movie(randomStudio, null);
+            newMovie._status = 'Finished';
+            newMovie._foundationDate = store.getters.getCurrentDate;
+            newMovie._preProduction.screenplay = createScreenplaysFromWriters('forMovieGeneration');
+
+            console.log(newMovie)
+        }
+    }
 }

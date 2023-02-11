@@ -10,8 +10,8 @@
           <div class="moviesDetailsGeneralTopInfoRight">
             <div class="moviesDetailsInfoCircles">
               <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="moviesDetailsInfoCirclesTop">
-                <info-circle class="moviesDetailsInfoCircle" :text="movie.quality" size="60px" large-font/>
-                <info-circle class="moviesDetailsInfoCircle" :text="movie._release.popularityFormula" size="60px" large-font/>
+                <info-circle class="moviesDetailsInfoCircle" :text="movie.quality" size="60px" :data-title="$t('quality')" large-font/>
+                <info-circle class="moviesDetailsInfoCircle" :text="movie._release.popularityFormula" size="60px" :data-title="$t('popularity')" large-font/>
               </div>
               <div v-else class="moviesDetailsInfoCirclesTop">
                 <info-circle class="moviesDetailsInfoCircle" text="Q" size="60px" large-font/>

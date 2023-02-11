@@ -77,7 +77,7 @@
             </div>
             <div class="movieDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.director') }}</div>
-              <div>{{ movie.director.getFullName() }}</div>
+              <div>{{ movie._preProduction.hiredDirector.getFullName() }}</div>
             </div>
           </div>
         </div>
@@ -124,7 +124,7 @@
             <div>{{ movie._release.dvdGross }}</div>
           </div>
         </div>
-        <div v-if="movie._status !== 'Finished' && movie._status === 'Released'" class="movieDetailsFinancesRight">
+        <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="movieDetailsFinancesRight">
           <div class="noMargin movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
             <div>0</div>
@@ -141,13 +141,14 @@
       </div>
       <div class="movieDetailsButtons">
         <custom-button
+            v-if="movie._status === 'Finished' || movie._status === 'Released'"
             class="movieDetailsButton"
             size="small"
             @click="createNewMovie">
           {{ $t('movieDetailsElement.newMovie') }}
         </custom-button>
         <custom-button
-            v-if="movie._franchiseType === null && movie._owner === this.ownStudio && !partOfFranchise"
+            v-if="movie._franchiseType === null && movie._owner === this.ownStudio && !partOfFranchise && (movie._status === 'Finished' || movie._status === 'Released')"
             class="movieDetailsButton"
             size="small"
             @click="createFranchise">
