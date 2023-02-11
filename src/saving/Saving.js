@@ -12,8 +12,8 @@ let autoCounter = 1000;
 export function save(data, slot) {
     data = JSON.parse(data)
 
-    fs.mkdir(path.join('.', '.data'), (err) =>{
-        fs.mkdir(path.join('.', '.data', 'saves'), (err1) =>{
+    fs.mkdir(path.join('.', 'data'), (err) =>{
+        fs.mkdir(path.join('.', 'data', 'saves'), (err1) =>{
             if (err1 && err1.code !== 'EEXIST') {
                 console.log(err1)
                 return
@@ -23,14 +23,14 @@ export function save(data, slot) {
             console.log(err)
             return
         }
-        fs.mkdir(path.join('.', '.data', 'recovery'), (err2) => {
+        fs.mkdir(path.join('.', 'data', 'recovery'), (err2) => {
             if (err2 && err2.code !== 'EEXIST') {
                 console.log(err2)
             }
         })
-        if (!hidefile.isHiddenSync(path.join('.', '.data'))) {
-            hidefile.hideSync(path.join('.', '.data'));
-        }
+        // if (!hidefile.isHiddenSync(path.join('.', 'data'))) {
+        //     hidefile.hideSync(path.join('.', 'data'));
+        // }
 
         //creates directory if not already existing
         // fs.mkdir(path.join('.', '.data', 'saves', slot.toString()), (err) => {
@@ -42,7 +42,7 @@ export function save(data, slot) {
 
         //Attributes for save file: {save, backup, auto}
         //writes save-file with additional values
-        fs.writeFile(path.join('.', '.data', 'saves','save' + slot.toString() + '.json'), JSON.stringify({
+        fs.writeFile(path.join('.', 'data', 'saves','save' + slot.toString() + '.json'), JSON.stringify({
             en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
             de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
             slot: slot,
@@ -57,7 +57,7 @@ export function save(data, slot) {
             }
         })
 
-        fs.writeFile(path.join('.', '.data', 'recovery', 'b' + slot.toString() + '.json'), JSON.stringify({
+        fs.writeFile(path.join('.', 'data', 'recovery', 'b' + slot.toString() + '.json'), JSON.stringify({
             warning: 'Changing this data could cause the save file to be corrupted and therefore the game data might not be restored!',
             en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
             de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
@@ -98,7 +98,7 @@ export function load(slot) {
 
         if (checkFileStatus(slot, 'backup')) {
             try {
-                save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'recovery', 'b' + slot.toString() + '.json')).toString());
+                save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'recovery', 'b' + slot.toString() + '.json')).toString());
 
             } catch (e) {
                 code = '102'
@@ -108,7 +108,7 @@ export function load(slot) {
         }
     } else {
         try {
-            save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json')).toString());
+            save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json')).toString());
             code = '100';
         } catch (e) {
             code = '102'
@@ -142,15 +142,15 @@ export function load(slot) {
 
 export function compareDate(slot) {
     let autoSave = null;
-    let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json')).toString());
+    let save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json')).toString());
 
-    let fileNames = fs.readdirSync(path.join('.', '.data', 'temp'));
+    let fileNames = fs.readdirSync(path.join('.', 'data', 'temp'));
 
     //listing all files using forEach
     fileNames.forEach(file => {
         console.log(file)
         if (file.substr(8, 1) === slot.toString()) {
-            autoSave = JSON.parse(fs.readFileSync(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4) + slot.toString() + '.json')).toString())
+            autoSave = JSON.parse(fs.readFileSync(path.join('.', 'data', 'temp', 'temp' + file.substr(4, 4) + slot.toString() + '.json')).toString())
         }
     });
 
@@ -174,11 +174,11 @@ export function deleteSaveFile(slot) {
     //checks if file exists before deleting
     if (checkIfExists(slot)[0]) {
         //deleting file
-        fs.unlink(path.join('.', '.data', 'saves', 'save' + slot.toString()+ '.json'), function (err) {
+        fs.unlink(path.join('.', 'data', 'saves', 'save' + slot.toString()+ '.json'), function (err) {
             if (err) return console.log(err);
             console.log('file deleted successfully');
 
-            fs.unlink(path.join('.', '.data', 'recovery', 'b' + slot.toString() + '.json'), function (err) {
+            fs.unlink(path.join('.', 'data', 'recovery', 'b' + slot.toString() + '.json'), function (err) {
                 if (err) return console.log(err);
                 console.log('backup file deleted successfully');
             });
@@ -198,7 +198,7 @@ export function checkIfExists(slot = null) {
     console.log("check")
     if (slot !== null) {
         try {
-            fs.statSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json'))
+            fs.statSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json'))
         } catch (e) {
             console.log("no file")
             return [false, slot]
@@ -208,7 +208,7 @@ export function checkIfExists(slot = null) {
     }
     if (slot === null) {
         try {
-            fs.statSync(path.join('.', '.data', 'settings.json'));
+            fs.statSync(path.join('.', 'data', 'settings.json'));
             return true;
         } catch (e) {
             return false;
@@ -266,9 +266,9 @@ export function checkFileStatus(slot, type) {
     if (checkIfExists(slot)[0]) {
         let saveFileLocation;
         if (type === 'default') {
-            saveFileLocation = path.join('.', '.data', 'saves','save' + slot.toString() + '.json');
+            saveFileLocation = path.join('.', 'data', 'saves','save' + slot.toString() + '.json');
         } else if (type === 'backup') {
-            saveFileLocation = path.join('.', '.data', 'recovery', 'b' + slot.toString() + '.json');
+            saveFileLocation = path.join('.', 'data', 'recovery', 'b' + slot.toString() + '.json');
         } else {
             return false;
         }
@@ -287,7 +287,7 @@ export function checkFileStatus(slot, type) {
 
 export function getSaveName(slot) {
     if (checkIfExists(slot)[0] && checkFileStatus(slot)) {
-        let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves', 'save' + slot.toString() + '.json')).toString());
+        let save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json')).toString());
         console.log(save.state.studio.name)
         return save.state.studio.name
     }
@@ -298,7 +298,7 @@ export function getSaveName(slot) {
 // getSaveDate(slot)[1] returns the date in german time system DD/MM/YYYY for de-language
 export function getSaveDate(slot) {
     if (checkIfExists(slot)[0] && checkFileStatus(slot)) {
-        let save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'saves','save' + slot.toString() + '.json')).toString());
+        let save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'saves','save' + slot.toString() + '.json')).toString());
         console.log(save.en_date)
         console.log(save.de_date)
         return [save.en_date, save.de_date]
@@ -311,14 +311,14 @@ export function getSaveDate(slot) {
 export function autoSave(data, slot) {
     data = JSON.parse(data)
 
-    fs.mkdir(path.join('.', '.data'), (err) => {
+    fs.mkdir(path.join('.', 'data'), (err) => {
         if (err && err.code !== 'EEXIST') {
             console.log(err)
             return
         }
 
         //creates directory if not already existing
-        fs.mkdir(path.join('.', '.data', 'temp'), (err) => {
+        fs.mkdir(path.join('.', 'data', 'temp'), (err) => {
             if (err && err.code !== 'EEXIST') {
                 console.log(err)
             }
@@ -326,7 +326,7 @@ export function autoSave(data, slot) {
 
         //Attributes for save file: {save, backup, auto}
         //writes save-file with additional values
-        fs.writeFile(path.join('.', '.data', 'temp', 'temp' + autoCounter.toString() + slot.toString() + '.json'), JSON.stringify({
+        fs.writeFile(path.join('.', 'data', 'temp', 'temp' + autoCounter.toString() + slot.toString() + '.json'), JSON.stringify({
             en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
             de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
             slot: slot,
@@ -345,7 +345,7 @@ export function autoSave(data, slot) {
     autoCounter++;
 
     if (autoCounter > 1001) {
-        fs.unlink(path.join('.', '.data', 'temp', 'temp' + (autoCounter - 1).toString() + slot.toString() + '.json'), function (err) {
+        fs.unlink(path.join('.', 'data', 'temp', 'temp' + (autoCounter - 1).toString() + slot.toString() + '.json'), function (err) {
             if (err) return console.log(err);
             console.log('auto file ' + (autoCounter - 1) + ' deleted successfully');
         })
@@ -353,7 +353,7 @@ export function autoSave(data, slot) {
 
     if (autoCounter === 1001) {
 
-        fs.readdir(path.join('.', '.data', 'temp'), function (err, files) {
+        fs.readdir(path.join('.', 'data', 'temp'), function (err, files) {
             //handling error
             if (err) {
                 return console.log('Unable to scan directory: ' + err);
@@ -365,7 +365,7 @@ export function autoSave(data, slot) {
 
                 if (file.substr(8, 1) === slot.toString()) {
                     if (file.substr(4, 4) > 1001) {
-                        fs.unlink(path.join('.', '.data', 'temp', 'temp' + file.substr(4, 4).toString() + slot.toString() + '.json'), function (err) {
+                        fs.unlink(path.join('.', 'data', 'temp', 'temp' + file.substr(4, 4).toString() + slot.toString() + '.json'), function (err) {
                             if (err) return console.log(err);
                             console.log('auto file ' + file.substr(4, 4) + ' deleted successfully');
                         })
@@ -378,13 +378,13 @@ export function autoSave(data, slot) {
 
 
 export function resetDB(slot) {
-    fs.copyFileSync('src/DB/database/fsm.db', './.data/database/fsm_custom' + slot.toString() + '.db')
+    fs.copyFileSync('src/DB/database/fsm.db', './data/database/fsm_custom' + slot.toString() + '.db')
 
 }
 
 export function saveSettings(data) {
     data = JSON.parse(data)
-    fs.writeFile(path.join('.', '.data', 'settings.json'), JSON.stringify({
+    fs.writeFile(path.join('.', 'data', 'settings.json'), JSON.stringify({
         en_date: moment().format("MM/DD/YYYY HH:mm:ss"),
         de_date: moment().format("DD/MM/YYYY HH:mm:ss"),
         type: 'settings',
@@ -400,7 +400,7 @@ export function saveSettings(data) {
 export function loadSettings() {
     let save = null;
     if (checkIfExists()) {
-        save = JSON.parse(fs.readFileSync(path.join('.', '.data', 'settings.json')).toString());
+        save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'settings.json')).toString());
     }
 
     return save;

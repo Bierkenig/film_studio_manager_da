@@ -197,6 +197,9 @@ export default {
     console.log(this.otherStudios)
 
     this.updateMarketShare()
+
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: Finances Menu")
+
   }
 }
 </script>

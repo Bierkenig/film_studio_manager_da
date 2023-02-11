@@ -132,7 +132,7 @@ export default {
   },
 
   mounted(){
-    window.ipcRenderer.send("updateDiscordDetails", "In Startmenu")
+    window.ipcRenderer.send("updateDiscordDetails", "Start Menu")
   },
 
   methods: {

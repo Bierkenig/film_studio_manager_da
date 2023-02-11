@@ -83,6 +83,9 @@ export default {
     document.getElementsByClassName('fc-next-button')[0].removeAttribute('title');
     document.getElementsByClassName('fc-prev-button')[0].setAttribute('data-title',i18next.t('previousMonth'));
     document.getElementsByClassName('fc-prev-button')[0].removeAttribute('title');
+
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: Calender Menu")
+
   },
 
   methods: {

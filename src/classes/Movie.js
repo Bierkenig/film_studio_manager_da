@@ -181,11 +181,12 @@ export class Movie {
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Movie(DataUtil.skip), jsonObject)
         //TODO Cannot create Studio from String
+        if(jsonObject._preProduction !== null)
         instance._preProduction = new PreProduction(jsonObject._preProduction)
-        if(instance._production !== null){
+        if(jsonObject._production !== null){
             instance._production = new Production(jsonObject._production)
         }
-        if(instance._postProduction !== null) {
+        if(jsonObject._postProduction !== null) {
             instance._postProduction = new PostProduction(jsonObject._postProduction)
         }
 

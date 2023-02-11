@@ -82,6 +82,7 @@ import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vu
 export default {
   name: "NewsMenu",
   components: {MovieEarningElement, NewsElement, TilePagesNav, BackgroundTile, ActionSection},
+
   data() {
     return {
       allMovies: this.$store.getters.getFinishedMovies.concat(this.$store.getters.getCreatedMovies),
@@ -96,6 +97,8 @@ export default {
 
   mounted() {
     this.loadData();
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: News Menu")
+
   },
 
   methods: {

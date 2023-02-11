@@ -79,6 +79,8 @@ export default {
       this.showBuyModal = false;
     }
     this.checkBalance = (this.$store.getters.getBalance - 2500000000) < 0;
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: Streaming Menu")
+
   },
 
   methods: {

@@ -18,7 +18,9 @@ import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/Movi
 export default {
   name: "MoviesMenu",
   components:{MoviesSection, ActionSection},
-
+  mounted(){
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: Movies Menu")
+  },
   data(){
     return{
       allOwningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),

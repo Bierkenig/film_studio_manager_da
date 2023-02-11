@@ -336,7 +336,7 @@ export default {
       if(this.booleanActingOption === 1){
         this.$store.getters.getCurrentMovie._preProduction.budget.acting += this.actingConsequence.value;
         this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
-        this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),this.actingConsequence.addedWeeks , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
+        this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(this.actingConsequence.addedWeeks , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
 
       }
       else if(this.booleanEditingOption === 2){
@@ -347,7 +347,7 @@ export default {
       if(this.booleanStoryOption === 1){
         this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget *= this.storyConsequence.value;
         this.$store.getters.getCurrentMovie._preProduction.hype *= 0.85
-        this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(new Date(),this.storyConsequence.addedWeeks , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
+        this.$store.getters.getCurrentMovie._preProduction.releaseDate = this.addWeeks(this.storyConsequence.addedWeeks , this.$store.getters.getCurrentMovie._preProduction.releaseDate )
 
       }
       else if(this.booleanEditingOption === 2){
@@ -356,7 +356,7 @@ export default {
       this.$router.push({ name: 'testScreeningResults', params: { addedWeeks: this.addedWeeks, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), soundBudgetIncrease: JSON.stringify(this.soundBudgetIncrease), vfxBudgetIncrease: JSON.stringify(this.vfxBudgetIncrease), actingConsequence: JSON.stringify(this.actingConsequence), storyConsequence: JSON.stringify(this.storyConsequence), flags: (this.booleanEditingOption) + (this.booleanSoundOption * 3) + (this.booleanVFXOption * 9) + (this.booleanActingOption * 27) + (this.booleanStoryOption * 81)}})
     },
 
-    addWeeks(date, weeks, startDate) {
+    addWeeks(weeks, startDate) {
       startDate.setDate(startDate.getDate() + 7 * weeks);
       return startDate;
     },
