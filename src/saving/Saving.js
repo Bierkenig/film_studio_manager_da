@@ -3,7 +3,6 @@ const fs = require("fs");
 const hash = require("object-hash");
 const moment = require("moment");
 const path = require("path");
-const hidefile = require('hidefile');
 
 let autoCounter = 1000;
 
