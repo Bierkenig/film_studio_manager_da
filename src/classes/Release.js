@@ -531,12 +531,25 @@ export default class Release {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Release(DataUtil.skip), jsonObject)
-        instance.preProduction = PreProduction.fromJSON(jsonObject.preProduction)
-        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
-        instance.owner = Studio.fromJSON(jsonObject.owner)
-        instance.releaseDate = new Date(jsonObject.releaseDate)
-        instance.startDate = new Date(jsonObject.startDate)
-        instance.director = Person.fromJSON(jsonObject.director)
+        if(jsonObject.preProduction != null){
+            instance.preProduction = PreProduction.fromJSON(jsonObject.preProduction)
+        }
+
+        if(jsonObject.screenplay != null){
+            instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        }
+
+        if(jsonObject.owner != null){
+            instance.owner = Studio.fromJSON(jsonObject.owner)
+        }
+
+        instance.releaseDate = jsonObject.releaseDate == null ? null : new Date(jsonObject.releaseDate)
+        instance.startDate =  jsonObject.startDate == null ? null : new Date(jsonObject.startDate)
+
+        if(jsonObject.director != null) {
+            instance.director = Person.fromJSON(jsonObject.director)
+        }
+
         instance.setAudienceRating()
 
         return instance;

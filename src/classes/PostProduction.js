@@ -30,8 +30,12 @@ export default class PostProduction {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new PostProduction(DataUtil.skip), jsonObject)
-        instance.postProductionStart = new Date(jsonObject.postProductionStart)
-        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        instance.postProductionStart = jsonObject.postProductionStart == null ? null : new Date(jsonObject.postProductionStart)
+
+        if(jsonObject.screenplay != null){
+            instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        }
+
         return instance
     }
 }

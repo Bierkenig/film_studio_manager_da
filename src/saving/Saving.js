@@ -27,6 +27,11 @@ export function save(data, slot) {
                 console.log(err2)
             }
         })
+        fs.mkdir(path.join('.', 'data', 'temp'), (err3) => {
+            if (err3 && err3.code !== 'EEXIST') {
+                console.log(err3)
+            }
+        })
         // if (!hidefile.isHiddenSync(path.join('.', 'data'))) {
         //     hidefile.hideSync(path.join('.', 'data'));
         // }

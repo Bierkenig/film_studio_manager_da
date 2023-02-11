@@ -296,9 +296,11 @@ if (isDevelopment) {
 }
 async function launchDiscordGameSDK(win) {
     let child
+    console.log(app.getAppPath())
     try{
         child = spawn('java', [ '-jar', 'src/Discord.jar', process.pid.toString()],
             {stdio: ['pipe', process.stdout, process.stderr]});
+        child.unref()
         win.on('closed',() => {
             streamWrite(child.stdin, 'kill\n');
         })

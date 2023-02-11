@@ -21,7 +21,7 @@ export default class Earnings {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Earnings(DataUtil.skip), jsonObject)
-        instance.date = new Date(jsonObject.date)
+        instance.date = jsonObject.date == null ? null : new Date(jsonObject.date)
         return instance
     }
 }

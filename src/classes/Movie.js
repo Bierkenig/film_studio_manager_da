@@ -212,26 +212,43 @@ export class Movie {
 
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Movie(DataUtil.skip), jsonObject)
-        //TODO Cannot create Studio from String
-        if(jsonObject._preProduction !== null)
-        instance._preProduction = new PreProduction(jsonObject._preProduction)
-        if(jsonObject._production !== null){
+
+        if(jsonObject._preProduction != null){
+            instance._preProduction = new PreProduction(jsonObject._preProduction)
+        }
+
+        if(jsonObject._production != null){
             instance._production = new Production(jsonObject._production)
         }
-        if(jsonObject._postProduction !== null) {
+
+        if(jsonObject._postProduction != null) {
             instance._postProduction = new PostProduction(jsonObject._postProduction)
         }
 
-        if(instance._release !== null) {
+        if(instance._release != null) {
             instance._release = new Release(jsonObject._release)
         }
-        instance._owner = Studio.fromJSON(jsonObject._owner)
-        instance._screenplay = Screenplay.fromJSON(jsonObject._screenplay)
-        instance._date = new Date(jsonObject._date)
-        instance.director = Person.fromJSON(jsonObject.director)
-        instance._earnings = jsonObject._earnings.map(object => Earnings.fromJSON(object))
-        instance.boughtRightDate = new Date(jsonObject.boughtRightDate)
-        instance._foundationDate = new Date(jsonObject._foundationDate)
+
+        if(jsonObject._owner != null){
+            instance._owner = Studio.fromJSON(jsonObject._owner)
+        }
+
+        if(jsonObject._screenplay != null){
+            instance._screenplay = Screenplay.fromJSON(jsonObject._screenplay)
+        }
+
+        instance._date = jsonObject._date == null ? null : new Date(jsonObject._date)
+
+        if(jsonObject.director != null){
+            instance.director = Person.fromJSON(jsonObject.director)
+        }
+
+        if(jsonObject._earnings != null){
+            instance._earnings = jsonObject._earnings.map(object => Earnings.fromJSON(object))
+        }
+
+        instance._boughtRightDate = jsonObject._boughtRightDate == null ? null : new Date(jsonObject._boughtRightDate)
+        instance._foundationDate = jsonObject._foundationDate == null ? null : new Date(jsonObject._foundationDate)
         return instance;
     }
 }

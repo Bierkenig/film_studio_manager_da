@@ -272,13 +272,16 @@ export class Screenplay {
 
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Screenplay(DataUtil.skip), jsonObject)
-        instance.writer = Person.fromJSON(jsonObject.writer)
+        if(jsonObject.writer !== null){
+            instance.writer = Person.fromJSON(jsonObject.writer)
+        }
         if(jsonObject.franchise != null){
             instance.franchise = Franchises.fromJSON(jsonObject.franchise)
         }
         if(jsonObject.topics != null){
             instance.topics = DataUtil.objectMap(jsonObject.topics, topic => topic == null ? null : Topic.fromJSON(topic))
         }
+
         instance.roles = DataUtil.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
         if(jsonObject.actors != null) {
             instance.actors = DataUtil.objectMap(jsonObject.actors, actors => actors.map(actor => Person.fromJSON(actor)))

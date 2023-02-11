@@ -12,7 +12,7 @@ export default class Loan {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Loan(DataUtil.skip), jsonObject)
-        instance.date = new Date(jsonObject.date)
+        instance.date = jsonObject.date == null ? null : new Date(jsonObject.date)
         return instance
     }
 }

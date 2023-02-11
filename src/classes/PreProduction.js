@@ -42,10 +42,17 @@ export default class PreProduction {
 
     static fromJSON(jsonObject) {
         let instance = Object.assign(new PreProduction(DataUtil.skip), jsonObject)
-        instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
-        instance.director = Person.fromJSON(jsonObject.director)
-        instance.releaseDate = new Date(jsonObject.releaseDate)
-        instance.startDate = new Date(jsonObject.startDate)
+
+        if(jsonObject.screenplay != null){
+            instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
+        }
+
+        if(jsonObject.director != null){
+            instance.director = Person.fromJSON(jsonObject.director)
+        }
+
+        instance.releaseDate = jsonObject.releaseDate == null ? null : new Date(jsonObject.releaseDate)
+        instance.startDate = jsonObject.startDate == null ? null : new Date(jsonObject.startDate)
 
         return instance;
     }

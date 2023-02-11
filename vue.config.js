@@ -24,7 +24,6 @@ module.exports = {
             // Command line args (excluding --debug, --dashboard, and --headless) are passed to Electron as well
             //mainProcessArgs: ['--arg-name', 'arg-value']
             outputDir: 'build',
-            externals: ['discord-game', 'discord_game']
         }
     },
 }

@@ -27,8 +27,8 @@ export default class Event {
 
     static fromJSON(jsonObject) {
         let instance = Object.assign(new Event(DataUtil.skip), jsonObject)
-        instance.start = new Date(jsonObject.start)
-        instance.end = new Date(jsonObject.end)
+        instance.start = jsonObject.start == null ? null : new Date(jsonObject.start)
+        instance.end = jsonObject.end == null ? null : new Date(jsonObject.end)
         return instance;
     }
 }

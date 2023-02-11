@@ -54,11 +54,23 @@ export default class News {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new News(DataUtil.skip), jsonObject)
-        instance._person = Person.fromJSON(jsonObject._person)
-        instance._award = Award.fromJSON(jsonObject._award)
-        instance._movie = Movie.fromJSON(jsonObject._movie)
-        instance._studio = Studio.fromJSON(jsonObject._studio)
-        instance._date = new Date(jsonObject._date)
+        if(jsonObject._person != null){
+            instance._person = Person.fromJSON(jsonObject._person)
+        }
+
+        if(jsonObject._award != null){
+            instance._award = Award.fromJSON(jsonObject._award)
+        }
+
+        if(jsonObject._movie !== null){
+            instance._movie = Movie.fromJSON(jsonObject._movie)
+        }
+
+        if(jsonObject._studio != null){
+            instance._studio = Studio.fromJSON(jsonObject._studio)
+        }
+
+        instance._date = jsonObject._date == null ? null : new Date(jsonObject._date)
         return instance
     }
 }

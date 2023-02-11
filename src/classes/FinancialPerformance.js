@@ -48,7 +48,7 @@ export default class FinancialPerformance {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new FinancialPerformance(DataUtil.skip), jsonObject)
-        instance.date = new Date(jsonObject.foundationDate)
+        instance.date = jsonObject.date == null ? null : new Date(jsonObject.date)
         return instance
     }
 }

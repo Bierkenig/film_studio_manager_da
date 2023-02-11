@@ -85,9 +85,13 @@ export class StreamingService {
 
     static fromJSON(jsonObject){
         let instance =  Object.assign(new StreamingService(DataUtil.skip), jsonObject)
-        instance._owner = Studio.fromJSON(jsonObject._owner)
-        instance._foundationDate = new Date(jsonObject._foundationDate)
-        instance._lastCheckedDate = new Date(jsonObject._lastCheckedDate)
+
+        if(jsonObject._owner != null){
+            instance._owner = Studio.fromJSON(jsonObject._owner)
+        }
+
+        instance._foundationDate = jsonObject._foundationDate == null ? null : new Date(jsonObject._foundationDate)
+        instance._lastCheckedDate = jsonObject._lastCheckedDate == null ? null : new Date(jsonObject._lastCheckedDate)
         return instance;
     }
 }

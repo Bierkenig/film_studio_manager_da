@@ -21,11 +21,11 @@ export default class Production {
 
     static fromJSON(jsonObject){
         let instance = Object.assign(new Production(DataUtil.skip), jsonObject)
-        instance.startDate = new Date(jsonObject.startDate)
-        instance.endDate = new Date(jsonObject.endDate)
-        instance.releaseDate = new Date(jsonObject.releaseDate)
-        instance.haltedStartDate = new Date(jsonObject.haltedStartDate)
-        instance.haltedEndDate = new Date(jsonObject.haltedEndDate)
+        instance.startDate = jsonObject.startDate == null ? null : new Date(jsonObject.startDate)
+        instance.endDate = jsonObject.endDate == null ? null : new Date(jsonObject.endDate)
+        instance.releaseDate = jsonObject.releaseDate == null ? null : new Date(jsonObject.releaseDate)
+        instance.haltedStartDate = jsonObject.haltedStartDate == null ? null : new Date(jsonObject.haltedStartDate)
+        instance.haltedEndDate = jsonObject.haltedEndDate == null ? null : new Date(jsonObject.haltedEndDate)
         return instance
     }
 }
