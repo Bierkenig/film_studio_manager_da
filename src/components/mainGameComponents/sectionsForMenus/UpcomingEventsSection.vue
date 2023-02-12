@@ -299,12 +299,6 @@ export default {
       this.$store.commit('setCurrentCalendarEvent',event);
     },
 
-    getNextWeeksDate() {
-      const now = this.$store.getters.getCurrentDate;
-
-      return new Date(now.getFullYear(), now.getMonth(), now.getDate() + 7);
-    },
-
     updateShowingEvents(){
       this.todayEvents = [];
       this.weekEvents = [];
@@ -313,7 +307,8 @@ export default {
       let sourceData = this.$store.getters.getCalendarEvents;
       let today = this.$store.getters.getCurrentDate;
       today.setHours(1,0,0)
-      let nextWeek = this.getNextWeeksDate;
+      let startDateOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+      let endDateOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+6));
       let startDateOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
       let endDateOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
@@ -321,9 +316,9 @@ export default {
         let dateCheck = new Date(sourceData[i].start);
         if(dateCheck.getTime() === today.getTime()){
           this.todayEvents.push(sourceData[i])
-        } else if (dateCheck > today && dateCheck < nextWeek()){
+        } else if (dateCheck > startDateOfWeek && dateCheck < endDateOfWeek && dateCheck > today){
           this.weekEvents.push(sourceData[i])
-        } else if (dateCheck >= startDateOfMonth && dateCheck < endDateOfMonth){
+        } else if (dateCheck >= startDateOfMonth && dateCheck < endDateOfMonth && dateCheck > today){
           this.monthEvents.push(sourceData[i])
         }
       }
@@ -332,6 +327,7 @@ export default {
 
   mounted(){
     this.updateShowingEvents();
+    console.log(this.$store.getters.getCalendarEvents);
   },
 }
 </script>
