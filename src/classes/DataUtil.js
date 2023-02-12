@@ -1,11 +1,11 @@
 
 export default class DataUtil {
     static skip = {}
+
     static transferProperties(from, to, keys) {
-        return keys.reduce((current, key) => {
-            current[key] = from[key]
-            return current
-        }, to)
+        for(let key in keys){
+            to[key] = from[key]
+        }
     }
 
     static objectMap(obj, fn) {
