@@ -30,7 +30,7 @@
         {{ currentActor._last_name }}{{ $t('actorSection.decision') }}
         {{ actorDecision ? $t('actorSection.yes') :  $t('actorSection.no') }}
       </div>
-      <button v-if="sendOfferBool" @click="saveActors()">{{$t('actorSection.add')}}</button><br/>
+      <button v-if="sendOfferBool" @click="saveActors()" :disabled="!actorDecision || radio === null">{{$t('actorSection.add')}}</button><br/>
       <div v-if="cant">{{$t('actorSection.cant')}}</div>
     </div>
     <button @click="finishPreProd()" :disabled="finish">{{ $t('actorSection.continue') }}</button>
@@ -58,17 +58,11 @@ export default {
       sendOfferBool: false,
       actorDecision: false,
       allSalaries: [],
-      radio: "",
+      radio: null,
       disabled: false,
       perfectSalary: 0,
       perfectSalary1: 0,
       spots: this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots(),
-      availableSpots: {
-        main: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.main.length,
-        minor: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.minor.length,
-        support: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.support.length,
-        cameo: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.cameo.length
-      },
       cant: false,
       finish: true
     }
@@ -97,6 +91,7 @@ export default {
     },
 
     sendOffer() {
+      console.log(this.radio)
       let salValue = (Object.values(this.calcSalValue(this.proposedSalary))[0]);
       if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
@@ -190,24 +185,24 @@ export default {
       switch (this.radio) {
         case "Main" || "Hauptdarsteller":
           this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
-            this.availableSpots.main--;
+          this.removeActor()
           break
         case "Minor":
           this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
-          this.availableSpots.minor--;
+          this.removeActor()
           break
         case "Support" || "Nebendarsteller":
           this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
-          this.availableSpots.support--;
+          this.removeActor()
           break
         case "Cameo":
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
-          this.availableSpots.cameo--;
+          this.removeActor()
           break
       }
 
-      if (this.availableSpots.main === 0 && this.availableSpots.minor === 0
-          && this.availableSpots.cameo === 0 && this.availableSpots.support === 0) {
+      if (this.spots.main === 0 && this.spots.minor === 0
+          && this.spots.cameo === 0 && this.spots.support === 0) {
         this.finish = false
       }
       this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
@@ -217,7 +212,14 @@ export default {
       this.currentActor = null
       this.salary.min = 0
       this.salary.max = 0
+      this.radio = null
       this.proposedSalary = 0
+    },
+
+    removeActor() {
+      this.allActors = this.allActors.filter((el) =>
+        el.id !== this.currentActor.id
+      )
     },
 
     finishPreProd() {

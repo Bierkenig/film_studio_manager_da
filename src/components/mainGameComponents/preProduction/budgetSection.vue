@@ -53,7 +53,7 @@
 
     <button @click="setBudgetPop(); disabled = false">{{$t('budgetSection.button')}}</button>
 
-    <div>{{$t('budgetSection.total')}}{{total}}</div>
+    <div>{{$t('budgetSection.total')}}: $ {{total}}</div>
 
     <button :disabled="disabled" @click="this.$router.push({name: 'actorSection'})">{{$t('budgetSection.continue')}}</button>
   </div>
@@ -204,7 +204,18 @@ export default {
       this.$store.getters.getCurrentMovie._preProduction.budget.sfx = parseInt(this.sfx.value)
       this.$store.getters.getCurrentMovie._preProduction.budget.vfx = parseInt(this.vfx.value)
 
-      this.total = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget()
+      this.total = this.$store.getters.getCurrentMovie._preProduction.budget.production +
+          this.$store.getters.getCurrentMovie._preProduction.budget.extras +
+          this.$store.getters.getCurrentMovie._preProduction.budget.cinematography +
+          this.$store.getters.getCurrentMovie._preProduction.budget.sound +
+          this.$store.getters.getCurrentMovie._preProduction.budget.editing +
+          this.$store.getters.getCurrentMovie._preProduction.budget.score +
+          this.$store.getters.getCurrentMovie._preProduction.budget.set +
+          this.$store.getters.getCurrentMovie._preProduction.budget.stunts +
+          this.$store.getters.getCurrentMovie._preProduction.budget.costume +
+          this.$store.getters.getCurrentMovie._preProduction.budget.makeup +
+          this.$store.getters.getCurrentMovie._preProduction.budget.sfx +
+          this.$store.getters.getCurrentMovie._preProduction.budget.vfx
     },
 
     setBudgetPop() {
