@@ -201,11 +201,11 @@ export default {
           break
       }
 
+      this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
       if (this.spots.main === 0 && this.spots.minor === 0
           && this.spots.cameo === 0 && this.spots.support === 0) {
         this.finish = false
       }
-      this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
       this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
       this.negotiate = false
       this.disabled = false
