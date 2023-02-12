@@ -234,6 +234,8 @@ export default {
         id: store.getters.getNextEventId,
         movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
         studio: "",
+        actor: "",
+        director: "",
         start: endDate.toISOString().split('T')[0],
         end: newDate.toISOString().split('T')[0],
         type: 'preProductionFinished',

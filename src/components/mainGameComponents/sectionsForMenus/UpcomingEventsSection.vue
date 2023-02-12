@@ -147,6 +147,7 @@
     <transition name="modal">
       <after-release
           v-if="showAfterReleaseModal"
+          :movie="this.$store.getters.getCurrentMovie"
           @close="showAfterReleaseModal = false">
         <template v-slot:header>
           <h3>custom header</h3>
@@ -262,6 +263,14 @@ export default {
 
   methods: {
     goToEvent(event){
+      let allMoviesNotFinished = this.$store.getters.getInProductionMovies.concat(this.$store.getters.getCreatedMovies);
+      if(event.movie !== ''){
+        for (let i = 0; i < allMoviesNotFinished.length; i++) {
+          if(allMoviesNotFinished[i]._preProduction.screenplay.title === event.movie){
+            this.$store.commit('setNewCurrentMovie',allMoviesNotFinished[i]);
+          }
+        }
+      }
       if(event.type === 'dropOut' || event.type === 'recast' || event.type === 'creative' || event.type === 'difficulty' || event.type === 'extend'){
         this.showPreProductionModal = true;
         this.chosenType = event.type;
@@ -305,15 +314,17 @@ export default {
       this.monthEvents = [];
 
       let sourceData = this.$store.getters.getCalendarEvents;
-      let today = this.$store.getters.getCurrentDate;
+      let today = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate());
       today.setHours(1,0,0)
-      let startDateOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
-      let endDateOfWeek = new Date(today.setDate(today.getDate() - today.getDay()+6));
+      let copiedToday = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate());
+      let startDateOfWeek = new Date(copiedToday.setDate(copiedToday.getDate() - copiedToday.getDay()));
+      let endDateOfWeek = new Date(copiedToday.setDate(copiedToday.getDate() - copiedToday.getDay()+6));
       let startDateOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
       let endDateOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
       for (let i = 0; i < sourceData.length; i++) {
         let dateCheck = new Date(sourceData[i].start);
+        dateCheck.setHours(1,0,0);
         if(dateCheck.getTime() === today.getTime()){
           this.todayEvents.push(sourceData[i])
         } else if (dateCheck > startDateOfWeek && dateCheck < endDateOfWeek && dateCheck > today){

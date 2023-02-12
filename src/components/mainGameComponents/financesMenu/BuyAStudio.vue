@@ -148,6 +148,8 @@ export default {
         id: store.getters.getNextEventId,
         movie: "",
         studio: this.general.name,
+        actor: "",
+        director: "",
         start: endDate.toISOString().split('T')[0],
         end: newDate.toISOString().split('T')[0],
         type: 'studioTakeover',

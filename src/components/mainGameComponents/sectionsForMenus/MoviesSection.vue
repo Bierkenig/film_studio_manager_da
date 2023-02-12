@@ -55,7 +55,7 @@
           :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]"
           :genre="it._preProduction.screenplay.genre.genreName"
           :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()"
-          release="2025"
+          :release="it._preProduction.releaseDate.getFullYear().toString()"
           earnings="$ 999,999"
           @open-clicked="movieInfo(it)"/>
           <!--:release="it._preProduction.releaseDate.getYear()"-->

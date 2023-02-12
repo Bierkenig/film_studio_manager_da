@@ -886,77 +886,6 @@ function createScreenplaysFromWriters(type) {
     }
 }
 
-// functions to set award events
-function setInternationAwardEvents(){
-    // 'International Award'
-    let internationalAwardNomination = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
-    let internationalAwardPresentation = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
-
-    addElementToCalendarEvents('','',internationalAwardNomination,'internationalAwardNomination');
-    addElementToCalendarEvents('','',internationalAwardPresentation,'internationalAwardPresentation');
-}
-
-function nominationsForInternationAward(){
-    let nominatedMovies = [];
-    let nominatedLeadingActors = [];
-    let nominatedSupportingActors = [];
-    let nominatedLeadingActress = [];
-    let nominatedSupportingActress = [];
-    let nominatedWriters = [];
-    let nominatedDirectors = [];
-
-    let allFinishedMovies = store.getters.getFinishedMovies.concat(store.getters.getMoviesFromOtherStudios);
-
-    for (let i = 0; i < allFinishedMovies.length; i++) {
-
-    }
-}
-
-function setIndependentAwardEvents(){
-    // 'Independent Award'
-    let independentAwardNomination = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
-    let independentAwardPresentation = nthWeekdayOfMonth(1,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
-
-    addElementToCalendarEvents('','',independentAwardNomination,'independentAwardNomination');
-    addElementToCalendarEvents('','',independentAwardPresentation,'independentAwardPresentation');
-}
-
-function setAudienceAwardEvents(){
-    // 'Audience Award'
-    let audienceAwardNomination = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
-    let audienceAwardPresentation = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
-
-    addElementToCalendarEvents('','',audienceAwardNomination,'audienceAwardNomination');
-    addElementToCalendarEvents('','',audienceAwardPresentation,'audienceAwardPresentation');
-}
-
-function addElementToCalendarEvents(movieTitle, studioTitle, startDate, type){
-    let endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
-    store.commit('addCalendarEvent', {
-        id: store.getters.getNextEventId,
-        movie: movieTitle,
-        studio: studioTitle,
-        start: startDate.toISOString().split('T')[0],
-        end: endDate.toISOString().split('T')[0],
-        type: type,
-        completed: false,
-    })
-}
-
-function nthWeekdayOfMonth(weekday, n, date) {
-    let count = 0,
-        idate = new Date(date.getFullYear(), date.getMonth(), 1);
-    while (true) {
-        if (idate.getDay() === weekday) {
-            if (++count == n) {
-                break;
-            }
-        }
-        idate.setDate(idate.getDate() + 1);
-    }
-    return idate;
-}
-
 // function to renew people
 let counter = 0
 
@@ -1265,6 +1194,176 @@ function generateAvatarValues(ethnicity) {
     array.push(clothingColor[Math.round(Math.random() * 14)])
 
     return array
+}
+
+// functions to set award events
+function setInternationAwardEvents(){
+    // 'International Award'
+    let internationalAwardNomination = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
+    let internationalAwardPresentation = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+
+    addElementToCalendarEvents('','',null,null, internationalAwardNomination,'internationalAwardNomination');
+    addElementToCalendarEvents('','',null,null, internationalAwardPresentation,'internationalAwardPresentation');
+}
+
+function nominationsForInternationAward(){
+    let nominatedMovies = [];
+    let nominatedLeadingActors = [];
+    let nominatedSupportingActors = [];
+    let nominatedLeadingActress = [];
+    let nominatedSupportingActress = [];
+    let nominatedWriters = [];
+    let nominatedDirectors = [];
+
+    let allFinishedMovies = store.getters.getFinishedMovies.concat(store.getters.getMoviesFromOtherStudios);
+
+    for (let i = 0; i < allFinishedMovies.length; i++) {
+
+    }
+}
+
+function setIndependentAwardEvents(){
+    // 'Independent Award'
+    let independentAwardNomination = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
+    let independentAwardPresentation = nthWeekdayOfMonth(1,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+
+    addElementToCalendarEvents('','',null,null, independentAwardNomination,'independentAwardNomination');
+    addElementToCalendarEvents('','',null,null, independentAwardPresentation,'independentAwardPresentation');
+}
+
+function setAudienceAwardEvents(){
+    // 'Audience Award'
+    let audienceAwardNomination = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
+    let audienceAwardPresentation = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+
+    addElementToCalendarEvents('','',null,null, audienceAwardNomination,'audienceAwardNomination');
+    addElementToCalendarEvents('','',null,null, audienceAwardPresentation,'audienceAwardPresentation');
+}
+
+function addElementToCalendarEvents(movieTitle, studioTitle, actor, director, startDate, type){
+    let endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
+    store.commit('addCalendarEvent', {
+        id: store.getters.getNextEventId,
+        movie: movieTitle,
+        studio: studioTitle,
+        actor: actor,
+        director: director,
+        start: startDate.toISOString().split('T')[0],
+        end: endDate.toISOString().split('T')[0],
+        type: type,
+        completed: false,
+    })
+}
+
+function nthWeekdayOfMonth(weekday, n, date) {
+    let count = 0,
+        idate = new Date(date.getFullYear(), date.getMonth(), 1);
+    while (true) {
+        if (idate.getDay() === weekday) {
+            if (++count == n) {
+                break;
+            }
+        }
+        idate.setDate(idate.getDate() + 1);
+    }
+    return idate;
+}
+
+// function to set event during pre production
+function setEventDuringPreProduction(){
+    let eventsPreProduction = ['dropOut','recast','creative','difficulty','extend'];
+    let allCalendarEvents = store.getters.getCalendarEvents;
+    let allPreProductionMovies = store.getters.getInProductionMovies.filter((movie) => movie._status === 'Pre Production');
+
+    let eventAlreadyExists = false;
+    for (let i = 0; i < eventsPreProduction.length; i++) {
+        for (let j = 0; j < allCalendarEvents.length; j++) {
+            if(allCalendarEvents[j].type === eventsPreProduction[i]){
+                eventAlreadyExists = true;
+            }
+        }
+        if(!eventAlreadyExists){
+            switch (eventsPreProduction[i]){
+                case 'dropOut':
+                    allPreProductionMovies.forEach((movie)  => {
+                        movie._preProduction.screenplay.actors.main.forEach((actor) => {
+                            addDropOutEvent(actor, null, actor.actorMorale, movie, 'dropOut');
+                        })
+                        movie._preProduction.screenplay.actors.support.forEach((actor) => {
+                            addDropOutEvent(actor, null, actor.actorMorale, movie, 'dropOut');
+                        })
+                        movie._preProduction.screenplay.actors.minor.forEach((actor) => {
+                            addDropOutEvent(actor, null, actor.actorMorale, movie, 'dropOut');
+                        })
+                        movie._preProduction.screenplay.actors.cameo.forEach((actor) => {
+                            addDropOutEvent(actor, null, actor.actorMorale, movie, 'dropOut');
+                        })
+                    })
+                    break;
+                case 'recast':
+                    allPreProductionMovies.forEach((movie)  => {
+                        let director = movie._preProduction.hiredDirector;
+                        if(director._rating > 75){
+                            let movieMainActors = movie._preProduction.screenplay.actors.main;
+                            let randomActor = movieMainActors[Math.floor(Math.random() * movieMainActors.length)]
+                            addPreProductionEventWithProbability(0.50,movie,randomActor,null, 'recast')
+                        } else if(director._rating <= 75 && director._rating > 50){
+                            let movieMainActors = movie._preProduction.screenplay.actors.main;
+                            let randomActor = movieMainActors[Math.floor(Math.random() * movieMainActors.length)]
+                            addPreProductionEventWithProbability(0.25,movie,randomActor,null, 'recast')
+                        } else {
+                            let movieMainActors = movie._preProduction.screenplay.actors.main;
+                            let randomActor = movieMainActors[Math.floor(Math.random() * movieMainActors.length)]
+                            addPreProductionEventWithProbability(0.05,movie,randomActor,null, 'recast')
+                        }
+                    });
+                    break;
+                case 'creative':
+                    allPreProductionMovies.forEach((movie)  => {
+                        let director = movie._preProduction.hiredDirector;
+                        addDropOutEvent(null, director, director.dirMorale, movie, 'creative');
+                    });
+                    break;
+                case 'difficulty':
+                    break;
+                case 'extend':
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+}
+
+function addDropOutEvent(actor, director, personMorale,  movie, eventType){
+    switch (personMorale){
+        case 5:
+            addPreProductionEventWithProbability(0.05,movie,actor,director, eventType)
+            break;
+        case 4:
+            addPreProductionEventWithProbability(0.15,movie,actor,director, eventType)
+            break;
+        case 3:
+            addPreProductionEventWithProbability(0.25,movie,actor,director, eventType)
+            break;
+        case 2:
+            addPreProductionEventWithProbability(0.50,movie,actor,director, eventType)
+
+            break;
+        case 1:
+            addPreProductionEventWithProbability(0.75,movie,actor,director, eventType)
+            break;
+        default:
+            break;
+    }
+}
+
+function addPreProductionEventWithProbability(probability, movie, actor, director, eventType){
+    if(randomNumber(probability) === 0){
+        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 2);
+        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 3);
+        addElementToCalendarEvents(movie._preProduction.screenplay.title,'',actor,director, startDate, endDate, eventType)
+    }
 }
 
 // function to generate movies
