@@ -41,7 +41,8 @@ export default {
     this.maxWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
         this.$store.getters.getCurrentMovie._preProduction.productionLength +
         this.$store.getters.getCurrentMovie._preProduction.postProductionLength
-    this.currentWeeks = this.$store.getters.getCurrentMovie._preProduction.productionLength
+    this.currentWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength
+        + this.$store.getters.getCurrentMovie._preProduction.productionLength
 
     this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
   },

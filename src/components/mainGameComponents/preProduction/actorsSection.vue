@@ -12,18 +12,18 @@
       <input type="range" :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
       <div>$ {{ proposedSalary }}</div>
       <div>
-        <input type="radio" id="main" :value="$t('main')" v-model="radio" :disabled="!availableSpots.main >= 1">
+        <input type="radio" id="main" :value="$t('main')" v-model="radio" :disabled="!spots.main >= 1">
         <label for="main">{{$t('main')}}</label>
-        <div>{{availableSpots.main}}</div>
-        <input type="radio" id="minor" value="Minor" v-model="radio" :disabled="!availableSpots.minor >= 1">
+        <div>{{spots.main}}</div>
+        <input type="radio" id="minor" value="Minor" v-model="radio" :disabled="!spots.minor >= 1">
         <label for="minor">Minor</label>
-        <div>{{availableSpots.minor}}</div>
-        <input type="radio" id="support" :value="$t('support')" v-model="radio" :disabled="!availableSpots.support >= 1">
+        <div>{{spots.minor}}</div>
+        <input type="radio" id="support" :value="$t('support')" v-model="radio" :disabled="!spots.support >= 1">
         <label for="support">{{$t('support')}}</label>
-        <div>{{availableSpots.support}}</div>
-        <input type="radio" id="cameo" value="Cameo" v-model="radio" :disabled="!availableSpots.cameo >= 1">
+        <div>{{spots.support}}</div>
+        <input type="radio" id="cameo" value="Cameo" v-model="radio" :disabled="!spots.cameo >= 1">
         <label for="cameo">Cameo</label>
-        <div>{{availableSpots.cameo}}</div>
+        <div>{{spots.cameo}}</div>
       </div>
       <button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</button>
       <div v-if="sendOfferBool">{{ currentActor._first_name }}
@@ -33,7 +33,7 @@
       <button v-if="sendOfferBool" @click="saveActors()">{{$t('actorSection.add')}}</button><br/>
       <div v-if="cant">{{$t('actorSection.cant')}}</div>
     </div>
-    <button @click="finishPreProd()">{{ $t('actorSection.continue') }}</button>
+    <button @click="finishPreProd()" :disabled="finish">{{ $t('actorSection.continue') }}</button>
   </div>
 </template>
 
@@ -62,6 +62,7 @@ export default {
       disabled: false,
       perfectSalary: 0,
       perfectSalary1: 0,
+      spots: this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots(),
       availableSpots: {
         main: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.main.length,
         minor: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.minor.length,
@@ -69,6 +70,7 @@ export default {
         cameo: this.$store.getters.getCurrentMovie._preProduction.screenplay.roles.cameo.length
       },
       cant: false,
+      finish: true
     }
   },
 
@@ -203,6 +205,12 @@ export default {
           this.availableSpots.cameo--;
           break
       }
+
+      if (this.availableSpots.main === 0 && this.availableSpots.minor === 0
+          && this.availableSpots.cameo === 0 && this.availableSpots.support === 0) {
+        this.finish = false
+      }
+      this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
       this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
       this.negotiate = false
       this.disabled = false

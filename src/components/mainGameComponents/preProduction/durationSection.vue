@@ -56,7 +56,7 @@ export default {
       productionPhase: 0,
       disabled: true,
       counter: 0,
-      calcReleaseDate: new Date(),
+      calcReleaseDate: null,
       release: false,
       releaseSection: false,
     }
@@ -70,8 +70,7 @@ export default {
     },
 
     addWeeks(weeks, startDate) {
-      startDate.setDate(startDate.getDate() + 7 * weeks);
-      return startDate;
+      return new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + (weeks * 7))
     },
 
     setStoreWeeks() {

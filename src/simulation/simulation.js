@@ -169,7 +169,8 @@ function updateStudioPopularity(){
     let allMovies = store.getters.getCreatedMovies.concat(store.getters.getFinishedMovies, store.getters.getBoughtMovies, store.getters.getBoughtMovieRights);
     let sumOfAudiencePopularity = 0;
     for (let i = 0; i < allMovies.length; i++) {
-        sumOfAudiencePopularity += allMovies[i]._release.audiencePopularity;
+        console.log(allMovies[i])
+        sumOfAudiencePopularity += allMovies[i].movie._release.audiencePopularity;
     }
 
     let averageOfAudiencePopularity = 0;
@@ -219,7 +220,7 @@ function updateOtherStudiosPopularity(){
 
         let sumOfAudiencePopularity = 0;
         for (let i = 0; i < studioMovies.length; i++) {
-            sumOfAudiencePopularity += studioMovies[i]._release.audiencePopularity;
+            sumOfAudiencePopularity += studioMovies[i].movie._release.audiencePopularity;
         }
 
         let averageOfAudiencePopularity = 0;

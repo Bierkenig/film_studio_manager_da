@@ -6,10 +6,8 @@ module.exports = {
                 "appId": "com.fsm.app",
                 "productName": "Film Studio Manager",
                 "target": "NSIS",
-                "nsis": {
-                    "allowToChangeInstallationDirectory": false,
-                    "oneClick": true
-                },
+                "icon": "public/FSM_Icon_256x.png",
+                "asar": false,
             },
             customFileProtocol: "./",
             // Use this to change the entrypoint of your app's main process

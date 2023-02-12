@@ -70,6 +70,13 @@ export class Screenplay {
         return morale / counter
     }
 
+    getSpots() {
+        return this.spots = {main: this.roles.main.length - this.actors.main.length,
+            support: this.roles.support.length - this.actors.support.length,
+            minor: this.roles.minor.length - this.actors.minor.length,
+            cameo: this.roles.cameo.length - this.actors.cameo.length}
+    }
+
     getId() {
         return this.id;
     }

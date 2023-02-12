@@ -84,9 +84,8 @@ export class Movie {
             console.log(this.genrePopularity)
             console.log(this.subgenrePopularity)
             console.log(this.topicPopularity)
-            //TODO releaseScope
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
-                this.subgenrePopularity, this.topicPopularity, this._owner, 2,
+                this.subgenrePopularity, this.topicPopularity, this._owner, this._postProduction.releaseScope,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
         }
     }

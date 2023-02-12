@@ -94,7 +94,6 @@ export default class Release {
             this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity) + parseInt(this.topicPopularity.third.childrenPopularity)) / this.numberOfMovieTopics
             this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity) + parseInt(this.topicPopularity.third.teenPopularity)) / this.numberOfMovieTopics
             this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity) + parseInt(this.topicPopularity.third.adultPopularity)) / this.numberOfMovieTopics
-
         }
 
         //Studio Popularity
@@ -120,7 +119,11 @@ export default class Release {
         this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
         this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
-        this.audiencePopularity = (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3;
+        console.log(this.childrenMoviePopularity)
+        console.log(this.teenagersMoviePopularity)
+        console.log(this.adultsMoviePopularity)
+
+        this.audiencePopularity = (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3
 
         //Hype
         //Marketing
