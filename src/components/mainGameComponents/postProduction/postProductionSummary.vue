@@ -5,7 +5,30 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <button @click="this.closeSummary">{{$t('summaries.preProduction.close')}}</button>
+              <background-tile :title="$t('summaries.postProduction.title')">
+                <div class="postProductionSummaryResults">
+                  <div class="postProductionSummaryProgressContainer">
+                    <div class="postProductionSummarySmallHeader">{{$t('summaries.postProduction.progress')}}</div>
+                    <div class="postProductionSummaryProgressBar">
+                      <div>{{percent}}%</div>
+                      <input type="range"
+                             :min="0"
+                             :max="maxWeeks"
+                             :step="1"
+                             v-model="currentWeeks" disabled>
+                    </div>
+                  </div>
+                  <div class="postProductionSummaryHappenedEventsContainer">
+                    <div class="postProductionSummarySmallHeader">{{$t('summaries.postProduction.events')}}</div>
+                    <div v-if="happenedEvents.length !== 0">
+                      <div v-for="(el, index) in happenedEvents" :key="index">
+                        {{$t('postproductionEvents.' + el + ".problem")}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <custom-button size="small" @clicked="closeSummary">{{$t('summaries.postProduction.close')}}</custom-button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -15,8 +38,31 @@
 </template>
 
 <script>
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+
 export default {
   name: "postProductionSummary",
+  components: {BackgroundTile, CustomButton},
+
+  data() {
+    return {
+      happenedEvents: [],
+      maxWeeks: this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
+          this.$store.getters.getCurrentMovie._preProduction.productionLength +
+          this.$store.getters.getCurrentMovie._preProduction.postProductionLength,
+      currentWeeks: this.$store.getters.getCurrentMovie._preProduction.preProductionLength
+          + this.$store.getters.getCurrentMovie._preProduction.productionLength
+          + this.$store.getters.getCurrentMovie._preProduction.postProductionLength,
+      percent: 0,
+    }
+  },
+
+  mounted() {
+    this.happenedEvents = this.$store.getters.getCurrentMovie._postProduction.happenedEvents
+
+    this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
+  },
 
   methods: {
     closeSummary(){
@@ -52,14 +98,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-body {
@@ -84,5 +126,49 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.postProductionSummaryResults {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.postProductionSummaryProgressContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 7px 5px 7px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.postProductionSummaryHappenedEventsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px 7px 5px 7px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.postProductionSummaryProgressBar {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.postProductionSummarySmallHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 18px;
+}
+
+input[type='range']{
+  height: 10px;
 }
 </style>

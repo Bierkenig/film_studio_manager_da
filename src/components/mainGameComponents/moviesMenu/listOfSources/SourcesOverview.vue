@@ -41,14 +41,14 @@ export default {
       this.$router.push({name: 'movies'})
     },
 
-    receiveItem(itemClicked, listType) {
+    receiveItem(itemClicked, typeOfSource, listType) {
       this.clickedItem = itemClicked;
       this.listType = listType;
-      if ('id' in this.clickedItem){
-        this.itemType = 'Screenplay'
+      this.itemType = typeOfSource;
+      console.log(itemClicked);
+      if (typeOfSource === 'Screenplay'){
         this.sourcePrice = this.clickedItem.price;
       } else {
-        this.itemType = 'Movie'
         this.sourcePrice = this.clickedItem._totalCosts;
       }
       this.checkBalance = (this.$store.getters.getBalance - parseInt(this.sourcePrice)) < 0;

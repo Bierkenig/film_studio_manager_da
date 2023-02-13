@@ -120,9 +120,10 @@ export default class Release {
         this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
         this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
-        console.log(this.childrenMoviePopularity)
-        console.log(this.teenagersMoviePopularity)
-        console.log(this.adultsMoviePopularity)
+        console.log(this.childrenTopicsPopularity)
+        console.log(this.childrenGenrePopularity)
+        console.log(this.qualityFormula)
+        console.log(this.popularityFormula)
 
         this.audiencePopularity = audiencePopularity !== undefined ? audiencePopularity : (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3
 

@@ -5,10 +5,13 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>{{ $t('continueProduction.qst2') }}</div>
-              <button class="modal-default-button" @click="setMovieAgain()">{{ $t('continueProduction.continue') }}
-              </button>
-              <button class="modal-default-button" @click="cancelMovie()">{{ $t('continueProduction.cancel') }}</button>
+              <background-tile :title="$t('continueProduction.title2')">
+                <div>{{$t('continueProduction.qst2')}}</div>
+                <div class="continuePostProductionButtonContainer">
+                  <custom-button size="small" @clicked="cancelMovie()">{{$t('continueProduction.cancel')}}</custom-button>
+                  <custom-button size="small" @clicked="setMovieAgain()">{{$t('continueProduction.continue')}}</custom-button>
+                </div>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -19,9 +22,12 @@
 
 <script>
 import store from "@/services/store";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "continue-post-prod",
+  components: {CustomButton, BackgroundTile},
 
   methods: {
     cancelMovie() {
@@ -99,14 +105,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  padding: 5px 30px 20px 30px;
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -141,4 +143,11 @@ export default {
   transform: scale(1.1);
 }
 
+.continuePostProductionButtonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
 </style>

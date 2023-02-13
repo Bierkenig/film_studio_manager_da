@@ -5,16 +5,30 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h2>{{$t('summaries.production.title')}}</h2>
-              <div>{{$t('summaries.production.progress')}}</div>
-              <progress :max="maxWeeks" :value="currentWeeks">
-              </progress>
-              <div>{{percent}}%</div>
-              <div>{{$t('summaries.production.events')}}</div>
-              <div v-for="(el, index) in happenedEvents" :key="index">
-                {{$t('productionEvents.' + el + ".problem")}}
-              </div>
-              <button @click="closeSummary">{{$t('summaries.preProduction.close')}}</button>
+              <background-tile :title="$t('summaries.production.title')">
+                <div class="productionSummaryResults">
+                  <div class="productionSummaryProgressContainer">
+                    <div class="productionSummarySmallHeader">{{$t('summaries.production.progress')}}</div>
+                    <div class="productionSummaryProgressBar">
+                      <div>{{percent}}%</div>
+                      <input type="range"
+                             :min="0"
+                             :max="maxWeeks"
+                             :step="1"
+                             v-model="currentWeeks" disabled>
+                    </div>
+                  </div>
+                  <div class="productionSummaryHappenedEventsContainer">
+                    <div class="productionSummarySmallHeader">{{$t('summaries.production.events')}}</div>
+                    <div v-if="happenedEvents.length !== 0">
+                      <div v-for="(el, index) in happenedEvents" :key="index">
+                        {{$t('productionEvents.' + el + ".problem")}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <custom-button size="small" @clicked="closeSummary">{{$t('summaries.production.close')}}</custom-button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -24,25 +38,27 @@
 </template>
 
 <script>
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+
 export default {
   name: "productionSummary",
+  components: {BackgroundTile, CustomButton},
 
   data() {
     return {
       happenedEvents: [],
-      maxWeeks: 0,
-      currentWeeks: 0,
+      maxWeeks: this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
+          this.$store.getters.getCurrentMovie._preProduction.productionLength +
+          this.$store.getters.getCurrentMovie._preProduction.postProductionLength,
+      currentWeeks: this.$store.getters.getCurrentMovie._preProduction.preProductionLength
+          + this.$store.getters.getCurrentMovie._preProduction.productionLength,
       percent: 0,
     }
   },
 
   mounted() {
     this.happenedEvents = this.$store.getters.getCurrentMovie._production.happenedEvents
-    this.maxWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength +
-        this.$store.getters.getCurrentMovie._preProduction.productionLength +
-        this.$store.getters.getCurrentMovie._preProduction.postProductionLength
-    this.currentWeeks = this.$store.getters.getCurrentMovie._preProduction.preProductionLength
-        + this.$store.getters.getCurrentMovie._preProduction.productionLength
 
     this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
   },
@@ -81,14 +97,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-body {
@@ -113,5 +125,49 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.productionSummaryResults {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.productionSummaryProgressContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 7px 5px 7px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.productionSummaryHappenedEventsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px 7px 5px 7px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.productionSummaryProgressBar {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.productionSummarySmallHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 18px;
+}
+
+input[type='range']{
+  height: 10px;
 }
 </style>

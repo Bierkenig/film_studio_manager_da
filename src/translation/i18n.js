@@ -313,6 +313,8 @@ i18next
                         }
                     },
                     continueProduction: {
+                        title: 'Continue Production?',
+                        title2: 'Continue Post-Production?',
                         qst: "Do you want to continue with your production with the movie?",
                         qst2: "Do you want to continue with your post-production with the movie?",
                         continue: "Continue",
@@ -960,26 +962,32 @@ i18next
                         internationalAwardNomination: {
                             title: 'International Film Awards',
                             description: 'Nomination Announcements',
+                            nomination: 'List of nominations',
                         },
                         independentAwardNomination: {
                             title: 'Independent Film Awards',
                             description: 'Nomination Announcements',
+                            nomination: 'List of nominations',
                         },
                         audienceAwardNomination: {
                             title: 'Audience Film Awards',
                             description: 'Nomination Announcements',
+                            nomination: 'List of nominations',
                         },
                         internationalAwardPresentation: {
                             title: 'International Film Awards',
                             description: 'Presentation of winners',
+                            winner: 'List of winners',
                         },
                         independentAwardPresentation: {
                             title: 'Independent Film Awards',
                             description: 'Presentation of winners',
+                            winner: 'List of winners',
                         },
                         audienceAwardPresentation: {
                             title: 'Audience Film Awards',
                             description: 'Presentation of winners',
+                            winner: 'List of winners',
                         },
                     },
                     productionElement: {
@@ -1359,6 +1367,8 @@ i18next
                         }
                     },
                     continueProduction: {
+                        title: 'Produktion fortsetzen?',
+                        title2: 'Post-Produktion fortsetzen?',
                         qst: "Möchten Sie mit der Produktion des Films fortfahren?",
                         qst2: "Möchten Sie mit der Post-Produktion des Films fortfahren?",
                         continue: "Fortsetzen",
@@ -1976,17 +1986,35 @@ i18next
                             title: 'Studio Übernahme',
                             description: 'Von dem Studio',
                         },
-                        internationalAward: {
+                        internationalAwardNomination: {
                             title: 'Internationale Filmpreise',
                             description: 'Ankündigung der Nominierungen',
+                            nomination: 'Liste der Nominierungen',
                         },
-                        independentAward: {
+                        independentAwardNomination: {
                             title: 'Eigenständiger Filmpreise',
                             description: 'Ankündigung der Nominierungen',
+                            nomination: 'Liste der Nominierungen',
                         },
-                        audienceAward: {
+                        audienceAwardNomination: {
                             title: 'Publikum Filmpreise',
                             description: 'Ankündigung der Nominierungen',
+                            nomination: 'Liste der Nominierungen',
+                        },
+                        internationalAwardPresentation: {
+                            title: 'Internationale Filmpreise',
+                            description: 'Präsentation der Gewinner',
+                            winner: 'Liste der Gewinner',
+                        },
+                        independentAwardPresentation: {
+                            title: 'Eigenständiger Filmpreise',
+                            description: 'Präsentation der Gewinner',
+                            winner: 'Liste der Gewinner',
+                        },
+                        audienceAwardPresentation: {
+                            title: 'Publikum Filmpreise',
+                            description: 'Präsentation der Gewinner',
+                            winner: 'Liste der Gewinner',
                         },
                     },
                     productionElement: {

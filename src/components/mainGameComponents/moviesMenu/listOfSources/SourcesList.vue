@@ -77,7 +77,7 @@ export default {
   data(){
     return {
       allOtherStudiosMovies: this.$store.getters.getMoviesFromOtherStudios.concat(this.$store.getters.getAllMovies),
-      allOtherStudiosScreenplays: this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays),
+      allOtherStudiosScreenplays: [],
       allOwningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       allOwningMovies: this.$store.getters.getInProductionMovies.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies),
       lastIndex: null,
@@ -86,6 +86,26 @@ export default {
       selectedSortByWhat: null,
       selectedTypeOfSort: 'Ascending',
     }
+  },
+
+  mounted() {
+    let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays);
+
+    let possibleScreenplays = [];
+    let screenplayAlreadyInUse = false;
+    for (let i = 0; i < allOtherScreenplays.length; i++) {
+      for (let j = 0; j < this.allOtherStudiosMovies.length; j++) {
+        if(this.allOtherStudiosMovies[j]._preProduction.screenplay.id === allOtherScreenplays[i].id){
+          screenplayAlreadyInUse = true;
+        }
+      }
+
+      if(!screenplayAlreadyInUse){
+        possibleScreenplays.push(allOtherScreenplays[i])
+      }
+    }
+
+    this.allOtherStudiosScreenplays = possibleScreenplays;
   },
 
   methods: {
@@ -100,10 +120,14 @@ export default {
       this.lastItemId = itemId;
       this.lastContainerId = containerId;
 
-      if(itemId === 'movieSaleItem' || itemId === 'screenplaySaleItem'){
-        this.$emit('sendSource', source, 'Sale');
-      } else {
-        this.$emit('sendSource', source, 'Owning');
+      if(itemId === 'movieSaleItem'){
+        this.$emit('sendSource', source, 'Movie', 'Sale');
+      } else if(itemId === 'screenplaySaleItem'){
+        this.$emit('sendSource', source, 'Screenplay', 'Owning');
+      } else if(itemId === 'movieOwningItem'){
+        this.$emit('sendSource', source, 'Movie', 'Owning');
+      } else if(itemId === 'screenplayOwningItem'){
+        this.$emit('sendSource', source, 'Screenplay', 'Owning');
       }
     },
 

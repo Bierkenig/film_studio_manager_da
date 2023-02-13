@@ -5,7 +5,9 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <button @click="closeModal">Close</button>
+              <background-tile :title="$t('events.' + this.headline + '.title')">
+                <custom-button size="small" @clicked="closeModal">{{ $t('close') }}</custom-button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -15,8 +17,22 @@
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "AwardNomination",
+  components: {CustomButton, BackgroundTile},
+
+  props: {
+    typeOfAward: String,
+  },
+
+  data(){
+    return {
+      headline: this.typeOfAward,
+    }
+  },
 
   methods: {
     closeModal(){
@@ -53,14 +69,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
-  padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  padding: 5px 30px 20px 30px;
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {

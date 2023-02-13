@@ -187,7 +187,7 @@ export default {
       window.ipcRenderer.receive('gotMovies', (data) => {
         this.$store.commit('addAllMovie', new Movie(data.pk_movieID,
             new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.studioPop, {"2023": data.marketShare}),
-            data.contract, data.status, data.quality, data.totalOutgoings,
+            null, data.status, data.quality, data.totalOutgoings,
             new Screenplay(data.pk_screenplayID, data.title, data.type,
                 new Genre(data.genreName, data.gChild, data.gTeen, data.gAdult),
                 new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity),

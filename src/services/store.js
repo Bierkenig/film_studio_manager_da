@@ -366,6 +366,17 @@ export default createStore({
             return nextId + 1;
         },
 
+        getNextMovieId(state) {
+            let nextId = 0;
+            let allMovies = state.inProductionMovies.concat(state.createdMovies,state.finishedMovies, state.moviesFromOtherStudios, state.allMovies)
+            allMovies.forEach(movie => {
+                if (movie.id > nextId) {
+                    nextId = movie.id;
+                }
+            })
+            return nextId + 1;
+        },
+
         //TODO: changes
         getCurrentLogo(state) {
             return state.logo;

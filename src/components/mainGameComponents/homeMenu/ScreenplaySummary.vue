@@ -185,7 +185,7 @@ export default {
 
     let allMovies = this.$store.getters.getInProductionMovies.concat(this.$store.getters.getCreatedMovies,this.$store.getters.getFinishedMovies, this.$store.getters.getMoviesFromOtherStudios, this.$store.getters.getBoughtMovies, this.$store.getters.getBoughtMovieRights);
     for (let i = 0; i < allMovies.length; i++) {
-      if(allMovies[i]._preProduction.screenplay === this.$store.getters.getCurrentScreenplay){
+      if(allMovies[i]._preProduction.screenplay.id === this.$store.getters.getCurrentScreenplay.id){
         this.checkIfScreenplayIsInUse = true;
       }
     }

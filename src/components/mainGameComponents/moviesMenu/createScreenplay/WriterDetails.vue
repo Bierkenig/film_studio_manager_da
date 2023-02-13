@@ -367,14 +367,7 @@ export default {
         }
       } else {
         this.$store.state.currentMovie._preProduction.budget.writerSalary += this.selectedSalary
-      }
-
-      if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
-        this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
-        this.$store.commit('subtractBalance', (this.selectedSalary/2));
-      } else {
-        this.screenplay.setPrice(this.copiedPrice + this.selectedSalary);
-        this.$store.commit('subtractBalance', this.selectedSalary);
+        this.screenplay.setPrice(this.selectedSalary);
       }
 
       let randomNumber;

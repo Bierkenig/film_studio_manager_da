@@ -170,6 +170,7 @@
     <transition name="modal">
       <award-nomination
           v-if="showAwardNomination"
+          :type-of-award="awardType"
           @close="showAwardNomination = false">
         <template v-slot:header>
           <h3>custom header</h3>
@@ -181,6 +182,7 @@
     <transition name="modal">
       <award-presentation
           v-if="showAwardPresentation"
+          :type-of-award="awardType"
           @close="showAwardPresentation = false">
         <template v-slot:header>
           <h3>custom header</h3>
@@ -250,6 +252,8 @@ export default {
       showAwardNomination: false,
       showAwardPresentation: false,
 
+      awardType: '',
+
       chosenType: '',
       beforeReleaseCompleted: 'none',
     }
@@ -301,8 +305,10 @@ export default {
         this.showStudioTakeover = true
       } else if(event.type === 'internationalAwardNomination' || event.type === 'independentAwardNomination' || event.type === 'audienceAwardNomination'){
         this.showAwardNomination = true;
+        this.awardType = event.type;
       } else if(event.type === 'internationalAwardPresentation' || event.type === 'independentAwardPresentation' || event.type === 'audienceAwardPresentation'){
         this.showAwardPresentation = true;
+        this.awardType = event.type;
       }
 
       this.$store.commit('setCurrentCalendarEvent',event);

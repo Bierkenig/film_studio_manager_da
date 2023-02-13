@@ -376,7 +376,7 @@ export default {
 
   methods: {
     buyScreenplay(){
-      let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters;
+      let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays);
       let chosenScreenplay = null;
       for (let i = 0; i < allOtherScreenplays.length; i++) {
         if(allOtherScreenplays[i].id === this.source.id){
@@ -391,7 +391,7 @@ export default {
     },
 
     buyMovie(){
-      let allOtherMovies = this.$store.getters.getMoviesFromOtherStudios;
+      let allOtherMovies = this.$store.getters.getMoviesFromOtherStudios.concat(this.$store.getters.getAllMovies);
       let chosenMovie = null;
       for (let i = 0; i < allOtherMovies.length; i++) {
         if(allOtherMovies[i]._preProduction.screenplay.id === this.source._preProduction.screenplay.id){
