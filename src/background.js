@@ -40,8 +40,8 @@ async function createWindow() {
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
-    //let dbPath = "src/DB/database/fsm.db"
     let dbPath = "src/DB/database/fsm.db"
+    //let dbPath = "./public/DB/database/fsm.db"
     console.log(dbPath)
     let db = null
 
@@ -96,6 +96,48 @@ async function createWindow() {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
                 else event.sender.send('gotMovies', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getIntAwards', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotIntAwards', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getIndAwards', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotIndAwards', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getAudAwards', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotAudAwards', row)
             })
         })
         db.close()
@@ -339,6 +381,64 @@ async function launchDiscordGameSDK(win) {
         console.log("No Java No Party")
     }
 }
+/**
+function testSteamAPI() {
+    let os = require('os');
+    let greenworks;
+    try {
+        // if greenworks is installed in a node_modules folder, this will work
+        greenworks = require('greenworks');
+    } catch(e) {
+        greenworks = require('./node_modules/greenworks');
+    }
+    if (!greenworks) {
+        console.log('Greenworks not support for ' + os.platform() + ' platform');
+    } else {
+        if (!greenworks.init()) {
+            console.log('Error on initializing steam API.');
+        } else {
+            console.log('Steam API initialized successfully.');
+
+            console.log('Cloud enabled: ' + greenworks.isCloudEnabled());
+            console.log('Cloud enabled for user: ' + greenworks.isCloudEnabledForUser());
+
+            greenworks.on('steam-servers-connected', function() { console.log('connected'); });
+            greenworks.on('steam-servers-disconnected', function() { console.log('disconnected'); });
+            greenworks.on('steam-server-connect-failure', function() { console.log('connected failure'); });
+            greenworks.on('steam-shutdown', function() { console.log('shutdown'); });
+
+            greenworks.saveTextToFile('test_file.txt', 'test_content',
+                function() { console.log('Save text to file successfully'); },
+                function(err) { console.log('Failed on saving text to file'); });
+
+            greenworks.readTextFromFile('test_file.txt', function(message) {
+                console.log('Read text from file successfully.'); }, function(err) {
+                console.log('Failed on reading text from file'); });
+
+            greenworks.getCloudQuota(
+                function() { console.log('Getting cloud quota successfully.') },
+                function(err) { console.log('Failed on getting cloud quota.') });
+            // The ACH_WIN_ONE_GAME achievement is available for the sample (id:480) game
+            greenworks.activateAchievement('ACH_WIN_ONE_GAME',
+                function() { console.log('Activating achievement successfully'); },
+                function(err) { console.log('Failed on activating achievement.'); });
+
+            greenworks.getNumberOfPlayers(
+                function(a) { console.log("Number of players " + a) },
+                function(err) { console.log ('Failed on getting number of players'); });
+
+            console.log("Numer of friends: " +
+                greenworks.getFriendCount(greenworks.FriendFlags.Immediate));
+            var friends = greenworks.getFriends(greenworks.FriendFlags.Immediate);
+            var friends_names = [];
+            for (var i = 0; i < friends.length; ++i)
+                friends_names.push(friends[i].getPersonaName());
+            console.log("Friends: [" + friends_names.join(',') + "]");
+        }
+    }
+}
+ **/
+
 /**
 // Set this to true if building for steam
 const useSteam = true

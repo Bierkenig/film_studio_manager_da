@@ -348,11 +348,11 @@
           code='<market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>'/>
       <code-view
           code='<market-share-element studio="Example Studios" icon="action" icon-theme="green" sales="$ 999,999,999" share="99%" change="-99%"/>'/>
-      <market-share-element studio="Studio" sales="Sales" share="Share" change="Change" no-change-color/>
+      <market-share-element studio="Studio" revenue="Sales" profit="Profit" share="Share" change="Change" no-change-color/>
       <div class="kitchenSinkSpacer"/>
-      <market-share-element studio="Example Studios" icon="action" sales="$ 999,999,999" share="99%" change="+99%"/>
+      <market-share-element studio="Example Studios" icon="action" revenue="$ 999,999,999" profit="Profit" share="99%" change="+99%"/>
       <div class="kitchenSinkSpacer"/>
-      <market-share-element studio="Example Studios" icon="action" icon-theme="white" sales="$ 999,999,999" share="99%"
+      <market-share-element studio="Example Studios" icon="action" icon-theme="white" revenue="$ 999,999,999" profit="Profit" share="99%"
                             change="-99%"/>
     </div>
     <div class="kitchenSinkComponentDiv">

@@ -42,6 +42,8 @@ export default {
       console.log(this.slotNr)
       console.log(this.$store.state)
       window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.slotNr +".db")
+      this.$store.state.dbFetcher.clear()
+      this.$store.state.dbFetcher.fetch()
       this.$router.push("Editor")
     },
 

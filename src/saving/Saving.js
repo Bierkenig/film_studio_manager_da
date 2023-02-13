@@ -382,7 +382,7 @@ export function autoSave(data, slot) {
 
 
 export function resetDB(slot) {
-    fs.copyFileSync('src/DB/database/fsm.db', './data/database/fsm_custom' + slot.toString() + '.db')
+    fs.copyFileSync('src/DB/database/fsm.db', './.data/database/fsm_custom' + slot.toString() + '.db')
 
 }
 

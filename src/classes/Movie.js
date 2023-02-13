@@ -11,17 +11,18 @@ import store from "@/services/store";
 import DataUtil from "@/classes/DataUtil";
 
 export class Movie {
-    constructor(owner, contract, status = null, quality = 100, outgoings, hype, crewMorale, director,
+    constructor(id, owner, contract, status = null, quality = 100, outgoings, screenplay, hype, crewMorale, director,
                 audiencePopularity, critics, openingEarnings, allTotalEarnings, cinema, dvd) {
         if(arguments[0] === DataUtil.skip){
             return
         }
+        this.id = id
         //TYPE -> String from another Class
         this._title = this._screenplay?.title
         //TYPE -> String
         this._status = status;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new PreProduction(hype, crewMorale, director)
+        this._preProduction = new PreProduction(screenplay, hype, crewMorale, director)
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object
