@@ -600,6 +600,10 @@ export default createStore({
             state.allScreenplays.push(screenplay)
         },
 
+        addAllAward(state, award) {
+            state.allAwards.push(award)
+        },
+
         //TODO: changes
         createStudio(state, payload) {
             state.studio = payload.studio;

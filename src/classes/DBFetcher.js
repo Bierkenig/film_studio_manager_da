@@ -11,7 +11,6 @@ export default class DBFetcher {
         this.allWriters = []
         this.allAwards = []
         this.allTopics = []
-        this.allScreenplays = []
         this.allGenres = []
     }
 

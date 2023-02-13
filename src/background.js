@@ -40,8 +40,8 @@ async function createWindow() {
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
-    //let dbPath = "src/DB/database/fsm.db"
     let dbPath = "src/DB/database/fsm.db"
+    //let dbPath = "./public/DB/database/fsm.db"
     console.log(dbPath)
     let db = null
 
@@ -96,6 +96,48 @@ async function createWindow() {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
                 else event.sender.send('gotMovies', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getIntAwards', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotIntAwards', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getIndAwards', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotIndAwards', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getAudAwards', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotAudAwards', row)
             })
         })
         db.close()

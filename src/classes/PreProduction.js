@@ -3,11 +3,11 @@ import Person from "@/classes/Person";
 import DataUtil from "@/classes/DataUtil";
 
 export default class PreProduction {
-    constructor(hype, crewMorale, director) {
+    constructor(screenplay, hype, crewMorale, director) {
         if(arguments[0] === DataUtil.skip){
             return
         }
-        this.screenplay = null
+        this.screenplay = screenplay !== undefined ? screenplay : null
         this.hiredDirector = director !== undefined ? director : null
         if (this.hiredDirector instanceof Person) this.crewMorale = crewMorale !== undefined ? crewMorale : this.calcCrewMorale() && this.calcCastMorale()
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
