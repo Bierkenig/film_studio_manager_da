@@ -6,8 +6,11 @@
     <div class="marketShareElementStudio marketShareElementValue">
       {{ studio }}
     </div>
-    <div class="marketShareElementSales marketShareElementValue">
-      {{ sales }}
+    <div class="marketShareElementRevenue marketShareElementValue">
+      {{ revenue }}
+    </div>
+    <div class="marketShareElementProfit marketShareElementValue">
+      {{ profit }}
     </div>
     <div class="marketShareElementShare marketShareElementValue">
       {{ share }}
@@ -37,7 +40,11 @@ export default {
       type: String,
       required: true,
     },
-    sales: {
+    revenue: {
+      type: String,
+      required: true,
+    },
+    profit: {
       type: String,
       required: true,
     },
@@ -113,7 +120,7 @@ export default {
   margin-right: v-bind('iconReplacement');
 }
 
-.marketShareElementSales {
+.marketShareElementRevenue, .marketShareElementProfit {
   flex-grow: 2;
 }
 
