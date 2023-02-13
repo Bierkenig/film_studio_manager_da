@@ -2,7 +2,7 @@ import {Movie} from "@/classes/Movie";
 import DataUtil from "@/classes/DataUtil";
 
 export class Studio {
-    constructor(id, name, year, budget, popularity) {
+    constructor(id, name, year, budget, popularity, marketShare = {}) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -17,7 +17,7 @@ export class Studio {
         //TYPE -> Integer
         this.popularity = popularity;
         //TYPE -> Object eg {"2023": 23}
-        this.marketShare = {}
+        this.marketShare = marketShare
         //TYPE -> Array
         this.movies = [];
     }

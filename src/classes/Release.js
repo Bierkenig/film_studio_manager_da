@@ -7,7 +7,8 @@ import {Studio} from "@/classes/Studio";
 
 export default class Release {
     constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2,
-                marketingPrint, marketingInternet, marketingCommericals) {
+                marketingPrint, marketingInternet, marketingCommericals, audiencePopularity, critics, openingEarnings, allTotalEarnings,
+                cinema, dvd) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -123,7 +124,7 @@ export default class Release {
         console.log(this.teenagersMoviePopularity)
         console.log(this.adultsMoviePopularity)
 
-        this.audiencePopularity = (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3
+        this.audiencePopularity = audiencePopularity !== undefined ? audiencePopularity : (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3
 
         //Hype
         //Marketing
@@ -177,7 +178,7 @@ export default class Release {
         this.adultsMoviePopularityFormula = (this.topicPopularity * 30 + this.genrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 20) / 100
         //Ratings
         //Critics Rating
-        this.criticsFormula = (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
+        this.criticsFormula = critics !== undefined ? critics : (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
 
         //Audience
         this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
@@ -195,12 +196,12 @@ export default class Release {
 
         this.continuingEarnings = this.openingEarnings * this.hypeFormula
 
-        this.totalEarnings = this.openingEarnings + this.continuingEarnings
+        this.totalEarnings = allTotalEarnings !== undefined ? allTotalEarnings : this.openingEarnings + this.continuingEarnings
 
         //Earnings for movies
-        this.openingWeekGross = this.openingEarnings;
-        this.cinemaGross = 0;
-        this.dvdGross = this.getDVDEarnings();
+        this.openingWeekGross = openingEarnings !== undefined ? openingEarnings: this.openingEarnings;
+        this.cinemaGross = cinema !== undefined ? cinema : 0;
+        this.dvdGross = dvd !== undefined ? dvd : this.getDVDEarnings();
 
     }
 

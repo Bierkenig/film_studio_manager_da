@@ -32,10 +32,7 @@ async function createWindow() {
         useContentSize: true,
     })
 
-    console.log(app.getPath('userData'))
-    console.log(app.getAppPath())
-
-    //!isDevelopment ? win.removeMenu() :
+    //!Development ? win.removeMenu() :
 
     launchDiscordGameSDK(win)
 
@@ -43,7 +40,9 @@ async function createWindow() {
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
+    //let dbPath = "src/DB/database/fsm.db"
     let dbPath = "src/DB/database/fsm.db"
+    console.log(dbPath)
     let db = null
 
     //IPC Main
@@ -61,14 +60,42 @@ async function createWindow() {
         db = null
     })
 
-    ipcMain.on('toGetPeopleTest', (event, data) => {
-        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+    ipcMain.on('getStudios', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error('Database opening error: ', err);
         });
         db.serialize(() => {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
-                else event.sender.send('fromGetPeopleTest', row)
+                else event.sender.send('gotStudios', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getScreenplays', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotScreenplays', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getMovies', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotMovies', row)
             })
         })
         db.close()

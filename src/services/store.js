@@ -316,6 +316,7 @@ export default createStore({
         allAwards: [],
         allTopics: [],
         allScreenplays: [],
+        allMovies: [],
         allGenres: [],
         allSubGenres: [],
 
@@ -591,6 +592,14 @@ export default createStore({
             state.screenplays.push(screenplay);
         },
 
+        addAllMovie(state, movie) {
+            state.allMovies.push(movie)
+        },
+
+        addAllScreenplay(state, screenplay) {
+            state.allScreenplays.push(screenplay)
+        },
+
         //TODO: changes
         createStudio(state, payload) {
             state.studio = payload.studio;
@@ -764,8 +773,8 @@ export default createStore({
             state.calendarEvents.push(calendarEvent)
         },
 
-        addEvent(state, event) {
-            state.happeningEvents.push(event);
+        addOtherStudios(state, payload) {
+            state.otherStudios.push(payload)
         },
 
         changeCurrentLanguage(state, value) {

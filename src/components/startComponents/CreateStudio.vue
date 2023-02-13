@@ -99,6 +99,10 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import i18next from "i18next";
 import SubGenre from "@/classes/SubGenre";
 import Person from "@/classes/Person";
+import {Screenplay} from "@/classes/Screenplay";
+import Genre from "@/classes/Genre";
+import Topic from "@/classes/Topic";
+import {Movie} from "@/classes/Movie";
 
 export default {
   name: "CreateStudio",
@@ -125,6 +129,7 @@ export default {
       this.$store.commit('resetState')
       this.$store.commit("setSlot", parseInt(this.slot))
       console.log(this.$store.state)
+      //TODO REMOVE TEST
       window.ipcRenderer.send('toGetPeopleTest', 'SELECT * FROM people')
       window.ipcRenderer.receive('fromGetPeopleTest', (data) => {
         this.$store.state.allPeopleTest.push(new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
@@ -132,6 +137,50 @@ export default {
             data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
             data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
       })
+
+      window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
+      window.ipcRenderer.receive('gotStudios', (data) => {
+        this.$store.commit('addOtherStudios', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
+      })
+      //screenplays
+      window.ipcRenderer.send('getScreenplays', "SELECT *, g.childrenPopularity as 'gChild', g.teenPopularity as 'gTeen', g.adultPopularity as 'gAdult', t.topicName as 'topic1', t2.topicName as 'topic2', t3.topicName as 'topic3', t.pk_topicID as 't1TopicID', t2.pk_topicID as 't2TopicID', t3.pk_topicID as 't3TopicID', t.childrenPopularity as 'tChild', t.teenPopularity as 'tTeen', t.adultPopularity as 'tAdult', t2.childrenPopularity as 't2Child', t2.teenPopularity as 't2Teen', t2.adultPopularity as 't2Adult', t3.childrenPopularity as 't3Child', t3.teenPopularity as 't3Teen', t3.adultPopularity as 't3Adult' FROM screenplay INNER JOIN genre g on g.pk_genreID = screenplay.fk_pk_genreID INNER JOIN subgenre s on s.pk_subgenreID = screenplay.fk_pk_subgenreID INNER JOIN topics t on t.pk_topicID = screenplay.fk_pk_topic1 INNER JOIN topics t2 on t2.pk_topicID = screenplay.fk_pk_topic2 INNER JOIN topics t3 on t3.pk_topicID = screenplay.fk_pk_topic3 INNER JOIN people p on screenplay.fk_pk_writerID = p.pk_personID")
+      window.ipcRenderer.receive('gotScreenplays', (data) => {
+        this.$store.commit('addAllScreenplay', new Screenplay(data.pk_screenplayID, data.title, data.type,
+            new Genre(data.genreName, data.gChild, data.gTeen, data.gAdult),
+            new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity),
+            data.violenceAgeRating,
+            new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+                data.thriller, data.war, data.isActor, data.isDirector, data.isWriter),
+            data.description, data.screenplayRating, data.price,
+            {
+              firstTopic: new Topic(data.topic1, data.tChild, data.tTeen, data.tAdult),
+              secondTopic: new Topic(data.topic2, data.t2Child, data.t2Teen, data.t2Adult),
+              thirdTopic: new Topic(data.topic3, data.t3Child, data.t3Teen, data.t3Adult)
+            }, null, data.bought,
+            {
+              scope: data.scope, tone: data.tone, specialEffects: data.specialEffects
+            },
+            {
+              violence: data.violenceAgeRating, cursing: data.CursingAgeRating, loveScenes: data.loveScenesAgeRating}))
+      })
+
+      //Movies
+      window.ipcRenderer.send('getMovies', "SELECT *, s2.popularity as 'studioPop' FROM movies INNER JOIN people p on movies.director = p.pk_personID INNER JOIN studio s2 on movies.owner = s2.pk_studioID")
+      window.ipcRenderer.receive('gotMovies', (data) => {
+        this.$store.commit('addAllMovie', new Movie(
+            new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.studioPop, {"2023": data.marketShare}),
+            data.contract, data.status, data.quality, data.totalOutgoings, data.hype, data.crewMorale,
+            new Person(data.pk_personID,data.avatar,data.first_name,data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+                data.ethnicity, data.workingSince, data.performance, data.experience, data.talent,data.popularity,
+                data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+                data.thriller, data.war, data.isActor, data.isDirector, data.isWriter),
+            data.audiencePopularity, data.critics, data.openingEarnings, data.totalEarnings, data.cinemaEarnings, data.dvdEarnings
+        ))
+      })
+
+      console.log(this.$store.state.allMovies)
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
       //Fetch Subgenre once
