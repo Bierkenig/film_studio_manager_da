@@ -5,7 +5,9 @@ import DataUtil from "@/classes/DataUtil"
 import Topic from "@/classes/Topic";
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false,
+                details = {scope: '', tone: '', specialEffects: ''},
+                ageRatingDetails = {violence: '', cursing: '', loveScenes: ''}) {
         if(arguments[0] === 'skip '){
             return
         }
@@ -41,9 +43,11 @@ export class Screenplay {
         //TYPE -> Object
         this.acts = {act1: [], act2: [], act3: []};
         //TYPE -> Object
-        this.details = {scope: '', tone: '', specialEffects: ''};
+        //this.details = {scope: '', tone: '', specialEffects: ''};
+        this.details = details
         //TYPE -> Object
-        this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+        //this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
+        this.ageRatingDetails = ageRatingDetails
         //TYPE -> Integer
         this.writingPhase = null;
         //TYPE -> Integer

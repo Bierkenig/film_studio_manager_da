@@ -3,7 +3,7 @@
     <div>
       <div>{{$t('buyScreenplaySection.buyScreenplay')}}</div>
       <div v-for="(el, index) in screenplays" :key="index">
-        {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer}} / {{el.description}} / {{el.rating}} / {{el.price}}
+        {{el.title}} / {{el.genre.name}} / {{el.ageRating}} / {{el.writer._first_name}} / {{el.writer._last_name}} / {{el.description}} / {{el.rating}} / {{el.price}}
         <button @click="buy(el)">{{$t('buyScreenplaySection.buy')}}</button>
       </div>
     </div>

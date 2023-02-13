@@ -11,22 +11,29 @@ import store from "@/services/store";
 import DataUtil from "@/classes/DataUtil";
 
 export class Movie {
-    constructor(owner, contract) {
+    constructor(owner, contract, status = null, quality = 100, outgoings, hype, crewMorale, director,
+                audiencePopularity, critics, openingEarnings, allTotalEarnings, cinema, dvd) {
         if(arguments[0] === DataUtil.skip){
             return
         }
         //TYPE -> String from another Class
         this._title = this._screenplay?.title
         //TYPE -> String
-        this._status = null;
+        this._status = status;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new PreProduction()
+        this._preProduction = new PreProduction(hype, crewMorale, director)
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object
         this._postProduction = null
         //TYPE -> releaseMovie class object
         this._release = null
+        this.audiencePop = audiencePopularity
+        this.critics = critics
+        this.openingEarnings = openingEarnings
+        this.allTotalEarings = allTotalEarnings
+        this.cinema = cinema
+        this.dvd = dvd
         //TYPE -> director Class Object
         this.director = this._preProduction?.hiredDirector;
         //TYPE -> screenplay class Object
@@ -44,7 +51,7 @@ export class Movie {
         //TYPE -> Integer
         this.topicPopularity = null
         //TYPE -> Integer
-        this.quality = 100
+        this.quality = quality
         //TYPE -> Integer
         this.riskOfFailure = 0
         //TYPE -> Integer
@@ -59,7 +66,7 @@ export class Movie {
         //TYPE -> Date
         this._foundationDate = null;
         //TYPE -> Integer | totalOutgoings - AUSGABEN während Filmherstellung (TODO POSTPRODUCTION)
-        this._totalOutgoings = this._preProduction.outgoings
+        this._totalOutgoings = outgoings !== undefined ? outgoings : this._preProduction.outgoings
     }
 
     setProduction() {
@@ -86,7 +93,8 @@ export class Movie {
             console.log(this.topicPopularity)
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this._owner, this._postProduction.releaseScope,
-                this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)
+                this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial,
+                this.audiencePop, this.critics, this.openingEarnings, this.allTotalEarings, this.cinema, this.dvd)
         }
     }
 

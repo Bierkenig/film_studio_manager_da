@@ -67,6 +67,6 @@ select {
   font-size: 16px;
   font-weight: var(--fsm-fw-regular);
   height: 30px;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 </style>
