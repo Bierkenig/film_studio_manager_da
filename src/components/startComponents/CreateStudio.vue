@@ -189,10 +189,10 @@ export default {
       let index = 0;
       window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
       window.ipcRenderer.receive('gotSubGenres', (data) => {
-        allSubGenres.push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
+        allSubGenres.push(new SubGenre(data.subGenreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
 
         let allGenres = ['Action','Adventure','Comedy','Documentary','Drama','Fantasy','Horror','Musical','Romance','Science-Fiction','Thriller','War'];
-        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.genreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity));
+        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.subGenreName, data.childrenPopularity, data.teenPopularity, data.adultPopularity));
 
         if(counter % 5 === 0){
           index++;
@@ -205,8 +205,7 @@ export default {
       if(this.databaseType === 'current'){
         window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.databaseVersion +".db")
       }
-      this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1), logo: this.chosenLogo});
-      this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1), logo: this.chosenLogo});
+      this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1,{"2023": 0}), logo: this.chosenLogo});
       this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}})
 
     },

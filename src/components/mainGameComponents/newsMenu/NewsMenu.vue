@@ -215,8 +215,14 @@ export default {
 }
 
 .scroll{
-  height: 565px;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 10px;
+  height: auto;
+  box-sizing: border-box;
+  flex-grow: 1;
 }
 
 .newsMenuNavigation {

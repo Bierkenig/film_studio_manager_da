@@ -151,13 +151,22 @@ function createStudios() {
 function otherStudioCreatesStreamingService(){
     if(randomNumber(0.15) === 0){
         let allOtherStudios = store.getters.getOtherStudios;
+        let allStreamingServices = store.getters.getStreamingServicesFromOtherStudios;
+
         for (let i = 0; i < allOtherStudios.length; i++) {
-            if(allOtherStudios[i].budget > 2500000000){
+            let studioHasService = false;
+            for (let j = 0; j < allStreamingServices; j++) {
+                if(allStreamingServices[j]._owner.id === allOtherStudios[i].id){
+                    studioHasService = true;
+                }
+            }
+
+            if(allOtherStudios[i].budget > 2500000000 && !studioHasService){
                 allOtherStudios[i].budget -= 2500000000;
                 store.commit('addStreamingServicesFromOtherStudios', new StreamingService(allOtherStudios[i].name, 1,0,0,allOtherStudios[i].popularity,allOtherStudios[i], store.getters.getCurrentDate));
                 //create news of new streaming service
                 let newsTitle = 'Streaming Service' + i18next.t('established');
-                let newsDescription = i18next.t('theStreamingService') + allOtherStudios[i] + i18next.t('wasFounded') + '.';
+                let newsDescription = i18next.t('theStreamingService') + allOtherStudios[i].name + i18next.t('wasFounded') + '.';
                 store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate,null, null, null, allOtherStudios[i]));
             }
         }
@@ -169,8 +178,7 @@ function updateStudioPopularity(){
     let allMovies = store.getters.getCreatedMovies.concat(store.getters.getFinishedMovies, store.getters.getBoughtMovies, store.getters.getBoughtMovieRights);
     let sumOfAudiencePopularity = 0;
     for (let i = 0; i < allMovies.length; i++) {
-        console.log(allMovies[i])
-        sumOfAudiencePopularity += allMovies[i].movie._release.audiencePopularity;
+        sumOfAudiencePopularity += allMovies[i]._release.audiencePopularity;
     }
 
     let averageOfAudiencePopularity = 0;
@@ -220,7 +228,7 @@ function updateOtherStudiosPopularity(){
 
         let sumOfAudiencePopularity = 0;
         for (let i = 0; i < studioMovies.length; i++) {
-            sumOfAudiencePopularity += studioMovies[i].movie._release.audiencePopularity;
+            sumOfAudiencePopularity += studioMovies[i]._release.audiencePopularity;
         }
 
         let averageOfAudiencePopularity = 0;
@@ -1373,8 +1381,7 @@ function generateMoviesFromOtherStudios(){
             let allOtherStudios = store.getters.getOtherStudios;
             let randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
 
-            let newMovie = new Movie(randomStudio, null);
-            newMovie._status = 'Finished';
+            let newMovie = new Movie(randomStudio, null, 'Finished', 0,undefined,100,5,null,0,0,0,0,0,0);
             newMovie._foundationDate = store.getters.getCurrentDate;
             newMovie._preProduction.screenplay = createScreenplaysFromWriters('forMovieGeneration');
 

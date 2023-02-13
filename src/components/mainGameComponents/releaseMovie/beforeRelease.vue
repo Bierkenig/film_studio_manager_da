@@ -57,7 +57,9 @@ export default {
   methods: {
     changeToCinema() {
       this.$store.getters.getCurrentMovie._status = 'Released'
-      this.$store.getters.getCurrentMovie.setRelease()
+      this.$store.getters.getCurrentMovie.setRelease();
+
+      console.log(this.$store.getters.getCurrentMovie);
 
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
           store.getters.getCurrentDate.getDate() + 7)
@@ -81,6 +83,8 @@ export default {
 
       //add to cinema
       this.$store.commit('addCreatedMovie', this.$store.getters.getCurrentMovie)
+
+      console.log(this.$store.getters.getCreatedMovies);
 
       this.closeModal();
     },

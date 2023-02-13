@@ -286,14 +286,14 @@ export default {
 
     calcWriterDecision() {
       if(this.selectedSalary === this.mainSalary){
-        if(this.salaryValueLevel >= 75){
-          if(this.randomNumber(0.5) === 0){
+        if(this.salaryValueLevel > 75){
+          if(this.randomNumber(0.33) === 0){
             this.writerDecision = true;
           } else {
             this.changeSalaryValueLevel(this.salaryValueLevel + 1);
           }
-        } else if(this.salaryValueLevel < 75 && this.salaryValueLevel >= 50){
-          if(this.randomNumber(0.75) === 0){
+        } else if(this.salaryValueLevel <= 75 && this.salaryValueLevel > 50){
+          if(this.randomNumber(0.66) === 0){
             this.writerDecision = true;
           } else {
             this.changeSalaryValueLevel(this.salaryValueLevel + 1);
@@ -302,33 +302,33 @@ export default {
           this.writerDecision = true;
         }
       } else if(this.selectedSalary === this.salaryValues[this.indexOfMainSalary - 1]){
-        if(this.salaryValueLevel >= 75){
+        if(this.salaryValueLevel > 75){
           if(this.randomNumber(0.25) === 0){
             this.writerDecision = true;
           } else {
             this.changeSalaryValueLevel(this.salaryValueLevel + 1);
           }
-        } else if(this.salaryValueLevel < 75 && this.salaryValueLevel >= 50){
+        } else if(this.salaryValueLevel <= 75 && this.salaryValueLevel > 50){
           if(this.randomNumber(0.5) === 0){
             this.writerDecision = true;
           } else {
             this.changeSalaryValueLevel(this.salaryValueLevel + 1);
           }
         } else {
-          if(this.randomNumber(0.75) === 0){
+          if(this.randomNumber(0.66) === 0){
             this.writerDecision = true;
           } else {
             this.changeSalaryValueLevel(this.salaryValueLevel + 1);
           }
         }
       } else if(this.selectedSalary === this.salaryValues[this.indexOfMainSalary - 2]){
-        if(this.salaryValueLevel >= 75){
+        if(this.salaryValueLevel > 75){
           if(this.randomNumber(0.125) === 0){
             this.writerDecision = true;
           } else {
             this.changeSalaryValueLevel(this.salaryValueLevel + 1);
           }
-        } else if(this.salaryValueLevel < 75 && this.salaryValueLevel >= 50){
+        } else if(this.salaryValueLevel <= 75 && this.salaryValueLevel > 50){
           if(this.randomNumber(0.25) === 0){
             this.writerDecision = true;
           } else {

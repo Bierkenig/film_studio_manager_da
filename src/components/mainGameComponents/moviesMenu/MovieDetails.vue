@@ -14,8 +14,8 @@
           <div class="movieDetailsGeneralTopInfoRight">
             <div class="movieDetailsInfoCircles">
               <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="movieDetailsInfoCirclesTop">
-                <info-circle class="movieDetailsInfoCircle" :text="movie.quality" size="60px" large-font/>
-                <info-circle class="movieDetailsInfoCircle" :text="movie._release.popularityFormula" size="60px" large-font/>
+                <info-circle class="movieDetailsInfoCircle" :text="Math.round(movie.quality).toString()" size="60px" large-font/>
+                <info-circle class="movieDetailsInfoCircle" :text="Math.round(movie._release.popularityFormula).toString()" size="60px" large-font/>
               </div>
               <div v-else class="movieDetailsInfoCirclesTop">
                 <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/>
@@ -65,7 +65,7 @@
           <div class="movieDetailsGeneralBottomInfoRight">
             <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="movieDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.release') }}</div>
-              <div>{{ movie._release }}</div>
+              <div>{{ movie._preProduction.releaseDate.getFullYear() }}</div>
             </div>
             <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="movieDetailsGeneralInfoLine">
               <div>Status</div>

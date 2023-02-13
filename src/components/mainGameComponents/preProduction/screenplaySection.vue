@@ -67,11 +67,21 @@ export default {
 
 
     let createdScreenplays = this.$store.getters.getScreenplays;
+    let allStudioMovies = this.$store.getters.getInProductionMovies.concat(this.$store.getters.getCreatedMovies, this.$store.getters.getFinishedMovies);
+
     for (let i = 0; i < createdScreenplays.length; i++) {
-      if(createdScreenplays[i].franchise === null){
+      let screenplayAlreadyInUse = false;
+      for (let j = 0; j < allStudioMovies.length; j++) {
+        if(allStudioMovies[j]._preProduction.screenplay === createdScreenplays[i]){
+          screenplayAlreadyInUse = true;
+        }
+      }
+
+      if(createdScreenplays[i].franchise === null || !screenplayAlreadyInUse){
         this.possibleScreenplays.push(createdScreenplays[i])
       }
     }
+
     this.possibleScreenplays = this.possibleScreenplays.concat(this.$store.getters.getBoughtScreenplays)
   },
 

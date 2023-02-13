@@ -76,8 +76,8 @@ export default {
 
   data(){
     return {
-      allOtherStudiosMovies: this.$store.getters.getMoviesFromOtherStudios,
-      allOtherStudiosScreenplays: this.$store.getters.getScreenplaysFromWriters,
+      allOtherStudiosMovies: this.$store.getters.getMoviesFromOtherStudios.concat(this.$store.getters.getAllMovies),
+      allOtherStudiosScreenplays: this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays),
       allOwningScreenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       allOwningMovies: this.$store.getters.getInProductionMovies.concat(this.$store.getters.getFinishedMovies, this.$store.getters.getBoughtMovies),
       lastIndex: null,

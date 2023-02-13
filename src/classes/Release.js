@@ -249,7 +249,7 @@ export default class Release {
             el.audienceRating = this.audienceFormula
         })
         store.getters.getCurrentMovie._preProduction.hiredDirector.audienceRating = this.audienceFormula
-        store.getters.getCurrentMovie._preProduction.screenplay.writer = this.audienceFormula
+        //store.getters.getCurrentMovie._preProduction.screenplay.writer = this.audienceFormula
     }
 
     calcPhasesRating(crewMorale) {
