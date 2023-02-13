@@ -88,7 +88,7 @@ export function save(data, slot) {
 //101 - Save File corrupt - Backup will be used - recovery possible!
 //102 - Save File & Backup File corrupt or No File
 //103 - Auto File newer
-//104 - Save & Backup corrupted - Auto Save File exists and could be used
+//104 - Save & Backup corrupted - Auto-Save File exists and could be used
 //105 - No Save File, but Auto Save available
 //106 - No Save File
 export function load(slot) {
@@ -310,7 +310,6 @@ export function getSaveDate(slot) {
     return null
 }
 
-//TODO remove underscore from file
 //TODO use auto save when both save files are corrupted
 export function autoSave(data, slot) {
     data = JSON.parse(data)

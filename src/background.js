@@ -6,6 +6,7 @@ import {spawn} from "child_process";
 import {streamWrite} from "@rauschma/stringio";
 const path = require('path');
 
+
 const isDevelopment = process.env.NODE_ENV !== 'production'
 const saving = require("./saving/Saving");
 
@@ -384,13 +385,8 @@ async function launchDiscordGameSDK(win) {
 /**
 function testSteamAPI() {
     let os = require('os');
-    let greenworks;
-    try {
-        // if greenworks is installed in a node_modules folder, this will work
-        greenworks = require('greenworks');
-    } catch(e) {
-        greenworks = require('./node_modules/greenworks');
-    }
+    console.log(greenworks)
+    greenworks.init()
     if (!greenworks) {
         console.log('Greenworks not support for ' + os.platform() + ' platform');
     } else {
