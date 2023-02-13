@@ -3,22 +3,19 @@
     <avatar-element :svg-code="el._avatar"/>
     {{ el._first_name }}
     {{ el._last_name }}
-    {{ el._age }}
+    {{ el._birthday }}
     {{ el._gender }}
     {{ el._nationality}}
     {{ el._ethnicity }}
+    {{ el._workingSince}}
     {{ el._performance }}
     {{ el._experience }}
-    {{ el._depth }}
-    {{ el._craft }}
     {{ el._talent }}
     {{ el._popularity }}
     {{ el._rating }}
-    {{ el._salary }}
     {{ el._isActor }}
     {{ el._isDirector }}
     {{ el._isWriter }}
-    {{ el._genre }}
     <router-link :to="{ name: 'PersonEdit'}">
       <button id="editButton" class="buttonStyle" @click="edit(el)" >Edit</button>
     </router-link>

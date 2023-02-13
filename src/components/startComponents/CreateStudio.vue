@@ -132,6 +132,11 @@ export default {
             data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
             data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
       })
+      if(this.databaseType === 'current'){
+        window.ipcRenderer.send('changeDBPath', "./data/database/fsm_custom" + this.databaseVersion +".db")
+      } else {
+        window.ipcRenderer.send('changeDBPath', "../../DB/database/fsm.db");
+      }
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
       //Fetch Subgenre once
@@ -153,9 +158,7 @@ export default {
       this.$store.commit('setAllSubGenres', allSubGenres)
       console.log(this.$store.state.allSubGenres)
       console.log(this.$store.state.subgenresFromEachGenre)
-      if(this.databaseType === 'current'){
-        window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.databaseVersion +".db")
-      }
+
       this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1), logo: this.chosenLogo});
       this.$store.commit('createStudio', {studio: new Studio(1,this.name,"2023",parseInt(this.budget),1), logo: this.chosenLogo});
       this.$router.push({name: 'loadingScreen', params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}})
