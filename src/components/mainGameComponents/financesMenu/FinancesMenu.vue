@@ -69,7 +69,8 @@
         </div>
         <div class="marketShareList verticalScroll">
           <div v-for="(el, index) in otherStudios" :key="index" class="marketShareListElement">
-            <market-share-element :studio="el.name"
+            <market-share-element icon="placeholder"
+                                  :studio="el.name"
                                   :revenue="el.calcRevenue()"
                                   :profit="el.calcProfit()"
                                   :share="(el.marketShare[selectedMarketYear] !== undefined ? el.marketShare[selectedMarketYear] : 0) + '%'"
