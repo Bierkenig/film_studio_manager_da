@@ -53,35 +53,34 @@
         </div>
       </background-tile>
       <background-tile class="marketShareTile" :title="$t('marketShare.name')">
-        <select v-model="selectedMarketYear" @change="updateMarketShare">
+        <select id="marketShareSort" v-model="selectedMarketYear" @change="updateMarketShare">
+          <option disabled :value="-1">{{ $t('year') }}</option>
           <option v-for="year in availableMarketYears" :key="year" :value="year">{{ year }}</option>
         </select>
-
-        <div class="financesMenuTable scroll verticalScroll">
-          <table class="financesMenuTable">
-            <tr class="financesMenuTableRow">
-              <th>{{ $t('marketShare.studio') }}</th>
-              <th>{{ $t('marketShare.revenue') }}</th>
-              <th>{{ $t('marketShare.profit') }}</th>
-              <th>{{ $t('marketShare.share') }}</th>
-              <th>{{ $t('marketShare.change') }}</th>
-            </tr>
-            <tr v-for="(el, index) in otherStudios" :key="index" class="financesMenuTableRow">
-              <td>{{ el.name }}</td>
-              <td>$ {{ el.calcRevenue() }}</td>
-              <td>$ {{ el.calcProfit() }}</td>
-              <td>{{ el.marketShare[selectedMarketYear] }}%</td>
-              <td>
-                {{ el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear - 1] !== undefined ? el.marketShare[selectedMarketYear - 1] : 0) }}%
-              </td>
-            </tr>
-          </table>
+        <div id="marketShareListHeaderContainer">
+          <market-share-element id="marketShareListHeader"
+                                :studio="$t('marketShare.studio')"
+                                :revenue="$t('marketShare.revenue')"
+                                :profit="$t('marketShare.profit')"
+                                :share="$t('marketShare.share')"
+                                :change="$t('marketShare.change')"
+                                no-change-color
+          />
+        </div>
+        <div class="marketShareList verticalScroll">
+          <div v-for="(el, index) in otherStudios" :key="index" class="marketShareListElement">
+            <market-share-element :studio="el.name"
+                                  :revenue="el.calcRevenue()"
+                                  :profit="el.calcProfit()"
+                                  :share="(el.marketShare[selectedMarketYear] !== undefined ? el.marketShare[selectedMarketYear] : 0) + '%'"
+                                  :change="(el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear - 1] !== undefined ? el.marketShare[selectedMarketYear - 1] : 0)) + '%'"
+            />
+          </div>
         </div>
       </background-tile>
     </div>
     <div class="financesMenuRightSide">
-      <background-tile id="financesMenuFinancialHistory" :title="$t('financialHistory.name')" content-color="grey"
-                       icon="placeholder">
+      <background-tile id="financesMenuFinancialHistory" :title="$t('financialHistory.name')">
         <div v-for="(el, index) in financialHistory" :key="index">
           <!-- TODO icon -->
           <div>{{ $t("financialHistory." + el.title) }}</div>
@@ -95,18 +94,19 @@
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import FinanceElement from "@/components/kitchenSink/FinanceElement.vue";
+import MarketShareElement from "@/components/kitchenSink/MarketShareElement.vue";
 
 export default {
   name: "FinancesMenu",
 
-  components: {FinanceElement, CustomButton, BackgroundTile},
+  components: {MarketShareElement, FinanceElement, CustomButton, BackgroundTile},
 
   data() {
     return {
       selectedYear: -1,
       selectedMonth: -1,
       selectDate: null,
-      selectedMarketYear: 2023,
+      selectedMarketYear: -1,
       availablePerformanceDates: [],
       availablePerformanceYears: [],
       availableMonths: [],
@@ -258,21 +258,13 @@ export default {
   margin-top: 20px;
 }
 
-.financesMenuTable {
-  width: 100%;
-}
-
-.financesMenuTableRow {
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-l-border-radius);
-}
-
 #fiscalPerformanceSorts {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #fiscalPerformance {
@@ -290,11 +282,31 @@ export default {
   gap: 5px;
 }
 
-.scroll {
+#financesMenuFinancialHistory {
   flex-grow: 1;
 }
 
-#financesMenuFinancialHistory {
+#marketShareSort {
+  width: 50%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#marketShareListHeaderContainer {
+  padding-right: 20px;
+  padding-bottom: 5px;
+}
+
+.marketShareList {
   flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 5px;
+}
+
+.marketShareListElement {
+  display: block;
 }
 </style>
