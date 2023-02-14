@@ -8,6 +8,7 @@ import {i18next} from "@/translation/i18n";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import {Movie} from "@/classes/Movie";
+import {sort} from "css-loader/dist/utils";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -1224,10 +1225,18 @@ function nominationsForInternationAward(){
     let nominatedDirectors = [];
 
     let allFinishedMovies = store.getters.getFinishedMovies.concat(store.getters.getMoviesFromOtherStudios);
+    let sortedPool = [];
 
     for (let i = 0; i < allFinishedMovies.length; i++) {
-
+        if(allFinishedMovies[i]._release.criticsFormula >= 75 && allFinishedMovies[i]._release.audiencePopularity >= 50){
+            sortedPool.push(allFinishedMovies[i]);
+        }
     }
+
+    sortedPool.sort((a,b) => b._release.criticsFormula - a._release.criticsFormula);
+    nominatedMovies = sortedPool.slice(0,5);
+
+
 }
 
 function setIndependentAwardEvents(){

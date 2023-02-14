@@ -244,6 +244,7 @@ export default {
             data.fk_bestActress, data.fk_bestAdventure, data.fk_bestAction, data.fk_bestThriller, data.fk_bestScienceFiction, data.fk_bestFantasy,
             "independent", data.year))
       })
+      console.log(this.$store.state.allScreenplays)
       console.log(this.$store.state.allAwards)
       console.log(this.$store.state.allPeople)
       //Fetch Subgenre once

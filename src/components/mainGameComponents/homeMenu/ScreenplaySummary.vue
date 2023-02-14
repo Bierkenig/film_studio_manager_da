@@ -135,7 +135,7 @@
           </div>
           <custom-button
               id="screenplaySummaryRewriteButton"
-              v-if="this.$store.getters.getCurrentScreenplay.rewritingValue !== 0 || this.checkIfScreenplayIsInUse !== true"
+              v-if="this.$store.getters.getCurrentScreenplay.rewritingValue !== 0 || this.checkIfScreenplayIsInUse !== true || this.$store.getters.getCurrentScreenplay !== true"
               :dark="false"
               size="small"
               @clicked="rewrite">{{ $t('rewrite') }}</custom-button>

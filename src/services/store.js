@@ -291,6 +291,16 @@ export default createStore({
 
         marketYears: [2023, 2024],
 
+        nominatedList: {
+            "Movies": [],
+            "ActorLeadingRole": [],
+            "ActorSupportingRole": [],
+            "ActressLeadingRole": [],
+            "ActressSupportingRole": [],
+            "Directors": [],
+            "Writers": [],
+        },
+
         //Fetcher
         dbFetcher: new DBFetcher(),
         //data from database

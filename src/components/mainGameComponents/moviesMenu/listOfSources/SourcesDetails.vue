@@ -143,8 +143,8 @@
             <div class="movieDetailsGeneralTopInfoRight">
               <div class="movieDetailsInfoCircles">
                 <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsInfoCirclesTop">
-                  <info-circle class="movieDetailsInfoCircle" :text="source.quality" size="60px" large-font/>
-                  <info-circle class="movieDetailsInfoCircle" :text="source._release.popularityFormula" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" :text="Math.round(source.quality).toString()" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" :text="Math.round(source._release.popularityFormula).toString()" size="60px" large-font/>
                 </div>
                 <div v-else class="movieDetailsInfoCirclesTop">
                   <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/>
@@ -194,7 +194,7 @@
             <div class="movieDetailsGeneralBottomInfoRight">
               <div v-if="listType !== 'Sale' && (source._status === 'Finished' || source._status === 'Released')" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.release') }}</div>
-                <div>{{ source._release }}</div>
+                <div>{{ source._preProduction.releaseDate.getFullYear() }}</div>
               </div>
               <div v-if="listType !== 'Sale' && (source._status !== 'Finished' && source._status !== 'Released')" class="movieDetailsGeneralInfoLine">
                 <div>Status</div>
@@ -210,7 +210,7 @@
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.director') }}</div>
-                <div>{{ source.director.getFullName() }}</div>
+                <div>{{ source._preProduction.hiredDirector.getFullName() }}</div>
               </div>
             </div>
           </div>
