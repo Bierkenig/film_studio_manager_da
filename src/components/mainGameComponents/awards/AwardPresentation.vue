@@ -5,7 +5,17 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <background-tile :title="$t('events.' + this.headline + '.title')">
+              <background-tile :title="$t('events.' + this.headline + '.title') + ' - ' + $t('events.' + this.headline + '.winner')">
+                <div class="awardPresentationListContainer">
+                  <div v-for="(value, index) in Object.entries(data)" :key="index" class="awardPresentationCategoryBox">
+                    <div class="awardPresentationCategoryHeader">{{ value[0].replace(/([a-z])([A-Z])/g, '$1 $2') }}</div>
+                    <div class="awardPresentationCategoryList">
+                      <div v-for="(el, index) in value[1]" :key="index">
+                        {{ el }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <custom-button size="small" @clicked="closeModal">{{ $t('close') }}</custom-button>
               </background-tile>
             </slot>
@@ -31,6 +41,17 @@ export default {
   data(){
     return {
       headline: this.typeOfAward,
+      data: [],
+    }
+  },
+
+  mounted() {
+    if(this.headline === 'internationalAwardPresentation'){
+      this.data = this.$store.getters.getInternationalAwardNominations;
+    } else if(this.headline === 'independentAwardPresentation'){
+      this.data = this.$store.getters.getIndependentAwardNominations;
+    } else if(this.headline === 'audienceAwardPresentation'){
+      this.data = this.$store.getters.getAudienceAwardNominations;
     }
   },
 
@@ -69,7 +90,7 @@ export default {
 }
 
 .modal-container {
-  width: 400px;
+  width: 50%;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
   transition: all 0.3s ease;
@@ -105,5 +126,33 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+.awardPresentationListContainer {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.awardPresentationCategoryBox {
+  background-color: var(--fsm-dark-blue-2);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.awardPresentationCategoryHeader {
+  text-align: center;
+}
+
+.awardPresentationCategoryList {
+  font-size: 14px;
 }
 </style>

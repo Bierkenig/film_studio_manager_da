@@ -358,11 +358,11 @@ export default {
       if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
         if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
           this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
-          store.commit('addEarnings',new Earnings((this.selectedSalary/2), store.getters.getCurrentDate))
+          store.commit('addEarnings',new Earnings(-(this.selectedSalary/2), store.getters.getCurrentDate))
           this.$store.commit('subtractBalance', (this.selectedSalary/2));
         } else {
           this.screenplay.setPrice(this.copiedPrice + this.selectedSalary);
-          store.commit('addEarnings',new Earnings(this.selectedSalary, store.getters.getCurrentDate))
+          store.commit('addEarnings',new Earnings(-this.selectedSalary, store.getters.getCurrentDate))
           this.$store.commit('subtractBalance', this.selectedSalary);
         }
       } else {

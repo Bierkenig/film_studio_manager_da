@@ -3,8 +3,8 @@ import store from "@/services/store";
 
 export default class Award {
     constructor(id, bestActorInLeading, bestActorInSupport, bestActressInLeading,
-                bestActressInSupport, bestMovie, bestDirector, bestScreenplay, bestActor, bestActress,
-                bestAdventure, bestAction, bestThriller, bestScienceFiction, bestFantasy, type, year) {
+                bestActressInSupport, bestMovie, bestDirector, bestWriter, bestScreenplay, bestActor, bestActress,
+                bestAdventure, bestAction, bestThriller, bestScienceFiction, bestFantasy, bestHorror, type, year) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -15,6 +15,7 @@ export default class Award {
         this.bestActressInSupport = this.filterPeople(bestActressInSupport)[0]
         this.bestMovie = this.filterMovie(bestMovie)[0]
         this.bestDirector = this.filterPeople(bestDirector)[0]
+        this.bestWriter = this.filterPeople(bestWriter)[0]
         this.bestScreenplay = this.filterScreenplay(bestScreenplay)[0]
         this.bestActor = this.filterPeople(bestActor)[0]
         this.bestActress = this.filterPeople(bestActress)[0]
@@ -23,6 +24,7 @@ export default class Award {
         this.bestThriller = this.filterMovie(bestThriller)[0]
         this.bestScienceFiction = this.filterMovie(bestScienceFiction)[0]
         this.bestFantasy = this.filterMovie(bestFantasy)[0]
+        this.bestHorror = this.filterMovie(bestHorror)[0]
         this.type = type
         this.year = year
     }

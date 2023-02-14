@@ -148,7 +148,7 @@
           {{ $t('movieDetailsElement.newMovie') }}
         </custom-button>
         <custom-button
-            v-if="movie._franchiseType === null && movie._owner === this.ownStudio && !partOfFranchise && (movie._status === 'Finished' || movie._status === 'Released')"
+            v-if="movie._franchiseType === null && movie._owner.id === this.ownStudio.id && !partOfFranchise && (movie._status === 'Finished' || movie._status === 'Released')"
             class="movieDetailsButton"
             size="small"
             @click="createFranchise">

@@ -962,32 +962,32 @@ i18next
                         internationalAwardNomination: {
                             title: 'International Film Awards',
                             description: 'Nomination Announcements',
-                            nomination: 'List of nominations',
+                            nomination: 'List of Nominations',
                         },
                         independentAwardNomination: {
                             title: 'Independent Film Awards',
                             description: 'Nomination Announcements',
-                            nomination: 'List of nominations',
+                            nomination: 'List of Nominations',
                         },
                         audienceAwardNomination: {
                             title: 'Audience Film Awards',
                             description: 'Nomination Announcements',
-                            nomination: 'List of nominations',
+                            nomination: 'List of Nominations',
                         },
                         internationalAwardPresentation: {
                             title: 'International Film Awards',
                             description: 'Presentation of winners',
-                            winner: 'List of winners',
+                            winner: 'List of Winners',
                         },
                         independentAwardPresentation: {
                             title: 'Independent Film Awards',
                             description: 'Presentation of winners',
-                            winner: 'List of winners',
+                            winner: 'List of Winners',
                         },
                         audienceAwardPresentation: {
                             title: 'Audience Film Awards',
                             description: 'Presentation of winners',
-                            winner: 'List of winners',
+                            winner: 'List of Winners',
                         },
                     },
                     productionElement: {
