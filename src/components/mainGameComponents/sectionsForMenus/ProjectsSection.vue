@@ -1,32 +1,18 @@
 <template>
-  <div id="projectsSection">
-    <background-tile :title="$t('projects')">
-      <div>
-        <tile-pages-nav id="projectsNavigation" :pages='["All","Screenplays","Productions"]' :gradient='true'>
-          <div class="projectsSectionElement verticalScroll">
-            <div v-for="(it, index) in this.all" :key="index">
-              <div v-if="it.earnings === undefined">
-                <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
-              </div>
-              <div v-else>
-                <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
-              </div>
-            </div>
-          </div>
-          <div class="projectsSectionElement verticalScroll">
-            <div v-for="(it, index) in this.screenplays" :key="index">
-              <screenplay-element class="projectsElement" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
-            </div>
-          </div>
-          <div class="projectsSectionElement verticalScroll">
-            <div v-for="(it, index) in this.productions" :key="index">
-              <project-element class="projectsElement" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
-            </div>
-          </div>
-        </tile-pages-nav>
+  <background-tile class="projectTile" :title="$t('projects')">
+    <tile-pages-nav id="projectsNavigation" :pages='["All","Screenplays","Productions"]' :gradient='true'>
+      <div class="projectsSectionElement verticalScroll">
+        <screenplay-element class="projectsElement" v-for="(it, index) in this.screenplays" :key="index" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
+        <project-element class="projectsElement" v-for="(it, index) in this.productions" :key="index" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
       </div>
-    </background-tile>
-  </div>
+      <div class="projectsSectionElement verticalScroll">
+        <screenplay-element class="projectsElement" v-for="(it, index) in this.screenplays" :key="index" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
+      </div>
+      <div class="projectsSectionElement verticalScroll">
+        <project-element class="projectsElement" v-for="(it, index) in this.productions" :key="index" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
+      </div>
+    </tile-pages-nav>
+  </background-tile>
 </template>
 
 <script>
@@ -39,7 +25,6 @@ export default {
   components: {BackgroundTile, ProjectElement, ScreenplayElement, TilePagesNav},
   data() {
     return {
-      all: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays,this.$store.getters.getInProductionMovies),
       screenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       productions: this.$store.getters.getInProductionMovies,
     }
@@ -60,14 +45,21 @@ export default {
 </script>
 
 <style scoped>
-#projectsSection {
+.projectTile {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
 .projectsSectionElement {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  gap: 10px;
+  height: auto;
+  box-sizing: border-box;
   width: 100%;
-  height: 567px;
   overflow-x: hidden;
 }
 
@@ -75,7 +67,7 @@ export default {
   margin-bottom: 10px;
 }
 
-#projectsNavigation{
-  margin: 15px;
+#projectsNavigation {
+  margin: 15px 0 15px 0;
 }
 </style>

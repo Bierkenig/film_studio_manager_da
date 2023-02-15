@@ -3,11 +3,12 @@ import Franchises from "@/classes/Franchises";
 import {Character} from "@/classes/Character";
 import DataUtil from "@/classes/DataUtil"
 import Topic from "@/classes/Topic";
+import store from "@/services/store";
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false,
                 details = {scope: '', tone: '', specialEffects: ''},
-                ageRatingDetails = {violence: '', cursing: '', loveScenes: ''}) {
+                ageRatingDetails = {violence: '', cursing: '', loveScenes: ''}, owner = store.getters.getStudio) {
         if(arguments[0] === 'skip '){
             return
         }
@@ -48,8 +49,8 @@ export class Screenplay {
         //TYPE -> Object
         //this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         this.ageRatingDetails = ageRatingDetails
-        //TYPE -> Integer
-        this.writingPhase = null;
+        //TYPE -> Studio TODO: Speichern
+        this.owner = owner;
         //TYPE -> Integer
         this.rewritingValue = 3;
         //TYPE -> Boolean

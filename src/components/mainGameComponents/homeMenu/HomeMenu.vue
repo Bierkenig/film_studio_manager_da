@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <div id="container">
-      <!--<post-prod-modal/>-->
-      <upcoming-events-section class="upcomingEvents"/>
-      <projects-section class="projectsSection"/>
+  <div id="container">
 
-      <div id="homeMenuRightSide">
-        <news-section class="news"/>
-        <earnings-section class="earnings"/>
-      </div>
+    <upcoming-events-section class="upcomingEvents"/>
+    <projects-section class="projectsSection"/>
+
+    <div id="homeMenuRightSide">
+      <news-section class="news"/>
+      <earnings-section class="earnings"/>
     </div>
   </div>
 </template>
@@ -42,26 +40,26 @@ export default {
 <style scoped>
 #container {
   display: flex;
-  flex: 1;
   flex-direction: row;
-  justify-content: space-between;
-}
-
-.upcomingEvents, #homeMenuRightSide {
-  width: 25%;
+  gap: 20px;
 }
 
 .projectsSection {
-  width: 48%;
+  width: 70%;
 }
 
 .news, .earnings {
   height: 50%;
 }
 
+.upcomingEvents {
+  width: 30%;
+}
+
 #homeMenuRightSide {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 30%;
 }
 </style>

@@ -2,7 +2,7 @@
   <div>
     <h2>{{ this.selectedMovie._preProduction.screenplay.title }}</h2>
     <custom-button
-        v-if="this.selectedMovie._franchiseType === null && this.selectedMovie._owner === this.ownStudio && !partOfFranchise"
+        v-if="this.selectedMovie._franchiseType === null && this.selectedMovie._owner.id === this.ownStudio.id && !partOfFranchise"
         id="movieSummaryCreateFranchiseButton"
         :dark="false"
         size="small"
