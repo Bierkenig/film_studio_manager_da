@@ -36,16 +36,22 @@ export default {
     };
   },
   mounted(){
+    this.allActors = []
     this.allActors = this.$store.state.allActors;
   },
 
   methods: {
     edit(person){
-      this.$store.state.editPerson = person;
+      this.$store.state.editPerson = person
     },
-    deletePerson(person){
+
+    async deletePerson(person){
       window.ipcRenderer.send('editDB', 'DELETE FROM people WHERE pk_personID = ' + person._id)
-    }
+      await new Promise(resolve => setTimeout(resolve, 20))
+      this.$store.state.dbFetcher.clear()
+      this.$store.state.dbFetcher.fetch()
+      this.allWriters = this.$store.state.allActors
+    },
   }
 
 

@@ -32,16 +32,25 @@ export default {
   components: {AvatarElement},
   data(){
     return {
-      allDirectors: this.$store.state.allDirectors,
+      allDirectors: null,
     };
+  },
+
+  mounted() {
+    this.allDirectors = []
+    this.allDirectors = this.$store.state.allDirectors
   },
 
   methods: {
     edit(person){
       this.$store.state.editPerson = person;
     },
-    deletePerson(person){
+    async deletePerson(person){
       window.ipcRenderer.send('editDB', 'DELETE FROM people WHERE pk_personID = ' + person._id)
+      await new Promise(resolve => setTimeout(resolve, 20))
+      this.$store.state.dbFetcher.clear()
+      this.$store.state.dbFetcher.fetch()
+      this.allWriters = this.$store.state.allDirectors
     }
   }
 

@@ -374,7 +374,7 @@ async function launchDiscordGameSDK(win) {
         child = spawn('java', [ '-jar', 'src/Discord.jar', process.pid.toString()],
             {stdio: ['pipe', process.stdout, process.stderr]});
 
-        child.stdin.on('error', (error) =>{})
+        child.stdin.on('error', (error) => {updatePresence = () => {}})
         updatePresence = (details) => {
             if(child.pid != undefined) {
                 streamWrite(child.stdin, details + '\n');
