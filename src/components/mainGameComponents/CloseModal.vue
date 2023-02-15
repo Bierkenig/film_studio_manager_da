@@ -21,6 +21,9 @@
               <div v-if="headline === 'saveCorruptModal'">
                 {{ $t('saveCorruptModalMsg') }}
               </div>
+              <div v-if="headline === 'resetDBModal'">
+                {{ $t('resetDBMsg') }}
+              </div>
             </slot>
           </div>
 
@@ -68,6 +71,24 @@
               </custom-button>
 
               <custom-button
+                  v-if="headline === 'resetDBModal'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('reset')">{{ $t('resetDBModal1') }}
+              </custom-button>
+
+              <custom-button
+                  v-if="headline === 'resetDBModal'"
+                  class="modal-default-button"
+                  :dark="false"
+                  size="small"
+                  style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
+                  @clicked="$emit('close')">{{ $t('resume') }}
+              </custom-button>
+
+              <custom-button
                   v-else-if="headline !== 'saveCorruptModal'"
                   class="modal-default-button"
                   :dark="false"
@@ -75,6 +96,8 @@
                   style="font-weight: var(--fsm-fw-bold) !important; padding: 10px"
                   @clicked="$emit('close')">{{ $t('resume') }}
               </custom-button>
+
+
               </slot>
           </div>
         </div>

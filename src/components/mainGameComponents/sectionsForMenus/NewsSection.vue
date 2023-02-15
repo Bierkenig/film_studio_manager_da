@@ -91,7 +91,7 @@ export default {
   margin-bottom: 10px;
 }
 .scroll{
-  height:190px;
+  height:170px;
 }
 
 .newsNavigation {

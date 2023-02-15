@@ -15,12 +15,23 @@
     <div id="dbBox">
       <background-tile :title="$t('databaseSlots')">
         <div class="dbBoxInside">
-          <DBItem :slot-nr="1"/>
-          <DBItem :slot-nr="2"/>
-          <DBItem :slot-nr="3"/>
+          <DBItem @reset="showModal" :slot-nr="1"/>
+          <DBItem @reset="showModal" :slot-nr="2"/>
+          <DBItem @reset="showModal" :slot-nr="3"/>
         </div>
       </background-tile>
     </div>
+    <transition name="modal">
+      <close-modal
+          v-if="isShow"
+          headline="resetDBModal"
+          @reset="reset(); isShow = false"
+          @close="isShow = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </close-modal>
+    </transition>
   </div>
 </template>
 
@@ -30,15 +41,32 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import DBItem from "@/components/DB-Editor/DBItem";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import CloseModal from "@/components/mainGameComponents/CloseModal";
+
 export default {
   name: "SelectDBWindow",
   mixins: [soundeffectMixin('button','click')],
-  components: {IconButton, BackgroundTile, DBItem},
+  components: {CloseModal, IconButton, BackgroundTile, DBItem},
+
+  data(){
+    return{
+      resetSlot: null,
+      isShow: false
+    }
+  },
 
   methods: {
     goBack(){
       this.$router.push({name: 'default'})
     },
+    showModal(value){
+      console.log(value)
+      this.resetSlot = value
+      this.isShow = true
+    },
+    reset(){
+      window.ipcRenderer.send('resetDB', this.resetSlot)
+    }
   }
 }
 </script>

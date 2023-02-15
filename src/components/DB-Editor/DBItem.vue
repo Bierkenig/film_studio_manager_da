@@ -14,6 +14,7 @@
           size="small"
           @clicked="reset">Reset</custom-button>
     </div>
+
   </div>
 </template>
 
@@ -33,7 +34,7 @@ export default {
   data() {
     return {
       name: null,
-      isShow: null
+      isShow: false
     }
   },
 
@@ -42,13 +43,14 @@ export default {
       console.log(this.slotNr)
       console.log(this.$store.state)
       //window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.slotNr +".db")
+      window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.slotNr +".db")
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
       this.$router.push("Editor")
     },
 
     reset(){
-      window.ipcRenderer.send('resetDB', this.slotNr)
+      this.$emit('reset', this.slotNr)
     },
 
 

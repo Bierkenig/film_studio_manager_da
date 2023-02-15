@@ -360,10 +360,6 @@ export default {
   margin-left: 0.7em
 }
 
-.scroll{
-  height: 649px;
-}
-
 .event{
   margin: 0.7em
 }

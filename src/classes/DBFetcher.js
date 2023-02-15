@@ -13,15 +13,19 @@ export default class DBFetcher {
     }
 
     clear() {
-        store.state.allPeople = []
-        store.state.allActors = []
-        store.state.allDirectors = []
-        store.state.allWriters = []
-        store.state.allAwards = []
-        store.state.allScreenplays = []
+        this.allPeople = []
+        this.allActors = []
+        this.allDirectors = []
+        this.allWriters = []
+        this.allAwards = []
+        this.allTopics = []
+        this.allGenres = []
     }
 
     fetch() {
+        window.ipcRenderer.removeAllListeners('toGetPeople')
+        window.ipcRenderer.removeAllListeners('fromGetPeople')
+        this.clear()
         //Fetch People
         window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
         window.ipcRenderer.receive('fromGetPeople', (data) => {
@@ -50,6 +54,7 @@ export default class DBFetcher {
         })
 
 
+        console.log(this.allWriters.length)
         //Set in Store
         store.commit('setAllWriters', this.allWriters);
         store.commit('setAllDirectors', this.allDirectors);

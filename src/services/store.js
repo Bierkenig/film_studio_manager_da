@@ -79,112 +79,7 @@ export default createStore({
             new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
         ],
         currentCalendarEvent: null,
-        calendarEvents: [
-            /*{
-                id: 1,
-                movie: "SOMETHING",
-                start: '2023-01-15',
-                end: '2023-01-16',
-                type: 'productionFinished',
-                completed: false,
-            },
-            {
-                id: 2,
-                movie: "NICHTS",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'weather',
-                completed: false,
-            },
-            {
-                id: 3,
-                movie: "ALLES",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'preProductionFinished',
-                completed: false,
-            },
-            {
-                id: 4,
-                movie: "VIELLEICHT",
-                start: '2023-01-29',
-                end: '2023-01-30',
-                type: 'changes',
-                completed: false,
-            },
-            {
-                id: 5,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'postProductionProblem',
-                completed: false,
-            },
-            {
-                id: 6,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'reshooting',
-                completed: false,
-            },
-            {
-                id: 7,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'afterRelease',
-                completed: false,
-            },
-            {
-                id: 8,
-                movie: "SOMETHING",
-                start: '2023-01-29',
-                end: '2023-01-30',
-                type: 'studioTakeover',
-                completed: false,
-            },
-            {
-                id: 9,
-                movie: "SOMETHING",
-                start: '2023-01-08',
-                end: '2023-01-09',
-                type: 'dropOut',
-                completed: false,
-            },
-            {
-                id: 10,
-                movie: "SOMETHING",
-                start: '2023-01-29',
-                end: '2023-01-30',
-                type: 'internationalAward',
-                completed: false,
-            },
-            {
-                id: 11,
-                movie: "SOMETHING",
-                start: '2023-01-05',
-                end: '2023-01-06',
-                type: 'dropOut',
-                completed: false,
-            },
-            /*{
-                id: 12,
-                movie: "SOMETHING",
-                start: '2023-01-05',
-                end: '2023-01-06',
-                type: 'sound',
-                completed: false,
-            },
-            {
-                id: 13,
-                movie: "SOMETHING",
-                start: '2023-01-05',
-                end: '2023-01-06',
-                type: 'visualQuality',
-                completed: false,
-            },*/
-        ],
+        calendarEvents: [],
         franchises: [],
         currentFranchise: null,
 
@@ -291,15 +186,37 @@ export default createStore({
 
         marketYears: [2023, 2024],
 
-        nominatedList: {
-            "Movies": [],
-            "ActorLeadingRole": [],
-            "ActorSupportingRole": [],
-            "ActressLeadingRole": [],
-            "ActressSupportingRole": [],
-            "Directors": [],
-            "Writers": [],
+        awardNominationList: {
+            internationalAward: {
+                "Movies": [], // Movie Objects
+                "ActorLeadingRole": [], // Person Objects
+                "ActorSupportingRole": [], // Person Objects
+                "ActressLeadingRole": [], // Person Objects
+                "ActressSupportingRole": [], // Person Objects
+                "Directors": [], // Person Objects
+                "Writers": [], // Person Objects
+            },
+            independentAward: {
+                "Movies": [], // Movie Objects
+                "Actor": [], // Person Objects
+                "Actress": [], // Person Objects
+                "Directors": [], // Person Objects
+                "Writers": [], // Person Objects
+            },
+            audienceAward: {
+                "ActionOrAdventureMovies": [], // Movie Objects
+                "ThrillerMovies": [], // Movie Objects
+                "ScienceFictionMovies": [], // Movie Objects
+                "FantasyMovies": [], // Movie Objects
+                "HorrorMovies": [], // Movie Objects
+                "Actor": [], // Person Objects
+                "Actress": [], // Person Objects
+                "Directors": [], // Person Objects
+                "Writers": [], // Person Objects
+            }
         },
+
+        createdAwards: [],
 
         //Fetcher
         dbFetcher: new DBFetcher(),
@@ -590,7 +507,34 @@ export default createStore({
 
         getCurrentCalendarEvent(state) {
             return state.currentCalendarEvent;
-        }
+        },
+
+        getInternationalAwardNominations(state){
+            return state.awardNominationList['internationalAward'];
+        },
+
+        getIndependentAwardNominations(state){
+            return state.awardNominationList['independentAward'];
+        },
+
+        getAudienceAwardNominations(state){
+            return state.awardNominationList['audienceAward'];
+        },
+
+        getCreatedAwards(state){
+            return state.createdAwards;
+        },
+
+        getNextAwardId(state) {
+            let nextId = 0;
+            let allAwards = state.allAwards.concat(state.createdAwards);
+            allAwards.forEach(award => {
+                if (award.id > nextId) {
+                    nextId = award.id;
+                }
+            })
+            return nextId + 1;
+        },
     },
 
     /** Methods that change the application state synchronously */
@@ -945,6 +889,17 @@ export default createStore({
 
         setCurrentCalendarEvent(state, event) {
             state.currentCalendarEvent = event;
+        },
+
+        //payload[0] -> which type of award z.B. 'internationalAward'
+        //payload[1] -> which category z.B. 'Movies'
+        //payload[2] -> array of nominated objects
+        setNominationList(state, payload){
+            state.awardNominationList[payload[0]][payload[1]] = payload[2]
+        },
+
+        addCreatedAward(state, award){
+            state.createdAwards.push(award);
         },
 
         stateToSave(state, reducedState) {

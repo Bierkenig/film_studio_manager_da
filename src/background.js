@@ -376,10 +376,22 @@ async function launchDiscordGameSDK(win) {
     try{
         child = spawn('java', [ '-jar', 'src/Discord.jar', process.pid.toString()],
             {stdio: ['pipe', process.stdout, process.stderr]});
-        win.on('closed',() => {
-            streamWrite(child.stdin, 'kill\n');
-        })
-        updatePresence = (details) => {streamWrite(child.stdin, details+'\n');}
+
+        child.stdin.on('error', (error) => {updatePresence = () => {}})
+        updatePresence = (details) => {
+            if(child.pid != undefined) {
+                streamWrite(child.stdin, details + '\n');
+            }
+        }
+
+        await new Promise(resolve => setTimeout(resolve, 100))
+        if(child.pid != undefined){
+            function keepAlive(){
+                updatePresence("keepAlive")
+                setTimeout(keepAlive, 10)
+            }
+            keepAlive()
+        }
 
     }catch(e){
         console.log("No Java No Party")

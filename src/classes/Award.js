@@ -15,6 +15,7 @@ export default class Award {
         this.bestActressInSupport = this.filterPeople(bestActressInSupport)[0]
         this.bestMovie = this.filterMovie(bestMovie)[0]
         this.bestDirector = this.filterPeople(bestDirector)[0]
+        this.bestWriter = this.filterPeople(bestWriter)[0]
         this.bestScreenplay = this.filterScreenplay(bestScreenplay)[0]
         this.bestWriter = this.filterPeople(bestWriter)[0]
         this.bestActor = this.filterPeople(bestActor)[0]

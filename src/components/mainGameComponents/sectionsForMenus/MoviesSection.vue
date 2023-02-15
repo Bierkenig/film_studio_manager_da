@@ -4,44 +4,6 @@
       <custom-select v-if="headline === 'contentManagement'" :options="[$t('contract'),$t('owner'),$t('popularity')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
       <custom-select v-if="headline === 'producedMovies'" :options="[$t('newsData.year'),$t('earnings'),$t('quality')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
       <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
-      <!--<select
-          id="sortByWhat"
-          class="moviesSectionSelect"
-          onfocus="this.size=5;"
-          onblur="this.size=1;"
-          onchange="this.size=1; this.blur();"
-          v-model="selectedSortByWhat"
-      >
-        <option :value="null" disabled selected hidden>{{ $t('sortBy') }}</option>
-        <option v-if="headline === 'contentManagement'" value="Contract">{{ $t('contract') }}</option>
-        <option v-if="headline === 'contentManagement'" value="Owner">{{ $t('owner') }}</option>
-        <option v-if="headline === 'contentManagement'" value="Popularity">{{ $t('popularity') }}</option>
-        <option v-if="headline === 'producedMovies'" value="Year">{{ $t('years') }}</option>
-        <option v-if="headline === 'producedMovies'" value="Earnings">{{ $t('earnings') }}</option>
-        <option v-if="headline === 'producedMovies'" value="Quality">{{ $t('quality') }}</option>
-      </select>
-      <select
-          id="typeOfSort"
-          class="moviesSectionSelect"
-          onfocus="this.size=5;"
-          onblur="this.size=1;"
-          onchange="this.size=1; this.blur();"
-          v-model="selectedTypeOfSort"
-      >
-        <option value="Ascending">{{ $t('ascending') }}</option>
-        <option value="Descending">{{ $t('descending') }}</option>
-      </select>
-      <select
-          id="typeOfSort"
-          class="moviesSectionSelect"
-          onfocus="this.size=5;"
-          onblur="this.size=1;"
-          onchange="this.size=1; this.blur();"
-          v-model="selectedTypeOfSort"
-      >
-        <option value="Ascending">{{ $t('ascending') }}</option>
-        <option value="Descending">{{ $t('descending') }}</option>
-      </select>-->
     </div>
     <div v-if="headline === 'producedMovies'" class="moviesSectionDetails verticalScroll">
       <movie-element

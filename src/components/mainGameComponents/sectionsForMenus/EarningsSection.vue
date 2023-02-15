@@ -88,7 +88,7 @@ export default {
 }
 
 .scroll {
-  height:190px
+  height:170px
 }
 .earningElement {
   margin-bottom: 5px;

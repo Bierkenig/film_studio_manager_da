@@ -385,8 +385,10 @@ export default {
       }
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
-      store.commit('addEarnings',new Earnings(chosenScreenplay.price, store.getters.getCurrentDate))
+      store.commit('addEarnings',new Earnings(-chosenScreenplay.price, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
+      chosenScreenplay.owner.budget += chosenScreenplay.price;
+
       this.$router.push({name: 'movies'})
     },
 
@@ -401,8 +403,10 @@ export default {
 
       this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
       this.$store.commit('addFinishedMovie',chosenMovie)
-      store.commit('addEarnings',new Earnings(chosenMovie._totalCosts, store.getters.getCurrentDate))
+      store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenMovie._totalCosts)
+      chosenMovie._owner.budget += chosenMovie._totalCosts;
+
       this.$router.push({name: 'movies'})
     },
 
