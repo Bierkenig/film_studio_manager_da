@@ -1,17 +1,31 @@
 <template>
-<div>
-{{$t('cinema')}}
-  {{scope}}
-  <button @click="choose('wide')">Wide Release</button>
-  <button @click="choose('limited')">Limited Release</button>
-  Cost: {{cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-  Potential Sales: {{potential * 100}}%
-  <router-link to="/">
-    <button>Back</button>
-  </router-link>
+  <div>
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <div class="modal-body">
+            <slot name="body">
+              <div>
+                  {{$t('cinema')}}
+                  {{scope}}
+                <button @click="choose('wide')">Wide Release</button>
+                <button @click="choose('limited')">Limited Release</button>
 
-  <button @click="next" :disabled="continueDisable">Continue</button>
-</div>
+                Cost: {{cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                Potential Sales: {{potential * 100}}%
+
+                <router-link to="/">
+                  <button>Back</button>
+                </router-link>
+
+                <button @click="next" :disabled="continueDisable">Continue</button>
+              </div>
+            </slot>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -79,18 +93,74 @@ export default {
     },
 
     next(){
-      this.$store.getters.getCurrentMovie.setProduction()
-      this.$store.getters.getCurrentMovie._status = 'Postproduction'
+      this.$store.getters.getCurrentMovie._status = 'Post Production'
       this.$store.getters.getCurrentMovie.setPostProduction()
       this.$store.getters.getCurrentMovie._postProduction.earningPotential = this.potential
       this.$store.getters.getCurrentMovie._postProduction.distributionCosts = this.cost
       this.$store.getters.getCurrentMovie._postProduction.releaseScope = this.releaseScope
-      this.$router.push({ name: 'cinemaNegotiation'})
+      this.$emit('close')
     }
   }
 }
 </script>
 
 <style scoped>
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 400px;
+  margin: 0px auto;
+  padding: 5px 30px 20px 30px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  transition: all 0.3s ease;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+}
+
+/*
+ * The following styles are auto-applied to elements with
+ * transition="modal" when their visibility is toggled
+ * by Vue.js.
+ *
+ * You can easily play with the modal transition by editing
+ * these styles.
+ */
+
+.modal-enter-from, .modal-leave-to {
+  opacity: 0;
+}
+
+.modal-enter-active .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
 
 </style>

@@ -78,6 +78,7 @@ export default {
         case "sound":
           this.$store.state.currentMovie._preProduction.budget.sound *= 1.2
           this.$emit('close')
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("sound")
           break
         case "postProductionProblem":
           //TODO hype abziehen wenn releasedate drüber
@@ -100,22 +101,24 @@ export default {
 
           this.check()
           this.$emit('close')
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("postProductionProblem")
 
           break
         case "visualEffects":
           this.$store.state.currentMovie._preProduction.budget.vfx *= 1.2
           this.$emit('close')
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("visualEffects")
           break
         case "visualQuality":
           this.$store.state.currentMovie._preProduction.budget.editing *= 1.2
           this.$emit('close')
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("visualQuality")
           break
         case "reshooting":
           //TODO hype abziehen wenn releasedate drüber
           this.wholeBudget = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * 1.2
           if(this.screenplayScope === 'Little'){
             this.durWeeks += 2;
-
           }
           else if(this.screenplayScope === 'Small'){
             this.durWeeks += 4;
@@ -131,6 +134,7 @@ export default {
           }
           this.check()
           this.$emit('close')
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("reshooting")
 
           break
       }
@@ -140,18 +144,23 @@ export default {
       switch (this.type) {
         case "sound":
           this.calcDireMorale(false)
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("sound")
           break
         case "postProductionProblem":
           this.calcDireMorale(false)
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("postProductionProblem")
           break
         case "visualEffects":
           this.calcDireMorale(false)
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("visualEffects")
           break
         case "visualQuality":
           this.calcDireMorale(false)
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("visualQuality")
           break
         case "reshooting":
           this.calcDireMorale(false)
+          this.$store.state.currentMovie._postProduction.happenedEvents.push("reshooting")
           break
       }
     },
@@ -168,10 +177,30 @@ export default {
 
     check() {
       //TODO releaseDate
-      this.$store.state.currentMovie._preProduction.productionLength += this.durWeeks
+      this.$store.state.currentMovie._preProduction.postProductionLength += this.durWeeks
+
+      let reshootingStartDate = this.$store.getters.getCurrentDate;
+      let reshootingEndDate = new Date(reshootingStartDate.getFullYear(), reshootingStartDate.getMonth(),
+          reshootingStartDate.getDate() + (this.durWeeks * 7));
+
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].movie === currentCalendarEvent.movie && (allCalendarEvents[i].type === 'postProductionFinished' || allCalendarEvents[i].type === 'beforeRelease')){
+          let splittedDate = currentCalendarEvent.start.split('-');
+          let dateOfEvent = new Date(splittedDate[0], splittedDate[1], splittedDate[2]);
+          if(reshootingEndDate.getTime() > dateOfEvent.getTime()){
+            let newEndDate = new Date(reshootingEndDate.getFullYear(), reshootingEndDate.getMonth(),
+              reshootingEndDate.getDate() + 1)
+            allCalendarEvents[i].start = reshootingEndDate.toISOString().split('T')[0];
+            allCalendarEvents[i].end = newEndDate.toISOString().split('T')[0];
+          }
+        }
+      }
+
       if (this.type === 'duration') {
         if(this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength === this.$store.state.currentMovie._preProduction.releaseDate) {
-          this.releaseDate = this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.productionLength
+          this.releaseDate = this.$store.state.currentMovie._preProduction.startDate.getDate() + 7 * this.$store.state.currentMovie._preProduction.postProductionLength
           this.date = true
         } else {
           this.$emit('close')

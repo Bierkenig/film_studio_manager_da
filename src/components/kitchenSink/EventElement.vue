@@ -89,7 +89,7 @@ export default {
       validator(value) {
         return ['dropOut', 'recast', 'creative', 'difficulty', 'extend', 'preProductionFinished',
           'weather', 'castMember', 'budgetForCostumes', 'equipment', 'budget', 'breakdown', 'duration',
-          'directorLeavesProduction', 'changes', 'injured', 'productionFinished',
+          'directorLeaves', 'changes', 'injured', 'productionFinished',
           'testScreening', 'sound', 'postProductionProblem', 'visualEffects', 'visualQuality', 'reshooting', 'postProductionFinished',
           'beforeRelease', 'afterReleaseWithCinemaRun', 'afterRelease', 'studioTakeover',
           'internationalAwardNomination', 'independentAwardNomination', 'audienceAwardNomination',
@@ -182,8 +182,8 @@ export default {
           this.title = this.$t('events.duration.title');
           this.description = this.$t('events.duration.description') + ' "' + this.movieTitle + '"';
           break;
-        case 'directorLeavesProduction':
-          document.getElementById('directorLeavesProductionIcon' + this.randomId).style.display = 'block';
+        case 'directorLeaves':
+          document.getElementById('directorLeavesIcon' + this.randomId).style.display = 'block';
           this.title = this.$t('events.creative.title');
           this.description = this.$t('events.creative.description') + ' "' + this.movieTitle + '"';
           break;

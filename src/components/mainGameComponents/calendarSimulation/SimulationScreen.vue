@@ -167,22 +167,19 @@ export default {
   -webkit-backdrop-filter: blur(30px);
   border-radius: var(--fsm-l-border-radius);
 
-  height: 350px;
-  width: 85%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+
+  padding: 20px;
 }
 
 .simulationScreenCalendarItemsBox {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-l-border-radius);
 
-  padding-top: 20px;
-
-  width: 95%;
-  height: 78%;
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
@@ -214,8 +211,6 @@ export default {
   padding: 5px;
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-s-border-radius);
-  margin-right: 20px;
-  margin-left: 20px;
   text-align: center;
 }
 

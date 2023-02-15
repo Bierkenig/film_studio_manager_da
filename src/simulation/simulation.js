@@ -9,6 +9,7 @@ import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import {Movie} from "@/classes/Movie";
 import Award from "@/classes/Award";
+import {de} from "date-fns/locale";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -58,6 +59,8 @@ export default function simulate() {
     }
 
     setEventDuringPreProduction();
+    setEventDuringProduction();
+    setEventDuringPostProduction();
 
     //Tracking Production Movies
     console.log(store.getters.getCalendarEvents)
@@ -1240,14 +1243,14 @@ function setAwardWinner(typeOfAward){
         store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
             nominationList['ActorLeadingRole'][0], nominationList['ActorSupportingRole'][0],
             nominationList['ActressLeadingRole'][0], nominationList['ActressSupportingRole'][0],
-            nominationList['Movies'][0],nominationList['Directors'][0], nominationList['Writers'][0],
-            null,null,null,null,null,null,
+            nominationList['Movies'][0],nominationList['Directors'][0], null,
+            nominationList['Writers'][0],null,null,null,null,null,
             null,null,null, 'international',
             store.getters.getCurrentDate.getFullYear().toString()))
     } else if(typeOfAward === 'independentAward'){
         store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
             null, null, null, null,
-            nominationList['Movies'][0],nominationList['Directors'][0], nominationList['Writers'][0],null,
+            nominationList['Movies'][0],nominationList['Directors'][0], null,nominationList['Writers'][0],
             nominationList['Actor'][0],nominationList['Actress'][0],null,null,null,
             null,null,null, 'independent',
             store.getters.getCurrentDate.getFullYear().toString()))
@@ -1255,7 +1258,7 @@ function setAwardWinner(typeOfAward){
         if(nominationList['ActionOrAdventureMovies'][0]._preProduction.screenplay.genre.genreName === 'Action'){
             store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
                 null, null, null, null,
-                nominationList['Movies'][0],nominationList['Directors'][0], nominationList['Writers'][0],null,
+                nominationList['Movies'][0],nominationList['Directors'][0], null,nominationList['Writers'][0],
                 nominationList['Actor'][0],nominationList['Actress'][0],null,nominationList['ActionOrAdventureMovies'][0],
                 nominationList['ThrillerMovies'][0], nominationList['ScienceFictionMovies'][0],nominationList['FantasyMovies'][0],
                 nominationList['HorrorMovies'][0], 'audience', store.getters.getCurrentDate.getFullYear().toString()))
@@ -1793,7 +1796,7 @@ function setEventDuringPreProduction(){
 // function to set event during production
 function setEventDuringProduction() {
     let eventsProduction = ['weather', 'castMember', 'budgetForCostumes', 'equipment', 'budget', 'breakdown', 'duration',
-        'directorLeavesProduction', 'changes', 'injured'];
+        'directorLeaves', 'changes', 'injured'];
     let allCalendarEvents = store.getters.getCalendarEvents;
     let allProductionMovies = store.getters.getInProductionMovies.filter((movie) => movie._status === 'Production');
 
@@ -1802,6 +1805,69 @@ function setEventDuringProduction() {
             case 'weather':
                 break;
             case 'castMember':
+                allProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    let preProductionFinished = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'castMember' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                        if(allCalendarEvents[j].type === 'preProductionFinished' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title && allCalendarEvents[j].completed === true){
+                            preProductionFinished = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists && preProductionFinished){
+                        let date1 = store.getters.getCurrentDate;
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.productionLength * 7));
+                        let Difference_In_Time = date2.getTime() - date1.getTime();
+                        let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+                        if(Difference_In_Days >= 6){
+                            let allMovieActors = movie._preProduction.screenplay.actors.main.concat(movie._preProduction.screenplay.actors.support,
+                                movie._preProduction.screenplay.actors.minor, movie._preProduction.screenplay.actors.cameo)
+
+                            for (let j = 0; j < allMovieActors.length; j++) {
+                                if(allMovieActors[i].actorMorale === 5 && randomNumber(0.05) === 0){
+                                    let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                    let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                    let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',allMovieActors[i],movie._preProduction.hiredDirector,startDate,endDate,'castMember')
+                                    if(f === undefined){
+                                        return undefined;
+                                    }
+                                } else if(allMovieActors[i].actorMorale === 4 && randomNumber(0.15) === 0){
+                                    let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                    let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                    let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',allMovieActors[i],movie._preProduction.hiredDirector,startDate,endDate,'castMember')
+                                    if(f === undefined){
+                                        return undefined;
+                                    }
+                                } else if(allMovieActors[i].actorMorale === 3 && randomNumber(0.25) === 0){
+                                    let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                    let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                    let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',allMovieActors[i],movie._preProduction.hiredDirector,startDate,endDate,'castMember')
+                                    if(f === undefined){
+                                        return undefined;
+                                    }
+                                } else if(allMovieActors[i].actorMorale === 2 && randomNumber(0.50) === 0){
+                                    let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                    let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                    let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',allMovieActors[i],movie._preProduction.hiredDirector,startDate,endDate,'castMember')
+                                    if(f === undefined){
+                                        return undefined;
+                                    }
+                                } else if(allMovieActors[i].actorMorale === 1 && randomNumber(0.75) === 0){
+                                    let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                    let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                    let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',allMovieActors[i],movie._preProduction.hiredDirector,startDate,endDate,'castMember')
+                                    if(f === undefined){
+                                        return undefined;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
                 break;
             case 'budgetForCostumes':
                 break;
@@ -1813,11 +1879,187 @@ function setEventDuringProduction() {
                 break;
             case 'duration':
                 break;
-            case 'directorLeavesProduction':
+            case 'directorLeaves':
+                allProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    let preProductionFinished = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'directorLeaves' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                        if(allCalendarEvents[j].type === 'preProductionFinished' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title && allCalendarEvents[j].completed === true){
+                            preProductionFinished = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists && preProductionFinished){
+                        let date1 = store.getters.getCurrentDate;
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.productionLength * 7));
+                        let Difference_In_Time = date2.getTime() - date1.getTime();
+                        let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+                        if(Difference_In_Days >= 6){
+                            if(movie._preProduction.hiredDirector.dirMorale === 5 && randomNumber(0.05) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'directorLeaves')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 4 && randomNumber(0.15) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'directorLeaves')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 3 && randomNumber(0.25) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'directorLeaves')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 2 && randomNumber(0.50) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'directorLeaves')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 1 && randomNumber(0.75) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'directorLeaves')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            }
+                        }
+                    }
+                });
                 break;
             case 'changes':
+                allProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    let preProductionFinished = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'changes' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                        if(allCalendarEvents[j].type === 'preProductionFinished' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title && allCalendarEvents[j].completed === true){
+                            preProductionFinished = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists && preProductionFinished){
+                        let date1 = store.getters.getCurrentDate;
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.productionLength * 7));
+                        let Difference_In_Time = date2.getTime() - date1.getTime();
+                        let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+                        if(Difference_In_Days >= 6){
+                            if(movie._preProduction.hiredDirector.rating > 75 && randomNumber(0.35) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'changes')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.rating <= 75 && movie._preProduction.hiredDirector.rating > 50 && randomNumber(0.15) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'changes')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.rating <= 50 && randomNumber(0.05) === 0) {
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'changes')
+                                if (f === undefined) {
+                                    return undefined;
+                                }
+                            }
+                        }
+                    }
+                });
                 break;
             case 'injured':
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+// function to set event during production
+function setEventDuringPostProduction() {
+    let eventsProduction = ['sound', 'postProductionProblem', 'visualEffects', 'visualQuality', 'reshooting'];
+    let allCalendarEvents = store.getters.getCalendarEvents;
+    let allPostProductionMovies = store.getters.getInProductionMovies.filter((movie) => movie._status === 'Post Production');
+
+    for (let i = 0; i < eventsProduction.length; i++) {
+        switch (eventsProduction[i]) {
+            case 'reshooting':
+                allPostProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    let productionFinished = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'reshooting' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                        if(allCalendarEvents[j].type === 'productionFinished' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title && allCalendarEvents[j].completed === true){
+                            productionFinished = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists && productionFinished){
+                        let date1 = store.getters.getCurrentDate;
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.postProductionLength * 7));
+                        let Difference_In_Time = date2.getTime() - date1.getTime();
+                        let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+                        if(Difference_In_Days >= 6){
+                            if(movie._preProduction.hiredDirector.dirMorale === 5 && randomNumber(0.05) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'changes')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 4 && randomNumber(0.15) === 0){
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title,'',null,movie._preProduction.hiredDirector,startDate,endDate,'changes')
+                                if(f === undefined){
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 3 && randomNumber(0.25) === 0) {
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'changes')
+                                if (f === undefined) {
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 2 && randomNumber(0.50) === 0) {
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'changes')
+                                if (f === undefined) {
+                                    return undefined;
+                                }
+                            } else if(movie._preProduction.hiredDirector.dirMorale === 1 && randomNumber(0.75) === 0) {
+                                let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 4);
+                                let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(), store.getters.getCurrentDate.getDate() + 5);
+                                let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'changes')
+                                if (f === undefined) {
+                                    return undefined;
+                                }
+                            }
+                        }
+                    }
+                });
                 break;
             default:
                 break;
@@ -1831,42 +2073,32 @@ function addDropOutEvent(actor, director, personMorale,  movie, eventType){
         case 5:
             let f = addPreProductionEventWithProbability(0.05,movie,actor,director, eventType);
             if(f === undefined){
-                console.log('ERSTELLT')
                 return undefined;
             }
-            console.log('NICHT ERSTELLT')
             break;
         case 4:
             let g = addPreProductionEventWithProbability(0.15,movie,actor,director, eventType)
             if(g === undefined){
-                console.log('ERSTELLT')
                 return undefined;
             }
-            console.log('NICHT ERSTELLT')
             break;
         case 3:
             let h = addPreProductionEventWithProbability(0.25,movie,actor,director, eventType)
             if(h === undefined){
-                console.log('ERSTELLT')
                 return undefined;
             }
-            console.log('NICHT ERSTELLT')
             break;
         case 2:
             let i = addPreProductionEventWithProbability(0.50,movie,actor,director, eventType)
             if(i === undefined){
-                console.log('ERSTELLT')
                 return undefined;
             }
-            console.log('NICHT ERSTELLT')
             break;
         case 1:
             let j = addPreProductionEventWithProbability(0.75,movie,actor,director, eventType)
             if(j === undefined){
-                console.log('ERSTELLT')
                 return undefined;
             }
-            console.log('NICHT ERSTELLT')
             break;
         default:
             break;

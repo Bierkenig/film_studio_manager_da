@@ -143,7 +143,7 @@ export default {
       } else if(arg.event._def.extendedProps.type === 'weather' || arg.event._def.extendedProps.type === 'castMember'
           || arg.event._def.extendedProps.type === 'budgetForCostumes' || arg.event._def.extendedProps.type === 'equipment'
           || arg.event._def.extendedProps.type === 'budget' || arg.event._def.extendedProps.type === 'breakdown'
-          || arg.event._def.extendedProps.type === 'duration' || arg.event._def.extendedProps.type === 'directorLeavesProduction'
+          || arg.event._def.extendedProps.type === 'duration' || arg.event._def.extendedProps.type === 'directorLeaves'
           || arg.event._def.extendedProps.type === 'changes' || arg.event._def.extendedProps.type === 'injured') {
         return {html: '<img ' +
               ' class="eventIconElements productionEvents"' +

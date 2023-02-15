@@ -15,7 +15,10 @@
               :class="'eventIconElements ' + icons[it][1] + 'Events'"
               :src="require('../../../assets/icons/' + icons[it][0] + '.svg')"
               :alt="icons[it][0].replace('-','') + 'Icon'"/>
-          <div class="animationElementTitle">
+          <div v-if="it === 'directorLeaves'" class="animationElementTitle">
+            {{ $t('events.creative.title') }}
+          </div>
+          <div v-else class="animationElementTitle">
             {{ $t('events.' + it + '.title') }}
           </div>
         </div>
@@ -28,7 +31,10 @@
               :class="'eventIconElements ' + icons[this.dayEvents[pos - 1]][1] + 'Events'"
               :src="require('../../../assets/icons/' + icons[this.dayEvents[pos - 1]][0] + '.svg')"
               :alt="icons[this.dayEvents[pos - 1]][0].replace('-','') + 'Icon'"/>
-          <div class="animationElementTitle">
+          <div v-if="this.dayEvents[pos - 1] === 'directorLeaves'" class="animationElementTitle">
+            {{ $t('events.creative.title') }}
+          </div>
+          <div v-else class="animationElementTitle">
             {{ $t('events.' + this.dayEvents[pos - 1] + '.title') }}
           </div>
         </div>
@@ -65,7 +71,10 @@
               :class="'eventIconElements ' + icons[it][1] + 'Events'"
               :src="require('../../../assets/icons/' + icons[it][0] + '.svg')"
               :alt="icons[it][0].replace('-','') + 'Icon'"/>
-          <div class="animationElementTitle">
+          <div v-if="it === 'directorLeaves'" class="animationElementTitle">
+            {{ $t('events.creative.title') }}
+          </div>
+          <div v-else class="animationElementTitle">
             {{ $t('events.' + it + '.title') }}
           </div>
         </div>
@@ -78,7 +87,10 @@
               :class="'eventIconElements ' + icons[this.dayEvents[pos - 1]][1] + 'Events'"
               :src="require('../../../assets/icons/' + icons[this.dayEvents[pos - 1]][0] + '.svg')"
               :alt="icons[this.dayEvents[pos - 1]][0].replace('-','') + 'Icon'"/>
-          <div class="animationElementTitle">
+          <div v-if="this.dayEvents[pos - 1] === 'directorLeaves'" class="animationElementTitle">
+            {{ $t('events.creative.title') }}
+          </div>
+          <div v-else class="animationElementTitle">
             {{ $t('events.' + this.dayEvents[pos - 1] + '.title') }}
           </div>
         </div>
@@ -134,7 +146,7 @@ export default {
         'duration': ['action','production'],
         'changes': ['action','production'],
         'injured': ['action','production'],
-        'directorLeavesProduction': ['action','production'],
+        'directorLeaves': ['action','production'],
         'productionFinished': ['simple-tick','production'],
         'testScreening': ['action','postProduction'],
         'sound': ['action','postProduction'],
