@@ -6,7 +6,7 @@
 
   <button id="ActorInputButton" class="buttonStyle" @click="toActor">Edit Actors</button>
 
-  <button id="exitButton" class="buttonStyle" @click="this.$router.push('WriterOutput')" >Edit</button>
+  <button id="exitButton" class="buttonStyle" @click="toStudio" >Edit Studios</button>
 
   <button id="backButton" class="buttonStyle" @click="this.$router.go(-1)">Back</button>
 
@@ -30,6 +30,10 @@ export default {
     },
     toActor(){
       this.$router.push({name: 'loadingScreen', params: {nextRoute: 'ActorOutput', title: i18next.t('editorToActor') + '...', duration: '3'}})
+
+    },
+    toStudio(){
+      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'StudioOutput', title: i18next.t('editorToStudio') + '...', duration: '3'}})
 
     }
   }

@@ -54,6 +54,8 @@ import MoviesOverview from "@/components/mainGameComponents/newsMenu/listOfMovie
 import AwardOverview from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardOverview.vue";
 import preProductionSummary from "@/components/mainGameComponents/preProduction/preProductionSummary";
 import productionSummary from "@/components/mainGameComponents/currentProduction/productionSummary";
+import StudioOutput from "@/components/DB-Editor/Entities/StudioOutput";
+import StudioEdit from "@/components/DB-Editor/Entities/StudioEdit";
 
 
 const routes = [
@@ -134,8 +136,10 @@ const routes = [
     { name: 'WriterOutput', path: '/WriterOutput', component: WriterOutput, props: true},
     { name: 'DirectorOutput', path: '/DirectorOutput', component: DirectorOutput, props: true},
     { name: 'ActorOutput', path: '/ActorOutput', component: ActorOutput, props: true},
+    { name: 'StudioOutput', path: '/StudioOutput', component: StudioOutput, props: true},
 
     { name: 'PersonEdit', path: '/PersonEdit', component: PersonEdit, props: true},
+    { name: 'StudioEdit', path: '/StudioEdit', component: StudioEdit, props: true},
 
     { name: 'default', path: '/', component: StartMenu, props: true },
 ]

@@ -21,6 +21,7 @@
 <script>
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import {Studio} from "@/classes/Studio";
 
 export default {
   name: "DBItem",
@@ -39,13 +40,20 @@ export default {
   },
 
   methods: {
-    select() {
+    async select() {
+      window.ipcRenderer.removeAllListeners('gotStudios')
       console.log(this.slotNr)
       console.log(this.$store.state)
       //window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.slotNr +".db")
-      window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom" + this.slotNr +".db")
+      window.ipcRenderer.send('changeDBPath', "./data/database/fsm_custom" + this.slotNr +".db")
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
+      this.$store.state.otherStudios = []
+      await new Promise(resolve => setTimeout(resolve, 200))
+      window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
+      window.ipcRenderer.receive('gotStudios', (data) => {
+        this.$store.commit('addOtherStudios', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
+      })
       this.$router.push("Editor")
     },
 
