@@ -375,11 +375,16 @@ async function launchDiscordGameSDK(win) {
             {stdio: ['pipe', process.stdout, process.stderr]});
 
         updatePresence = (details) => {streamWrite(child.stdin, details+'\n');}
-        function keepAlive(){
-            updatePresence("keepAlive")
-            setTimeout(keepAlive, 10)
+
+        await new Promise(resolve => setTimeout(resolve, 100))
+        if(child.pid != undefined){
+            function keepAlive(){
+                updatePresence("keepAlive")
+                setTimeout(keepAlive, 10)
+            }
+            keepAlive()
         }
-        keepAlive()
+
     }catch(e){
         console.log("No Java No Party")
     }
