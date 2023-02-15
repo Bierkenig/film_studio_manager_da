@@ -8,7 +8,6 @@ import {i18next} from "@/translation/i18n";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import {Movie} from "@/classes/Movie";
-import {sort} from "css-loader/dist/utils";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]

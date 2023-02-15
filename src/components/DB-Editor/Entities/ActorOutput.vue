@@ -21,7 +21,7 @@
     </router-link>
     <button id="deleteButton" class="buttonStyle" @click="deletePerson(el)">Delete</button>
   </div>
-  <button id="backButton" class="buttonStyle" @click="this.$router.go(-1)">Back</button>
+  <button id="backButton" class="buttonStyle" @click="this.$router.go(-2)">Back</button>
 
 </template>
 
