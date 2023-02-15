@@ -46,6 +46,7 @@
 
 import {Movie} from "@/classes/Movie";
 import Franchises from "@/classes/Franchises";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "after-release",
@@ -85,6 +86,14 @@ export default {
       this.$store.state.currentMovie = null
       let index = this.$store.getters.getCreatedMovies.indexOf(this.$store.getters.getCurrentMovie)
       this.$store.state.createdMovies.slice(index, 1)
+
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate))
+
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate))
       this.closeModal();
     },
 

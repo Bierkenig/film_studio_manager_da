@@ -40,6 +40,7 @@
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "postProductionSummary",
@@ -66,6 +67,9 @@ export default {
 
   methods: {
     closeSummary(){
+      this.$store.commit('addEarnings', new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate))
+
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
       for (let i = 0; i < allCalendarEvents.length; i++) {

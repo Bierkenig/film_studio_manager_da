@@ -43,8 +43,6 @@
 
               <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('productionEvents.check')}}</button>
               <div>{{$t('productionEvents.msg')}}</div>
-
-              <button v-if="weeks || date || bool" class="modal-default-button" @click="closeWindow()">{{$t('productionEvents.close')}}</button>
             </slot>
           </div>
         </div>
@@ -65,7 +63,7 @@ export default {
       bool: false,
       durWeeks: 0,
       dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
-      type: this.$store.state.currentProdEventType
+      type: this.$store.state.currentCalendarEvent.type,
     }
   },
 
@@ -75,56 +73,78 @@ export default {
         case "weather":
           this.$store.state.currentMovie._preProduction.budget.set *= 1.1
             this.$emit('close')
+            this.completeEvent();
+          this.$store.state.currentMovie._production.happenedEvents.push("weather")
           break
         case "castMember":
           this.$store.state.currentMovie._preProduction.hype *= 0.85
           this.calcDireMorale(true)
+          this.completeEvent();
           this.$router.push({name: "actorSection"})
+          this.$store.state.currentMovie._production.happenedEvents.push("castMember")
           break
         case "budgetForCostumes":
           this.$store.state.currentMovie._preProduction.budget.costume *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
+          this.completeEvent();
           this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("budgetForCostumes")
           break
         case "equipment":
           this.$store.state.currentMovie._preProduction.budget.cinematography *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
+          this.completeEvent();
           this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("equipment")
           break
         case "budget":
           this.$store.state.currentMovie._preProduction.budget.production *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
+          this.completeEvent();
           this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("budget")
           break
         case "breakdown":
           this.$store.state.currentMovie._preProduction.budget.set *= 1.1
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
+          this.completeEvent();
           this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("breakdown")
           break
         case "duration":
           this.calcDireMorale(true)
           this.weeks = true
           this.crewMoraleGoes(1)
+          this.completeEvent();
+          this.$store.state.currentMovie._production.happenedEvents.push("duration")
           break
         case "directorLeaves":
           this.calcDireMorale(true)
           this.$store.state.currentMovie._preProduction.budget.directorSalary *= 1.25
           this.$emit('close')
+          this.completeEvent();
+          this.$store.state.currentMovie._production.happenedEvents.push("directorLeaves")
           break
         case "changes":
           this.calcDireMorale(true)
           this.crewMoraleGoes(1)
           this.$store.state.currentMovie._preProduction.budget.problemBudget += this.$store.state.currentMovie._preProduction.getTotalBudget() * 0.1
           this.$emit('close')
+          this.completeEvent();
+          this.$store.state.currentMovie._production.happenedEvents.push("changes")
           break
         case "injured":
           this.$store.state.currentMovie._preProduction.hype *= 0.85
+          this.completeEvent();
           this.$router.push({name: "actorSection"})
-          break
+          this.$store.state.currentMovie._production.happenedEvents.push("injured")
+          break;
+        default:
+          break;
       }
     },
 
@@ -133,42 +153,71 @@ export default {
         case "weather":
           this.$store.state.currentMovie._preProduction.productionLength += 4
           this.$store.state.currentMovie._preProduction.calcReleaseDateAgain()
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("weather")
           break
         case "castMember":
           this.calcDireMorale(false)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("castMember")
           break
         case "budgetForCostumes":
           this.calcDireMorale(false)
           this.crewMoraleGoes(-1)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("budgetForCostumes")
           break
         case "equipment":
           this.calcDireMorale(false)
           this.crewMoraleGoes(-1)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("equipment")
           break
         case "budget":
           this.calcDireMorale(false)
           this.crewMoraleGoes(-1)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("budget")
           break
         case "breakdown":
           this.calcDireMorale(false)
           this.crewMoraleGoes(-1)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("breakdown")
           break
         case "duration":
           this.calcDireMorale(false)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("duration")
           break
         case "directorLeaves":
           this.$store.state.currentMovie._preProduction.hype *= 0.75
           this.crewMoraleGoes(-1)
+          this.completeEvent();
           this.$router.push({name: "directorSection"})
+          this.$store.state.currentMovie._production.happenedEvents.push("directorLeaves")
           break
         case "changes":
           this.calcDireMorale(false)
           this.crewMoraleGoes(-1)
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("changes")
           break
         case "injured":
           this.$store.state.currentMovie._preProduction.hype *= 0.90
           if (this.$store.state.currentMovie._production.haltedStartDate === null) this.$store.state.currentMovie._production.haltedStartDate = this.$store.state.currentDate
           this.$store.state.currentMovie._production.haltedDuration += 4
+          this.completeEvent();
+          this.$emit('close')
+          this.$store.state.currentMovie._production.happenedEvents.push("injured")
           break
       }
     },
@@ -208,8 +257,14 @@ export default {
       })
     },
 
-    closeWindow() {
-      this.$emit('close')
+    completeEvent(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
     }
   }
 }

@@ -1,6 +1,4 @@
 <template>
-  <button class="buttonStyle" @click="continueToResult">Continue</button>
-
   <div v-if="typeEditing === true">
   <div>
     {{$t("postProductionEvents.testScreening.optionA")}}
@@ -123,6 +121,8 @@
 
     </div>
   </div>
+
+  <button class="buttonStyle" @click="continueToResult" :disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory">Continue</button>
 </template>
 
 <script>

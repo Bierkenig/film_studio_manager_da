@@ -103,11 +103,42 @@
     <transition name="modal">
       <continue-post-prod
           v-if="showContinuePostProdModal"
-          @close="showContinuePostProdModal = false">
+          @close="showContinuePostProdModal = false; showChooseMediumModal = true;">
         <template v-slot:header>
           <h3>custom header</h3>
         </template>
       </continue-post-prod>
+    </transition>
+
+    <!--MARKETING MODALS-->
+    <transition name="modal">
+      <choose-medium
+          v-if="showChooseMediumModal"
+          @close="showChooseMediumModal = false; showCinemaNegotiationModal = true;">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </choose-medium>
+    </transition>
+
+    <transition name="modal">
+      <cinema-negotiation
+          v-if="showCinemaNegotiationModal"
+          @close="showCinemaNegotiationModal = false; showMarketingBudgetSelectModal = true;">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </cinema-negotiation>
+    </transition>
+
+    <transition name="modal">
+      <marketing-budget-select
+          v-if="showMarketingBudgetSelectModal"
+          @close="showMarketingBudgetSelectModal = false;">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </marketing-budget-select>
     </transition>
 
     <!--POST PRODUCTION SUMMARY-->
@@ -209,9 +240,15 @@ import AfterRelease from "@/components/mainGameComponents/releaseMovie/afterRele
 import StudioTakeOverResponse from "@/components/mainGameComponents/financesMenu/StudioTakeOverResponse";
 import AwardNomination from "@/components/mainGameComponents/awards/AwardNomination.vue";
 import AwardPresentation from "@/components/mainGameComponents/awards/AwardPresentation.vue";
+import ChooseMedium from "@/components/mainGameComponents/postProduction/mediums/chooseMedium.vue";
+import CinemaNegotiation from "@/components/mainGameComponents/postProduction/mediums/cinemaNegotiation.vue";
+import MarketingBudgetSelect from "@/components/mainGameComponents/postProduction/marketing/MarketingBudgetSelect.vue";
 export default {
   name: "UpcomingEventsSection",
   components: {
+    MarketingBudgetSelect,
+    CinemaNegotiation,
+    ChooseMedium,
     AwardPresentation,
     AwardNomination,
     StudioTakeOverResponse,
@@ -235,6 +272,11 @@ export default {
       showPreProductionSummaryModal: false,
       showProductionSummaryModal: false,
       showPostProductionSummaryModal: false,
+
+      // data for showing marketing modals
+      showChooseMediumModal: false,
+      showCinemaNegotiationModal: false,
+      showMarketingBudgetSelectModal: false,
 
       // data for showing continue modals
       showContinuePostProdModal: false,
@@ -313,7 +355,11 @@ export default {
       } else if(event.type === 'internationalAwardPresentation' || event.type === 'independentAwardPresentation' || event.type === 'audienceAwardPresentation'){
         this.showAwardPresentation = true;
         this.awardType = event.type;
+      } else if(event.type === 'testScreening'){
+        this.$store.commit('setCurrentCalendarEvent',event);
+        this.$router.push({name: 'testScreening'});
       }
+
       this.$store.commit('setCurrentCalendarEvent',event);
     },
 
@@ -356,7 +402,6 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
 
 .date{
   margin-left: 0.7em

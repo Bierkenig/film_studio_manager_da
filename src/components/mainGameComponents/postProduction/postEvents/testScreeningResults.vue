@@ -82,6 +82,8 @@
   {{(((this.flags / 27) | 0) % 3)}}
   {{(Math.floor(this.flags / 81) % 3)}}
 
+  <button @click="closeTestScreening">Finish</button>
+
 </template>
 
 <script>
@@ -102,6 +104,20 @@ export default {
       date: new Date(),
       oldReleaseDate:  this.date?.setDate(this.releaseDate.getDate() - 7 * this.addedWeeks)
 
+    }
+  },
+
+  methods: {
+    closeTestScreening(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+
+      this.$router.push({name: 'home'})
     }
   }
 }
