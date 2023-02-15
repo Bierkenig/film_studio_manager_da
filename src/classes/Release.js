@@ -8,7 +8,7 @@ import {Studio} from "@/classes/Studio";
 export default class Release {
     constructor(preProduction, crewMorale, genrePopularity, subgenrePopularity, topicPopularity, owner, releaseScope = 2,
                 marketingPrint, marketingInternet, marketingCommericals, audiencePopularity, critics, openingEarnings, allTotalEarnings,
-                cinema, dvd) {
+                cinema, dvd, children, teens, adults, printM, internetM, commercialsM) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -23,7 +23,7 @@ export default class Release {
         this.hype = preProduction.hype
         //Example -> {topic1:{children: 0, teenager: 1, adult: 2}, }
         this.topicPopularity = topicPopularity
-        this.numberOfMovieTopics = this.calcNumberOfMovieTopics()
+        this.numberOfMovieTopics = children === undefined ? this.calcNumberOfMovieTopics() : 0
         this.owner = owner
         this.productionBudgetRating = this.calcBudgetRating(preProduction.budgetPop)
         this.productionPhasesRating = this.calcPhasesRating(crewMorale)
@@ -72,31 +72,34 @@ export default class Release {
 
         //Popularity
         //Genre
-        if(this.subgenrePopularity !== null){
-            this.childrenGenrePopularity = (parseInt(this.genrePopularity.childrenPopularity) * 65 + parseInt(this.subgenrePopularity.childrenPopularity) * 35) / 100
-            this.teenagersGenrePopularity = (parseInt(this.genrePopularity.teenPopularity) * 65 + parseInt(this.subgenrePopularity.teenPopularity) * 35) / 100
-            this.adultsGenrePopularity = (parseInt(this.genrePopularity.adultPopularity) * 65 + parseInt(this.subgenrePopularity.adultPopularity) * 35) / 100
-        } else {
-            this.childrenGenrePopularity = (parseInt(this.genrePopularity.childrenPopularity) * 65) / 100
-            this.teenagersGenrePopularity = (parseInt(this.genrePopularity.teenPopularity) * 65) / 100
-            this.adultsGenrePopularity = (parseInt(this.genrePopularity.adultPopularity) * 65) / 100
+        if (children === undefined) {
+            if(this.subgenrePopularity !== null){
+                this.childrenGenrePopularity = (parseInt(this.genrePopularity.childrenPopularity) * 65 + parseInt(this.subgenrePopularity.childrenPopularity) * 35) / 100
+                this.teenagersGenrePopularity = (parseInt(this.genrePopularity.teenPopularity) * 65 + parseInt(this.subgenrePopularity.teenPopularity) * 35) / 100
+                this.adultsGenrePopularity = (parseInt(this.genrePopularity.adultPopularity) * 65 + parseInt(this.subgenrePopularity.adultPopularity) * 35) / 100
+            } else {
+                this.childrenGenrePopularity = (parseInt(this.genrePopularity.childrenPopularity) * 65) / 100
+                this.teenagersGenrePopularity = (parseInt(this.genrePopularity.teenPopularity) * 65) / 100
+                this.adultsGenrePopularity = (parseInt(this.genrePopularity.adultPopularity) * 65) / 100
+            }
         }
 
         //Topics
-        if(this.topicPopularity.second === null){
-            this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity)) / this.numberOfMovieTopics
-            this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity)) / this.numberOfMovieTopics
-            this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity)) / this.numberOfMovieTopics
-        } else if(this.topicPopularity.third === null) {
-            this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity)) / this.numberOfMovieTopics
-            this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity)) / this.numberOfMovieTopics
-            this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity)) / this.numberOfMovieTopics
-        } else {
-            this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity) + parseInt(this.topicPopularity.third.childrenPopularity)) / this.numberOfMovieTopics
-            this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity) + parseInt(this.topicPopularity.third.teenPopularity)) / this.numberOfMovieTopics
-            this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity) + parseInt(this.topicPopularity.third.adultPopularity)) / this.numberOfMovieTopics
+        if (children === undefined && teens === undefined && adults === undefined) {
+            if(this.topicPopularity.second === null){
+                this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity)) / this.numberOfMovieTopics
+                this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity)) / this.numberOfMovieTopics
+                this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity)) / this.numberOfMovieTopics
+            } else if(this.topicPopularity.third === null) {
+                this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity)) / this.numberOfMovieTopics
+                this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity)) / this.numberOfMovieTopics
+                this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity)) / this.numberOfMovieTopics
+            } else {
+                this.childrenTopicsPopularity = (parseInt(this.topicPopularity.first.childrenPopularity) + parseInt(this.topicPopularity.second.childrenPopularity) + parseInt(this.topicPopularity.third.childrenPopularity)) / this.numberOfMovieTopics
+                this.teenagersTopicsPopularity = (parseInt(this.topicPopularity.first.teenPopularity) + parseInt(this.topicPopularity.second.teenPopularity) + parseInt(this.topicPopularity.third.teenPopularity)) / this.numberOfMovieTopics
+                this.adultsTopicsPopularity = (parseInt(this.topicPopularity.first.adultPopularity) + parseInt(this.topicPopularity.second.adultPopularity) + parseInt(this.topicPopularity.third.adultPopularity)) / this.numberOfMovieTopics
+            }
         }
-
         //Studio Popularity
         this.studioPopularityFormula = this.owner.popularity
 
@@ -116,22 +119,17 @@ export default class Release {
         //FINAL FORMULA
         this.popularityFormula = (this.studioPopularityFormula * 15 + this.castPopularityFormula * 50 + this.directorPopularityFormula * 20 + this.writerPopularityFormula * 15) / 100
 
-        this.childrenMoviePopularity = (this.childrenTopicsPopularity * 20 + this.childrenGenrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 40) / 100
-        this.teenagersMoviePopularity = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
-        this.adultsMoviePopularity = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
-
-        console.log(this.childrenTopicsPopularity)
-        console.log(this.childrenGenrePopularity)
-        console.log(this.qualityFormula)
-        console.log(this.popularityFormula)
+        this.childrenMoviePopularity = children !== undefined ? children : (this.childrenTopicsPopularity * 20 + this.childrenGenrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 40) / 100
+        this.teenagersMoviePopularity = teens !== undefined ? teens : (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 35) / 100
+        this.adultsMoviePopularity = adults !== undefined ? adults : (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 30) / 100
 
         this.audiencePopularity = audiencePopularity !== undefined ? audiencePopularity : (this.childrenMoviePopularity + this.teenagersMoviePopularity + this.adultsMoviePopularity) / 3
 
         //Hype
         //Marketing
-        let print = this.calcMarketing(this.marketingPrint)
-        let internet = this.calcMarketing(this.marketingInternet)
-        let commercial = this.calcMarketing(this.marketingCommericals)
+        this.print = printM === undefined ? this.calcMarketing(this.marketingPrint) : printM
+        this.internet = internetM === undefined ? this.calcMarketing(this.marketingInternet) : internetM
+        this.commercial = commercialsM === undefined ? this.calcMarketing(this.marketingCommericals) : commercialsM
 
         let effectChildren;
         let effectTeenagers;
@@ -158,13 +156,13 @@ export default class Release {
             effectAdults = 1
         }
 
-        this.childrenMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+        this.childrenMarketingEffect = (this.print * 25 + this.internet * 60 + this.commercial * 15) / 100
         this.childrenMoviePopularityAfterMarketingFormula = (this.childrenMoviePopularity + this.childrenMarketingEffect) * effectChildren
 
-        this.teenagersMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+        this.teenagersMarketingEffect = (this.print * 25 + this.internet * 60 + this.commercial * 15) / 100
         this.teenagersMoviePopularityAfterMarketingFormula = (this.teenagersMoviePopularity + this.teenagersMarketingEffect) * effectTeenagers
 
-        this.adultsMarketingEffect = (print * 25 + internet * 60 + commercial * 15) / 100
+        this.adultsMarketingEffect = (this.print * 25 + this.internet * 60 + this.commercial * 15) / 100
         this.adultsMoviePopularityAfterMarketingFormula = (this.adultsMoviePopularity + this.adultsMarketingEffect) * effectAdults
 
         this.hypeFromMarketing = this.calcFromMarketing()
@@ -183,7 +181,7 @@ export default class Release {
 
         //Audience
         this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
-        this.setAudienceRating()
+        if (critics === undefined)this.setAudienceRating()
 
         //Earnings
         //Weekly drops

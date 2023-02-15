@@ -57,7 +57,7 @@ export class Screenplay {
         //TYPE -> Franchise
         this.franchise = franchise
         //TYPE -> Boolean
-        this.bought = bought;
+        this.bought = bought
         //TYPE -> Integer
         if (this.actors.main.length > 0 && this.actors.minor.length > 0 && this.actors.cameo > 0 && this.actors.support > 0) this.morale = this.getCastMorale()
     }

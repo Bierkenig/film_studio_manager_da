@@ -3,7 +3,7 @@ import Person from "@/classes/Person";
 import DataUtil from "@/classes/DataUtil";
 
 export default class PreProduction {
-    constructor(screenplay, hype, crewMorale, director) {
+    constructor(screenplay, hype, crewMorale, director, budget, releaseDate) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -15,10 +15,10 @@ export default class PreProduction {
         this.preProductionLength = 0
         this.productionLength = 0
         this.postProductionLength = 0
-        this.releaseDate = null
+        this.releaseDate = releaseDate !== undefined ? releaseDate : null
         this.startDate = null
         this.budget = {
-            production: 0,
+            production: budget !== undefined ? budget : 0,
             extras: 0,
             cinematography: 0,
             sound: 0,
@@ -139,7 +139,8 @@ export default class PreProduction {
         return (this.budget.production + this.budget.extras + this.budget.cinematography +
             this.budget.sound + this.budget.editing + this.budget.score + this.budget.set +
             this.budget.stunts + this.budget.costume + this.budget.makeup + this.budget.vfx +
-            this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary + this.budget.actorSalary + this.budget.writerSalary)
+            this.budget.sfx + this.budget.problemBudget + this.budget.directorSalary
+            + this.budget.actorSalary + this.budget.writerSalary)
     }
 
     calcReleaseDateAgain() {

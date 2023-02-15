@@ -104,7 +104,7 @@ export default {
       // window.ipcRenderer.receive('m2rLoading', data => {
       //
       // })
-      window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom1.db")
+      //window.ipcRenderer.send('changeDBPath', "./.data/database/fsm_custom1.db")
 
       this.$router.push({name: 'createStudio', params: {slot: this.slotNr}})
 

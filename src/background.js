@@ -41,10 +41,13 @@ async function createWindow() {
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
-    let dbPath = "src/DB/database/fsm.db"
-    //let dbPath = "./public/DB/database/fsm.db"
+    let dbPath = isDevelopment ? "public/DB/database/fsm.db" : "../bundled/DB/database/fsm.db"
     console.log(dbPath)
     let db = null
+
+    ipcMain.on('dbP', (event, data) => {
+        event.sender.send('dbP2', dbPath)
+    })
 
     //IPC Main
     ipcMain.on('toGetPeople', (event, data) => {

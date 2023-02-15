@@ -7,7 +7,9 @@ module.exports = {
                 "productName": "Film Studio Manager",
                 "target": "NSIS",
                 "icon": "public/FSM_Icon_256x.png",
-                "asar": false,
+                extraResources: [
+                    './public/DB'
+                ],
             },
             customFileProtocol: "./",
             // Use this to change the entrypoint of your app's main process

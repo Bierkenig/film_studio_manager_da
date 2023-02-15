@@ -6,13 +6,13 @@ import PreProduction from "@/classes/PreProduction";
 import Production from "@/classes/Production";
 import PostProduction from "@/classes/PostProduction";
 import Release from "@/classes/Release"
-import preProductionTest from '@/classes/test/preProductionTest'
 import store from "@/services/store";
 import DataUtil from "@/classes/DataUtil";
 
 export class Movie {
-    constructor(id, owner, contract, status = null, quality = 100, outgoings, screenplay, hype, crewMorale, director,
-                audiencePopularity, critics, openingEarnings, allTotalEarnings, cinema, dvd) {
+    constructor(id, owner, contract, status = null, quality = 100, outgoings, budget, releaseDate, screenplay, hype, crewMorale, director,
+                audiencePopularity, popularity, foundationDate, totalCosts, critics, openingEarnings, allTotalEarnings, cinema, dvd, children,
+                teens, adults, print, internet, commericals) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -22,7 +22,7 @@ export class Movie {
         //TYPE -> String
         this._status = status;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new PreProduction(screenplay, hype, crewMorale, director)
+        this._preProduction = new PreProduction(screenplay, hype, crewMorale, director, budget, releaseDate)
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object
@@ -35,6 +35,13 @@ export class Movie {
         this.allTotalEarings = allTotalEarnings
         this.cinema = cinema
         this.dvd = dvd
+        this.popularity = popularity !== undefined ? popularity : 0
+        this.children = children
+        this.teen = teens
+        this.adults = adults
+        this.print = print
+        this.internet = internet
+        this.commericals = commericals
         //TYPE -> director Class Object
         this.director = this._preProduction?.hiredDirector;
         //TYPE -> screenplay class Object
@@ -63,49 +70,53 @@ export class Movie {
         //TYPE -> Date (for films in which rights have been acquired)
         this._boughtRightDate = null;
         //TYPE -> Integer (for films in which rights have been acquired or for films from other studios which are able to buy) | totalCosts - KOSTEN fürs Kaufen
-        this._totalCosts = 0;
+        this._totalCosts = totalCosts !== undefined ? totalCosts : 0;
         //TYPE -> Date
-        this._foundationDate = null;
+        this._foundationDate = foundationDate !== undefined ? foundationDate : null;
         //TYPE -> Integer | totalOutgoings - AUSGABEN während Filmherstellung (TODO POSTPRODUCTION)
         this._totalOutgoings = outgoings !== undefined ? outgoings : this._preProduction.outgoings
     }
 
     setProduction() {
-        if (this._status === 'Production' && this._preProduction instanceof PreProduction || this._preProduction instanceof preProductionTest) {
+        if (this._status === 'Production' || this._status === 'Finished' && this._preProduction instanceof PreProduction) {
             this._production = new Production(this._preProduction.releaseDate, this._preProduction.productionLength)
         }
     }
 
     setPostProduction() {
-        if (this._status === 'Post Production' && this._production instanceof Production) {
+        if (this._status === 'Post Production' || this._status === 'Finished' && this._production instanceof Production) {
             this._postProduction = new PostProduction(this._preProduction.postProductionLength, this._preProduction.screenplay)
         }
     }
 
     setRelease() {
-        if (this._status === 'Released' && this._postProduction instanceof PostProduction) {
-            this.genrePopularity = this.calcGenrePopularities()
+        console.log("Set Release")
+        console.log(this._preProduction.screenplay.genre.genreName)
+        if (this._status === 'Released' || this._status === 'Finished' && this._postProduction instanceof PostProduction) {
+            console.log("Noice")
+            this.genrePopularity = this.children === undefined ? this.calcGenrePopularities() : null
             if(this._preProduction.screenplay.subgenre !== null){
-                this.subgenrePopularity = this.calcSubGenrePopularities()
+                this.subgenrePopularity = this.children === undefined ? this.calcSubGenrePopularities() : null
             }
-            this.topicPopularity = this.calcTopicPopularities()
+            this.topicPopularity = this.children === undefined ? this.calcTopicPopularities() : null
             console.log(this.genrePopularity)
             console.log(this.subgenrePopularity)
             console.log(this.topicPopularity)
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this._owner, this._postProduction.releaseScope,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial,
-                this.audiencePop, this.critics, this.openingEarnings, this.allTotalEarings, this.cinema, this.dvd)
+                this.audiencePop, this.critics, this.openingEarnings, this.allTotalEarings, this.cinema,
+                this.dvd, this.children, this.teen, this.adults, this.print, this.internet, this.commericals)
         }
     }
 
     calcGenrePopularities() {
-        let result = null;
-        store.state.allGenres.forEach((el) => {
-            console.log(el.genreName);
+        let result = null
+        store.getters.getAllGenres.forEach((el) => {
+            console.log(el.genreName)
             console.log(this._preProduction.screenplay.genre.genreName)
             if(el.genreName === this._preProduction.screenplay.genre.genreName){
-                result = el;
+                result = el
             }
         })
         return result
@@ -114,7 +125,7 @@ export class Movie {
     calcSubGenrePopularities() {
         let result = null;
         store.state.allSubGenres.forEach((el) => {
-            if(el.genreName === this._preProduction.screenplay.subgenre.genreName){
+            if(el.subGenreName === this._preProduction.screenplay.subgenre.subGenreName){
                 result = el;
             }
         })
