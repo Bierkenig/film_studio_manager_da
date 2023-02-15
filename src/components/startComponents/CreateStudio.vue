@@ -200,15 +200,13 @@ export default {
       //screenplays
       window.ipcRenderer.send('getScreenplays', "SELECT *, g.childrenPopularity as 'gChild', g.teenPopularity as 'gTeen', g.adultPopularity as 'gAdult', t.topicName as 'topic1', t2.topicName as 'topic2', t3.topicName as 'topic3', t.pk_topicID as 't1TopicID', t2.pk_topicID as 't2TopicID', t3.pk_topicID as 't3TopicID', t.childrenPopularity as 'tChild', t.teenPopularity as 'tTeen', t.adultPopularity as 'tAdult', t2.childrenPopularity as 't2Child', t2.teenPopularity as 't2Teen', t2.adultPopularity as 't2Adult', t3.childrenPopularity as 't3Child', t3.teenPopularity as 't3Teen', t3.adultPopularity as 't3Adult', c.first_name as 'cFirst', c.last_name as 'cLast', c.gender as 'cGender', p5.pk_personID as 'act2ID', p5.avatar as 'act2Avatar', p5.first_name as 'act2First', p5.last_name as 'act2Last', p5.birthday as 'act2Birth', p5.deathAge as 'act2Death', p5.gender as 'act2Gender', p5.nationality as 'act2Nat', p5.ethnicity as 'act2Eth', p5.workingSince as 'act2Work', p5.performance as 'act2Per', p5.experience as 'act2Exp', p5.talent as 'act2Tal', p5.popularity as 'act2Pop', p5.rating as 'act2Rating', p5.action as 'act2Action', p5.adventure as 'act2Adv', p5.comedy as 'act2Come', p5.documentary as 'act2Doc', p5.drama as 'act2Drama', p5.fantasy as 'act2Fant', p5.horror as 'act2Horror', p5.musical as 'act2Mus', p5.romance as 'act2Rom', p5.scienceFiction as 'act2Science', p5.thriller as 'act2Thrill', p5.war as 'act2War', p5.isActor as 'act2Act', p5.isActor as 'act2act2', p5.isWriter as 'act2Wri', p.pk_personID as 'wri0ID', p.avatar as 'wri0Avatar', r.roleType as 'roleType', p.first_name as 'wri0First', p.last_name as 'wri0Last', p.birthday as 'wri0Birth', p.deathAge as 'wri0Death', p.gender as 'wri0Gender', p.nationality as 'wri0Nat', p.ethnicity as 'wri0Eth', p.workingSince as 'wri0Work', p.performance as 'wri0Per', p.experience as 'wri0Exp', p.talent as 'wri0Tal', p.popularity as 'wri0Pop', p.rating as 'wri0Rating', p.action as 'wri0Action', p.adventure as 'wri0Adv', p.comedy as 'wri0Come', p.documentary as 'wri0Doc', p.drama as 'wri0Drama', p.fantasy as 'wri0Fant', p.horror as 'wri0Horror', p.musical as 'wri0Mus', p.romance as 'wri0Rom', p.scienceFiction as 'wri0Science', p.thriller as 'wri0Thrill', p.war as 'wri0War', p.isActor as 'wri0Act', p.isActor as 'wri0wri0', p.isWriter as 'wri0Wri' FROM screenplay INNER JOIN genre g on g.pk_genreID = screenplay.fk_pk_genreID INNER JOIN subgenre s on s.pk_subgenreID = screenplay.fk_pk_subgenreID INNER JOIN topics t on t.pk_topicID = screenplay.fk_pk_topic1 INNER JOIN topics t2 on t2.pk_topicID = screenplay.fk_pk_topic2 INNER JOIN topics t3 on t3.pk_topicID = screenplay.fk_pk_topic3 INNER JOIN people p on screenplay.fk_pk_writerID = p.pk_personID INNER JOIN roles r on screenplay.pk_screenplayID = r.fk_pk_screenplayID INNER JOIN characters c on r.fk_pk_characterID = c.pk_characterID INNER JOIN people p5 on fk_pk_actorID = p5.pk_personID")
       window.ipcRenderer.receive('gotScreenplays', (data) => {
+        console.log(data)
         let check = false
         let screenplay = new Screenplay(data.pk_screenplayID, data.title, data.type,
             new Genre(data.genreName, data.gChild, data.gTeen, data.gAdult),
             new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity),
             data.violenceAgeRating,
-            new Person(data.wri0ID, data.wri0Avatar, data.wri0First, data.wri0Last, data.wri0Birth, data.wri0Death, data.wri0Gender, data.wri0Nat,
-                data.wri0Eth, data.wri0Work, data.wri0Per, data.wri0Exp, data.wri0Tal, data.wri0Pop,
-                data.wri0Rating, data.wri0Action, data.wri0Adv, data.wri0Come, data.wri0Doc, data.wri0Drama, data.wri0Fan, data.wri0Horror, data.wri0Mus, data.wri0Rom, data.wri0Science,
-                data.wri0Thrill, data.wri0War, data.wri0Act, data.wri0Dir, data.wri0Wri),
+            [...this.$store.getters.getAllPeople].filter(el => el.id === data.wri0ID),
             data.description, data.screenplayRating, parseInt(data.price),
             {
               firstTopic: new Topic(data.topic1, data.tChild, data.tTeen, data.tAdult),
@@ -274,6 +272,7 @@ export default {
         this.$store.commit('addAllMovie', movie)
       })
 
+      console.log(this.$store.state.allScreenplays)
       console.log(this.$store.state.allMovies)
       //Awards
       window.ipcRenderer.send('getIntAwards', "SELECT * FROM internationalAwards")

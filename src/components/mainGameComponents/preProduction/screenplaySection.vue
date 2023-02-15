@@ -48,7 +48,7 @@ export default {
   components: {IconButton},
   data() {
     return {
-      screenplays: this.$store.getters.getAllScreenplays,
+      screenplays: [...this.$store.getters.getAllScreenplays],
       boughtScreenplays: this.$store.getters.getBoughtScreenplays,
       possibleScreenplays: [],
       franchises: this.$store.getters.getFranchises,
@@ -93,9 +93,10 @@ export default {
     },
 
     buy(screenplay) {
-      this.$store.state.boughtScreenplays.push(screenplay)
       if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0){
         this.$store.commit('subtractBalance',screenplay.price);
+        this.$store.state.boughtScreenplays.push(screenplay)
+        this.screenplays = this.screenplays.filter(el => el.id !== screenplay.id)
       }
     },
 

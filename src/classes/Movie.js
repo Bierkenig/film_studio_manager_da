@@ -91,7 +91,7 @@ export class Movie {
 
     setRelease() {
         console.log("Set Release")
-        console.log(this._preProduction.screenplay.genre.genreName)
+        console.log(this._preProduction)
         if (this._status === 'Released' || this._status === 'Finished' && this._postProduction instanceof PostProduction) {
             console.log("Noice")
             this.genrePopularity = this.children === undefined ? this.calcGenrePopularities() : null

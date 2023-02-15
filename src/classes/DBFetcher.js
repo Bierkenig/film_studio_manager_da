@@ -7,9 +7,6 @@ export default class DBFetcher {
         this.allActors = []
         this.allDirectors = []
         this.allWriters = []
-        this.allAwards = []
-        this.allTopics = []
-        this.allGenres = []
     }
 
     clear() {
@@ -17,9 +14,6 @@ export default class DBFetcher {
         this.allActors = []
         this.allDirectors = []
         this.allWriters = []
-        this.allAwards = []
-        this.allTopics = []
-        this.allGenres = []
     }
 
     fetch() {
@@ -59,8 +53,6 @@ export default class DBFetcher {
         store.commit('setAllWriters', this.allWriters);
         store.commit('setAllDirectors', this.allDirectors);
         store.commit('setAllActors', this.allActors);
-        store.commit('setAllTopics',this.allTopics);
         store.commit('setAllPeople', this.allPeople);
-        store.commit('setAllGenres', this.allGenres)
     }
 }
