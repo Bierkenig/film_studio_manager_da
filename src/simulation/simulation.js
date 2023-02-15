@@ -8,7 +8,6 @@ import {i18next} from "@/translation/i18n";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import {Movie} from "@/classes/Movie";
-import {be} from "date-fns/locale";
 import Award from "@/classes/Award";
 
 //Avatar Option Lists
@@ -1273,11 +1272,14 @@ function setAwardWinner(typeOfAward){
 
 function setInternationalAwardEvents(){
     // 'International Award'
-    let internationalAwardNomination = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
-    let internationalAwardPresentation = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+    let internationalAwardNominationStartDate = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
+    let internationalAwardNominationEndDate = nthWeekdayOfMonth(3,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
 
-    addElementToCalendarEvents('','',null,null, internationalAwardNomination,'internationalAwardNomination');
-    addElementToCalendarEvents('','',null,null, internationalAwardPresentation,'internationalAwardPresentation');
+    let internationalAwardPresentationStartDate = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+    let internationalAwardPresentationEndDate = nthWeekdayOfMonth(3,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+
+    addElementToCalendarEvents('','',null,null, internationalAwardNominationStartDate, internationalAwardNominationEndDate, 'internationalAwardNomination');
+    addElementToCalendarEvents('','',null,null, internationalAwardPresentationStartDate, internationalAwardPresentationEndDate, 'internationalAwardPresentation');
 
     //nominationsForInternationalAward(); TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
 }
@@ -1341,11 +1343,14 @@ function nominationsForInternationalAward(){
 
 function setIndependentAwardEvents(){
     // 'Independent Award'
-    let independentAwardNomination = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
-    let independentAwardPresentation = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+    let independentAwardNominationStartDate = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
+    let independentAwardNominationEndDate = nthWeekdayOfMonth(3,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
 
-    addElementToCalendarEvents('','',null,null, independentAwardNomination,'independentAwardNomination');
-    addElementToCalendarEvents('','',null,null, independentAwardPresentation,'independentAwardPresentation');
+    let independentAwardPresentationStartDate = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+    let independentAwardPresentationEndDate = nthWeekdayOfMonth(3,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+
+    addElementToCalendarEvents('','',null,null, independentAwardNominationStartDate, independentAwardNominationEndDate, 'independentAwardNomination');
+    addElementToCalendarEvents('','',null,null, independentAwardPresentationStartDate, independentAwardPresentationEndDate,'independentAwardPresentation');
 
     //nominationsForIndependentAward(); TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
 }
@@ -1403,11 +1408,14 @@ function nominationsForIndependentAward(){
 
 function setAudienceAwardEvents(){
     // 'Audience Award'
-    let audienceAwardNomination = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
-    let audienceAwardPresentation = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+    let audienceAwardNominationStartDate = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
+    let audienceAwardNominationEndDate = nthWeekdayOfMonth(3,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
 
-    addElementToCalendarEvents('','',null,null, audienceAwardNomination,'audienceAwardNomination');
-    addElementToCalendarEvents('','',null,null, audienceAwardPresentation,'audienceAwardPresentation');
+    let audienceAwardPresentationStartDate = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+    let audienceAwardPresentationEndDate = nthWeekdayOfMonth(3,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+
+    addElementToCalendarEvents('','',null,null, audienceAwardNominationStartDate, audienceAwardNominationEndDate,'audienceAwardNomination');
+    addElementToCalendarEvents('','',null,null, audienceAwardPresentationStartDate, audienceAwardPresentationEndDate, 'audienceAwardPresentation');
 
     //nominationsForAudienceAward(); TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
 }
@@ -1521,8 +1529,7 @@ function iterateThroughActors(array, maleArray, femaleArray){
     }
 }
 
-function addElementToCalendarEvents(movieTitle, studioTitle, actor, director, startDate, type){
-    let endDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1);
+function addElementToCalendarEvents(movieTitle, studioTitle, actor, director, startDate, endDate, type){
     store.commit('addCalendarEvent', {
         id: store.getters.getNextEventId,
         movie: movieTitle,
@@ -1557,26 +1564,24 @@ function setEventDuringPreProduction(){
     let allCalendarEvents = store.getters.getCalendarEvents;
     let allPreProductionMovies = store.getters.getInProductionMovies.filter((movie) => movie._status === 'Pre Production');
 
-    let eventAlreadyExists = false;
     for (let i = 0; i < eventsPreProduction.length; i++) {
-        for (let j = 0; j < allCalendarEvents.length; j++) {
-            if(allCalendarEvents[j].type === eventsPreProduction[i]){
-                eventAlreadyExists = true;
-            }
-        }
-        if(!eventAlreadyExists){
-            switch (eventsPreProduction[i]){
-                case 'dropOut':
-                    allPreProductionMovies.forEach((movie)  => {
+        switch (eventsPreProduction[i]){
+            case 'dropOut':
+                allPreProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'dropOut' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists){
                         let date1 = store.getters.getCurrentDate;
-                        let date2 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate() + (movie._preProduction.preProductionLength * 7));
-
-                        // To calculate the time difference of two dates
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.preProductionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
-
-                        // To calculate the no. of days between two dates
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                        if(Difference_In_Days === 4){
+
+                        if(Difference_In_Days >= 6){
                             for (let j = 0; j < movie._preProduction.screenplay.actors.main.length; j++) {
                                 let f = addDropOutEvent(movie._preProduction.screenplay.actors.main[j], null, movie._preProduction.screenplay.actors.main[j].actorMorale, movie, 'dropOut')
                                 if(f === undefined){
@@ -1602,19 +1607,25 @@ function setEventDuringPreProduction(){
                                 }
                             }
                         }
-                    })
-                    break;
-                case 'recast':
-                    allPreProductionMovies.forEach((movie)  => {
+                    }
+                })
+                break;
+            case 'recast':
+                allPreProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'recast' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists){
                         let date1 = store.getters.getCurrentDate;
-                        let date2 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate() + (movie._preProduction.preProductionLength * 7));
-
-                        // To calculate the time difference of two dates
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.preProductionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
-
-                        // To calculate the no. of days between two dates
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                        if(Difference_In_Days === 4) {
+
+                        if(Difference_In_Days >= 6){
                             let director = movie._preProduction.hiredDirector;
                             if (director._rating > 75) {
                                 let movieMainActors = movie._preProduction.screenplay.actors.main;
@@ -1639,54 +1650,72 @@ function setEventDuringPreProduction(){
                                 }
                             }
                         }
-                    });
-                    break;
-                case 'creative':
-                    allPreProductionMovies.forEach((movie)  => {
+                    }
+                });
+                break;
+            case 'creative':
+                allPreProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'creative' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists){
                         let date1 = store.getters.getCurrentDate;
-                        let date2 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate() + (movie._preProduction.preProductionLength * 7));
-
-                        // To calculate the time difference of two dates
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.preProductionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
-
-                        // To calculate the no. of days between two dates
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                        if(Difference_In_Days === 4) {
+
+                        if(Difference_In_Days >= 6){
                             let director = movie._preProduction.hiredDirector;
                             addDropOutEvent(null, director, director.dirMorale, movie, 'creative')
                         }
-                    });
-                    break;
-                case 'difficulty':
-                    allPreProductionMovies.forEach((movie)  => {
+                    }
+                });
+                break;
+            case 'difficulty':
+                allPreProductionMovies.forEach((movie)  => {
+                    let eventAlreadyExists = false;
+                    for (let j = 0; j < allCalendarEvents.length; j++) {
+                        if(allCalendarEvents[j].type === 'difficulty' && allCalendarEvents[j].movie === movie._preProduction.screenplay.title){
+                            eventAlreadyExists = true;
+                        }
+                    }
+
+                    if(!eventAlreadyExists){
                         let date1 = store.getters.getCurrentDate;
-                        let date2 = new Date(date1.getFullYear(), date1.getMonth(), date1.getDate() + (movie._preProduction.preProductionLength * 7));
-
-                        // To calculate the time difference of two dates
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.preProductionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
-
-                        // To calculate the no. of days between two dates
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                        if(Difference_In_Days === 4) {
+
+                        if(Difference_In_Days >= 6){
                             let budgetPop = movie._preProduction.budgetPop;
                             if (budgetPop === 10) {
                                 if (movie._preProduction.hiredDirector._rating > 75) {
                                     if (randomNumber(0.5) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
                                     }
                                 } else if (movie._preProduction.hiredDirector._rating <= 75 && movie._preProduction.hiredDirector._rating > 50) {
                                     if (randomNumber(0.25) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
                                     }
                                 } else {
                                     if (randomNumber(0.15) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
@@ -1695,21 +1724,27 @@ function setEventDuringPreProduction(){
                             } else if (budgetPop === 11) {
                                 if (movie._preProduction.hiredDirector._rating > 75) {
                                     if (randomNumber(0.35) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
                                     }
                                 } else if (movie._preProduction.hiredDirector._rating <= 75 && movie._preProduction.hiredDirector._rating > 50) {
                                     if (randomNumber(0.15) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
                                     }
                                 } else {
                                     if (randomNumber(0.05) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
@@ -1718,21 +1753,27 @@ function setEventDuringPreProduction(){
                             } else if (budgetPop === 12) {
                                 if (movie._preProduction.hiredDirector._rating > 75) {
                                     if (randomNumber(0.15) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
                                     }
                                 } else if (movie._preProduction.hiredDirector._rating <= 75 && movie._preProduction.hiredDirector._rating > 50) {
                                     if (randomNumber(0.10) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
                                     }
                                 } else {
                                     if (randomNumber(0.05) === 0) {
-                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, store.getters.getCurrentDate, 'difficulty')
+                                        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+                                        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
+                                        let f = addElementToCalendarEvents(movie._preProduction.screenplay.title, '', null, movie._preProduction.hiredDirector, startDate, endDate, 'difficulty')
                                         if (f === undefined) {
                                             return undefined;
                                         }
@@ -1740,47 +1781,92 @@ function setEventDuringPreProduction(){
                                 }
                             }
                         }
-                    });
-                    break;
-                default:
-                    break;
-            }
-            break;
+                    }
+                });
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+// function to set event during production
+function setEventDuringProduction() {
+    let eventsProduction = ['weather', 'castMember', 'budgetForCostumes', 'equipment', 'budget', 'breakdown', 'duration',
+        'directorLeavesProduction', 'changes', 'injured'];
+    let allCalendarEvents = store.getters.getCalendarEvents;
+    let allProductionMovies = store.getters.getInProductionMovies.filter((movie) => movie._status === 'Production');
+
+    for (let i = 0; i < eventsProduction.length; i++) {
+        switch (eventsProduction[i]) {
+            case 'weather':
+                break;
+            case 'castMember':
+                break;
+            case 'budgetForCostumes':
+                break;
+            case 'equipment':
+                break;
+            case 'budget':
+                break;
+            case 'breakdown':
+                break;
+            case 'duration':
+                break;
+            case 'directorLeavesProduction':
+                break;
+            case 'changes':
+                break;
+            case 'injured':
+                break;
+            default:
+                break;
         }
     }
 }
 
 function addDropOutEvent(actor, director, personMorale,  movie, eventType){
+    console.log(personMorale);
     switch (personMorale){
         case 5:
             let f = addPreProductionEventWithProbability(0.05,movie,actor,director, eventType);
             if(f === undefined){
+                console.log('ERSTELLT')
                 return undefined;
             }
+            console.log('NICHT ERSTELLT')
             break;
         case 4:
             let g = addPreProductionEventWithProbability(0.15,movie,actor,director, eventType)
             if(g === undefined){
+                console.log('ERSTELLT')
                 return undefined;
             }
+            console.log('NICHT ERSTELLT')
             break;
         case 3:
             let h = addPreProductionEventWithProbability(0.25,movie,actor,director, eventType)
             if(h === undefined){
+                console.log('ERSTELLT')
                 return undefined;
             }
+            console.log('NICHT ERSTELLT')
             break;
         case 2:
             let i = addPreProductionEventWithProbability(0.50,movie,actor,director, eventType)
             if(i === undefined){
+                console.log('ERSTELLT')
                 return undefined;
             }
+            console.log('NICHT ERSTELLT')
             break;
         case 1:
             let j = addPreProductionEventWithProbability(0.75,movie,actor,director, eventType)
             if(j === undefined){
+                console.log('ERSTELLT')
                 return undefined;
             }
+            console.log('NICHT ERSTELLT')
             break;
         default:
             break;
@@ -1789,8 +1875,8 @@ function addDropOutEvent(actor, director, personMorale,  movie, eventType){
 
 function addPreProductionEventWithProbability(probability, movie, actor, director, eventType){
     if(randomNumber(probability) === 0){
-        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 2);
-        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 3);
+        let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 4);
+        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),store.getters.getCurrentDate.getDate() + 5);
         addElementToCalendarEvents(movie._preProduction.screenplay.title,'',actor,director, startDate, endDate, eventType)
         return undefined;
     }

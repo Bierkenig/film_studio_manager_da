@@ -255,6 +255,7 @@ export default {
       awardType: '',
 
       chosenType: '',
+      chosenEvent: null,
       beforeReleaseCompleted: 'none',
     }
   },
@@ -278,15 +279,18 @@ export default {
       if(event.type === 'dropOut' || event.type === 'recast' || event.type === 'creative' || event.type === 'difficulty' || event.type === 'extend'){
         this.showPreProductionModal = true;
         this.chosenType = event.type;
+        this.chosenEvent = event;
       } else if(event.type === 'weather' || event.type === 'castMember' || event.type === 'budgetForCostumes' || event.type === 'equipment'
           || event.type === 'budget' || event.type === 'breakdown' || event.type === 'duration' || event.type === 'directorLeaves'
           || event.type === 'changes' || event.type === 'injured'){
         this.$store.commit('setCurrentProdEventType',event.type)
         this.showProductionModal = true;
+        this.chosenEvent = event;
       } else if(event.type === 'sound' || event.type === 'postProductionProblem' || event.type === 'visualEffects' || event.type === 'visualQuality'
           || event.type === 'reshooting'){
         this.$store.commit('setCurrentPostProdEventType',event.type)
         this.showPostProductionModal = true;
+        this.chosenEvent = event;
       } else if(event.type === 'preProductionFinished'){
         this.showPreProductionSummaryModal = true;
       } else if(event.type === 'productionFinished'){
@@ -310,7 +314,6 @@ export default {
         this.showAwardPresentation = true;
         this.awardType = event.type;
       }
-
       this.$store.commit('setCurrentCalendarEvent',event);
     },
 
@@ -344,7 +347,6 @@ export default {
 
   mounted(){
     this.updateShowingEvents();
-    console.log(this.$store.getters.getCalendarEvents);
   },
 }
 </script>

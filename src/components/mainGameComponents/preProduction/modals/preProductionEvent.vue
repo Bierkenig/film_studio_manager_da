@@ -76,6 +76,8 @@ export default {
       close: false,
       actorSection: false,
       directorSection: false,
+      allMovieActors: this.$store.state.currentMovie._preProduction.screenplay.actors.main.concat(this.$store.state.currentMovie._preProduction.screenplay.actors.support,
+          this.$store.state.currentMovie._preProduction.screenplay.actors.minor, this.$store.state.currentMovie._preProduction.screenplay.actors.cameo),
     }
   },
 
@@ -83,16 +85,18 @@ export default {
     aOption() {
       switch (this.type) {
         case "dropOut":
-          this.$store.state.preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
+          this.$store.state.currentMovie._preProduction.budget.actorSalary += (this.$store.state.currentMovie._preProduction.budget.actorSalary / this.allMovieActors.length) * 0.15;
+          //this.$store.state.preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
           this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
           break
         case "recast":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9;
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
           this.$store.state.currentMovie._preProduction.happenedEvents.push("recast")
           break
         case "creative":
-          this.$store.state.preProductionEvents.directorWithDispute._paidSalary *= 1.25
+          this.$store.state.currentMovie._preProduction.budget.directorSalary *= 1.25
+          //this.$store.state.preProductionEvents.directorWithDispute._paidSalary *= 1.25
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
           this.$store.state.currentMovie._preProduction.happenedEvents.push("creative")
           break
@@ -100,13 +104,17 @@ export default {
           this.$store.state.currentMovie._preProduction.budget.production *= 1.15
           this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
-        case "extend":
+        /*case "extend":
           this.calcDireMorale(true)
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
           this.crewMoraleGoes(1)
-          break
+          break;*/
+        default:
+          break;
       }
+      this.closeModal()
+      console.log(this.$store.getters.getInProductionMovies)
     },
 
     bOption() {
@@ -130,11 +138,15 @@ export default {
           this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
           this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
-        case "extend":
+        /*case "extend":
           this.calcDireMorale(false)
           this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
-          break
+          break*/
+        default:
+          break;
       }
+      this.closeModal()
+      console.log(this.$store.getters.getInProductionMovies)
     },
 
     calcDireMorale(trueFalse) {
@@ -161,6 +173,17 @@ export default {
         el.actorMorale += up
       })
     },
+
+    closeModal(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
+    }
   }
 }
 </script>
