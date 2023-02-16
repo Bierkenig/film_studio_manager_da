@@ -34,7 +34,7 @@
             <div id="startMenuButtonContainer">
               <router-link :to="{ name: 'SelectSlotWindow'}" style="text-decoration: none; color: inherit">
                 <button id="newButton" class="startMenuButton">
-                  <custom-icon size="40px"/>
+                  <custom-icon size="40px" icon="movies"/>
                   {{ $t('newGameButton') }}
                 </button>
               </router-link>
@@ -46,7 +46,7 @@
               </router-link>
               <router-link :to="{ name: 'SelectDBWindow' }" style="text-decoration: none; color: inherit">
                 <button id="editorButton" class="startMenuButton">
-                  <custom-icon size="40px"/>
+                  <custom-icon size="40px" icon="database"/>
                   {{ $t('database') }}
                 </button>
               </router-link>
@@ -56,7 +56,7 @@
               <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
             </router-link>
 
-            <router-link :to="{ name: 'SelectSlotWindow'}">
+            <!--<router-link :to="{ name: 'SelectSlotWindow'}">
               <button id="slotButton" class="buttonStyle">Select Slot</button>
             </router-link>
 
@@ -79,7 +79,7 @@
             <router-link :to="{ name: 'loadingScreen', params: {nextRoute: 'default', title: $t('loading') + '...', duration: '10'}}">
               <button id="loadingScreen" class="buttonStyle">loadingScreen</button>
             </router-link>
-            <!--<div>
+            <div>
               <router-link :to="{ name: 'kitchenSink'}">
                 <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
               </router-link>

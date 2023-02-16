@@ -18,8 +18,8 @@
                   <div class="peopleDetailsInfoCircleBox">
                     <info-circle class="peopleDetailsInfoCircle" :text="personAge.toString()" size="60px" :data-title="$t('age')" large-font/>
                     <info-circle class="peopleDetailsInfoCircle"
-                                 icon="placeholder"
-                                 :data-title="$t('gender')"
+                                 :icon="personGender"
+                                 :data-title="$t(personGender)"
                                  size="60px"/>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export default {
       personRating: 50,
       personAge: '',
       personNationality: '',
-      personGender: '',
+      personGender: 'placeholder',
       personPopularity: 50,
       personTalent: 50,
       personExperience: 50,

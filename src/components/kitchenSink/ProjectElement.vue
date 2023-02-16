@@ -15,7 +15,7 @@
         <div class="projectElementReleaseInfoBox">
           <div class="projectElementReleaseInfo">
             <div class="projectElementInfoBoxIcon">
-              <custom-icon size="16px" theme="light" :shadow="true"/>
+              <custom-icon size="16px" theme="light" icon="calendar" :shadow="true"/>
             </div>
             <div class="projectElementReleaseLabel">
               {{ $t('projectElement.release') }}
@@ -33,7 +33,7 @@
         <div class="projectElementEarningsInfoBox">
           <div class="projectElementEarningsInfo">
             <div class="projectElementInfoBoxIcon">
-              <custom-icon size="16px" theme="light" :shadow="true"/>
+              <custom-icon size="16px" theme="light" icon="status" :shadow="true"/>
             </div>
             <div class="projectElementEarningsLabel">
               {{ $t('projectElement.status') }}

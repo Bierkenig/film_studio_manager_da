@@ -12,7 +12,7 @@
           <div class="streamingCompetitorElementSubscribersInfo">
             <div class="streamingCompetitorElementSubscribersLabelContainer">
               <div class="streamingCompetitorElementSubscribersIcon">
-                <custom-icon size="16px" theme="light" :shadow="true"/>
+                <custom-icon size="16px" theme="light" icon="subscriber" :shadow="true"/>
               </div>
               <div class="streamingCompetitorElementSubscribersLabel">
                 {{ $t('streamingCompetitorElement.subscribers') }}

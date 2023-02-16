@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="25"
+   height="24"
+   viewBox="0 0 25 24"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="logo2.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs9" />
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="34.541667"
+     inkscape:cx="12.506634"
+     inkscape:cy="12.014475"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <g
+     id="Gruppe_2362"
+     data-name="Gruppe 2362"
+     transform="translate(0.136 0.433)">
+    <path
+       id="Differenzmenge_47"
+       transform="translate(24.864 11.567) rotate(180)"
+       d="M 25,12 H 0 A 11.517,11.517 0 0 1 0.982,7.329 11.946,11.946 0 0 1 3.661,3.515 12.5,12.5 0 0 1 7.634,0.943 a 13.024,13.024 0 0 1 9.731,0 12.5,12.5 0 0 1 3.973,2.572 11.951,11.951 0 0 1 2.679,3.814 A 11.514,11.514 0 0 1 25,12 Z M 0,-12 h 25 a 11.517,11.517 0 0 1 -0.982,4.671 11.946,11.946 0 0 1 -2.679,3.814 12.5,12.5 0 0 1 -3.973,2.572 13.024,13.024 0 0 1 -9.731,0 A 12.5,12.5 0 0 1 3.662,-3.515 11.951,11.951 0 0 1 0.983,-7.329 11.514,11.514 0 0 1 0,-12 Z" />
+  </g>
+</svg>

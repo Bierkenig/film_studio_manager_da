@@ -555,7 +555,7 @@ export function updateServicePopularityAndSubscribers() {
 }
 
 //create screenplays from other writers
-function createScreenplaysFromWriters(type) {
+export function createScreenplaysFromWriters(type) {
     if (store.state.screenplayTitles.length !== 0) {
         if (randomNumber(0.10) === 0 || type === 'forMovieGeneration') {
             //get all necessary values
@@ -664,15 +664,18 @@ function createScreenplaysFromWriters(type) {
             screenplayDetails.specialEffects = specialEffectsValues[Math.floor(Math.random() * specialEffectsValues.length)];
 
             //set screenplay age rating details
-            screenplayAgeRatingDetails.violence = violenceValues[Math.floor(Math.random() * violenceValues.length)];
-            screenplayAgeRatingDetails.cursing = cursingValues[Math.floor(Math.random() * cursingValues.length)];
-            screenplayAgeRatingDetails.loveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
+            let randomViolenceRating = violenceValues[Math.floor(Math.random() * violenceValues.length)];
+            let randomCursingRating = cursingValues[Math.floor(Math.random() * cursingValues.length)];
+            let randomLoveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
+            screenplayAgeRatingDetails.violence = ageRatingScala[randomViolenceRating];
+            screenplayAgeRatingDetails.cursing = ageRatingScala[randomCursingRating];
+            screenplayAgeRatingDetails.loveScenes = ageRatingScala[randomLoveScenes];
 
             newScreenplay.details = screenplayDetails;
             newScreenplay.ageRatingDetails = screenplayAgeRatingDetails;
 
             //set screenplay age rating
-            newScreenplay.ageRating = ageRatingScala[Math.max(screenplayAgeRatingDetails.violence, screenplayAgeRatingDetails.cursing, screenplayAgeRatingDetails.loveScenes)];
+            newScreenplay.ageRating = ageRatingScala[Math.max(randomViolenceRating, randomCursingRating, randomLoveScenes)];
 
             //set screenplay roles
             //newScreenplay.roles = allScreenplayTitles[screenplayTitle].roles;

@@ -5,6 +5,7 @@
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
           size="small"
+          icon="music"
           :dark="false"
           :bg-gradient="true"
           :icon-gradient="false"
@@ -16,6 +17,7 @@
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
           size="small"
+          icon="soundeffect"
           :dark="false"
           :bg-gradient="true"
           :icon-gradient="false"
@@ -23,14 +25,10 @@
           :invertTheme="!soundEffectStatus"
           @click="changeSoundeffectStatus"
       />
-      <icon-button
+      <info-circle
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
-          size="small"
-          :dark="true"
-          :bg-gradient="true"
-          :icon-gradient="false"
-          :shadow="false"
+          :text="this.$store.getters.getCurrentLanguage.toUpperCase()"
           @click="changeLanguage"/>
       <icon-button
           class="button"
@@ -112,9 +110,10 @@ import IconButton from "@/components/kitchenSink/IconButton";
 import i18next from "i18next";
 import CloseModal from "@/components/mainGameComponents/CloseModal";
 import MenuModal from "@/components/mainGameComponents/CloseModal";
+import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 export default {
   name: "SettingsHeader",
-  components: {CloseModal, MenuModal, IconButton},
+  components: {InfoCircle, CloseModal, MenuModal, IconButton},
 
   data(){
     return {

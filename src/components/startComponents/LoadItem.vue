@@ -18,7 +18,7 @@
             @clicked="load">{{ $t('loadButton') }}</custom-button>
         <custom-button
             id="deleteButton"
-            :dark="true"
+            :dark="false"
             size="small"
             @clicked="deleting">{{ $t('delete') }}</custom-button>
       </div>

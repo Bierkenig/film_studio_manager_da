@@ -30,11 +30,13 @@ export default {
         fontColor: 'var(--fsm-pink-1)'
       },
       themeDisabled: {
-        bgColor: 'var(--fsm-light-blue)',
-        fontColor: 'var(--fsm-grey-font-color)'
+        bgColor: 'rgba(37, 45, 62, 0.66)',
+        fontColor: 'var(--fsm-grey-font-color)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+        backdropFilter: 'blur(30px)'
       },
       sizeValues: {},
-      themeValues: { bgImage: 'none', bgColor: 'none' },
+      themeValues: { bgImage: 'none', bgColor: 'none', boxShadow: 'none', backdropFilter: 'none' },
     }
   },
   props: {

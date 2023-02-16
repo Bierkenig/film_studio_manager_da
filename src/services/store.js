@@ -280,7 +280,7 @@ export default createStore({
 
         getNextScreenplayId(state) {
             let nextId = 0;
-            let allScreenplays = state.screenplays.concat(state.boughtScreenplays, state.screenplaysFromWriters, state.allScreenplays)
+            let allScreenplays = state.screenplays.concat(state.boughtScreenplays, state.screenplaysFromWriters); //, state.allScreenplays)
             allScreenplays.forEach(screenplay => {
                 if (screenplay.getId() > nextId) {
                     nextId = screenplay.getId();
@@ -291,7 +291,7 @@ export default createStore({
 
         getNextMovieId(state) {
             let nextId = 0;
-            let allMovies = state.inProductionMovies.concat(state.createdMovies,state.finishedMovies, state.moviesFromOtherStudios, state.allMovies)
+            let allMovies = state.inProductionMovies.concat(state.createdMovies,state.finishedMovies, state.moviesFromOtherStudios); //, state.allMovies)
             allMovies.forEach(movie => {
                 if (movie.id > nextId) {
                     nextId = movie.id;

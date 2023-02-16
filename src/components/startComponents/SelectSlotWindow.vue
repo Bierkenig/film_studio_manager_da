@@ -4,6 +4,7 @@
       <icon-button
           id="selectSlotWindowBackButton"
           size="medium"
+          icon="simple-arrow-left"
           :dark="true"
           :bg-gradient="true"
           :icon-gradient="false"
