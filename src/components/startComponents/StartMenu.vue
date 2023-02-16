@@ -52,7 +52,7 @@
               </router-link>
             </div>
 
-            <router-link :to="{ name: 'kitchenSink'}">
+            <!--<router-link :to="{ name: 'kitchenSink'}">
               <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
             </router-link>
 
@@ -79,7 +79,7 @@
             <router-link :to="{ name: 'loadingScreen', params: {nextRoute: 'default', title: $t('loading') + '...', duration: '10'}}">
               <button id="loadingScreen" class="buttonStyle">loadingScreen</button>
             </router-link>
-            <!--<div>
+            <div>
               <router-link :to="{ name: 'kitchenSink'}">
                 <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
               </router-link>

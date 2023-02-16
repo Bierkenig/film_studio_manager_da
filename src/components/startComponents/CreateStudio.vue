@@ -111,6 +111,8 @@ import Topic from "@/classes/Topic";
 import {Movie} from "@/classes/Movie";
 import Award from "@/classes/Award";
 import {Character} from "@/classes/Character";
+import store from "@/services/store";
+import {createScreenplaysFromWriters} from "@/simulation/simulation";
 
 export default {
   name: "CreateStudio",
@@ -324,6 +326,9 @@ export default {
         name: 'loadingScreen',
         params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}
       })
+
+      let newScreenplay = createScreenplaysFromWriters('forMovieGeneration');
+      store.commit('addScreenplay', newScreenplay)
     },
 
     test() {

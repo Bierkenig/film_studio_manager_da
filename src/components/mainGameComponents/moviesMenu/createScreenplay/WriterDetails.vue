@@ -264,6 +264,9 @@ export default {
 
         this.currentWriter = this.writer;
         this.changeSalaryValueLevel(Math.round((this.writerTalent * 35 + this.writerExperience * 25 + this.writerPopularity * 40) / 100))
+        if(this.$store.getters.getCurrentScreenplay.rewritingStatus === true){
+          this.writerDecision = true;
+        }
       }
     },
   },
