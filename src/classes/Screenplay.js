@@ -44,7 +44,7 @@ export class Screenplay {
         this.acts = {act1: [], act2: [], act3: []};
         //TYPE -> Object
         //this.details = {scope: '', tone: '', specialEffects: ''};
-        this.details = {scope: '', tone: '', specialEffects: ''}
+        this.details = details !== undefined ? details : {scope: '', tone: '', specialEffects: ''}
         //TYPE -> Object
         //this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         this.ageRatingDetails = ageRatingDetails !== undefined ? ageRatingDetails : {violence: '', cursing: '', loveScenes: ''}
