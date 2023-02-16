@@ -5,9 +5,9 @@ export default class Earnings {
         if(arguments[0] === DataUtil.skip){
             return
         }
-        //Type = Integer
+        //TYPE -> Integer
         this.amount = amount
-        //Type = Date Type
+        //TYPE -> Date Type
         this.date = date
     }
 

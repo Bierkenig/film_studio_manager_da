@@ -3,22 +3,25 @@ import Person from "@/classes/Person";
 import DataUtil from "@/classes/DataUtil";
 
 export default class PreProduction {
-    constructor(screenplay, hype, crewMorale, director, budget, releaseDate) {
-        if(arguments[0] === DataUtil.skip){
+    constructor() {
+        if (arguments[0] === DataUtil.skip) {
             return
         }
-        this.screenplay = screenplay !== undefined ? screenplay : null
-        this.hiredDirector = director !== undefined ? director : null
-        if (this.hiredDirector instanceof Person) this.crewMorale = crewMorale !== undefined ? crewMorale : this.calcCrewMorale() && this.calcCastMorale()
+        this.screenplay = null
+        this.hiredDirector = null
+        if (this.hiredDirector instanceof Person) {
+            this.crewMorale = this.calcCrewMorale()
+            this.calcCastMorale()
+        }
         if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
-        this.hype = hype !== undefined ? hype : this.createTotal()
+            this.hype = this.createTotal()
         this.preProductionLength = 0
         this.productionLength = 0
         this.postProductionLength = 0
-        this.releaseDate = releaseDate !== undefined ? releaseDate : null
+        this.releaseDate = null
         this.startDate = null
         this.budget = {
-            production: budget !== undefined ? budget : 0,
+            production: 0,
             extras: 0,
             cinematography: 0,
             sound: 0,
@@ -43,11 +46,11 @@ export default class PreProduction {
     static fromJSON(jsonObject) {
         let instance = Object.assign(new PreProduction(DataUtil.skip), jsonObject)
 
-        if(jsonObject.screenplay != null){
+        if (jsonObject.screenplay != null) {
             instance.screenplay = Screenplay.fromJSON(jsonObject.screenplay)
         }
 
-        if(jsonObject.director != null){
+        if (jsonObject.director != null) {
             instance.director = Person.fromJSON(jsonObject.director)
         }
 

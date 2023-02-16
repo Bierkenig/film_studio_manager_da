@@ -48,7 +48,7 @@ export default {
   components: {IconButton},
   data() {
     return {
-      screenplays: [...this.$store.getters.getAllScreenplays],
+      screenplays: this.$store.getters.getAllScreenplays,
       boughtScreenplays: this.$store.getters.getBoughtScreenplays,
       possibleScreenplays: [],
       franchises: this.$store.getters.getFranchises,

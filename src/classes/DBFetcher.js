@@ -17,8 +17,6 @@ export default class DBFetcher {
     }
 
     fetch() {
-        window.ipcRenderer.removeAllListeners('toGetPeople')
-        window.ipcRenderer.removeAllListeners('fromGetPeople')
         this.clear()
         //Fetch People
         window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
@@ -47,8 +45,6 @@ export default class DBFetcher {
                 data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
         })
 
-
-        console.log(this.allWriters.length)
         //Set in Store
         store.commit('setAllWriters', this.allWriters);
         store.commit('setAllDirectors', this.allDirectors);

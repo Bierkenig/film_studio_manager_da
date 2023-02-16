@@ -73,10 +73,7 @@ export default createStore({
         ],
         financialPerformance: [
             new FinancialPerformance(new Date(2023, 0), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2023, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2024, 0), {incoming: 1, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2024, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
+
         ],
         currentCalendarEvent: null,
         calendarEvents: [],
@@ -220,7 +217,6 @@ export default createStore({
         dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
-        allPeopleTest: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],
@@ -230,6 +226,7 @@ export default createStore({
         allMovies: [],
         allGenres: [],
         allSubGenres: [],
+        allCharacters: [],
 
         editPerson: null,
         editStudio: null,
@@ -322,6 +319,10 @@ export default createStore({
 
         getEarnings(state) {
             return state.earnings;
+        },
+
+        getAllCharacters(state) {
+            return state.allCharacters
         },
 
         getInProductionMovies(state) {
@@ -543,11 +544,11 @@ export default createStore({
         },
 
         addAllMovie(state, movie) {
-            state.allMovies.push(movie)
+            state.allMovies = movie
         },
 
-        addAllScreenplay(state, screenplay) {
-            state.allScreenplays.push(screenplay)
+        addAllScreenplay(state, screenplays) {
+            state.allScreenplays = screenplays
         },
 
         addAllAward(state, award) {
@@ -703,6 +704,10 @@ export default createStore({
             state.earnings.push({value: payload[0], date: payload[1]})
         },
 
+        addFinancialPerformance(state, payload) {
+            state.financialPerformance.push(payload)
+        },
+
         addInProductionMovie(state, movie) {
             state.inProductionMovies.push(movie);
         },
@@ -725,7 +730,11 @@ export default createStore({
         },
 
         addOtherStudios(state, payload) {
-            state.otherStudios.push(payload)
+            state.otherStudios = payload
+        },
+
+        setAllCharacters(state, payload) {
+            state.allCharacters = payload
         },
 
         changeCurrentLanguage(state, value) {

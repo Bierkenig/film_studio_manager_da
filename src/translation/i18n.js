@@ -159,7 +159,8 @@ i18next
                             topic1: "Topic 1",
                             topic2: "Topic 2",
                             topic3: "Topic 3",
-                            error: "No Topic was selected"
+                            error: "No Topic was selected",
+                            current: "Current Outgoings :"
                         },
                         director: {
                             msg: "Director",

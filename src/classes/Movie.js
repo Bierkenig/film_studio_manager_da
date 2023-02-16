@@ -10,7 +10,7 @@ import store from "@/services/store";
 import DataUtil from "@/classes/DataUtil";
 
 export class Movie {
-    constructor(id, owner, contract, status = null, quality = 100, outgoings, budget, releaseDate, screenplay, hype, crewMorale, director,
+    constructor(id, owner, contract, status = null, quality = 100, outgoings,
                 audiencePopularity, popularity, foundationDate, totalCosts, critics, openingEarnings, allTotalEarnings, cinema, dvd, children,
                 teens, adults, print, internet, commericals) {
         if(arguments[0] === DataUtil.skip){
@@ -22,7 +22,7 @@ export class Movie {
         //TYPE -> String
         this._status = status;
         //TYPE -> a preProduction Class Object
-        this._preProduction = new PreProduction(screenplay, hype, crewMorale, director, budget, releaseDate)
+        this._preProduction = new PreProduction()
         //TYPE -> a production Class Object
         this._production = null
         //TYPE -> a postProduction Class Object
@@ -42,10 +42,6 @@ export class Movie {
         this.print = print
         this.internet = internet
         this.commericals = commericals
-        //TYPE -> director Class Object
-        this.director = this._preProduction?.hiredDirector;
-        //TYPE -> screenplay class Object
-        this._screenplay = this._preProduction?.screenplay;
         //TYPE -> Studio Class Object
         this._owner = owner;
         // null -> no rights bought / 0 -> unlimited rights (own created movie, bought movie)
@@ -90,18 +86,10 @@ export class Movie {
     }
 
     setRelease() {
-        console.log("Set Release")
-        console.log(this._preProduction)
         if (this._status === 'Released' || this._status === 'Finished' && this._postProduction instanceof PostProduction) {
-            console.log("Noice")
             this.genrePopularity = this.children === undefined ? this.calcGenrePopularities() : null
-            if(this._preProduction.screenplay.subgenre !== null){
-                this.subgenrePopularity = this.children === undefined ? this.calcSubGenrePopularities() : null
-            }
+            this.subgenrePopularity = this.children === undefined ? this.calcSubGenrePopularities() : null
             this.topicPopularity = this.children === undefined ? this.calcTopicPopularities() : null
-            console.log(this.genrePopularity)
-            console.log(this.subgenrePopularity)
-            console.log(this.topicPopularity)
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this._owner, this._postProduction.releaseScope,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial,
@@ -113,8 +101,6 @@ export class Movie {
     calcGenrePopularities() {
         let result = null
         store.getters.getAllGenres.forEach((el) => {
-            console.log(el.genreName)
-            console.log(this._preProduction.screenplay.genre.genreName)
             if(el.genreName === this._preProduction.screenplay.genre.genreName){
                 result = el
             }

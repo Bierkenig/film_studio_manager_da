@@ -6,9 +6,8 @@ import Topic from "@/classes/Topic";
 import store from "@/services/store";
 
 export class Screenplay {
-    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, price, topics, franchise = null, bought = false,
-                details = {scope: '', tone: '', specialEffects: ''},
-                ageRatingDetails = {violence: '', cursing: '', loveScenes: ''}, owner = store.getters.getStudio) {
+    constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, ratingRange, price, topics, franchise = null, bought = false,
+                details, ageRatingDetails, owner = store.getters.getStudio) {
         if(arguments[0] === 'skip '){
             return
         }
@@ -27,7 +26,7 @@ export class Screenplay {
         //TYPE -> Integer
         this.rating = rating;
         //TYPE -> String
-        this.ratingRange = null;
+        this.ratingRange = ratingRange;
         //TYPE -> Integer
         this.price = price;
         //TYPE -> String
@@ -45,10 +44,10 @@ export class Screenplay {
         this.acts = {act1: [], act2: [], act3: []};
         //TYPE -> Object
         //this.details = {scope: '', tone: '', specialEffects: ''};
-        this.details = details
+        this.details = {scope: '', tone: '', specialEffects: ''}
         //TYPE -> Object
         //this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
-        this.ageRatingDetails = ageRatingDetails
+        this.ageRatingDetails = ageRatingDetails !== undefined ? ageRatingDetails : {violence: '', cursing: '', loveScenes: ''}
         //TYPE -> Studio TODO: Speichern
         this.owner = owner;
         //TYPE -> Integer
@@ -213,6 +212,22 @@ export class Screenplay {
 
     addCameoCharacter(actor) {
         this.roles.cameo.push(actor);
+    }
+
+    addMainActor(actor) {
+        this.actors.main.push(actor)
+    }
+
+    addMinorActor(actor) {
+        this.actors.minor.push(actor)
+    }
+
+    addSupportActor(actor) {
+        this.actors.support.push(actor)
+    }
+
+    addCameoActor(actor) {
+        this.actors.cameo.push(actor)
     }
 
     removeMainCharacter(actor) {

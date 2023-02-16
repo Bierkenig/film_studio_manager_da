@@ -21,19 +21,18 @@ export let updatePresence
 async function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 1500,
-        height: 600,
+        width: 1920,
+        height: 1080,
         webPreferences: {
-            nodeIntegration: true,
+            nodeIntegration: false,
             contextIsolation: true,
-            preload: path.join(__dirname, 'preload.js')
+            preload: path.join(__dirname, 'preload.js'),
+            enableRemoteModule: true
         },
         resizable: true,
         movable: true,
         useContentSize: true,
     })
-
-    //!Development ? win.removeMenu() :
 
     launchDiscordGameSDK(win)
 
@@ -44,10 +43,6 @@ async function createWindow() {
     let dbPath = isDevelopment ? "public/DB/database/fsm.db" : "../bundled/DB/database/fsm.db"
     console.log(dbPath)
     let db = null
-
-    ipcMain.on('dbP', (event, data) => {
-        event.sender.send('dbP2', dbPath)
-    })
 
     //IPC Main
     ipcMain.on('toGetPeople', (event, data) => {
@@ -72,6 +67,34 @@ async function createWindow() {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
                 else event.sender.send('gotStudios', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getCharacters', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotCharacters', row)
+            })
+        })
+        db.close()
+        db = null
+    })
+
+    ipcMain.on('getRoles', (event, data) => {
+        db = new sqlite3.Database(dbPath, (err) => {
+            if (err) console.error('Database opening error: ', err);
+        });
+        db.serialize(() => {
+            db.each(data, (err, row) => {
+                if (err) console.log(err)
+                else event.sender.send('gotRoles', row)
             })
         })
         db.close()

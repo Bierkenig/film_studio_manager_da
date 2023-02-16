@@ -71,9 +71,6 @@ export default function simulate() {
         store.getters.getCurrentDate.getFullYear() !== 2023)
     {
         renewPeople();
-
-        //clear
-        store.state.dbFetcher.clear()
         //FETCHING DB
         store.state.dbFetcher.fetch()
     }

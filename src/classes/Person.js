@@ -1,7 +1,7 @@
 import store from '@/services/store'
 import DataUtil from "@/classes/DataUtil";
 export default class Person {
-    constructor(id, avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent,popularity,
+    constructor(id, avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity,
     rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction,
     thriller, war, isActor, isDirector, isWriter) {
         if(arguments[0] === DataUtil.skip){

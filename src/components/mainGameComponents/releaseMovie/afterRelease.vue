@@ -80,12 +80,10 @@ export default {
     },
 
     finishMovie() {
+      //financial Performance + TODO All(Marketing)
       this.$store.getters.getCurrentMovie._status = "Finished"
       this.$store.commit('removeCreatedMovie', this.$store.getters.getCurrentMovie)
       this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
-      this.$store.state.currentMovie = null
-      let index = this.$store.getters.getCreatedMovies.indexOf(this.$store.getters.getCurrentMovie)
-      this.$store.state.createdMovies.slice(index, 1)
 
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate))
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate))
