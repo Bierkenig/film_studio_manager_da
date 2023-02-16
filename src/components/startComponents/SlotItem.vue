@@ -19,7 +19,7 @@
           @clicked="select">{{ $t('buyScreenplaySection.select') }}</custom-button>
       <custom-button
           id="deleteButton"
-          :dark="true"
+          :dark="false"
           size="small"
           :disabled="disabledButton"
           @clicked="deleting">{{ $t('delete') }}</custom-button>

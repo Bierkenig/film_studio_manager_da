@@ -5,6 +5,7 @@
       <icon-button
           id="selectDBWindowBackButton"
           size="medium"
+          icon="simple-arrow-left"
           :dark="true"
           :bg-gradient="true"
           :icon-gradient="false"

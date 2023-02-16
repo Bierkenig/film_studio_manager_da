@@ -5,46 +5,56 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h3>{{ $t('preProductionEvents.' + type + '.problem') }}</h3>
-              <div>{{ $t('preProductionEvents.' + type + '.optionA') }}</div>
-              <ul>
-                <li>{{ $t('preProductionEvents.' + type + '.consequenceA1') }}</li>
-                <li v-if="type === 'recast' || type === 'creative' || type === 'extend'">
-                  {{ $t('preProductionEvents.' + type + '.consequenceA2') }}
-                </li>
-                <li v-if="type === 'extend'">
-                  {{ $t('preProductionEvents.' + type + '.consequenceA21') }}
-                </li>
-                <li v-if="type === 'extend'">
-                  {{ $t('preProductionEvents.' + type + '.consequenceA22') }}
-                </li>
-                <li v-if="type === 'extend'">
-                  {{ $t('preProductionEvents.' + type + '.consequenceA23') }}
-                </li>
-              </ul>
-              <div>{{ $t('preProductionEvents.' + type + '.optionB') }}</div>
-              <ul>
-                <li>{{ $t('preProductionEvents.' + type + '.consequenceB1') }}</li>
-                <li v-if="type === 'dropOut' || type === 'creative'">
-                  {{ $t('preProductionEvents.' + type + '.consequenceB2') }}
-                </li>
-                <li v-if="type === 'creative'">{{ $t('preProductionEvents.' + type + '.consequenceB3') }}</li>
-              </ul>
+              <background-tile title="Problem">
+                <div class="preProductionEventProblemContainer">{{ $t('preProductionEvents.' + type + '.problem') }}</div>
+                <div class="preProductionEventActionHeader">Actions</div>
 
-              <button class="modal-default-button" @click="aOption()">{{ $t('preProductionEvents.optionA') }}</button>
-              <button class="modal-default-button" @click="bOption()">{{ $t('preProductionEvents.optionB') }}</button>
+                <div class="preProductionEventActionContainer">
+                  <div class="preProductionEventOptionContainer">
+                    <div>Option A</div>
+                    <div>{{ $t('preProductionEvents.' + type + '.optionA') }}</div>
+                    <ul>
+                      <li>{{ $t('preProductionEvents.' + type + '.consequenceA1') }}</li>
+                      <li v-if="type === 'recast' || type === 'creative' || type === 'extend'">
+                        {{ $t('preProductionEvents.' + type + '.consequenceA2') }}
+                      </li>
+                      <li v-if="type === 'extend'">
+                        {{ $t('preProductionEvents.' + type + '.consequenceA21') }}
+                      </li>
+                      <li v-if="type === 'extend'">
+                        {{ $t('preProductionEvents.' + type + '.consequenceA22') }}
+                      </li>
+                      <li v-if="type === 'extend'">
+                        {{ $t('preProductionEvents.' + type + '.consequenceA23') }}
+                      </li>
+                    </ul>
+                    <button class="modal-default-button" @click="aOption()">{{ $t('preProductionEvents.optionA') }}</button>
+                  </div>
+                  <div class="preProductionEventOptionContainer">
+                    <div>{{ $t('preProductionEvents.' + type + '.optionB') }}</div>
+                    <ul>
+                      <li>{{ $t('preProductionEvents.' + type + '.consequenceB1') }}</li>
+                      <li v-if="type === 'dropOut' || type === 'creative'">
+                        {{ $t('preProductionEvents.' + type + '.consequenceB2') }}
+                      </li>
+                      <li v-if="type === 'creative'">{{ $t('preProductionEvents.' + type + '.consequenceB3') }}</li>
+                    </ul>
+                    <button class="modal-default-button" @click="bOption()">{{ $t('preProductionEvents.optionB') }}</button>
+                  </div>
 
-              <div v-if="duration">
-                <div>{{$t('preProductionEvents.extend.set')}}</div>
-                <input type="range" min="" max="12" step="1" v-model="durationAmount">
-                <button @click="this.$store.state.currentMovie._preProduction.preProductionLength = durationAmount; $emit('close')">{{$t('preProductionEvents.close')}}</button>
-              </div>
+                  <div v-if="duration">
+                    <div>{{$t('preProductionEvents.extend.set')}}</div>
+                    <input type="range" min="" max="12" step="1" v-model="durationAmount">
+                    <button @click="this.$store.state.currentMovie._preProduction.preProductionLength = durationAmount; $emit('close')">{{$t('preProductionEvents.close')}}</button>
+                  </div>
+                </div>
 
-              <actors-section v-if="actorSection"></actors-section>
+                <actors-section v-if="actorSection"></actors-section>
 
-              <director-section v-if="directorSection"></director-section>
+                <director-section v-if="directorSection"></director-section>
 
-              <button v-if="close" @click="$emit('close')">{{$t('preProductionEvents.close')}}</button>
+                <button v-if="close" @click="$emit('close')">{{$t('preProductionEvents.close')}}</button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -58,10 +68,11 @@
 import Person from "@/classes/Person";
 import ActorsSection from "@/components/mainGameComponents/preProduction/actorsSection";
 import DirectorSection from "@/components/mainGameComponents/preProduction/directorSection";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "pre-production-event",
-  components: {DirectorSection, ActorsSection},
+  components: {BackgroundTile, DirectorSection, ActorsSection},
   props: {
     type: String,
     actor: Person,
@@ -207,14 +218,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 650px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -249,4 +256,36 @@ export default {
   transform: scale(1.1);
 }
 
+.preProductionEventProblemContainer {
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.preProductionEventActionHeader {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 28px;
+  margin-bottom: 0.25em;
+}
+
+.preProductionEventActionContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  margin: 10px 0 10px 0;
+  padding: 15px;
+}
+
+.preProductionEventOptionContainer {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 5px;
+  width: 50%;
+}
 </style>

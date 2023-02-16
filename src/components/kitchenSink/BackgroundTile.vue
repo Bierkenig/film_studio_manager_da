@@ -1,6 +1,6 @@
 <template>
   <div class="backgroundTileMainDiv">
-    <icon-button class="backgroundTileIcon" :id="'backgroundTileIcon' + randomId" :icon="icon" size="large" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
+    <icon-button class="backgroundTileIcon" :id="'backgroundTileIcon' + randomId" :icon="icon" size="medium" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
     <div class="backgroundTileTitle">
       {{ title }}
     </div>

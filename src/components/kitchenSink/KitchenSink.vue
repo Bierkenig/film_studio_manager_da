@@ -154,9 +154,9 @@
       <code-view code='<event-element type="preProductionFinished" movieTitle="Movie Title Name One"/>'/>
       <code-view code='<event-element type="postProductionFinished" movieTitle="Movie Title Name One"/>'/>
       <code-view code='<event-element type="productionFinished" movieTitle="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="featureFilm" movieTitle="Movie Title Name One"/>'/>
-      <code-view code='<event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>'/>
-      <code-view code='<event-element type="award" @open-clicked="elementOpened" status="open"/>'/>
+      <code-view code='<event-element type="dropOut" movieTitle="Movie Title Name One"/>'/>
+      <code-view code='<event-element type="testScreening" movieTitle="Movie Title Name One" status="done"/>'/>
+      <code-view code='<event-element type="internationalAwardNomination" @open-clicked="elementOpened" status="open"/>'/>
       <div class="kitchenSinkFlexRow">
         <event-element type="preProductionFinished" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
@@ -166,13 +166,13 @@
       <div class="kitchenSinkFlexRow">
         <event-element type="productionFinished" movieTitle="Movie Title Name One"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="featureFilm" movieTitle="Movie Title Name One"/>
+        <event-element type="dropOut" movieTitle="Movie Title Name One"/>
       </div>
       <div class="kitchenSinkSpacer"/>
       <div class="kitchenSinkFlexRow">
-        <event-element type="blockbuster" movieTitle="Movie Title Name One" status="done"/>
+        <event-element type="testScreening" movieTitle="Movie Title Name One" status="done"/>
         <div class="kitchenSinkSpacer"/>
-        <event-element type="award" @open-clicked="elementOpened" status="open"/>
+        <event-element type="internationalAwardNomination" @open-clicked="elementOpened" status="open"/>
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">

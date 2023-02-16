@@ -5,6 +5,7 @@
         <icon-button
             id="createStudioBackButton"
             size="medium"
+            icon="simple-arrow-left"
             :dark="true"
             :bg-gradient="true"
             :icon-gradient="false"
@@ -34,6 +35,7 @@
                     <icon-button
                         class="availableIconsElements"
                         size="small"
+                        :icon="icon[i-1]"
                         :dark="true"
                         :bg-gradient="true"
                         :icon-gradient="false"
@@ -131,7 +133,7 @@ export default {
       chosenLogo: null,
       databaseType: "default",
       iconSelected: [false, false, false, false, false, false, false, false, false, false],
-      icon: ['placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder']//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
+      icon: ['logo1', 'logo2', 'logo3', 'logo4', 'logo5', 'logo6', 'logo7', 'logo8', 'logo9', 'logo10']//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
     }
   },
   methods: {

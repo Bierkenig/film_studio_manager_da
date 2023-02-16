@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   height="48"
+   viewBox="0 96 960 960"
+   width="48"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="subscriber.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="17.270833"
+     inkscape:cx="24.028951"
+     inkscape:cy="24.028951"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     id="path2"
+     d="M -12,828 V 762.533 Q -12,718.278 32.95,691.139 77.9,664 150.398,664 h 11.61 Q 167,664 173,664.727 164,684 158.5,705.403 153,726.806 153,751 v 77 z m 240,0 V 751 Q 228,679.828 297.787,636.914 367.574,594 479.862,594 594,594 663,636.914 732,679.828 732,751 v 77 z m 579,0 v -77.429 q 0,-23.802 -5,-45.121 -5,-21.32 -14,-40.723 Q 794,664 799.257,664 H 810 q 73.7,0 117.85,27.046 Q 972,718.093 972,763 v 65 z M 149.78,637 Q 118,637 95.5,614.17 73,591.34 73,559.281 73,527 95.624,504.5 118.248,482 150.018,482 182,482 205,504.535 228,527.071 228,559.512 228,591 205.261,614 182.522,637 149.78,637 Z m 660,0 Q 778,637 755.5,614.17 733,591.34 733,559.281 733,527 755.624,504.5 778.248,482 810.018,482 842,482 865,504.535 888,527.071 888,559.512 888,591 865.261,614 842.522,637 809.78,637 Z M 480.491,565 Q 425.287,565 386.643,526.357 348,487.714 348,432.509 348,377 386.643,339 425.287,301 480.491,301 536,301 574,339 q 38,38 38,93.509 0,55.205 -38,93.848 Q 536,565 480.491,565 Z" />
+</svg>

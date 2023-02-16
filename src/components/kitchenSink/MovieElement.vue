@@ -15,7 +15,7 @@
         <div class="movieElementReleaseInfoBox">
           <div class="movieElementReleaseInfo">
             <div class="movieElementInfoBoxIcon">
-              <custom-icon size="16px" theme="light" :shadow="true"/>
+              <custom-icon size="16px" theme="light" icon="calendar" :shadow="true"/>
             </div>
             <div class="movieElementReleaseLabel">
               {{ $t('movieElement.release') }}
@@ -34,7 +34,7 @@
         <div class="movieElementEarningsInfoBox">
           <div class="movieElementEarningsInfo">
             <div class="movieElementInfoBoxIcon">
-              <custom-icon size="16px" theme="light" :shadow="true"/>
+              <custom-icon size="16px" theme="light" icon="revenue" :shadow="true"/>
             </div>
             <div class="movieElementEarningsLabel">
               {{ $t('movieElement.earnings') }}
