@@ -59,8 +59,7 @@ export default {
   methods: {
     init(){
       window.ipcRenderer.receive('m2rChecking', data => {
-        console.log(data[0])
-        console.log(this.slotNr)
+
         if (data[0] === true) {
           if (data[1] === this.slotNr) {
             this.disabledButton = false;
@@ -72,14 +71,11 @@ export default {
       })
 
       window.ipcRenderer.receive('m2rSaveSlot' + this.slotNr, data => {
-        console.log(data[1])
         if(data[0] !== null) {
           if (data[1] !== '102' && data[1] !== '106') {
             if (data[2] === this.slotNr) {
-              console.log(data[0].de_date)
               this.date = data[0].de_date
               this.studioName = data[0].state.studio.name
-              console.log("Date eingesetzt")
             }
           }
         }

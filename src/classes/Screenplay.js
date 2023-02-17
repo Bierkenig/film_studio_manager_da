@@ -4,6 +4,7 @@ import {Character} from "@/classes/Character";
 import DataUtil from "@/classes/DataUtil"
 import Topic from "@/classes/Topic";
 import store from "@/services/store";
+import {Studio} from "@/classes/Studio";
 
 export class Screenplay {
     constructor(id, title, type, genre, subgenre, ageRating, writer, description, rating, ratingRange, price, topics, franchise = null, bought = false,
@@ -323,6 +324,10 @@ export class Screenplay {
         }
         if(jsonObject.topics != null){
             instance.topics = DataUtil.objectMap(jsonObject.topics, topic => topic == null ? null : Topic.fromJSON(topic))
+        }
+
+        if(jsonObject.owner != null){
+            instance.owner = Studio.fromJSON(jsonObject.owner)
         }
 
         instance.roles = DataUtil.objectMap(jsonObject.roles, characters => characters.map(character => Character.fromJSON(character)))
