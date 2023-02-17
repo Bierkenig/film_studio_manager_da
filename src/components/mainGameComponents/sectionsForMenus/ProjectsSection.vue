@@ -52,10 +52,11 @@ export default {
 }
 
 .projectsSectionElement {
+  flex-grow: 1;
+  flex-basis: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 20px;
   gap: 10px;
   height: auto;
   box-sizing: border-box;
@@ -64,10 +65,14 @@ export default {
 }
 
 .projectsElement{
+  flex-grow: 1;
+  flex-basis: 0;
   margin-bottom: 10px;
 }
 
 #projectsNavigation {
-  margin: 15px 0 15px 0;
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-top: 10px;
 }
 </style>
