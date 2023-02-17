@@ -14,7 +14,8 @@
                :name="'tilePagesNav' + randomId"
                class="tilePagesNavRadioButton"
         />
-        <label :for="'tileNavPage' + i + randomId" :id="'tileNavPageLabel' + i + randomId" class="tilePagesNavRadioButtonLabel">
+        <label :for="'tileNavPage' + i + randomId" :id="'tileNavPageLabel' + i + randomId"
+               class="tilePagesNavRadioButtonLabel">
           {{ page }}
         </label>
       </div>
@@ -102,8 +103,12 @@ export default {
 .tilePagesNavRadioButtonLabel {
   flex-grow: 1;
   font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   font-weight: var(--fsm-fw-bold);
   text-align: center;
+  align-items: center;
   padding: 0.25em;
   color: var(--fsm-pink-1);
   border-radius: var(--fsm-max-border-radius);
