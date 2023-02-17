@@ -92,8 +92,8 @@ export default {
     let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays);
 
     let possibleScreenplays = [];
-    let screenplayAlreadyInUse = false;
     for (let i = 0; i < allOtherScreenplays.length; i++) {
+      let screenplayAlreadyInUse = false;
       for (let j = 0; j < this.allOtherStudiosMovies.length; j++) {
         if(this.allOtherStudiosMovies[j]._preProduction.screenplay.id === allOtherScreenplays[i].id){
           screenplayAlreadyInUse = true;

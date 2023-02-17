@@ -5,44 +5,54 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h3>{{ $t('productionEvents.' + type + '.problem') }}</h3>
-              <div>{{$t('productionEvents.optionA')}}</div>
-              <div>{{ $t('productionEvents.' + type + '.optionA') }}</div>
-              <ul>
-                <li>{{ $t('productionEvents.' + type + '.consequenceA1') }}</li>
-                <li v-if="type === 'budgetForCostumes' || type === 'equipment' ||
+              <background-tile title="Problem">
+                <div class="productionEventProblemContainer">{{ $t('productionEvents.' + type + '.problem') }}.
+                  (In the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}")
+                </div>
+                <div class="productionEventActionHeader">Actions</div>
+                <div class="productionEventActionContainer">
+                  <div class="productionEventOptionContainer">
+                    <div class="productionEventOptionHeader">{{$t('productionEvents.optionA')}}</div>
+                    <div class="productionEventOptionDescription">{{ $t('productionEvents.' + type + '.optionA') }}</div>
+                    <div class="productionEventOptionResults">
+                      <div class="productionEventOptionResultsElement">{{ $t('productionEvents.' + type + '.consequenceA1') }}</div>
+                      <div class="productionEventOptionResultsElement" v-if="type === 'budgetForCostumes' || type === 'equipment' ||
                           type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves' ||
                           type === 'changes' || type === 'injured'">
-                  {{ $t('productionEvents.' + type + '.consequenceA2') }}
-                </li>
-                <li v-if="type === 'castMember' || type === 'budgetForCostumes' || type === 'equipment' ||
+                        {{ $t('productionEvents.' + type + '.consequenceA2') }}
+                      </div>
+                      <div class="productionEventOptionResultsElement" v-if="type === 'castMember' || type === 'budgetForCostumes' || type === 'equipment' ||
                           type === 'budget' || type === 'breakdown' ||
                           type === 'changes'">{{ $t('productionEvents.' + type + '.consequenceA3') }}
-                </li>
-              </ul>
-              <div>{{$t('productionEvents.optionB')}}</div>
-              <div>{{ $t('productionEvents.' + type + '.optionB') }}</div>
-              <ul>
-                <li>{{ $t('productionEvents.' + type + '.consequenceB1') }}</li>
-                <li v-if="type === 'budgetForCostumes' || type === 'equipment' ||
+                      </div>
+                    </div>
+                    <custom-button size="small" class="modal-default-button" @click="aOption(); bool = true">{{ $t('productionEvents.optionA') }}</custom-button>
+                  </div>
+                  <div class="productionEventOptionContainer">
+                    <div class="productionEventOptionHeader">{{$t('productionEvents.optionB')}}</div>
+                    <div class="productionEventOptionDescription">{{ $t('productionEvents.' + type + '.optionB') }}</div>
+                    <div class="productionEventOptionResults">
+                      <div class="productionEventOptionResultsElement">{{ $t('productionEvents.' + type + '.consequenceB1') }}</div>
+                      <div class="productionEventOptionResultsElement" v-if="type === 'budgetForCostumes' || type === 'equipment' ||
                           type === 'budget' || type === 'breakdown' || type === 'directorLeaves' ||
                           type === 'changes' || type === 'injured'">
-                  {{ $t('productionEvents.' + type + '.consequenceB2') }}
-                </li>
-                <li v-if="type === 'directorLeaves'">{{ $t('productionEvents.' + type + '.consequenceB3') }}</li>
-              </ul>
+                        {{ $t('productionEvents.' + type + '.consequenceB2') }}
+                      </div>
+                      <div class="productionEventOptionResultsElement" v-if="type === 'directorLeaves'">{{ $t('productionEvents.' + type + '.consequenceB3') }}</div>
+                    </div>
+                    <custom-button size="small" class="modal-default-button" @click="bOption(); bool = true">{{ $t('productionEvents.optionB') }}</custom-button>
+                  </div>
+                </div>
 
-              <button class="modal-default-button" @click="aOption(); bool = true">{{ $t('productionEvents.optionA') }}</button>
-              <button class="modal-default-button" @click="bOption(); bool = true">{{ $t('productionEvents.optionB') }}</button>
+                <div v-if="weeks">
+                  <div>{{$t('productionEvents.specify')}}</div>
+                  <input type="range" min="0" max="10" step="1" v-model="durWeeks">
+                  <div>{{durWeeks}}</div>
+                </div>
 
-              <div v-if="weeks">
-                <div>{{$t('productionEvents.specify')}}</div>
-                <input type="range" min="0" max="10" step="1" v-model="durWeeks">
-                <div>{{durWeeks}}</div>
-              </div>
+                <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('productionEvents.check')}}</button>
 
-              <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('productionEvents.check')}}</button>
-              <div>{{$t('productionEvents.msg')}}</div>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -53,8 +63,12 @@
 
 <script>
 
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "prod-event-modal",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -289,14 +303,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 650px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -309,7 +319,7 @@ export default {
 }
 
 .modal-default-button {
-  float: right;
+  align-self: flex-end;
 }
 
 /*
@@ -331,4 +341,63 @@ export default {
   transform: scale(1.1);
 }
 
+.productionEventProblemContainer {
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.productionEventActionHeader {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 28px;
+  margin-bottom: 0.25em;
+}
+
+.productionEventActionContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  margin: 10px 0 10px 0;
+  padding: 15px;
+}
+
+.productionEventOptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 15px;
+  width: 50%;
+}
+
+.productionEventOptionHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 20px;
+}
+
+.productionEventOptionDescription {
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.productionEventOptionResults {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.productionEventOptionResultsElement {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  font-size: 15px;
+}
 </style>

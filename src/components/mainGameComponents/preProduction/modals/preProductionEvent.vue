@@ -9,10 +9,6 @@
                 <div class="preProductionEventProblemContainer">{{ $t('preProductionEvents.' + type + '.problem') }}.
                   (In the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}")
                 </div>
-                <div class="preProductionEventProblemContainer">{{
-                    $t('preProductionEvents.' + type + '.problem')
-                  }}
-                </div>
                 <div class="preProductionEventActionHeader">Actions</div>
                 <div class="preProductionEventActionContainer">
                   <div class="preProductionEventOptionContainer">

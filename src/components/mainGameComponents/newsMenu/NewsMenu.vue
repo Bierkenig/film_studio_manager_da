@@ -3,7 +3,7 @@
     <div class="newsMenuLeftBox">
       <action-section headline="listOfMovies" info-text="listOfMoviesInfoText" button-text="open" icon="movies"/>
       <action-section headline="listOfPeople" info-text="listOfPeopleInfoText" button-text="open" icon="subscriber"/>
-      <action-section headline="listOfAwards" info-text="listOfAwardsInfoText" button-text="open" icon="settings"/>
+      <action-section headline="listOfAwards" info-text="listOfAwardsInfoText" button-text="open" icon="trophy"/>
     </div>
     <div class="newsMenuCenterBox">
       <background-tile class="newsMenuCenterBoxBackground" title="Earning Statistics">

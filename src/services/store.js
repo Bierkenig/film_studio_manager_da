@@ -913,6 +913,14 @@ export default createStore({
             state.createdAwards.push(award);
         },
 
+        removeMovieFromAllMovies(state, movie){
+            state.allMovies.splice(state.allMovies.indexOf(movie), 1);
+        },
+
+        removeScreenplayFromAllScreenplays(state, screenplay){
+            state.allScreenplays.splice(state.allScreenplays.indexOf(screenplay), 1);
+        },
+
         stateToSave(state, reducedState) {
             DataUtil.transferProperties(state, reducedState, [
                 "slot",

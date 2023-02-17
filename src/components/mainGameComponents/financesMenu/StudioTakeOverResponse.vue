@@ -10,7 +10,7 @@
               <div>{{$t('buyAStudio.popularity')}}</div>
               <div>{{$t('buyAStudio.offer')}}: $ {{offer}}</div>
               <button @click="accept(offer, studio.movies)">{{$t('buyAStudio.accept')}}</button>
-              <button @click="this.$emit('close')">{{$t('buyAStudio.deny')}}</button>
+              <button @click="this.closeModal">{{$t('buyAStudio.deny')}}</button>
             </slot>
           </div>
         </div>
@@ -46,7 +46,18 @@ export default {
         this.studio.movies.slice(movies.indexOf(movie), 1)
       })
 
-      this.$emit('close')
+      this.closeModal();
+    },
+
+    closeModal() {
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if (allCalendarEvents[i].id === currentCalendarEvent.id) {
+          allCalendarEvents[i].completed = true;
+        }
+      }
+      this.$emit('close');
     }
   },
 

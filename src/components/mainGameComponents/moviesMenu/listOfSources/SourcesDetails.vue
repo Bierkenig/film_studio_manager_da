@@ -378,12 +378,15 @@ export default {
     buyScreenplay(){
       let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays);
       let chosenScreenplay = null;
+      console.log(allOtherScreenplays);
+      console.log(this.source)
       for (let i = 0; i < allOtherScreenplays.length; i++) {
         if(allOtherScreenplays[i].id === this.source.id){
           chosenScreenplay = allOtherScreenplays[i];
         }
       }
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
+      this.$store.commit('removeScreenplayFromAllScreenplays',chosenScreenplay);
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
       store.commit('addEarnings',new Earnings(-chosenScreenplay.price, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
@@ -401,6 +404,7 @@ export default {
       }
 
       this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
+      this.$store.commit('removeMovieFromAllMovies',chosenMovie);
       this.$store.commit('addFinishedMovie',chosenMovie)
       store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenMovie._totalCosts)

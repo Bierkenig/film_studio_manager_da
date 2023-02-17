@@ -9,9 +9,16 @@
                 <div class="awardPresentationListContainer">
                   <div v-for="(value, index) in Object.entries(data)" :key="index" class="awardPresentationCategoryBox">
                     <div class="awardPresentationCategoryHeader">{{ value[0].replace(/([a-z])([A-Z])/g, '$1 $2') }}</div>
-                    <div class="awardPresentationCategoryList">
+                    <div v-if="value[0] === 'Movies' || value[0] === 'ActionOrAdventureMovies' || value[0] === 'ThrillerMovies'
+                              || value[0] === 'ScienceFictionMovies' || value[0] === 'FantasyMovies' || value[0] === 'HorrorMovies'"
+                         class="awardPresentationCategoryList">
                       <div v-for="(el, index) in value[1]" :key="index">
-                        {{ el }}
+                        {{ el._preProduction.screenplay.title }}
+                      </div>
+                    </div>
+                    <div v-else class="awardPresentationCategoryList">
+                      <div v-for="(el, index) in value[1]" :key="index">
+                        {{ el.getFullName() }}
                       </div>
                     </div>
                   </div>

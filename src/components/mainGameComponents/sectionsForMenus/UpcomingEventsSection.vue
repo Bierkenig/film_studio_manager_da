@@ -8,13 +8,13 @@
             <event-element v-if="it.type === 'beforeRelease'"
                            :type="it.type"
                            :movie-title="it.movie"
-                           :studio-name="it.studio"
+                           :studio="it.studio"
                            @open-clicked="goToEvent(it)"
                            :status="beforeReleaseCompleted"/>
             <event-element v-else
                            :type="it.type"
                            :movie-title="it.movie"
-                           :studio-name="it.studio"
+                           :studio="it.studio"
                            @open-clicked="goToEvent(it)"
                            :status="it.completed === false ? 'open' : 'done'"/>
           </div>
@@ -22,13 +22,13 @@
         <div>
           <h2 class="date">{{ $t('thisWeek') }}</h2>
           <div class="event" v-for="(it,index) in weekEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+            <event-element :type="it.type" :movie-title="it.movie" :studio="it.studio" hide-open-icon/>
           </div>
         </div>
         <div>
           <h2 class="date">{{ $t('thisMonth') }}</h2>
           <div class="event" v-for="(it,index) in monthEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+            <event-element :type="it.type" :movie-title="it.movie" :studio="it.studio" hide-open-icon/>
           </div>
         </div>
       </div>

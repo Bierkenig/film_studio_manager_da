@@ -5,21 +5,24 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>
-                  {{$t('cinema')}}
-                  {{scope}}
-                <button @click="choose('wide')">Wide Release</button>
-                <button @click="choose('limited')">Limited Release</button>
-
-                Cost: {{cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-                Potential Sales: {{potential * 100}}%
-
-                <router-link to="/">
-                  <button>Back</button>
-                </router-link>
-
-                <button @click="next" :disabled="continueDisable">Continue</button>
-              </div>
+              <background-tile title="Choose Type of Release">
+                <div class="chooseMediumContainer">
+                  <div>
+                    {{$t('cinema')}} {{ $t('scope') }}: {{scope}}
+                  </div>
+                  <div class="chooseMediumButtonContainer">
+                    <custom-button size="small" @clicked="choose('wide')">Wide Release</custom-button>
+                    <custom-button size="small" @clicked="choose('limited')">Limited Release</custom-button>
+                  </div>
+                  <div>
+                    Cost: {{cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                  </div>
+                  <div>
+                    Potential Sales: {{potential * 100}}%
+                  </div>
+                </div>
+                <custom-button size="small" @clicked="next" :disabled="continueDisable">Continue</custom-button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -29,8 +32,12 @@
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "chooseMedium",
+  components: {CustomButton, BackgroundTile},
 
   data(){
     return{
@@ -123,11 +130,9 @@ export default {
 }
 
 .modal-container {
-  width: 400px;
+  width: 500px;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-m-border-radius);
   transition: all 0.3s ease;
 }
 
@@ -163,4 +168,18 @@ export default {
   transform: scale(1.1);
 }
 
+.chooseMediumContainer {
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  font-size: 15px;
+}
+
+.chooseMediumButtonContainer {
+  margin: 10px 0 10px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 </style>

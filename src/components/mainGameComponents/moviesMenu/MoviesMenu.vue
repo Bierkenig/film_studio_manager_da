@@ -7,7 +7,7 @@
     <movies-section class="moviesMenuMoviesSection" headline="producedMovies"/>
     <div class="moviesMenuActionContainer">
       <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open" icon="sources"/>
-      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open" icon="settings"/>
+      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open" icon="franchises"/>
     </div>
   </div>
 </template>

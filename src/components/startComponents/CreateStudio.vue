@@ -303,8 +303,11 @@ export default {
         console.log(this.$store.getters.getAllPeople.length)
         console.log(this.$store.getters.getAllScreenplays[data.screenplay - 1].id)
         let movie = new Movie(data.pk_movieID, allStudios[data.owner - 1],
-            data.contract, data.status, data.quality, data.totalOutgoings, data.audiencePopularity, data.popularity,
-            data.foundationDate, data.totalCosts, data.critics, data.openingEarnings, data.totalEarnings,
+            null, data.status, data.quality, data.totalOutgoings, data.audiencePopularity, data.popularity,
+            new Date(parseInt(data.foundationDate.split('-')[2]),
+                parseInt(data.foundationDate.split('-')[1]),
+                parseInt(data.foundationDate.split('-')[0])),
+            data.totalCosts, data.critics, data.openingEarnings, data.totalEarnings,
             data.cinemaEarnings, data.dvdEarnings, data.childrenPopularityMovie, data.teenPopularityMovie, data.adultsPopularityMovie,
             data.marketingPrint, data.marketingInternet, data.marketingCommercials)
 
@@ -315,7 +318,9 @@ export default {
         movie._preProduction.hiredDirector = allDirectors[dirIndex]
         movie._preProduction.crewMorale = data.crewMorale
         movie._preProduction.hype = data.hype
-        movie._preProduction.releaseDate = data.releaseDate
+        movie._preProduction.releaseDate = new Date(parseInt(data.releaseDate.split('-')[2]),
+            parseInt(data.releaseDate.split('-')[1]),
+            parseInt(data.releaseDate.split('-')[0]));
         movie._preProduction.budget.production = data.production
 
         //set other phases

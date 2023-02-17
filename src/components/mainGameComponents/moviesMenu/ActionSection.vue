@@ -46,7 +46,7 @@ export default {
       } else if(this.headline === 'createScreenplay'){
         this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
             null,null, null, null, null, null,
-            null, {firstTopic: null, secondTopic: null, thirdTopic: null}, null, null, null, null,
+            null, {firstTopic: null, secondTopic: null, thirdTopic: null}, null, null, undefined, undefined,
             this.$store.getters.getStudio));
         this.$router.push({name: 'newScreenplay'});
       }
