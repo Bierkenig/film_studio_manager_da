@@ -6,16 +6,27 @@
           <div class="modal-body">
             <slot name="body">
               <background-tile title="Problem">
-                <div class="preProductionEventProblemContainer">{{ $t('preProductionEvents.' + type + '.problem') }}. (In the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}") </div>
+                <div class="preProductionEventProblemContainer">{{ $t('preProductionEvents.' + type + '.problem') }}.
+                  (In the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}")
+                </div>
+                <div class="preProductionEventProblemContainer">{{
+                    $t('preProductionEvents.' + type + '.problem')
+                  }}
+                </div>
                 <div class="preProductionEventActionHeader">Actions</div>
-
                 <div class="preProductionEventActionContainer">
                   <div class="preProductionEventOptionContainer">
                     <div class="preProductionEventOptionHeader">Option A</div>
-                    <div class="preProductionEventOptionDescription">{{ $t('preProductionEvents.' + type + '.optionA') }}</div>
+                    <div class="preProductionEventOptionDescription">{{
+                        $t('preProductionEvents.' + type + '.optionA')
+                      }}
+                    </div>
                     <div class="preProductionEventOptionResults">
-                      <div class="preProductionEventOptionResultsElement">{{ $t('preProductionEvents.' + type + '.consequenceA1') }}</div>
-                      <div class="preProductionEventOptionResultsElement" v-if="type === 'recast' || type === 'creative' || type === 'extend'">
+                      <div class="preProductionEventOptionResultsElement">
+                        {{ $t('preProductionEvents.' + type + '.consequenceA1') }}
+                      </div>
+                      <div class="preProductionEventOptionResultsElement"
+                           v-if="type === 'recast' || type === 'creative' || type === 'extend'">
                         {{ $t('preProductionEvents.' + type + '.consequenceA2') }}
                       </div>
                       <div class="preProductionEventOptionResultsElement" v-if="type === 'extend'">
@@ -28,33 +39,43 @@
                         {{ $t('preProductionEvents.' + type + '.consequenceA23') }}
                       </div>
                     </div>
-                    <custom-button size="small" class="modal-default-button" @clicked="aOption()">{{ $t('preProductionEvents.optionA') }}</custom-button>
+                    <custom-button size="small" class="modal-default-button" @clicked="aOption()">
+                      {{ $t('preProductionEvents.optionA') }}
+                    </custom-button>
                   </div>
                   <div class="preProductionEventOptionContainer">
                     <div class="preProductionEventOptionHeader">Option B</div>
-                    <div class="preProductionEventOptionDescription">{{ $t('preProductionEvents.' + type + '.optionB') }}</div>
+                    <div class="preProductionEventOptionDescription">{{
+                        $t('preProductionEvents.' + type + '.optionB')
+                      }}
+                    </div>
                     <div class="preProductionEventOptionResults">
-                      <div class="preProductionEventOptionResultsElement">{{ $t('preProductionEvents.' + type + '.consequenceB1') }}</div>
-                      <div class="preProductionEventOptionResultsElement" v-if="type === 'dropOut' || type === 'creative'">
+                      <div class="preProductionEventOptionResultsElement">
+                        {{ $t('preProductionEvents.' + type + '.consequenceB1') }}
+                      </div>
+                      <div class="preProductionEventOptionResultsElement"
+                           v-if="type === 'dropOut' || type === 'creative'">
                         {{ $t('preProductionEvents.' + type + '.consequenceB2') }}
                       </div>
-                      <div class="preProductionEventOptionResultsElement" v-if="type === 'creative'">{{ $t('preProductionEvents.' + type + '.consequenceB3') }}</div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'creative'">
+                        {{ $t('preProductionEvents.' + type + '.consequenceB3') }}
+                      </div>
                     </div>
-                    <custom-button size="small" class="modal-default-button" @clicked="bOption()">{{ $t('preProductionEvents.optionB') }}</custom-button>
+                    <custom-button size="small" class="modal-default-button" @clicked="bOption()">
+                      {{ $t('preProductionEvents.optionB') }}
+                    </custom-button>
                   </div>
 
                   <div v-if="duration">
-                    <div>{{$t('preProductionEvents.extend.set')}}</div>
+                    <div>{{ $t('preProductionEvents.extend.set') }}</div>
                     <input type="range" min="" max="12" step="1" v-model="durationAmount">
-                    <button @click="this.$store.state.currentMovie._preProduction.preProductionLength = durationAmount; $emit('close')">{{$t('preProductionEvents.close')}}</button>
+                    <button
+                        @click="this.$store.state.currentMovie._preProduction.preProductionLength = durationAmount; $emit('close')">
+                      {{ $t('preProductionEvents.close') }}
+                    </button>
                   </div>
                 </div>
-
-                <actors-section v-if="actorSection"></actors-section>
-
-                <director-section v-if="directorSection"></director-section>
-
-                <button v-if="close" @click="$emit('close')">{{$t('preProductionEvents.close')}}</button>
+                <button v-if="close" @click="$emit('close')">{{ $t('preProductionEvents.close') }}</button>
               </background-tile>
             </slot>
           </div>
@@ -66,18 +87,14 @@
 
 <script>
 
-import Person from "@/classes/Person";
-import ActorsSection from "@/components/mainGameComponents/preProduction/actorsSection";
-import DirectorSection from "@/components/mainGameComponents/preProduction/directorSection";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "pre-production-event",
-  components: {CustomButton, BackgroundTile, DirectorSection, ActorsSection},
+  components: {CustomButton, BackgroundTile},
   props: {
     type: String,
-    actor: Person,
   },
 
   data() {
@@ -87,8 +104,6 @@ export default {
       min: this.$store.state.currentMovie._preProduction.preProductionLength,
       durationAmount: this.min,
       close: false,
-      actorSection: false,
-      directorSection: false,
       allMovieActors: this.$store.state.currentMovie._preProduction.screenplay.actors.main.concat(this.$store.state.currentMovie._preProduction.screenplay.actors.support,
           this.$store.state.currentMovie._preProduction.screenplay.actors.minor, this.$store.state.currentMovie._preProduction.screenplay.actors.cameo),
     }
@@ -99,7 +114,6 @@ export default {
       switch (this.type) {
         case "dropOut":
           this.$store.state.currentMovie._preProduction.budget.actorSalary += (this.$store.state.currentMovie._preProduction.budget.actorSalary / this.allMovieActors.length) * 0.15;
-          //this.$store.state.preProductionEvents.actorWhoWantsToDropOut._paidSalary *= 1.15
           this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
           break
         case "recast":
@@ -109,7 +123,6 @@ export default {
           break
         case "creative":
           this.$store.state.currentMovie._preProduction.budget.directorSalary *= 1.25
-          //this.$store.state.preProductionEvents.directorWithDispute._paidSalary *= 1.25
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
           this.$store.state.currentMovie._preProduction.happenedEvents.push("creative")
           break
@@ -117,12 +130,18 @@ export default {
           this.$store.state.currentMovie._preProduction.budget.production *= 1.15
           this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
-        /*case "extend":
-          this.calcDireMorale(true)
-          this.$store.state.currentMovie._preProduction.hype *= 0.9
-          this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
-          this.crewMoraleGoes(1)
-          break;*/
+          /*case "extend":
+            this.calcDireMorale(true)
+            this.$store.state.currentMovie._preProduction.hype *= 0.9
+            this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
+            this.crewMoraleGoes(1)
+            break;*/
+          /*case "extend":
+            this.calcDireMorale(true)
+            this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+            this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
+            this.crewMoraleGoes(1)
+            break;*/
         default:
           break;
       }
@@ -133,8 +152,8 @@ export default {
       switch (this.type) {
         case "dropOut":
           this.$store.state.currentMovie._preProduction.hype *= 0.9
-          this.actorSection = true
           this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
+          this.$router.push({name: 'actorSection'})
           break
         case "recast":
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale -= 1
@@ -143,17 +162,19 @@ export default {
         case "creative":
           this.$store.state.currentMovie._preProduction.hype *= 0.75
           this.$store.state.currentMovie._preProduction.happenedEvents.push("creative")
-          this.directorSection = true
           this.crewMoraleGoes(-1)
+          this.$store.getters.getCurrentMovie._preProduction.hiredDirector._workingOnProjects--
+          this.$store.getters.getCurrentMovie._preProduction.hiredDirector = null
+          this.$router.push({name: 'directorSection'})
           break
         case "difficulty":
           this.$store.state.currentMovie._preProduction.hype *= 0.9
           this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
-        /*case "extend":
-          this.calcDireMorale(false)
-          this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
-          break*/
+          /*case "extend":
+            this.calcDireMorale(false)
+            this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
+            break*/
         default:
           break;
       }
@@ -186,11 +207,11 @@ export default {
       })
     },
 
-    closeModal(){
+    closeModal() {
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
       for (let i = 0; i < allCalendarEvents.length; i++) {
-        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+        if (allCalendarEvents[i].id === currentCalendarEvent.id) {
           allCalendarEvents[i].completed = true;
         }
       }

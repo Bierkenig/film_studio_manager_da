@@ -278,6 +278,10 @@ export default createStore({
             return state.boughtScreenplays;
         },
 
+        getPreProductionEvents(state) {
+            return state.preProductionEvents;
+        },
+
         getNextScreenplayId(state) {
             let nextId = 0;
             let allScreenplays = state.screenplays.concat(state.boughtScreenplays, state.screenplaysFromWriters, state.allScreenplays)

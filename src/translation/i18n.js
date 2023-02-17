@@ -111,6 +111,7 @@ i18next
                         accept: "Accept",
                         deny: "Deny",
                     },
+                    recastActor: "Continue Pre Production",
                     production: "Production",
                     marketing: "Marketing",
                     loan: "Loan",
@@ -149,6 +150,17 @@ i18next
                             events: "Events happened",
                             close: "Close",
                         },
+                    },
+                    recast: {
+                        actor: {
+                            recast: "Recast an Actor",
+                            negotiate: "Negotiate",
+                            offer: "Send Offer",
+                        },
+                        director: {
+                            recast: "Recast an Director",
+                            negotiate: "Negotiate"
+                        }
                     },
                     beforeRelease: {
                         details: "Movie Details",

@@ -230,6 +230,22 @@ export class Screenplay {
         this.actors.cameo.push(actor)
     }
 
+    removeMainActor(actor) {
+        this.actors.main = this.actors.main.filter(act => act !== actor)
+    }
+
+    removeMinorActor(actor) {
+        this.actors.minor = this.actors.minor.filter(act => act !== actor)
+    }
+
+    removeSupportActor(actor) {
+        this.actors.support = this.actors.support.filter(act => act !== actor)
+    }
+
+    removeCameoActor(actor) {
+        this.actors.cameo = this.actors.cameo.filter(act => act !== actor)
+    }
+
     removeMainCharacter(actor) {
         this.roles.main = this.roles.main.filter(character => character !== actor)
     }

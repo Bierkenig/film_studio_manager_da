@@ -76,6 +76,8 @@ export default class Person {
         //TYPE -> Integer
         this.audienceRating = 0
         //TYPE -> Integer
+        this.salary = 0
+        //TYPE -> Integer
         if (isDirector) this.dirMorale = 5
         if (isActor) this.actorMorale = 5
         this.calcAge()

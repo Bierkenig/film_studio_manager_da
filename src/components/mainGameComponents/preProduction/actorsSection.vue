@@ -33,7 +33,8 @@
       <button v-if="sendOfferBool" @click="saveActors()" :disabled="!actorDecision || radio === null">{{$t('actorSection.add')}}</button><br/>
       <div v-if="cant">{{$t('actorSection.cant')}}</div>
     </div>
-    <button @click="finishPreProd()" :disabled="finish">{{ $t('actorSection.continue') }}</button>
+    <button v-if="this.$store.getters.getCurrentCalendarEvent === null" @click="finishPreProd()" :disabled="finish">{{ $t('actorSection.continue') }}</button>
+    <button v-if="this.$store.getters.getCurrentCalendarEvent !== null" @click="gotToHome()" :disabled="finish">{{ $t('recastActor') }}</button>
   </div>
 </template>
 
@@ -46,7 +47,7 @@ export default {
   components: {AvatarElement},
   data() {
     return {
-      allActors: this.$store.getters.getAllActors,
+      allActors: [],
       currentActor: null,
       salaryLevel: 0,
       negotiate: false,
@@ -62,9 +63,9 @@ export default {
       disabled: false,
       perfectSalary: 0,
       perfectSalary1: 0,
-      spots: this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots(),
+      spots: null,
       cant: false,
-      finish: true
+      finish: true,
     }
   },
 
@@ -184,18 +185,22 @@ export default {
       }
       switch (this.radio) {
         case "Main" || "Hauptdarsteller":
+          this.currentActor.salary += this.proposedSalary
           this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
           this.removeActor()
           break
         case "Minor":
+          this.currentActor.salary += this.proposedSalary
           this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
           this.removeActor()
           break
         case "Support" || "Nebendarsteller":
+          this.currentActor.salary += this.proposedSalary
           this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
           this.removeActor()
           break
         case "Cameo":
+          this.currentActor.salary += this.proposedSalary
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
           this.removeActor()
           break
@@ -244,13 +249,33 @@ export default {
       this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
       console.log(this.$store.getters.getInProductionMovies)
 
-      //set current movie null
       this.$router.push({name: "movies"})
     },
+
+    gotToHome() {
+      this.$router.push({name: "home"})
+    }
   },
 
   mounted() {
+    this.allActors = this.$store.getters.getAllActors
+    let ids = []
+    if (this.$store.getters.getCurrentCalendarEvent !== null) {
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main.forEach(el => {ids.push(el.id)})
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.forEach(el => {ids.push(el.id)})
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.forEach(el => {ids.push(el.id)})
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.forEach(el => {ids.push(el.id)})
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
+      this.$store.getters.getCurrentCalendarEvent.actor._workingOnProjects--
+      this.$store.getters.getCurrentMovie._preProduction.budget.actorSalary -= this.$store.getters.getCurrentCalendarEvent.actor.salary
+      this.allActors = this.allActors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
+      this.allActors = this.allActors.filter(el => !ids.includes(el.id))
+    }
     this.allSalaries = this.$store.getters.getDirectorAndActorSalaries
+    this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
   }
 }
 </script>
