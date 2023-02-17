@@ -19,7 +19,7 @@
         </label>
       </div>
     </div>
-    <div :id="'tilePagesContent' + randomId" :ref="'tilePagesContent' + randomId">
+    <div :id="'tilePagesContent' + randomId" class="tilePagesContent" :ref="'tilePagesContent' + randomId">
       <slot/>
     </div>
   </div>
@@ -73,6 +73,12 @@ export default {
 </script>
 
 <style scoped>
+.tilePagesNavMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .tilePagesNavBarMainDiv {
   display: flex;
   flex-direction: row;
@@ -108,5 +114,13 @@ export default {
   background-color: var(--fsm-pink-1);
   background-image: v-bind('selectedGradientBG');
   color: var(--fsm-dark-blue-2);
+}
+
+.tilePagesContent {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>
