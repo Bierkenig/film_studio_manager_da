@@ -179,7 +179,7 @@ export default {
         allSubGenres.push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity))
 
         let allGenres = ['Action', 'Adventure', 'Comedy', 'Documentary', 'Drama', 'Fantasy', 'Horror', 'Musical', 'Romance', 'Science-Fiction', 'Thriller', 'War'];
-        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity));
+        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity));
 
         if (counter % 5 === 0) {
           index++;
