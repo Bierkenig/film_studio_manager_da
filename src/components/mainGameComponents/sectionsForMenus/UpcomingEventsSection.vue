@@ -1,34 +1,40 @@
 <template>
   <div id="eventsSection">
-    <background-tile :title="$t('upcomingEvents')">
-      <div class="scroll verticalScroll">
+    <background-tile id="eventsSectionBgTile" :title="$t('upcomingEvents')">
+      <div id="eventsSectionContent" class="verticalScroll">
         <div>
-          <h2 class="date">{{ $t('today') }}</h2>
-          <div class="event" v-for="(it,index) in todayEvents" :key="index">
-            <event-element v-if="it.type === 'beforeRelease'"
-                           :type="it.type"
-                           :movie-title="it.movie"
-                           :studio-name="it.studio"
-                           @open-clicked="goToEvent(it)"
-                           :status="beforeReleaseCompleted"/>
-            <event-element v-else
-                           :type="it.type"
-                           :movie-title="it.movie"
-                           :studio-name="it.studio"
-                           @open-clicked="goToEvent(it)"
-                           :status="it.completed === false ? 'open' : 'done'"/>
+          <div class="date">{{ $t('today') }}</div>
+          <div class="events">
+            <div class="event" v-for="(it,index) in todayEvents" :key="index">
+              <event-element v-if="it.type === 'beforeRelease'"
+                             :type="it.type"
+                             :movie-title="it.movie"
+                             :studio-name="it.studio"
+                             @open-clicked="goToEvent(it)"
+                             :status="beforeReleaseCompleted"/>
+              <event-element v-else
+                             :type="it.type"
+                             :movie-title="it.movie"
+                             :studio-name="it.studio"
+                             @open-clicked="goToEvent(it)"
+                             :status="it.completed === false ? 'open' : 'done'"/>
+            </div>
           </div>
         </div>
         <div>
-          <h2 class="date">{{ $t('thisWeek') }}</h2>
-          <div class="event" v-for="(it,index) in weekEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+          <div class="date">{{ $t('thisWeek') }}</div>
+          <div class="events">
+            <div class="event" v-for="(it,index) in weekEvents" :key="index">
+              <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+            </div>
           </div>
         </div>
         <div>
-          <h2 class="date">{{ $t('thisMonth') }}</h2>
-          <div class="event" v-for="(it,index) in monthEvents" :key="index">
-            <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+          <div class="date">{{ $t('thisMonth') }}</div>
+          <div class="events">
+            <div class="event" v-for="(it,index) in monthEvents" :key="index">
+              <event-element :type="it.type" :movie-title="it.movie" hide-open-icon/>
+            </div>
           </div>
         </div>
       </div>
@@ -243,6 +249,7 @@ import AwardPresentation from "@/components/mainGameComponents/awards/AwardPrese
 import ChooseMedium from "@/components/mainGameComponents/postProduction/mediums/chooseMedium.vue";
 import CinemaNegotiation from "@/components/mainGameComponents/postProduction/mediums/cinemaNegotiation.vue";
 import MarketingBudgetSelect from "@/components/mainGameComponents/postProduction/marketing/MarketingBudgetSelect.vue";
+
 export default {
   name: "UpcomingEventsSection",
   components: {
@@ -256,8 +263,17 @@ export default {
     AfterReleaseWithCinemaRun,
     BeforeRelease,
     PostProductionSummary,
-    ContinuePostProd, ProductionSummary, ContinueProd, PreProductionSummary, PostProdModal, ProdEventModal, PreProductionEvent, BackgroundTile, EventElement},
-  data(){
+    ContinuePostProd,
+    ProductionSummary,
+    ContinueProd,
+    PreProductionSummary,
+    PostProdModal,
+    ProdEventModal,
+    PreProductionEvent,
+    BackgroundTile,
+    EventElement
+  },
+  data() {
     return {
       todayEvents: [],
       weekEvents: [],
@@ -303,95 +319,95 @@ export default {
   },
 
   watch: {
-    '$store.getters.getCalendarEvents.length': function (){
+    '$store.getters.getCalendarEvents.length': function () {
       this.updateShowingEvents();
     }
   },
 
   methods: {
-    goToEvent(event){
+    goToEvent(event) {
       let allMoviesNotFinished = this.$store.getters.getInProductionMovies.concat(this.$store.getters.getCreatedMovies);
-      if(event.movie !== ''){
+      if (event.movie !== '') {
         for (let i = 0; i < allMoviesNotFinished.length; i++) {
-          if(allMoviesNotFinished[i]._preProduction.screenplay.title === event.movie){
-            this.$store.commit('setNewCurrentMovie',allMoviesNotFinished[i]);
+          if (allMoviesNotFinished[i]._preProduction.screenplay.title === event.movie) {
+            this.$store.commit('setNewCurrentMovie', allMoviesNotFinished[i]);
           }
         }
       }
-      if(event.type === 'dropOut' || event.type === 'recast' || event.type === 'creative' || event.type === 'difficulty' || event.type === 'extend'){
+      if (event.type === 'dropOut' || event.type === 'recast' || event.type === 'creative' || event.type === 'difficulty' || event.type === 'extend') {
         this.showPreProductionModal = true;
         this.chosenType = event.type;
         this.chosenEvent = event;
-      } else if(event.type === 'weather' || event.type === 'castMember' || event.type === 'budgetForCostumes' || event.type === 'equipment'
+      } else if (event.type === 'weather' || event.type === 'castMember' || event.type === 'budgetForCostumes' || event.type === 'equipment'
           || event.type === 'budget' || event.type === 'breakdown' || event.type === 'duration' || event.type === 'directorLeaves'
-          || event.type === 'changes' || event.type === 'injured'){
-        this.$store.commit('setCurrentProdEventType',event.type)
+          || event.type === 'changes' || event.type === 'injured') {
+        this.$store.commit('setCurrentProdEventType', event.type)
         this.showProductionModal = true;
         this.chosenEvent = event;
-      } else if(event.type === 'sound' || event.type === 'postProductionProblem' || event.type === 'visualEffects' || event.type === 'visualQuality'
-          || event.type === 'reshooting'){
-        this.$store.commit('setCurrentPostProdEventType',event.type)
+      } else if (event.type === 'sound' || event.type === 'postProductionProblem' || event.type === 'visualEffects' || event.type === 'visualQuality'
+          || event.type === 'reshooting') {
+        this.$store.commit('setCurrentPostProdEventType', event.type)
         this.showPostProductionModal = true;
         this.chosenEvent = event;
-      } else if(event.type === 'preProductionFinished'){
+      } else if (event.type === 'preProductionFinished') {
         this.showPreProductionSummaryModal = true;
-      } else if(event.type === 'productionFinished'){
+      } else if (event.type === 'productionFinished') {
         this.showProductionSummaryModal = true;
-      } else if(event.type === 'postProductionFinished'){
+      } else if (event.type === 'postProductionFinished') {
         this.showPostProductionSummaryModal = true;
         this.beforeReleaseCompleted = 'open';
-      } else if(event.type === 'beforeRelease'){
+      } else if (event.type === 'beforeRelease') {
         this.showBeforeReleaseModal = true;
         this.beforeReleaseCompleted = 'done';
-      } else if(event.type === 'afterReleaseWithCinemaRun'){
+      } else if (event.type === 'afterReleaseWithCinemaRun') {
         this.showAfterReleaseWithCinemaRunModal = true;
-      } else if(event.type === 'afterRelease'){
+      } else if (event.type === 'afterRelease') {
         this.showAfterReleaseModal = true;
       } else if (event.type === 'studioTakeover') {
         this.showStudioTakeover = true
-      } else if(event.type === 'internationalAwardNomination' || event.type === 'independentAwardNomination' || event.type === 'audienceAwardNomination'){
+      } else if (event.type === 'internationalAwardNomination' || event.type === 'independentAwardNomination' || event.type === 'audienceAwardNomination') {
         this.showAwardNomination = true;
         this.awardType = event.type;
-      } else if(event.type === 'internationalAwardPresentation' || event.type === 'independentAwardPresentation' || event.type === 'audienceAwardPresentation'){
+      } else if (event.type === 'internationalAwardPresentation' || event.type === 'independentAwardPresentation' || event.type === 'audienceAwardPresentation') {
         this.showAwardPresentation = true;
         this.awardType = event.type;
-      } else if(event.type === 'testScreening'){
-        this.$store.commit('setCurrentCalendarEvent',event);
+      } else if (event.type === 'testScreening') {
+        this.$store.commit('setCurrentCalendarEvent', event);
         this.$router.push({name: 'testScreening'});
       }
 
-      this.$store.commit('setCurrentCalendarEvent',event);
+      this.$store.commit('setCurrentCalendarEvent', event);
     },
 
-    updateShowingEvents(){
+    updateShowingEvents() {
       this.todayEvents = [];
       this.weekEvents = [];
       this.monthEvents = [];
 
       let sourceData = this.$store.getters.getCalendarEvents;
       let today = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate());
-      today.setHours(1,0,0)
+      today.setHours(1, 0, 0)
       let copiedToday = new Date(this.$store.getters.getCurrentDate.getFullYear(), this.$store.getters.getCurrentDate.getMonth(), this.$store.getters.getCurrentDate.getDate());
       let startDateOfWeek = new Date(copiedToday.setDate(copiedToday.getDate() - copiedToday.getDay()));
-      let endDateOfWeek = new Date(copiedToday.setDate(copiedToday.getDate() - copiedToday.getDay()+6));
+      let endDateOfWeek = new Date(copiedToday.setDate(copiedToday.getDate() - copiedToday.getDay() + 6));
       let startDateOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
       let endDateOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
       for (let i = 0; i < sourceData.length; i++) {
         let dateCheck = new Date(sourceData[i].start);
-        dateCheck.setHours(1,0,0);
-        if(dateCheck.getTime() === today.getTime()){
+        dateCheck.setHours(1, 0, 0);
+        if (dateCheck.getTime() === today.getTime()) {
           this.todayEvents.push(sourceData[i])
-        } else if (dateCheck > startDateOfWeek && dateCheck < endDateOfWeek && dateCheck > today){
+        } else if (dateCheck > startDateOfWeek && dateCheck < endDateOfWeek && dateCheck > today) {
           this.weekEvents.push(sourceData[i])
-        } else if (dateCheck >= startDateOfMonth && dateCheck < endDateOfMonth && dateCheck > today){
+        } else if (dateCheck >= startDateOfMonth && dateCheck < endDateOfMonth && dateCheck > today) {
           this.monthEvents.push(sourceData[i])
         }
       }
     }
   },
 
-  mounted(){
+  mounted() {
     this.updateShowingEvents();
   },
 }
@@ -401,13 +417,31 @@ export default {
 #eventsSection {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
 }
 
-.date{
-  margin-left: 0.7em
+#eventsSectionBgTile {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.event{
-  margin: 0.7em
+#eventsSectionContent {
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-top: 10px;
+}
+
+.date {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.events {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
 }
 </style>
