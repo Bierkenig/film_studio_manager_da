@@ -656,7 +656,7 @@ export function createScreenplaysFromWriters(type) {
             }
 
             //create screenplay
-            let newScreenplay = new Screenplay(store.getters.getNextScreenplayId, screenplayTitle, screenplayType, screenplayGenre, screenplaySubgenre, null, null, screenplayDescription, null, null, screenplayTopics);
+            let newScreenplay = new Screenplay(store.getters.getNextScreenplayId, screenplayTitle, screenplayType, screenplayGenre, screenplaySubgenre, null, null, screenplayDescription, null, null, null,screenplayTopics, null, null, null,null, store.getters.getStudio);
 
             //set screenplay details
             screenplayDetails.scope = scopeValues[Math.floor(Math.random() * scopeValues.length)];
@@ -1276,10 +1276,12 @@ function setAwardWinner(typeOfAward){
 function setInternationalAwardEvents(){
     // 'International Award'
     let internationalAwardNominationStartDate = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
-    let internationalAwardNominationEndDate = nthWeekdayOfMonth(3,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
+    let internationalAwardNominationEndDate = new Date(internationalAwardNominationStartDate.getFullYear(), internationalAwardNominationStartDate.getMonth(),
+        internationalAwardNominationStartDate.getDate() + 1)
 
     let internationalAwardPresentationStartDate = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
-    let internationalAwardPresentationEndDate = nthWeekdayOfMonth(3,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+    let internationalAwardPresentationEndDate = new Date(internationalAwardPresentationStartDate.getFullYear(), internationalAwardPresentationStartDate.getMonth(),
+        internationalAwardPresentationStartDate.getDate() + 1)
 
     addElementToCalendarEvents('','',null,null, internationalAwardNominationStartDate, internationalAwardNominationEndDate, 'internationalAwardNomination');
     addElementToCalendarEvents('','',null,null, internationalAwardPresentationStartDate, internationalAwardPresentationEndDate, 'internationalAwardPresentation');
@@ -1347,10 +1349,12 @@ function nominationsForInternationalAward(){
 function setIndependentAwardEvents(){
     // 'Independent Award'
     let independentAwardNominationStartDate = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
-    let independentAwardNominationEndDate = nthWeekdayOfMonth(3,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
+    let independentAwardNominationEndDate = new Date(independentAwardNominationStartDate.getFullYear(), independentAwardNominationStartDate.getMonth(),
+        independentAwardNominationStartDate.getDate() + 1);
 
     let independentAwardPresentationStartDate = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
-    let independentAwardPresentationEndDate = nthWeekdayOfMonth(3,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+    let independentAwardPresentationEndDate = new Date(independentAwardPresentationStartDate.getFullYear(), independentAwardPresentationStartDate.getMonth(),
+        independentAwardPresentationStartDate.getDate() + 1);
 
     addElementToCalendarEvents('','',null,null, independentAwardNominationStartDate, independentAwardNominationEndDate, 'independentAwardNomination');
     addElementToCalendarEvents('','',null,null, independentAwardPresentationStartDate, independentAwardPresentationEndDate,'independentAwardPresentation');
@@ -1412,10 +1416,12 @@ function nominationsForIndependentAward(){
 function setAudienceAwardEvents(){
     // 'Audience Award'
     let audienceAwardNominationStartDate = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
-    let audienceAwardNominationEndDate = nthWeekdayOfMonth(3,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
+    let audienceAwardNominationEndDate = new Date(audienceAwardNominationStartDate.getFullYear(), audienceAwardNominationStartDate.getMonth(),
+        audienceAwardNominationStartDate.getDate() + 1);
 
     let audienceAwardPresentationStartDate = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
-    let audienceAwardPresentationEndDate = nthWeekdayOfMonth(3,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+    let audienceAwardPresentationEndDate = new Date(audienceAwardPresentationStartDate.getFullYear(), audienceAwardPresentationStartDate.getMonth(),
+        audienceAwardPresentationStartDate.getDate() + 1);
 
     addElementToCalendarEvents('','',null,null, audienceAwardNominationStartDate, audienceAwardNominationEndDate,'audienceAwardNomination');
     addElementToCalendarEvents('','',null,null, audienceAwardPresentationStartDate, audienceAwardPresentationEndDate, 'audienceAwardPresentation');

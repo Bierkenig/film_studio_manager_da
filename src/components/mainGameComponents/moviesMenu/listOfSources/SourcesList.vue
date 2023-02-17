@@ -123,7 +123,7 @@ export default {
       if(itemId === 'movieSaleItem'){
         this.$emit('sendSource', source, 'Movie', 'Sale');
       } else if(itemId === 'screenplaySaleItem'){
-        this.$emit('sendSource', source, 'Screenplay', 'Owning');
+        this.$emit('sendSource', source, 'Screenplay', 'Sale');
       } else if(itemId === 'movieOwningItem'){
         this.$emit('sendSource', source, 'Movie', 'Owning');
       } else if(itemId === 'screenplayOwningItem'){

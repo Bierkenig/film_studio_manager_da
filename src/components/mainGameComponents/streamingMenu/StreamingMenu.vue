@@ -78,7 +78,7 @@ export default {
     if(this.$store.getters.getOwnStreamingService !== null){
       this.showBuyModal = false;
     }
-    this.checkBalance = (this.$store.getters.getBalance - 0) < 0;
+    this.checkBalance = (this.$store.getters.getBalance - 2500000000) < 0;
     window.ipcRenderer.send("updateDiscordDetails", "In Game: Streaming Menu")
 
   },
@@ -87,8 +87,8 @@ export default {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       updateServicePopularityAndSubscribers();
-      store.commit('addEarnings',new Earnings(0, store.getters.getCurrentDate))
-      this.$store.commit('subtractBalance', 0)
+      store.commit('addEarnings',new Earnings(2500000000, store.getters.getCurrentDate))
+      this.$store.commit('subtractBalance', 2500000000)
     }
   }
 }
