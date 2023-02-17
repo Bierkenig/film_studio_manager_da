@@ -26,4 +26,13 @@ export default class DataUtil {
             return mappingFunction(obj[key])
         })
     }
+
+    static mapArray(mappingFunction) {
+        return array => array.map(mappingFunction)
+    }
+
+    static preserveNull(mappingFunction) {
+        return obj => obj == null ? null : mappingFunction(obj)
+    }
+
 }

@@ -49,7 +49,7 @@ export class Screenplay {
         //TYPE -> Object
         //this.ageRatingDetails = {violence: '', cursing: '', loveScenes: ''};
         this.ageRatingDetails = ageRatingDetails !== undefined ? ageRatingDetails : {violence: '', cursing: '', loveScenes: ''}
-        //TYPE -> Studio TODO: Speichern
+        //TYPE -> Studio
         this.owner = owner;
         //TYPE -> Integer
         this.rewritingValue = 3;
