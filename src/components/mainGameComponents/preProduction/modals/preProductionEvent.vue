@@ -6,40 +6,41 @@
           <div class="modal-body">
             <slot name="body">
               <background-tile title="Problem">
-                <div class="preProductionEventProblemContainer">{{ $t('preProductionEvents.' + type + '.problem') }}</div>
+                <div class="preProductionEventProblemContainer">{{ $t('preProductionEvents.' + type + '.problem') }}. (In the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}") </div>
                 <div class="preProductionEventActionHeader">Actions</div>
 
                 <div class="preProductionEventActionContainer">
                   <div class="preProductionEventOptionContainer">
-                    <div>Option A</div>
-                    <div>{{ $t('preProductionEvents.' + type + '.optionA') }}</div>
-                    <ul>
-                      <li>{{ $t('preProductionEvents.' + type + '.consequenceA1') }}</li>
-                      <li v-if="type === 'recast' || type === 'creative' || type === 'extend'">
+                    <div class="preProductionEventOptionHeader">Option A</div>
+                    <div class="preProductionEventOptionDescription">{{ $t('preProductionEvents.' + type + '.optionA') }}</div>
+                    <div class="preProductionEventOptionResults">
+                      <div class="preProductionEventOptionResultsElement">{{ $t('preProductionEvents.' + type + '.consequenceA1') }}</div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'recast' || type === 'creative' || type === 'extend'">
                         {{ $t('preProductionEvents.' + type + '.consequenceA2') }}
-                      </li>
-                      <li v-if="type === 'extend'">
+                      </div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'extend'">
                         {{ $t('preProductionEvents.' + type + '.consequenceA21') }}
-                      </li>
-                      <li v-if="type === 'extend'">
+                      </div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'extend'">
                         {{ $t('preProductionEvents.' + type + '.consequenceA22') }}
-                      </li>
-                      <li v-if="type === 'extend'">
+                      </div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'extend'">
                         {{ $t('preProductionEvents.' + type + '.consequenceA23') }}
-                      </li>
-                    </ul>
-                    <button class="modal-default-button" @click="aOption()">{{ $t('preProductionEvents.optionA') }}</button>
+                      </div>
+                    </div>
+                    <custom-button size="small" class="modal-default-button" @clicked="aOption()">{{ $t('preProductionEvents.optionA') }}</custom-button>
                   </div>
                   <div class="preProductionEventOptionContainer">
-                    <div>{{ $t('preProductionEvents.' + type + '.optionB') }}</div>
-                    <ul>
-                      <li>{{ $t('preProductionEvents.' + type + '.consequenceB1') }}</li>
-                      <li v-if="type === 'dropOut' || type === 'creative'">
+                    <div class="preProductionEventOptionHeader">Option B</div>
+                    <div class="preProductionEventOptionDescription">{{ $t('preProductionEvents.' + type + '.optionB') }}</div>
+                    <div class="preProductionEventOptionResults">
+                      <div class="preProductionEventOptionResultsElement">{{ $t('preProductionEvents.' + type + '.consequenceB1') }}</div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'dropOut' || type === 'creative'">
                         {{ $t('preProductionEvents.' + type + '.consequenceB2') }}
-                      </li>
-                      <li v-if="type === 'creative'">{{ $t('preProductionEvents.' + type + '.consequenceB3') }}</li>
-                    </ul>
-                    <button class="modal-default-button" @click="bOption()">{{ $t('preProductionEvents.optionB') }}</button>
+                      </div>
+                      <div class="preProductionEventOptionResultsElement" v-if="type === 'creative'">{{ $t('preProductionEvents.' + type + '.consequenceB3') }}</div>
+                    </div>
+                    <custom-button size="small" class="modal-default-button" @clicked="bOption()">{{ $t('preProductionEvents.optionB') }}</custom-button>
                   </div>
 
                   <div v-if="duration">
@@ -69,10 +70,11 @@ import Person from "@/classes/Person";
 import ActorsSection from "@/components/mainGameComponents/preProduction/actorsSection";
 import DirectorSection from "@/components/mainGameComponents/preProduction/directorSection";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "pre-production-event",
-  components: {BackgroundTile, DirectorSection, ActorsSection},
+  components: {CustomButton, BackgroundTile, DirectorSection, ActorsSection},
   props: {
     type: String,
     actor: Person,
@@ -101,7 +103,7 @@ export default {
           this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
           break
         case "recast":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9;
+          this.$store.state.currentMovie._preProduction.hype *= 0.9;
           this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale += 1
           this.$store.state.currentMovie._preProduction.happenedEvents.push("recast")
           break
@@ -117,7 +119,7 @@ export default {
           break
         /*case "extend":
           this.calcDireMorale(true)
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.hype *= 0.9
           this.$store.state.currentMovie._preProduction.happenedEvents.push("extend")
           this.crewMoraleGoes(1)
           break;*/
@@ -125,13 +127,12 @@ export default {
           break;
       }
       this.closeModal()
-      console.log(this.$store.getters.getInProductionMovies)
     },
 
     bOption() {
       switch (this.type) {
         case "dropOut":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.hype *= 0.9
           this.actorSection = true
           this.$store.state.currentMovie._preProduction.happenedEvents.push("dropOut")
           break
@@ -140,13 +141,13 @@ export default {
           this.$store.state.currentMovie._preProduction.happenedEvents.push("recast")
           break
         case "creative":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.75
+          this.$store.state.currentMovie._preProduction.hype *= 0.75
           this.$store.state.currentMovie._preProduction.happenedEvents.push("creative")
           this.directorSection = true
           this.crewMoraleGoes(-1)
           break
         case "difficulty":
-          this.$store.state.currentMovie._preProduction.movie.hype *= 0.9
+          this.$store.state.currentMovie._preProduction.hype *= 0.9
           this.$store.state.currentMovie._preProduction.happenedEvents.push("difficulty")
           break
         /*case "extend":
@@ -234,7 +235,7 @@ export default {
 }
 
 .modal-default-button {
-  float: right;
+  align-self: flex-end;
 }
 
 /*
@@ -283,9 +284,36 @@ export default {
 }
 
 .preProductionEventOptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-m-border-radius);
-  padding: 5px;
+  padding: 15px;
   width: 50%;
+}
+
+.preProductionEventOptionHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 20px;
+}
+
+.preProductionEventOptionDescription {
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.preProductionEventOptionResults {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.preProductionEventOptionResultsElement {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  font-size: 15px;
 }
 </style>

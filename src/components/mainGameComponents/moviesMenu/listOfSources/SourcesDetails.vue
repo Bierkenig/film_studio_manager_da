@@ -143,8 +143,8 @@
             <div class="movieDetailsGeneralTopInfoRight">
               <div class="movieDetailsInfoCircles">
                 <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsInfoCirclesTop">
-                  <info-circle class="movieDetailsInfoCircle" :text="Math.round(source.quality).toString()" size="60px" large-font/>
-                  <info-circle class="movieDetailsInfoCircle" :text="Math.round(source._release.popularityFormula).toString()" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" :text="Math.round(source.quality).toString()" :data-title="$t('quality')" size="60px" large-font/>
+                  <info-circle class="movieDetailsInfoCircle" :text="Math.round(source._release.popularityFormula).toString()" :data-title="$t('popularity')" size="60px" large-font/>
                 </div>
                 <div v-else class="movieDetailsInfoCirclesTop">
                   <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/>
@@ -202,7 +202,7 @@
               </div>
               <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('price') }}</div>
-                <div>{{ source._totalCosts }}</div>
+                <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.writer') }}</div>
@@ -228,7 +228,7 @@
           <div class="movieDetailsFinancesLeft">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-              <div>{{ source._preProduction.budget.production }}</div>
+              <div>$ {{ currencyFormatDE(source._preProduction.budget.production) }}</div>
             </div>
             <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -236,25 +236,25 @@
             </div>
             <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>{{ source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial }}</div>
+              <div>$ {{ currencyFormatDE(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-              <div>{{ source._totalCosts }}</div>
+              <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
             </div>
           </div>
           <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>{{ source._release.openingWeekGross }}</div>
+              <div>$ {{ currencyFormatDE(source._release.openingWeekGross) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>{{ source._release.cinemaGross }}</div>
+              <div>$ {{ currencyFormatDE(source._release.cinemaGross) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>{{ source._release.dvdGross }}</div>
+              <div>$ {{ currencyFormatDE(source._release.dvdGross) }}</div>
             </div>
           </div>
           <div v-if="source._status !== 'Finished' && source._status !== 'Released'" class="movieDetailsFinancesRight">
@@ -387,7 +387,6 @@ export default {
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
       store.commit('addEarnings',new Earnings(-chosenScreenplay.price, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
-      chosenScreenplay.owner.budget += chosenScreenplay.price;
 
       this.$router.push({name: 'movies'})
     },

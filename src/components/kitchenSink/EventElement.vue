@@ -56,7 +56,7 @@
     <custom-icon class="eventElementIcon" :id="'audienceAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <div class="eventElementText">
       <div class="eventElementTitle">{{title}}</div>
-      <div class="eventElementDescription">{{description}}</div>
+      <div v-if="typeOfMenu !== 'home'" class="eventElementDescription">{{description}}</div>
     </div>
   </div>
   <icon-button class="eventElementOpenButton" icon="arrow-right" size="small" theme="light" @click="openButtonFunction"/>
@@ -111,6 +111,10 @@ export default {
         return ['none', 'open', 'done'].includes(value);
       }
     },
+    typeOfMenu: {
+      type: String,
+      default: 'home'
+    }
   },
   methods: {
     setupElement() {

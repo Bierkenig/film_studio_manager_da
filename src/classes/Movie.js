@@ -110,11 +110,13 @@ export class Movie {
 
     calcSubGenrePopularities() {
         let result = null;
-        store.state.allSubGenres.forEach((el) => {
-            if(el.subGenreName === this._preProduction.screenplay.subgenre.subGenreName){
-                result = el;
-            }
-        })
+        if(this._preProduction.screenplay.subgenre !== null){
+            store.state.allSubGenres.forEach((el) => {
+                if(el.subGenreName === this._preProduction.screenplay.subgenre.subGenreName){
+                    result = el;
+                }
+            })
+        }
         return result;
     }
 
