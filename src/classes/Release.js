@@ -324,7 +324,7 @@ export default class Release {
     }
 
     calcFromMarketing() {
-        const duration = this.preProduction.postProductionLength
+        const duration = this.preProduction.postProductionLength === 0 ? 1: this.preProduction.postProductionLength
         switch (this.screenplay.details.scope) {
             case 'Small':
                 if (this.isBetween(duration, 8, 12) || duration > 12) return Math.round(Math.random() * (25 - 15)) + 15

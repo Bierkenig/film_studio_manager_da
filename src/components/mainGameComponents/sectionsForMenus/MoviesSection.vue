@@ -12,13 +12,13 @@
           :key="index"
           :movie-title="it._preProduction.screenplay.title"
           svg-code=""
-          viewers="99"
-          critics="99"
+          :viewers="it._release.audiencePopularity.toString()"
+          :critics="it._release.criticsFormula"
           :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]"
           :genre="it._preProduction.screenplay.genre.genreName"
           :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()"
           :release="it._preProduction.releaseDate.getFullYear().toString()"
-          earnings="$ 999,999"
+          :earnings="'$ ' + currencyFormatDE(it._release.dvdGross + it._release.cinemaGross + it._release.openingWeekGross)"
           @open-clicked="movieInfo(it)"/>
           <!--:release="it._preProduction.releaseDate.getYear()"-->
     </div>
@@ -133,6 +133,14 @@ export default {
           this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
         }*/
       }
+    },
+
+    currencyFormatDE(num) {
+      return (
+          num
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      ) // use . as a separator
     }
   }
 }

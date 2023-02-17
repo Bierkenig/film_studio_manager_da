@@ -4,7 +4,7 @@
       <div v-if="clickedDay !== null">
         <background-tile :title="clickedDay.toLocaleDateString(this.$store.getters.getCurrentLanguage, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })">
           <div id="dayEventsAllItems" v-if="event.length !== 0" >
-            <event-element v-for="it in event" :key="it.id" :type="it.type" :movie-title="it.movie" hide-open-icon/>
+            <event-element v-for="it in event" :key="it.id" :type="it.type" :movie-title="it.movie" :studio="it.studio" type-of-menu="calendar" hide-open-icon/>
           </div>
           <div class="dayEventsNoEventsMessage" v-else>
             <div>{{ $t('noEventsMsg') }}</div>

@@ -111,6 +111,7 @@ i18next
                         accept: "Accept",
                         deny: "Deny",
                     },
+                    recastActor: "Continue Pre Production",
                     production: "Production",
                     marketing: "Marketing",
                     loan: "Loan",
@@ -150,6 +151,17 @@ i18next
                             close: "Close",
                         },
                     },
+                    recast: {
+                        actor: {
+                            recast: "Recast an Actor",
+                            negotiate: "Negotiate",
+                            offer: "Send Offer",
+                        },
+                        director: {
+                            recast: "Recast an Director",
+                            negotiate: "Negotiate"
+                        }
+                    },
                     beforeRelease: {
                         details: "Movie Details",
                         screenplay: {
@@ -159,7 +171,8 @@ i18next
                             topic1: "Topic 1",
                             topic2: "Topic 2",
                             topic3: "Topic 3",
-                            error: "No Topic was selected"
+                            error: "No Topic was selected",
+                            current: "Current Outgoings :"
                         },
                         director: {
                             msg: "Director",

@@ -30,6 +30,10 @@
                 <div>{{$t('beforeRelease.quality')}}: {{this.$store.getters.getCurrentMovie.quality}}</div>
               </div>
               <div>
+                <div>{{$t('beforeRelease.current')}}</div>
+                <div>$ {{current}}</div>
+              </div>
+              <div>
                 <button @click="changeToCinema">{{$t('beforeRelease.release')}}</button>
               </div>
             </slot>
@@ -50,7 +54,8 @@ export default {
     return {
       movieTitle: this.$store.getters.getCurrentMovie._title,
       screenplay: this.$store.getters.getCurrentMovie._preProduction.screenplay,
-      director: this.$store.getters.getCurrentMovie._preProduction.hiredDirector
+      director: this.$store.getters.getCurrentMovie._preProduction.hiredDirector,
+      current: 0
     }
   },
 
@@ -69,7 +74,7 @@ export default {
       store.commit('addCalendarEvents', {
         id: store.getters.getNextEventId,
         movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
-        studio: "",
+        studio: null,
         actor: "",
         director: "",
         start: endDate.toISOString().split('T')[0],
@@ -100,6 +105,11 @@ export default {
 
       this.$emit('close');
     }
+  },
+
+  mounted() {
+    //calc Outoings
+    this.current = this.$store.getters.getCurrentMovie._totalOutgoings
   }
 }
 </script>

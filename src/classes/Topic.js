@@ -1,10 +1,11 @@
 import DataUtil from "@/classes/DataUtil";
 
 export default class Topic {
-    constructor(topicName, childrenPopularity, teenPopularity, adultPopularity) {
+    constructor(id, topicName, childrenPopularity, teenPopularity, adultPopularity) {
         if(arguments[0] === DataUtil.skip){
             return
         }
+        this.id = id
         this.topicName = topicName
         this.childrenPopularity = childrenPopularity
         this.teenPopularity = teenPopularity

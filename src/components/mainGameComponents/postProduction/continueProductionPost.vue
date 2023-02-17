@@ -48,7 +48,7 @@ export default {
       store.commit('addCalendarEvents', {
         id: store.getters.getNextEventId,
         movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
-        studio: "",
+        studio: null,
         actor: "",
         director: "",
         start: endDate.toISOString().split('T')[0],
@@ -60,7 +60,7 @@ export default {
       store.commit('addCalendarEvents', {
         id: store.getters.getNextEventId,
         movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
-        studio: "",
+        studio: null,
         actor: "",
         director: "",
         start: endDate.toISOString().split('T')[0],
@@ -77,7 +77,7 @@ export default {
       store.commit('addCalendarEvents', {
         id: store.getters.getNextEventId,
         movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
-        studio: "",
+        studio: null,
         actor: "",
         director: "",
         start: endDate.toISOString().split('T')[0],

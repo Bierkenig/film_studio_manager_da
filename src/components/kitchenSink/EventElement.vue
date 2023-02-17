@@ -56,7 +56,7 @@
     <custom-icon class="eventElementIcon" :id="'audienceAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <div class="eventElementText">
       <div class="eventElementTitle">{{title}}</div>
-      <div class="eventElementDescription">{{description}}</div>
+      <div v-if="typeOfMenu !== 'home'" class="eventElementDescription">{{description}}</div>
     </div>
   </div>
   <icon-button class="eventElementOpenButton" icon="arrow-right" size="small" theme="light" @click="openButtonFunction"/>
@@ -67,6 +67,7 @@
 <script>
 import CustomIcon from "@/components/kitchenSink/CustomIcon";
 import IconButton from "@/components/kitchenSink/IconButton";
+import {Studio} from "@/classes/Studio";
 export default {
   name: "EventElement",
   components: {IconButton, CustomIcon},
@@ -100,9 +101,8 @@ export default {
       type: String,
       default: 'movieTitle',
     },
-    studioName: {
-      type: String,
-      default: '',
+    studio: {
+      type: Studio,
     },
     status: {
       type: String,
@@ -111,6 +111,10 @@ export default {
         return ['none', 'open', 'done'].includes(value);
       }
     },
+    typeOfMenu: {
+      type: String,
+      default: 'home'
+    }
   },
   methods: {
     setupElement() {
@@ -257,7 +261,7 @@ export default {
         case 'studioTakeover':
           document.getElementById('studioTakeoverIcon' + this.randomId).style.display = 'block';
           this.title = this.$t('events.studioTakeover.title');
-          this.description = this.$t('events.studioTakeover.description') + ' "' + this.studioName + '"';
+          this.description = this.$t('events.studioTakeover.description') + ' "' + this.studio.name + '"';
           break;
         case 'internationalAwardNomination':
           document.getElementById('internationalAwardNominationIcon' + this.randomId).style.display = 'block';

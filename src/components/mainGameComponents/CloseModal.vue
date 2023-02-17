@@ -89,7 +89,7 @@
               </custom-button>
 
               <custom-button
-                  v-else-if="headline !== 'saveCorruptModal'"
+                  v-else-if="headline !== 'saveCorruptModal' && headline !== 'autoSaveModal'"
                   class="modal-default-button"
                   :dark="false"
                   size="small"

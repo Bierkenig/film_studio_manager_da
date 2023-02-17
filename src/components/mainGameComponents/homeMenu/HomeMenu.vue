@@ -23,9 +23,9 @@ export default {
 
   mixins: [soundeffectMixin('button', 'click')],
   components: {ProjectsSection, UpcomingEventsSection, EarningsSection, NewsSection},
-  mounted(){
-      window.ipcRenderer.send("updateDiscordDetails", "In Game: Home Menu")
-    },
+  mounted() {
+    window.ipcRenderer.send("updateDiscordDetails", "In Game: Home Menu")
+  },
 
   methods: {
     save() {

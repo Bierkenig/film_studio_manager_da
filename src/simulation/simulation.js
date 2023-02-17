@@ -38,6 +38,7 @@ export default function simulate() {
     generateMoviesFromOtherStudios();
 
     otherStudioCreatesStreamingService();
+    updateOtherStreamingServices();
 
     updateStudioPopularity();
     updateOtherStudiosPopularity();
@@ -50,12 +51,12 @@ export default function simulate() {
         setAudienceAwardEvents()
     }
 
-    if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(1,4,new Date(store.getters.getCurrentDate.getFullYear(),1)).getTime()){
-        //setAwardWinner('internationalAward') TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
-    } else if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(1,2,new Date(store.getters.getCurrentDate.getFullYear(),4)).getTime()){
-        //setAwardWinner('independentAward') TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
-    } else if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(1,3,new Date(store.getters.getCurrentDate.getFullYear(),6)).getTime()){
-        //setAwardWinner('audienceAward') TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
+    if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0,4,new Date(store.getters.getCurrentDate.getFullYear(),1)).getTime()){
+        setAwardWinner('internationalAward')
+    } else if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0,2,new Date(store.getters.getCurrentDate.getFullYear(),4)).getTime()){
+        setAwardWinner('independentAward')
+    } else if(store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0,3,new Date(store.getters.getCurrentDate.getFullYear(),6)).getTime()){
+        setAwardWinner('audienceAward')
     }
 
     setEventDuringPreProduction();
@@ -71,9 +72,6 @@ export default function simulate() {
         store.getters.getCurrentDate.getFullYear() !== 2023)
     {
         renewPeople();
-
-        //clear
-        store.state.dbFetcher.clear()
         //FETCHING DB
         store.state.dbFetcher.fetch()
     }
@@ -180,7 +178,9 @@ function otherStudioCreatesStreamingService(){
             if(allOtherStudios[i].budget >= 2500000000){
                 if(randomNumber(0.50) === 0 && allOtherStudios[i].popularity >= 50 && studioMovies.length > 100 && !studioHasService){
                     allOtherStudios[i].budget -= 2500000000;
-                    store.commit('addStreamingServicesFromOtherStudios', new StreamingService(allOtherStudios[i].name, 1,0,0,allOtherStudios[i].popularity,allOtherStudios[i], store.getters.getCurrentDate));
+                    let newStreamingService = new StreamingService(allOtherStudios[i].name, 25.50,0,0,allOtherStudios[i].popularity,allOtherStudios[i], store.getters.getCurrentDate);
+                    newStreamingService._lastCheckedDate = store.getters.getCurrentDate;
+                    store.commit('addStreamingServicesFromOtherStudios', newStreamingService);
                     //create news of new streaming service
                     let newsTitle = 'Streaming Service' + i18next.t('established');
                     let newsDescription = i18next.t('theStreamingService') + allOtherStudios[i].name + i18next.t('wasFounded') + '.';
@@ -188,6 +188,95 @@ function otherStudioCreatesStreamingService(){
                     break;
                 }
             }
+        }
+    }
+}
+
+function updateOtherStreamingServices(){
+    let allOtherStreamingServices = store.getters.getStreamingServicesFromOtherStudios;
+    let allOtherStudios = store.getters.getOtherStudios;
+    let allOtherMovies = store.getters.getMoviesFromOtherStudios.concat(store.getters.getAllMovies);
+
+    for (let i = 0; i < allOtherStreamingServices.length; i++) {
+        if (((store.getters.getCurrentDate - allOtherStreamingServices[i]._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
+            let studioMovies = [];
+            for (let j = 0; j < allOtherMovies.length; j++) {
+                if (allOtherMovies[j]._owner === allOtherStreamingServices[i]) {
+                    studioMovies.push(allOtherMovies);
+                }
+            }
+
+            let contentPopularitySum = 0;
+            for (let j = 0; j < studioMovies.length; j++) {
+                contentPopularitySum += studioMovies[j]._release.audiencePopularity;
+            }
+            let averageContentPopularity = contentPopularitySum / studioMovies.length;
+
+            // streaming service popularity
+            allOtherStreamingServices[i]._popularity = (allOtherStreamingServices[i]._owner.popularity * 60 + averageContentPopularity * 40) / 100;
+
+            // streaming service subscriber
+            let streamingContent = 0;
+            if(studioMovies.length >= 1 && studioMovies.length <= 10){
+                streamingContent = 1;
+            } else if(studioMovies.length >= 11 && studioMovies.length <= 25){
+                streamingContent = 3;
+            } else if(studioMovies.length >= 26 && studioMovies.length <= 75){
+                streamingContent = 5;
+            } else if(studioMovies.length >= 76 && studioMovies.length <= 150){
+                streamingContent = 7;
+            } else if(studioMovies.length >= 151 && studioMovies.length <= 250){
+                streamingContent = 10;
+            } else if(studioMovies.length >= 251 && studioMovies.length <= 450){
+                streamingContent = 15;
+            } else if(studioMovies.length >= 451 && studioMovies.length <= 650){
+                streamingContent = 25;
+            } else if(studioMovies.length >= 651 && studioMovies.length <= 800){
+                streamingContent = 45;
+            } else if(studioMovies.length >= 801 && studioMovies.length <= 1000){
+                streamingContent = 65;
+            } else if(studioMovies.length >= 1001){
+                streamingContent = 100;
+            }
+
+            let streamingServicePricePotential = 0.45;
+
+            // calculate streaming service hype = popularity
+            let sumOfHype = 0;
+            let hypeDrop1 = 0;
+            let hypeDrop2 = 0;
+            studioMovies.forEach(function (movie) {
+                if (movie._release.critics <= 50) {
+                    hypeDrop1 = 0.75;
+                } else if (movie._release.critics >= 51 && movie._release.critics <= 75) {
+                    hypeDrop1 = 0.85;
+                } else if (movie._release.critics >= 76) {
+                    hypeDrop1 = 0.95;
+                }
+
+                if (movie._release.audienceRating <= 50) {
+                    hypeDrop2 = 0.75;
+                } else if (movie._release.audienceRating >= 51 && movie._release.audienceRating <= 75) {
+                    hypeDrop2 = 0.85;
+                } else if (movie._release.audienceRating >= 76) {
+                    hypeDrop2 = 0.95;
+                }
+
+                sumOfHype += movie._preProduction.hype * ((hypeDrop1 + hypeDrop2) / 2);
+            })
+
+            let streamingServiceHype = 0;
+            if(studioMovies.length !== 0){
+                streamingServiceHype = sumOfHype / studioMovies.length;
+            }
+
+            allOtherStreamingServices[i]._subscribers = 300000000 * ((streamingServicePricePotential * 15 + streamingContent * 15 + streamingServiceHype * 70) / 100);
+
+            //set new last checked date to know if one month has passed
+            allOtherStreamingServices[i]._lastCheckedDate = new Date(
+                allOtherStreamingServices[i]._lastCheckedDate.getFullYear(),
+                allOtherStreamingServices[i]._lastCheckedDate.getMonth() + 1,
+                allOtherStreamingServices[i]._lastCheckedDate.getDate());
         }
     }
 }
@@ -534,11 +623,11 @@ export function updateServicePopularityAndSubscribers() {
             hypeDrop1 = 0.95;
         }
 
-        if (movie._release.audience <= 50) {
+        if (movie._release.audienceRating <= 50) {
             hypeDrop2 = 0.75;
-        } else if (movie._release.audience >= 51 && movie._release.audience <= 75) {
+        } else if (movie._release.audienceRating >= 51 && movie._release.audienceRating <= 75) {
             hypeDrop2 = 0.85;
-        } else if (movie._release.audience >= 76) {
+        } else if (movie._release.audienceRating >= 76) {
             hypeDrop2 = 0.95;
         }
 
@@ -558,7 +647,7 @@ export function updateServicePopularityAndSubscribers() {
 }
 
 //create screenplays from other writers
-function createScreenplaysFromWriters(type) {
+export function createScreenplaysFromWriters(type) {
     if (store.state.screenplayTitles.length !== 0) {
         if (randomNumber(0.10) === 0 || type === 'forMovieGeneration') {
             //get all necessary values
@@ -659,7 +748,7 @@ function createScreenplaysFromWriters(type) {
             }
 
             //create screenplay
-            let newScreenplay = new Screenplay(store.getters.getNextScreenplayId, screenplayTitle, screenplayType, screenplayGenre, screenplaySubgenre, null, null, screenplayDescription, null, null, screenplayTopics);
+            let newScreenplay = new Screenplay(store.getters.getNextScreenplayId, screenplayTitle, screenplayType, screenplayGenre, screenplaySubgenre, null, null, screenplayDescription, null, null, null,screenplayTopics, null, null, null,null, store.getters.getStudio);
 
             //set screenplay details
             screenplayDetails.scope = scopeValues[Math.floor(Math.random() * scopeValues.length)];
@@ -667,15 +756,18 @@ function createScreenplaysFromWriters(type) {
             screenplayDetails.specialEffects = specialEffectsValues[Math.floor(Math.random() * specialEffectsValues.length)];
 
             //set screenplay age rating details
-            screenplayAgeRatingDetails.violence = violenceValues[Math.floor(Math.random() * violenceValues.length)];
-            screenplayAgeRatingDetails.cursing = cursingValues[Math.floor(Math.random() * cursingValues.length)];
-            screenplayAgeRatingDetails.loveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
+            let randomViolenceRating = violenceValues[Math.floor(Math.random() * violenceValues.length)];
+            let randomCursingRating = cursingValues[Math.floor(Math.random() * cursingValues.length)];
+            let randomLoveScenes = loveSceneValues[Math.floor(Math.random() * loveSceneValues.length)];
+            screenplayAgeRatingDetails.violence = ageRatingScala[randomViolenceRating];
+            screenplayAgeRatingDetails.cursing = ageRatingScala[randomCursingRating];
+            screenplayAgeRatingDetails.loveScenes = ageRatingScala[randomLoveScenes];
 
             newScreenplay.details = screenplayDetails;
             newScreenplay.ageRatingDetails = screenplayAgeRatingDetails;
 
             //set screenplay age rating
-            newScreenplay.ageRating = ageRatingScala[Math.max(screenplayAgeRatingDetails.violence, screenplayAgeRatingDetails.cursing, screenplayAgeRatingDetails.loveScenes)];
+            newScreenplay.ageRating = ageRatingScala[Math.max(randomViolenceRating, randomCursingRating, randomLoveScenes)];
 
             //set screenplay roles
             //newScreenplay.roles = allScreenplayTitles[screenplayTitle].roles;
@@ -1276,15 +1368,17 @@ function setAwardWinner(typeOfAward){
 function setInternationalAwardEvents(){
     // 'International Award'
     let internationalAwardNominationStartDate = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
-    let internationalAwardNominationEndDate = nthWeekdayOfMonth(3,4,new Date(store.getters.getCurrentDate.getFullYear(),0))
+    let internationalAwardNominationEndDate = new Date(internationalAwardNominationStartDate.getFullYear(), internationalAwardNominationStartDate.getMonth(),
+        internationalAwardNominationStartDate.getDate() + 1)
 
     let internationalAwardPresentationStartDate = nthWeekdayOfMonth(2,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
-    let internationalAwardPresentationEndDate = nthWeekdayOfMonth(3,4,new Date(store.getters.getCurrentDate.getFullYear(),1))
+    let internationalAwardPresentationEndDate = new Date(internationalAwardPresentationStartDate.getFullYear(), internationalAwardPresentationStartDate.getMonth(),
+        internationalAwardPresentationStartDate.getDate() + 1)
 
     addElementToCalendarEvents('','',null,null, internationalAwardNominationStartDate, internationalAwardNominationEndDate, 'internationalAwardNomination');
     addElementToCalendarEvents('','',null,null, internationalAwardPresentationStartDate, internationalAwardPresentationEndDate, 'internationalAwardPresentation');
 
-    //nominationsForInternationalAward(); TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
+    nominationsForInternationalAward();
 }
 
 function nominationsForInternationalAward(){
@@ -1313,6 +1407,8 @@ function nominationsForInternationalAward(){
     let nominatedWriters = [];
     let nominatedDirectors = [];
 
+    console.log(bestMovies)
+
     for (let i = 0; i < bestMovies.length; i++) {
         //add writer and director of best movies to nominated list
         nominatedWriters.push(bestMovies[i]._preProduction.screenplay.writer);
@@ -1323,6 +1419,9 @@ function nominationsForInternationalAward(){
         //iterate through support actors and actress
         iterateThroughActors(bestMovies[i]._preProduction.screenplay.actors.support, allSupportActorsOfBestMovies, allSupportActressOfBestMovies)
     }
+
+    console.log(allMainActorsOfBestMovies);
+    console.log(allMainActressOfBestMovies);
 
     allMainActorsOfBestMovies.sort((a,b) => b.audienceRating - a.audienceRating);
     allMainActressOfBestMovies.sort((a,b) => b.audienceRating - a.audienceRating);
@@ -1347,15 +1446,17 @@ function nominationsForInternationalAward(){
 function setIndependentAwardEvents(){
     // 'Independent Award'
     let independentAwardNominationStartDate = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
-    let independentAwardNominationEndDate = nthWeekdayOfMonth(3,2,new Date(store.getters.getCurrentDate.getFullYear(),3));
+    let independentAwardNominationEndDate = new Date(independentAwardNominationStartDate.getFullYear(), independentAwardNominationStartDate.getMonth(),
+        independentAwardNominationStartDate.getDate() + 1);
 
     let independentAwardPresentationStartDate = nthWeekdayOfMonth(2,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
-    let independentAwardPresentationEndDate = nthWeekdayOfMonth(3,2,new Date(store.getters.getCurrentDate.getFullYear(),4));
+    let independentAwardPresentationEndDate = new Date(independentAwardPresentationStartDate.getFullYear(), independentAwardPresentationStartDate.getMonth(),
+        independentAwardPresentationStartDate.getDate() + 1);
 
     addElementToCalendarEvents('','',null,null, independentAwardNominationStartDate, independentAwardNominationEndDate, 'independentAwardNomination');
     addElementToCalendarEvents('','',null,null, independentAwardPresentationStartDate, independentAwardPresentationEndDate,'independentAwardPresentation');
 
-    //nominationsForIndependentAward(); TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
+    nominationsForIndependentAward();
 }
 
 function nominationsForIndependentAward(){
@@ -1412,15 +1513,17 @@ function nominationsForIndependentAward(){
 function setAudienceAwardEvents(){
     // 'Audience Award'
     let audienceAwardNominationStartDate = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
-    let audienceAwardNominationEndDate = nthWeekdayOfMonth(3,3,new Date(store.getters.getCurrentDate.getFullYear(),5));
+    let audienceAwardNominationEndDate = new Date(audienceAwardNominationStartDate.getFullYear(), audienceAwardNominationStartDate.getMonth(),
+        audienceAwardNominationStartDate.getDate() + 1);
 
     let audienceAwardPresentationStartDate = nthWeekdayOfMonth(2,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
-    let audienceAwardPresentationEndDate = nthWeekdayOfMonth(3,3,new Date(store.getters.getCurrentDate.getFullYear(),6));
+    let audienceAwardPresentationEndDate = new Date(audienceAwardPresentationStartDate.getFullYear(), audienceAwardPresentationStartDate.getMonth(),
+        audienceAwardPresentationStartDate.getDate() + 1);
 
     addElementToCalendarEvents('','',null,null, audienceAwardNominationStartDate, audienceAwardNominationEndDate,'audienceAwardNomination');
     addElementToCalendarEvents('','',null,null, audienceAwardPresentationStartDate, audienceAwardPresentationEndDate, 'audienceAwardPresentation');
 
-    //nominationsForAudienceAward(); TODO: Kommentar entfernen wenn Daten von Datenbank richtig inserted werden
+    nominationsForAudienceAward();
 }
 
 function nominationsForAudienceAward(){
@@ -1523,10 +1626,10 @@ function nominationsForAudienceAward(){
 
 
 function iterateThroughActors(array, maleArray, femaleArray){
-    for (let i = 0; i < array; i++) {
-        if(array[i].gender === 'male'){
+    for (let i = 0; i < array.length; i++) {
+        if(array[i]._gender === 'male'){
             maleArray.push(array[i])
-        } else if(array.gender === 'female'){
+        } else if(array[i]._gender === 'female'){
             femaleArray.push(array[i])
         }
     }

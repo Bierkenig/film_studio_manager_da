@@ -2,12 +2,12 @@
   <div id="moviesMenuContainer">
     <div class="moviesMenuActionContainer">
       <action-section headline="createMovie" info-text="createMovieInfoText" button-text="create" icon="movies"/>
-      <action-section headline="createScreenplay" info-text="createScreenplayInfoText" button-text="create" icon="placeholder"/>
+      <action-section headline="createScreenplay" info-text="createScreenplayInfoText" button-text="create" icon="screenplay"/>
     </div>
     <movies-section class="moviesMenuMoviesSection" headline="producedMovies"/>
     <div class="moviesMenuActionContainer">
-      <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open" icon="placeholder"/>
-      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open" icon="settings"/>
+      <action-section headline="listOfSources" info-text="listOfSourcesInfoText" button-text="open" icon="sources"/>
+      <action-section headline="listOfFranchises" info-text="listOfFranchisesInfoText" button-text="open" icon="franchises"/>
     </div>
   </div>
 </template>

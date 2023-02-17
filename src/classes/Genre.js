@@ -1,10 +1,11 @@
 import DataUtil from "@/classes/DataUtil";
 
 export default class Genre {
-    constructor(genreName, childrenPopularity, teenPopularity, adultPopularity) {
+    constructor(id, genreName, childrenPopularity, teenPopularity, adultPopularity) {
         if(arguments[0] === DataUtil.skip){
             return
         }
+        this.id = id
         this.genreName = genreName
         this.childrenPopularity = childrenPopularity
         this.teenPopularity = teenPopularity

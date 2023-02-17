@@ -7,7 +7,6 @@ import Person from "@/classes/Person";
 import Franchises from "@/classes/Franchises";
 import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
-import Event from "@/classes/Event";
 import DataUtil from "@/classes/DataUtil";
 import FinancialPerformance from '@/classes/FinancialPerformance'
 import i18next from "i18next";
@@ -73,10 +72,7 @@ export default createStore({
         ],
         financialPerformance: [
             new FinancialPerformance(new Date(2023, 0), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2023, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2024, 0), {incoming: 1, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2024, 1), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-            new FinancialPerformance(new Date(2024, 2), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
+
         ],
         currentCalendarEvent: null,
         calendarEvents: [],
@@ -220,7 +216,6 @@ export default createStore({
         dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
-        allPeopleTest: [],
         allActors: [],
         allDirectors: [],
         allWriters: [],
@@ -230,6 +225,7 @@ export default createStore({
         allMovies: [],
         allGenres: [],
         allSubGenres: [],
+        allCharacters: [],
 
         editPerson: null,
         editStudio: null,
@@ -281,6 +277,10 @@ export default createStore({
             return state.boughtScreenplays;
         },
 
+        getPreProductionEvents(state) {
+            return state.preProductionEvents;
+        },
+
         getNextScreenplayId(state) {
             let nextId = 0;
             let allScreenplays = state.screenplays.concat(state.boughtScreenplays, state.screenplaysFromWriters, state.allScreenplays)
@@ -322,6 +322,10 @@ export default createStore({
 
         getEarnings(state) {
             return state.earnings;
+        },
+
+        getAllCharacters(state) {
+            return state.allCharacters
         },
 
         getInProductionMovies(state) {
@@ -543,11 +547,11 @@ export default createStore({
         },
 
         addAllMovie(state, movie) {
-            state.allMovies.push(movie)
+            state.allMovies = movie
         },
 
-        addAllScreenplay(state, screenplay) {
-            state.allScreenplays.push(screenplay)
+        addAllScreenplay(state, screenplays) {
+            state.allScreenplays = screenplays
         },
 
         addAllAward(state, award) {
@@ -703,6 +707,10 @@ export default createStore({
             state.earnings.push({value: payload[0], date: payload[1]})
         },
 
+        addFinancialPerformance(state, payload) {
+            state.financialPerformance.push(payload)
+        },
+
         addInProductionMovie(state, movie) {
             state.inProductionMovies.push(movie);
         },
@@ -725,7 +733,11 @@ export default createStore({
         },
 
         addOtherStudios(state, payload) {
-            state.otherStudios.push(payload)
+            state.otherStudios = payload
+        },
+
+        setAllCharacters(state, payload) {
+            state.allCharacters = payload
         },
 
         changeCurrentLanguage(state, value) {
@@ -901,6 +913,14 @@ export default createStore({
             state.createdAwards.push(award);
         },
 
+        removeMovieFromAllMovies(state, movie){
+            state.allMovies.splice(state.allMovies.indexOf(movie), 1);
+        },
+
+        removeScreenplayFromAllScreenplays(state, screenplay){
+            state.allScreenplays.splice(state.allScreenplays.indexOf(screenplay), 1);
+        },
+
         stateToSave(state, reducedState) {
             DataUtil.transferProperties(state, reducedState, [
                 "slot",
@@ -914,7 +934,6 @@ export default createStore({
                 "earnings",
                 "financialPerformance",
                 "calendarEvents",
-                "happeningEvent",
                 "franchises",
                 "inProductionMovies",
                 "finishedMovies",
@@ -930,7 +949,9 @@ export default createStore({
                 "preProductionEvents",
                 "streamingServicesFromOtherStudios",
                 "ownStreamingService",
-                "type"
+                "type",
+                "awardNominationList",
+                "createdAwards"
             ])
 
             return reducedState
@@ -956,6 +977,7 @@ export default createStore({
                     "calenderEvents",
                 ])
 
+                //TODO earnings
                 state.currentDate = new Date(responseData.currentDate)
                 state.ownStreamingService = responseData.ownStreamingService != null ? StreamingService.fromJSON(responseData.ownStreamingService) : null
                 state.streamingServicesFromOtherStudios = responseData.streamingServicesFromOtherStudios.map(jsonObject => StreamingService.fromJSON(jsonObject))
@@ -968,7 +990,7 @@ export default createStore({
                 state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
                 state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
                 state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-                state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
+                //state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
                 state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
                 state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
                 state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
@@ -982,11 +1004,43 @@ export default createStore({
                 state.boughtMovieRights = responseData.boughtMovieRights.map(jsonObject => Movie.fromJSON(jsonObject))
                 state.financialHistory = responseData.financialHistory.map(jsonObject => FinancialHistoryEntry.fromJSON(jsonObject))
                 state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
+                state.createdAwards = responseData.createdAwards.map(jsonObject => Award.fromJSON(jsonObject))
 
                 state.preProductionEvents = DataUtil.objectMapPerProperty(responseData.preProductionEvents, {
-                    actorWhoWantsToDropOut: obj => obj == null ? null : Person.fromJSON(obj),
+                    actorWhoWantsToDropOut: DataUtil.preserveNull(Movie.fromJSON),
                     directorWithDispute: obj => obj == null ? null : Person.fromJSON(obj),
                 })
+
+                state.awardNominationList = DataUtil.objectMapPerProperty(responseData.awardNominationList, {
+                    internationalAward: DataUtil.preserveNull(obj =>  DataUtil.objectMapPerProperty(obj, {
+                        Movies: DataUtil.mapArray(Movie.fromJSON),
+                        ActorLeadingRole: DataUtil.mapArray(Person.fromJSON),
+                        ActorSupportingRole: DataUtil.mapArray(Person.fromJSON),
+                        ActressLeadingRole: DataUtil.mapArray(Person.fromJSON),
+                        ActressSupportingRole: DataUtil.mapArray(Person.fromJSON),
+                        Directors: DataUtil.mapArray(Person.fromJSON),
+                        Writers:DataUtil.mapArray(Person.fromJSON)
+                    })),
+                    independentAward: DataUtil.preserveNull(obj =>  DataUtil.objectMapPerProperty(obj, {
+                        Movies: DataUtil.mapArray(Movie.fromJSON),
+                        Actor: DataUtil.mapArray(Person.fromJSON),
+                        Actress: DataUtil.mapArray(Person.fromJSON),
+                        Directors: DataUtil.mapArray(Person.fromJSON),
+                        Writers: DataUtil.mapArray(Person.fromJSON),
+                    })),
+                    audienceAward: DataUtil.preserveNull(obj =>  DataUtil.objectMapPerProperty(obj, {
+                        ActionOrAdventureMovies: DataUtil.mapArray(Movie.fromJSON),
+                        ThrillerMovies: DataUtil.mapArray(Movie.fromJSON),
+                        ScienceFictionMovies: DataUtil.mapArray(Movie.fromJSON),
+                        FantasyMovies: DataUtil.mapArray(Movie.fromJSON),
+                        HorrorMovies: DataUtil.mapArray(Movie.fromJSON),
+                        Actor: DataUtil.mapArray(Person.fromJSON),
+                        Actress: DataUtil.mapArray(Person.fromJSON),
+                        Directors: DataUtil.mapArray(Person.fromJSON),
+                        Writers:DataUtil.mapArray(Person.fromJSON)
+                    }))
+                })
+
                 // state.preProduction = DataUtil.objectMapPerProperty(responseData.preProduction,{
                 //     isPreProduction: value => value,
                 //     currentScreenplay: obj => obj && Screenplay.fromJSON(obj),
@@ -1043,17 +1097,19 @@ export default createStore({
             state.currentPostProdEventType = ""
             state.createdMovies = []
             state.currentScreenplay = null
+            state.currentStudioTakeOver = null
             state.logo = null
             state.currentDate = new Date("2023-01-01T00:00:00.000Z")
             state.news = []
             state.earnings = []
             state.financialPerformance = []
+            state.currentCalendarEvent = null
             state.calenderEvents = []
-            state.happeningEvent = null
             state.franchise = []
             state.currentFranchise = null
             state.inProductionMovies = []
             state.finishedMovies = []
+            state.awardsOfOwnStudio = []
             state.moviesFromOtherStudios = []
             state.screenplaysFromWriters = []
             state.franchisesFromOtherStudios = []
@@ -1062,6 +1118,7 @@ export default createStore({
             state.boughtMovies = []
             state.boughtMovieRights = []
             state.financialHistory = []
+            state.currentLoans = []
             state.feature = ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"]
             state.indie = ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"]
             state.animation = ["250000 - 5000000", "250000 - 1000000", "250000 - 3500000", "250000 - 3000000", "250000 - 1000000", "250000 - 3000000", "250000 - 5000000", "250000 - 1000000", "250000 - 1000000", "250000 - 1000000", "250000 - 3000000", "1000000 - 50000000"]
@@ -1117,17 +1174,50 @@ export default createStore({
             }
             state.months = ["january", "february", "march", "april", "may", "june",
                 "july", "august", "september", "october", "november", "december"]
+            state.awardNominationList = {
+                internationalAward: {
+                    "Movies": [], // Movie Objects
+                    "ActorLeadingRole": [], // Person Objects
+                    "ActorSupportingRole": [], // Person Objects
+                    "ActressLeadingRole": [], // Person Objects
+                    "ActressSupportingRole": [], // Person Objects
+                    "Directors": [], // Person Objects
+                    "Writers": [], // Person Objects
+                },
+                independentAward: {
+                    "Movies": [], // Movie Objects
+                    "Actor": [], // Person Objects
+                    "Actress": [], // Person Objects
+                    "Directors": [], // Person Objects
+                    "Writers": [], // Person Objects
+                },
+                audienceAward: {
+                    "ActionOrAdventureMovies": [], // Movie Objects
+                    "ThrillerMovies": [], // Movie Objects
+                    "ScienceFictionMovies": [], // Movie Objects
+                    "FantasyMovies": [], // Movie Objects
+                    "HorrorMovies": [], // Movie Objects
+                    "Actor": [], // Person Objects
+                    "Actress": [], // Person Objects
+                    "Directors": [], // Person Objects
+                    "Writers": [], // Person Objects
+                }
+            }
+            state.createdAwards = []
             state.dbFetcher = new DBFetcher(),
-                state.allPeople = []
-            state.Actors = []
+            state.allPeople = []
+            state.allActors = []
             state.allDirectors = []
             state.allWriters = []
             state.allAwards = []
             state.allTopics = []
             state.allScreenplays = []
+            state.allMovies = []
             state.allGenres = []
             state.allSubGenres = []
+            state.allCharacters = []
             state.editPerson = []
+            state.editStudio = []
             state.allDirectorSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000, 29500000, 31000000]
             state.allWriterSalary = [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 525000, 550000, 575000, 600000, 625000, 650000, 675000, 700000, 725000, 750000, 825000, 900000, 975000, 1050000, 1125000, 1200000, 1275000, 1350000, 1425000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 2100000, 2200000, 2300000, 2400000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 10500000, 11000000, 11500000, 12000000]
         }

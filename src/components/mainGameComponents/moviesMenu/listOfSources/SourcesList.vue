@@ -92,8 +92,8 @@ export default {
     let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays);
 
     let possibleScreenplays = [];
-    let screenplayAlreadyInUse = false;
     for (let i = 0; i < allOtherScreenplays.length; i++) {
+      let screenplayAlreadyInUse = false;
       for (let j = 0; j < this.allOtherStudiosMovies.length; j++) {
         if(this.allOtherStudiosMovies[j]._preProduction.screenplay.id === allOtherScreenplays[i].id){
           screenplayAlreadyInUse = true;
@@ -123,7 +123,7 @@ export default {
       if(itemId === 'movieSaleItem'){
         this.$emit('sendSource', source, 'Movie', 'Sale');
       } else if(itemId === 'screenplaySaleItem'){
-        this.$emit('sendSource', source, 'Screenplay', 'Owning');
+        this.$emit('sendSource', source, 'Screenplay', 'Sale');
       } else if(itemId === 'movieOwningItem'){
         this.$emit('sendSource', source, 'Movie', 'Owning');
       } else if(itemId === 'screenplayOwningItem'){

@@ -22,7 +22,8 @@
 
       <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
 
-      <button @click="goToDuration()" :disabled="!decision">{{$t('buyScreenplaySection.continue')}}</button>
+      <button v-if="recast === null" @click="goToDuration()" :disabled="!decision">{{$t('buyScreenplaySection.continue')}}</button>
+      <button v-if="recast !== null" @click="this.$router.push({name: 'home'})" :disabled="!decision">{{$t('buyScreenplaySection.continue')}}</button>
     </div>
   </div>
 </template>
@@ -34,7 +35,7 @@ export default {
   components: {AvatarElement},
   data() {
     return {
-      allDirectors: this.$store.getters.getAllDirectors,
+      allDirectors: null,
       showNegotiation: false,
       currentDirector: null,
       salaryRange: {
@@ -50,6 +51,7 @@ export default {
       perfectSalary: 0,
       perfectSalary1: 0,
       allSalaries: [],
+      recast: null
     }
   },
 
@@ -165,10 +167,21 @@ export default {
       this.$store.state.currentMovie._preProduction.budget.directorSalary = this.selectedSalary
       this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
       this.$router.push({name: 'durationSection'})
+    },
+
+    gotToHome() {
+      this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector
+      this.$store.state.currentMovie._preProduction.budget.directorSalary = this.selectedSalary
+      this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
+      this.$router.push({name: 'home'})
     }
   },
 
   mounted() {
+    this.allDirectors = this.$store.getters.getAllDirectors
+    if (this.$store.getters.getCurrentCalendarEvent !== null) {
+      this.allDirectors = this.allDirectors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.director.id)
+    }
     this.allSalaries = this.$store.getters.getDirectorAndActorSalaries
   }
 }

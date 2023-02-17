@@ -5,6 +5,7 @@
         <icon-button
             id="createStudioBackButton"
             size="medium"
+            icon="simple-arrow-left"
             :dark="true"
             :bg-gradient="true"
             :icon-gradient="false"
@@ -34,6 +35,7 @@
                     <icon-button
                         class="availableIconsElements"
                         size="small"
+                        :icon="icon[i-1]"
                         :dark="true"
                         :bg-gradient="true"
                         :icon-gradient="false"
@@ -105,13 +107,15 @@ import BudgetSelect from "@/components/startComponents/BudgetSelect";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import i18next from "i18next";
 import SubGenre from "@/classes/SubGenre";
-import {Screenplay} from "@/classes/Screenplay";
 import Genre from "@/classes/Genre";
 import Topic from "@/classes/Topic";
+import Person from "@/classes/Person";
+import {Character} from "@/classes/Character";
+import {Screenplay} from "@/classes/Screenplay";
 import {Movie} from "@/classes/Movie";
 import Award from "@/classes/Award";
-import {Character} from "@/classes/Character";
-
+import store from "@/services/store";
+import {createScreenplaysFromWriters} from "@/simulation/simulation";
 export default {
   name: "CreateStudio",
   components: {BackgroundTile, BudgetSelect, CustomButton, IconButton},
@@ -125,61 +129,57 @@ export default {
     return {
       name: '',
       budget: "250000000",
-      databaseVersion: null,
+      databaseVersion: this.slot,
       chosenLogo: null,
       databaseType: "default",
       iconSelected: [false, false, false, false, false, false, false, false, false, false],
-      icon: ['placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder', 'placeholder']//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
+      icon: ['logo1', 'logo2', 'logo3', 'logo4', 'logo5', 'logo6', 'logo7', 'logo8', 'logo9', 'logo10']//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
     }
   },
   methods: {
     async startGame() {
-      window.ipcRenderer.removeAllListeners('gotScreenplays')
-      window.ipcRenderer.removeAllListeners('gotMovies')
       this.$store.commit('resetState')
       this.$store.commit("setSlot", parseInt(this.slot))
       console.log(this.$store.state)
-
-      this.$store.state.dbFetcher.fetch()
-
       //For Production
       if (this.databaseType === 'current') {
-        window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db")
-        //window.ipcRenderer.send('changeDBPath', "../bundled/DB/fsm_custom" + this.databaseVersion +".db")
+        process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/fsm_custom" + this.databaseVersion + ".db")
       } else {
-        window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db");
-        //window.ipcRenderer.send('changeDBPath', "../bundled/DB/fsm_custom" + this.databaseVersion +".db")
+        process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/database/fsm.db")
       }
       //Fetch Topics
       let allTopics = []
-      window.ipcRenderer.send('toGetTopics', 'SELECT * FROM topics');
-      window.ipcRenderer.receive('fromGetTopics', (data) => {
-        allTopics.push(new Topic(data.topicName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
-        this.$store.commit('setAllTopics', allTopics)
+      await window.ipcRenderer.send('toGetTopics', 'SELECT * FROM topics');
+      await window.ipcRenderer.receive('fromGetTopics', (data) => {
+        allTopics.push(new Topic(data.pk_topicID, data.topicName, data.childrenPopularity, data.teenPopularity, data.adultPopularity))
       })
+      this.$store.commit('setAllTopics', allTopics)
 
       //Fetch Genre
       let allGenres = []
-      window.ipcRenderer.send('getGenres', 'SELECT * FROM genre');
-      window.ipcRenderer.receive('gotGenres', (data) => {
-        allGenres.push(new Genre(data.genreName.replaceAll(' ', '-'), data.childrenPopularity, data.teenPopularity, data.adultPopularity))
-        this.$store.commit('setAllGenres', allGenres)
+      await window.ipcRenderer.send('getGenres', 'SELECT * FROM genre');
+      await window.ipcRenderer.receive('gotGenres', (data) => {
+        allGenres.push(new Genre(data.pk_genreID, data.genreName.replaceAll(' ', '-'), data.childrenPopularity, data.teenPopularity, data.adultPopularity))
       })
-      //FETCH Subgenre
-      window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
-      window.ipcRenderer.receive('gotStudios', (data) => {
-        this.$store.commit('addOtherStudios', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
+      this.$store.commit('setAllGenres', allGenres)
+      //Fetch Studios
+      let allStudios = []
+      await window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
+      await window.ipcRenderer.receive('gotStudios', (data) => {
+        allStudios.push(new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
       })
+      this.$store.commit('addOtherStudios', allStudios)
+
       //Fetch Subgenre once
       let allSubGenres = []
       let counter = 1;
       let index = 0;
-      window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
-      window.ipcRenderer.receive('gotSubGenres', (data) => {
-        allSubGenres.push(new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity))
+      await window.ipcRenderer.send('getSubGenres', 'SELECT * FROM subgenre');
+      await window.ipcRenderer.receive('gotSubGenres', (data) => {
+        allSubGenres.push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity))
 
         let allGenres = ['Action', 'Adventure', 'Comedy', 'Documentary', 'Drama', 'Fantasy', 'Horror', 'Musical', 'Romance', 'Science-Fiction', 'Thriller', 'War'];
-        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity));
+        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity));
 
         if (counter % 5 === 0) {
           index++;
@@ -188,112 +188,172 @@ export default {
       })
       this.$store.commit('setAllSubGenres', allSubGenres)
 
+      //fetch Character
+      let characters = []
+      await window.ipcRenderer.send('getCharacters', 'SELECT * FROM characters')
+      await window.ipcRenderer.receive('gotCharacters', (data) => {
+        characters.push(new Character(data.first_name + " " + data.last_name, data.gender, data.age, data.pk_characterID))
+      })
+      this.$store.commit('setAllCharacters', characters)
+
+      //people
+      let allWriters = [], allActors = [], allDirectors = [], allPeople = []
+      window.ipcRenderer.send('toGetPeople', 'SELECT * FROM people');
+      window.ipcRenderer.receive('fromGetPeople', (data) => {
+        console.log(data)
+        if (data.isWriter === "true") {
+          allWriters.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+              data.ethnicity, data.workingSince, data.performance, data.experience, data.talent, data.popularity,
+              data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+              data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
+        }
+        if (data.isDirector === "true") {
+          allDirectors.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+              data.ethnicity, data.workingSince, data.performance, data.experience, data.talent, data.popularity,
+              data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+              data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
+        }
+        if (data.isActor === "true") {
+          allActors.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+              data.ethnicity, data.workingSince, data.performance, data.experience, data.talent, data.popularity,
+              data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+              data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
+        }
+        allPeople.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
+            data.ethnicity, data.workingSince, data.performance, data.experience, data.talent, data.popularity,
+            data.rating, data.action, data.adventure, data.comedy, data.documentary, data.drama, data.fantasy, data.horror, data.musical, data.romance, data.scienceFiction,
+            data.thriller, data.war, data.isActor, data.isDirector, data.isWriter))
+      })
+
+      //Set in Store
+      this.$store.commit('setAllWriters', allWriters);
+      this.$store.commit('setAllDirectors', allDirectors);
+      this.$store.commit('setAllActors', allActors);
+      this.$store.commit('setAllPeople', allPeople);
+
+      await new Promise(resolve => setTimeout(resolve, 300))
+
+      //log Store data
+      console.log(this.$store.getters.getOtherStudios)
+      console.log(this.$store.state.allCharacters)
+      console.log(this.$store.getters.getAllGenres)
+      console.log(this.$store.getters.getAllSubGenres)
+      console.log(this.$store.getters.getAllTopics)
+      console.log(this.$store.getters.getAllPeople)
+
       //screenplays
       let screenplays = []
-      window.ipcRenderer.send('getScreenplays', "SELECT *, g.childrenPopularity as 'gChild', g.teenPopularity as 'gTeen', g.adultPopularity as 'gAdult', t.topicName as 'topic1', t2.topicName as 'topic2', t3.topicName as 'topic3', t.pk_topicID as 't1TopicID', t2.pk_topicID as 't2TopicID', t3.pk_topicID as 't3TopicID', t.childrenPopularity as 'tChild', t.teenPopularity as 'tTeen', t.adultPopularity as 'tAdult', t2.childrenPopularity as 't2Child', t2.teenPopularity as 't2Teen', t2.adultPopularity as 't2Adult', t3.childrenPopularity as 't3Child', t3.teenPopularity as 't3Teen', t3.adultPopularity as 't3Adult', c.first_name as 'cFirst', c.last_name as 'cLast', c.gender as 'cGender', p5.pk_personID as 'act2ID', p5.avatar as 'act2Avatar', p5.first_name as 'act2First', p5.last_name as 'act2Last', p5.birthday as 'act2Birth', p5.deathAge as 'act2Death', p5.gender as 'act2Gender', p5.nationality as 'act2Nat', p5.ethnicity as 'act2Eth', p5.workingSince as 'act2Work', p5.performance as 'act2Per', p5.experience as 'act2Exp', p5.talent as 'act2Tal', p5.popularity as 'act2Pop', p5.rating as 'act2Rating', p5.action as 'act2Action', p5.adventure as 'act2Adv', p5.comedy as 'act2Come', p5.documentary as 'act2Doc', p5.drama as 'act2Drama', p5.fantasy as 'act2Fant', p5.horror as 'act2Horror', p5.musical as 'act2Mus', p5.romance as 'act2Rom', p5.scienceFiction as 'act2Science', p5.thriller as 'act2Thrill', p5.war as 'act2War', p5.isActor as 'act2Act', p5.isActor as 'act2act2', p5.isWriter as 'act2Wri', p.pk_personID as 'wri0ID', p.avatar as 'wri0Avatar', r.roleType as 'roleType', p.first_name as 'wri0First', p.last_name as 'wri0Last', p.birthday as 'wri0Birth', p.deathAge as 'wri0Death', p.gender as 'wri0Gender', p.nationality as 'wri0Nat', p.ethnicity as 'wri0Eth', p.workingSince as 'wri0Work', p.performance as 'wri0Per', p.experience as 'wri0Exp', p.talent as 'wri0Tal', p.popularity as 'wri0Pop', p.rating as 'wri0Rating', p.action as 'wri0Action', p.adventure as 'wri0Adv', p.comedy as 'wri0Come', p.documentary as 'wri0Doc', p.drama as 'wri0Drama', p.fantasy as 'wri0Fant', p.horror as 'wri0Horror', p.musical as 'wri0Mus', p.romance as 'wri0Rom', p.scienceFiction as 'wri0Science', p.thriller as 'wri0Thrill', p.war as 'wri0War', p.isActor as 'wri0Act', p.isActor as 'wri0wri0', p.isWriter as 'wri0Wri' FROM screenplay INNER JOIN genre g on g.pk_genreID = screenplay.fk_pk_genreID INNER JOIN subgenre s on s.pk_subgenreID = screenplay.fk_pk_subgenreID INNER JOIN topics t on t.pk_topicID = screenplay.fk_pk_topic1 INNER JOIN topics t2 on t2.pk_topicID = screenplay.fk_pk_topic2 INNER JOIN topics t3 on t3.pk_topicID = screenplay.fk_pk_topic3 INNER JOIN people p on screenplay.fk_pk_writerID = p.pk_personID INNER JOIN roles r on screenplay.pk_screenplayID = r.fk_pk_screenplayID INNER JOIN characters c on r.fk_pk_characterID = c.pk_characterID INNER JOIN people p5 on fk_pk_actorID = p5.pk_personID")
-      window.ipcRenderer.receive('gotScreenplays', (data) => {
-        let check = false
+      await window.ipcRenderer.send('getScreenplays', "SELECT * FROM screenplay")
+      await window.ipcRenderer.receive('gotScreenplays', (data) => {
+        console.log(data)
+        console.log(allWriters.length)
+        let genreInd = data.fk_pk_genreID - 1
+        let subgenreInd = data.fk_pk_subgenreID - 1
+        let wriInd = data.fk_pk_writerID - 1
         let screenplay = new Screenplay(data.pk_screenplayID, data.title, data.type,
-            new Genre(data.genreName, data.gChild, data.gTeen, data.gAdult),
-            new SubGenre(data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity),
+            allGenres[genreInd],
+            allSubGenres[subgenreInd],
             data.violenceAgeRating,
-            this.$store.getters.getAllPeople.filter(el => el.id === data.wri0ID)[0],
-            data.description, data.screenplayRating, parseInt(data.price),
-            {
-              firstTopic: new Topic(data.topic1, data.tChild, data.tTeen, data.tAdult),
-              secondTopic: new Topic(data.topic2, data.t2Child, data.t2Teen, data.t2Adult),
-              thirdTopic: new Topic(data.topic3, data.t3Child, data.t3Teen, data.t3Adult)
-            }, null, data.bought !== "false",
-            {
-              scope: data.scope, tone: data.tone, specialEffects: data.specialEffects
-            },
-            {
-              violence: data.violenceAgeRating, cursing: data.CursingAgeRating, loveScenes: data.loveScenesAgeRating
-            })
+            allWriters[wriInd],
+            data.description, parseInt(data.screenplayRating.split('-')[0]), data.screenplayRating, data.price, {
+              firstTopic: allTopics[data.fk_pk_topic1 - 1],
+              secondTopic: allTopics[data.fk_pk_topic2 - 1],
+              thirdTopic: allTopics[data.fk_pk_topic3 - 1]
+            }, null, data.bought, {scope: data.scope, tone: data.tone, specialEffects: data.specialEffects},
+            {violence: data.violenceAgeRating, cursing: data.CursingAgeRating, loveScenes: data.loveScenesAgeRating})
 
-        this.$store.getters.getAllScreenplays.forEach(el => {
-          if (el.title === data.title) {
-            screenplay = el
-            check = true
-          }
-        })
-
-        //push actor and roles
-        if (data.roleType === 'main') {
-          screenplay.roles.main.push(new Character(data.cFirst + " " + data.cLast, data.cGender, data.age))
-          screenplay.actors.main.push([...this.$store.getters.getAllPeople].filter(el => el.id === data.act2ID)[0])
-        } else if (data.roleType === 'minor') {
-          screenplay.roles.minor.push(new Character(data.cFirst + " " + data.cLast, data.cGender, data.age))
-          screenplay.actors.minor.push([...this.$store.getters.getAllPeople].filter(el => el.id === data.act2ID)[0])
-        } else if (data.roleType === 'support') {
-          screenplay.roles.support.push(new Character(data.cFirst + " " + data.cLast, data.cGender, data.age))
-          screenplay.actors.support.push([...this.$store.getters.getAllPeople].filter(el => el.id === data.act2ID)[0])
-        } else if (data.roleType === 'cameo') {
-          screenplay.roles.cameo.push(new Character(data.cFirst + " " + data.cLast, data.cGender, data.age))
-          screenplay.actors.cameo.push([...this.$store.getters.getAllPeople].filter(el => el.id === data.act2ID)[0])
-        }
-
-        if (!check) {
-          screenplays.push(screenplay)
-        }
+        screenplays.push(screenplay)
       })
 
       this.$store.commit('addAllScreenplay', screenplays)
 
+      console.log(this.$store.getters.getAllScreenplays)
+
       await new Promise(resolve => setTimeout(resolve, 100))
 
-      console.log(this.$store.getters.getAllScreenplays.length)
-      //Movies
-      window.ipcRenderer.send('getMovies', "SELECT s2.popularity as 'studioPop',g.childrenPopularity  as 'gChild',g.teenPopularity      as 'gTeen',g.adultPopularity     as 'gAdult',t.topicName           as 'topic1',t2.topicName          as 'topic2',t3.topicName          as 'topic3',t.pk_topicID          as 't1TopicID',t2.pk_topicID         as 't2TopicID',t3.pk_topicID         as 't3TopicID',t.childrenPopularity  as 'tChild',t.teenPopularity      as 'tTeen',t.adultPopularity     as 'tAdult',t2.childrenPopularity as 't2Child',t2.teenPopularity     as 't2Teen',t2.adultPopularity    as 't2Adult' ,t3.childrenPopularity as 't3Child',t3.teenPopularity     as 't3Teen',t3.adultPopularity    as 't3Adult',  movies.popularity as 'movPop', movies.foundationDate as 'movDate', p2.pk_personID as 'dirID', p2.avatar as 'dirAvatar', p2.first_name as 'dirFirst', p2.last_name as 'dirLast', p2.birthday as 'dirBirth', p2.deathAge as 'dirDeath', p2.gender as 'dirGender', p2.nationality as 'dirNat', p2.ethnicity as 'dirEth', p2.workingSince as 'dirWork', p2.performance as 'dirPer', p2.experience as 'dirExp', p2.talent as 'dirTal', p2.popularity as 'dirPop', p2.rating as 'dirRating', p2.action as 'dirAction', p2.adventure as 'dirAdv', p2.comedy as 'dirCome', p2.documentary as 'dirDoc', p2.drama as 'dirDrama', p2.fantasy as 'dirFant', p2.horror as 'dirHorror', p2.musical as 'dirMus', p2.romance as 'dirRom', p2.scienceFiction as 'dirScience', p2.thriller as 'dirThrill', p2.war as 'dirWar', p2.isActor as 'dirAct', p2.isDirector as 'dirDir', p2.isWriter as 'dirWri', p1.pk_personID as 'wriID', p1.avatar as 'wriAvatar', p1.first_name as 'wriFirst', p1.last_name as 'wriLast', p1.birthday as 'wriBirth', p1.deathAge as 'wriDeath', p1.gender as 'wriGender', p1.nationality as 'wriNat', p1.ethnicity as 'wriEth', p1.workingSince as 'wriWork', p1.performance as 'wriPer', p1.experience as 'wriExp', p1.talent as 'wriTal', p1.popularity as 'wriPop', p1.rating as 'wriRating', p1.action as 'wriAction', p1.adventure as 'wriAdv', p1.comedy as 'wriCome', p1.documentary as 'wriDoc', p1.drama as 'wriDrama', p1.fantasy as 'wriFant', p1.horror as 'wriHorror', p1.musical as 'wriMus', p1.romance as 'wriRom', p1.scienceFiction as 'wriScience', p1.thriller as 'wriThrill', p1.war as 'wriWar', p1.isActor as 'wriAct', p1.isDirector as 'wriDir', p1.isWriter as 'wriWri', * FROM movies INNER JOIN studio s2 on movies.owner = s2.pk_studioID INNER JOIN screenplay s on movies.screenplay = s.pk_screenplayID INNER JOIN genre g on g.pk_genreID = s.fk_pk_genreID INNER JOIN subgenre s3 on s3.pk_subgenreID = s.fk_pk_subgenreID INNER JOIN topics t on t.pk_topicID = s.fk_pk_topic1 INNER JOIN topics t2 on t2.pk_topicID = s.fk_pk_topic2 INNER JOIN topics t3 on t3.pk_topicID = s.fk_pk_topic3 INNER JOIN people p1 on s.fk_pk_writerID = p1.pk_personID INNER JOIN people p2 on movies.director = p2.pk_personID")
-      window.ipcRenderer.receive('gotMovies', (data) => {
-        let movie = new Movie(data.pk_movieID,
-            new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.studioPop, {"2023": data.marketShare}),
-            null, data.status, data.quality, data.totalOutgoings,
-            data.audiencePopularity, data.movPop, data.movDate, data.totalCosts, data.critics,
-            data.openingEarnings, data.totalEarnings, data.cinemaEarnings, data.dvdEarnings,
-            data.childrenPopularityMovie, data.teenPopularityMovie, data.adultsPopularityMovie,
-            data.marketingPrint, data.marketingInternet, data.marketingCommercials
-        )
+      //fetch Roles
+      await window.ipcRenderer.send('getRoles', 'SELECT * FROM roles')
+      await window.ipcRenderer.receive('gotRoles', (data) => {
+        let index = data.fk_pk_screenplayID - 1
+        let screenplay = this.$store.getters.getAllScreenplays[index]
+        let character = this.$store.getters.getAllCharacters[data.fk_pk_characterID - 1]
+        let actor = this.$store.getters.getAllActors[data.fk_pk_actorID - 1]
+        if (data.roleType.toString().toLowerCase() === 'main') {
+          screenplay.addMainCharacter(character)
+          screenplay.addMainActor(actor)
+        } else if (data.roleType.toString().toLowerCase() === 'minor') {
+          screenplay.addMinorCharacter(character)
+          screenplay.addMinorActor(actor)
+        } else if (data.roleType.toString().toLowerCase() === 'support') {
+          screenplay.addSupportCharacter(character)
+          screenplay.addSupportActor(actor)
+        } else if (data.roleType.toString().toLowerCase() === 'cameo') {
+          screenplay.addCameoCharacter(character)
+          screenplay.addCameoActor(actor)
+        }
+      })
 
-        //preProduction
-        movie._preProduction.screenplay = [...this.$store.getters.getAllScreenplays].filter(el => el.id === data.screenplay)[0]
-        movie._preProduction.hype = data.hype
+      await new Promise(resolve => setTimeout(resolve, 100))
+
+      //Movies
+      let allMovies = []
+      await window.ipcRenderer.send('getMovies', "SELECT * FROM movies")
+      await window.ipcRenderer.receive('gotMovies', (data) => {
+        console.log(data)
+        console.log(this.$store.getters.getAllPeople.length)
+        console.log(this.$store.getters.getAllScreenplays[data.screenplay - 1].id)
+        let movie = new Movie(data.pk_movieID, allStudios[data.owner - 1],
+            null, data.status, data.quality, data.totalOutgoings, data.audiencePopularity, data.popularity,
+            new Date(parseInt(data.foundationDate.split('-')[2]),
+                parseInt(data.foundationDate.split('-')[1]),
+                parseInt(data.foundationDate.split('-')[0])),
+            data.totalCosts, data.critics, data.openingEarnings, data.totalEarnings,
+            data.cinemaEarnings, data.dvdEarnings, data.childrenPopularityMovie, data.teenPopularityMovie, data.adultsPopularityMovie,
+            data.marketingPrint, data.marketingInternet, data.marketingCommercials)
+
+        //set PreProd Values
+        let index = data.screenplay - 1
+        let dirIndex = data.director - 1
+        movie._preProduction.screenplay = screenplays[index]
+        movie._preProduction.hiredDirector = allDirectors[dirIndex]
         movie._preProduction.crewMorale = data.crewMorale
-        movie._preProduction.hiredDirector = [...this.$store.getters.getAllDirectors].filter(el => el.id === data.director)[0]
+        movie._preProduction.hype = data.hype
+        movie._preProduction.releaseDate = new Date(parseInt(data.releaseDate.split('-')[2]),
+            parseInt(data.releaseDate.split('-')[1]),
+            parseInt(data.releaseDate.split('-')[0]));
         movie._preProduction.budget.production = data.production
-        movie._preProduction.releaseDate = data.releaseDate
 
         //set other phases
         movie.setProduction()
         movie.setPostProduction()
         movie.setRelease()
 
-        this.$store.commit('addAllMovie', movie)
+        allMovies.push(movie)
       })
 
+      this.$store.commit('addAllMovie', allMovies)
 
-      console.log(this.$store.state.allScreenplays)
-      console.log(this.$store.state.allMovies)
+      console.log(this.$store.getters.getAllMovies)
+
       //Awards
-      window.ipcRenderer.send('getIntAwards', "SELECT * FROM internationalAwards")
-      window.ipcRenderer.receive('gotIntAwards', (data) => {
+      await window.ipcRenderer.send('getIntAwards', "SELECT * FROM internationalAwards")
+      await window.ipcRenderer.receive('gotIntAwards', (data) => {
         this.$store.commit('addAllAward', new Award(data.pk_intAwardsID, data.fk_bestActorInLeading,
             data.fk_bestActorInSupport, data.fk_bestActressInLeading, data.fk_bestActressInSupport,
             data.fk_bestMovie, data.fk_bestDirecting, data.fk_bestScreenplay, data.fk_bestWriter, null,
             null, null, null, null, null, null, null,
             "international", data.year))
-        console.log(data)
       })
-      window.ipcRenderer.send('getIndAwards', "SELECT * FROM independentAwards")
-      window.ipcRenderer.receive('gotIndAwards', (data) => {
+      await window.ipcRenderer.send('getIndAwards', "SELECT * FROM independentAwards")
+      await window.ipcRenderer.receive('gotIndAwards', (data) => {
         this.$store.commit('addAllAward', new Award(data.pk_indAwardsID, null,
             null, null, null,
             data.fk_bestMovie, data.fk_bestDirector, data.fk_bestScreenplay, data.fk_bestWriter, data.fk_bestActor,
             data.fk_bestActress, null, null, null, null, null, null,
             "independent", data.year))
       })
-      window.ipcRenderer.send('getAudAwards', "SELECT * FROM audienceAwards")
-      window.ipcRenderer.receive('gotAudAwards', (data) => {
+      await window.ipcRenderer.send('getAudAwards', "SELECT * FROM audienceAwards")
+      await window.ipcRenderer.receive('gotAudAwards', (data) => {
         this.$store.commit('addAllAward', new Award(data.pk_audAwards, null,
             null, null, null,
             null, data.fk_bestDirector, data.fk_bestScreenplay, data.fk_bestWriter, data.fk_bestActor,
@@ -324,6 +384,9 @@ export default {
         name: 'loadingScreen',
         params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}
       })
+
+      let newScreenplay = createScreenplaysFromWriters('forMovieGeneration');
+      store.commit('addScreenplay', newScreenplay)
     },
 
     test() {

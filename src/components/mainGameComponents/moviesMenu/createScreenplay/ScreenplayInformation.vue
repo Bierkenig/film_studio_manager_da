@@ -260,7 +260,9 @@ export default {
 
   methods: {
     onButtonClick(){
-      if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
+      if(this.screenplay.rewritingStatus === true){
+        this.$router.push({name: 'home'});
+      } else if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
         this.$router.push({name: 'movies'});
       } else {
         this.$store.state.currentMovie._preProduction.screenplay = this.screenplay

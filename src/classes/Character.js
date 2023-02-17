@@ -1,10 +1,12 @@
 import DataUtil from "@/classes/DataUtil";
 
 export class Character {
-    constructor(name, gender, age) {
+    constructor(name, gender, age, id = -1) {
         if(arguments[0] === DataUtil.skip){
             return
         }
+        //TYPE -> Integer
+        this.id = id
         //TYPE -> String
         this.name = name;
         //TYPE -> String

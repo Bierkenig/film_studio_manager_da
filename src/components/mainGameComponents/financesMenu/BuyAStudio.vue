@@ -147,7 +147,7 @@ export default {
       store.commit('addCalendarEvents', {
         id: store.getters.getNextEventId,
         movie: "",
-        studio: this.general.name,
+        studio: this.currentStudio,
         actor: "",
         director: "",
         start: endDate.toISOString().split('T')[0],
