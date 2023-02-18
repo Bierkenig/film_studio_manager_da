@@ -16,7 +16,7 @@
         :check-visibility="checkNavVisibility"
     />
 
-    <audio id="backgroundMusic" volume="0.5" autoplay loop>
+    <audio id="backgroundMusic" volume="0.05" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
     </audio>
   </div>

@@ -67,7 +67,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.$store.getters.getAllMovies.length)
     this.$store.getters.getAllMovies.forEach((el) => {
       if (el.owner.id === this.studio.id) {
         this.offer += el._release.totalEarnings

@@ -40,6 +40,9 @@ export default {
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
       this.$store.getters.getCurrentMovie._earnings(new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
 
+      this.$store.getters.getStudio.budget += this.$store.getters.getCurrentMovie._release.openingWeekGross;
+
+
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
           store.getters.getCurrentDate.getDate() + 21)
       let newDate = new Date(endDate.getFullYear(),

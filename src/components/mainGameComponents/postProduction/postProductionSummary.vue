@@ -70,6 +70,8 @@ export default {
       this.$store.commit('addEarnings', new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate))
       this.$store.getters.getCurrentMovie._earnings.push(new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate))
 
+      this.$store.getters.getStudio.budget -= this.$store.getters.getCurrentMovie._totalOutgoings;
+
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
       for (let i = 0; i < allCalendarEvents.length; i++) {

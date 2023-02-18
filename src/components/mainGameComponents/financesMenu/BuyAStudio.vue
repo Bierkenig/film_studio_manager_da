@@ -151,7 +151,6 @@ export default {
     },
 
     contact() {
-      console.log(this.currentStudio)
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),
           store.getters.getCurrentDate.getDate() + (Math.round(Math.random() * 5) + 1))
       let newDate = new Date(endDate.getFullYear(),

@@ -325,7 +325,7 @@ export default {
             data.fk_bestActorInSupport, data.fk_bestActressInLeading, data.fk_bestActressInSupport,
             data.fk_bestMovie, data.fk_bestDirecting, data.fk_bestScreenplay, data.fk_bestWriter, null,
             null, null, null, null, null, null, null,
-            "international", data.year))
+            "international", new Date(data.year.split('-')[2], data.year.split('-')[1], data.year.split('-')[0])))
       })
       await window.ipcRenderer.send('getIndAwards', "SELECT * FROM independentAwards")
       await window.ipcRenderer.receive('gotIndAwards', (data) => {
@@ -333,7 +333,7 @@ export default {
             null, null, null,
             data.fk_bestMovie, data.fk_bestDirector, data.fk_bestScreenplay, data.fk_bestWriter, data.fk_bestActor,
             data.fk_bestActress, null, null, null, null, null, null,
-            "independent", data.year))
+            "independent", new Date(data.year.split('-')[2], data.year.split('-')[1], data.year.split('-')[0])))
       })
       await window.ipcRenderer.send('getAudAwards', "SELECT * FROM audienceAwards")
       await window.ipcRenderer.receive('gotAudAwards', (data) => {
@@ -341,28 +341,16 @@ export default {
             null, null, null,
             null, data.fk_bestDirector, data.fk_bestScreenplay, data.fk_bestWriter, data.fk_bestActor,
             data.fk_bestActress, data.fk_bestAdventure, data.fk_bestAction, data.fk_bestThriller, data.fk_bestScienceFiction, data.fk_bestFantasy, data.fk_bestHorror,
-            "independent", data.year))
+            "audience", new Date(data.year.split('-')[2], data.year.split('-')[1], data.year.split('-')[0])))
       })
 
       this.$store.commit('createStudio', {
         studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1, {"2023": 0}),
         logo: this.chosenLogo
       });
-      this.$router.push({
-        name: 'loadingScreen',
-        params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}
-      })
       if (this.databaseType === 'current') {
         window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db")
       }
-      this.$store.commit('createStudio', {
-        studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1),
-        logo: this.chosenLogo
-      });
-      this.$store.commit('createStudio', {
-        studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1),
-        logo: this.chosenLogo
-      });
       this.$router.push({
         name: 'loadingScreen',
         params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}

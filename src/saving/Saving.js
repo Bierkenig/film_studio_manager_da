@@ -193,7 +193,6 @@ export function checkIfExists(slot = null) {
         try {
             fs.statSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json'))
         } catch (e) {
-            console.log("no file")
             return [false, slot]
         }
         return [true, slot]
