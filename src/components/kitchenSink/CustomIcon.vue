@@ -67,6 +67,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    greyIcon: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     async setSVG() {
@@ -105,13 +109,17 @@ export default {
             throw('Invalid icon theme!');
         }
       }
-      if (this.theme === 'light' && !this.invertTheme || this.theme === 'dark' && this.invertTheme) {
-        svgCode = svgCode.replaceAll('<svg', '<svg fill="url(#customColor)"');
-        svgCode = svgCode.replaceAll('</svg>',
-            '<defs><linearGradient id="customColor" x1="0%" y1="0%" x2="0%" y2="100%">'
-            + this.themeValues.gradient + '</linearGradient></defs></svg>');
+      if (this.greyIcon) {
+        svgCode = svgCode.replaceAll('<svg', '<svg fill="#848891"');
       } else {
-        svgCode = svgCode.replaceAll('<svg', '<svg fill="' + this.themeValues.color + '"');
+        if (this.theme === 'light' && !this.invertTheme || this.theme === 'dark' && this.invertTheme) {
+          svgCode = svgCode.replaceAll('<svg', '<svg fill="url(#customColor)"');
+          svgCode = svgCode.replaceAll('</svg>',
+              '<defs><linearGradient id="customColor" x1="0%" y1="0%" x2="0%" y2="100%">'
+              + this.themeValues.gradient + '</linearGradient></defs></svg>');
+        } else {
+          svgCode = svgCode.replaceAll('<svg', '<svg fill="' + this.themeValues.color + '"');
+        }
       }
       if (this.shadow) {
         svgCode = svgCode.replaceAll('<svg', '<svg class="customShadow"');
@@ -148,6 +156,9 @@ export default {
       this.setSVG();
     },
     icon: function() {
+      this.setSVG();
+    },
+    greyIcon: function() {
       this.setSVG();
     },
   },

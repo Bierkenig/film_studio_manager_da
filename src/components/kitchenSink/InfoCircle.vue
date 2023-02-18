@@ -3,7 +3,7 @@
     <div class="infoCircleSubDiv" ref="infoCircleSubDiv">
       <custom-icon v-show="text === ''" class="infoCircleSVG" ref="infoCircleSVG" size="25px"
                    :theme="iconThemes[dark ? 1 : 0]"
-                   :gradient="false" :icon="icon" :shadow="false"/>
+                   :gradient="false" :icon="icon" :shadow="false" :grey-icon="greyIcon"/>
       <div v-show="text !== ''" class="infoCircleText">{{ text }}</div>
     </div>
   </div>
@@ -68,6 +68,10 @@ export default {
       default: false,
     },
     largeFont: {
+      type: Boolean,
+      default: false,
+    },
+    greyIcon: {
       type: Boolean,
       default: false,
     },

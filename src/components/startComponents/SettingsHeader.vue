@@ -1,30 +1,18 @@
 <template>
   <div class="settingHeaderContainer">
     <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
-      <icon-button
+      <info-circle
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
-          size="small"
           icon="music"
-          :dark="false"
-          :bg-gradient="true"
-          :icon-gradient="false"
-          :shadow="false"
-          :invertTheme="!backgroundMusicStatus"
-          @click="changeMusicStatus"
-      />
-      <icon-button
+          :grey-icon="!backgroundMusicStatus"
+          @click="changeMusicStatus"/>
+      <info-circle
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
-          size="small"
           icon="soundeffect"
-          :dark="false"
-          :bg-gradient="true"
-          :icon-gradient="false"
-          :shadow="false"
-          :invertTheme="!soundEffectStatus"
-          @click="changeSoundeffectStatus"
-      />
+          :grey-icon="!soundEffectStatus"
+          @click="changeSoundeffectStatus"/>
       <info-circle
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
