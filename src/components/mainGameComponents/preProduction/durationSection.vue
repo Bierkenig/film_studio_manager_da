@@ -1,15 +1,15 @@
 <template>
   <div>
     <div>{{$t('durationSection.set')}}</div>
-    <input type="range" :min="preProduction.min" :max="preProduction.max" step="1" v-model="preProductionInput">
+    <input type="range" :min="2" :max="12" step="1" v-model="preProductionInput">
     <div>{{preProductionInput}} {{$t('durationSection.weeks')}}</div>
 
     <div>{{$t('durationSection.set2')}}</div>
-    <input type="range" :min="production.min" :max="production.max" step="1" v-model="productionInput">
+    <input type="range" :min="4" :max="24" step="1" v-model="productionInput">
     <div>{{productionInput}} {{$t('durationSection.weeks')}}</div>
 
     <div>{{$t('durationSection.set3')}}</div>
-    <input type="range" :min="production.min" :max="production.max" step="1" v-model="postProductionInput">
+    <input type="range" :min="4" :max="24" step="1" v-model="postProductionInput">
     <div>{{postProductionInput}} {{$t('durationSection.weeks')}}</div>
 
     <button @click="releaseSection = true">{{$t('durationSection.confirm')}}</button>
@@ -41,18 +41,6 @@ export default {
       productionInput: 0,
       postProductionInput: 0,
       releaseDateInput: 0,
-      preProduction: {
-        min: 0,
-        max: 1
-      },
-      production: {
-        min: 0,
-        max: 1
-      },
-      postProduction: {
-        min: 0,
-        max: 1
-      },
       productionPhase: 0,
       disabled: true,
       counter: 0,
@@ -78,56 +66,53 @@ export default {
       this.$store.state.currentMovie._preProduction.preProductionLength = this.preProductionInput
       this.$store.state.currentMovie._preProduction.productionLength = this.productionInput
       this.$store.state.currentMovie._preProduction.postProductionLength = this.postProductionInput
+
+      //check for needed
+      switch (this.scope) {
+        case "Small":
+          if (this.isBetween(2, 4, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(4, 8, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(4, 8, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          break
+        case "Normal":
+          if (this.isBetween(4, 6, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(8, 12, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(8, 12, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(2, 4, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(4, 8, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(4, 8, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          break
+        case "Large":
+          if (this.isBetween(6, 8, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(12, 16, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(12, 16, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(4, 6, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(8, 12, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(8, 12, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          break
+        case "Epic":
+          if (this.isBetween(8, 10, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(16, 20, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(16, 20, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(6, 8, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(12, 16, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(12, 16, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          break
+      }
+
+      console.log(this.scope)
+      console.log(Math.round(this.$store.getters.getCurrentMovie._preProduction.neededDuration))
+    },
+
+    isBetween(min, max, value) {
+      if (value >= min && value < max) return true
     }
   },
 
   mounted() {
-    switch (this.scope) {
-      case "Little":
-        this.preProduction.min = 2
-        this.preProduction.max = 4
-        this.production.min = 4
-        this.production.max = 8
-        this.postProduction.min = 4
-        this.postProduction.max = 8
-        break
-      case "Small":
-        this.preProduction.min = 4
-        this.preProduction.max = 6
-        this.production.min = 8
-        this.production.max = 12
-        this.postProduction.min = 8
-        this.postProduction.max = 12
-        break
-      case "Normal":
-        this.preProduction.min = 6
-        this.preProduction.max = 8
-        this.production.min = 12
-        this.production.max = 16
-        this.postProduction.min = 12
-        this.postProduction.max = 16
-        break
-      case "Large":
-        this.preProduction.min = 8
-        this.preProduction.max = 10
-        this.production.min = 16
-        this.production.max = 20
-        this.postProduction.min = 16
-        this.postProduction.max = 20
-        break
-      case "Epic":
-        this.preProduction.min = 10
-        this.preProduction.max = 12
-        this.production.min = 20
-        this.production.max = 24
-        this.postProduction.min = 20
-        this.postProduction.max = 24
-        break
-    }
-
-    this.preProductionInput = this.preProduction.min
-    this.productionInput = this.production.min
-    this.postProductionInput = this.postProduction.min
+    this.preProductionInput = 2
+    this.productionInput = 4
+    this.postProductionInput = 4
   }
 }
 </script>
