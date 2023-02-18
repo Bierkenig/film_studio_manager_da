@@ -7,66 +7,69 @@
     </div>
     <div class="newsMenuCenterBox">
       <background-tile class="newsMenuCenterBoxBackground" title="Earning Statistics">
-        <div>
-          <tile-pages-nav class="newsMenuNavigation" :pages='[$t("thisWeek"),$t("thisMonth"), $t("thisYear"), $t("allTime")]' :gradient='true'>
-            <div class="scroll verticalScroll">
+          <tile-pages-nav class="newsMenuNavigation"
+                          :pages='[$t("thisWeek"),$t("thisMonth"), $t("thisYear"), $t("allTime")]' :gradient='true'>
+            <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross" :current-time-title="$t('thisWeek')" :current-time-gross="getWeekEarnings(it)"/>
+                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
+                                       :current-time-title="$t('thisWeek')" :current-time-gross="getWeekEarnings(it)"/>
               </div>
             </div>
-            <div class="scroll verticalScroll">
+            <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross" :current-time-title="$t('thisMonth')" :current-time-gross="getMonthEarnings(it)"/>
+                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
+                                       :current-time-title="$t('thisMonth')"
+                                       :current-time-gross="getMonthEarnings(it)"/>
               </div>
             </div>
-            <div class="scroll verticalScroll">
+            <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross" :current-time-title="$t('thisYear')" :current-time-gross="getYearEarnings(it)"/>
+                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
+                                       :current-time-title="$t('thisYear')" :current-time-gross="getYearEarnings(it)"/>
               </div>
             </div>
-            <div class="scroll verticalScroll">
+            <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross" :current-time-title="$t('allTime')" :current-time-gross="getAllTimeEarnings(it)"/>
+                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
+                                       :current-time-title="$t('allTime')"
+                                       :current-time-gross="getAllTimeEarnings(it)"/>
               </div>
             </div>
           </tile-pages-nav>
-        </div>
       </background-tile>
     </div>
     <div class="newsMenuRightBox">
       <background-tile class="newsMenuRightBoxBackground" title="News">
-        <div>
           <tile-pages-nav class="newsMenuNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
-            <div class="newsTextSection scroll verticalScroll">
+            <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.peopleNews" :key="index">
                 <news-element svg-code="" :heading-text="it._title"
                               :info-text="it._description" class="newsElement"/>
               </div>
             </div>
 
-            <div class="newsTextSection scroll verticalScroll">
+            <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.movieNews" :key="index">
                 <news-element svg-code="" :heading-text="it._title"
                               :info-text="it._description" class="newsElement"/>
               </div>
             </div>
 
-            <div class="newsTextSection scroll verticalScroll">
+            <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.studioNews" :key="index">
                 <news-element svg-code="" :heading-text="it._title"
                               :info-text="it._description" class="newsElement"/>
               </div>
             </div>
           </tile-pages-nav>
-        </div>
       </background-tile>
     </div>
   </div>
@@ -102,13 +105,13 @@ export default {
   },
 
   methods: {
-    getWeekEarnings(movie){
+    getWeekEarnings(movie) {
       let weekEarningsOfMovie = 0;
       let startDateOfWeek = new Date(this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay()));
-      let endDateOfWeek = new Date(this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay()+6));
+      let endDateOfWeek = new Date(this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay() + 6));
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if(this.currentDate.getTime() >= startDateOfWeek.getTime() && this.currentDate.getTime() <= endDateOfWeek.getTime()){
+        if (this.currentDate.getTime() >= startDateOfWeek.getTime() && this.currentDate.getTime() <= endDateOfWeek.getTime()) {
           weekEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -116,13 +119,13 @@ export default {
       return weekEarningsOfMovie;
     },
 
-    getMonthEarnings(movie){
+    getMonthEarnings(movie) {
       let monthEarningsOfMovie = 0;
       let startDateOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
       let endDateOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if(this.currentDate.getTime() >= startDateOfMonth.getTime() && this.currentDate.getTime() <= endDateOfMonth.getTime()){
+        if (this.currentDate.getTime() >= startDateOfMonth.getTime() && this.currentDate.getTime() <= endDateOfMonth.getTime()) {
           monthEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -130,13 +133,13 @@ export default {
       return monthEarningsOfMovie;
     },
 
-    getYearEarnings(movie){
+    getYearEarnings(movie) {
       let yearEarningsOfMovie = 0;
       let startDateOfYear = new Date(this.currentDate.getFullYear(), 0, 1);
       let endDateOfYear = new Date(this.currentDate.getFullYear(), 11, 31);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if(this.currentDate.getTime() >= startDateOfYear.getTime() && this.currentDate.getTime() <= endDateOfYear.getTime()){
+        if (this.currentDate.getTime() >= startDateOfYear.getTime() && this.currentDate.getTime() <= endDateOfYear.getTime()) {
           yearEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -144,7 +147,7 @@ export default {
       return yearEarningsOfMovie;
     },
 
-    getAllTimeEarnings(movie){
+    getAllTimeEarnings(movie) {
       let allTimeEarningsOfMovie = 0;
 
       for (let i = 0; i < movie._earnings.length; i++) {
@@ -167,7 +170,7 @@ export default {
         if (sourceData[i]._type === 'Studios') {
           this.studioNews.push(sourceData[i])
         }
-        if(i === 29){
+        if (i === 29) {
           break;
         }
       }
@@ -181,51 +184,69 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  flex: 1;
+  gap: 20px;
 }
 
 .newsMenuLeftBox {
+  flex-grow: 4;
+  flex-basis: 0;
   display: flex;
   flex-direction: column;
-  width: 25%;
+  justify-content: flex-start;
   gap: 20px;
 }
 
 .newsMenuCenterBox {
-  width: 48%;
+  flex-grow: 7;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .newsMenuRightBox {
-  width: 25%;
+  flex-grow: 4;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-.newsMenuRightBoxBackground, .newsMenuCenterBoxBackground {
-  height: 100%;
+.newsMenuCenterBoxBackground {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.newsMenuRightBoxBackground {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .newsTextSection {
-  width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
 }
 
-.newsElement{
-  margin-bottom: 10px;
-}
-
-.scroll{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 20px;
-  gap: 10px;
-  height: auto;
-  box-sizing: border-box;
-  flex-grow: 1;
-}
-
 .newsMenuNavigation {
-  margin: 15px 0 15px 0;
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.newsMenuCenterBoxContent {
+  flex-grow: 1;
+  flex-basis: 0;
 }
 </style>
