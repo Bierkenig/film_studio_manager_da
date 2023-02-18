@@ -36,12 +36,9 @@ async function createWindow() {
 
     launchDiscordGameSDK(win)
 
-    console.log(screen.getPrimaryDisplay())
-
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
     let dbPath = isDevelopment ? "public/DB/database/fsm.db" : "../bundled/DB/database/fsm.db"
-    console.log(dbPath)
     let db = null
 
     //IPC Main
@@ -256,7 +253,6 @@ async function createWindow() {
         db.serialize(() => {
             db.each(data, (err, row) => {
                 if (err) console.log(err)
-                console.log(row)
                 //else event.sender.send('sendPeople', row)
             })
         })
@@ -266,7 +262,6 @@ async function createWindow() {
 
     ipcMain.on('changeDBPath', (event, data) => {
         dbPath = data
-        console.log(dbPath)
     })
 
     ipcMain.on('resetDB', (event, data) => {
@@ -287,7 +282,6 @@ async function createWindow() {
             db.serialize(() => {
                 db.each(sql, params[i], (err) => {
                     if (err) console.log(err)
-                    else console.log("DB: Person KILLED")
                 })
             })
         }
@@ -309,7 +303,6 @@ async function createWindow() {
             db.serialize(() => {
                 db.each(sql, [values[i].exp, values[i].pop, values[i].id], (err) => {
                     if (err) console.log(err)
-                    else console.log("DB: Person refreshed")
                 })
             })
         }
@@ -330,7 +323,6 @@ async function createWindow() {
             db.serialize(() => {
                 db.each(sql, params[i], (err) => {
                     if (err) console.log(err)
-                    else console.log("DB: Person created")
                 })
             })
         }

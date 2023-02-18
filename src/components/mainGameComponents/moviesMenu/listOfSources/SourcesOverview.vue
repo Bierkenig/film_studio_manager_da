@@ -45,7 +45,6 @@ export default {
       this.clickedItem = itemClicked;
       this.listType = listType;
       this.itemType = typeOfSource;
-      console.log(itemClicked);
       if (typeOfSource === 'Screenplay'){
         this.sourcePrice = this.clickedItem.price;
       } else {

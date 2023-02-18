@@ -254,10 +254,6 @@ export default {
     }
   },
 
-  mounted() {
-    console.log(this.$store.getters.getCurrentMovie);
-  },
-
   methods: {
     onButtonClick(){
       if(this.screenplay.rewritingStatus === true){

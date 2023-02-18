@@ -157,14 +157,10 @@ export default {
     save(){
       let reducedState = {}
       this.$store.commit("stateToSave", reducedState)
-      console.log(this.$store.state)
-      console.log(reducedState)
       window.ipcRenderer.send('savingData', [JSON.stringify(reducedState), this.$store.getters.getSlot])
 
       let reducedStateSettings = {}
       this.$store.commit("stateToSettings", reducedStateSettings)
-      console.log(this.$store.state)
-      console.log(reducedStateSettings)
       window.ipcRenderer.send('saveSettingData', JSON.stringify(reducedStateSettings))
     },
 

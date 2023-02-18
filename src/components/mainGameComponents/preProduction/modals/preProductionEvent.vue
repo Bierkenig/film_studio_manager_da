@@ -175,7 +175,6 @@ export default {
           break;
       }
       this.closeModal()
-      console.log(this.$store.getters.getInProductionMovies)
     },
 
     calcDireMorale(trueFalse) {

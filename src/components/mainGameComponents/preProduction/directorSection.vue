@@ -60,13 +60,11 @@ export default {
       this.currentDirector = director;
       this.showNegotiation = true;
       this.salaryLevel = Math.round((this.currentDirector._talent * 35 + this.currentDirector._experience * 25 + this.currentDirector._popularity * 40) / 100)
-      console.log(this.$store.getters.getDirectorAndActorSalaries)
       this.salaryRange.min = this.allSalaries[this.salaryLevel - 1 - 2]
       this.perfectSalary = this.allSalaries[this.salaryLevel - 1]
-      console.log(this.perfectSalary)
+
       this.perfectSalary1 = this.allSalaries[this.salaryLevel - 1 - 1]
-      console.log(this.perfectSalary1)
-      console.log(this.salaryRange.min)
+
       this.salaryRange.max = this.allSalaries[this.salaryLevel - 1 + 2]
       this.disabled = true
       this.selectedSalary = this.salaryRange.min
@@ -74,7 +72,6 @@ export default {
 
     calcDirectorsDecision() {
       let salValue = (Object.values(this.calcSalValue(this.selectedSalary))[0]);
-      console.log(this.salaryLevel)
       if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
           const random = Math.round(Math.random() * 3)
@@ -129,7 +126,6 @@ export default {
           else this.decision = true
         } else if (this.salaryLevel <= 50) {
           const random = Math.round(Math.random())
-          console.log(random)
           if (random === 0) this.decision = true
           else {
             this.decision = false
@@ -140,10 +136,8 @@ export default {
         this.decision = true
       }
 
-      console.log(this.currentDirector._no)
       if (this.currentDirector._no === 3) {
         const index = this.allDirectors.indexOf(this.currentDirector)
-        console.log("index: " + index)
         this.allDirectors.splice(index, 1)
         this.disabled = false
         this.currentDirector = null

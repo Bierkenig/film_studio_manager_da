@@ -26,7 +26,6 @@ export default {
 
   watch: {
     'this.$store.getters.getOwnStreamingService._price': function () {
-      console.log(this.$store.getters.getOwnStreamingService._price)
     }
   },
 

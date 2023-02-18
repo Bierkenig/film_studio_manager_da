@@ -70,7 +70,6 @@ export default {
   },
 
   mounted(){
-    console.log(this.$refs)
     window.ipcRenderer.receive('m2rLoading', data => {
       this.slotForAutoSave = data[2]
       if(data[1]==='100') {

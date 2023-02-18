@@ -858,8 +858,6 @@ export default createStore({
             for (let i = 0; i < payload[0].allMovies.length; i++) {
                 state.finishedMovies.push(payload[0].allMovies[i]);
             }
-
-            console.log(state.otherStudios)
         },
 
         addBoughtMovieRights(state, movie) {
@@ -1054,7 +1052,6 @@ export default createStore({
                 //     budget: value => value ,
                 //     budgetPop: value => value,
                 // })
-                console.log(state)
                 //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
                 // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
                 // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))

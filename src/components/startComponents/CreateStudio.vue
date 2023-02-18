@@ -140,7 +140,6 @@ export default {
     async startGame() {
       this.$store.commit('resetState')
       this.$store.commit("setSlot", parseInt(this.slot))
-      console.log(this.$store.state)
       //For Production
       if (this.databaseType === 'current') {
         process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/fsm_custom" + this.databaseVersion + ".db")
@@ -200,7 +199,6 @@ export default {
       let allWriters = [], allActors = [], allDirectors = [], allPeople = []
       window.ipcRenderer.send('toGetPeople', 'SELECT * FROM people');
       window.ipcRenderer.receive('fromGetPeople', (data) => {
-        console.log(data)
         if (data.isWriter === "true") {
           allWriters.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
               data.ethnicity, data.workingSince, data.performance, data.experience, data.talent, data.popularity,
@@ -233,20 +231,10 @@ export default {
 
       await new Promise(resolve => setTimeout(resolve, 300))
 
-      //log Store data
-      console.log(this.$store.getters.getOtherStudios)
-      console.log(this.$store.state.allCharacters)
-      console.log(this.$store.getters.getAllGenres)
-      console.log(this.$store.getters.getAllSubGenres)
-      console.log(this.$store.getters.getAllTopics)
-      console.log(this.$store.getters.getAllPeople)
-
       //screenplays
       let screenplays = []
       await window.ipcRenderer.send('getScreenplays', "SELECT * FROM screenplay")
       await window.ipcRenderer.receive('gotScreenplays', (data) => {
-        console.log(data)
-        console.log(allWriters.length)
         let genreInd = data.fk_pk_genreID - 1
         let subgenreInd = data.fk_pk_subgenreID - 1
         let wriInd = data.fk_pk_writerID - 1
@@ -266,8 +254,6 @@ export default {
       })
 
       this.$store.commit('addAllScreenplay', screenplays)
-
-      console.log(this.$store.getters.getAllScreenplays)
 
       await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -299,9 +285,6 @@ export default {
       let allMovies = []
       await window.ipcRenderer.send('getMovies', "SELECT * FROM movies")
       await window.ipcRenderer.receive('gotMovies', (data) => {
-        console.log(data)
-        console.log(this.$store.getters.getAllPeople.length)
-        console.log(this.$store.getters.getAllScreenplays[data.screenplay - 1].id)
         let movie = new Movie(data.pk_movieID, allStudios[data.owner - 1],
             null, data.status, data.quality, data.totalOutgoings, data.audiencePopularity, data.popularity,
             new Date(parseInt(data.foundationDate.split('-')[2]),
@@ -332,8 +315,6 @@ export default {
       })
 
       this.$store.commit('addAllMovie', allMovies)
-
-      console.log(this.$store.getters.getAllMovies)
 
       //Awards
       await window.ipcRenderer.send('getIntAwards', "SELECT * FROM internationalAwards")
@@ -389,17 +370,12 @@ export default {
       store.commit('addScreenplay', newScreenplay)
     },
 
-    test() {
-      console.log(this.budget)
-    },
-
     goBack() {
       this.$router.push({name: 'SelectSlotWindow'})
     },
 
     setSelectedBudget(value) {
       this.budget = value;
-      console.log(value)
     },
 
     selectIcon(index) {

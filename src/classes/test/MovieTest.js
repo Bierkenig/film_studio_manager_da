@@ -81,9 +81,6 @@ export class MovieTest {
             this.genrePopularity = this.calcGenrePopularities()
             this.subgenrePopularity = this.calcSubGenrePopularities()
             this.topicPopularity = this.calcTopicPopularities()
-            console.log(this.genrePopularity)
-            console.log(this.subgenrePopularity)
-            console.log(this.topicPopularity)
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
                 this.subgenrePopularity, this.topicPopularity, this.owner, 2,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial)

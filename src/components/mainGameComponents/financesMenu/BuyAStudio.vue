@@ -156,7 +156,6 @@ export default {
         completed: false,
       })
 
-      console.log(this.$store.calenderEvents)
       this.$router.push({name: "finances"})
     }
   },

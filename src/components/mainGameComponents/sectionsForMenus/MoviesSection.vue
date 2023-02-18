@@ -1,7 +1,7 @@
 <template>
   <background-tile class="moviesSection" :title="$t(headline)">
     <div v-if="data.length !== 0" id="moviesSectionSelectDiv">
-      <custom-select v-if="headline === 'contentManagement'" :options="[$t('contract'),$t('owner'),$t('popularity')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
+      <custom-select v-if="headline === 'contentManagement'" :options="[$t('contract'),$t('owner'),$t('quality')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
       <custom-select v-if="headline === 'producedMovies'" :options="[$t('newsData.year'),$t('earnings'),$t('quality')]" :placeholder="$t('sortBy')" @select-change="setSelectedSortByWhat"/>
       <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
     </div>
@@ -77,16 +77,6 @@ export default {
     }
   },
 
-  /*watch: {
-    selectedTypeOfSort: function (){
-      this.sortMovieRights();
-    },
-
-    selectedSortByWhat: function (){
-      this.sortMovieRights();
-    }
-  },*/
-
   methods: {
     movieInfo(element){
       this.$store.commit('setCurrentMovieDetails',element)
@@ -105,19 +95,19 @@ export default {
 
     sortMovieRights(){
       if(this.headline === 'producedMovies'){
-        /*if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
-          this.data.sort((a, b) => a._contract - b._contract)
+        if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Ascending'){
+          this.data.sort((a, b) => a._preProduction.releaseDate.getTime() - b._preProduction.releaseDate.getTime())
         } else if((this.selectedSortByWhat === 'Year' || this.selectedSortByWhat === 'Jahr') && this.selectedTypeOfSort === 'Descending') {
-          this.data.sort((a, b) => b._contract - a._contract)
+          this.data.sort((a, b) => b._preProduction.releaseDate.getTime() - a._preProduction.releaseDate.getTime())
         } else if((this.selectedSortByWhat === 'Earnings' || this.selectedSortByWhat === 'Einnahmen') && this.selectedTypeOfSort === 'Ascending'){
-          this.data.sort((a, b) => a._contract - b._contract)
+          this.data.sort((a, b) => (a._release.openingWeekGross + a._release.cinemaGross + a._release.dvdGross) - (b._release.openingWeekGross + b._release.cinemaGross + b._release.dvdGross))
         } else if((this.selectedSortByWhat === 'Earnings' || this.selectedSortByWhat === 'Einnahmen') && this.selectedTypeOfSort === 'Descending'){
-          this.data.sort((a, b) => b._contract - a._contract)
-        } /*else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => a._popularity.localeCompare(b._owner))
-      } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending'){
-        this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
-      }*/
+          this.data.sort((a, b) => (b._release.openingWeekGross + b._release.cinemaGross + b._release.dvdGross) - (a._release.openingWeekGross + a._release.cinemaGross + a._release.dvdGross))
+        } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
+          this.data.sort((a, b) => a.quality - b.quality)
+        } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending'){
+          this.data.sort((a, b) => b.quality - a.quality)
+        }
       } else if(this.headline === 'contentManagement'){
         if((this.selectedSortByWhat === 'Contract' || this.selectedSortByWhat === 'Vertrag') && this.selectedTypeOfSort === 'Ascending'){
           this.data.sort((a, b) => a._contract - b._contract)
@@ -127,11 +117,11 @@ export default {
           this.data.sort((a, b) => a._owner.localeCompare(b._owner))
         } else if((this.selectedSortByWhat === 'Owner' || this.selectedSortByWhat === 'Besitzer') && this.selectedTypeOfSort === 'Descending'){
           this.data.sort((a, b) => b._owner.localeCompare(a._owner))
-        } /*else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Ascending'){
-        this.data.sort((a, b) => a._popularity.localeCompare(b._owner))
-        } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Descending'){
-          this.data.sort((a, b) => b._popularity.localeCompare(a._owner))
-        }*/
+        } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Ascending'){
+          this.data.sort((a, b) => a.quality - b.quality)
+        } else if((this.selectedSortByWhat === 'Quality' || this.selectedSortByWhat === 'Qualität') && this.selectedTypeOfSort === 'Descending'){
+          this.data.sort((a, b) => b.quality - a.quality)
+        }
       }
     },
 

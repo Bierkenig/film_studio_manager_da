@@ -75,15 +75,10 @@ export default {
       this.salaryLevel = Math.round((this.currentActor._talent * 35 + this.currentActor._experience * 25 + this.currentActor._popularity * 40) / 100)
 
       //calc min & max
-      console.log(this.salaryLevel)
-      console.log(this.allSalaries)
-      console.log(this.allSalaries[this.salaryLevel])
       this.salary.min = this.allSalaries[(this.salaryLevel - 3)]
-      console.log(this.salary.min)
       this.perfectSalary = this.allSalaries[(this.salaryLevel - 1)]
       this.perfectSalary1 = this.allSalaries[(this.salaryLevel -2)]
       this.salary.max = this.allSalaries[(this.salaryLevel +1)]
-      console.log(this.salary.max)
 
       //set negotiate true
       this.sendOfferBool = false
@@ -92,7 +87,6 @@ export default {
     },
 
     sendOffer() {
-      console.log(this.radio)
       let salValue = (Object.values(this.calcSalValue(this.proposedSalary))[0]);
       if (salValue === this.perfectSalary) {
         if (this.salaryLevel > 75) {
@@ -158,7 +152,6 @@ export default {
         this.actorDecision = true
       }
 
-      console.log(this.currentActor._no)
       if (this.currentActor._no === 3) {
         const index = this.allActors.indexOf(this.currentActor)
         this.allActors.splice(index, 1)
@@ -228,7 +221,6 @@ export default {
     },
 
     finishPreProd() {
-      console.log(this.$store.state.currentMovie)
       this.$store.getters.getCurrentMovie._preProduction.startDate = this.$store.getters.getCurrentDate
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
           store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.preProductionLength * 7))
@@ -247,7 +239,6 @@ export default {
         completed: false,
       })
       this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
-      console.log(this.$store.getters.getInProductionMovies)
 
       this.$router.push({name: "movies"})
     },

@@ -1,7 +1,7 @@
 <template>
   <background-tile :title="$t('competitors')">
     <div class="competitorSectionSorts">
-      <custom-select class="competitorSectionSelect" :options="[$t('subscribers')]" :placeholder="$t('sortBy')"
+      <custom-select class="competitorSectionSelect" :options="[$t('subscribers'),$t('popularity'),'Profit']" :placeholder="$t('sortBy')"
                      @select-change="setSelectedSortByWhat"/>
       <custom-list-sort @sort-changed="setSelectedTypeOfSort"/>
     </div>
@@ -25,16 +25,36 @@ export default {
   data() {
     return {
       services: this.$store.getters.getStreamingServicesFromOtherStudios,
+      selectedSortByWhat: null,
+      selectedTypeOfSort: 'Ascending',
     }
   },
   methods: {
     setSelectedSortByWhat(arg) {
-      console.log(arg);
+      this.selectedSortByWhat = arg;
+      this.sortServiceCompetitors();
     },
 
     setSelectedTypeOfSort(arg) {
-      console.log(arg);
+      this.selectedTypeOfSort = arg;
+      this.sortServiceCompetitors();
     },
+
+    sortServiceCompetitors(){
+      if((this.selectedSortByWhat === 'Subscribers' || this.selectedSortByWhat === 'Abonnenten') && this.selectedTypeOfSort === 'Ascending'){
+        this.services.sort((a, b) => a._subscribers - b._subscribers)
+      } else if((this.selectedSortByWhat === 'Subscribers' || this.selectedSortByWhat === 'Abonnenten') && this.selectedTypeOfSort === 'Descending') {
+        this.services.sort((a, b) => b._subscribers - a._subscribers)
+      } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Ascending'){
+        this.services.sort((a, b) => a._popularity - b._popularity)
+      } else if((this.selectedSortByWhat === 'Popularity' || this.selectedSortByWhat === 'Bekanntheit') && this.selectedTypeOfSort === 'Descending'){
+        this.services.sort((a, b) => b._popularity - a._popularity)
+      } else if(this.selectedSortByWhat === 'Profit' && this.selectedTypeOfSort === 'Ascending'){
+        this.services.sort((a, b) => a._profit - b._profit)
+      } else if(this.selectedSortByWhat === 'Profit' && this.selectedTypeOfSort === 'Descending'){
+        this.services.sort((a, b) => b._profit - a._profit)
+      }
+    }
   },
 }
 </script>

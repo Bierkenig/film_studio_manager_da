@@ -378,8 +378,6 @@ export default {
     buyScreenplay(){
       let allOtherScreenplays = this.$store.getters.getScreenplaysFromWriters.concat(this.$store.getters.getAllScreenplays);
       let chosenScreenplay = null;
-      console.log(allOtherScreenplays);
-      console.log(this.source)
       for (let i = 0; i < allOtherScreenplays.length; i++) {
         if(allOtherScreenplays[i].id === this.source.id){
           chosenScreenplay = allOtherScreenplays[i];

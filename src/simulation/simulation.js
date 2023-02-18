@@ -30,7 +30,6 @@ const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 
 export default function simulate() {
-    console.log('SIMULATION: Started....')
     createStudios();
     streamingService();
 
@@ -62,9 +61,6 @@ export default function simulate() {
     setEventDuringPreProduction();
     setEventDuringProduction();
     setEventDuringPostProduction();
-
-    //Tracking Production Movies
-    console.log(store.getters.getCalendarEvents)
 
     //MONTHLY
     if (store.getters.getCurrentDate.getDate() === 1 &&
@@ -100,8 +96,6 @@ function calcMarketShare() {
         })
     })
 
-    console.log(allEarnings)
-    console.log(studioEarnings)
     const year = store.getters.getCurrentDate.getFullYear()
     //set Share other
     store.getters.getOtherStudios.forEach((studio) => {
@@ -109,10 +103,6 @@ function calcMarketShare() {
     })
     //set share
     store.getters.getStudio.marketShare[year.toString()] = studioEarnings[store.getters.getStudio.id] / allEarnings
-
-    console.log(store.getters.getOtherStudios)
-
-    console.log(store.getters.getStudio)
 }
 
 //function to get 0 or 1 with specific probability
