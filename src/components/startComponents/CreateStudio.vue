@@ -316,6 +316,8 @@ export default {
 
       this.$store.commit('addAllMovie', allMovies)
 
+      await new Promise(resolve => setTimeout(resolve, 100))
+
       //Awards
       await window.ipcRenderer.send('getIntAwards', "SELECT * FROM internationalAwards")
       await window.ipcRenderer.receive('gotIntAwards', (data) => {
@@ -375,7 +377,7 @@ export default {
     },
 
     setSelectedBudget(value) {
-      this.budget = value;
+      this.budget = value
     },
 
     selectIcon(index) {
