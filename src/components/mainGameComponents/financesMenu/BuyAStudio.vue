@@ -8,38 +8,43 @@
               <div>
                 <select v-model="selected1" @change="sortByNameOrFoundationDate">
                   <option value="name">Name</option>
-                  <option value="date">{{$t('buyAStudio.foundationDate')}}</option>
+                  <option value="date">{{ $t('buyAStudio.foundationDate') }}</option>
                 </select>
                 <select v-model="selected2" @change="sortByNameOrFoundationDate">
-                  <option value="ascend">{{$t('buyAStudio.ascending')}}</option>
-                  <option value="descend">{{$t('buyAStudio.descending')}}</option>
+                  <option value="ascend">{{ $t('buyAStudio.ascending') }}</option>
+                  <option value="descend">{{ $t('buyAStudio.descending') }}</option>
                 </select>
                 <div v-for="(el, index) in otherStudios" :key="index">
                   <!-- v-if="el.marketShare[this.$store.getters.getCurrentDate.getFullYear().toString()] <= 50" TODO-->
-                  <div @click="showMovieDetails(el.id, el.name, el.year, el.marketShare, el.movies); showStreamingDetails(); currentStudio = el">{{el.name}}</div>
+                  <div
+                      @click="showMovieDetails(el.id, el.name, el.year, el.marketShare); showStreamingDetails(); currentStudio = el">
+                    {{ el.name }}
+                  </div>
                 </div>
               </div>
               <div v-if="detail">
                 <div>
-                  <h2>{{$t('buyAStudio.general')}}</h2>
+                  <h2>{{ $t('buyAStudio.general') }}</h2>
                   <div>
-                    <h3>{{general.name}}</h3>
+                    <h3>{{ general.name }}</h3>
                     <div>
-                      <div>{{$t('buyAStudio.revenue')}} $ {{general.revenue}}</div>
-                      <div>{{$t('buyAStudio.profit')}} $ {{general.profit}}</div>
-                      <div>{{$t('buyAStudio.share')}} {{general.share}}%</div>
+                      <div>{{ $t('buyAStudio.revenue') }} $ {{ general.revenue }}</div>
+                      <div>{{ $t('buyAStudio.profit') }} $ {{ general.profit }}</div>
+                      <div>{{ $t('buyAStudio.share') }}
+                        {{ general.share[this.$store.getters.getCurrentDate.getFullYear().toString()] }}%
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div v-if="streaming.check">
-                  <h2>{{$t('buyAStudio.streaming')}}</h2>
+                  <h2>{{ $t('buyAStudio.streaming') }}</h2>
                   <div>
-                    <h3>{{streaming.name}}</h3>
-                    <div>{{$t('buyAStudio.popularity')}} {{streaming.popularity}}</div>
-                    <div>{{$t('buyAStudio.subs')}} {{streaming.subs}}</div>
+                    <h3>{{ streaming.name }}</h3>
+                    <div>{{ $t('buyAStudio.popularity') }} {{ streaming.popularity }}</div>
+                    <div>{{ $t('buyAStudio.subs') }} {{ streaming.subs }}</div>
                   </div>
                 </div>
-                <button @click="contact()">{{$t('buyAStudio.contact')}}</button>
+                <button @click="contact()">{{ $t('buyAStudio.contact') }}</button>
               </div>
             </slot>
           </div>
@@ -81,7 +86,7 @@ export default {
   methods: {
     sortByNameOrFoundationDate() {
       if (this.selected1 === "name" && this.selected2 === "ascend") {
-        this.otherStudios.sort((a,b) => {
+        this.otherStudios.sort((a, b) => {
           const nameA = a.name.toUpperCase();
           const nameB = b.name.toUpperCase();
           if (nameA < nameB) {
@@ -95,7 +100,7 @@ export default {
       } else if (this.selected1 === "name" && this.selected2 === "descend") {
         this.otherStudios.reverse()
       } else if (this.selected1 === "date" && this.selected2 === "ascend") {
-        this.otherStudios.sort((a,b) => {
+        this.otherStudios.sort((a, b) => {
           return b.date - a.date
         });
       } else if (this.selected1 === "date" && this.selected2 === "descend") {
@@ -103,7 +108,7 @@ export default {
       }
     },
 
-    showMovieDetails(id, name, year, share, movies) {
+    showMovieDetails(id, name, year, share) {
       //set values
       this.general.id = id
       this.general.name = name
@@ -112,10 +117,18 @@ export default {
       //calc
       let earnings = 0
       let totalCosts = 0
+      let movies = [...this.$store.getters.getAllMovies]
+          .concat([...this.$store.getters.getFinishedMovies])
+          .concat([...this.$store.getters.getCreatedMovies])
+          .concat([...this.$store.getters.getInProductionMovies])
       movies.forEach((movie) => {
-        movie._earnings.forEach((el) =>{
-          earnings += el.amount
-        })
+        if (movie._status === 'Finished') {
+          earnings += movie._release.totalEarnings
+        } else {
+          movie._earnings.forEach((el) => {
+            earnings += el.amount
+          })
+        }
         totalCosts += movie._totalOutgoings
       })
 
@@ -138,8 +151,8 @@ export default {
     },
 
     contact() {
-      this.$store.state.currentStudioTakeOver = this.currentStudio
-      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+      console.log(this.currentStudio)
+      let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),
           store.getters.getCurrentDate.getDate() + (Math.round(Math.random() * 5) + 1))
       let newDate = new Date(endDate.getFullYear(),
           endDate.getMonth(),
@@ -155,7 +168,6 @@ export default {
         type: 'studioTakeover',
         completed: false,
       })
-
       this.$router.push({name: "finances"})
     }
   },
