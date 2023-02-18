@@ -41,25 +41,31 @@ export default {
 #container {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
 }
 
 .projectsSection {
-  width: 70%;
+  flex-grow: 7;
+  flex-basis: 0;
 }
 
 .news, .earnings {
-  height: 50%;
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
 .upcomingEvents {
-  width: 30%;
+  flex-grow: 4;
+  flex-basis: 0;
 }
 
 #homeMenuRightSide {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 30%;
+  justify-content: space-between;
+  gap: 20px;
+  flex-grow: 4;
+  flex-basis: 0;
 }
 </style>

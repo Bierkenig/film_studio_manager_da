@@ -1,32 +1,29 @@
 <template>
   <div id="newsSection">
-    <background-tile :title="$t('news2')">
-      <div>
-        <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
-
-          <div class="newsTextSection scroll verticalScroll">
-            <div v-for="(it, index) in this.peopleNews" :key="index">
-              <news-element svg-code="" :heading-text="it._title"
-                            :info-text="it._description" class="newsElement"/>
-            </div>
+    <background-tile id="newsSectionBgTile" :title="$t('news2')">
+      <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
+        <div class="newsTextSection verticalScroll">
+          <div v-for="(it, index) in this.peopleNews" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description" class="newsElement"/>
           </div>
+        </div>
 
-          <div class="newsTextSection scroll verticalScroll">
-            <div v-for="(it, index) in this.movieNews" :key="index">
-              <news-element svg-code="" :heading-text="it._title"
-                            :info-text="it._description" class="newsElement"/>
-            </div>
+        <div class="newsTextSection verticalScroll">
+          <div v-for="(it, index) in this.movieNews" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description" class="newsElement"/>
           </div>
+        </div>
 
-          <div class="newsTextSection scroll verticalScroll">
-            <div v-for="(it, index) in this.studioNews" :key="index">
-              <news-element svg-code="" :heading-text="it._title"
-                            :info-text="it._description" class="newsElement"/>
-            </div>
+        <div class="newsTextSection verticalScroll">
+          <div v-for="(it, index) in this.studioNews" :key="index">
+            <news-element svg-code="" :heading-text="it._title"
+                          :info-text="it._description" class="newsElement"/>
           </div>
+        </div>
 
-        </tile-pages-nav>
-      </div>
+      </tile-pages-nav>
     </background-tile>
   </div>
 </template>
@@ -61,7 +58,7 @@ export default {
         if (sourceData[i]._type === 'Studios') {
           this.studioNews.push(sourceData[i])
         }
-        if(i === 9){
+        if (i === 9) {
           break;
         }
       }
@@ -82,19 +79,27 @@ export default {
 
 .newsTextSection {
   width: 100%;
+  flex-grow: 1;
+  flex-basis: 0;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
 }
 
-.newsElement{
+.newsElement {
   margin-bottom: 10px;
-}
-.scroll{
-  height:170px;
 }
 
 .newsNavigation {
-  margin: 15px 0 15px 0;
+  flex-grow: 1;
+  flex-basis: 0;
+  margin-top: 10px;
+}
+
+#newsSectionBgTile {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>

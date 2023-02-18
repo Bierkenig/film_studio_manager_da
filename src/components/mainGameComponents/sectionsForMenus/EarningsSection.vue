@@ -1,24 +1,22 @@
 <template>
   <div id="earningSection">
-    <background-tile :title="$t('newsData.earnings')">
-      <div>
-        <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
-          <div class="earningTextSection scroll verticalScroll">
-            <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
+    <background-tile id="earningSectionBgTile" :title="$t('newsData.earnings')">
+      <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
+        <div class="earningTextSection verticalScroll">
+          <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
-                 :key="index">
-              <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
-            </div>
+               :key="index">
+            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
           </div>
-          <div class="earningTextSection scroll verticalScroll">
-            <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
+        </div>
+        <div class="earningTextSection verticalScroll">
+          <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
-                 :key="index">
-              <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
-            </div>
+               :key="index">
+            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
           </div>
-        </tile-pages-nav>
-      </div>
+        </div>
+      </tile-pages-nav>
     </background-tile>
   </div>
 </template>
@@ -82,19 +80,28 @@ export default {
   flex-direction: column;
 }
 
-.earningTextSection {
-  width: 100%;
-  overflow-y: scroll;
-}
-
-.scroll {
-  height:170px
-}
-.earningElement {
-  margin-bottom: 5px;
+#earningSectionBgTile {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .earningNavigation {
-  margin: 15px
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.earningTextSection {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>
