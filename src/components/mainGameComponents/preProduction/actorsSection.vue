@@ -203,10 +203,12 @@ export default {
       if (this.spots.main === 0 && this.spots.minor === 0
           && this.spots.cameo === 0 && this.spots.support === 0) {
         this.finish = false
+        this.disabled = true
+      } else {
+        this.disabled = false
       }
       this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
       this.negotiate = false
-      this.disabled = false
       this.currentActor = null
       this.salary.min = 0
       this.salary.max = 0

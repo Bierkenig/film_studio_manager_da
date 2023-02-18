@@ -1,53 +1,52 @@
 <template>
   <div>
     <div>{{$t('budgetSection.overall')}}</div>
-
     <div>{{$t('budgetSection.production')}}</div>
-    <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value" @change="calcSum()">
+    <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value" @change="selected = 1; calcSum()">
     <div>{{production.value}}</div>
 
     <div>{{$t('budgetSection.extras')}}</div>
-    <input type="range" :min="extras.min" :max="extras.max" step="1" v-model="extras.value" @change="calcSum()">
+    <input type="range" :min="extras.min" :max="extras.max" step="1" v-model="extras.value" @change="selected = 2; calcSum()">
     <div>{{extras.value}}</div>
 
     <div>{{$t('budgetSection.cinematography')}}</div>
-    <input type="range" :min="cinematography.min" :max="cinematography.max" step="1" v-model="cinematography.value" @change="calcSum()">
+    <input type="range" :min="cinematography.min" :max="cinematography.max" step="1" v-model="cinematography.value" @change="selected = 3; calcSum()">
     <div>{{cinematography.value}}</div>
 
     <div>{{$t('budgetSection.sound')}}</div>
-    <input type="range" :min="sound.min" :max="sound.max" step="1" v-model="sound.value" @change="calcSum()">
+    <input type="range" :min="sound.min" :max="sound.max" step="1" v-model="sound.value" @change="selected = 4; calcSum()">
     <div>{{sound.value}}</div>
 
     <div>{{$t('budgetSection.editing')}}</div>
-    <input type="range" :min="editing.min" :max="editing.max" step="1" v-model="editing.value" @change="calcSum()">
+    <input type="range" :min="editing.min" :max="editing.max" step="1" v-model="editing.value" @change="selected = 5; calcSum()">
     <div>{{editing.value}}</div>
 
     <div>{{$t('budgetSection.score')}}</div>
-    <input type="range" :min="score.min" :max="score.max" step="1" v-model="score.value" @change="calcSum()">
+    <input type="range" :min="score.min" :max="score.max" step="1" v-model="score.value" @change="selected = 6; calcSum()">
     <div>{{score.value}}</div>
 
     <div>{{$t('budgetSection.set')}}</div>
-    <input type="range" :min="set.min" :max="set.max" step="1" v-model="set.value" @change="calcSum()">
+    <input type="range" :min="set.min" :max="set.max" step="1" v-model="set.value" @change="selected = 7; calcSum()">
     <div>{{set.value}}</div>
 
     <div>{{$t('budgetSection.stunts')}}</div>
-    <input type="range" :min="stunts.min" :max="stunts.max" step="1" v-model="stunts.value" @change="calcSum()">
+    <input type="range" :min="stunts.min" :max="stunts.max" step="1" v-model="stunts.value" @change="selected = 8; calcSum()">
     <div>{{stunts.value}}</div>
 
     <div>{{$t('budgetSection.costume')}}</div>
-    <input type="range" :min="costume.min" :max="costume.max" step="1" v-model="costume.value" @change="calcSum()">
+    <input type="range" :min="costume.min" :max="costume.max" step="1" v-model="costume.value" @change="selected = 9; calcSum()">
     <div>{{costume.value}}</div>
 
     <div>{{$t('budgetSection.makeup')}}</div>
-    <input type="range" :min="makeup.min" :max="makeup.max" step="1" v-model="makeup.value" @change="calcSum()">
+    <input type="range" :min="makeup.min" :max="makeup.max" step="1" v-model="makeup.value" @change="selected = 10; calcSum()">
     <div>{{makeup.value}}</div>
 
     <div>{{$t('budgetSection.sfx')}}</div>
-    <input type="range" :min="sfx.min" :max="sfx.max" step="1" v-model="sfx.value" @change="calcSum()">
+    <input type="range" :min="sfx.min" :max="sfx.max" step="1" v-model="sfx.value" @change="selected = 11; calcSum()">
     <div>{{sfx.value}}</div>
 
     <div>{{$t('budgetSection.vfx')}}</div>
-    <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value" @change="calcSum()">
+    <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value" @change="selected = 12; calcSum()">
     <div>{{vfx.value}}</div>
 
 
@@ -132,6 +131,7 @@ export default {
         min: 0,
         max: 0
       },
+      selected: null
     }
   },
 
@@ -189,6 +189,7 @@ export default {
     },
 
     calcSum() {
+      //calc Sum
       this.$store.getters.getCurrentMovie._preProduction.budget.production = parseInt(this.production.value)
       this.$store.getters.getCurrentMovie._preProduction.budget.extras = parseInt(this.extras.value)
       this.$store.getters.getCurrentMovie._preProduction.budget.cinematography = parseInt(this.cinematography.value)
@@ -214,6 +215,69 @@ export default {
           this.$store.getters.getCurrentMovie._preProduction.budget.makeup +
           this.$store.getters.getCurrentMovie._preProduction.budget.sfx +
           this.$store.getters.getCurrentMovie._preProduction.budget.vfx
+
+      let newMax = this.$store.getters.getStudio.budget - this.total
+      let studio = this.$store.getters.getStudio.budget
+      if (this.production.max > newMax) {
+        this.production.max = newMax
+        this.production.value = newMax < 0 ? (this.selected === 1 ? studio : 0) : newMax
+        if (this.selected === 1) this.total = studio
+      }
+      if (this.extras.max > newMax) {
+        this.extras.max = newMax
+        this.extras.value = newMax < 0 ? (this.selected === 2 ? studio : 0) : newMax
+        if (this.selected === 2) this.total = studio
+      }
+      if (this.cinematography.max > newMax) {
+        this.cinematography.max = newMax
+        this.cinematography.value = newMax < 0 ? (this.selected === 3 ? studio : 0) : newMax
+        if (this.selected === 3) this.total = studio
+      }
+      if (this.sound.max > newMax) {
+        this.sound.max = newMax
+        this.sound.value = newMax < 0 ? (this.selected === 4 ? studio : 0) : newMax
+        if (this.selected === 4) this.total = studio
+      }
+      if (this.editing.max > newMax) {
+        this.editing.max = newMax
+        this.editing.value = newMax < 0 ? (this.selected === 5 ? studio : 0) : newMax
+        if (this.selected === 5) this.total = studio
+      }
+      if (this.score.max > newMax) {
+        this.score.max = newMax
+        this.score.value = newMax < 0 ? (this.selected === 6 ? studio : 0) : newMax
+        if (this.selected === 6) this.total = studio
+      }
+      if (this.set.max > newMax) {
+        this.set.max = newMax
+        this.set.value = newMax < 0 ? (this.selected === 7 ? studio : 0) : newMax
+        if (this.selected === 7) this.total = studio
+      }
+      if (this.stunts.max > newMax) {
+        this.stunts.max = newMax
+        this.stunts.value = newMax < 0 ? (this.selected === 8 ? studio : 0) : newMax
+        if (this.selected === 8) this.total = studio
+      }
+      if (this.costume.max > newMax) {
+        this.costume.max = newMax
+        this.costume.value = newMax < 0 ? (this.selected === 9 ? studio : 0) : newMax
+        if (this.selected === 9) this.total = studio
+      }
+      if (this.makeup.max > newMax) {
+        this.makeup.max = newMax
+        this.makeup.value = newMax < 0 ? (this.selected === 10 ? studio : 0) : newMax
+        if (this.selected === 10) this.total = studio
+      }
+      if (this.sfx.max > newMax) {
+        this.sfx.max = newMax
+        this.sfx.value = newMax < 0 ? (this.selected === 11 ? studio : 0) : newMax
+        if (this.selected === 11) this.total = studio
+      }
+      if (this.vfx.max > newMax) {
+        this.vfx.max = newMax
+        this.vfx.value = newMax < 0 ? (this.selected === 12 ? studio : 0) : newMax
+        if (this.selected === 12) this.total = studio
+      }
     },
 
     setBudgetPop() {
@@ -311,6 +375,18 @@ export default {
 
   mounted() {
     this.calcInputRange()
+    this.production.value = this.production.min
+    this.extras.value = this.production.min
+    this.cinematography.value = this.production.min
+    this.sound.value = this.production.min
+    this.editing.value = this.production.min
+    this.score.value = this.production.min
+    this.set.value = this.production.min
+    this.stunts.value = this.production.min
+    this.costume.value = this.production.min
+    this.makeup.value = this.production.min
+    this.sfx.value = this.production.min
+    this.vfx.value = this.production.min
   }
 }
 </script>

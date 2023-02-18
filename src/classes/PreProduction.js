@@ -41,6 +41,7 @@ export default class PreProduction {
         this.budgetPop = 12
         this.happenedEvents = []
         this.outgoings = this.getTotalBudget()
+        this.neededDuration = 0
     }
 
     static fromJSON(jsonObject) {
