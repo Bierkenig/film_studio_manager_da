@@ -373,6 +373,16 @@
         <movie-earning-element movie-title="Title" :opening-week-gross="3000" :current-time-title="$t('thisWeek')" :current-time-gross="500"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<poster-element height="200px" width="150px"/>'/>
+      <code-view code='<poster-element height="200px" width="150px" :svg-code="examplePoster"/>'/>
+      <code-view code='<poster-element height="200px" width="150px" poster-name="actionMoviePoster"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <poster-element height="200px" width="150px"/>
+        <poster-element height="200px" width="150px" :svg-code="examplePoster"/>
+        <poster-element height="200px" width="150px" poster-name="actionMoviePoster"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -404,10 +414,12 @@ import AvatarElement from "@/components/kitchenSink/AvatarElement";
 import ProjectElement from "@/components/kitchenSink/ProjectElement.vue";
 import StreamingInfoElement from "@/components/kitchenSink/StreamingInfoElement.vue";
 import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "KitchenSink",
   components: {
+    PosterElement,
     MovieEarningElement,
     StreamingInfoElement,
     ProjectElement,
