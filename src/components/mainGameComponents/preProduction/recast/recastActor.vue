@@ -113,7 +113,6 @@ export default {
         this.actorDecision = true
       }
 
-      console.log(this.currentActor._no)
       if (this.currentActor._no === 3) {
         const index = this.allActors.indexOf(this.currentActor)
         this.allActors.splice(index, 1)

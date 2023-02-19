@@ -42,8 +42,6 @@ export default {
   methods: {
     async select() {
       window.ipcRenderer.removeAllListeners('gotStudios')
-      console.log(this.slotNr)
-      console.log(this.$store.state)
       process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.slotNr +".db") : window.ipcRenderer.send('changeDBPath',  "../bundled/DB/fsm_custom"+ this.slotNr +".db")
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()

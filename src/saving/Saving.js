@@ -96,7 +96,6 @@ export function load(slot) {
     let code = null;
 
     //security check #1
-    console.log(code)
     if (!checkFileStatus(slot, 'default')) {
         code = '101';
 
@@ -118,7 +117,6 @@ export function load(slot) {
             code = '102'
         }
 
-        console.log(compareDate(slot))
         if (code !== '102' && checkFileStatus(slot, 'default') && compareDate(slot)[0]) {
             code = '103'
             return [save, code, slot, compareDate(slot)[1]]
@@ -133,9 +131,6 @@ export function load(slot) {
     //getSaveName(slot)
 
     //getSaveDate(slot)
-
-
-    console.log(code)
 
     if (code === '102') {
         return [null, code, slot]
@@ -152,7 +147,6 @@ export function compareDate(slot) {
 
     //listing all files using forEach
     fileNames.forEach(file => {
-        console.log(file)
         if (file.substr(8, 1) === slot.toString()) {
             autoSave = JSON.parse(fs.readFileSync(path.join('.', 'data', 'temp', 'temp' + file.substr(4, 4) + slot.toString() + '.json')).toString())
         }
@@ -160,10 +154,8 @@ export function compareDate(slot) {
 
     if (autoSave !== null) {
         if (save.de_date > autoSave.de_date) {
-            console.log('save ist aktueller')
             return [false, null];
         } else {
-            console.log('autoSave ist aktueller')
             return [true, autoSave];
         }
     } else {
@@ -180,11 +172,9 @@ export function deleteSaveFile(slot) {
         //deleting file
         fs.unlink(path.join('.', 'data', 'saves', 'save' + slot.toString()+ '.json'), function (err) {
             if (err) return console.log(err);
-            console.log('file deleted successfully');
 
             fs.unlink(path.join('.', 'data', 'recovery', 'b' + slot.toString() + '.json'), function (err) {
                 if (err) return console.log(err);
-                console.log('backup file deleted successfully');
             });
 
             // fs.rmdir(path.join('.', '.data', 'saves', slot.toString()), function (err) {
@@ -199,15 +189,12 @@ export function deleteSaveFile(slot) {
 }
 
 export function checkIfExists(slot = null) {
-    console.log("check")
     if (slot !== null) {
         try {
             fs.statSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json'))
         } catch (e) {
-            console.log("no file")
             return [false, slot]
         }
-        console.log("exists")
         return [true, slot]
     }
     if (slot === null) {
@@ -292,7 +279,6 @@ export function checkFileStatus(slot, type) {
 export function getSaveName(slot) {
     if (checkIfExists(slot)[0] && checkFileStatus(slot)) {
         let save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'saves', 'save' + slot.toString() + '.json')).toString());
-        console.log(save.state.studio.name)
         return save.state.studio.name
     }
 }
@@ -303,8 +289,6 @@ export function getSaveName(slot) {
 export function getSaveDate(slot) {
     if (checkIfExists(slot)[0] && checkFileStatus(slot)) {
         let save = JSON.parse(fs.readFileSync(path.join('.', 'data', 'saves','save' + slot.toString() + '.json')).toString());
-        console.log(save.en_date)
-        console.log(save.de_date)
         return [save.en_date, save.de_date]
     }
     return null
@@ -350,7 +334,6 @@ export function autoSave(data, slot) {
     if (autoCounter > 1001) {
         fs.unlink(path.join('.', 'data', 'temp', 'temp' + (autoCounter - 1).toString() + slot.toString() + '.json'), function (err) {
             if (err) return console.log(err);
-            console.log('auto file ' + (autoCounter - 1) + ' deleted successfully');
         })
     }
 
@@ -361,7 +344,6 @@ export function autoSave(data, slot) {
             if (err) {
                 return console.log('Unable to scan directory: ' + err);
             }
-            console.log("checking directory")
             //listing all files using forEach
             files.forEach(function (file) {
                 // Do whatever you want to do with the file
@@ -370,7 +352,6 @@ export function autoSave(data, slot) {
                     if (file.substr(4, 4) > 1001) {
                         fs.unlink(path.join('.', 'data', 'temp', 'temp' + file.substr(4, 4).toString() + slot.toString() + '.json'), function (err) {
                             if (err) return console.log(err);
-                            console.log('auto file ' + file.substr(4, 4) + ' deleted successfully');
                         })
                     }
                 }

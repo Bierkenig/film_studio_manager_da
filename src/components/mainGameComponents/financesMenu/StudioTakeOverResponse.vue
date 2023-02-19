@@ -8,8 +8,8 @@
               <h2>{{$t('buyAStudio.response')}}</h2>
               <h4>{{studio.name}}</h4>
               <div>{{$t('buyAStudio.popularity')}}</div>
-              <div>{{$t('buyAStudio.offer')}}: $ {{offer}}</div>
-              <button @click="accept(offer, studio.movies)">{{$t('buyAStudio.accept')}}</button>
+              <div>{{$t('buyAStudio.offer')}}: $ {{Math.round(offer)}}</div>
+              <button @click="accept(offer, studio)" :disabled="disabled">{{$t('buyAStudio.accept')}}</button>
               <button @click="this.closeModal">{{$t('buyAStudio.deny')}}</button>
             </slot>
           </div>
@@ -26,26 +26,31 @@ export default {
 
   data() {
     return {
-      studio: this.$store.state.currentStudioTakeOver,
+      studio: this.$store.getters.getCurrentCalendarEvent.studio,
       offer: 0,
+      disabled: false
     }
   },
 
   methods: {
-    accept(amount, movies) {
+    accept(amount, studio) {
       //decrease balance
       this.$store.commit('subtractBalance', amount)
 
       //transfer movies
-      movies.forEach((movie) => {
-        if (movie._status.toUpperCase() === 'Finished') {
+      this.$store.getters.getAllMovies.forEach((movie) => {
+        if (studio.id === movie.owner.id) {
           this.$store.commit('addFinishedMovie', movie)
-        } else {
-          this.$store.commit('addInProductionMovie', movie)
+          this.$store.commit('addAllMovie', this.$store.getters.getAllMovies.filter(el => el.owner.id !== studio.id))
         }
-        this.studio.movies.slice(movies.indexOf(movie), 1)
       })
 
+      this.$store.getters.getMoviesFromOtherStudios.forEach((movie) => {
+        if (studio.id === movie.owner.id) {
+          this.$store.commit('addFinishedMovie', movie)
+          this.$store.state.moviesFromOtherStudios = this.$store.state.moviesFromOtherStudios.filter(el => el.id !== studio.id)
+        }
+      })
       this.closeModal();
     },
 
@@ -62,11 +67,21 @@ export default {
   },
 
   mounted() {
-    this.studio.movies.forEach((el) => {
-      el.forEach((ear) => {
-        this.offer += ear.amount
-      })
+    this.$store.getters.getAllMovies.forEach((el) => {
+      if (el.owner.id === this.studio.id) {
+        this.offer += el._release.totalEarnings
+      }
     })
+
+    this.$store.getters.getMoviesFromOtherStudios.forEach(el => {
+      if (el.owner.id === this.studio.id) {
+        this.offer += el._release.totalEarnings
+      }
+    })
+
+    if (this.$store.getters.getStudio.budget <= this.offer) {
+      this.disabled = true
+    }
 
     if (this.studio.popularity < 50) {
       this.offer *= 1.15

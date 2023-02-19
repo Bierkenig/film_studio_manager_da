@@ -16,9 +16,9 @@
         :check-visibility="checkNavVisibility"
     />
 
-   <!-- <audio id="backgroundMusic" autoplay loop>
+    <audio id="backgroundMusic" volume="0.05" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
-    </audio>-->
+    </audio>
   </div>
 </template>
 
@@ -65,19 +65,16 @@ export default {
         this.$store.commit('setCurrentSoundeffect', saveData.soundeffects);
         this.$store.commit('changeCurrentLanguage', saveData.currentLanguage);
         await new Promise(resolve => setTimeout(resolve, 20))
-        console.log('Settings-File was loaded')
       }
     })
   },
 
   async created(){
     setInterval(function() {
-      console.log("tried auto save")
       if(store.getters.getSlot !== null){
         let reducedState = {}
         store.commit("stateToSave", reducedState)
         window.ipcRenderer.send('autoSave', [JSON.stringify(reducedState), store.getters.getSlot])
-        console.log("auto save finished")
       }
     }, 300000);
   }
@@ -115,4 +112,5 @@ html, body {
   margin-left: 100px;
   flex: 1;
 }
+
 </style>

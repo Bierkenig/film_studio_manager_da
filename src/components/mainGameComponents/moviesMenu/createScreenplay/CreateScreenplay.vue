@@ -131,10 +131,6 @@ export default {
     }
   },
 
-  mounted() {
-    console.log(this.$store.getters.getCurrentScreenplay)
-  },
-
   methods: {
     createScreenplay() {
       this.$store.getters.getCurrentScreenplay.title = this.title;

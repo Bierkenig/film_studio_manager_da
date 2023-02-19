@@ -85,7 +85,6 @@ export default {
       this.$store.commit('subtractBalance', value)
       //add to loans
       this.$store.commit('addCurrentLoan', {id: this.$store.getters.getCurrentLoans.length + 1, value: value, date: this.$store.getters.getCurrentDate})
-      console.log(this.$store.currentLoans)
     },
 
     repayLoan(id) {

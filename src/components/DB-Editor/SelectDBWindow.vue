@@ -61,7 +61,6 @@ export default {
       this.$router.push({name: 'default'})
     },
     showModal(value){
-      console.log(value)
       this.resetSlot = value
       this.isShow = true
     },

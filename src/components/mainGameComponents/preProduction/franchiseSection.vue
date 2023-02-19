@@ -44,7 +44,7 @@ export default {
       newScreenplay.roles = lastScreenplay.roles;
       newScreenplay.details = lastScreenplay.details;
       newScreenplay.ageRatingDetails = lastScreenplay.ageRatingDetails;
-      console.log(newScreenplay)
+
       this.$store.getters.getCurrentMovie._franchiseType = this.movieFranchiseType;
       this.$store.commit('setNewCurrentScreenplay', newScreenplay);
       this.$router.push({name: 'newScreenplay'});

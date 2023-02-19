@@ -29,7 +29,6 @@ export default createStore({
         currentProdEventType: "duration",
         currentPostProdEventType: "sound",
         currentScreenplay: null,
-        currentStudioTakeOver: null,
         logo: null,
         soundeffects: false,
         backgroundMusic: true,
@@ -858,8 +857,6 @@ export default createStore({
             for (let i = 0; i < payload[0].allMovies.length; i++) {
                 state.finishedMovies.push(payload[0].allMovies[i]);
             }
-
-            console.log(state.otherStudios)
         },
 
         addBoughtMovieRights(state, movie) {
@@ -1054,7 +1051,6 @@ export default createStore({
                 //     budget: value => value ,
                 //     budgetPop: value => value,
                 // })
-                console.log(state)
                 //state.screenplays = responseData.screenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
                 // state.boughtScreenplays = store.state.boughtScreenplays.map(jsonObject => Screenplay.fromJSON(jsonObject))
                 // state.createdMovies = store.state.createdMovies.map(jsonObject => Movie.fromJSON(jsonObject))
@@ -1097,7 +1093,6 @@ export default createStore({
             state.currentPostProdEventType = ""
             state.createdMovies = []
             state.currentScreenplay = null
-            state.currentStudioTakeOver = null
             state.logo = null
             state.currentDate = new Date("2023-01-01T00:00:00.000Z")
             state.news = []

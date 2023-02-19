@@ -140,7 +140,6 @@ export default {
     async startGame() {
       this.$store.commit('resetState')
       this.$store.commit("setSlot", parseInt(this.slot))
-      console.log(this.$store.state)
       //For Production
       if (this.databaseType === 'current') {
         process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/fsm_custom" + this.databaseVersion + ".db")
@@ -200,7 +199,6 @@ export default {
       let allWriters = [], allActors = [], allDirectors = [], allPeople = []
       window.ipcRenderer.send('toGetPeople', 'SELECT * FROM people');
       window.ipcRenderer.receive('fromGetPeople', (data) => {
-        console.log(data)
         if (data.isWriter === "true") {
           allWriters.push(new Person(data.pk_personID, data.avatar, data.first_name, data.last_name, data.birthday, data.deathAge, data.gender, data.nationality,
               data.ethnicity, data.workingSince, data.performance, data.experience, data.talent, data.popularity,
@@ -233,20 +231,10 @@ export default {
 
       await new Promise(resolve => setTimeout(resolve, 300))
 
-      //log Store data
-      console.log(this.$store.getters.getOtherStudios)
-      console.log(this.$store.state.allCharacters)
-      console.log(this.$store.getters.getAllGenres)
-      console.log(this.$store.getters.getAllSubGenres)
-      console.log(this.$store.getters.getAllTopics)
-      console.log(this.$store.getters.getAllPeople)
-
       //screenplays
       let screenplays = []
       await window.ipcRenderer.send('getScreenplays', "SELECT * FROM screenplay")
       await window.ipcRenderer.receive('gotScreenplays', (data) => {
-        console.log(data)
-        console.log(allWriters.length)
         let genreInd = data.fk_pk_genreID - 1
         let subgenreInd = data.fk_pk_subgenreID - 1
         let wriInd = data.fk_pk_writerID - 1
@@ -266,8 +254,6 @@ export default {
       })
 
       this.$store.commit('addAllScreenplay', screenplays)
-
-      console.log(this.$store.getters.getAllScreenplays)
 
       await new Promise(resolve => setTimeout(resolve, 100))
 
@@ -299,9 +285,6 @@ export default {
       let allMovies = []
       await window.ipcRenderer.send('getMovies', "SELECT * FROM movies")
       await window.ipcRenderer.receive('gotMovies', (data) => {
-        console.log(data)
-        console.log(this.$store.getters.getAllPeople.length)
-        console.log(this.$store.getters.getAllScreenplays[data.screenplay - 1].id)
         let movie = new Movie(data.pk_movieID, allStudios[data.owner - 1],
             null, data.status, data.quality, data.totalOutgoings, data.audiencePopularity, data.popularity,
             new Date(parseInt(data.foundationDate.split('-')[2]),
@@ -333,7 +316,7 @@ export default {
 
       this.$store.commit('addAllMovie', allMovies)
 
-      console.log(this.$store.getters.getAllMovies)
+      await new Promise(resolve => setTimeout(resolve, 100))
 
       //Awards
       await window.ipcRenderer.send('getIntAwards', "SELECT * FROM internationalAwards")
@@ -342,7 +325,7 @@ export default {
             data.fk_bestActorInSupport, data.fk_bestActressInLeading, data.fk_bestActressInSupport,
             data.fk_bestMovie, data.fk_bestDirecting, data.fk_bestScreenplay, data.fk_bestWriter, null,
             null, null, null, null, null, null, null,
-            "international", data.year))
+            "international", new Date(data.year.split('-')[2], data.year.split('-')[1], data.year.split('-')[0])))
       })
       await window.ipcRenderer.send('getIndAwards', "SELECT * FROM independentAwards")
       await window.ipcRenderer.receive('gotIndAwards', (data) => {
@@ -350,7 +333,7 @@ export default {
             null, null, null,
             data.fk_bestMovie, data.fk_bestDirector, data.fk_bestScreenplay, data.fk_bestWriter, data.fk_bestActor,
             data.fk_bestActress, null, null, null, null, null, null,
-            "independent", data.year))
+            "independent", new Date(data.year.split('-')[2], data.year.split('-')[1], data.year.split('-')[0])))
       })
       await window.ipcRenderer.send('getAudAwards', "SELECT * FROM audienceAwards")
       await window.ipcRenderer.receive('gotAudAwards', (data) => {
@@ -358,28 +341,16 @@ export default {
             null, null, null,
             null, data.fk_bestDirector, data.fk_bestScreenplay, data.fk_bestWriter, data.fk_bestActor,
             data.fk_bestActress, data.fk_bestAdventure, data.fk_bestAction, data.fk_bestThriller, data.fk_bestScienceFiction, data.fk_bestFantasy, data.fk_bestHorror,
-            "independent", data.year))
+            "audience", new Date(data.year.split('-')[2], data.year.split('-')[1], data.year.split('-')[0])))
       })
 
       this.$store.commit('createStudio', {
         studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1, {"2023": 0}),
         logo: this.chosenLogo
       });
-      this.$router.push({
-        name: 'loadingScreen',
-        params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}
-      })
       if (this.databaseType === 'current') {
         window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db")
       }
-      this.$store.commit('createStudio', {
-        studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1),
-        logo: this.chosenLogo
-      });
-      this.$store.commit('createStudio', {
-        studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1),
-        logo: this.chosenLogo
-      });
       this.$router.push({
         name: 'loadingScreen',
         params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}
@@ -389,17 +360,12 @@ export default {
       store.commit('addScreenplay', newScreenplay)
     },
 
-    test() {
-      console.log(this.budget)
-    },
-
     goBack() {
       this.$router.push({name: 'SelectSlotWindow'})
     },
 
     setSelectedBudget(value) {
-      this.budget = value;
-      console.log(value)
+      this.budget = value
     },
 
     selectIcon(index) {

@@ -10,19 +10,18 @@
         :icon-gradient="false"
         :shadow="false"
         @click="goBack"/>
-    <award-list/>
+    <!--<award-list/>-->
     <award-details/>
   </div>
 </template>
 
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
-import AwardList from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardList.vue";
 import AwardDetails from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardDetails.vue";
 
 export default {
   name: "AwardOverview",
-  components: {AwardDetails, AwardList, IconButton},
+  components: {AwardDetails, IconButton},
 
   data() {
     return {

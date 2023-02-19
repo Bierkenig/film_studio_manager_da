@@ -24,8 +24,6 @@ export default {
 
   methods: {
     getNumberOfWeeksInMonth(year, month_number){
-      console.log("year - "+year+" month - "+(month_number+1));
-
       var day = 0;
       var firstOfMonth = new Date(year, month_number, 1);
       var lastOfMonth = new Date(year, parseInt(month_number)+1, 0);
