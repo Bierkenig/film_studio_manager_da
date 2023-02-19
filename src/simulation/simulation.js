@@ -11,7 +11,6 @@ import {Movie} from "@/classes/Movie";
 import Award from "@/classes/Award";
 import {de} from "date-fns/locale";
 import PostProduction from "@/classes/PostProduction";
-import Release from "@/classes/Release";
 import FinancialPerformance from "@/classes/FinancialPerformance";
 
 //Avatar Option Lists
@@ -2295,8 +2294,10 @@ function generateMoviesFromOtherStudios(){
         if(randomNumber(0.10) === 0){
             let allOtherStudios = store.getters.getOtherStudios;
             let randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
+            let allTotalEarnings = Math.floor(Math.random() * (5000000 - 1000000 + 1) + 1000000)
+            let outgoings = Math.floor(Math.random() * (1000000 - 500000 + 1) + 500000)
 
-            let newMovie = new Movie(store.getters.getNextMovieId, randomStudio, null, 'Finished', 100,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined);
+            let newMovie = new Movie(store.getters.getNextMovieId, randomStudio, null, 'Finished', 100,outgoings,undefined,undefined,undefined,undefined,undefined,undefined,allTotalEarnings,undefined,undefined,undefined);
             newMovie._foundationDate = store.getters.getCurrentDate;
             newMovie._preProduction.screenplay = createScreenplaysFromWriters('forMovieGeneration');
         }

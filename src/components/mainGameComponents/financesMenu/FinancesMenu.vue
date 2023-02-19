@@ -71,10 +71,10 @@
           <div v-for="(el, index) in otherStudios" :key="index" class="marketShareListElement">
             <market-share-element icon="placeholder"
                                   :studio="el.name"
-                                  :revenue="el.calcRevenue()"
-                                  :profit="el.calcProfit()"
-                                  :share="(el.marketShare[selectedMarketYear] !== undefined ? el.marketShare[selectedMarketYear] : 0) + '%'"
-                                  :change="(el.marketShare[selectedMarketYear] - (el.marketShare[selectedMarketYear - 1] !== undefined ? el.marketShare[selectedMarketYear - 1] : 0)) + '%'"
+                                  :revenue=" el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0"
+                                  :profit="el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0"
+                                  :share="(el.marketShare[selectedMarketYear] !== undefined || !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) + '%'"
+                                  :change="((el.marketShare[selectedMarketYear] !== undefined && !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) - (el.marketShare[selectedMarketYear - 1] !== undefined || !isNaN(el.marketShare[selectedMarketYear - 1]) ? el.marketShare[selectedMarketYear - 1] : 0)) + '%'"
             />
           </div>
         </div>

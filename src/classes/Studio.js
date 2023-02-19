@@ -1,5 +1,6 @@
 import {Movie} from "@/classes/Movie";
 import DataUtil from "@/classes/DataUtil";
+import store from "@/services/store";
 
 export class Studio {
     constructor(id, name, year, budget, popularity, marketShare = {}) {
@@ -44,19 +45,57 @@ export class Studio {
 
     calcRevenue() {
         let amount = 0
-        this.movies.forEach((movie) => {
-            movie._earnings.forEach((el) => {
-                amount += el.amount
+        if (this.id !== store.getters.getStudio.id) {
+            store.getters.getAllMovies.forEach((movie) => {
+                console.log(movie.owner.id)
+                if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += movie.allTotalEarings
+                }
             })
-        })
+
+            store.getters.getMoviesFromOtherStudios.forEach(movie => {
+                if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += movie.allTotalEarings
+                }
+            })
+        } else {
+            store.getters.getEarnings.forEach(el => {
+                if (el.date.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += el.amount
+                }
+            })
+        }
+
         return amount
     }
 
     calcProfit() {
         let amount = 0
-        this.movies.forEach((movie) => {
-            amount += movie._totalOutgoings
-        })
+        if (this.id !== store.getters.getStudio.id) {
+            store.getters.getAllMovies.forEach((movie) => {
+                if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += movie._totalOutgoings
+                }
+            })
+
+            store.getters.getMoviesFromOtherStudios.forEach(movie => {
+                if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += movie._totalOutgoings
+                }
+            })
+        } else {
+            store.getters.getFinishedMovies.forEach(movie => {
+                if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += movie._totalOutgoings
+                }
+            })
+
+            store.getters.getCreatedMovies.forEach(movie => {
+                if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
+                    amount += movie._totalOutgoings
+                }
+            })
+        }
         return this.calcRevenue() - amount
     }
 

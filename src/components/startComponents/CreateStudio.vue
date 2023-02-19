@@ -345,7 +345,7 @@ export default {
       })
 
       this.$store.commit('createStudio', {
-        studio: new Studio(1, this.name, "2023", parseInt(this.budget), 1, {"2023": 0}),
+        studio: new Studio(16, this.name, "2023", parseInt(this.budget), 1, {"2023": 0}),
         logo: this.chosenLogo
       });
       if (this.databaseType === 'current') {
