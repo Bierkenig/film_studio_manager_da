@@ -19,12 +19,12 @@
                 <div class="afterReleasePlan">
                   <div class="afterReleasePlanElement">
                     <div>{{$t('afterRelease.dvd')}}</div>
-                    <div>$ {{release.dvdGross}}</div>
+                    <div>$ {{currencyFormatDE(release.dvdGross)}}</div>
                   </div>
 
                   <div class="afterReleasePlanElement">
                     <div>{{$t('afterRelease.cinema')}}</div>
-                    <div>$ {{release.cinemaGross}}</div>
+                    <div>$ {{currencyFormatDE(release.cinemaGross)}}</div>
                   </div>
                 </div>
 
@@ -116,6 +116,14 @@ export default {
         }
       }
       this.$emit('close');
+    },
+
+    currencyFormatDE(num) {
+      return (
+          num
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      ) // use . as a separator
     }
   },
 

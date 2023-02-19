@@ -236,6 +236,10 @@ export default {
   flex-wrap: wrap;
 }
 
+.newsElement {
+  margin-bottom: 10px;
+}
+
 .newsMenuNavigation {
   flex-grow: 1;
   flex-basis: 0;

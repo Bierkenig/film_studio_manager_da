@@ -14,7 +14,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanEditingOption !== 1" @clicked="choseOptionA('editing')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanEditingOption === 1" @clicked="choseOptionA('editing')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
             <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
@@ -27,7 +27,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanEditingOption !== 2" @clicked="choseOptionB('editing')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanEditingOption === 2" @clicked="choseOptionB('editing')">Choose</custom-button>
           </div>
         </div>
         <div class="testScreeningOptionsContainerElement" v-if="typeSound === true">
@@ -42,7 +42,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanSoundOption !== 1" @clicked="choseOptionA('sound')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanSoundOption === 1" @clicked="choseOptionA('sound')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
             <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
@@ -55,7 +55,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanSoundOption !== 2" @clicked="choseOptionB('sound')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanSoundOption === 2" @clicked="choseOptionB('sound')">Choose</custom-button>
           </div>
         </div>
         <div class="testScreeningOptionsContainerElement" v-if="typeVFX === true">
@@ -70,7 +70,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanVFXOption !== 1" @clicked="choseOptionA('vfx')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanVFXOption === 1" @clicked="choseOptionA('vfx')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
             <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
@@ -83,7 +83,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanVFXOption !== 2" @clicked="choseOptionB('vfx')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanVFXOption === 2" @clicked="choseOptionB('vfx')">Choose</custom-button>
           </div>
         </div>
         <div class="testScreeningOptionsContainerElement" v-if="typeActing === true">
@@ -98,7 +98,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanActingOption !== 1" @clicked="choseOptionA('acting')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanActingOption === 1" @clicked="choseOptionA('acting')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
             <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
@@ -111,7 +111,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanActingOption !== 2" @clicked="choseOptionB('acting')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanActingOption === 2" @clicked="choseOptionB('acting')">Choose</custom-button>
           </div>
         </div>
         <div class="testScreeningOptionsContainerElement" v-if="typeStory === true">
@@ -126,7 +126,7 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanStoryOption !== 1" @clicked="choseOptionA('story')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanStoryOption === 1" @clicked="choseOptionA('story')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
             <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
@@ -139,12 +139,12 @@
               <div class="testScreeningOptionsBenefit">Benefit</div>
               <div>Lorem Ipsum</div>
             </div>
-            <custom-button size="small" v-if="booleanStoryOption !== 2" @clicked="choseOptionB('story')">Choose</custom-button>
+            <custom-button size="small" :disabled="booleanStoryOption === 2" @clicked="choseOptionB('story')">Choose</custom-button>
           </div>
         </div>
       </div>
 
-      <custom-button size="small" class="buttonStyle" @clicked="continueToResult" :disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory">Continue</custom-button>
+      <custom-button size="small" class="buttonStyle" @clicked="continueToResult" :disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory">Continue</custom-button><!--:disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory"-->
     </background-tile>
   </div>
 </template>
@@ -230,7 +230,7 @@ export default {
             this.booleanVFXOption = 1
             break
           case 'acting':
-            this.actingConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.actingConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget() * (this.percentageWholeBudget/100);
             this.actingConsequence.percentage += this.percentageWholeBudget;
             this.booleanActingOption = 1
             //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.wholeBudgetIncrease.value;
@@ -262,7 +262,7 @@ export default {
             break
           case 'story':
             //TODO Hype -15%
-            this.storyConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.storyConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget() * (this.percentageWholeBudget/100);
             this.storyConsequence.percentage += this.percentageWholeBudget;
             this.booleanStoryOption = 1;
             //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.storyBudgetIncrease.value;
