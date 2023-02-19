@@ -627,12 +627,8 @@ export default createStore({
             state.currentLoans.push(payload)
         },
 
-        changeDateOfLoan(state, payload) {
-            state.currentLoans.forEach((el) => {
-                if (el.id === payload) {
-                    el.date = state.currentDate
-                }
-            })
+        setCurrentLoans(state, payload) {
+            state.currentLoans = payload
         },
 
         setCurrentMovieBudget(state, budget) {

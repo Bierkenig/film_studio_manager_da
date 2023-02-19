@@ -91,7 +91,6 @@ i18next
                         take: "Take",
                         title2: "Current Loans",
                         repay: "Repay",
-                        errMsg: "You can't take any Loans, because your balance is to low!"
                     },
                     buyAStudio: {
                         foundationDate: "Foundation Date",
