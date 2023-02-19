@@ -24,10 +24,10 @@ export default createStore({
         studio: null,
         currentMovieBudget: 0,
         currentMovieExpenses: 0,
-        currentMovie: new Movie(new Studio(100, "Jakob ist Cool", "2023", 50000000, 80), null),
+        currentMovie: null,
         currentMovieDetails: null,
-        currentProdEventType: "duration",
-        currentPostProdEventType: "sound",
+        currentProdEventType: "",
+        currentPostProdEventType: "",
         currentScreenplay: null,
         logo: null,
         soundeffects: false,
@@ -35,43 +35,8 @@ export default createStore({
         currentDate: new Date("2023-01-01T00:00:00.000Z"),
         currentLanguage: 'en',
         news: [],
-        earnings: [
-            {
-                value: 245000,
-                date: new Date(2022, 11, 25)
-            },
-            {
-                value: 500000,
-                date: new Date(2023, 0, 15)
-            },
-            {
-                value: 245000,
-                date: new Date(2022, 11, 25)
-            },
-            {
-                value: 500000,
-                date: new Date(2023, 0, 15)
-            },
-            {
-                value: 245000,
-                date: new Date(2022, 11, 25)
-            },
-            {
-                value: 500000,
-                date: new Date(2023, 0, 15)
-            },
-            {
-                value: 245000,
-                date: new Date(2022, 11, 25)
-            },
-            {
-                value: 500000,
-                date: new Date(2023, 0, 15)
-            }
-        ],
-        financialPerformance: [
-            new FinancialPerformance(new Date(2023, 0), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-        ],
+        earnings: [],
+        financialPerformance: [],
         currentCalendarEvent: null,
         calendarEvents: [],
         franchises: [],
@@ -82,28 +47,21 @@ export default createStore({
         //while production
         inProductionMovies: [],
         //when finished
-        finishedMovies: [new Movie(new Studio(100, "JJJJ"), 0)],
+        finishedMovies: [],
         awardsOfOwnStudio: [],
 
         moviesFromOtherStudios: [],
         screenplaysFromWriters: [],
         franchisesFromOtherStudios: [],
 
-        otherStudios: [
-            new Studio(0, "Studio 1", 2002, 203002, 100),
-            new Studio(1, "Atudio 2", 2020, 2098, 100)
-        ],
+        otherStudios: [],
 
         boughtMovies: [],
-        boughtMovieRights: [new Movie(new Studio(0, "hallo", 2023, 23455, 12), 0)],
+        boughtMovieRights: [],
 
-        financialHistory: [
-            new FinancialHistoryEntry('event1', 'desc1', null)
-        ],
+        financialHistory: [],
 
-        currentLoans: [
-            new Loan(0, 203930, new Date(2023, 3, 2))
-        ],
+        currentLoans: [],
 
         feature: ["250000 - 7500000", "250000 - 2500000", "250000 - 5000000", "250000 - 5000000", "250000 - 2500000", "250000 - 5000000", "250000 - 10000000", "250000 -  2500000", "250000 - 2500000", "250000 - 2500000", "250000 - 5000000", "250000 - 100000000"],
         indie: ["25000 - 2000000", "25000 - 500000", "25000 - 1500000", "25000 - 1000000", "25000 - 500000", "25000 - 1000000", "25000 - 2000000", "25000 - 500000", "5000 - 500000", "25000 - 500000", "25000 - 1000000", "250000 - 15000000"],
@@ -122,9 +80,7 @@ export default createStore({
             story: null
         },
 
-        streamingServicesFromOtherStudios: [new StreamingService('ASX Studio', 1, 0, 0, 10, new Studio('AS'), new Date("January 25, 2023")),
-            new StreamingService('TUV Studio', 1, 0, 0, 10, new Studio('TU'), new Date("January 24, 2023")),
-            new StreamingService('HUA Studio', 1, 0, 0, 10, new Studio('HU'), new Date("January 23, 2023"))],
+        streamingServicesFromOtherStudios: [],
         ownStreamingService: null,
 
         studioNames: ["Samwise Productions", "The Bohemian Society", "Heavenly Creations", "Filmlot, Artwave", "Amethyst Studio", "Oceanic Studios", "Fantasy Nest", "Freebird Films", "Razzle Dazzle Productions", "Moonlight Pictures", "Lovelight Pictures", "Midnight",
@@ -176,7 +132,7 @@ export default createStore({
             "july", "august", "september", "october", "november", "december"
         ],
 
-        marketYears: [2023, 2024],
+        marketYears: [2023],
 
         awardNominationList: {
             internationalAward: {
@@ -211,7 +167,7 @@ export default createStore({
         createdAwards: [],
 
         //Fetcher
-        dbFetcher: new DBFetcher(),
+        dbFetcher: null,
         //data from database
         allPeople: [],
         allActors: [],
@@ -227,8 +183,6 @@ export default createStore({
 
         editPerson: null,
         editStudio: null,
-
-        //TODO need to cut 20
         allDirectorSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 550000, 600000, 650000, 700000, 750000, 800000, 850000, 900000, 950000, 1000000, 1150000, 1300000, 1450000, 1600000, 1750000, 1900000, 2050000, 2200000, 2350000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 11500000, 13000000, 14500000, 16000000, 17500000, 19000000, 20500000, 22000000, 23500000, 25000000, 26500000, 28000000, 29500000, 31000000],
         allWriterSalary: [11500, 13000, 14500, 16000, 17500, 19000, 20500, 22000, 23500, 25000, 27500, 30000, 32500, 35000, 37500, 40000, 42500, 45000, 47500, 50000, 55000, 60000, 65000, 70000, 75000, 80000, 85000, 90000, 95000, 100000, 115000, 130000, 145000, 160000, 175000, 190000, 205000, 220000, 235000, 250000, 275000, 300000, 325000, 350000, 375000, 400000, 425000, 450000, 475000, 500000, 525000, 550000, 575000, 600000, 625000, 650000, 675000, 700000, 725000, 750000, 825000, 900000, 975000, 1050000, 1125000, 1200000, 1275000, 1350000, 1425000, 1500000, 1600000, 1700000, 1800000, 1900000, 2000000, 2100000, 2200000, 2300000, 2400000, 2500000, 2750000, 3000000, 3250000, 3500000, 3750000, 4000000, 4250000, 4500000, 4750000, 5000000, 5500000, 6000000, 6500000, 7000000, 7500000, 8000000, 8500000, 9000000, 9500000, 10000000, 10500000, 11000000, 11500000, 12000000],
     },
@@ -1194,7 +1148,7 @@ export default createStore({
                 }
             }
             state.createdAwards = []
-            state.dbFetcher = new DBFetcher(),
+            state.dbFetcher = new DBFetcher()
             state.allPeople = []
             state.allActors = []
             state.allDirectors = []

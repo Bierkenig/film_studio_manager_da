@@ -70,7 +70,7 @@ export class Movie {
         //TYPE -> Date
         this._foundationDate = foundationDate !== undefined ? foundationDate : null;
         //TYPE -> Integer | totalOutgoings - AUSGABEN während Filmherstellung (TODO POSTPRODUCTION)
-        this._totalOutgoings = outgoings !== undefined ? outgoings : this._preProduction.outgoings
+        this._totalOutgoings = outgoings !== undefined ? Math.round(outgoings) : this._preProduction.outgoings
     }
 
     setProduction() {
