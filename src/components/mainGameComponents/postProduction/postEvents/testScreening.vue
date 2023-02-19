@@ -1,87 +1,93 @@
 <template>
-  <div class="modal-mask">
-    <div class="modal-wrapper">
-      <div class="modal-container">
-        <div class="modal-body">
-          <slot name="body">
-            {{this.releaseDate}}
-            <h3 v-if="!feedbacks">{{ $t('postProductionEvents.testScreening.title') }}</h3>
-            <h3 v-else>{{ $t('postProductionEvents.testScreening.result') }}</h3>
+  <div class="testScreeningMainDiv">
+    <background-tile class="testScreeningBackground" :title="'Test Screening - ' + this.$store.getters.getCurrentCalendarEvent.movie">
+      <div>
+        <div class="testScreeningInfoElement">
+          <div>{{ $t('projectElement.release') }}</div>
+          <div>{{this.releaseDate.toLocaleDateString('de-DE')}}</div>
+        </div>
+        <div class="testScreeningHeader" v-if="feedbacks">{{ $t('postProductionEvents.testScreening.result') }}</div>
 
-            <button v-if="!feedbacks" class="modal-default-button" @click="buildFeedbacks">
-              {{ $t('postProductionEvents.testScreening.run') }}
-            </button>
-            <div v-if="feedbacks">
-              <div>
-                {{this.feedbackCount}}/5 - Test Screening Rating: {{this.testScreeningRating}}
-              </div>
-              <div class="feedback">
-                <info-circle v-if="!this.$store.state.type.editing" text="+" size="30px" alternative-style/>
-                <info-circle v-else text="-" size="30px" alternative-style/>
-
-                {{ $t('postProductionEvents.testScreening.editingTitle') }}
-
-                {{ editingFeedback }}
-              </div>
-
-
-              <div class="feedback">
-                <info-circle v-if="!this.$store.state.type.sound" text="+" size="30px" alternative-style/>
-                <info-circle v-else text="-" size="30px" alternative-style/>
-
-                {{ $t('postProductionEvents.testScreening.soundTitle') }}
-
-                {{ soundFeedback }}
-              </div>
-              <div class="feedback">
-                <info-circle v-if="!this.$store.state.type.vfx" text="+" size="30px" alternative-style/>
-                <info-circle v-else text="-" size="30px" alternative-style/>
-
-                {{ $t('postProductionEvents.testScreening.vfxTitle') }}
-
-                {{ vfxFeedback }}
-              </div>
-              <div class="feedback">
-
-                <info-circle v-if="!this.$store.state.type.acting" text="+" size="30px" alternative-style/>
-                <info-circle v-else text="-" size="30px" alternative-style/>
-
-
-                {{ $t('postProductionEvents.testScreening.actingTitle') }}
-
-                {{ actingFeedback }}
-              </div>
-
-              <div class="feedback">
-
-                <info-circle v-if="!this.$store.state.type.story" text="+" size="30px" alternative-style/>
-                <info-circle v-else text="-" size="30px" alternative-style/>
-
-                {{ $t('postProductionEvents.testScreening.storyTitle') }}
-
-                {{ storyFeedback }}
-              </div>
-              <router-link to="/">
-                <button>Back</button>
-              </router-link>
-              <router-link :to = "{name: 'testScreeningOptions'}">
-                <button>Continue</button>
-              </router-link>
+        <custom-button size="small" v-if="!feedbacks" class="testScreeningRunButton" @clicked="buildFeedbacks">
+          {{ $t('postProductionEvents.testScreening.run') }}
+        </custom-button>
+        <div v-if="feedbacks">
+          <div class="testScreeningOverallResults">
+            <div class="testScreeningOverallInfo">
+              <div>Overall</div>
+              <div>{{this.feedbackCount}}/5</div>
             </div>
-          </slot>
+            <div>
+              <info-circle class="projectElementInfoCircle"
+                           size="50px"
+                           :large-font="true"
+                           :text="this.testScreeningRating.toString()"
+                           data-title="Test Screening Rating"/>
+            </div>
+          </div>
+          <div class="testScreeningResultContainer">
+            <div class="testScreeningResultElement">
+              <div class="testScreeningPositiveResultHeader">Positive</div>
+              <div v-if="!this.$store.state.type.editing">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.editingTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ editingFeedback }}</div>
+              </div>
+              <div v-if="!this.$store.state.type.sound">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.soundTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ soundFeedback }}</div>
+              </div>
+              <div v-if="!this.$store.state.type.vfx">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.vfxTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ vfxFeedback }}</div>
+              </div>
+              <div v-if="!this.$store.state.type.acting">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.actingTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ actingFeedback }}</div>
+              </div>
+            </div>
+            <div class="testScreeningResultElement">
+              <div class="testScreeningNegativeResultHeader">Negative</div>
+              <div v-if="this.$store.state.type.editing">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.editingTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ editingFeedback }}</div>
+              </div>
+              <div v-if="this.$store.state.type.sound">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.soundTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ soundFeedback }}</div>
+              </div>
+              <div v-if="this.$store.state.type.vfx">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.vfxTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ vfxFeedback }}</div>
+              </div>
+              <div v-if="this.$store.state.type.acting">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.actingTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ actingFeedback }}</div>
+              </div>
+              <div v-if="this.$store.state.type.story">
+                <div class="testScreeningFeedbackType">{{ $t('postProductionEvents.testScreening.storyTitle') }}:</div>
+                <div class="testScreeningFeedback">{{ storyFeedback }}</div>
+              </div>
+            </div>
+          </div>
+
+          <router-link :to = "{name: 'testScreeningOptions'}">
+            <custom-button size="small" class="testScreeningRunButton">{{ $t('continue') }}</custom-button>
+          </router-link>
         </div>
       </div>
-    </div>
+    </background-tile>
   </div>
 </template>
 
 <script>
-import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import {i18next} from '@/translation/i18n'
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 
 export default {
   name: "reeditingDirector",
-  components: {InfoCircle},
+  components: {InfoCircle, CustomButton, BackgroundTile},
   data() {
     return {
       feedbacks: false,
@@ -705,56 +711,100 @@ export default {
 </script>
 
 <style scoped>
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+.testScreeningMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 20px 30px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+.testScreeningBackground {
+  width: 600px;
 }
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
-}
-
-.modal-body {
-  margin: 20px 0;
-}
-
-.modal-default-button {
-  float: right;
-}
-
-.feedback {
+.testScreeningInfoElement {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  padding: 7px;
+  font-size: 15px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
 }
 
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter-from, .modal-leave-to {
-  opacity: 0;
+.testScreeningRunButton {
+  margin-top: 10px;
 }
 
-.modal-enter-active .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
+.testScreeningHeader {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 22px;
+  margin-bottom: 0.25em;
+  margin-top: 10px;
+}
+
+.testScreeningResultContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  padding: 10px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.testScreeningResultElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  width: 50%;
+}
+
+.testScreeningPositiveResultHeader {
+  color: #46FF54;
+  text-align: center;
+}
+
+.testScreeningNegativeResultHeader {
+  color: #FF3A4D;
+  text-align: center;
+}
+
+.testScreeningFeedbackType {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.testScreeningFeedback {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px;
+  font-size: 15px;
+}
+
+.testScreeningOverallResults {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.testScreeningOverallInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  flex: 1;
+  padding: 7px;
+  align-items: center;
 }
 </style>

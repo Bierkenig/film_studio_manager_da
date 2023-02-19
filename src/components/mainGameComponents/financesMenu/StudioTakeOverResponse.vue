@@ -5,12 +5,22 @@
         <div class="modal-container" @click.stop="">
           <div class="modal-body">
             <slot name="body">
-              <h2>{{$t('buyAStudio.response')}}</h2>
-              <h4>{{studio.name}}</h4>
-              <div>{{$t('buyAStudio.popularity')}}</div>
-              <div>{{$t('buyAStudio.offer')}}: $ {{Math.round(offer)}}</div>
-              <button @click="accept(offer, studio)" :disabled="disabled">{{$t('buyAStudio.accept')}}</button>
-              <button @click="this.closeModal">{{$t('buyAStudio.deny')}}</button>
+              <background-tile :title="$t('buyAStudio.response') + ' - ' + studio.name">
+                <div class="studioTakeoverInfoContainer">
+                  <div class="studioTakeoverInfoElement">
+                    <div>{{$t('buyAStudio.popularity')}}</div>
+                    <div>{{studio.popularity}}</div>
+                  </div>
+                  <div class="studioTakeoverInfoElement">
+                    <div>{{$t('buyAStudio.offer')}}</div>
+                    <div>$ {{currencyFormatDE(Math.round(offer))}}</div>
+                  </div>
+                </div>
+                <div class="studioTakeoverButtonBox">
+                  <custom-button size="small" @clicked="accept(offer, studio)" :disabled="disabled">{{$t('buyAStudio.accept')}}</custom-button>
+                  <custom-button size="small" @clicked="this.closeModal">{{$t('buyAStudio.deny')}}</custom-button>
+                </div>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -21,8 +31,12 @@
 
 <script>
 
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "StudioTakeOverResponse",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -63,6 +77,14 @@ export default {
         }
       }
       this.$emit('close');
+    },
+
+    currencyFormatDE(num) {
+      return (
+          num
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      ) // use . as a separator
     }
   },
 
@@ -113,19 +135,14 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-body {
   margin: 20px 0;
-  text-align: center;
 }
 
 /*
@@ -147,4 +164,27 @@ export default {
   transform: scale(1.1);
 }
 
+.studioTakeoverInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 10px 0;
+}
+
+.studioTakeoverInfoElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px;
+  font-size: 15px;
+}
+
+.studioTakeoverButtonBox {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
 </style>

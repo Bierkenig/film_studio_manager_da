@@ -7,6 +7,7 @@
             <slot name="body">
               <background-tile :title="$t('summaries.postProduction.title')">
                 <div class="postProductionSummaryResults">
+                  <div>Of the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}"</div>
                   <div class="postProductionSummaryProgressContainer">
                     <div class="postProductionSummarySmallHeader">{{$t('summaries.postProduction.progress')}}</div>
                     <div class="postProductionSummaryProgressBar">

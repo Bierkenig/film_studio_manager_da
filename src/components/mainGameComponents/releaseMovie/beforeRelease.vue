@@ -5,37 +5,69 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h3>{{$t('beforeRelease.details')}}</h3>
-              <div>{{movieTitle}}</div>
-              <div>
-                <div>{{$t('beforeRelease.screenplay.msg')}}</div>
-                <div>{{$t('beforeRelease.screenplay.writer')}}: {{screenplay.writer._first_name}} {{screenplay.writer._last_name}}</div>
-                <div>
-                  <div>{{$t('beforeRelease.screenplay.topics')}}</div>
-                  <div>{{$t('beforeRelease.screenplay.topic1')}}: {{screenplay.firstTopic !== null ? screenplay.firstTopic : $t('beforeRelease.screenplay.error')}}</div>
-                  <div>{{$t('beforeRelease.screenplay.topic2')}}: {{screenplay.secondTopic !== null ? screenplay.secondTopic : $t('beforeRelease.screenplay.error')}}</div>
-                  <div>{{$t('beforeRelease.screenplay.topic3')}}: {{screenplay.thirdTopic !== null ? screenplay.thirdTopic : $t('beforeRelease.screenplay.error')}}</div>
+              <background-tile :title="$t('beforeRelease.details') + ' - ' + movieTitle">
+                <div class="beforeReleaseContainer">
+                  <div class="beforeReleaseContainerElement">
+                    <div class="beforeReleaseContainerHeader">{{$t('beforeRelease.screenplay.msg')}}</div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.screenplay.writer')}}</div>
+                      <div>{{screenplay.writer._first_name}} {{screenplay.writer._last_name}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.screenplay.topic1')}}</div>
+                      <div>{{screenplay.topics.firstTopic !== null ? screenplay.topics.firstTopic.topicName : $t('beforeRelease.screenplay.error')}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.screenplay.topic2')}}</div>
+                      <div>{{screenplay.topics.secondTopic !== null ? screenplay.topics.secondTopic.topicName : $t('beforeRelease.screenplay.error')}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.screenplay.topic3')}}</div>
+                      <div>{{screenplay.topics.thirdTopic !== null ? screenplay.topics.thirdTopic.topicName : $t('beforeRelease.screenplay.error')}}</div>
+                    </div>
+                  </div>
+                  <div class="beforeReleaseContainerElement">
+                    <div class="beforeReleaseContainerHeader">{{$t('beforeRelease.director.msg')}}</div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.director.name')}}</div>
+                      <div>{{director._first_name}} {{director._last_name}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.director.age')}}</div>
+                      <div>{{director._age}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.director.gender')}}</div>
+                      <div>{{$t(director._gender)}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.director.talent')}}</div>
+                      <div>{{director._talent}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.director.pop')}}</div>
+                      <div>{{director._popularity}}</div>
+                    </div>
+                    <div class="beforeReleaseContainerElementBox">
+                      <div>{{$t('beforeRelease.director.rating')}}</div>
+                      <div>{{director._rating}}</div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div>{{$t('beforeRelease.director.msg')}}</div>
-                <div>{{$t('beforeRelease.director.name')}}: {{director._first_name}} {{director._last_name}}</div>
-                <div>{{$t('beforeRelease.director.age')}}: {{director._age}}</div>
-                <div>{{$t('beforeRelease.director.gender')}}: {{director._gender}}</div>
-                <div>{{$t('beforeRelease.director.talent')}}: {{director._talent}}</div>
-                <div>{{$t('beforeRelease.director.pop')}}: {{director._popularity}}</div>
-                <div>{{$t('beforeRelease.director.rating')}}: {{director._rating}}</div>
-              </div>
-              <div>
-                <div>{{$t('beforeRelease.quality')}}: {{this.$store.getters.getCurrentMovie.quality}}</div>
-              </div>
-              <div>
-                <div>{{$t('beforeRelease.current')}}</div>
-                <div>$ {{current}}</div>
-              </div>
-              <div>
-                <button @click="changeToCinema">{{$t('beforeRelease.release')}}</button>
-              </div>
+                <div class="beforeReleaseContainerOutside">
+                  <div class="beforeReleaseContainerOutsideInfo">
+                    <div>{{$t('beforeRelease.quality')}}</div>
+                    <div>{{this.$store.getters.getCurrentMovie.quality}}</div>
+                  </div>
+                  <div class="beforeReleaseContainerOutsideInfo">
+                    <div>{{$t('beforeRelease.current')}}</div>
+                    <div>$ {{current}}</div>
+                  </div>
+                </div>
+                <div>
+                  <custom-button size="small" @clicked="changeToCinema">{{$t('beforeRelease.release')}}</custom-button>
+                </div>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -46,13 +78,16 @@
 
 <script>
 import store from "@/services/store";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "before-release",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
-      movieTitle: this.$store.getters.getCurrentMovie._title,
+      movieTitle: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
       screenplay: this.$store.getters.getCurrentMovie._preProduction.screenplay,
       director: this.$store.getters.getCurrentMovie._preProduction.hiredDirector,
       current: 0
@@ -104,8 +139,8 @@ export default {
   },
 
   mounted() {
-    //calc Outoings
     this.current = this.$store.getters.getCurrentMovie._totalOutgoings
+    console.log(this.screenplay)
   }
 }
 </script>
@@ -129,14 +164,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 650px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -171,4 +202,54 @@ export default {
   transform: scale(1.1);
 }
 
+.beforeReleaseContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.beforeReleaseContainerElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  width: 50%;
+  font-size: 15px;
+}
+
+.beforeReleaseContainerHeader {
+  text-align: center;
+  font-size: 18px;
+  font-weight: var(--fsm-fw-bold);
+  margin-bottom: 5px;
+}
+
+.beforeReleaseContainerElementBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 7px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.beforeReleaseContainerOutside {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.beforeReleaseContainerOutsideInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 15px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+}
 </style>

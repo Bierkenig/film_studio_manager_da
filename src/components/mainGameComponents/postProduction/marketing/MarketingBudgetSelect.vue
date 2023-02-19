@@ -5,100 +5,136 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>
-                {{ screenplayType }}
-                {{ scope }}
+              <background-tile title="Marketing Budget">
+                <div>
+                  <div class="marketingBudgetSelectInfoBox">
+                    <div class="marketingBudgetSelectInfoElement">
+                      <div>Movie Type</div>
+                      <div>{{ screenplayType }}</div>
+                    </div>
+                    <div class="marketingBudgetSelectInfoElement">
+                      <div>Scope of Movie</div>
+                      <div>{{ scope }}</div>
+                    </div>
+                  </div>
 
-                <div v-if="screenplayType === 'Feature'">
-                  <div>Print</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valuePrint" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valuePrint" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
-                  {{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                  <div class="marketingBudgetSelectContainer" v-if="screenplayType === 'Feature'">
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Print</div>
+                      <div class="marketingBudgetSelectValue">{{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valuePrint" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valuePrint" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
+                      </div>
+                    </div>
 
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Internet</div>
+                      <div class="marketingBudgetSelectValue">{{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valueInternet" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valueInternet" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
+                      </div>
+                    </div>
 
-                  <div>Internet</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valueInternet" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valueInternet" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
-                  {{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-                  <div>Commercial</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valueCommercial" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valueCommercial" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
-                  {{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Commercial</div>
+                      <div class="marketingBudgetSelectValue">{{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valueCommercial" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valueCommercial" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="marketingBudgetSelectContainer" v-if="screenplayType === 'Indie'">
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Print</div>
+                      <div class="marketingBudgetSelectValue">{{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="100000" :max="1000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="7500000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valuePrint" class="slide" type="range" :min="7500000" :max="10000000" :step="100">
+                      </div>
+                    </div>
+
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Internet</div>
+                      <div class="marketingBudgetSelectValue">{{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="100000" :max="1000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="7500000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valueInternet" class="slide" type="range" :min="7500000" :max="10000000" :step="100">
+                      </div>
+                    </div>
+
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Commercial</div>
+                      <div class="marketingBudgetSelectValue">{{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="100000" :max="1000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="7500000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valueCommercial" class="slide" type="range" :min="7500000" :max="10000000" :step="100">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="marketingBudgetSelectContainer" v-if="screenplayType === 'Animation'">
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Print</div>
+                      <div class="marketingBudgetSelectValue">{{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valuePrint" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valuePrint" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
+                      </div>
+                    </div>
+
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Internet</div>
+                      <div class="marketingBudgetSelectValue">{{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valueInternet" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valueInternet" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
+                      </div>
+                    </div>
+
+                    <div class="marketingBudgetSelectContainerElement">
+                      <div class="marketingBudgetSelectContainerHeader">Commercial</div>
+                      <div class="marketingBudgetSelectValue">{{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div>
+                        <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
+                        <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
+                        <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
+                        <input v-if="scope === 'Large'" v-model="valueCommercial" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
+                        <input v-if="scope === 'Epic'" v-model="valueCommercial" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
+                      </div>
+                    </div>
+                  </div>
+
+                  <custom-button class="marketingBudgetSelectButton" size="small" @clicked="setBudget">Set Marketing Budget</custom-button>
                 </div>
-
-                <div v-if="screenplayType === 'Indie'">
-                  <div>Print</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="100000" :max="1000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="7500000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valuePrint" class="slide" type="range" :min="7500000" :max="10000000" :step="100">
-
-                  {{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-
-                  <div>Internet</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="100000" :max="1000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="7500000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valueInternet" class="slide" type="range" :min="7500000" :max="10000000" :step="100">
-                  {{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-
-                  <div>Commercial</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="100000" :max="1000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="7500000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valueCommercial" class="slide" type="range" :min="7500000" :max="10000000" :step="100">
-                  {{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-
-                </div>
-
-                <div v-if="screenplayType === 'Animation'">
-                  <div>Print</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valuePrint" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valuePrint" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
-
-                  <div>Internet</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valueInternet" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valueInternet" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
-                  {{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-                  <div>Commercial</div>
-                  <br>
-                  <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
-                  <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
-                  <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
-                  <input v-if="scope === 'Large'" v-model="valueCommercial" class="slide" type="range" :min="20000000" :max="40000000" :step="100">
-                  <input v-if="scope === 'Epic'" v-model="valueCommercial" class="slide" type="range" :min="40000000" :max="75000000" :step="100">
-                  {{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-
-                </div>
-
-                <button @click="setBudget">Set Marketing Budget</button>
-              </div>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -108,8 +144,12 @@
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "MarketingBudgetSelect",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -214,11 +254,9 @@ export default {
 }
 
 .modal-container {
-  width: 400px;
+  width: 550px;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-m-border-radius);
   transition: all 0.3s ease;
 }
 
@@ -252,5 +290,54 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+input[type='range'] {
+  background-color: var(--fsm-dark-blue-2);
+}
+
+.marketingBudgetSelectInfoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.marketingBudgetSelectInfoElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 15px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.marketingBudgetSelectContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.marketingBudgetSelectContainerElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  font-size: 15px;
+  flex: 1;
+  text-align: center;
+}
+
+.marketingBudgetSelectContainerHeader {
+  font-size: 18px;
+  font-weight: var(--fsm-fw-bold);
+}
+
+.marketingBudgetSelectButton {
+  margin-top: 15px;
 }
 </style>

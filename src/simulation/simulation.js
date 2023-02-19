@@ -1665,6 +1665,8 @@ function setEventDuringPreProduction(){
                         let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.preProductionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+                        console.log('Pre Production')
+                        console.log(date2)
 
                         if(Difference_In_Days >= 6){
                             for (let j = 0; j < movie._preProduction.screenplay.actors.main.length; j++) {
@@ -2036,9 +2038,11 @@ function setEventDuringProduction() {
 
                     if(!eventAlreadyExists && preProductionFinished){
                         let date1 = store.getters.getCurrentDate;
-                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.productionLength * 7));
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.preProductionLength * 7 + movie._preProduction.productionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+                        console.log('Production')
+                        console.log(date2)
 
                         if(Difference_In_Days >= 6){
                             if(movie._preProduction.hiredDirector.rating > 75 && randomNumber(0.35) === 0){
@@ -2098,9 +2102,11 @@ function setEventDuringPostProduction() {
 
                     if(!eventAlreadyExists && productionFinished){
                         let date1 = store.getters.getCurrentDate;
-                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.postProductionLength * 7));
+                        let date2 = new Date(movie._preProduction.startDate.getFullYear(), movie._preProduction.startDate.getMonth(), movie._preProduction.startDate.getDate() + (movie._preProduction.postProductionLength * 7 + movie._preProduction.preProductionLength * 7 + movie._preProduction.productionLength * 7));
                         let Difference_In_Time = date2.getTime() - date1.getTime();
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+                        console.log('Post Production')
+                        console.log(date2)
 
                         if(Difference_In_Days >= 6){
                             if(movie._preProduction.hiredDirector.dirMorale === 5 && randomNumber(0.05) === 0){

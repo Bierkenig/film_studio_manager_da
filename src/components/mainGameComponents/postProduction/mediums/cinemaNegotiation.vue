@@ -5,40 +5,80 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <div>
+              <background-tile title="Cinema Negotiation">
                 <div>
-                  Specify release duration in weeks:
-                  <input v-model="releaseWeeks" class="slide" type="range" :min="2" :max="54" :step="1">
-                  {{ releaseWeeks }}
+                  <div class="cinemaNegotiationDurationContainer">
+                    <div>
+                      Specify release duration in weeks
+                    </div>
+                    <div class="cinemaNegotiationDurationSlider">
+                      {{ releaseWeeks }}
+                      <input v-model="releaseWeeks" class="slide" type="range" :min="2" :max="54" :step="1">
+                    </div>
+                  </div>
+                  <div class="cinemaNegotiationHeader">Percentage Take</div>
+                  <div class="cinemaNegotiationPercentageContainer">
+                    <div class="cinemaNegotiationPercentageElement">
+                      <div class="cinemaNegotiationPercentageHeader">Studio</div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Opening Week</div>
+                        <div>{{Math.floor(openingWeekShareStudio*100)}}%</div>
+                      </div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Opening Week Level</div>
+                        <div>{{openingLevel}}/6</div>
+                      </div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Remaining Weeks</div>
+                        <div>{{Math.floor(remainingWeeksShareStudio * 100)}}%</div>
+                      </div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Remaining Weeks Level</div>
+                        <div>{{remainingLevel}}/6</div>
+                      </div>
+                    </div>
+                    <div class="cinemaNegotiationPercentageElement">
+                      <div class="cinemaNegotiationPercentageHeader">Cinema</div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Opening Week</div>
+                        <div>{{Math.floor(openingWeekShareCinema*100)}}%</div>
+                      </div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Opening Week Level</div>
+                        <div>{{openingLevel}}/6</div>
+                      </div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Remaining Weeks</div>
+                        <div>{{Math.floor(remainingWeeksShareCinema * 100)}}%</div>
+                      </div>
+                      <div class="cinemaNegotiationPercentageInnerBox">
+                        <div>Remaining Weeks Level</div>
+                        <div>{{remainingLevel}}/6</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="cinemaNegotiationHeader">Negotiation</div>
+                  <div class="cinemaNegotiationPercentageContainer">
+                    <div class="cinemaNegotiationPercentageElement">
+                      <div>
+                        You can negotiate a better opening week ratio, but you have to give up ratio for the remaining weeks.
+                      </div>
+                      <custom-button size="small" @clicked="upgrade('opening')" :disabled="upgradedOpening">Upgrade Opening Week</custom-button>
+                    </div>
+                    <div class="cinemaNegotiationPercentageElement">
+                      <div>
+                        You can negotiate a better ratio for the remaining weeks, but you have to give up ratio for the opening week.
+                      </div>
+                      <custom-button size="small" @clicked="upgrade('remaining')" :disabled="upgradedRemaining">Upgrade Remaining Weeks</custom-button>
+                    </div>
+                  </div>
+                  <div class="cinemaNegotiationButtonBox">
+                    <custom-button size="small" v-if="upgradedRemaining || upgradedOpening" @clicked="resetUpgrades">Reset</custom-button>
+                    <custom-button size="small" @clicked="finish">No Negotiation</custom-button>
+                    <custom-button size="small" @clicked="finish">Continue</custom-button>
+                  </div>
                 </div>
-                <div>
-                  Studio Popularity: {{ popularity }}
-                  <br>
-                  Percentage Take:
-                  <br>
-                  Studio (Opening Week): {{Math.floor(openingWeekShareStudio*100)}}% Level: {{openingLevel}}/6
-                  <br>
-                  Studio (Remaining Weeks): {{Math.floor(remainingWeeksShareStudio * 100)}}% Level: {{remainingLevel}}/6
-                  <br>
-                  Cinema (Opening Week): {{Math.floor(openingWeekShareCinema*100)}}% Level: {{openingLevel}}/6
-                  <br>
-                  Cinema (Remaining Weeks): {{Math.floor(remainingWeeksShareCinema * 100)}}% Level: {{remainingLevel}}/6
-                </div>
-                <br>
-                You can negotiate a better opening week ratio, but you have to give up ratio for the remaining weeks
-                <br>
-                <button @click="upgrade('opening')" :disabled="upgradedOpening">Upgrade Opening Week</button>
-                <br>
-                You can negotiate a better ratio for the remaining weeks, but you have to give up ratio for the opening week
-                <br>
-                <button @click="upgrade('remaining')" :disabled="upgradedRemaining">Upgrade Remaining Weeks</button>
-                <br>
-                <button v-show="upgradedRemaining || upgradedOpening" @click="resetUpgrades">Reset</button>
-                <br>
-                <button @click="finish">No Negotiation</button>
-                <br>
-                <button @click="finish">Continue</button>
-              </div>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -48,8 +88,12 @@
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "cinemaNegotiation",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -229,11 +273,9 @@ export default {
 }
 
 .modal-container {
-  width: 400px;
+  width: 550px;
   margin: 0px auto;
   padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-4);
-  border-radius: var(--fsm-m-border-radius);
   transition: all 0.3s ease;
 }
 
@@ -267,5 +309,78 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+
+input[type='range'] {
+  background-color: var(--fsm-dark-blue-2);
+}
+
+.cinemaNegotiationDurationContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 15px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.cinemaNegotiationDurationSlider {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.cinemaNegotiationHeader {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 28px;
+  margin-bottom: 0.25em;
+  margin-top: 5px;
+}
+
+.cinemaNegotiationPercentageContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  padding: 10px;
+  font-size: 15px;
+  margin-top: 5px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.cinemaNegotiationPercentageElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  width: 50%;
+}
+
+.cinemaNegotiationPercentageHeader {
+  text-align: center;
+  font-size: 18px;
+  font-weight: var(--fsm-fw-bold);
+}
+
+.cinemaNegotiationPercentageInnerBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+.cinemaNegotiationButtonBox {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  gap: 15px;
 }
 </style>
