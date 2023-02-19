@@ -271,7 +271,7 @@ async function createWindow() {
     //simulation
     //kill a Person
     ipcMain.on('killPerson', async (event, data) => {
-        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+        db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error('Database opening error: ', err);
         });
 
@@ -292,7 +292,7 @@ async function createWindow() {
 
     //refresh stats
     ipcMain.on('refreshPerson', (event, data) => {
-        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+        db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error('Database opening error: ', err);
         });
 
@@ -312,7 +312,7 @@ async function createWindow() {
 
     //generate a new one
     ipcMain.on('generatePerson', (event, data) => {
-        db = new sqlite3.Database("src/DB/test/fsm.db", (err) => {
+        db = new sqlite3.Database(dbPath, (err) => {
             if (err) console.error('Database opening error: ', err);
         });
 
