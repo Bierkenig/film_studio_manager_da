@@ -10,6 +10,9 @@ import Earnings from "@/classes/Earnings";
 import {Movie} from "@/classes/Movie";
 import Award from "@/classes/Award";
 import {de} from "date-fns/locale";
+import PostProduction from "@/classes/PostProduction";
+import Release from "@/classes/Release";
+import FinancialPerformance from "@/classes/FinancialPerformance";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -63,13 +66,12 @@ export default function simulate() {
     setEventDuringPostProduction();
 
     //MONTHLY
-    if (store.getters.getCurrentDate.getDate() === 1 &&
-        store.getters.getCurrentDate.getMonth() !== 0 &&
-        store.getters.getCurrentDate.getFullYear() !== 2023)
+    if (store.getters.getCurrentDate.getDate() === 1)
     {
         renewPeople();
         //FETCHING DB
         store.state.dbFetcher.fetch()
+        setFinancialPerformance()
     }
 
     //YEARLY
@@ -103,6 +105,93 @@ function calcMarketShare() {
     })
     //set share
     store.getters.getStudio.marketShare[year.toString()] = studioEarnings[store.getters.getStudio.id] / allEarnings
+}
+
+function setFinancialPerformance() {
+    const currentDate = store.getters.getCurrentDate
+    let production = {incoming: 0, outgoing: 0}
+    let marketing = {incoming: 0, outgoing: 0}
+    let loan = {incoming: 0, outgoing: 0}
+    let cinema = {incoming: 0, outgoing: 0}
+    let streaming = {incoming: 0, outgoing: 0}
+
+    //production + marketing TODO marketing outgoings
+    store.getters.getFinishedMovies.forEach(movie => {
+        //production
+        movie._earnings.forEach(earning => {
+            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
+                production.incoming += earning.amount
+            }
+        })
+
+        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
+            production.outgoing += movie._totalOutgoings
+        }
+
+        //marketing + cinema
+        if (movie._postProduction instanceof PostProduction) {
+            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
+            cinema.outgoing += (movie._postProduction.distributionCosts)
+            cinema.incoming += movie._release.cinemaGross
+        }
+    })
+
+    store.getters.getCreatedMovies.forEach(movie => {
+        //production
+        movie._earnings.forEach(earning => {
+            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
+                production.incoming += earning.amount
+            }
+        })
+
+        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
+            production.outgoing += movie._totalOutgoings
+        }
+
+        //marketing + cinema
+        if (movie._postProduction instanceof PostProduction) {
+            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
+            cinema.outgoing += (movie._postProduction.distributionCosts)
+            cinema.incoming += movie._release.cinemaGross
+        }
+    })
+
+    store.getters.getInProductionMovies.forEach(movie => {
+        //production
+        movie._earnings.forEach(earning => {
+            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
+                production.incoming += earning.amount
+            }
+        })
+
+        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
+            production.outgoing += movie._totalOutgoings
+        }
+
+        //marketing + cinema
+        if (movie._postProduction instanceof PostProduction) {
+            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
+            cinema.outgoing += (movie._postProduction.distributionCosts)
+            cinema.incoming += movie._release.cinemaGross
+        }
+    })
+
+    //loan
+    store.getters.getCurrentLoans.forEach(loa => {
+        if (loa.date.getMonth() === currentDate.getMonth() && loa.date.getFullYear() === currentDate.getFullYear()) {
+            loan.outgoing += loa.value * -1
+        }
+    })
+
+    //streaming
+    store.getters.getEarnings.forEach(el => {
+        if (el.date.getMonth() === currentDate.getMonth()) {
+            streaming.incoming += (el.amount / 5)
+        }
+    })
+
+    //set Financial Object
+    store.commit('addFinancialPerformance', new FinancialPerformance(currentDate, production, marketing, loan, cinema, streaming))
 }
 
 //function to get 0 or 1 with specific probability
@@ -995,11 +1084,9 @@ export function createScreenplaysFromWriters(type) {
 }
 
 // function to renew people
-let counter = 0
-
 function renewPeople() {
     //kill and refresh people
-    let allPeople = store.state.allPeopleTest
+    let allPeople = store.getters.getAllPeople
     let roles = {actor: 0, director: 0, writer: 0}
     let id = []
     let refresh = []

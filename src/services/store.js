@@ -71,7 +71,6 @@ export default createStore({
         ],
         financialPerformance: [
             new FinancialPerformance(new Date(2023, 0), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-
         ],
         currentCalendarEvent: null,
         calendarEvents: [],
