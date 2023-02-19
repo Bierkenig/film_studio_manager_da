@@ -71,7 +71,6 @@ export default createStore({
         ],
         financialPerformance: [
             new FinancialPerformance(new Date(2023, 0), {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}, {incoming: 12938, outgoing: 234}),
-
         ],
         currentCalendarEvent: null,
         calendarEvents: [],
@@ -628,12 +627,8 @@ export default createStore({
             state.currentLoans.push(payload)
         },
 
-        changeDateOfLoan(state, payload) {
-            state.currentLoans.forEach((el) => {
-                if (el.id === payload) {
-                    el.date = state.currentDate
-                }
-            })
+        setCurrentLoans(state, payload) {
+            state.currentLoans = payload
         },
 
         setCurrentMovieBudget(state, budget) {

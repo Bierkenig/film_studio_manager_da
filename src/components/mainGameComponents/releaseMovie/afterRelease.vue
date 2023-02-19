@@ -89,6 +89,7 @@ export default {
     finishMovie() {
       //financial Performance + TODO All(Marketing)
       this.$store.getters.getCurrentMovie._status = "Finished"
+      this.$store.getters.getCurrentMovie.finishDate = this.$store.getters.getCurrentDate
       this.$store.commit('removeCreatedMovie', this.$store.getters.getCurrentMovie)
       this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
 
