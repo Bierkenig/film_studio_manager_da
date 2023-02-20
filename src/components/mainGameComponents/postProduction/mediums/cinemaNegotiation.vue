@@ -235,6 +235,8 @@ export default {
     },
 
     finish(){
+      this.$store.getters.getCurrentMovie._postProduction.releaseWeeks = this.releaseWeeks;
+
       this.$store.getters.getCurrentMovie._postProduction.openingLevel = this.openingLevel
       this.$store.getters.getCurrentMovie._postProduction.remainingLevel = this.remainingLevel
 

@@ -40,9 +40,27 @@ export default {
       this.$store.getters.getCurrentMovie._status = 'Post Production'
       this.$store.getters.getCurrentMovie.setPostProduction()
       this.$store.getters.getCurrentMovie._postProduction.postProductionStart = this.$store.getters.getCurrentDate
+
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
-          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.postProductionLength * 7) + 1)
+          store.getters.getCurrentDate.getDate() + 29)
       let newDate = new Date(endDate.getFullYear(),
+          endDate.getMonth(),
+          endDate.getDate() + 1)
+      store.commit('addCalendarEvents', {
+        id: store.getters.getNextEventId,
+        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+        studio: null,
+        actor: "",
+        director: "",
+        start: endDate.toISOString().split('T')[0],
+        end: newDate.toISOString().split('T')[0],
+        type: 'testScreening',
+        completed: false,
+      })
+
+      endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.postProductionLength * 7) + 1)
+      newDate = new Date(endDate.getFullYear(),
           endDate.getMonth(),
           endDate.getDate() + 1)
       store.commit('addCalendarEvents', {
@@ -68,24 +86,6 @@ export default {
         type: 'beforeRelease',
         completed: false,
       })
-
-      endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
-          store.getters.getCurrentDate.getDate() + 29)
-      newDate = new Date(endDate.getFullYear(),
-          endDate.getMonth(),
-          endDate.getDate() + 1)
-      store.commit('addCalendarEvents', {
-        id: store.getters.getNextEventId,
-        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
-        studio: null,
-        actor: "",
-        director: "",
-        start: endDate.toISOString().split('T')[0],
-        end: newDate.toISOString().split('T')[0],
-        type: 'testScreening',
-        completed: false,
-      })
-
       this.closeModal();
     },
 

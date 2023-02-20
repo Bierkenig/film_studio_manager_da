@@ -22,5 +22,6 @@ export default {
   padding: 0 10px 0 10px;
   font-size: 16px;
   font-weight: var(--fsm-fw-regular);
+  box-sizing: border-box;
 }
 </style>

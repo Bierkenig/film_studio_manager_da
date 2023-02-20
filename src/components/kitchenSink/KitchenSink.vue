@@ -383,6 +383,15 @@
         <poster-element height="200px" width="150px" poster-name="actionMoviePoster"/>
       </div>
     </div>
+    <div class="kitchenSinkComponentDiv">
+      <code-view code='<loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction"/>'/>
+      <code-view code='<loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction" :button-disabled="true"/>'/>
+      <div class="kitchenSinkFlexRow">
+        <loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction"/>
+        <div class="kitchenSinkSpacer"/>
+        <loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction" :button-disabled="true"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -415,10 +424,12 @@ import ProjectElement from "@/components/kitchenSink/ProjectElement.vue";
 import StreamingInfoElement from "@/components/kitchenSink/StreamingInfoElement.vue";
 import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vue";
 import PosterElement from "@/components/kitchenSink/PosterElement.vue";
+import LoanElement from "@/components/kitchenSink/LoanElement.vue";
 
 export default {
   name: "KitchenSink",
   components: {
+    LoanElement,
     PosterElement,
     MovieEarningElement,
     StreamingInfoElement,
