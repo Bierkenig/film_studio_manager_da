@@ -1,42 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generator: Adobe Illustrator 27.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
-<svg
-   version="1.1"
-   id="svg114"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
-   x="0px"
-   y="0px"
-   viewBox="0 0 48 48"
-   style="enable-background:new 0 0 48 48;"
-   xml:space="preserve"
-   sodipodi:docname="placeholder.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"><defs
-   id="defs6" />
-<sodipodi:namedview
-   bordercolor="#eeeeee"
-   borderopacity="1"
-   id="namedview116"
-   inkscape:current-layer="svg114"
-   inkscape:cx="24.20339"
-   inkscape:cy="24.305085"
-   inkscape:deskcolor="#505050"
-   inkscape:pagecheckerboard="0"
-   inkscape:pageopacity="0"
-   inkscape:showpageshadow="0"
-   inkscape:window-height="930"
-   inkscape:window-maximized="1"
-   inkscape:window-width="1500"
-   inkscape:window-x="-6"
-   inkscape:window-y="-6"
-   inkscape:zoom="4.9166667"
-   pagecolor="#505050"
-   showgrid="false">
-	</sodipodi:namedview>
-<path
-   id="path3"
-   d="M 38,48 H 10 C 4.5,48 0,43.5 0,38 V 10 C 0,4.5 4.5,0 10,0 h 28 c 5.5,0 10,4.5 10,10 v 28 c 0,5.5 -4.5,10 -10,10 z" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.83 2.83">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #252D3E;
+      }
+    </style>
+  </defs>
+  <rect class="cls-1" width="2.83" height="2.83"/>
 </svg>
