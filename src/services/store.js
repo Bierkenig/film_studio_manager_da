@@ -897,7 +897,11 @@ export default createStore({
                 "ownStreamingService",
                 "type",
                 "awardNominationList",
-                "createdAwards"
+                "createdAwards",
+                "allPeople",
+                "allActors",
+                "allDirectors",
+                "allWriters",
             ])
 
             return reducedState
@@ -936,7 +940,7 @@ export default createStore({
                 state.earnings = responseData.earnings.map(jsonObject => Earnings.fromJSON(jsonObject))
                 state.inProductionMovies = responseData.inProductionMovies.map(jsonObject => Movie.fromJSON(jsonObject))
                 state.finishedMovies = responseData.finishedMovies.map(jsonObject => Movie.fromJSON(jsonObject))
-                //state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
+                state.happeningEvent = responseData.happeningEvent != null ? Event.fromJSON(responseData.happeningEvent) : null
                 state.otherStudios = responseData.otherStudios.map(jsonObject => Studio.fromJSON(jsonObject))
                 state.boughtMovies = responseData.boughtMovies.map(jsonObject => Movie.fromJSON(jsonObject))
                 state.moviesFromOtherStudios = responseData.moviesFromOtherStudios.map(jsonObject => Movie.fromJSON(jsonObject))
@@ -951,10 +955,15 @@ export default createStore({
                 state.financialHistory = responseData.financialHistory.map(jsonObject => FinancialHistoryEntry.fromJSON(jsonObject))
                 state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
                 state.createdAwards = responseData.createdAwards.map(jsonObject => Award.fromJSON(jsonObject))
+                state.allPeople = responseData.allPeople.map(jsonObject => Person.fromJSON(jsonObject))
+                state.allWriter = responseData.allWriter.map(jsonObject => Person.fromJSON(jsonObject))
+                state.allDirectors = responseData.allDirectors.map(jsonObject => Person.fromJSON(jsonObject))
+                state.allActors = responseData.allActors.map(jsonObject => Person.fromJSON(jsonObject))
+
 
                 state.preProductionEvents = DataUtil.objectMapPerProperty(responseData.preProductionEvents, {
                     actorWhoWantsToDropOut: DataUtil.preserveNull(Movie.fromJSON),
-                    directorWithDispute: obj => obj == null ? null : Person.fromJSON(obj),
+                    directorWithDispute: DataUtil.preserveNull(Person.fromJSON)
                 })
 
                 state.awardNominationList = DataUtil.objectMapPerProperty(responseData.awardNominationList, {

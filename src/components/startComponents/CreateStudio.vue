@@ -348,9 +348,7 @@ export default {
         studio: new Studio(16, this.name, "2023", parseInt(this.budget), 1, {"2023": 0}),
         logo: this.chosenLogo
       });
-      if (this.databaseType === 'current') {
-        window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db")
-      }
+
       this.$router.push({
         name: 'loadingScreen',
         params: {nextRoute: 'home', title: i18next.t('creatingStudio') + '...', duration: '3'}
