@@ -144,7 +144,12 @@
         </div>
       </div>
 
-      <custom-button size="small" class="buttonStyle" @clicked="continueToResult" :disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory">Continue</custom-button><!--:disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory"-->
+      <custom-button size="small" class="buttonStyle" @clicked="continueToResult"
+                     :disabled="(typeActing === true && booleanActingOption === 0) ||
+                     (typeEditing === true && booleanEditingOption === 0) ||
+                     (typeVFX === true && booleanVFXOption === 0) ||
+                     (typeSound === true && booleanSoundOption === 0) ||
+                     (typeStory === true && booleanStoryOption === 0)">Continue</custom-button>
     </background-tile>
   </div>
 </template>
