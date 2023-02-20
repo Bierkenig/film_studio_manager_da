@@ -33,8 +33,9 @@
               </option>
             </select>
           </div>
-          <div id="fiscalPerformanceList">
-            <finance-element :accumulated="$t('fiscalPerformance.accumulated')"
+          <div id="fiscalPerformanceListHeaderContainer">
+            <finance-element id="fiscalPerformanceListHeader"
+                             :accumulated="$t('fiscalPerformance.accumulated')"
                              :outgoing="$t('fiscalPerformance.outgoing')"
                              :incoming="$t('fiscalPerformance.incoming')"
                              :area="$t('fiscalPerformance.area')"
@@ -42,13 +43,16 @@
                              :color-outgoing="false"
                              :color-accumulated="false"
             />
-            <finance-element v-for="(element, index) in fiscalPerformanceData"
-                             :key="index"
-                             :accumulated="element.accumulated.toString()"
-                             :outgoing="element.outgoing.toString()"
-                             :incoming="element.incoming.toString()"
-                             :area="$t(element.name)"
-            />
+          </div>
+          <div id="fiscalPerformanceList" class="verticalScroll">
+            <div v-for="(element, index) in fiscalPerformanceData" :key="index" class="fiscalPerformanceListElement">
+              <finance-element
+                  :accumulated="element.accumulated.toString()"
+                  :outgoing="element.outgoing.toString()"
+                  :incoming="element.incoming.toString()"
+                  :area="$t(element.name)"
+              />
+            </div>
           </div>
         </div>
       </background-tile>
@@ -71,10 +75,10 @@
           <div v-for="(el, index) in otherStudios" :key="index" class="marketShareListElement">
             <market-share-element icon="placeholder"
                                   :studio="el.name"
-                                  :revenue=" el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0"
-                                  :profit="el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0"
-                                  :share="(el.marketShare[selectedMarketYear] !== undefined || !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) + '%'"
-                                  :change="((el.marketShare[selectedMarketYear] !== undefined && !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) - (el.marketShare[selectedMarketYear - 1] !== undefined || !isNaN(el.marketShare[selectedMarketYear - 1]) ? el.marketShare[selectedMarketYear - 1] : 0)) + '%'"
+                                  :revenue="(el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0).toString()"
+                                  :profit="(el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0).toString()"
+                                  :share="((el.marketShare[selectedMarketYear] !== undefined || !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) + '%').toString()"
+                                  :change="(((el.marketShare[selectedMarketYear] !== undefined && !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) - (el.marketShare[selectedMarketYear - 1] !== undefined || !isNaN(el.marketShare[selectedMarketYear - 1]) ? el.marketShare[selectedMarketYear - 1] : 0)) + '%').toString()"
             />
           </div>
         </div>
@@ -245,10 +249,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  flex-grow: 1;
+  flex-basis: 0;
 }
 
-.marketShareTile {
-  flex-grow: 1;
+#fiscalPerformanceListHeaderContainer {
+  padding-bottom: 5px;
+  padding-right: 20px;
 }
 
 .buyStudioTile {
@@ -277,10 +284,12 @@ export default {
 
 #fiscalPerformanceList {
   flex-grow: 1;
+  flex-basis: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 5px;
+  min-height: 30px;
 }
 
 #financesMenuFinancialHistory {
@@ -305,9 +314,10 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   gap: 5px;
+  min-height: 30px;
 }
 
-.marketShareListElement {
+.marketShareListElement, .fiscalPerformanceListElement {
   display: block;
 }
 </style>
