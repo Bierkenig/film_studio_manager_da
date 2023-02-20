@@ -9,7 +9,8 @@
           :bg-gradient="true"
           :icon-gradient="false"
           :shadow="false"
-          @click="goBack()"/>
+          @click="goBack()"
+      />
       <background-tile class="takeALoanBackground" :title="$t('takeALoan.title')">
         <loan-element v-if="this.$store.getters.getStudio.budget >= 1"
                       :title="'$ ' + low.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')"

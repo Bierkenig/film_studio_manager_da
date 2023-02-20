@@ -1,70 +1,79 @@
 <template>
-  <div>
-    <div class="modal-mask">
-      <div class="modal-wrapper" @click="$emit('close')">
-        <div class="modal-container" @click.stop="">
-          <div class="modal-body">
-            <slot name="body">
-              <div>
-                <select v-model="selected1" @change="sortByNameOrFoundationDate">
-                  <option value="name">Name</option>
-                  <option value="date">{{ $t('buyAStudio.foundationDate') }}</option>
-                </select>
-                <select v-model="selected2" @change="sortByNameOrFoundationDate">
-                  <option value="ascend">{{ $t('buyAStudio.ascending') }}</option>
-                  <option value="descend">{{ $t('buyAStudio.descending') }}</option>
-                </select>
-                <div v-for="(el, index) in otherStudios" :key="index">
-                  <!-- v-if="el.marketShare[this.$store.getters.getCurrentDate.getFullYear().toString()] <= 50" TODO-->
-                  <div
-                      @click="showMovieDetails(el.id, el.name, el.year, el.marketShare); showStreamingDetails(); currentStudio = el">
-                    {{ el.name }}
-                  </div>
-                </div>
-              </div>
-              <div v-if="detail">
-                <div>
-                  <h2>{{ $t('buyAStudio.general') }}</h2>
-                  <div>
-                    <h3>{{ general.name }}</h3>
-                    <div>
-                      <div>{{ $t('buyAStudio.revenue') }} $ {{ general.revenue }}</div>
-                      <div>{{ $t('buyAStudio.profit') }} $ {{ general.profit }}</div>
-                      <div>{{ $t('buyAStudio.share') }}
-                        {{ general.share[this.$store.getters.getCurrentDate.getFullYear().toString()] }}%
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div v-if="streaming.check">
-                  <h2>{{ $t('buyAStudio.streaming') }}</h2>
-                  <div>
-                    <h3>{{ streaming.name }}</h3>
-                    <div>{{ $t('buyAStudio.popularity') }} {{ streaming.popularity }}</div>
-                    <div>{{ $t('buyAStudio.subs') }} {{ streaming.subs }}</div>
-                  </div>
-                </div>
-                <button @click="contact()">{{ $t('buyAStudio.contact') }}</button>
-              </div>
-            </slot>
+  <div id="buyAStudioMainDiv">
+    <icon-button
+        id="buyAStudioBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="$router.go(-1)"
+    />
+    <div id="buyAStudioSubDiv">
+      <background-tile :title="$t('buyAStudio.listHeading')" id="buyAStudioList" class="buyAStudioTile">
+        <select v-model="studioSortType" @change="sortByNameOrFoundationDate">
+          <option value="name">Name</option>
+          <option value="date">{{ $t('buyAStudio.foundationDate') }}</option>
+        </select>
+        <select v-model="studioSortDirection" @change="sortByNameOrFoundationDate">
+          <option value="ascend">{{ $t('buyAStudio.ascending') }}</option>
+          <option value="descend">{{ $t('buyAStudio.descending') }}</option>
+        </select>
+
+        <div id="buyAStudioListContent" class="verticalScroll">
+          <div v-for="(el, index) in otherStudios"
+               :id="'buyAStudioListElement' + index"
+               class="buyAStudioListElement"
+               :key="index"
+               @click="showMovieDetails(el.id, el.name, el.year, el.marketShare); showStreamingDetails(); currentStudio = el"
+          >
+            {{ el.name }}
           </div>
         </div>
-      </div>
+      </background-tile>
+
+      <background-tile :title="$t('buyAStudio.detailsHeading')" id="buyAStudioDetails" class="buyAStudioTile">
+        <div v-if="detail">
+          {{ general.name }}
+          <div>{{ $t('buyAStudio.revenue') }} $ {{ general.revenue }}</div>
+          <div>{{ $t('buyAStudio.profit') }} $ {{ general.profit }}</div>
+          <div>
+            {{ $t('buyAStudio.share') }}
+            {{ general.share[this.$store.getters.getCurrentDate.getFullYear().toString()] }}%
+          </div>
+        </div>
+      </background-tile>
+
+      <background-tile :title="$t('buyAStudio.offerHeading')" id="buyAStudioOffer" class="buyAStudioTile">
+        <div v-if="streaming.check">
+          {{ $t('buyAStudio.streaming') }}
+          <div>
+            {{ streaming.name }}
+            <div>{{ $t('buyAStudio.popularity') }} {{ streaming.popularity }}</div>
+            <div>{{ $t('buyAStudio.subs') }} {{ streaming.subs }}</div>
+          </div>
+        </div>
+        <button @click="contact()">{{ $t('buyAStudio.contact') }}</button>
+      </background-tile>
     </div>
   </div>
 </template>
 
 <script>
 import store from "@/services/store";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "BuyAStudio",
+  components: {BackgroundTile, IconButton},
 
   data() {
     return {
       otherStudios: this.$store.getters.getOtherStudios,
-      selected1: "name",
-      selected2: "ascend",
+      studioSortType: "name",
+      studioSortDirection: "ascend",
       detail: false,
       currentStudio: null,
       general: {
@@ -85,7 +94,7 @@ export default {
 
   methods: {
     sortByNameOrFoundationDate() {
-      if (this.selected1 === "name" && this.selected2 === "ascend") {
+      if (this.studioSortType === "name" && this.studioSortDirection === "ascend") {
         this.otherStudios.sort((a, b) => {
           const nameA = a.name.toUpperCase();
           const nameB = b.name.toUpperCase();
@@ -97,13 +106,13 @@ export default {
           }
           return 0;
         })
-      } else if (this.selected1 === "name" && this.selected2 === "descend") {
+      } else if (this.studioSortType === "name" && this.studioSortDirection === "descend") {
         this.otherStudios.reverse()
-      } else if (this.selected1 === "date" && this.selected2 === "ascend") {
+      } else if (this.studioSortType === "date" && this.studioSortDirection === "ascend") {
         this.otherStudios.sort((a, b) => {
           return b.date - a.date
         });
-      } else if (this.selected1 === "date" && this.selected2 === "descend") {
+      } else if (this.studioSortType === "date" && this.studioSortDirection === "descend") {
         this.otherStudios.reverse()
       }
     },
@@ -168,7 +177,23 @@ export default {
         completed: false,
       })
       this.$router.push({name: "finances"})
-    }
+    },
+
+    goBack() {
+      this.$router.push({name: 'finances'})
+    },
+
+    styleSelectedStudio(id) {
+      let allElements = document.getElementsByClassName('buyAStudioListElement');
+      for (let element of allElements) {
+        if (element.getAttribute('id') === 'buyAStudioListElement' + id) {
+          element.setAttribute('class', 'buyAStudioListElementSelected buyAStudioListElement');
+        } else {
+          element.setAttribute('class', 'buyAStudioListElement');
+        }
+      }
+      // CONTINUE HERE (NOT WORKING)
+    },
   },
 
   mounted() {
@@ -178,56 +203,74 @@ export default {
 </script>
 
 <style scoped>
-.modal-mask {
-  position: fixed;
-  z-index: 9998;
-  top: 0;
-  left: 0;
+#buyAStudioBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+#buyAStudioMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#buyAStudioSubDiv {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+  max-height: 80vh;
+}
+
+.buyAStudioTile {
+  flex-basis: 0;
+}
+
+#buyAStudioList {
+  flex-grow: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+#buyAStudioListContent {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.buyAStudioListElement {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: table;
-  transition: opacity 0.3s ease;
+  height: 50px;
+  background-color: var(--fsm-dark-blue-4);
+  color: var(--fsm-white);
+  border-radius: var(--fsm-s-border-radius);
+  font-size: 18px;
+  font-weight: var(--fsm-fw-regular);
+  box-sizing: border-box;
 }
 
-.modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+.buyAStudioListElementSelected {
+  background-color: var(--fsm-pink-1);
+  color: var(--fsm-dark-blue-4);
 }
 
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  padding: 5px 30px 20px 30px;
-  background-color: var(--fsm-dark-blue-3);
-  border-radius: var(--fsm-l-border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
-  transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+#buyAStudioOffer {
+  flex-grow: 4;
 }
 
-.modal-body {
-  margin: 20px 0;
-  text-align: center;
+#buyAStudioDetails {
+  flex-grow: 7;
 }
-
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
-.modal-enter-from, .modal-leave-to {
-  opacity: 0;
-}
-
-.modal-enter-active .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
 </style>

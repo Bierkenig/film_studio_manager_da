@@ -69,8 +69,7 @@ export default function simulate() {
     {
         renewPeople();
         //FETCHING DB
-        store.state.dbFetcher.fetch()
-        //setFinancialPerformance()
+        setFinancialPerformance()
     }
 
     //YEARLY
@@ -1084,15 +1083,16 @@ export function createScreenplaysFromWriters(type) {
 
 // function to renew people
 function renewPeople() {
+    console.log(store.getters.getAllPeople)
     //kill and refresh people
     let allPeople = store.getters.getAllPeople
     let roles = {actor: 0, director: 0, writer: 0}
     let id = []
-    let refresh = []
 
     allPeople.forEach((el) =>  {
         if (checkAge(el)) {
             id.push(el._id)
+            store.commit('removePerson', el.id)
             let type = ""
             if (el._isActor === "true") {
                 type += "Actor | "
@@ -1106,29 +1106,23 @@ function renewPeople() {
                 type += "Writer"
                 roles.writer++
             }
-            store.commit('addNews', new News(el._first_name + ' ' + el._last_name + " died!", "The " + type + " " + el._first_name + ' ' + el._last_name + " died", 'People', store.getters.getCurrentDate, el))
+            store.commit('addNews', new News(el._first_name + ' ' + el._last_name + " died", "The " + type + " " + el._first_name + ' ' + el._last_name + " died", 'People', store.getters.getCurrentDate, el))
         } else {
-            refresh.push(refreshPerson(el))
+            store.commit('refreshPerson', refreshPerson(el))
         }
     })
 
-    window.ipcRenderer.send('killPerson', ["DELETE FROM people WHERE pk_personID = ?", id])
-    window.ipcRenderer.send('refreshPerson', ["UPDATE people SET experience = ?, popularity = ? WHERE pk_personID = ?", refresh])
+    console.log(store.getters.getAllPeople)
 
     //generate new ones
-    let newOnes = []
+    console.log(id.length)
     for (let i = 0; i < id.length; i++) {
-        newOnes.push(generatePersonValues(roles))
+        store.commit('createPerson', [id[i], generatePersonValues(roles)])
         roles.actor--;
         roles.director--;
         roles.writer--;
     }
-
-    window.ipcRenderer.send('generatePerson', ["INSERT INTO people (avatar, first_name, last_name, birthday, deathAge, gender, nationality, ethnicity, workingSince, performance, experience, talent, popularity, rating, action, adventure, comedy, documentary, drama, fantasy, horror, musical, romance, scienceFiction, thriller, war, isActor, isDirector, isWriter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", newOnes])
     id = []
-    window.ipcRenderer.removeAllListeners('generatePerson')
-    window.ipcRenderer.removeAllListeners('killPerson')
-    window.ipcRenderer.removeAllListeners('refreshPerson')
 }
 
 function checkAge(person) {
@@ -1236,7 +1230,7 @@ function generatePersonValues(roles) {
             clothingColor: clothingColor
         })
     }
-    svg.toString()
+    svg.toString().replace('\n', '').trim()
 
     //calc talent
     let talent = 0

@@ -1,9 +1,10 @@
 'use strict'
-import {app, BrowserWindow, ipcMain, protocol, screen} from 'electron'
+import {app, BrowserWindow, ipcMain, protocol} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 import {spawn} from "child_process";
 import {streamWrite} from "@rauschma/stringio";
+
 const path = require('path');
 
 
@@ -262,72 +263,11 @@ async function createWindow() {
 
     ipcMain.on('changeDBPath', (event, data) => {
         dbPath = data
+        console.log(data)
     })
 
     ipcMain.on('resetDB', (event, data) => {
         saving.resetDB(data)
-    })
-
-    //simulation
-    //kill a Person
-    ipcMain.on('killPerson', async (event, data) => {
-        db = new sqlite3.Database(dbPath, (err) => {
-            if (err) console.error('Database opening error: ', err);
-        });
-
-        let sql = data[0]
-        let params = data[1]
-
-        for (let i = 0; i < params.length; i++) {
-            db.serialize(() => {
-                db.each(sql, params[i], (err) => {
-                    if (err) console.log(err)
-                })
-            })
-        }
-
-        db.close()
-        db = null
-    })
-
-    //refresh stats
-    ipcMain.on('refreshPerson', (event, data) => {
-        db = new sqlite3.Database(dbPath, (err) => {
-            if (err) console.error('Database opening error: ', err);
-        });
-
-        let sql = data[0]
-        let values = data[1]
-
-        for (let i = 0; i < values.length; i++) {
-            db.serialize(() => {
-                db.each(sql, [values[i].exp, values[i].pop, values[i].id], (err) => {
-                    if (err) console.log(err)
-                })
-            })
-        }
-        db.close()
-        db = null
-    })
-
-    //generate a new one
-    ipcMain.on('generatePerson', (event, data) => {
-        db = new sqlite3.Database(dbPath, (err) => {
-            if (err) console.error('Database opening error: ', err);
-        });
-
-        const sql = data[0]
-        const params = data[1]
-
-        for (let i = 0; i < params.length; i++) {
-            db.serialize(() => {
-                db.each(sql, params[i], (err) => {
-                    if (err) console.log(err)
-                })
-            })
-        }
-        db.close()
-        db = null
     })
 
     //if (process.env.WEBPACK_DEV_SERVER_URL)
@@ -386,34 +326,40 @@ if (isDevelopment) {
         })
     }
 }
+
 async function launchDiscordGameSDK(win) {
     let child
-    try{
-        child = spawn('java', [ '-jar', 'src/Discord.jar', process.pid.toString()],
+    try {
+        child = spawn('java', ['-jar', 'src/Discord.jar', process.pid.toString()],
             {stdio: ['pipe', process.stdout, process.stderr]});
 
-        child.stdin.on('error', (error) => {updatePresence = () => {}})
+        child.stdin.on('error', (error) => {
+            updatePresence = () => {
+            }
+        })
         updatePresence = (details) => {
-            if(child.pid != undefined) {
+            if (child.pid != undefined) {
                 streamWrite(child.stdin, details + '\n');
             }
         }
 
         await new Promise(resolve => setTimeout(resolve, 100))
-        if(child.pid != undefined){
-            function keepAlive(){
+        if (child.pid != undefined) {
+            function keepAlive() {
                 updatePresence("keepAlive")
                 setTimeout(keepAlive, 10)
             }
+
             keepAlive()
         }
 
-    }catch(e){
+    } catch (e) {
         console.log("No Java No Party")
     }
 }
+
 /**
-function testSteamAPI() {
+ function testSteamAPI() {
     let os = require('os');
     console.log(greenworks)
     greenworks.init()
@@ -466,9 +412,9 @@ function testSteamAPI() {
  **/
 
 /**
-// Set this to true if building for steam
-const useSteam = true
-if (useSteam) {
+ // Set this to true if building for steam
+ const useSteam = true
+ if (useSteam) {
     const steamworks = require("steamworks.js")
     console.log("stesmworks, ", steamworks)
     const client = steamworks.init()
