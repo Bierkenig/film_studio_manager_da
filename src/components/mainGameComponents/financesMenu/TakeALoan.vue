@@ -34,12 +34,6 @@
         </div>
         <info-line v-if="currentLoans.length === 0">{{ $t('takeALoan.noLoans') }}</info-line>
         <div v-else id="currentLoansList" class="verticalScroll">
-<!--          <div v-for="(el, index) in currentLoans" :key="index">-->
-<!--            <div>{{ el.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }}</div>-->
-<!--            <div>{{ el.interest }}</div>-->
-<!--            <div>{{ el.date.toLocaleString('default', {month: 'long'}) }}, {{ el.date.getFullYear() }}</div>-->
-<!--            <button @click="repayLoan(el)" :disabled="dateDiff(el)">{{ $t('takeALoan.repay') }}</button>-->
-<!--          </div>-->
           <loan-element v-for="(el, index) in currentLoans"
                         :key="index"
                         :title="'$ ' + Math.floor((el.value * (1 + el.interest / 100))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
