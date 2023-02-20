@@ -99,9 +99,6 @@ export default {
           if (this.isBetween(12, 16, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
           break
       }
-
-      console.log(this.scope)
-      console.log(Math.round(this.$store.getters.getCurrentMovie._preProduction.neededDuration))
     },
 
     isBetween(min, max, value) {

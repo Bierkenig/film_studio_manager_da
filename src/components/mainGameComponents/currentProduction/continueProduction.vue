@@ -43,7 +43,7 @@ export default {
       this.$store.getters.getCurrentMovie.setProduction()
       this.$store.getters.getCurrentMovie._production.startDate = this.$store.getters.getCurrentDate
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
-          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.productionLength * 7))
+          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.productionLength * 7) + 1)
       let newDate = new Date(endDate.getFullYear(),
           endDate.getMonth(),
           endDate.getDate() + 1)

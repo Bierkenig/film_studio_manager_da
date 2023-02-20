@@ -199,7 +199,7 @@ export default class Release {
 
         //Earnings for movies
         this.openingWeekGross = openingEarnings !== undefined ? openingEarnings: this.openingEarnings;
-        this.cinemaGross = cinema !== undefined ? cinema : 0;
+        this.cinemaGross = cinema !== undefined && cinema !== null? cinema : 100000;
         this.dvdGross = dvd !== undefined ? dvd : this.getDVDEarnings();
 
     }

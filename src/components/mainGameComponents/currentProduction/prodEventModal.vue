@@ -26,7 +26,7 @@
                           type === 'changes'">{{ $t('productionEvents.' + type + '.consequenceA3') }}
                       </div>
                     </div>
-                    <custom-button size="small" class="modal-default-button" @click="aOption(); bool = true">{{ $t('productionEvents.optionA') }}</custom-button>
+                    <custom-button size="small" class="modal-default-button" @clicked="aOption(); bool = true">{{ $t('productionEvents.optionA') }}</custom-button>
                   </div>
                   <div class="productionEventOptionContainer">
                     <div class="productionEventOptionHeader">{{$t('productionEvents.optionB')}}</div>
@@ -40,7 +40,7 @@
                       </div>
                       <div class="productionEventOptionResultsElement" v-if="type === 'directorLeaves'">{{ $t('productionEvents.' + type + '.consequenceB3') }}</div>
                     </div>
-                    <custom-button size="small" class="modal-default-button" @click="bOption(); bool = true">{{ $t('productionEvents.optionB') }}</custom-button>
+                    <custom-button size="small" class="modal-default-button" @clicked="bOption(); bool = true">{{ $t('productionEvents.optionB') }}</custom-button>
                   </div>
                 </div>
 

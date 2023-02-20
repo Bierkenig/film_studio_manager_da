@@ -11,11 +11,11 @@
           @click="goBack()"/>
       <div class="takeALoanBackground">
         <background-tile :title="$t('takeALoan.title')">
-          <div v-if="loansAvailable">
+          <div>
             <div v-if="this.$store.getters.getStudio.budget >= 1">
               <div>{{$t('takeALoan.low')}}</div>
               <div>$ {{low.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}</div>
-              <div>{{low.interests}}% {{$t('takeALoan.Interests')}}</div>
+              <div>{{low.interests}}% {{$t('takeALoan.interests')}}</div>
               <button @click="takeLoan(50000000)">{{$t('takeALoan.take')}}</button>
             </div>
             <div v-if="this.$store.getters.getStudio.budget >= 1">
@@ -31,9 +31,6 @@
               <button @click="takeLoan(1000000000)">{{$t('takeALoan.take')}}</button>
             </div>
           </div>
-          <div v-if="!loansAvailable">
-            <div>{{$t('takeALoan.errMsg')}}</div>
-          </div>
           <div>
             <h2 class="takeALoanHeading">
               {{ $t('takeALoan.title2') }}
@@ -42,7 +39,7 @@
               <div v-for="(el, index) in currentLoans" :key="index">
                 <div>{{el.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}}</div>
                 <div>{{el.date.toLocaleString('default', { month: 'long' })}}, {{el.date.getFullYear()}}</div>
-                <button @click="repayLoan(el.id)" :disabled="!dateDiff(el)">{{$t('takeALoan.repay')}}</button>
+                <button @click="repayLoan(el)" :disabled="dateDiff(el)">{{$t('takeALoan.repay')}}</button>
               </div>
             </div>
           </div>
@@ -55,6 +52,7 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import Loan from "@/classes/Loan";
 
 export default {
   name: "TakeALoan",
@@ -75,30 +73,31 @@ export default {
         interests: 25
       },
       currentLoans: this.$store.getters.getCurrentLoans,
-      loansAvailable: true
     }
   },
 
   methods: {
     takeLoan(value) {
       //calc balance
-      this.$store.commit('subtractBalance', value)
+      this.$store.commit('addBalance', value)
       //add to loans
-      this.$store.commit('addCurrentLoan', {id: this.$store.getters.getCurrentLoans.length + 1, value: value, date: this.$store.getters.getCurrentDate})
+      this.$store.commit('addCurrentLoan', new Loan(this.$store.getters.getCurrentLoans.length + 1, value, this.$store.getters.getCurrentDate))
     },
 
-    repayLoan(id) {
-      const loanObject = this.$store.getters.getCurrentLoans.filter((el) => {
-        el.id = id
-      })
+    repayLoan(el2) {
+      let loanObject = this.$store.getters.getCurrentLoans.filter(el => el.id === el2.id)[0]
+
+      let allLoans = this.$store.getters.getCurrentLoans.filter(el => el.id !== el2.id)
       //Repaying
       this.$store.commit('subtractBalance', loanObject.value)
-      this.$store.commit('changeDateOfLoan', loanObject.id)
+      this.$store.commit('setCurrentLoans', allLoans)
+
+      this.currentLoans = this.$store.getters.getCurrentLoans
     },
 
     dateDiff(el) {
-      el.date.setFullYear(el.date.getFullYear() + 5)
-      return this.$store.getters.getCurrentDate.getTime() !== el.date.getTime()
+      let date = new Date(el.date.getFullYear() + 5, el.date.getMonth(), el.date.getDate())
+      return this.$store.getters.getCurrentDate.getTime() !== date.getTime()
     },
 
     goBack(){

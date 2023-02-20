@@ -5,26 +5,37 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h3>{{ $t('postproductionEvents.' + type + '.problem') }}</h3>
-              <div>{{$t('postproductionEvents.optionA')}}</div>
-              <div>{{ $t('postproductionEvents.' + type + '.optionA') }}</div>
-              <ul>
-                <li>{{ $t('postproductionEvents.' + type + '.consequenceA1') }}</li>
-                <li v-if="type === 'deadline' || type === 'reshooting'">
-                  {{ $t('postproductionEvents.' + type + '.consequenceA2') }}
-                </li>
-                <li v-if="type === 'deadline'">
-                  {{ $t('postproductionEvents.' + type + '.consequenceA3') }}
-                </li>
-              </ul>
-              <div>{{$t('postproductionEvents.optionB')}}</div>
-              <div>{{ $t('postproductionEvents.' + type + '.optionB') }}</div>
-              <ul>
-                <li>{{ $t('postproductionEvents.' + type + '.consequenceB1') }}</li>
-              </ul>
+              <background-tile title="Problem">
+                <div class="postProductionEventProblemContainer">{{ $t('postproductionEvents.' + type + '.problem') }}
+                  (In the movie "{{ this.$store.getters.getCurrentCalendarEvent.movie }}")
+                </div>
+                <div class="postProductionEventActionHeader">Actions</div>
+                <div class="postProductionEventActionContainer">
+                  <div class="postProductionEventOptionContainer">
+                    <div class="postProductionEventOptionHeader">{{$t('postproductionEvents.optionA')}}</div>
+                    <div class="postProductionEventOptionDescription">{{ $t('postproductionEvents.' + type + '.optionA') }}</div>
+                    <div class="postProductionEventOptionResults">
+                      <div class="postProductionEventOptionResultsElement">{{ $t('postproductionEvents.' + type + '.consequenceA1') }}</div>
+                      <div class="postProductionEventOptionResultsElement" v-if="type === 'deadline' || type === 'reshooting'">
+                        {{ $t('postproductionEvents.' + type + '.consequenceA2') }}
+                      </div>
+                      <div class="postProductionEventOptionResultsElement" v-if="type === 'deadline'">
+                        {{ $t('postproductionEvents.' + type + '.consequenceA3') }}
+                      </div>
+                    </div>
+                    <custom-button size="small" class="modal-default-button" @clicked="aOption(); bool = true">{{ $t('postproductionEvents.optionA') }}</custom-button>
 
-              <button class="modal-default-button" @click="bOption(); bool = true">{{ $t('postproductionEvents.optionB') }}</button>
-              <button class="modal-default-button" @click="aOption(); bool = true">{{ $t('postproductionEvents.optionA') }}</button>
+                  </div>
+                  <div class="postProductionEventOptionContainer">
+                    <div class="postProductionEventOptionHeader">{{$t('postproductionEvents.optionB')}}</div>
+                    <div class="postProductionEventOptionDescription">{{ $t('postproductionEvents.' + type + '.optionB') }}</div>
+                    <div class="postProductionEventOptionResults">
+                      <div class="postProductionEventOptionResultsElement">{{ $t('postproductionEvents.' + type + '.consequenceB1') }}</div>
+                    </div>
+                    <custom-button size="small" class="modal-default-button" @clicked="bOption(); bool = true">{{ $t('postproductionEvents.optionB') }}</custom-button>
+                  </div>
+                </div>
+              </background-tile>
 
               <div v-if="weeks">
                 <div>{{$t('productionEvents.specify')}}</div>
@@ -50,8 +61,12 @@
 
 <script>
 
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "post-prod-modal",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -62,7 +77,7 @@ export default {
       releaseDate: null,
       dirRating: this.$store.state.currentMovie._preProduction.hiredDirector.rating,
       type: this.$store.state.currentPostProdEventType,
-      wholeBudget: this.$store.getters.getCurrentMovie._preProduction.getWholeBudget(),
+      wholeBudget: this.$store.getters.getCurrentMovie._preProduction.getTotalBudget(),
       screenplayScope: this.$store.state.currentMovie?._preProduction.screenplay.details.scope,
 
     }
@@ -77,7 +92,7 @@ export default {
       switch (this.type) {
         case "sound":
           this.$store.state.currentMovie._preProduction.budget.sound *= 1.2
-          this.$emit('close')
+          this.completeEvent()
           this.$store.state.currentMovie._postProduction.happenedEvents.push("sound")
           break
         case "postProductionProblem":
@@ -100,23 +115,23 @@ export default {
           //this.$store.state.currentMovie._preProduction.hype *= 0.85
 
           this.check()
-          this.$emit('close')
+          this.completeEvent()
           this.$store.state.currentMovie._postProduction.happenedEvents.push("postProductionProblem")
 
           break
         case "visualEffects":
           this.$store.state.currentMovie._preProduction.budget.vfx *= 1.2
-          this.$emit('close')
+          this.completeEvent()
           this.$store.state.currentMovie._postProduction.happenedEvents.push("visualEffects")
           break
         case "visualQuality":
           this.$store.state.currentMovie._preProduction.budget.editing *= 1.2
-          this.$emit('close')
+          this.completeEvent()
           this.$store.state.currentMovie._postProduction.happenedEvents.push("visualQuality")
           break
         case "reshooting":
           //TODO hype abziehen wenn releasedate drüber
-          this.wholeBudget = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * 1.2
+          this.wholeBudget = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget() * 1.2
           if(this.screenplayScope === 'Little'){
             this.durWeeks += 2;
           }
@@ -133,7 +148,7 @@ export default {
             this.durWeeks += 10;
           }
           this.check()
-          this.$emit('close')
+          this.completeEvent()
           this.$store.state.currentMovie._postProduction.happenedEvents.push("reshooting")
 
           break
@@ -145,22 +160,27 @@ export default {
         case "sound":
           this.calcDireMorale(false)
           this.$store.state.currentMovie._postProduction.happenedEvents.push("sound")
+          this.completeEvent()
           break
         case "postProductionProblem":
           this.calcDireMorale(false)
           this.$store.state.currentMovie._postProduction.happenedEvents.push("postProductionProblem")
+          this.completeEvent()
           break
         case "visualEffects":
           this.calcDireMorale(false)
           this.$store.state.currentMovie._postProduction.happenedEvents.push("visualEffects")
+          this.completeEvent()
           break
         case "visualQuality":
           this.calcDireMorale(false)
           this.$store.state.currentMovie._postProduction.happenedEvents.push("visualQuality")
+          this.completeEvent()
           break
         case "reshooting":
           this.calcDireMorale(false)
           this.$store.state.currentMovie._postProduction.happenedEvents.push("reshooting")
+          this.completeEvent()
           break
       }
     },
@@ -228,6 +248,18 @@ export default {
         this.$store.state.currentMovie._preProduction.releaseDate = this.releaseDate
       }
       this.$emit('close')
+    },
+
+    completeEvent(){
+      let allCalendarEvents = this.$store.getters.getCalendarEvents;
+      let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
+      for (let i = 0; i < allCalendarEvents.length; i++) {
+        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+          allCalendarEvents[i].completed = true;
+        }
+      }
+
+      this.$emit('close')
     }
   }
 }
@@ -252,14 +284,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 650px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -272,7 +300,7 @@ export default {
 }
 
 .modal-default-button {
-  float: right;
+  align-self: flex-end;
 }
 
 /*
@@ -294,4 +322,63 @@ export default {
   transform: scale(1.1);
 }
 
+.postProductionEventProblemContainer {
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.postProductionEventActionHeader {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 28px;
+  margin-bottom: 0.25em;
+}
+
+.postProductionEventActionContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  margin: 10px 0 10px 0;
+  padding: 15px;
+}
+
+.postProductionEventOptionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 15px;
+  width: 50%;
+}
+
+.postProductionEventOptionHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 20px;
+}
+
+.postProductionEventOptionDescription {
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.postProductionEventOptionResults {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.postProductionEventOptionResultsElement {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  font-size: 15px;
+}
 </style>

@@ -12,8 +12,8 @@
           :key="index"
           :movie-title="it._preProduction.screenplay.title"
           svg-code=""
-          :viewers="it._release.audiencePopularity.toString()"
-          :critics="it._release.criticsFormula.toString()"
+          :viewers="Math.round(it._release.audiencePopularity).toString()"
+          :critics="Math.round(it._release.criticsFormula).toString()"
           :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]"
           :genre="it._preProduction.screenplay.genre.genreName"
           :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()"
@@ -29,7 +29,7 @@
           :key="index"
           svg-code=""
           :streaming-title="it._preProduction.screenplay.title"
-          :popularity="it.popularity"
+          :popularity="Math.round(it.popularity)"
           :contract="it._contract +  ' Years'"
           @open-clicked="movieInfo(it)"/>
     </div>

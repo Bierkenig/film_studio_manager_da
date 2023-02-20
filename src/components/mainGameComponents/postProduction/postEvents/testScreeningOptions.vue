@@ -1,133 +1,161 @@
 <template>
-  <div v-if="typeEditing === true">
-  <div>
-    {{$t("postProductionEvents.testScreening.optionA")}}
-    {{$t("postProductionEvents.testScreening.editing.optionA")}}
-    <br>
-    Consequence: Lorem Ipsum
-    <br>
-    Benefit: Lorem Ipsum
-    <br>
-    <button v-if="booleanEditingOption !== 1" @click="choseOptionA('editing')">Choose</button>
-    <br>
-    <br>
-  </div>
-  <div>
-    {{$t("postProductionEvents.testScreening.optionB")}}
-    {{$t("postProductionEvents.testScreening.editing.optionB")}}
-    <br>
-    Consequence: Lorem Ipsum
-    <br>
-    Benefit: Lorem Ipsum
-    <br>
-    <button v-if="booleanEditingOption !== 2" @click="choseOptionB('editing')">Choose</button>
-      <button class="buttonStyle" @click="continueToResult">Continue</button>
-  </div>
-</div>
-  <div v-if="typeSound === true">
-    <div>
-      {{$t("postProductionEvents.testScreening.optionA")}}
-      {{$t("postProductionEvents.testScreening.sound.optionA")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanSoundOption !== 1" @click="choseOptionA('sound')">Choose</button>
-      <br>
-      <br>
-    </div>
-    <div>
-      {{$t("postProductionEvents.testScreening.optionB")}}
-      {{$t("postProductionEvents.testScreening.sound.optionB")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanSoundOption !== 2" @click="choseOptionB('sound')">Choose</button>
-    </div>
-</div>
-  <div v-if="typeVFX === true">
-    <div>
-      {{$t("postProductionEvents.testScreening.optionA")}}
-      {{$t("postProductionEvents.testScreening.vfx.optionA")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanVFXOption !== 1" @click="choseOptionA('vfx')">Choose</button>
-      <br>
-      <br>
-    </div>
-    <div>
-      {{$t("postProductionEvents.testScreening.optionB")}}
-      {{$t("postProductionEvents.testScreening.vfx.optionB")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanVFXOption !== 2" @click="choseOptionB('vfx')">Choose</button>
-    </div>
-  </div>
-  <div v-if="typeActing === true">
-    <div>
-      {{$t("postProductionEvents.testScreening.optionA")}}
-      {{$t("postProductionEvents.testScreening.acting.optionA")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanActingOption !== 1" @click="choseOptionA('acting')">Choose</button>
-      <br>
-      <br>
-    </div>
-    <div>
-      {{$t("postProductionEvents.testScreening.optionB")}}
-      {{$t("postProductionEvents.testScreening.acting.optionB")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanActingOption !== 2" @click="choseOptionB('acting')">Choose</button>
-    </div>
-  </div>
-  <div v-if="typeStory === true">
-    <div>
-      {{$t("postProductionEvents.testScreening.optionA")}}
-      {{$t("postProductionEvents.testScreening.story.optionA")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanStoryOption !== 1" @click="choseOptionA('story')">Choose</button>
-      <br>
-      <br>
-    </div>
-    <div>
-      {{$t("postProductionEvents.testScreening.optionB")}}
-      {{$t("postProductionEvents.testScreening.story.optionB")}}
-      <br>
-      Consequence: Lorem Ipsum
-      <br>
-      Benefit: Lorem Ipsum
-      <br>
-      <button v-if="booleanStoryOption !== 2" @click="choseOptionB('story')">Choose</button>
+  <div class="testScreeningOptionsMainDiv">
+    <background-tile class="testScreeningOptionsBackground" title="Test Screening Options">
+      <div class="testScreeningOptionsGridContainer verticalScroll">
+        <div class="testScreeningOptionsContainerElement" v-if="typeEditing === true">
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.editing.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanEditingOption === 1" @clicked="choseOptionA('editing')">Choose</custom-button>
+          </div>
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.editing.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanEditingOption === 2" @clicked="choseOptionB('editing')">Choose</custom-button>
+          </div>
+        </div>
+        <div class="testScreeningOptionsContainerElement" v-if="typeSound === true">
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.sound.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanSoundOption === 1" @clicked="choseOptionA('sound')">Choose</custom-button>
+          </div>
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.sound.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanSoundOption === 2" @clicked="choseOptionB('sound')">Choose</custom-button>
+          </div>
+        </div>
+        <div class="testScreeningOptionsContainerElement" v-if="typeVFX === true">
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.vfx.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanVFXOption === 1" @clicked="choseOptionA('vfx')">Choose</custom-button>
+          </div>
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.vfx.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanVFXOption === 2" @clicked="choseOptionB('vfx')">Choose</custom-button>
+          </div>
+        </div>
+        <div class="testScreeningOptionsContainerElement" v-if="typeActing === true">
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.acting.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanActingOption === 1" @clicked="choseOptionA('acting')">Choose</custom-button>
+          </div>
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.acting.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanActingOption === 2" @clicked="choseOptionB('acting')">Choose</custom-button>
+          </div>
+        </div>
+        <div class="testScreeningOptionsContainerElement" v-if="typeStory === true">
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.story.optionA")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanStoryOption === 1" @clicked="choseOptionA('story')">Choose</custom-button>
+          </div>
+          <div class="testScreeningOptionsOptionElement">
+            <div class="testScreeningOptionsOptionHeader">{{$t("postProductionEvents.testScreening.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.story.optionB")}}</div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsConsequence">Consequence</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <div class="testScreeningOptionsOptionDetails">
+              <div class="testScreeningOptionsBenefit">Benefit</div>
+              <div>Lorem Ipsum</div>
+            </div>
+            <custom-button size="small" :disabled="booleanStoryOption === 2" @clicked="choseOptionB('story')">Choose</custom-button>
+          </div>
+        </div>
+      </div>
 
-    </div>
+      <custom-button size="small" class="buttonStyle" @clicked="continueToResult" :disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory">Continue</custom-button><!--:disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory"-->
+    </background-tile>
   </div>
-
-  <button class="buttonStyle" @click="continueToResult" :disabled="!typeActing || !typeEditing || !typeVFX || !typeSound || !typeStory">Continue</button>
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "testScreeningOptions",
+  components: {CustomButton, BackgroundTile},
 
   props:{
 
@@ -202,7 +230,7 @@ export default {
             this.booleanVFXOption = 1
             break
           case 'acting':
-            this.actingConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.actingConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget() * (this.percentageWholeBudget/100);
             this.actingConsequence.percentage += this.percentageWholeBudget;
             this.booleanActingOption = 1
             //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.wholeBudgetIncrease.value;
@@ -234,7 +262,7 @@ export default {
             break
           case 'story':
             //TODO Hype -15%
-            this.storyConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getWholeBudget() * (this.percentageWholeBudget/100);
+            this.storyConsequence.value = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget() * (this.percentageWholeBudget/100);
             this.storyConsequence.percentage += this.percentageWholeBudget;
             this.booleanStoryOption = 1;
             //this.$store.getters.getCurrentMovie._preProduction.budget.problemBudget += this.storyBudgetIncrease.value;
@@ -365,5 +393,75 @@ export default {
 </script>
 
 <style scoped>
+.testScreeningOptionsMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
+.testScreeningOptionsBackground {
+  width: 1300px;
+}
+
+.testScreeningOptionsGridContainer {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+
+  margin-top: 15px;
+  margin-bottom: 15px;
+  height: 400px;
+}
+
+.testScreeningOptionsContainerElement {
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 15px;
+
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+
+.testScreeningOptionsOptionElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 15px;
+  width: 50%;
+  font-size: 15px;
+}
+
+.testScreeningOptionsOptionHeader {
+  font-weight: var(--fsm-fw-bold);
+  font-size: 20px;
+}
+
+.testScreeningOptionsOptionDescription {
+  font-size: 15px;
+  color: var(--fsm-grey-font-color)
+}
+
+.testScreeningOptionsOptionDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px;
+}
+
+.testScreeningOptionsConsequence {
+  color: #FF3A4D;
+}
+
+.testScreeningOptionsBenefit {
+  color: #46FF54;
+}
 </style>

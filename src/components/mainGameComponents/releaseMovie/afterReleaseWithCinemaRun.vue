@@ -5,14 +5,27 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h2>{{$t('afterReleaseWithCinema.details')}}</h2>
-              <div>
-                <div>{{$t('afterReleaseWithCinema.criticsRating')}}: {{release.criticsFormula}}</div>
-                <div>{{$t('afterReleaseWithCinema.audienceRating')}}: {{release.audienceFormula}}</div>
-                <div>{{$t('afterReleaseWithCinema.release')}}: {{release.popularityFormula}}</div>
-                <div>{{$t('afterReleaseWithCinema.open')}}: {{release.openingEarnings}}</div>
-              </div>
-              <button @click="closeModal">{{$t('afterReleaseWithCinema.close')}}</button>
+              <background-tile :title="$t('afterReleaseWithCinema.details')">
+                <div class="afterReleaseWithCinemaContainer">
+                  <div class="afterReleaseWithCinemaInfoElement">
+                    <div>{{$t('afterReleaseWithCinema.criticsRating')}}</div>
+                    <div>{{Math.round(release.criticsFormula)}}</div>
+                  </div>
+                  <div class="afterReleaseWithCinemaInfoElement">
+                    <div>{{$t('afterReleaseWithCinema.audienceRating')}}</div>
+                    <div>{{Math.round(release.audienceFormula)}}</div>
+                  </div>
+                  <div class="afterReleaseWithCinemaInfoElement">
+                    <div>{{$t('afterReleaseWithCinema.release')}}</div>
+                    <div>{{Math.round(release.popularityFormula)}}</div>
+                  </div>
+                  <div class="afterReleaseWithCinemaInfoElement">
+                    <div>{{$t('afterReleaseWithCinema.open')}}</div>
+                    <div>{{release.openingEarnings}}</div>
+                  </div>
+                </div>
+                <custom-button size="small" @clicked="closeModal">{{$t('afterReleaseWithCinema.close')}}</custom-button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -25,9 +38,12 @@
 
 import store from "@/services/store";
 import Earnings from "@/classes/Earnings";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "afterReleaseWithCinemaRun",
+  components: {CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -38,7 +54,7 @@ export default {
   methods: {
     closeModal(){
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
-      this.$store.getters.getCurrentMovie._earnings(new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
 
       this.$store.getters.getStudio.budget += this.$store.getters.getCurrentMovie._release.openingWeekGross;
 
@@ -92,14 +108,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 500px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -134,4 +146,21 @@ export default {
   transform: scale(1.1);
 }
 
+.afterReleaseWithCinemaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0 10px 0;
+}
+
+.afterReleaseWithCinemaInfoElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px;
+  font-size: 15px;
+}
 </style>

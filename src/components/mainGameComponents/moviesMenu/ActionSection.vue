@@ -28,7 +28,7 @@ export default {
   methods: {
     goToSite(){
       if(this.headline === 'createMovie'){
-        this.$store.state.currentMovie = new Movie(this.$store.getters.getNextMovieId, this.$store.state.studio, 0,'Pre Production',100,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined, undefined);
+        this.$store.state.currentMovie = new Movie(this.$store.getters.getNextMovieId, this.$store.state.studio, 0,'Pre Production',100,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined, undefined, undefined,undefined,undefined,undefined,undefined);
         this.$store.getters.getCurrentMovie._foundationDate = this.$store.getters.getCurrentDate;
         this.$router.push({name: 'screenplaySection'});
       } else if(this.headline === 'listOfSources'){

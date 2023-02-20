@@ -5,35 +5,39 @@
         <div class="modal-container">
           <div class="modal-body">
             <slot name="body">
-              <h3>{{$t('afterRelease.summary')}}</h3>
-              <h4>{{$t('afterRelease.next')}}></h4>
-              <div>
-                <div>{{$t('afterRelease.qst')}}</div>
-                <input type="text" v-model="inputFranchise">
-                <button @click="createFranchise">{{$t('afterRelease.create')}}</button>
-              </div>
-
-              <h3>{{$t('afterRelease.plan')}}</h3>
-
-              <div>
-                <div>{{$t('afterRelease.dvd')}}</div>
-                <div>$ {{release.dvdGross}}</div>
-              </div>
-
-              <div>
-                <div>{{$t('afterRelease.cinema')}}</div>
-                <div>$ {{release.cinemaGross}}</div>
-              </div>
-
-              <div v-if="this.$store.getters.getOwnStreamingService !== null">
-                <div>{{$t('afterRelease.streamingList')}}</div>
-                <div v-for="(el, index) in streamMovies" :key="index">
-                  {{el._preProduction.screenplay.title}}
+              <background-tile :title="$t('afterRelease.summary')">
+                <div class="afterReleaseFranchiseElement">
+                  <div>{{$t('afterRelease.qst')}}</div>
+                  <div class="afterReleaseFranchiseCreation">
+                    <input class="afterReleaseFranchiseName" type="text" v-model="inputFranchise" placeholder="Franchise Name">
+                    <custom-button class="afterReleaseFranchiseButton" size="small" @clicked="createFranchise">{{$t('afterRelease.create')}}</custom-button>
+                  </div>
                 </div>
-                <div>{{$t('afterRelease.streaming')}}</div>
-              </div>
 
-              <button @click="finishMovie()">{{$t('finishMovie')}}</button>
+                <div class="afterReleaseHeader">{{$t('afterRelease.plan')}}</div>
+
+                <div class="afterReleasePlan">
+                  <div class="afterReleasePlanElement">
+                    <div>{{$t('afterRelease.dvd')}}</div>
+                    <div>$ {{currencyFormatDE(release.dvdGross)}}</div>
+                  </div>
+
+                  <div class="afterReleasePlanElement">
+                    <div>{{$t('afterRelease.cinema')}}</div>
+                    <div>$ {{currencyFormatDE(release.cinemaGross)}}</div>
+                  </div>
+                </div>
+
+                <div v-if="this.$store.getters.getOwnStreamingService !== null">
+                  <div>{{$t('afterRelease.streamingList')}}</div>
+                  <div v-for="(el, index) in streamMovies" :key="index">
+                    {{el._preProduction.screenplay.title}}
+                  </div>
+                  <div>{{$t('afterRelease.streaming')}}</div>
+                </div>
+
+                <custom-button size="small" @clicked="finishMovie()">{{$t('finishMovie')}}</custom-button>
+              </background-tile>
             </slot>
           </div>
         </div>
@@ -47,9 +51,12 @@
 import {Movie} from "@/classes/Movie";
 import Franchises from "@/classes/Franchises";
 import Earnings from "@/classes/Earnings";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "after-release",
+  components: {CustomButton, BackgroundTile},
   props: {
     movie: Movie
   },
@@ -82,6 +89,7 @@ export default {
     finishMovie() {
       //financial Performance + TODO All(Marketing)
       this.$store.getters.getCurrentMovie._status = "Finished"
+      this.$store.getters.getCurrentMovie.finishDate = this.$store.getters.getCurrentDate
       this.$store.commit('removeCreatedMovie', this.$store.getters.getCurrentMovie)
       this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
 
@@ -108,6 +116,14 @@ export default {
         }
       }
       this.$emit('close');
+    },
+
+    currencyFormatDE(num) {
+      return (
+          num
+              .toFixed(0)
+              .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+      ) // use . as a separator
     }
   },
 
@@ -136,14 +152,10 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
+  width: 450px;
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-  font-family: Helvetica, Arial, sans-serif;
 }
 
 .modal-header h3 {
@@ -178,4 +190,58 @@ export default {
   transform: scale(1.1);
 }
 
+.afterReleaseFranchiseElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 10px;
+  font-size: 15px;
+}
+
+.afterReleaseFranchiseCreation {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.afterReleaseFranchiseButton {
+  width: 40%;
+}
+
+.afterReleaseFranchiseName {
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
+  border-style: none;
+  flex: 1;
+  padding: 10px;
+}
+
+.afterReleaseHeader {
+  color: var(--fsm-pink-1);
+  font-weight: var(--fsm-fw-bold);
+  font-size: 22px;
+  margin-bottom: 0.25em;
+  margin-top: 10px;
+}
+
+.afterReleasePlanElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--fsm-dark-blue-5);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 7px;
+  font-size: 15px;
+}
+
+.afterReleasePlan {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 </style>
