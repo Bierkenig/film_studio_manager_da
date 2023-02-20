@@ -17,7 +17,7 @@ import Award from "@/classes/Award";
 
 export default createStore({
     /** Application state */
-    state:{
+    state: {
         slot: null,
         screenplays: [],
         boughtScreenplays: [],
@@ -246,7 +246,7 @@ export default createStore({
 
         getNextMovieId(state) {
             let nextId = 0;
-            let allMovies = state.inProductionMovies.concat(state.createdMovies,state.finishedMovies, state.moviesFromOtherStudios, state.allMovies)
+            let allMovies = state.inProductionMovies.concat(state.createdMovies, state.finishedMovies, state.moviesFromOtherStudios, state.allMovies)
             allMovies.forEach(movie => {
                 if (movie.id > nextId) {
                     nextId = movie.id;
@@ -464,19 +464,19 @@ export default createStore({
             return state.currentCalendarEvent;
         },
 
-        getInternationalAwardNominations(state){
+        getInternationalAwardNominations(state) {
             return state.awardNominationList['internationalAward'];
         },
 
-        getIndependentAwardNominations(state){
+        getIndependentAwardNominations(state) {
             return state.awardNominationList['independentAward'];
         },
 
-        getAudienceAwardNominations(state){
+        getAudienceAwardNominations(state) {
             return state.awardNominationList['audienceAward'];
         },
 
-        getCreatedAwards(state){
+        getCreatedAwards(state) {
             return state.createdAwards;
         },
 
@@ -851,19 +851,92 @@ export default createStore({
         //payload[0] -> which type of award z.B. 'internationalAward'
         //payload[1] -> which category z.B. 'Movies'
         //payload[2] -> array of nominated objects
-        setNominationList(state, payload){
+        setNominationList(state, payload) {
             state.awardNominationList[payload[0]][payload[1]] = payload[2]
         },
 
-        addCreatedAward(state, award){
+        addCreatedAward(state, award) {
             state.createdAwards.push(award);
         },
 
-        removeMovieFromAllMovies(state, movie){
+        removeMovieFromAllMovies(state, movie) {
             state.allMovies.splice(state.allMovies.indexOf(movie), 1);
         },
 
-        removeScreenplayFromAllScreenplays(state, screenplay){
+        removePerson(state, id) {
+            state.allPeople.splice(id - 1, 1)
+            state.allActors.splice(id - 1, 1)
+            state.allDirectors.splice(id - 1, 1)
+            state.allWriters.splice(id - 1, 1)
+        },
+
+        refreshPerson(state, payload) {
+            state.allPeople.forEach(person => {
+                if (person.id === payload.id) {
+                    person._experience = payload.exp
+                    person._popularity = payload.pop
+                }
+            })
+            state.allActors.forEach(person => {
+                if (person.id === payload.id) {
+                    person._experience = payload.exp
+                    person._popularity = payload.pop
+                }
+            })
+            state.allDirectors.forEach(person => {
+                if (person.id === payload.id) {
+                    person._experience = payload.exp
+                    person._popularity = payload.pop
+                }
+            })
+            state.allWriters.forEach(person => {
+                if (person.id === payload.id) {
+                    person._experience = payload.exp
+                    person._popularity = payload.pop
+                }
+            })
+        },
+
+        createPerson(state, payload) {
+            console.log(payload)
+            state.allPeople.push(new Person(payload[0], payload[1][0], payload[1][1], payload[1][2], payload[1][3],
+                payload[1][4], payload[1][5], payload[1][6], payload[1][7], payload[1][8], payload[1][9], payload[1][10],
+                payload[1][11], payload[1][12],
+                payload[1][13], payload[1][14], payload[1][15], payload[1][16], payload[1][17], payload[1][18], payload[1][19],
+                payload[1][20],
+                payload[1][21], payload[1][22], payload[1][23], payload[1][24], payload[1][25], payload[1][26], payload[1][27],
+                payload[1][28]))
+
+            if (payload[1][26] === 'true') {
+                state.allActors.push(new Person(payload[0], payload[1][0], payload[1][1], payload[1][2], payload[1][3],
+                    payload[1][4], payload[1][5], payload[1][6], payload[1][7], payload[1][8], payload[1][9], payload[1][10],
+                    payload[1][11], payload[1][12],
+                    payload[1][13], payload[1][14], payload[1][15], payload[1][16], payload[1][17], payload[1][18], payload[1][19],
+                    payload[1][20],
+                    payload[1][21], payload[1][22], payload[1][23], payload[1][24], payload[1][25], payload[1][26], payload[1][27],
+                    payload[1][28]))
+            }
+            if (payload[1][27] === 'true') {
+                state.allDirectors.push(new Person(payload[0], payload[1][0], payload[1][1], payload[1][2], payload[1][3],
+                    payload[1][4], payload[1][5], payload[1][6], payload[1][7], payload[1][8], payload[1][9], payload[1][10],
+                    payload[1][11], payload[1][12],
+                    payload[1][13], payload[1][14], payload[1][15], payload[1][16], payload[1][17], payload[1][18], payload[1][19],
+                    payload[1][20],
+                    payload[1][21], payload[1][22], payload[1][23], payload[1][24], payload[1][25], payload[1][26], payload[1][27],
+                    payload[1][28]))
+            }
+            if (payload[1][28] === 'true') {
+                state.allWriters.push(new Person(payload[0], payload[1][0], payload[1][1], payload[1][2], payload[1][3],
+                    payload[1][4], payload[1][5], payload[1][6], payload[1][7], payload[1][8], payload[1][9], payload[1][10],
+                    payload[1][11], payload[1][12],
+                    payload[1][13], payload[1][14], payload[1][15], payload[1][16], payload[1][17], payload[1][18], payload[1][19],
+                    payload[1][20],
+                    payload[1][21], payload[1][22], payload[1][23], payload[1][24], payload[1][25], payload[1][26], payload[1][27],
+                    payload[1][28]))
+            }
+        },
+
+        removeScreenplayFromAllScreenplays(state, screenplay) {
             state.allScreenplays.splice(state.allScreenplays.indexOf(screenplay), 1);
         },
 
@@ -967,23 +1040,23 @@ export default createStore({
                 })
 
                 state.awardNominationList = DataUtil.objectMapPerProperty(responseData.awardNominationList, {
-                    internationalAward: DataUtil.preserveNull(obj =>  DataUtil.objectMapPerProperty(obj, {
+                    internationalAward: DataUtil.preserveNull(obj => DataUtil.objectMapPerProperty(obj, {
                         Movies: DataUtil.mapArray(Movie.fromJSON),
                         ActorLeadingRole: DataUtil.mapArray(Person.fromJSON),
                         ActorSupportingRole: DataUtil.mapArray(Person.fromJSON),
                         ActressLeadingRole: DataUtil.mapArray(Person.fromJSON),
                         ActressSupportingRole: DataUtil.mapArray(Person.fromJSON),
                         Directors: DataUtil.mapArray(Person.fromJSON),
-                        Writers:DataUtil.mapArray(Person.fromJSON)
+                        Writers: DataUtil.mapArray(Person.fromJSON)
                     })),
-                    independentAward: DataUtil.preserveNull(obj =>  DataUtil.objectMapPerProperty(obj, {
+                    independentAward: DataUtil.preserveNull(obj => DataUtil.objectMapPerProperty(obj, {
                         Movies: DataUtil.mapArray(Movie.fromJSON),
                         Actor: DataUtil.mapArray(Person.fromJSON),
                         Actress: DataUtil.mapArray(Person.fromJSON),
                         Directors: DataUtil.mapArray(Person.fromJSON),
                         Writers: DataUtil.mapArray(Person.fromJSON),
                     })),
-                    audienceAward: DataUtil.preserveNull(obj =>  DataUtil.objectMapPerProperty(obj, {
+                    audienceAward: DataUtil.preserveNull(obj => DataUtil.objectMapPerProperty(obj, {
                         ActionOrAdventureMovies: DataUtil.mapArray(Movie.fromJSON),
                         ThrillerMovies: DataUtil.mapArray(Movie.fromJSON),
                         ScienceFictionMovies: DataUtil.mapArray(Movie.fromJSON),
@@ -992,7 +1065,7 @@ export default createStore({
                         Actor: DataUtil.mapArray(Person.fromJSON),
                         Actress: DataUtil.mapArray(Person.fromJSON),
                         Directors: DataUtil.mapArray(Person.fromJSON),
-                        Writers:DataUtil.mapArray(Person.fromJSON)
+                        Writers: DataUtil.mapArray(Person.fromJSON)
                     }))
                 })
 
@@ -1017,7 +1090,7 @@ export default createStore({
                 // if (store.getters.getStudio(store.state) !== 'NO STUDIO') {
                 //     state.studio = Studio.fromJSON(store.state.studio)
                 // }
-            }catch(e){
+            } catch (e) {
                 console.log(e)
                 throw e
             }
