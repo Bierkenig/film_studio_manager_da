@@ -384,12 +384,12 @@
       </div>
     </div>
     <div class="kitchenSinkComponentDiv">
-      <code-view code='<loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration"/>'/>
-      <code-view code='<loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" :button-disabled="true"/>'/>
+      <code-view code='<loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction"/>'/>
+      <code-view code='<loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction" :button-disabled="true"/>'/>
       <div class="kitchenSinkFlexRow">
-        <loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration"/>
+        <loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction"/>
         <div class="kitchenSinkSpacer"/>
-        <loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" :button-disabled="true"/>
+        <loan-element title="$ 99.99 M" button-text="Take" description="99% Interest Rate, 999 Months Duration" @button-clicked="yourFunction" :button-disabled="true"/>
       </div>
     </div>
   </div>

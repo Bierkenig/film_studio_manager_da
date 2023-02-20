@@ -50,7 +50,9 @@ export default {
   },
   methods: {
     buttonClicked() {
-      this.$emit('button-clicked');
+      if (!this.buttonDisabled) {
+        this.$emit('button-clicked');
+      }
     },
   },
 }
