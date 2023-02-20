@@ -60,7 +60,7 @@ export default {
 
 
       let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
-          store.getters.getCurrentDate.getDate() + 21)
+          store.getters.getCurrentDate.getDate() + ((store.getters.getCurrentMovie._postProduction.releaseWeeks - 1) * 7 + 1))
       let newDate = new Date(endDate.getFullYear(),
           endDate.getMonth(),
           endDate.getDate() + 1)
