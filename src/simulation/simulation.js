@@ -1230,7 +1230,7 @@ function generatePersonValues(roles) {
             clothingColor: clothingColor
         })
     }
-    svg.toString()
+    svg.toString().replace('\n', '').trim()
 
     //calc talent
     let talent = 0
