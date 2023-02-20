@@ -412,6 +412,17 @@ export default {
 
   mounted() {
     this.updateShowingEvents();
+
+    let allCalendarEvents = this.$store.getters.getCalendarEvents;
+    for (let i = 0; i < allCalendarEvents.length; i++) {
+      if(allCalendarEvents[i].start === this.$store.getters.getCurrentDate.toISOString().split('T')[0]){
+        if(allCalendarEvents[i].type === 'beforeRelease' && allCalendarEvents[i].completed === false && allCalendarEvents[i-1].completed === true && allCalendarEvents.length > 1){
+          this.beforeReleaseCompleted = 'open';
+        } else if(allCalendarEvents[i].type === 'beforeRelease' && allCalendarEvents[i].completed === true && allCalendarEvents[i-1].completed === true && allCalendarEvents.length > 1){
+          this.beforeReleaseCompleted = 'done';
+        }
+      }
+    }
   },
 }
 </script>

@@ -40,6 +40,10 @@ export default {
   watch: {
     selectedTime() {
       this.changeEarnings();
+    },
+
+    "$store.getters.getEarnings.length": function (){
+      this.changeEarnings();
     }
   },
 

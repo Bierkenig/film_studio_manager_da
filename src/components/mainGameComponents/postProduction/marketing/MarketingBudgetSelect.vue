@@ -165,12 +165,16 @@ export default {
       this.$store.getters.getCurrentMovie._postProduction.marketingPrint = this.valuePrint
       this.$store.getters.getCurrentMovie._postProduction.marketingInternet = this.valueInternet
       this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = this.valueCommercial
+
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.valuePrint
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.valueInternet
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.valueCommercial
+
       this.$emit('close')
     }
   },
   mounted() {
-    this.$store.getters.getCurrentMovie.setPostProduction()
-    if (this.screenplayType === 'Feature' | this.screenplayType === 'Animation') {
+    if (this.screenplayType === 'Feature' || this.screenplayType === 'Animation') {
       switch (this.scope) {
         case "Little":
           this.valuePrint = 1000000

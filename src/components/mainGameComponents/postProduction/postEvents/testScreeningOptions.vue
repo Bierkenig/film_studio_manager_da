@@ -348,21 +348,21 @@ export default {
         this.$store.getters.getCurrentMovie._preProduction.budget.editing += this.editingBudgetIncrease.value;
       }
       else if(this.booleanEditingOption === 2){
-        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+        this.calcDireMorale(false)
       }
 
       if(this.booleanSoundOption === 1){
         this.$store.getters.getCurrentMovie._preProduction.budget.sound += this.soundBudgetIncrease.value;
       }
       else if(this.booleanEditingOption === 2){
-        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+        this.calcDireMorale(false)
       }
 
       if(this.booleanVFXOption === 1){
         this.$store.getters.getCurrentMovie._preProduction.budget.vfx += this.vfxBudgetIncrease.value;
       }
       else if(this.booleanEditingOption === 2){
-        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+        this.calcDireMorale(false)
       }
 
       //TODO add weeks
@@ -373,7 +373,7 @@ export default {
 
       }
       else if(this.booleanEditingOption === 2){
-        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+        this.calcDireMorale(false)
       }
 
       //TODO add weeks
@@ -384,7 +384,7 @@ export default {
 
       }
       else if(this.booleanEditingOption === 2){
-        this.$store.state.currentMovie._preProduction.hiredDirector.dirMorale.calcDireMorale(false)
+        this.calcDireMorale(false)
       }
       this.$router.push({ name: 'testScreeningResults', params: { addedWeeks: this.addedWeeks, editingBudgetIncrease: JSON.stringify(this.editingBudgetIncrease), soundBudgetIncrease: JSON.stringify(this.soundBudgetIncrease), vfxBudgetIncrease: JSON.stringify(this.vfxBudgetIncrease), actingConsequence: JSON.stringify(this.actingConsequence), storyConsequence: JSON.stringify(this.storyConsequence), flags: (this.booleanEditingOption) + (this.booleanSoundOption * 3) + (this.booleanVFXOption * 9) + (this.booleanActingOption * 27) + (this.booleanStoryOption * 81)}})
     },

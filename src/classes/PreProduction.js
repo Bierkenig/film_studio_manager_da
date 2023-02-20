@@ -13,8 +13,9 @@ export default class PreProduction {
             this.crewMorale = this.calcCrewMorale()
             this.calcCastMorale()
         }
-        if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay)
+        if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay){
             this.hype = this.createTotal()
+        }
         this.preProductionLength = 0
         this.productionLength = 0
         this.postProductionLength = 0
@@ -136,6 +137,9 @@ export default class PreProduction {
     }
 
     createTotal() {
+        console.log(this.createCastHype())
+        console.log(this.createTechnicalHype())
+        console.log(this.createBudgetHype())
         return (this.createCastHype() * 50 + this.createTechnicalHype() * 35 + this.createBudgetHype() * 15) / 100
     }
 

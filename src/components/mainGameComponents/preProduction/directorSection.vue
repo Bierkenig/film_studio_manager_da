@@ -158,14 +158,14 @@ export default {
 
     goToDuration() {
       this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector
-      this.$store.state.currentMovie._preProduction.budget.directorSalary = this.selectedSalary
+      this.$store.state.currentMovie._preProduction.budget.directorSalary = parseInt(this.selectedSalary)
       this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
       this.$router.push({name: 'durationSection'})
     },
 
     gotToHome() {
       this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector
-      this.$store.state.currentMovie._preProduction.budget.directorSalary = this.selectedSalary
+      this.$store.state.currentMovie._preProduction.budget.directorSalary = parseInt(this.selectedSalary)
       this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
       this.$router.push({name: 'home'})
     }

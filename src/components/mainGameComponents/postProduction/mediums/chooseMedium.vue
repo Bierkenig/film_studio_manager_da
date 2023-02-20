@@ -105,6 +105,8 @@ export default {
       this.$store.getters.getCurrentMovie._postProduction.earningPotential = this.potential
       this.$store.getters.getCurrentMovie._postProduction.distributionCosts = this.cost
       this.$store.getters.getCurrentMovie._postProduction.releaseScope = this.releaseScope
+
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.cost;
       this.$emit('close')
     }
   }

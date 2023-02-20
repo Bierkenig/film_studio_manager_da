@@ -12,6 +12,7 @@ import Award from "@/classes/Award";
 import {de} from "date-fns/locale";
 import PostProduction from "@/classes/PostProduction";
 import FinancialPerformance from "@/classes/FinancialPerformance";
+import Release from "@/classes/Release";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -130,6 +131,9 @@ function setFinancialPerformance() {
         if (movie._postProduction instanceof PostProduction) {
             marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
             cinema.outgoing += (movie._postProduction.distributionCosts)
+        }
+
+        if(movie._release instanceof Release){
             cinema.incoming += movie._release.cinemaGross
         }
     })
@@ -150,8 +154,12 @@ function setFinancialPerformance() {
         if (movie._postProduction instanceof PostProduction) {
             marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
             cinema.outgoing += (movie._postProduction.distributionCosts)
+        }
+
+        if(movie._release instanceof Release){
             cinema.incoming += movie._release.cinemaGross
         }
+
     })
 
     store.getters.getInProductionMovies.forEach(movie => {
@@ -170,6 +178,9 @@ function setFinancialPerformance() {
         if (movie._postProduction instanceof PostProduction) {
             marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
             cinema.outgoing += (movie._postProduction.distributionCosts)
+        }
+
+        if(movie._release instanceof Release){
             cinema.incoming += movie._release.cinemaGross
         }
     })
@@ -980,13 +991,6 @@ export function createScreenplaysFromWriters(type) {
                     list: listNumber,
                     type: typeString
                 })
-            }
-
-            //set screenplay writing phase
-            if (newScreenplay.type === 'Feature' || newScreenplay.type === 'Animation') {
-                newScreenplay.setWritingPhase(12)
-            } else {
-                newScreenplay.setWritingPhase(8)
             }
 
             //set screenplay writer
@@ -2279,15 +2283,79 @@ function addPreProductionEventWithProbability(probability, movie, actor, directo
 // function to generate movies
 function generateMoviesFromOtherStudios(){
     if(store.getters.getOtherStudios.length !== 0 && store.state.screenplayTitles.length !== 0){
-        if(randomNumber(0.10) === 0){
+        if(randomNumber(0.9) === 0){
             let allOtherStudios = store.getters.getOtherStudios;
             let randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
-            let allTotalEarnings = Math.floor(Math.random() * (5000000 - 1000000 + 1) + 1000000)
-            let outgoings = Math.floor(Math.random() * (1000000 - 500000 + 1) + 500000)
+            let allTotalEarnings = Math.floor(Math.random() * (5000000000 - 1000000 + 1) + 10000000)
+            let outgoings = Math.floor(Math.random() * (100000000 - 500000 + 1) + 500000)
 
             let newMovie = new Movie(store.getters.getNextMovieId, randomStudio, null, 'Finished', 100,outgoings,undefined,undefined,undefined,undefined,undefined,undefined,allTotalEarnings,undefined,undefined,undefined);
             newMovie._foundationDate = store.getters.getCurrentDate;
             newMovie._preProduction.screenplay = createScreenplaysFromWriters('forMovieGeneration');
+
+            let allActors = store.getters.getAllActors;
+            let allDirectors = store.getters.getAllDirectors;
+
+            for (let i = 0; i < newMovie._preProduction.screenplay.roles.main.length; i++) {
+                let randomActor = allActors[Math.floor(Math.random() * allActors.length)];
+                newMovie._preProduction.screenplay.actors.main.push(randomActor)
+            }
+
+            for (let i = 0; i < newMovie._preProduction.screenplay.roles.minor.length; i++) {
+                let randomActor = allActors[Math.floor(Math.random() * allActors.length)];
+                newMovie._preProduction.screenplay.actors.minor.push(randomActor)
+            }
+
+            for (let i = 0; i < newMovie._preProduction.screenplay.roles.support.length; i++) {
+                let randomActor = allActors[Math.floor(Math.random() * allActors.length)];
+                newMovie._preProduction.screenplay.actors.support.push(randomActor)
+            }
+
+            for (let i = 0; i < newMovie._preProduction.screenplay.roles.cameo.length; i++) {
+                let randomActor = allActors[Math.floor(Math.random() * allActors.length)];
+                newMovie._preProduction.screenplay.actors.cameo.push(randomActor)
+            }
+
+            newMovie.adults = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.audiencePop = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.children = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.commericals = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.crewMorale = Math.floor(Math.random() * (5 - 1) + 1);
+            newMovie.critics = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.popularity = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.print = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.quality = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie.teen = Math.floor(Math.random() * (100 - 1) + 1);
+
+            newMovie.cinema = Math.floor(Math.random() * (1000000000 - 100000) + 100000);
+            newMovie.dvd = Math.floor(Math.random() * (1000000000 - 100000) + 100000);
+            newMovie.openingEarnings = Math.floor(Math.random() * (1000000000 - 100000) + 100000);
+
+            newMovie._preProduction.budget.actorSalary = Math.floor(Math.random() * (5000000 - 2000000) + 2000000)
+            newMovie._preProduction.budget.directorSalary = Math.floor(Math.random() * (2000000 - 1000000) + 1000000)
+            newMovie._preProduction.budget.cinematography = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.costume = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.editing = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.extras = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.makeup = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.set = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.sfx = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.sound = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.stunts = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie._preProduction.budget.vfx = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+
+            newMovie._preProduction.crewMorale = Math.floor(Math.random() * (5 - 1) + 1);
+
+            newMovie._preProduction.hiredDirector = allDirectors[Math.floor(Math.random() * allDirectors.length)]
+            newMovie._preProduction.hype = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie._preProduction.releaseDate = store.getters.getCurrentDate;
+
+            newMovie._totalOutgoings = newMovie._preProduction.getTotalBudget();
+            newMovie._totalCosts = newMovie._totalOutgoings * 1.15;
+
+
+
+            console.log(newMovie)
         }
     }
 }
