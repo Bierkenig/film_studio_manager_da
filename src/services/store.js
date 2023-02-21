@@ -900,7 +900,6 @@ export default createStore({
         },
 
         createPerson(state, payload) {
-            console.log(payload)
             state.allPeople.push(new Person(payload[0], payload[1][0], payload[1][1], payload[1][2], payload[1][3],
                 payload[1][4], payload[1][5], payload[1][6], payload[1][7], payload[1][8], payload[1][9], payload[1][10],
                 payload[1][11], payload[1][12],

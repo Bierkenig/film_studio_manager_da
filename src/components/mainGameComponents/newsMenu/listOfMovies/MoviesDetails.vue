@@ -87,7 +87,7 @@
         <div class="moviesDetailsFinancesLeft">
           <div class="noMargin moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-            <div>{{ movie._preProduction.budget.production }}</div>
+            <div>{{ roundBudget(movie._preProduction.budget.production) }}</div>
           </div>
           <div v-if="movie._postProduction === null" class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -95,25 +95,25 @@
           </div>
           <div v-if="movie._postProduction !== null" class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>{{ movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial }}</div>
+            <div>{{ roundBudget(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) }}</div>
           </div>
           <div class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-            <div>{{ movie._totalCosts }}</div>
+            <div>{{ roundBudget(movie._totalCosts) }}</div>
           </div>
         </div>
         <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="moviesDetailsFinancesRight">
           <div class="noMargin moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-            <div>{{ movie._release.openingWeekGross }}</div>
+            <div>{{ roundBudget(movie._release.openingWeekGross) }}</div>
           </div>
           <div class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-            <div>{{ movie._release.cinemaGross }}</div>
+            <div>{{ roundBudget(movie._release.cinemaGross) }}</div>
           </div>
           <div class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-            <div>{{ movie._release.dvdGross }}</div>
+            <div>{{ roundBudget(movie._release.dvdGross) }}</div>
           </div>
         </div>
         <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="moviesDetailsFinancesRight">
@@ -154,6 +154,24 @@ export default {
     return {
       movieTopics: [],
       moviePosterSVG: 'none',
+    }
+  },
+
+  methods: {
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     }
   },
 

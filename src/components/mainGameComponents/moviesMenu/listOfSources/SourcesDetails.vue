@@ -46,7 +46,7 @@
                   {{ $t('price') }}
                 </div>
                 <div>
-                  $ {{ currencyFormatDE(source.price) }}
+                  $ {{ roundBudget(source.price) }}
                 </div>
               </div>
             </div>
@@ -202,7 +202,7 @@
               </div>
               <div v-if="listType === 'Sale' && source._contract === null" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('price') }}</div>
-                <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
+                <div>$ {{ roundBudget(source._totalCosts) }}</div>
               </div>
               <div v-else class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('contract') }}</div>
@@ -232,7 +232,7 @@
           <div class="movieDetailsFinancesLeft">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-              <div>$ {{ currencyFormatDE(source._preProduction.budget.production) }}</div>
+              <div>$ {{ roundBudget(source._preProduction.budget.production) }}</div>
             </div>
             <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -240,25 +240,25 @@
             </div>
             <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>$ {{ currencyFormatDE(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
+              <div>$ {{ roundBudget(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-              <div>$ {{ currencyFormatDE(source._totalOutgoings) }}</div>
+              <div>$ {{ roundBudget(source._totalOutgoings) }}</div>
             </div>
           </div>
           <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>$ {{ currencyFormatDE(source._release.openingWeekGross) }}</div>
+              <div>$ {{ roundBudget(source._release.openingWeekGross) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>$ {{ currencyFormatDE(source._release.cinemaGross) }}</div>
+              <div>$ {{ roundBudget(source._release.cinemaGross) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>$ {{ currencyFormatDE(source._release.dvdGross) }}</div>
+              <div>$ {{ roundBudget(source._release.dvdGross) }}</div>
             </div>
           </div>
           <div v-if="source._status !== 'Finished' && source._status !== 'Released'" class="movieDetailsFinancesRight">
@@ -421,7 +421,23 @@ export default {
               .toFixed(0)
               .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
       ) // use . as a separator
-    }
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

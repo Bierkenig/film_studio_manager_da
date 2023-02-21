@@ -6,14 +6,14 @@
           <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
                :key="index">
-            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + roundBudget(it.value)"/>
           </div>
         </div>
         <div class="earningTextSection verticalScroll">
           <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
                :key="index">
-            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + it.value"/>
+            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + roundBudget(it.value)"/>
           </div>
         </div>
       </tile-pages-nav>
@@ -58,6 +58,22 @@ export default {
       const now = this.$store.getters.getCurrentDate;
 
       return new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     changeEarnings() {

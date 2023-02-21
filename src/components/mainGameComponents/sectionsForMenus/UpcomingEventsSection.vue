@@ -351,13 +351,10 @@ export default {
         this.chosenEvent = event;
       } else if (event.type === 'preProductionFinished') {
         this.showPreProductionSummaryModal = true;
-        console.log(this.$store.getters.getCurrentMovie)
       } else if (event.type === 'productionFinished') {
         this.showProductionSummaryModal = true;
-        console.log(this.$store.getters.getCurrentMovie)
       } else if (event.type === 'postProductionFinished') {
         this.showPostProductionSummaryModal = true;
-        console.log(this.$store.getters.getCurrentMovie)
         this.beforeReleaseCompleted = 'open';
       } else if (event.type === 'beforeRelease') {
         this.showBeforeReleaseModal = true;

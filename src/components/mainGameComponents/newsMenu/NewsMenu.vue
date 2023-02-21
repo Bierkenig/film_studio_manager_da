@@ -14,7 +14,7 @@
                   v-for="(it, index) in allMovies"
                   :key="index">
                 <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
-                                       :current-time-title="$t('thisWeek')" :current-time-gross="getWeekEarnings(it)"/>
+                                       :current-time-title="$t('thisWeek')" :current-time-gross="roundBudget(getWeekEarnings(it))"/>
               </div>
             </div>
             <div class="newsMenuCenterBoxContent verticalScroll">
@@ -23,7 +23,7 @@
                   :key="index">
                 <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisMonth')"
-                                       :current-time-gross="getMonthEarnings(it)"/>
+                                       :current-time-gross="roundBudget(getMonthEarnings(it))"/>
               </div>
             </div>
             <div class="newsMenuCenterBoxContent verticalScroll">
@@ -31,7 +31,7 @@
                   v-for="(it, index) in allMovies"
                   :key="index">
                 <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
-                                       :current-time-title="$t('thisYear')" :current-time-gross="getYearEarnings(it)"/>
+                                       :current-time-title="$t('thisYear')" :current-time-gross="roundBudget(getYearEarnings(it))"/>
               </div>
             </div>
             <div class="newsMenuCenterBoxContent verticalScroll">
@@ -40,7 +40,7 @@
                   :key="index">
                 <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('allTime')"
-                                       :current-time-gross="getAllTimeEarnings(it)"/>
+                                       :current-time-gross="roundBudget(getAllTimeEarnings(it))"/>
               </div>
             </div>
           </tile-pages-nav>
@@ -145,6 +145,22 @@ export default {
       }
 
       return yearEarningsOfMovie;
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     getAllTimeEarnings(movie) {

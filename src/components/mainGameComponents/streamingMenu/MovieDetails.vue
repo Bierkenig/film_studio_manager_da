@@ -69,7 +69,7 @@
             </div>
             <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
               <div>{{ $t('price') }}</div>
-              <div>$ {{ currencyFormatDE(movie._totalCosts) }}</div>
+              <div>$ {{ roundBudget(movie._totalCosts) }}</div>
             </div>
             <div class="movieDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.writer') }}</div>
@@ -272,7 +272,23 @@ export default {
               .toFixed(0)
               .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
       ) // use . as a separator
-    }
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

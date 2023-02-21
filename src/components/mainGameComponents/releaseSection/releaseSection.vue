@@ -18,10 +18,10 @@
     <div>{{$t('release.less')}}</div>
 
     <input type="range" min="0" max="50" step="1" v-model="timeSlots">
-    <div>{{$t('release.earnings')}} {{earnings}}</div>
+    <div>{{$t('release.earnings')}} {{roundBudget(earnings)}}</div>
 
     <div>{{$t('release.dvd')}}</div>
-    <div>{{$t('release.earnings')}} {{earnings2}}</div>
+    <div>{{$t('release.earnings')}} {{roundBudget(earnings2)}}</div>
 
     <div>{{$t('release.streaming')}}</div>
     <div></div>
@@ -48,6 +48,21 @@ export default {
   methods: {
     calcCinemaEarnings() {
 
+    },
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
     calcDVDEarnings() {
 
