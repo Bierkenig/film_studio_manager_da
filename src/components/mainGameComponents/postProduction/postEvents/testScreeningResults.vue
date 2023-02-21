@@ -189,7 +189,6 @@ export default {
 .testScreeningResultsGeneralInfo {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
 .testScreeningResultsInfoElement {
@@ -201,6 +200,7 @@ export default {
   border-radius: var(--fsm-m-border-radius);
   padding: 7px;
   font-size: 15px;
+  margin-bottom: 10px;
 }
 
 .testScreeningResultsContainer {

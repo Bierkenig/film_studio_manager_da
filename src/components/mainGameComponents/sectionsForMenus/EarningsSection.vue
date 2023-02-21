@@ -6,14 +6,14 @@
           <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
                :key="index">
-            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + roundBudget(it.value)"/>
+            <earning-element class="earningElement" movie-title="" :movie-earnings="'$ ' + roundBudget(it.amount)"/>
           </div>
         </div>
         <div class="earningTextSection verticalScroll">
           <div v-for="(it, index) in this.monthEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
                :key="index">
-            <earning-element class="earningElement" movie-title="Movie Title" :movie-earnings="'$ ' + roundBudget(it.value)"/>
+            <earning-element class="earningElement" movie-title="" :movie-earnings="'$ ' + roundBudget(it.amount)"/>
           </div>
         </div>
       </tile-pages-nav>
@@ -123,5 +123,9 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+}
+
+.earningElement {
+  margin-bottom: 10px;
 }
 </style>
