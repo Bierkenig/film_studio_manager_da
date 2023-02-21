@@ -7,7 +7,12 @@ export default function soundeffectMixin(element, event){
 
             let status = this.$store.getters.getCurrentStatusOfSoundeffect
 
-            const audio = new Audio(require("../soundeffects/" + element + "Sound.mp3"));
+            let audio = null;
+            if(element === 'button'){
+                audio = new Audio(require("../soundeffects/" + element + "Sound.mp3"));
+            } else {
+                audio = new Audio(require("../soundeffects/imgSound.mp3"));
+            }
 
             function playSound(item) {
                 item.addEventListener(event, function () {

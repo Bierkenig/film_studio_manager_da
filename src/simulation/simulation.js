@@ -9,7 +9,6 @@ import {StreamingService} from "@/classes/StreamingService";
 import Earnings from "@/classes/Earnings";
 import {Movie} from "@/classes/Movie";
 import Award from "@/classes/Award";
-import {de} from "date-fns/locale";
 import PostProduction from "@/classes/PostProduction";
 import FinancialPerformance from "@/classes/FinancialPerformance";
 import Release from "@/classes/Release";
@@ -2327,35 +2326,61 @@ function generateMoviesFromOtherStudios(){
             newMovie.quality = Math.floor(Math.random() * (100 - 1) + 1);
             newMovie.teen = Math.floor(Math.random() * (100 - 1) + 1);
 
-            newMovie.cinema = Math.floor(Math.random() * (1000000000 - 100000) + 100000);
-            newMovie.dvd = Math.floor(Math.random() * (1000000000 - 100000) + 100000);
-            newMovie.openingEarnings = Math.floor(Math.random() * (1000000000 - 100000) + 100000);
+            newMovie.cinema = Math.floor(Math.random() * (50000000 - 100000) + 100000);
+            newMovie.dvd = Math.floor(Math.random() * (50000000 - 100000) + 100000);
+            newMovie.openingEarnings = Math.floor(Math.random() * (50000000 - 100000) + 100000);
 
-            newMovie._preProduction.budget.actorSalary = Math.floor(Math.random() * (5000000 - 2000000) + 2000000)
-            newMovie._preProduction.budget.directorSalary = Math.floor(Math.random() * (2000000 - 1000000) + 1000000)
-            newMovie._preProduction.budget.cinematography = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.costume = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.editing = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.extras = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.makeup = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.set = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.sfx = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.sound = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.stunts = Math.floor(Math.random() * (2500000 - 250000) + 250000)
-            newMovie._preProduction.budget.vfx = Math.floor(Math.random() * (2500000 - 250000) + 250000)
+            newMovie.allTotalEarings = newMovie.cinema + newMovie.dvd + newMovie.openingEarnings;
+
+            newMovie._preProduction.budget.actorSalary = Math.floor(Math.random() * (3500000 - 500000) + 500000)
+            newMovie._preProduction.budget.directorSalary = Math.floor(Math.random() * (1500000 - 100000) + 100000)
+            newMovie._preProduction.budget.cinematography = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.costume = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.editing = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.extras = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.makeup = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.set = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.production = Math.floor(Math.random() * (3500000 - 1000000) + 1000000)
+            newMovie._preProduction.budget.sfx = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.sound = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.stunts = Math.floor(Math.random() * (1000000 - 250000) + 250000)
+            newMovie._preProduction.budget.vfx = Math.floor(Math.random() * (1000000 - 250000) + 250000)
 
             newMovie._preProduction.crewMorale = Math.floor(Math.random() * (5 - 1) + 1);
 
             newMovie._preProduction.hiredDirector = allDirectors[Math.floor(Math.random() * allDirectors.length)]
             newMovie._preProduction.hype = Math.floor(Math.random() * (100 - 1) + 1);
             newMovie._preProduction.releaseDate = store.getters.getCurrentDate;
+            newMovie.setProduction();
 
-            newMovie._totalOutgoings = newMovie._preProduction.getTotalBudget();
-            newMovie._totalCosts = newMovie._totalOutgoings * 1.15;
+            newMovie.setPostProduction();
+            newMovie._postProduction.marketingPrint = Math.floor(Math.random() * (10000000 - 250000) + 250000)
+            newMovie._postProduction.marketingCommercial = Math.floor(Math.random() * (10000000 - 250000) + 250000)
+            newMovie._postProduction.marketingInternet = Math.floor(Math.random() * (10000000 - 250000) + 250000)
 
+            newMovie.setRelease();
+            newMovie._release.audiencePopularity = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie._release.popularityFormula = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie._release.childrenMoviePopularity = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie._release.teenagersMoviePopularity = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie._release.adultsMoviePopularity = Math.floor(Math.random() * (100 - 1) + 1);
+            newMovie._release.dvdGross = newMovie.dvd;
+            newMovie._release.cinemaGross = newMovie.cinema;
+            newMovie._release.openingWeekGross = newMovie.openingEarnings;
+            newMovie._release.criticsFormula = Math.floor(Math.random() * (100 - 1) + 1);
 
+            newMovie._totalOutgoings = newMovie._preProduction.getTotalBudget() + newMovie._postProduction.marketingPrint + newMovie._postProduction.marketingCommercial + newMovie._postProduction.marketingInternet;
+            newMovie._totalCosts = newMovie._totalOutgoings * 1.25;
 
-            console.log(newMovie)
+            while (randomStudio.budget < newMovie._totalOutgoings){
+                randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
+            }
+            newMovie._owner = randomStudio;
+
+            randomStudio.budget -= newMovie._totalOutgoings;
+            store.commit('addMoviesFromOtherStudios',newMovie);
+            store.commit('addNews', new News(newMovie._preProduction.screenplay.title + ' was created!',
+                'The studio "' + newMovie._owner.name + '" created this movie!', 'Movies', store.getters.getCurrentDate,null, newMovie, null, null));
         }
     }
 }

@@ -107,7 +107,7 @@
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-            <div>$ {{ currencyFormatDE(movie._totalCosts) }}</div>
+            <div>$ {{ currencyFormatDE(movie._totalOutgoings) }}</div>
           </div>
         </div>
         <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="movieDetailsFinancesRight">

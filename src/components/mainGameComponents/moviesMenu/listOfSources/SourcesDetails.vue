@@ -200,9 +200,13 @@
                 <div>Status</div>
                 <div>{{ source._status }}</div>
               </div>
-              <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
+              <div v-if="listType === 'Sale' && source._contract === null" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('price') }}</div>
                 <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
+              </div>
+              <div v-else class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('contract') }}</div>
+                <div>{{ source._contract }} {{ $t('year') }}</div>
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.writer') }}</div>
@@ -240,7 +244,7 @@
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-              <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
+              <div>$ {{ currencyFormatDE(source._totalOutgoings) }}</div>
             </div>
           </div>
           <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsFinancesRight">
@@ -319,7 +323,6 @@ import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
-import store from "@/services/store";
 import Earnings from "@/classes/Earnings";
 
 export default {
@@ -386,7 +389,7 @@ export default {
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
       this.$store.commit('removeScreenplayFromAllScreenplays',chosenScreenplay);
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
-      store.commit('addEarnings',new Earnings(-chosenScreenplay.price, store.getters.getCurrentDate))
+      this.$store.commit('addEarnings',new Earnings(-chosenScreenplay.price, this.$store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
 
       this.$router.push({name: 'movies'})
@@ -404,10 +407,10 @@ export default {
       this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
       this.$store.commit('removeMovieFromAllMovies',chosenMovie);
       this.$store.commit('addFinishedMovie',chosenMovie)
-      chosenMovie._owner = this.$store.getters.getStudio;
-      store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, store.getters.getCurrentDate))
-      this.$store.commit('subtractBalance',chosenMovie._totalCosts)
       chosenMovie._owner.budget += chosenMovie._totalCosts;
+      chosenMovie._owner = this.$store.getters.getStudio;
+      this.$store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, this.$store.getters.getCurrentDate))
+      this.$store.commit('subtractBalance',chosenMovie._totalCosts)
 
       this.$router.push({name: 'movies'})
     },

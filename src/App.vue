@@ -16,7 +16,7 @@
         :check-visibility="checkNavVisibility"
     />
 
-    <audio id="backgroundMusic" volume="0.05" autoplay loop>
+    <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
       <source src="./backgroundMusic/backgroundMusic.mp3" type="audio/mpeg">
     </audio>
   </div>
@@ -31,7 +31,7 @@ import store from "@/services/store";
 export default {
   name: 'App',
   components: {GameHeader, MenuNav},
-  mixins: [soundeffectMixin('button','click')],
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
   data() {
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],

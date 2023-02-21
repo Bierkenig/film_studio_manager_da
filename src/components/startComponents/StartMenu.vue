@@ -123,7 +123,7 @@ import CloseModal from "@/components/mainGameComponents/CloseModal";
 export default {
   name: 'StartMenu',
   components: {CloseModal, SettingsHeader, CustomIcon, IconButton},
-  mixins: [soundeffectMixin('button','click')],
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('.iconButtonSubDiv','click')],
 
   data(){
     return {

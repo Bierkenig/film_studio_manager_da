@@ -7,7 +7,9 @@
     </div>
     <div class="verticalScroll competitorElements">
       <streaming-competitor-element class="competitorElement" v-for="(service, index) in services" :key="index"
-                                    :streaming-service="service._name" icon="placeholder"
+                                    :streaming-service="service._name"
+                                    :icon="icons[Math.floor(Math.random() * icons.length)]"
+                                    :icon-theme="iconColor[Math.floor(Math.random() * iconColor.length)]"
                                     :subscribers="service._subscribers"/>
     </div>
   </background-tile>
@@ -27,6 +29,8 @@ export default {
       services: this.$store.getters.getStreamingServicesFromOtherStudios,
       selectedSortByWhat: null,
       selectedTypeOfSort: 'Ascending',
+      iconColor: ['red', 'green', 'blue', 'yellow', 'white'],
+      icons: ['logo1','logo2','logo3','logo4','logo5','logo6','logo7','logo8','logo9','logo10']
     }
   },
   methods: {

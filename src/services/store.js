@@ -166,6 +166,8 @@ export default createStore({
 
         createdAwards: [],
 
+        backgroundMusicVolume: 0.5,
+
         //Fetcher
         dbFetcher: null,
         //data from database
@@ -652,7 +654,7 @@ export default createStore({
         },
 
         addEarnings(state, payload) {
-            state.earnings.push({value: payload[0], date: payload[1]})
+            state.earnings.push(payload)
         },
 
         addFinancialPerformance(state, payload) {
