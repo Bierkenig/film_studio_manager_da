@@ -43,12 +43,9 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MainSettings",
-
-  mixins: [soundeffectMixin('button','click')],
 
   data() {
     return {

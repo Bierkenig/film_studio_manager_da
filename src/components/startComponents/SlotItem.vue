@@ -38,13 +38,11 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "SlotItem",
   components: {CustomButton},
-  mixins: [soundeffectMixin('button', 'click')],
 
   props: {
     slotNr: Number,
