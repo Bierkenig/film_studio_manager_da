@@ -150,7 +150,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.allAwards)
     this.allAwards.forEach((award) => {
       if(!(award.year.getFullYear() in this.internationalAwards) && award.type === 'international'){
         this.internationalAwards[award.year.getFullYear()] = [award];

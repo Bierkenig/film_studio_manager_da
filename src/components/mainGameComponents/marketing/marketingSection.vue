@@ -10,10 +10,10 @@
     <div>{{$t('marketingSection.print')}}</div>
     <div>{{$t('marketingSection.poster')}}</div>
     <input type="number" v-model="posters.value">
-    <div>{{$t('marketingSection.price')}}{{posters.price}}</div>
+    <div>{{$t('marketingSection.price')}}{{roundBudget(posters.price)}}</div>
     <div>{{$t('marketingSection.ads')}}</div>
     <input type="number" v-model="ads.value">
-    <div>{{$t('marketingSection.price')}}{{ads.price}}</div>
+    <div>{{$t('marketingSection.price')}}{{roundBudget(ads.price)}}</div>
 
     <div>{{$t('marketingSection.internet')}}</div>
     <div>{{$t('marketingSection.social')}}</div>
@@ -21,21 +21,21 @@
       <input type="checkbox" v-model="social.check">
       <span class="slider round"></span>
     </label>
-    <div>{{$t('marketingSection.price')}}{{social.check ? social.price : ""}}</div>
+    <div>{{$t('marketingSection.price')}}{{social.check ? roundBudget(social.price) : ""}}</div>
 
     <div>{{$t('marketingSection.video')}}</div>
     <label class="switch">
       <input type="checkbox" v-model="videoCampaign.check">
       <span class="slider round"></span>
     </label>
-    <div>{{$t('marketingSection.price')}}{{videoCampaign.check ? videoCampaign.price : ""}}</div>
+    <div>{{$t('marketingSection.price')}}{{videoCampaign.check ? roundBudget(videoCampaign.price) : ""}}</div>
 
     <div>{{$t('marketingSection.commercials')}}</div>
     <label class="switch">
       <input type="checkbox" v-model="commercials.check">
       <span class="slider round"></span>
     </label>
-    <div>{{$t('marketingSection.price')}}{{commercials.check ? commercials.price : ""}}</div>
+    <div>{{$t('marketingSection.price')}}{{commercials.check ? roundBudget(commercials.price) : ""}}</div>
 
     <button @click="startMarketing()">{{$t('marketingSection.start')}}</button>
   </div>
@@ -83,6 +83,22 @@ export default {
       this.$store.state.currentMovie.popularity.adult *= ((100 - this.adult) + 100) / 100
 
       this.$store.commit('subtractBalance',this.posters.price + this.ads.price + this.social.price + this.videoCampaign.price + this.commercials.price)
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     calcPricePrint() {

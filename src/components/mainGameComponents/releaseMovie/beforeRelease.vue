@@ -61,7 +61,7 @@
                   </div>
                   <div class="beforeReleaseContainerOutsideInfo">
                     <div>{{$t('beforeRelease.current')}}</div>
-                    <div>$ {{current}}</div>
+                    <div>$ {{roundBudget(current)}}</div>
                   </div>
                 </div>
                 <div>
@@ -125,6 +125,22 @@ export default {
       this.closeModal();
     },
 
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
+
     closeModal(){
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
@@ -140,7 +156,6 @@ export default {
 
   mounted() {
     this.current = this.$store.getters.getCurrentMovie._totalOutgoings
-    console.log(this.screenplay)
   }
 }
 </script>

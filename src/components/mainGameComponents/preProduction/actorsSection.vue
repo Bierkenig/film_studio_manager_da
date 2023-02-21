@@ -10,7 +10,7 @@
     <div v-if="negotiate">
       <div>{{ $t('actorSection.salary') }}{{ this.currentActor._first_name }} {{ this.currentActor._last_name }}</div>
       <input type="range" :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
-      <div>$ {{ proposedSalary }}</div>
+      <div>$ {{ roundBudget(proposedSalary) }}</div>
       <div>
         <input type="radio" id="main" :value="$t('main')" v-model="radio" :disabled="!spots.main >= 1">
         <label for="main">{{$t('main')}}</label>
@@ -84,6 +84,22 @@ export default {
       this.sendOfferBool = false
       this.negotiate = true
       this.proposedSalary = this.salary.min
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     sendOffer() {
@@ -178,22 +194,22 @@ export default {
       }
       switch (this.radio) {
         case "Main" || "Hauptdarsteller":
-          this.currentActor.salary += this.proposedSalary
+          this.currentActor.salary += parseInt(this.proposedSalary)
           this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
           this.removeActor()
           break
         case "Minor":
-          this.currentActor.salary += this.proposedSalary
+          this.currentActor.salary += parseInt(this.proposedSalary)
           this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
           this.removeActor()
           break
         case "Support" || "Nebendarsteller":
-          this.currentActor.salary += this.proposedSalary
+          this.currentActor.salary += parseInt(this.proposedSalary)
           this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
           this.removeActor()
           break
         case "Cameo":
-          this.currentActor.salary += this.proposedSalary
+          this.currentActor.salary += parseInt(this.proposedSalary)
           this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
           this.removeActor()
           break
@@ -207,7 +223,7 @@ export default {
       } else {
         this.disabled = false
       }
-      this.$store.state.currentMovie._preProduction.budget.actorSalary += this.proposedSalary
+      this.$store.state.currentMovie._preProduction.budget.actorSalary += parseInt(this.proposedSalary)
       this.negotiate = false
       this.currentActor = null
       this.salary.min = 0

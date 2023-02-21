@@ -13,19 +13,19 @@
       />
       <background-tile class="takeALoanBackground" :title="$t('takeALoan.title')">
         <loan-element v-if="this.$store.getters.getStudio.budget >= 1"
-                      :title="'$ ' + low.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+                      :title="'$ ' + roundBudget(low.value)"
                       :description="low.interests + '% ' + $t('takeALoan.interests') + ', ' + durationYears + ' ' + $t('takeALoan.yearsDuration')"
                       :button-text="$t('takeALoan.take')"
                       @button-clicked="takeLoan(50000000, low.interests)"
         />
         <loan-element v-if="this.$store.getters.getStudio.budget >= 1"
-                      :title="'$ ' + medium.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+                      :title="'$ ' + roundBudget(medium.value)"
                       :description="medium.interests + '% ' + $t('takeALoan.interests') + ', ' + durationYears + ' ' + $t('takeALoan.yearsDuration')"
                       :button-text="$t('takeALoan.take')"
                       @button-clicked="takeLoan(250000000, medium.interests)"
         />
         <loan-element v-if="this.$store.getters.getStudio.budget >= 1"
-                      :title="'$ ' + high.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
+                      :title="'$ ' + roundBudget(high.value)"
                       :description="high.interests + '% ' + $t('takeALoan.interests') + ', ' + durationYears + ' ' + $t('takeALoan.yearsDuration')"
                       :button-text="$t('takeALoan.take')"
                       @button-clicked="takeLoan(1000000000, high.interests)"
@@ -37,8 +37,8 @@
         <div v-else id="currentLoansList" class="verticalScroll">
           <loan-element v-for="(el, index) in currentLoans"
                         :key="index"
-                        :title="'$ ' + Math.floor((el.value * (1 + el.interest / 100))).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')"
-                        :description="$t('takeALoan.initialLoan') + ' $ ' + el.value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ' + $t('takeALoan.with') + ' ' + el.interest + '% ' + $t('takeALoan.interests')"
+                        :title="'$ ' + roundBudget(Math.floor((el.value * (1 + el.interest / 100))))"
+                        :description="$t('takeALoan.initialLoan') + ' $ ' + roundBudget(el.value.toString() + ' ' + $t('takeALoan.with')) + ' ' + el.interest + '% ' + $t('takeALoan.interests')"
                         :button-text="$t('takeALoan.repay')"
                         :button-disabled="dateDiff(el)"
                         @button-clicked="repayLoan(el)"
@@ -85,6 +85,22 @@ export default {
       this.$store.commit('addBalance', value)
       //add to loans
       this.$store.commit('addCurrentLoan', new Loan(this.$store.getters.getCurrentLoans.length + 1, value, this.$store.getters.getCurrentDate, interest))
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     repayLoan(el2) {

@@ -351,13 +351,10 @@ export default {
         this.chosenEvent = event;
       } else if (event.type === 'preProductionFinished') {
         this.showPreProductionSummaryModal = true;
-        console.log(this.$store.getters.getCurrentMovie)
       } else if (event.type === 'productionFinished') {
         this.showProductionSummaryModal = true;
-        console.log(this.$store.getters.getCurrentMovie)
       } else if (event.type === 'postProductionFinished') {
         this.showPostProductionSummaryModal = true;
-        console.log(this.$store.getters.getCurrentMovie)
         this.beforeReleaseCompleted = 'open';
       } else if (event.type === 'beforeRelease') {
         this.showBeforeReleaseModal = true;
@@ -412,6 +409,17 @@ export default {
 
   mounted() {
     this.updateShowingEvents();
+
+    let allCalendarEvents = this.$store.getters.getCalendarEvents;
+    for (let i = 0; i < allCalendarEvents.length; i++) {
+      if(allCalendarEvents[i].start === this.$store.getters.getCurrentDate.toISOString().split('T')[0]){
+        if(allCalendarEvents[i].type === 'beforeRelease' && allCalendarEvents[i].completed === false && allCalendarEvents[i-1].completed === true && allCalendarEvents.length > 1){
+          this.beforeReleaseCompleted = 'open';
+        } else if(allCalendarEvents[i].type === 'beforeRelease' && allCalendarEvents[i].completed === true && allCalendarEvents[i-1].completed === true && allCalendarEvents.length > 1){
+          this.beforeReleaseCompleted = 'done';
+        }
+      }
+    }
   },
 }
 </script>

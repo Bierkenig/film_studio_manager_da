@@ -21,7 +21,7 @@
                   <div class="marketingBudgetSelectContainer" v-if="screenplayType === 'Feature'">
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Print</div>
-                      <div class="marketingBudgetSelectValue">{{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valuePrint)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
@@ -33,7 +33,7 @@
 
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Internet</div>
-                      <div class="marketingBudgetSelectValue">{{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valueInternet)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
@@ -45,7 +45,7 @@
 
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Commercial</div>
-                      <div class="marketingBudgetSelectValue">{{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valueCommercial)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
@@ -59,7 +59,7 @@
                   <div class="marketingBudgetSelectContainer" v-if="screenplayType === 'Indie'">
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Print</div>
-                      <div class="marketingBudgetSelectValue">{{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valuePrint)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="100000" :max="1000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
@@ -71,7 +71,7 @@
 
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Internet</div>
-                      <div class="marketingBudgetSelectValue">{{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valueInternet)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="100000" :max="1000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
@@ -83,7 +83,7 @@
 
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Commercial</div>
-                      <div class="marketingBudgetSelectValue">{{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valueCommercial)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="100000" :max="1000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
@@ -97,7 +97,7 @@
                   <div class="marketingBudgetSelectContainer" v-if="screenplayType === 'Animation'">
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Print</div>
-                      <div class="marketingBudgetSelectValue">{{valuePrint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valuePrint)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
@@ -109,7 +109,7 @@
 
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Internet</div>
-                      <div class="marketingBudgetSelectValue">{{valueInternet.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valueInternet)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
@@ -121,7 +121,7 @@
 
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Commercial</div>
-                      <div class="marketingBudgetSelectValue">{{valueCommercial.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}</div>
+                      <div class="marketingBudgetSelectValue">{{roundBudget(valueCommercial)}}</div>
                       <div>
                         <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
@@ -165,12 +165,31 @@ export default {
       this.$store.getters.getCurrentMovie._postProduction.marketingPrint = this.valuePrint
       this.$store.getters.getCurrentMovie._postProduction.marketingInternet = this.valueInternet
       this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = this.valueCommercial
+
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.valuePrint
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.valueInternet
+      this.$store.getters.getCurrentMovie._totalOutgoings += this.valueCommercial
+
       this.$emit('close')
-    }
+    },
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   },
   mounted() {
-    this.$store.getters.getCurrentMovie.setPostProduction()
-    if (this.screenplayType === 'Feature' | this.screenplayType === 'Animation') {
+    if (this.screenplayType === 'Feature' || this.screenplayType === 'Animation') {
       switch (this.scope) {
         case "Little":
           this.valuePrint = 1000000

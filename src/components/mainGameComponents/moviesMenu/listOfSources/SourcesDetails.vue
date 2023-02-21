@@ -46,7 +46,7 @@
                   {{ $t('price') }}
                 </div>
                 <div>
-                  $ {{ currencyFormatDE(source.price) }}
+                  $ {{ roundBudget(source.price) }}
                 </div>
               </div>
             </div>
@@ -200,9 +200,13 @@
                 <div>Status</div>
                 <div>{{ source._status }}</div>
               </div>
-              <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
+              <div v-if="listType === 'Sale' && source._contract === null" class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('price') }}</div>
-                <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
+                <div>$ {{ roundBudget(source._totalCosts) }}</div>
+              </div>
+              <div v-else class="movieDetailsGeneralInfoLine">
+                <div>{{ $t('contract') }}</div>
+                <div>{{ source._contract }} {{ $t('year') }}</div>
               </div>
               <div class="movieDetailsGeneralInfoLine">
                 <div>{{ $t('movieDetailsElement.general.writer') }}</div>
@@ -228,7 +232,7 @@
           <div class="movieDetailsFinancesLeft">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-              <div>$ {{ currencyFormatDE(source._preProduction.budget.production) }}</div>
+              <div>$ {{ roundBudget(source._preProduction.budget.production) }}</div>
             </div>
             <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -236,25 +240,25 @@
             </div>
             <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>$ {{ currencyFormatDE(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
+              <div>$ {{ roundBudget(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-              <div>$ {{ currencyFormatDE(source._totalCosts) }}</div>
+              <div>$ {{ roundBudget(source._totalOutgoings) }}</div>
             </div>
           </div>
           <div v-if="source._status === 'Finished' || source._status === 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>$ {{ currencyFormatDE(source._release.openingWeekGross) }}</div>
+              <div>$ {{ roundBudget(source._release.openingWeekGross) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>$ {{ currencyFormatDE(source._release.cinemaGross) }}</div>
+              <div>$ {{ roundBudget(source._release.cinemaGross) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>$ {{ currencyFormatDE(source._release.dvdGross) }}</div>
+              <div>$ {{ roundBudget(source._release.dvdGross) }}</div>
             </div>
           </div>
           <div v-if="source._status !== 'Finished' && source._status !== 'Released'" class="movieDetailsFinancesRight">
@@ -319,7 +323,6 @@ import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
-import store from "@/services/store";
 import Earnings from "@/classes/Earnings";
 
 export default {
@@ -386,7 +389,7 @@ export default {
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
       this.$store.commit('removeScreenplayFromAllScreenplays',chosenScreenplay);
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
-      store.commit('addEarnings',new Earnings(-chosenScreenplay.price, store.getters.getCurrentDate))
+      this.$store.commit('addEarnings',new Earnings(-chosenScreenplay.price, this.$store.getters.getCurrentDate))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
 
       this.$router.push({name: 'movies'})
@@ -404,10 +407,10 @@ export default {
       this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
       this.$store.commit('removeMovieFromAllMovies',chosenMovie);
       this.$store.commit('addFinishedMovie',chosenMovie)
-      chosenMovie._owner = this.$store.getters.getStudio;
-      store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, store.getters.getCurrentDate))
-      this.$store.commit('subtractBalance',chosenMovie._totalCosts)
       chosenMovie._owner.budget += chosenMovie._totalCosts;
+      chosenMovie._owner = this.$store.getters.getStudio;
+      this.$store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, this.$store.getters.getCurrentDate))
+      this.$store.commit('subtractBalance',chosenMovie._totalCosts)
 
       this.$router.push({name: 'movies'})
     },
@@ -418,7 +421,23 @@ export default {
               .toFixed(0)
               .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
       ) // use . as a separator
-    }
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

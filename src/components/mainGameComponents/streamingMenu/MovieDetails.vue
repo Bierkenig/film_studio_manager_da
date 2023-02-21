@@ -10,8 +10,8 @@
           <div class="movieDetailsGeneralTopInfoRight">
             <div class="movieDetailsInfoCircles">
               <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="movieDetailsInfoCirclesTop">
-                <info-circle class="movieDetailsInfoCircle" :text="movie.quality" size="60px" large-font/>
-                <info-circle class="movieDetailsInfoCircle" :text="movie._release.popularityFormula" size="60px" large-font/>
+                <info-circle class="movieDetailsInfoCircle" :text="Math.round(movie.quality).toString()" :data-title="$t('quality')" size="60px" large-font/>
+                <info-circle class="movieDetailsInfoCircle" :text="Math.round(movie._release.popularityFormula).toString()" :data-title="$t('popularity')" size="60px" large-font/>
               </div>
               <div v-else class="movieDetailsInfoCirclesTop">
                 <info-circle class="movieDetailsInfoCircle" text="Q" size="60px" large-font/>
@@ -44,7 +44,7 @@
               <input type="range" min="1" max="100" step="1" :value="movie._release.adultsMoviePopularity" disabled>
             </div>
           </div>
-          <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="movieDetailsGeneralBottomInfoLeft">
+          <div v-else class="movieDetailsGeneralBottomInfoLeft">
             <div class="movieDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.children') }}</div>
               <input type="range" min="1" max="100" step="1" :value="0" disabled>
@@ -59,9 +59,17 @@
             </div>
           </div>
           <div class="movieDetailsGeneralBottomInfoRight">
-            <div class="movieDetailsGeneralInfoLine">
+            <div v-if="listType !== 'Sale' && (movie._status === 'Finished' || movie._status === 'Released')" class="movieDetailsGeneralInfoLine">
+              <div>{{ $t('movieDetailsElement.general.release') }}</div>
+              <div>{{ movie._preProduction.releaseDate.getFullYear() }}</div>
+            </div>
+            <div v-if="listType !== 'Sale' && (movie._status !== 'Finished' && movie._status !== 'Released')" class="movieDetailsGeneralInfoLine">
+              <div>Status</div>
+              <div>{{ movie._status }}</div>
+            </div>
+            <div v-if="listType === 'Sale'" class="movieDetailsGeneralInfoLine">
               <div>{{ $t('price') }}</div>
-              <div>$ {{ currencyFormatDE(price) }}</div>
+              <div>$ {{ roundBudget(movie._totalCosts) }}</div>
             </div>
             <div class="movieDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.writer') }}</div>
@@ -69,7 +77,7 @@
             </div>
             <div class="movieDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.director') }}</div>
-              <div>{{ movie.director.getFullName() }}</div>
+              <div>{{ movie._preProduction.hiredDirector.getFullName() }}</div>
             </div>
           </div>
         </div>
@@ -87,7 +95,7 @@
         <div class="movieDetailsFinancesLeft">
           <div class="noMargin movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-            <div>{{ movie._preProduction.budget.production }}</div>
+            <div>$ {{ currencyFormatDE(movie._preProduction.budget.production) }}</div>
           </div>
           <div v-if="movie._postProduction === null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -95,25 +103,25 @@
           </div>
           <div v-if="movie._postProduction !== null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>{{ movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial }}</div>
+            <div>$ {{ currencyFormatDE(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-            <div>{{ movie._totalCosts }}</div>
+            <div>$ {{ currencyFormatDE(movie._totalOutgoings) }}</div>
           </div>
         </div>
         <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="movieDetailsFinancesRight">
           <div class="noMargin movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-            <div>{{ movie._release.openingWeekGross }}</div>
+            <div>$ {{ currencyFormatDE(movie._release.openingWeekGross) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-            <div>{{ movie._release.cinemaGross }}</div>
+            <div>$ {{ currencyFormatDE(movie._release.cinemaGross) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-            <div>{{ movie._release.dvdGross }}</div>
+            <div>$ {{ currencyFormatDE(movie._release.dvdGross) }}</div>
           </div>
         </div>
         <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="movieDetailsFinancesRight">
@@ -242,7 +250,7 @@ export default {
         percentage = percentage * 2;
       }
 
-      this.price = this.movie.totalOutgoings * percentage;
+      this.price = this.movie._totalOutgoings * percentage;
     },
 
     buyRights(){
@@ -251,6 +259,7 @@ export default {
       sendMovie._boughtRightDate = this.$store.getters.getCurrentDate;
       sendMovie._totalCosts = this.price;
       sendMovie._preProduction.hype = 100;
+      sendMovie._owner.budget += this.price;
       this.$store.commit('addBoughtMovieRights',sendMovie);
       store.commit('addEarnings',new Earnings(this.price, store.getters.getCurrentDate))
       this.$store.commit('subtractBalance', this.price)
@@ -263,7 +272,23 @@ export default {
               .toFixed(0)
               .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
       ) // use . as a separator
-    }
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

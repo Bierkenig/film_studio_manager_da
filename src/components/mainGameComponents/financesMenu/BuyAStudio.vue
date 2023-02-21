@@ -46,11 +46,11 @@
               <div id="buyAStudioDetailsInfoStudioValues">
                 <div class="buyAStudioDetailsInfoStudioValue">
                   <div class="buyAStudioFontRegular">{{ $t('buyAStudio.revenue') }}</div>
-                  <div class="buyAStudioFontRegular">$ {{ general.revenue }}</div>
+                  <div class="buyAStudioFontRegular">$ {{ roundBudget(general.revenue) }}</div>
                 </div>
                 <div class="buyAStudioDetailsInfoStudioValue">
                   <div class="buyAStudioFontRegular">{{ $t('buyAStudio.profit') }}</div>
-                  <div class="buyAStudioFontRegular">$ {{ general.profit }}</div>
+                  <div class="buyAStudioFontRegular">$ {{ roundBudget(general.profit) }}</div>
                 </div>
                 <div class="buyAStudioDetailsInfoStudioValue">
                   <div class="buyAStudioFontRegular">{{ $t('buyAStudio.share') }}</div>
@@ -75,7 +75,7 @@
                 </div>
                 <div class="buyAStudioDetailsInfoStreamingValue">
                   <div class="buyAStudioFontRegular">{{ $t('buyAStudio.subs') }}</div>
-                  <div class="buyAStudioFontRegular">{{ streaming.subs }}</div>
+                  <div class="buyAStudioFontRegular">{{ roundBudget(streaming.subs) }}</div>
                 </div>
               </div>
             </div>
@@ -171,10 +171,25 @@ export default {
         }
         totalCosts += movie._totalOutgoings
       })
-
       this.general.revenue = earnings
       this.general.profit = earnings - totalCosts
       this.detail = true
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     showStreamingDetails() {

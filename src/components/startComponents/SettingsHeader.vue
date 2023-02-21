@@ -1,6 +1,10 @@
 <template>
   <div class="settingHeaderContainer">
     <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
+      <div class="settingHeaderMusicValue">
+        <input v-if="backgroundMusicStatus === true" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1">
+        <input v-else v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1" disabled>
+      </div>
       <info-circle
           class="button"
           v-show="this.showOnPage.includes(this.$route.name)"
@@ -187,9 +191,21 @@ export default {
   display: flex;
   flex-direction: row;
   margin-right: 10px;
+  align-items: center;
 }
 
 .button{
   margin-left: 5px;
+}
+
+.settingHeaderMusicValue {
+  margin-right: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+}
+
+input[type='range']:disabled::-webkit-slider-thumb {
+  background: var(--fsm-grey-font-color);
+  box-shadow: -9999px 0 0 9994px var(--fsm-grey-font-color);
 }
 </style>

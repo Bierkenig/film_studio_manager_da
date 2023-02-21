@@ -34,7 +34,7 @@ export default {
   },
 
   mounted() {
-    let moviesFromOtherStudios = this.$store.getters.getMoviesFromOtherStudios;
+    let moviesFromOtherStudios = this.$store.getters.getMoviesFromOtherStudios.concat(this.$store.getters.getAllMovies);
     for (let i = 0; i < moviesFromOtherStudios.length; i++) {
       if(moviesFromOtherStudios[i].contract === null){
         this.allOwningMovies.push(moviesFromOtherStudios[i])
