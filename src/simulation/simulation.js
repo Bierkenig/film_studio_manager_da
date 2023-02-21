@@ -2278,7 +2278,7 @@ function addPreProductionEventWithProbability(probability, movie, actor, directo
 // function to generate movies
 function generateMoviesFromOtherStudios(){
     if(store.getters.getOtherStudios.length !== 0 && store.state.screenplayTitles.length !== 0){
-        if(randomNumber(0.9) === 0){
+        if(randomNumber(0.01) === 0){
             let allOtherStudios = store.getters.getOtherStudios;
             let randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
             let allTotalEarnings = Math.floor(Math.random() * (5000000000 - 1000000 + 1) + 10000000)
