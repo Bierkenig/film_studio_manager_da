@@ -47,7 +47,6 @@ export class Studio {
         let amount = 0
         if (this.id !== store.getters.getStudio.id) {
             store.getters.getAllMovies.forEach((movie) => {
-                console.log(movie.owner.id)
                 if (this.id === movie.owner.id && movie._preProduction.releaseDate.getFullYear() === store.getters.getCurrentDate.getFullYear()) {
                     amount += movie.allTotalEarings
                 }

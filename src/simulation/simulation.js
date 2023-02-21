@@ -1087,7 +1087,6 @@ export function createScreenplaysFromWriters(type) {
 
 // function to renew people
 function renewPeople() {
-    console.log(store.getters.getAllPeople)
     //kill and refresh people
     let allPeople = store.getters.getAllPeople
     let roles = {actor: 0, director: 0, writer: 0}
@@ -1116,10 +1115,7 @@ function renewPeople() {
         }
     })
 
-    console.log(store.getters.getAllPeople)
-
     //generate new ones
-    console.log(id.length)
     for (let i = 0; i < id.length; i++) {
         store.commit('createPerson', [id[i], generatePersonValues(roles)])
         roles.actor--;
@@ -2352,10 +2348,6 @@ function generateMoviesFromOtherStudios(){
 
             newMovie._totalOutgoings = newMovie._preProduction.getTotalBudget();
             newMovie._totalCosts = newMovie._totalOutgoings * 1.15;
-
-
-
-            console.log(newMovie)
         }
     }
 }

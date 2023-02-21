@@ -15,7 +15,7 @@
                     <custom-button size="small" @clicked="choose('limited')">Limited Release</custom-button>
                   </div>
                   <div>
-                    Cost: {{cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                    Cost: {{roundBudget(cost)}}
                   </div>
                   <div>
                     Potential Sales: {{potential * 100}}%
@@ -108,7 +108,22 @@ export default {
 
       this.$store.getters.getCurrentMovie._totalOutgoings += this.cost;
       this.$emit('close')
-    }
+    },
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

@@ -21,7 +21,7 @@
                   </div>
                   <div class="afterReleaseWithCinemaInfoElement">
                     <div>{{$t('afterReleaseWithCinema.open')}}</div>
-                    <div>{{release.openingEarnings}}</div>
+                    <div>{{roundBudget(release.openingEarnings)}}</div>
                   </div>
                 </div>
                 <custom-button size="small" @clicked="closeModal">{{$t('afterReleaseWithCinema.close')}}</custom-button>
@@ -84,7 +84,23 @@ export default {
         }
       }
       this.$emit('close');
-    }
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
   }
 }
 </script>

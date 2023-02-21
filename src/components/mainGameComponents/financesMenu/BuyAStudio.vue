@@ -36,8 +36,8 @@
       <background-tile :title="$t('buyAStudio.detailsHeading')" id="buyAStudioDetails" class="buyAStudioTile">
         <div v-if="detail">
           {{ general.name }}
-          <div>{{ $t('buyAStudio.revenue') }} $ {{ general.revenue }}</div>
-          <div>{{ $t('buyAStudio.profit') }} $ {{ general.profit }}</div>
+          <div>{{ $t('buyAStudio.revenue') }} $ {{ roundBudget(general.revenue) }}</div>
+          <div>{{ $t('buyAStudio.profit') }} $ {{ roundBudget(general.profit) }}</div>
           <div>
             {{ $t('buyAStudio.share') }}
             {{ general.share[this.$store.getters.getCurrentDate.getFullYear().toString()] }}%
@@ -51,7 +51,7 @@
           <div>
             {{ streaming.name }}
             <div>{{ $t('buyAStudio.popularity') }} {{ streaming.popularity }}</div>
-            <div>{{ $t('buyAStudio.subs') }} {{ streaming.subs }}</div>
+            <div>{{ $t('buyAStudio.subs') }} {{ roundBudget(streaming.subs) }}</div>
           </div>
         </div>
         <button @click="contact()">{{ $t('buyAStudio.contact') }}</button>
@@ -140,10 +140,25 @@ export default {
         }
         totalCosts += movie._totalOutgoings
       })
-
       this.general.revenue = earnings
       this.general.profit = earnings - totalCosts
       this.detail = true
+    },
+
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
     },
 
     showStreamingDetails() {

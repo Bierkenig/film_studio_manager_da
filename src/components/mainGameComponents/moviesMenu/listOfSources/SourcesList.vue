@@ -110,7 +110,6 @@ export default {
 
   methods: {
     getSourceInfo(source, index, containerId, itemId) {
-      console.log(source)
       document.getElementById(itemId + index).style.backgroundColor = 'var(--fsm-pink-1)';
       document.getElementById(containerId + index).style.color = 'var(--fsm-dark-blue-4)';
       if (this.lastIndex !== null) {

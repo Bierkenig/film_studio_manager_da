@@ -137,9 +137,6 @@ export default class PreProduction {
     }
 
     createTotal() {
-        console.log(this.createCastHype())
-        console.log(this.createTechnicalHype())
-        console.log(this.createBudgetHype())
         return (this.createCastHype() * 50 + this.createTechnicalHype() * 35 + this.createBudgetHype() * 15) / 100
     }
 

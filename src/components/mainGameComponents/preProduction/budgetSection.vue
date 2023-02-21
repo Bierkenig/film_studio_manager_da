@@ -3,51 +3,51 @@
     <div>{{$t('budgetSection.overall')}}</div>
     <div>{{$t('budgetSection.production')}}</div>
     <input type="range" :min="production.min" :max="production.max" step="1" v-model="production.value" @change="selected = 1; calcSum()">
-    <div>{{production.value}}</div>
+    <div>{{roundBudget(production.value)}}</div>
 
     <div>{{$t('budgetSection.extras')}}</div>
     <input type="range" :min="extras.min" :max="extras.max" step="1" v-model="extras.value" @change="selected = 2; calcSum()">
-    <div>{{extras.value}}</div>
+    <div>{{roundBudget(extras.value)}}</div>
 
     <div>{{$t('budgetSection.cinematography')}}</div>
     <input type="range" :min="cinematography.min" :max="cinematography.max" step="1" v-model="cinematography.value" @change="selected = 3; calcSum()">
-    <div>{{cinematography.value}}</div>
+    <div>{{roundBudget(cinematography.value)}}</div>
 
     <div>{{$t('budgetSection.sound')}}</div>
     <input type="range" :min="sound.min" :max="sound.max" step="1" v-model="sound.value" @change="selected = 4; calcSum()">
-    <div>{{sound.value}}</div>
+    <div>{{roundBudget(sound.value)}}</div>
 
     <div>{{$t('budgetSection.editing')}}</div>
     <input type="range" :min="editing.min" :max="editing.max" step="1" v-model="editing.value" @change="selected = 5; calcSum()">
-    <div>{{editing.value}}</div>
+    <div>{{roundBudget(editing.value)}}</div>
 
     <div>{{$t('budgetSection.score')}}</div>
     <input type="range" :min="score.min" :max="score.max" step="1" v-model="score.value" @change="selected = 6; calcSum()">
-    <div>{{score.value}}</div>
+    <div>{{roundBudget(score.value)}}</div>
 
     <div>{{$t('budgetSection.set')}}</div>
     <input type="range" :min="set.min" :max="set.max" step="1" v-model="set.value" @change="selected = 7; calcSum()">
-    <div>{{set.value}}</div>
+    <div>{{roundBudget(set.value)}}</div>
 
     <div>{{$t('budgetSection.stunts')}}</div>
     <input type="range" :min="stunts.min" :max="stunts.max" step="1" v-model="stunts.value" @change="selected = 8; calcSum()">
-    <div>{{stunts.value}}</div>
+    <div>{{roundBudget(stunts.value)}}</div>
 
     <div>{{$t('budgetSection.costume')}}</div>
     <input type="range" :min="costume.min" :max="costume.max" step="1" v-model="costume.value" @change="selected = 9; calcSum()">
-    <div>{{costume.value}}</div>
+    <div>{{roundBudget(costume.value)}}</div>
 
     <div>{{$t('budgetSection.makeup')}}</div>
     <input type="range" :min="makeup.min" :max="makeup.max" step="1" v-model="makeup.value" @change="selected = 10; calcSum()">
-    <div>{{makeup.value}}</div>
+    <div>{{roundBudget(makeup.value)}}</div>
 
     <div>{{$t('budgetSection.sfx')}}</div>
     <input type="range" :min="sfx.min" :max="sfx.max" step="1" v-model="sfx.value" @change="selected = 11; calcSum()">
-    <div>{{sfx.value}}</div>
+    <div>{{roundBudget(sfx.value)}}</div>
 
     <div>{{$t('budgetSection.vfx')}}</div>
     <input type="range" :min="vfx.min" :max="vfx.max" step="1" v-model="vfx.value" @change="selected = 12; calcSum()">
-    <div>{{vfx.value}}</div>
+    <div>{{roundBudget(vfx.value)}}</div>
 
 
     <button @click="setBudgetPop(); disabled = false">{{$t('budgetSection.button')}}</button>
@@ -136,6 +136,21 @@ export default {
   },
 
   methods: {
+    roundBudget(labelValue){
+      return Math.abs(Number(labelValue)) >= 1.0e+9
+
+          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          // Six Zeroes for Millions
+          : Math.abs(Number(labelValue)) >= 1.0e+6
+
+              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              // Three Zeroes for Thousands
+              : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+
+                  : Math.abs(Number(labelValue));
+    },
     calcInputRange() {
       switch (this.screenplayType) {
         case "Feature":
