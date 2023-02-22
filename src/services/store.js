@@ -169,7 +169,7 @@ export default createStore({
         backgroundMusicVolume: 0.5,
 
         //Fetcher
-        dbFetcher: null,
+        dbFetcher: new DBFetcher(),
         //data from database
         allPeople: [],
         allActors: [],
