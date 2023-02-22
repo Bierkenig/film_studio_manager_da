@@ -91,7 +91,7 @@ export class Movie {
             this.subgenrePopularity = this.children === undefined ? this.calcSubGenrePopularities() : null
             this.topicPopularity = this.children === undefined ? this.calcTopicPopularities() : null
             this._release = new Release(this._preProduction, this.crewMorale, this.genrePopularity,
-                this.subgenrePopularity, this.topicPopularity, this._owner, this._postProduction.releaseScope,
+                this.subgenrePopularity, this.topicPopularity, this._owner, this._postProduction.releaseScope !== null ? this._postProduction.releaseScope : 1,
                 this._postProduction.marketingPrint, this._postProduction.marketingInternet, this._postProduction.marketingCommercial,
                 this.audiencePop, this.critics, this.openingEarnings, this.allTotalEarings, this.cinema,
                 this.dvd, this.children, this.teen, this.adults, this.print, this.internet, this.commericals)

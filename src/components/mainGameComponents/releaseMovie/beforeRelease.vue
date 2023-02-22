@@ -60,7 +60,7 @@
                     <div>{{this.$store.getters.getCurrentMovie.quality}}</div>
                   </div>
                   <div class="beforeReleaseContainerOutsideInfo">
-                    <div>{{$t('beforeRelease.current')}}</div>
+                    <div>{{$t('beforeRelease.screenplay.current')}}</div>
                     <div>$ {{roundBudget(current)}}</div>
                   </div>
                 </div>

@@ -191,7 +191,7 @@ export default class Release {
         this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
                 this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
-            (this.movieInterest / 100 / this.releaseScope) * (preProduction.hype / 100) * this.ticketPricePerTicket
+            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket
 
         this.continuingEarnings = this.openingEarnings * this.hypeFormula
 
