@@ -8,7 +8,10 @@ module.exports = {
                 "target": "NSIS",
                 "icon": "public/FSM_Icon_256x.png",
                 extraResources: [
-                    './public/DB'
+                    './public/DB',
+                    './src/backgroundMusic',
+                    './src/mixins',
+                    './src/soundeffects'
                 ],
             },
             customFileProtocol: "./",
