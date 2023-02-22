@@ -47,6 +47,11 @@ export default {
   },
 
   mounted(){
+    if(!this.$store.getters.getCurrentStatusOfBackgroundMusic){
+      document.getElementById('backgroundMusic').pause();
+    } else {
+      document.getElementById('backgroundMusic').play();
+    }
 
     window.ipcRenderer.send('r2mSettingsLoading')
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
@@ -55,15 +60,29 @@ export default {
         if(saveData.currentLanguage !== "de"){
           saveData.currentLanguage = "en"
         }
+        else if(saveData.currentLanguage === "de") {
+          this.$store.commit('changeCurrentLanguage', saveData.currentLanguage);
+        }
+
         if(saveData.soundeffects !== false){
           saveData.soundeffects = true
         }
+        else if(saveData.soundeffects === false){
+          this.$store.commit('setCurrentSoundeffect', saveData.soundeffects);
+        }
+
         if(saveData.backgroundMusic !== false){
           saveData.backgroundMusic = true
         }
-        this.$store.commit('setCurrentBackgroundMusic', saveData.backgroundMusic);
-        this.$store.commit('setCurrentSoundeffect', saveData.soundeffects);
-        this.$store.commit('changeCurrentLanguage', saveData.currentLanguage);
+        else if(saveData.backgroundMusic === false){
+          this.$store.commit('setCurrentBackgroundMusic', saveData.backgroundMusic);
+        }
+
+        if(saveData.backgroundMusicVolume <= 1 && saveData.backgroundMusicVolume >= 0){
+          this.$store.state.backgroundMusicVolume = saveData.backgroundMusicVolume
+        }else{
+          this.$store.state.backgroundMusicVolume = 0.5
+        }
         await new Promise(resolve => setTimeout(resolve, 20))
       }
     })

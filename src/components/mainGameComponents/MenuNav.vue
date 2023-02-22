@@ -94,7 +94,6 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
@@ -102,8 +101,6 @@ export default {
   name: "MenuNav",
 
   components: {CustomButton, IconButton},
-
-  mixins: [soundeffectMixin('button','click')],
 
   props: {
     checkVisibility: Boolean

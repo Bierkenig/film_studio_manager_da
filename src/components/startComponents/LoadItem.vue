@@ -29,13 +29,11 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton";
 
 export default {
   name: "LoadItem",
   components: {CustomButton},
-  mixins: [soundeffectMixin('button','click')],
 
   props: {
     slotNr: Number,

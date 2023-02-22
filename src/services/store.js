@@ -30,7 +30,7 @@ export default createStore({
         currentPostProdEventType: "",
         currentScreenplay: null,
         logo: null,
-        soundeffects: false,
+        soundeffects: true,
         backgroundMusic: true,
         currentDate: new Date("2023-01-01T00:00:00.000Z"),
         currentLanguage: 'en',
@@ -985,6 +985,7 @@ export default createStore({
                 "soundeffects",
                 "backgroundMusic",
                 "currentLanguage",
+                "backgroundMusicVolume"
             ])
 
             return reducedState
@@ -1030,7 +1031,7 @@ export default createStore({
                 state.currentLoans = responseData.currentLoans.map(jsonObject => Loan.fromJSON(jsonObject))
                 state.createdAwards = responseData.createdAwards.map(jsonObject => Award.fromJSON(jsonObject))
                 state.allPeople = responseData.allPeople.map(jsonObject => Person.fromJSON(jsonObject))
-                state.allWriter = responseData.allWriter.map(jsonObject => Person.fromJSON(jsonObject))
+                state.allWriters = responseData.allWriters.map(jsonObject => Person.fromJSON(jsonObject))
                 state.allDirectors = responseData.allDirectors.map(jsonObject => Person.fromJSON(jsonObject))
                 state.allActors = responseData.allActors.map(jsonObject => Person.fromJSON(jsonObject))
 

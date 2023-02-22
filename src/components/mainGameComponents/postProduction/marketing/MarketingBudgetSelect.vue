@@ -162,13 +162,13 @@ export default {
   },
   methods:{
     setBudget(){
-      this.$store.getters.getCurrentMovie._postProduction.marketingPrint = this.valuePrint
-      this.$store.getters.getCurrentMovie._postProduction.marketingInternet = this.valueInternet
-      this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = this.valueCommercial
+      this.$store.getters.getCurrentMovie._postProduction.marketingPrint = parseInt(this.valuePrint)
+      this.$store.getters.getCurrentMovie._postProduction.marketingInternet = parseInt(this.valueInternet)
+      this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = parseInt(this.valueCommercial)
 
-      this.$store.getters.getCurrentMovie._totalOutgoings += this.valuePrint
-      this.$store.getters.getCurrentMovie._totalOutgoings += this.valueInternet
-      this.$store.getters.getCurrentMovie._totalOutgoings += this.valueCommercial
+      this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingPrint)
+      this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingInternet)
+      this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingCommercial)
 
       this.$emit('close')
     },

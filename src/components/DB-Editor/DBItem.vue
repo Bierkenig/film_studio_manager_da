@@ -19,14 +19,12 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import {Studio} from "@/classes/Studio";
 
 export default {
   name: "DBItem",
   components: {CustomButton},
-  mixins: [soundeffectMixin('button', 'click')],
 
   props: {
     slotNr: Number,
