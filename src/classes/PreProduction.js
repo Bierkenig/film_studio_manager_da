@@ -100,9 +100,9 @@ export default class PreProduction {
     }
 
     createCastHype() {
-        let mainPop;
-        let supportPop;
-        let minorCameoPop;
+        let mainPop = 0
+        let supportPop = 0
+        let minorCameoPop = 0
         this.screenplay.actors.main.forEach((el) => {
             mainPop += el._popularity
         })
@@ -134,6 +134,7 @@ export default class PreProduction {
         } else if (this.budgetPop === 3) {
             return 5;
         }
+        return 1;
     }
 
     createTotal() {
