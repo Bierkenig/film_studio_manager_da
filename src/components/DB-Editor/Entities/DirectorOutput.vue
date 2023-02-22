@@ -12,7 +12,7 @@
     />
 
     <div class="actorOutputColumn" id="actorOutputLeft">
-      <db-people-list :people="allActors" type="Actors" @send-person="recieveActor"/>
+      <db-people-list :people="allActors" type="Directors" @send-person="recieveActor"/>
     </div>
     <div class="actorOutputColumn" id="actorOutputRight">
       <db-people-details :person="currentActor"/>
