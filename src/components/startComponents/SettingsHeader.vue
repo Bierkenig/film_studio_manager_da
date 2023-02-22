@@ -110,7 +110,7 @@ export default {
   data(){
     return {
       onSettingButtonClicked: false,
-      showOnPage: ['default'],
+      showOnPage: ['startMenu'],
       soundEffectStatus: this.$store.getters.getCurrentStatusOfSoundeffect,
       backgroundMusicStatus: this.$store.getters.getCurrentStatusOfBackgroundMusic,
       language: null,
