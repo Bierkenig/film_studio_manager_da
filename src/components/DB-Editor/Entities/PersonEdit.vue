@@ -1,67 +1,82 @@
 <template>
-  <div>
-    <label for="firstname">First Name</label>
-    <input id="firstname" v-model="first_name">
+  <div id="personEditMainDiv">
+    <icon-button
+        id="dbEditorBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="$router.go(-1)"
+    />
+    <background-tile title="Edit Person" id="personEditBgTile">
+      <div class="personEditInputLine">
+        <label for="firstname">First Name</label>
+        <input id="firstname" v-model="first_name">
+      </div>
+      <div class="personEditInputLine">
+        <label for="lastname">Last Name</label>
+        <input id="lastname" v-model="last_name">
+      </div>
+      <select
+          class="createScreenplaySelect"
+          id="createScreenplayCharacterGender"
+          v-model="gender"
+      >
+        <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
+        <option value="male">{{ $t('male') }}</option>
+        <option value="female">{{ $t('female') }}</option>
+        <option value="diverse">{{ $t('diverse') }}</option>
+      </select>
+      <select
+          class="createScreenplaySelect"
+          id="nationality"
+          v-model="nationality"
+      >
+        <option :value="null" disabled selected hidden>{{ $t('nationality') }}</option>
+        <option v-for="(nationality,index) in nationalityList" :key="index" :value="nationality">{{
+            nationality
+          }}
+        </option>
+      </select>
+      <select
+          class="createScreenplaySelect"
+          id="nationality"
+          v-model="ethnicity"
+      >
+        <option :value="null" disabled selected hidden>{{ $t('ethnicity') }}</option>
+        <option v-for="(ethnicity,index) in ethnicityList" :key="index" :value="ethnicity">{{ ethnicity }}</option>
+      </select>
+
+      <div class="personEditInputLine">
+        Is a Writer?
+        <input type="checkbox" id="checkboxWriter" v-model="checkedWriter">
+      </div>
+      <div class="personEditInputLine">
+        Is a Director?
+        <input type="checkbox" id="checkboxDirector" v-model="checkedDirector">
+      </div>
+
+      <div class="personEditInputLine">
+        Is an Actor?
+        <input type="checkbox" id="checkboxActor" v-model="checkedActor">
+      </div>
+
+      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(person)">Save</custom-button>
+    </background-tile>
   </div>
-
-  <br/>
-
-  <div>
-    <label for="lastname">Last Name</label>
-    <input id="lastname" v-model="last_name">
-  </div>
-
-  <br/>
-  <select
-      class="createScreenplaySelect"
-      id="createScreenplayCharacterGender"
-      v-model="gender"
-  >
-    <option :value="null" disabled selected hidden>{{ $t('gender') }}</option>
-    <option value="male">{{ $t('male') }}</option>
-    <option value="female">{{ $t('female') }}</option>
-    <option value="diverse">{{ $t('diverse') }}</option>
-  </select>
-
-  <br />
-  <select
-      class="createScreenplaySelect"
-      id="nationality"
-      v-model="nationality"
-  >
-    <option :value="null" disabled selected hidden>{{ $t('nationality') }}</option>
-    <option v-for="(nationality,index) in nationalityList" :key="index" :value="nationality">{{ nationality }}</option>
-
-  </select>
-
-  <br/>
-
-  <select
-      class="createScreenplaySelect"
-      id="nationality"
-      v-model="ethnicity"
-  >
-    <option :value="null" disabled selected hidden>{{ $t('ethnicity') }}</option>
-    <option v-for="(ethnicity,index) in ethnicityList" :key="index" :value="ethnicity">{{ ethnicity }}</option>
-
-  </select>
-
-  Is a Writer?
-  <input type="checkbox" id="checkboxWriter" v-model="checkedWriter">
-  Is a Director?
-  <input type="checkbox" id="checkboxDirector" v-model="checkedDirector">
-  Is an Actor?
-  <input type="checkbox" id="checkboxActor" v-model="checkedActor">
-
-  <button id="backButton" class="buttonStyle" @click="this.$router.go(-1)">Back</button>
-  <button id="saveButton" class="buttonStyle" @click="writeDB(person)">Save</button>
-
 </template>
 
 <script>
 
+import IconButton from "@/components/kitchenSink/IconButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "PersonEdit",
+  components: {CustomButton, BackgroundTile, IconButton},
 
   data() {
     return {
@@ -105,5 +120,43 @@ export default {
 </script>
 
 <style scoped>
+#personEditMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+#dbEditorBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+#personEditBgTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  width: fit-content;
+}
+
+.personEditInputLine {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input {
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+  border-style: none;
+  padding: 10px;
+}
+
+input:focus {
+  outline: none;
+}
 </style>
