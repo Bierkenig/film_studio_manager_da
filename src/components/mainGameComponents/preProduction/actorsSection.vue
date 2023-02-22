@@ -1,50 +1,63 @@
 <template>
-  <div>
-    <h3>{{ $t('actorSection.hire') }}</h3>
-    <div v-for="(el, index) in allActors" :key="index">
-      <avatar-element :svg-code="el._avatar"/>
-      {{ el._first_name }} | {{ el._last_name }} | {{ el._age }} | {{ el._gender }} | {{ el._nationality }} |
-      {{ el._ethnicity }} | {{ el._talent }} | {{ el._rating }}
-      <button @click="negotiateContract(el); disabled = true" :disabled="disabled">{{ $t('actorSection.negotiate') }}</button>
+  <div id="actorsSectionMainDiv">
+    <div class="actorsSectionColumn" id="actorSectionLeft">
+      <actor-list :actors="allActors" @send-person="recieveActor"/>
     </div>
-    <div v-if="negotiate">
-      <div>{{ $t('actorSection.salary') }}{{ this.currentActor._first_name }} {{ this.currentActor._last_name }}</div>
-      <input type="range" :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
-      <div>$ {{ roundBudget(proposedSalary) }}</div>
-      <div>
-        <input type="radio" id="main" :value="$t('main')" v-model="radio" :disabled="!spots.main >= 1">
-        <label for="main">{{$t('main')}}</label>
-        <div>{{spots.main}}</div>
-        <input type="radio" id="minor" value="Minor" v-model="radio" :disabled="!spots.minor >= 1">
-        <label for="minor">Minor</label>
-        <div>{{spots.minor}}</div>
-        <input type="radio" id="support" :value="$t('support')" v-model="radio" :disabled="!spots.support >= 1">
-        <label for="support">{{$t('support')}}</label>
-        <div>{{spots.support}}</div>
-        <input type="radio" id="cameo" value="Cameo" v-model="radio" :disabled="!spots.cameo >= 1">
-        <label for="cameo">Cameo</label>
-        <div>{{spots.cameo}}</div>
-      </div>
-      <button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</button>
-      <div v-if="sendOfferBool">{{ currentActor._first_name }}
-        {{ currentActor._last_name }}{{ $t('actorSection.decision') }}
-        {{ actorDecision ? $t('actorSection.yes') :  $t('actorSection.no') }}
-      </div>
-      <button v-if="sendOfferBool" @click="saveActors()" :disabled="!actorDecision || radio === null">{{$t('actorSection.add')}}</button><br/>
-      <div v-if="cant">{{$t('actorSection.cant')}}</div>
+    <div class="actorSectionColumn" id="actorSectionRight">
+      <actor-details :person="currentActor"/>
+      <background-tile v-if="negotiate" :title="$t('actorSection.salary')" id="actorSectionNegotiation">
+        <div id="actorSectionNegotiationOffer">
+          <div>$ {{ roundBudget(proposedSalary) }}</div>
+          <div>
+            <input type="range" :min="this.salary.min" :max="this.salary.max" step="1" v-model="proposedSalary">
+          </div>
+        </div>
+        <div id="actorsSectionRoleTypes">
+          <input type="radio" class="actorsSectionRoleTypeRadio" id="main" :value="$t('main')" v-model="radio"
+                 :disabled="!spots.main >= 1">
+          <label class="actorsSectionRoleTypeLabel" for="main">{{ $t('main') }} ({{ spots.main }})</label>
+          <input type="radio" class="actorsSectionRoleTypeRadio" id="minor" value="Minor" v-model="radio"
+                 :disabled="!spots.minor >= 1">
+          <label class="actorsSectionRoleTypeLabel" for="minor">Minor ({{ spots.minor }})</label>
+          <input type="radio" class="actorsSectionRoleTypeRadio" id="support" :value="$t('support')" v-model="radio"
+                 :disabled="!spots.support >= 1">
+          <label class="actorsSectionRoleTypeLabel" for="support">{{ $t('support') }} ({{ spots.support }})</label>
+          <input type="radio" class="actorsSectionRoleTypeRadio" id="cameo" value="Cameo" v-model="radio"
+                 :disabled="!spots.cameo >= 1">
+          <label class="actorsSectionRoleTypeLabel" for="cameo">Cameo ({{ spots.cameo }})</label>
+        </div>
+        <custom-button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</custom-button>
+        <info-line v-if="sendOfferBool">
+          {{ currentActor._first_name }}
+          {{ currentActor._last_name }}{{ $t('actorSection.decision') }}
+          {{ actorDecision ? $t('actorSection.yes') : $t('actorSection.no') }}
+        </info-line>
+        <custom-button v-if="sendOfferBool" @click="saveActors()" :disabled="!actorDecision || radio === null">
+          {{ $t('actorSection.add') }}
+        </custom-button>
+        <info-line v-if="cant">{{ $t('actorSection.cant') }}</info-line>
+      </background-tile>
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null" @click="finishPreProd()" :disabled="finish">
+        {{ $t('actorSection.continue') }}
+      </custom-button>
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null" @click="gotToHome()" :disabled="finish">
+        {{ $t('recastActor') }}
+      </custom-button>
     </div>
-    <button v-if="this.$store.getters.getCurrentCalendarEvent === null" @click="finishPreProd()" :disabled="finish">{{ $t('actorSection.continue') }}</button>
-    <button v-if="this.$store.getters.getCurrentCalendarEvent !== null" @click="gotToHome()" :disabled="finish">{{ $t('recastActor') }}</button>
   </div>
 </template>
 
 <script>
-import AvatarElement from "@/components/kitchenSink/AvatarElement";
 import store from "@/services/store";
+import ActorList from "@/components/mainGameComponents/preProduction/ActorList.vue";
+import ActorDetails from "@/components/mainGameComponents/preProduction/ActorDetails.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import InfoLine from "@/components/kitchenSink/InfoLine.vue";
 
 export default {
   name: "actorsSection",
-  components: {AvatarElement},
+  components: {InfoLine, CustomButton, BackgroundTile, ActorDetails, ActorList},
   data() {
     return {
       allActors: [],
@@ -77,8 +90,8 @@ export default {
       //calc min & max
       this.salary.min = this.allSalaries[(this.salaryLevel - 3)]
       this.perfectSalary = this.allSalaries[(this.salaryLevel - 1)]
-      this.perfectSalary1 = this.allSalaries[(this.salaryLevel -2)]
-      this.salary.max = this.allSalaries[(this.salaryLevel +1)]
+      this.perfectSalary1 = this.allSalaries[(this.salaryLevel - 2)]
+      this.salary.max = this.allSalaries[(this.salaryLevel + 1)]
 
       //set negotiate true
       this.sendOfferBool = false
@@ -86,7 +99,7 @@ export default {
       this.proposedSalary = this.salary.min
     },
 
-    roundBudget(labelValue){
+    roundBudget(labelValue) {
       return Math.abs(Number(labelValue)) >= 1.0e+9
 
           ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
@@ -154,8 +167,7 @@ export default {
           if (random === 0 || random === 1 || random === 2) {
             this.actorDecision = false
             this.currentActor._no += 1
-          }
-          else this.actorDecision = true
+          } else this.actorDecision = true
         } else if (this.salaryLevel <= 50) {
           const random = Math.round(Math.random())
           if (random === 0) this.actorDecision = true
@@ -185,95 +197,117 @@ export default {
     },
 
     saveActors() {
-      if (this.currentActor._workingOnProjects < 3) {
-        this.currentActor._workingOnProjects++
-      } else {
-        this.cant = true
-        this.sendOfferBool = true
-        return
-      }
-      switch (this.radio) {
-        case "Main" || "Hauptdarsteller":
-          this.currentActor.salary += parseInt(this.proposedSalary)
-          this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
-          this.removeActor()
-          break
-        case "Minor":
-          this.currentActor.salary += parseInt(this.proposedSalary)
-          this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
-          this.removeActor()
-          break
-        case "Support" || "Nebendarsteller":
-          this.currentActor.salary += parseInt(this.proposedSalary)
-          this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
-          this.removeActor()
-          break
-        case "Cameo":
-          this.currentActor.salary += parseInt(this.proposedSalary)
-          this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
-          this.removeActor()
-          break
-      }
+      if (this.actorDecision && this.radio !== null) {
+        if (this.currentActor._workingOnProjects < 3) {
+          this.currentActor._workingOnProjects++
+        } else {
+          this.cant = true
+          this.sendOfferBool = true
+          return
+        }
+        switch (this.radio) {
+          case "Main" || "Hauptdarsteller":
+            this.currentActor.salary += parseInt(this.proposedSalary)
+            this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
+            this.removeActor()
+            break
+          case "Minor":
+            this.currentActor.salary += parseInt(this.proposedSalary)
+            this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
+            this.removeActor()
+            break
+          case "Support" || "Nebendarsteller":
+            this.currentActor.salary += parseInt(this.proposedSalary)
+            this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
+            this.removeActor()
+            break
+          case "Cameo":
+            this.currentActor.salary += parseInt(this.proposedSalary)
+            this.$store.state.currentMovie._preProduction.screenplay.actors.cameo.push(this.currentActor)
+            this.removeActor()
+            break
+        }
 
-      this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
-      if (this.spots.main === 0 && this.spots.minor === 0
-          && this.spots.cameo === 0 && this.spots.support === 0) {
-        this.finish = false
-        this.disabled = true
-      } else {
-        this.disabled = false
+        this.spots = this.$store.getters.getCurrentMovie._preProduction.screenplay.getSpots()
+        if (this.spots.main === 0 && this.spots.minor === 0
+            && this.spots.cameo === 0 && this.spots.support === 0) {
+          this.finish = false
+          this.disabled = true
+        } else {
+          this.disabled = false
+        }
+        this.$store.state.currentMovie._preProduction.budget.actorSalary += parseInt(this.proposedSalary)
+        this.negotiate = false
+        this.currentActor = null
+        this.salary.min = 0
+        this.salary.max = 0
+        this.radio = null
+        this.proposedSalary = 0
       }
-      this.$store.state.currentMovie._preProduction.budget.actorSalary += parseInt(this.proposedSalary)
-      this.negotiate = false
-      this.currentActor = null
-      this.salary.min = 0
-      this.salary.max = 0
-      this.radio = null
-      this.proposedSalary = 0
+      this.radio = null;
     },
 
     removeActor() {
       this.allActors = this.allActors.filter((el) =>
-        el.id !== this.currentActor.id
+          el.id !== this.currentActor.id
       )
     },
 
     finishPreProd() {
-      this.$store.getters.getCurrentMovie._preProduction.startDate = this.$store.getters.getCurrentDate
-      let endDate = new Date(store.getters.getCurrentDate.getFullYear(),  store.getters.getCurrentDate.getMonth(),
-          store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.preProductionLength * 7) + 1)
-      let newDate = new Date(endDate.getFullYear(),
-          endDate.getMonth(),
-          endDate.getDate() + 1)
-      store.commit('addCalendarEvents', {
-        id: store.getters.getNextEventId,
-        movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
-        studio: null,
-        actor: "",
-        director: "",
-        start: endDate.toISOString().split('T')[0],
-        end: newDate.toISOString().split('T')[0],
-        type: 'preProductionFinished',
-        completed: false,
-      })
-      this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
+      if (!this.finish) {
+        this.$store.getters.getCurrentMovie._preProduction.startDate = this.$store.getters.getCurrentDate
+        let endDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),
+            store.getters.getCurrentDate.getDate() + (this.$store.getters.getCurrentMovie._preProduction.preProductionLength * 7) + 1)
+        let newDate = new Date(endDate.getFullYear(),
+            endDate.getMonth(),
+            endDate.getDate() + 1)
+        store.commit('addCalendarEvents', {
+          id: store.getters.getNextEventId,
+          movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,
+          studio: null,
+          actor: "",
+          director: "",
+          start: endDate.toISOString().split('T')[0],
+          end: newDate.toISOString().split('T')[0],
+          type: 'preProductionFinished',
+          completed: false,
+        })
+        this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
 
-      this.$router.push({name: "movies"})
+        this.$router.push({name: "movies"})
+      }
     },
 
     gotToHome() {
-      this.$router.push({name: "home"})
-    }
+      if (!this.finish) {
+        this.$router.push({name: "home"})
+      }
+    },
+
+    recieveActor(actor) {
+      this.radio = null;
+      this.currentActor = actor;
+      this.negotiate = true;
+      this.negotiateContract(actor);
+    },
   },
 
   mounted() {
     this.allActors = this.$store.getters.getAllActors
     let ids = []
     if (this.$store.getters.getCurrentCalendarEvent !== null) {
-      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main.forEach(el => {ids.push(el.id)})
-      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.forEach(el => {ids.push(el.id)})
-      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.forEach(el => {ids.push(el.id)})
-      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.forEach(el => {ids.push(el.id)})
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main.forEach(el => {
+        ids.push(el.id)
+      })
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.forEach(el => {
+        ids.push(el.id)
+      })
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.forEach(el => {
+        ids.push(el.id)
+      })
+      this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.forEach(el => {
+        ids.push(el.id)
+      })
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
@@ -290,5 +324,65 @@ export default {
 </script>
 
 <style scoped>
+#actorsSectionMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
 
+.actorsSectionColumn {
+  height: 80vh;
+}
+
+#actorSectionRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+#actorSectionNegotiation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#actorSectionNegotiationOffer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#actorsSectionRoleTypes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: var(--fsm-max-border-radius);
+  background-color: var(--fsm-dark-blue-4);
+}
+
+.actorsSectionRoleTypeRadio {
+  display: none;
+}
+
+.actorsSectionRoleTypeLabel {
+  flex-grow: 1;
+  font-size: 15px;
+  font-weight: var(--fsm-fw-medium);
+  text-align: center;
+  padding: 0.25em;
+  color: var(--fsm-white);
+  border-radius: var(--fsm-max-border-radius);
+  transition: background-color 0.5s, color 0.5s;
+}
+
+.actorsSectionRoleTypeRadio:checked + .actorsSectionRoleTypeLabel {
+  background-color: var(--fsm-pink-1);
+  background-image: v-bind('selectedGradientBG');
+  color: var(--fsm-dark-blue-2);
+}
 </style>
