@@ -29,3 +29,4 @@ pnpm-debug.log*
 #Saving
 data
 .data
+/src/backgroundMusic/BackgroundMusic_mixdown.wav

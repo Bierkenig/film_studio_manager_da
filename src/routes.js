@@ -56,6 +56,7 @@ import preProductionSummary from "@/components/mainGameComponents/preProduction/
 import productionSummary from "@/components/mainGameComponents/currentProduction/productionSummary";
 import StudioOutput from "@/components/DB-Editor/Entities/StudioOutput";
 import StudioEdit from "@/components/DB-Editor/Entities/StudioEdit";
+import Startup from "@/components/Startup";
 
 
 const routes = [
@@ -141,7 +142,9 @@ const routes = [
     { name: 'PersonEdit', path: '/PersonEdit', component: PersonEdit, props: true},
     { name: 'StudioEdit', path: '/StudioEdit', component: StudioEdit, props: true},
 
-    { name: 'default', path: '/', component: StartMenu, props: true },
+    { name: 'startMenu', path: '/StartMenu', component: StartMenu, props: true },
+
+    { name: 'default', path: '/', component: Startup, props: true },
 ]
 
 const router = createRouter({

@@ -17,9 +17,7 @@
     />
 
     <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
-
-      <source id="audioSource" src="./backgroundMusic/BackgroundMusic_mixdown.mp3" type="audio/mpeg">
-
+      <source src="./backgroundMusic/BackgroundMusic_mixdown.mp3">
     </audio>
   </div>
 </template>
@@ -39,7 +37,6 @@ export default {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],
       checkNavVisibility: false,
       process: process.env.ENV_NODE,
-      otherPath: "../bundled/media/BackgroundMusic_mixdown.fd7c75ac.mp3"
     }
   },
 

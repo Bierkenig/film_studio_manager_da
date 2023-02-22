@@ -127,6 +127,7 @@ export default {
         this.$store.commit('setCurrentSoundeffect',data.state.soundeffects);
       }
 
+
       if(this.backgroundMusicStatus){
         document.getElementById('backgroundMusic').play();
       } else {

@@ -13,7 +13,7 @@
                 :icon-gradient="false"
                 :shadow="false"
                 @click="showCloseModal = true"/>
-
+            
             <transition name="modal">
               <close-modal
                   v-if="showCloseModal"
