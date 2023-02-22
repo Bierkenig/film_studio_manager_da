@@ -28,10 +28,10 @@ async function createWindow() {
             nodeIntegration: false,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js'),
-            enableRemoteModule: true
         },
-        resizable: true,
+        resizable: false,
         fullscreen: process.env.NODE_ENV === 'production',
+        frame: process.env.NODE_ENV !== 'production',
         movable: true,
         useContentSize: true,
     })
