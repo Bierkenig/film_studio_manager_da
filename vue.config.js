@@ -10,7 +10,9 @@ module.exports = {
                 extraResources: [
                     './public/DB',
                     './src/mixins',
-                    './src/soundeffects'
+                    './src/soundeffects',
+                    './src/backgroundMusic',
+                    './src/animation'
                 ],
             },
             customFileProtocol: "./",

@@ -29,3 +29,5 @@ pnpm-debug.log*
 #Saving
 data
 .data
+/src/animation/startUP.mp4
+/src/backgroundMusic/BackgroundMusic_mixdown.wav

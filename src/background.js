@@ -30,7 +30,7 @@ async function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
         },
         resizable: false,
-        fullscreen: process.env.NODE_ENV === 'production',
+        fullscreen: true,//process.env.NODE_ENV === 'production',
         frame: true,
         movable: true,
         useContentSize: true,
