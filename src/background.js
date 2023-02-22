@@ -331,8 +331,14 @@ if (isDevelopment) {
 async function launchDiscordGameSDK(win) {
     let child
     try {
-        child = spawn('java', ['-jar', 'src/Discord.jar', process.pid.toString()],
-            {stdio: ['pipe', process.stdout, process.stderr]});
+        if(process.env.NODE_ENV === 'production'){
+            child = spawn('java', ['-jar', '../bundled/Discord.jar', process.pid.toString()],
+                {stdio: ['pipe', process.stdout, process.stderr]});
+        }
+        else{
+            child = spawn('java', ['-jar', 'src/Discord.jar', process.pid.toString()],
+                {stdio: ['pipe', process.stdout, process.stderr]});
+        }
 
         child.stdin.on('error', (error) => {
             updatePresence = () => {

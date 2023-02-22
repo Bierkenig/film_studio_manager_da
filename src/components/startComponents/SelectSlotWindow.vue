@@ -37,7 +37,7 @@ export default {
 
   methods: {
     goBack(){
-      this.$router.push({name: 'default'})
+      this.$router.push({name: 'startMenu'})
     },
   }
 }
