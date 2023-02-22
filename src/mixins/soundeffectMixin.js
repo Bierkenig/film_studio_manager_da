@@ -8,9 +8,9 @@ export default function soundeffectMixin(element, event){
 
             let audio = null;
             if(element === 'button'){
-                audio = new Audio(require("../soundeffects/" + element + "Sound.mp3"));
+                audio = new Audio(require("../soundeffects/" + element + "Soundwav.wav"));
             } else {
-                audio = new Audio(require("../soundeffects/imgSound.mp3"));
+                audio = new Audio(require("../soundeffects/buttonSoundwav.wav"));
             }
 
             function playSound(item) {
