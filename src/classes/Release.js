@@ -553,8 +553,6 @@ export default class Release {
             instance.director = Person.fromJSON(jsonObject.director)
         }
 
-        instance.setAudienceRating()
-
         return instance;
     }
 }

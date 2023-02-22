@@ -221,19 +221,19 @@ export class Movie {
         let instance = Object.assign(new Movie(DataUtil.skip), jsonObject)
 
         if(jsonObject._preProduction != null){
-            instance._preProduction = new PreProduction(jsonObject._preProduction)
+            instance._preProduction = PreProduction.fromJSON(jsonObject._preProduction)
         }
 
         if(jsonObject._production != null){
-            instance._production = new Production(jsonObject._production)
+            instance._production = Production.fromJSON(jsonObject._production)
         }
 
         if(jsonObject._postProduction != null) {
-            instance._postProduction = new PostProduction(jsonObject._postProduction)
+            instance._postProduction =  PostProduction.fromJSON(jsonObject._postProduction)
         }
 
         if(instance._release != null) {
-            instance._release = new Release(jsonObject._release)
+            instance._release = Release.fromJSON(jsonObject._release)
         }
 
         if(jsonObject._owner != null){
