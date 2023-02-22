@@ -483,7 +483,7 @@ i18next
                         reshooting: {
                             problem: "The director wants to reshoot certain scenes of the movie because he is unhappy with them.",
                             optionA: " Let the director reshoot certain scenes",
-                            consequenceA1: "Whole production budget increases by 20%",
+                            consequenceA1: "Whole production budget increases by 10%",
                             consequenceA2: "Reshooting duration dependent on scope",
                             optionB: "Do not allow any reshootings",
                             consequenceB1: "Director’s morale goes down according to director’s overall rating",

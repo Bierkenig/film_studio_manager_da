@@ -8,12 +8,9 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.editing.optionA")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.visualQuality.consequenceA1")}}</div>
             </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
-            </div>
+
             <custom-button size="small" :disabled="booleanEditingOption === 1" @clicked="choseOptionA('editing')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
@@ -21,11 +18,7 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.editing.optionB")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
-            </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.visualQuality.consequenceB1")}}</div>
             </div>
             <custom-button size="small" :disabled="booleanEditingOption === 2" @clicked="choseOptionB('editing')">Choose</custom-button>
           </div>
@@ -36,12 +29,9 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.sound.optionA")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.sound.consequenceA1")}}</div>
             </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
-            </div>
+
             <custom-button size="small" :disabled="booleanSoundOption === 1" @clicked="choseOptionA('sound')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
@@ -49,12 +39,9 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.sound.optionB")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.sound.consequenceB1")}}</div>
             </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
-            </div>
+
             <custom-button size="small" :disabled="booleanSoundOption === 2" @clicked="choseOptionB('sound')">Choose</custom-button>
           </div>
         </div>
@@ -64,12 +51,9 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.vfx.optionA")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.visualEffects.consequenceA1")}}</div>
             </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
-            </div>
+
             <custom-button size="small" :disabled="booleanVFXOption === 1" @clicked="choseOptionA('vfx')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
@@ -77,12 +61,9 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.vfx.optionB")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.visualEffects.consequenceB1")}}</div>
             </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
-            </div>
+
             <custom-button size="small" :disabled="booleanVFXOption === 2" @clicked="choseOptionB('vfx')">Choose</custom-button>
           </div>
         </div>
@@ -92,11 +73,8 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.acting.optionA")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
-            </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.reshooting.consequenceA1")}}</div>
+              <div>{{$t("postproductionEvents.reshooting.consequenceA2")}}</div>
             </div>
             <custom-button size="small" :disabled="booleanActingOption === 1" @clicked="choseOptionA('acting')">Choose</custom-button>
           </div>
@@ -105,11 +83,7 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.acting.optionB")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
-            </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.reshooting.consequenceB1")}}</div>
             </div>
             <custom-button size="small" :disabled="booleanActingOption === 2" @clicked="choseOptionB('acting')">Choose</custom-button>
           </div>
@@ -120,12 +94,10 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.story.optionA")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.reshooting.consequenceA1")}}</div>
+              <div>{{$t("postproductionEvents.reshooting.consequenceA2")}}</div>
             </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
-            </div>
+
             <custom-button size="small" :disabled="booleanStoryOption === 1" @clicked="choseOptionA('story')">Choose</custom-button>
           </div>
           <div class="testScreeningOptionsOptionElement">
@@ -133,11 +105,7 @@
             <div class="testScreeningOptionsOptionDescription">{{$t("postProductionEvents.testScreening.story.optionB")}}</div>
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
-              <div>Lorem Ipsum</div>
-            </div>
-            <div class="testScreeningOptionsOptionDetails">
-              <div class="testScreeningOptionsBenefit">Benefit</div>
-              <div>Lorem Ipsum</div>
+              <div>{{$t("postproductionEvents.reshooting.consequenceB1")}}</div>
             </div>
             <custom-button size="small" :disabled="booleanStoryOption === 2" @clicked="choseOptionB('story')">Choose</custom-button>
           </div>
