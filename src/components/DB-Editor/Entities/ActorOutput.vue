@@ -1,56 +1,64 @@
 <template>
-  <div v-for="(el, index) in allActors" :key="index">
-    <avatar-element :svg-code="el._avatar"/>
-    {{ el._first_name }}
-    {{ el._last_name }}
-    {{ el._birthday}}
-    {{ el._gender }}
-    {{ el._nationality}}
-    {{ el._ethnicity }}
-    {{ el._workingSince}}
-    {{ el._performance }}
-    {{ el._experience }}
-    {{ el._talent }}
-    {{ el._popularity }}
-    {{ el._rating }}
-    {{ el._isActor }}
-    {{ el._isDirector }}
-    {{ el._isWriter }}
-    <router-link :to="{ name: 'PersonEdit'}">
-      <button id="editButton" class="buttonStyle" @click="edit(el)" >Edit</button>
-    </router-link>
-    <button id="deleteButton" class="buttonStyle" @click="deletePerson(el)">Delete</button>
-  </div>
-  <button id="backButton" class="buttonStyle" @click="this.$router.go(-2)">Back</button>
+  <div id="actorOutputMainDiv">
+    <icon-button
+        id="actorOutputBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="this.$router.go(-2)"
+    />
 
+    <div class="actorOutputColumn" id="actorOutputLeft">
+      <db-people-list :people="allActors" type="Actors" @send-person="recieveActor"/>
+    </div>
+    <div class="actorOutputColumn" id="actorOutputRight">
+      <db-people-details :person="currentActor"/>
+      <router-link :to="{ name: 'PersonEdit'}">
+        <custom-button id="editButton" class="buttonStyle" @click="edit(currentActor)">Edit</custom-button>
+      </router-link>
+      <custom-button id="deleteButton" class="buttonStyle" @click="deletePerson(currentActor)">Delete</custom-button>
+    </div>
+  </div>
 </template>
 
 <script>
-import AvatarElement from "@/components/kitchenSink/AvatarElement";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
+import DbPeopleDetails from "@/components/DB-Editor/Entities/DbPeopleDetails.vue";
+import DbPeopleList from "@/components/DB-Editor/Entities/DbPeopleList.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "ActorOutput",
-  components: {AvatarElement},
-  data(){
+  components: {CustomButton, DbPeopleList, DbPeopleDetails, IconButton},
+  data() {
     return {
-      allActors: null
+      allActors: [],
+      currentActor: null,
     };
   },
-  mounted(){
-    this.allActors = []
+  mounted() {
     this.allActors = this.$store.state.allActors;
+    this.currentActor = this.allActors[0];
   },
 
   methods: {
-    edit(person){
+    edit(person) {
       this.$store.state.editPerson = person
     },
 
-    async deletePerson(person){
+    async deletePerson(person) {
       window.ipcRenderer.send('editDB', 'DELETE FROM people WHERE pk_personID = ' + person._id)
       await new Promise(resolve => setTimeout(resolve, 20))
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
       this.allWriters = this.$store.state.allActors
+    },
+
+    recieveActor(actor) {
+      this.currentActor = actor;
     },
   }
 
@@ -61,5 +69,36 @@ export default {
 </script>
 
 <style scoped>
+#actorOutputMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
 
+#actorOutputBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+.actorOutputColumn {
+  flex-basis: 0;
+  height: 80vh;
+}
+
+#actorOutputLeft {
+  flex-grow: 1;
+}
+
+#actorOutputRight {
+  flex-grow: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
 </style>
