@@ -47,12 +47,6 @@ export default {
   },
 
   mounted(){
-    if(!this.$store.getters.getCurrentStatusOfBackgroundMusic){
-      document.getElementById('backgroundMusic').pause();
-    } else {
-      document.getElementById('backgroundMusic').play();
-    }
-
     window.ipcRenderer.send('r2mSettingsLoading')
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if(data !== null) {
@@ -84,9 +78,11 @@ export default {
           this.$store.state.backgroundMusicVolume = 0.5
         }
         await new Promise(resolve => setTimeout(resolve, 20))
+
+        console.log(this.$store.state)
       }
-    })
-  },
+      })
+    },
 
   async created(){
     setInterval(function() {

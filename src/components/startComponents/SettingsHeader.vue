@@ -119,7 +119,21 @@ export default {
       saving: i18next.t("saving")
     }
   },
+  mounted(){
+    window.ipcRenderer.receive('m2rSettingsLoading', async data => {
+      this.soundEffectStatus = data.state.soundeffects
+      this.backgroundMusicStatus = data.state.backgroundMusic
+      if(this.backgroundMusicStatus){
+        document.getElementById('backgroundMusic').play();
+      } else {
+        document.getElementById('backgroundMusic').pause();
+      }
 
+      console.log(data.state.soundeffects)
+      this.$store.commit('setCurrentSoundeffect',data.state.soundeffects);
+
+    })
+  },
   methods: {
     goToStartMenu(){
       this.$store.state.slot = null

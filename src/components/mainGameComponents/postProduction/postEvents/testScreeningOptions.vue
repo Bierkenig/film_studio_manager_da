@@ -74,7 +74,6 @@
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
               <div>{{$t("postproductionEvents.reshooting.consequenceA1")}}</div>
-              <div>{{$t("postproductionEvents.reshooting.consequenceA2")}}</div>
             </div>
             <custom-button size="small" :disabled="booleanActingOption === 1" @clicked="choseOptionA('acting')">Choose</custom-button>
           </div>
@@ -95,7 +94,6 @@
             <div class="testScreeningOptionsOptionDetails">
               <div class="testScreeningOptionsConsequence">Consequence</div>
               <div>{{$t("postproductionEvents.reshooting.consequenceA1")}}</div>
-              <div>{{$t("postproductionEvents.reshooting.consequenceA2")}}</div>
             </div>
 
             <custom-button size="small" :disabled="booleanStoryOption === 1" @clicked="choseOptionA('story')">Choose</custom-button>
