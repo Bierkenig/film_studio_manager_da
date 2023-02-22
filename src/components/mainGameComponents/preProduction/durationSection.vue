@@ -1,39 +1,79 @@
 <template>
-  <div>
-    <div>{{$t('durationSection.set')}}</div>
-    <input type="range" :min="2" :max="12" step="1" v-model="preProductionInput">
-    <div>{{preProductionInput}} {{$t('durationSection.weeks')}}</div>
+  <div id="durationSectionMainDiv">
+    <background-tile id="durationSectionBgTile" :title="$t('durationSection.heading')">
+      <div id="durationSectionContent">
+        <div class="durationSectionDurationElement">
+          <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set') }}</div>
+          <div class="durationSectionDurationElementInputContainer">
+            <input class="durationSectionDurationElementInput" type="range" :min="2" :max="12" step="1"
+                   v-model="preProductionInput">
+          </div>
+          <div class="durationSectionDurationElementValue">{{ preProductionInput }} {{
+              $t('durationSection.weeks')
+            }}
+          </div>
+        </div>
 
-    <div>{{$t('durationSection.set2')}}</div>
-    <input type="range" :min="4" :max="24" step="1" v-model="productionInput">
-    <div>{{productionInput}} {{$t('durationSection.weeks')}}</div>
+        <div class="durationSectionDurationElement">
+          <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set2') }}</div>
+          <div class="durationSectionDurationElementInputContainer">
+            <input class="durationSectionDurationElementInput" type="range" :min="4" :max="24" step="1"
+                   v-model="productionInput">
+          </div>
+          <div class="durationSectionDurationElementValue">{{ productionInput }} {{ $t('durationSection.weeks') }}</div>
+        </div>
 
-    <div>{{$t('durationSection.set3')}}</div>
-    <input type="range" :min="4" :max="24" step="1" v-model="postProductionInput">
-    <div>{{postProductionInput}} {{$t('durationSection.weeks')}}</div>
+        <div class="durationSectionDurationElement">
+          <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set3') }}</div>
+          <div class="durationSectionDurationElementInputContainer">
+            <input class="durationSectionDurationElementInput" type="range" :min="4" :max="24" step="1"
+                   v-model="postProductionInput">
+          </div>
+          <div class="durationSectionDurationElementValue">{{ postProductionInput }} {{
+              $t('durationSection.weeks')
+            }}
+          </div>
+        </div>
+        <custom-button id="durationSectionConfirmButton" @click="releaseSection = true">{{
+            $t('durationSection.confirm')
+          }}
+        </custom-button>
+      </div>
+      <div v-if="releaseSection" id="durationSectionRelease">
+        <div class="durationSectionDurationElement">
+          <div class="durationSectionDurationElementLabel">{{ $t('durationSection.releaseDate') }}</div>
+          <div class="durationSectionDurationElementInputContainer">
+            <input class="durationSectionDurationElementInput" type="range" :min="0" :max="12" step="1"
+                   v-model="releaseDateInput">
+          </div>
+          <div class="durationSectionDurationElementValue">{{ $t('durationSection.choice') }}{{ releaseDateInput }}
+            {{ $t('durationSection.weeks') }}
+          </div>
+        </div>
 
-    <button @click="releaseSection = true">{{$t('durationSection.confirm')}}</button>
+        <custom-button @click="calcTheReleaseDate(); release = true; disabled = false">
+          {{ $t('durationSection.calc') }}
+        </custom-button>
+        <div v-if="release" id="durationSectionEstimatedDate">
+          <div>{{ $t('durationSection.estimated') }}</div>
+          <div>{{ calcReleaseDate.toDateString() }}</div>
+        </div>
 
-    <div v-if="releaseSection">
-      <div>{{$t('durationSection.releaseDate')}}</div>
-      <input type="range" :min="0" :max="12" step="1" v-model="releaseDateInput">
-
-      <div>{{$t('durationSection.choice')}}{{releaseDateInput}} {{$t('durationSection.weeks')}}</div>
-
-      <button @click="calcTheReleaseDate(); release = true; disabled = false">{{$t('durationSection.calc')}}</button>
-
-      <div v-if="release">{{$t('durationSection.estimated')}}</div>
-      <div v-if="release">{{calcReleaseDate.toDateString()}}</div>
-
-      <button :disabled="disabled" @click="setStoreWeeks(); this.$router.push({name: 'budgetSection'})">{{$t('durationSection.continue')}}</button>
-    </div>
-
+        <custom-button :disabled="disabled" @click="continueButton">
+          {{ $t('durationSection.continue') }}
+        </custom-button>
+      </div>
+    </background-tile>
   </div>
 </template>
 
 <script>
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+
 export default {
   name: "durationSection",
+  components: {CustomButton, BackgroundTile},
   data() {
     return {
       scope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,
@@ -103,7 +143,14 @@ export default {
 
     isBetween(min, max, value) {
       if (value >= min && value < max) return true
-    }
+    },
+
+    continueButton() {
+      if (!this.disabled) {
+        this.setStoreWeeks();
+        this.$router.push({name: 'budgetSection'})
+      }
+    },
   },
 
   mounted() {
@@ -115,5 +162,74 @@ export default {
 </script>
 
 <style scoped>
+#durationSectionMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
 
+#durationSectionBgTile {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+#durationSectionContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 20px;
+}
+
+.durationSectionDurationElement, #durationSectionEstimatedDate {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
+  padding: 10px;
+}
+
+.durationSectionDurationElementLabel, .durationSectionDurationElementInputContainer, .durationSectionDurationElementValue {
+  flex-basis: 0;
+}
+
+.durationSectionDurationElementLabel {
+  flex-grow: 2;
+}
+
+.durationSectionDurationElementInput {
+  flex-grow: 1;
+}
+
+.durationSectionDurationElementValue {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.durationSectionDurationElementValue {
+  white-space: nowrap;
+}
+
+#durationSectionConfirmButton {
+  margin-top: 10px;
+}
+
+#durationSectionRelease {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 20px;
+}
 </style>

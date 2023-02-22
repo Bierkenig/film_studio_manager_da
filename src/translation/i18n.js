@@ -241,6 +241,7 @@ i18next
                         offerHeading: 'Contract Offer',
                     },
                     durationSection: {
+                        heading: 'Production Phases',
                         set: "Set the Pre Production Phase of your Movie",
                         set2: "Set the Production Phase of your Movie",
                         set3: "Set the Post Production Phase of your Movie",
@@ -1338,6 +1339,7 @@ i18next
                         offerHeading: 'Vertragsangebot',
                     },
                     durationSection: {
+                        heading: 'Produktionsphasen',
                         set: "Lege die Vorproduktionsphase Ihres Films fest",
                         set2: "Lege die Produktionsphase Ihres Films fest",
                         set3: "Lege die Postproduktionsphase Ihres Films fest",
