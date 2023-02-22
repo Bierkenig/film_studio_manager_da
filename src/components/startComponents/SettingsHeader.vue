@@ -103,9 +103,11 @@ import i18next from "i18next";
 import CloseModal from "@/components/mainGameComponents/CloseModal";
 import MenuModal from "@/components/mainGameComponents/CloseModal";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "SettingsHeader",
   components: {InfoCircle, CloseModal, MenuModal, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

@@ -15,9 +15,12 @@
 <script>
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection";
 import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/MoviesSection";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "MoviesMenu",
   components:{MoviesSection, ActionSection},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   mounted(){
     window.ipcRenderer.send("updateDiscordDetails", "In Game: Movies Menu")
   },

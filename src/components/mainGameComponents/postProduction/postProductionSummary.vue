@@ -42,10 +42,12 @@
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import Earnings from "@/classes/Earnings";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "postProductionSummary",
   components: {BackgroundTile, CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

@@ -32,10 +32,13 @@ import {mapGetters} from 'vuex'
 //import EventModal from "@/components/mainGameComponents/calendarMenu/EventModal";
 import DayEvents from "@/components/mainGameComponents/calendarMenu/DayEvents";
 import {i18next} from "@/translation/i18n";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: 'CalendarMenu',
   components: {DayEvents, FullCalendar},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
 
   data(){
     return{

@@ -33,10 +33,12 @@
 
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "StudioTakeOverResponse",
   components: {CustomButton, BackgroundTile},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

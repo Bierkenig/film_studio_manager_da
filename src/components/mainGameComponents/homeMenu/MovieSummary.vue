@@ -22,10 +22,12 @@
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MovieSummary",
   components: {IconButton, CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

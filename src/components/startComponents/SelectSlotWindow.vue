@@ -32,7 +32,7 @@ import IconButton from "@/components/kitchenSink/IconButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 export default {
   name: "SelectSlotWindow",
-  mixins: [soundeffectMixin('button','click')],
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
   components: {BackgroundTile, IconButton, SlotItem},
 
   methods: {

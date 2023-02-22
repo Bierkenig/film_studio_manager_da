@@ -42,8 +42,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "marketingSection",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     children: Number,

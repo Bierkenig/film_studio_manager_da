@@ -34,9 +34,11 @@
 
 <script>
 import {StreamingService} from "@/classes/StreamingService";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "BuyStreamingServiceModal",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     checkBalance: Boolean,

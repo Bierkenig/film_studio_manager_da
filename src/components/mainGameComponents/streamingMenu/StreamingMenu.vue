@@ -55,8 +55,10 @@ import CompetitorSection from "@/components/mainGameComponents/streamingMenu/Com
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import store from "@/services/store";
 import Earnings from "@/classes/Earnings";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "StreamingMenu",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   components: {
     BackgroundTile,

@@ -54,10 +54,13 @@ import ActorDetails from "@/components/mainGameComponents/preProduction/ActorDet
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import InfoLine from "@/components/kitchenSink/InfoLine.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "actorsSection",
   components: {InfoLine, CustomButton, BackgroundTile, ActorDetails, ActorList},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       allActors: [],

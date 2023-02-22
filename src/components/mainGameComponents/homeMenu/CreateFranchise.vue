@@ -21,10 +21,12 @@
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import Franchises from "@/classes/Franchises";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "CreateFranchise",
   components: {BackgroundTile, CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

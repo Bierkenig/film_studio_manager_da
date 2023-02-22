@@ -10,8 +10,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "DayInformation",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     event: Object,

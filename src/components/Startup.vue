@@ -1,7 +1,7 @@
 <template>
   <div>
     <video id="videoPlay" autoplay>
-      <source src="../../src/animation/startUP.mp4">
+      <source src="../../src/animation/startUP8.mp4">
     </video>
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$router.push('startMenu')
-    }, 20000)
+    }, 8000)
   }
 }
 </script>

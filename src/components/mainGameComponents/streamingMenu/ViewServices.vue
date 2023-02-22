@@ -28,9 +28,12 @@
 
 <script>
 import ServiceItem from "@/components/mainGameComponents/streamingMenu/ServiceItem";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "ViewServices",
   components: {ServiceItem},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data(){
     return {
       data: this.$store.getters.getStreamingServicesFromOtherStudios,

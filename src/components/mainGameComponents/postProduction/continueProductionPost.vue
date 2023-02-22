@@ -24,10 +24,12 @@
 import store from "@/services/store";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "continue-post-prod",
   components: {CustomButton, BackgroundTile},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   methods: {
     cancelMovie() {

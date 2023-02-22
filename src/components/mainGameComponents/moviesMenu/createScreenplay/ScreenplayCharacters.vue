@@ -81,9 +81,11 @@
 
 <script>
 import {Character} from "@/classes/Character";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "ScreenplayCharacters",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

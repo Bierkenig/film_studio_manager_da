@@ -39,10 +39,13 @@ import DirectorDetails from "@/components/mainGameComponents/preProduction/Direc
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import InfoLine from "@/components/kitchenSink/InfoLine.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "directorSection",
   components: {InfoLine, CustomButton, BackgroundTile, DirectorDetails, DirectorList},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       allDirectors: null,

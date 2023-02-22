@@ -126,8 +126,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "ScreenplayDetails",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

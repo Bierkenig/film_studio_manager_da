@@ -150,10 +150,12 @@ import IconButton from "@/components/kitchenSink/IconButton.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "ScreenplaySummary",
   components: {BackgroundTile, CustomButton, InfoCircle, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

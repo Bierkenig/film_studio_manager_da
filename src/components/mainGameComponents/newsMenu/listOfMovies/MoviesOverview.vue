@@ -19,10 +19,12 @@
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import MoviesList from "@/components/mainGameComponents/newsMenu/listOfMovies/MoviesList.vue";
 import MoviesDetails from "@/components/mainGameComponents/newsMenu/listOfMovies/MoviesDetails.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MoviesOverview",
   components: {MoviesDetails, MoviesList, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

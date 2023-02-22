@@ -18,10 +18,12 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import AwardDetails from "@/components/mainGameComponents/newsMenu/listOfAwards/AwardDetails.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "AwardOverview",
   components: {AwardDetails, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

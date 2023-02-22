@@ -29,8 +29,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "releaseSection",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

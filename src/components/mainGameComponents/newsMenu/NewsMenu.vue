@@ -81,10 +81,12 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav.vue";
 import NewsElement from "@/components/kitchenSink/NewsElement.vue";
 import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "NewsMenu",
   components: {MovieEarningElement, NewsElement, TilePagesNav, BackgroundTile, ActionSection},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

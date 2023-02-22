@@ -41,11 +41,13 @@ import PageHeading from "@/components/kitchenSink/PageHeading";
 import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 //import CustomButton from "@/components/kitchenSink/CustomButton";
 
 export default {
   name: "GameHeader",
   components: {CustomIcon, HeaderInfo, SettingsHeader, PageHeading, /*CustomButton*/},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     studioname: String,

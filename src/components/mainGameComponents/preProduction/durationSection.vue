@@ -70,10 +70,13 @@
 <script>
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "durationSection",
   components: {CustomButton, BackgroundTile},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       scope: this.$store.state.currentMovie._preProduction.screenplay.details.scope,

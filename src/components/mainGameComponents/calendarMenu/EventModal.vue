@@ -39,8 +39,11 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
   name: "EventModal",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     event: Object

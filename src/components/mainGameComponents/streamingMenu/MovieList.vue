@@ -19,10 +19,12 @@
 <script>
 import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
 import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MovieList",
   components: {CustomListSort, CustomSelect},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

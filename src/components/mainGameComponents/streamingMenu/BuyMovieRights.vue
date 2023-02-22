@@ -19,9 +19,11 @@
 import MovieList from "@/components/mainGameComponents/streamingMenu/MovieList";
 import MovieDetails from "@/components/mainGameComponents/streamingMenu/MovieDetails";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "BuyMovieRights",
   components: {IconButton, MovieDetails, MovieList},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

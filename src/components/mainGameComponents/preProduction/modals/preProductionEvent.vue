@@ -85,10 +85,13 @@
 
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "pre-production-event",
   components: {CustomButton, BackgroundTile},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   props: {
     type: String,
   },

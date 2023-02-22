@@ -243,10 +243,12 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "ScreenplayInformation",
   components: {CustomButton, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

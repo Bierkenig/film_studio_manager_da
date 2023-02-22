@@ -100,10 +100,11 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import FinanceElement from "@/components/kitchenSink/FinanceElement.vue";
 import MarketShareElement from "@/components/kitchenSink/MarketShareElement.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "FinancesMenu",
-
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
   components: {MarketShareElement, FinanceElement, CustomButton, BackgroundTile},
 
   data() {

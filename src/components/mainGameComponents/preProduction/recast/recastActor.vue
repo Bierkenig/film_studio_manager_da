@@ -28,9 +28,12 @@
 
 <script>
 import AvatarElement from "@/components/kitchenSink/AvatarElement";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "recastActor",
   components: {AvatarElement},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       actor: this.$store.getters.getPreProductionEvents.actorWhoWantsToDropOut,

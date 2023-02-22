@@ -119,7 +119,7 @@ import {createScreenplaysFromWriters} from "@/simulation/simulation";
 export default {
   name: "CreateStudio",
   components: {BackgroundTile, BudgetSelect, CustomButton, IconButton},
-  mixins: [soundeffectMixin('button', 'click')],
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     slot: String

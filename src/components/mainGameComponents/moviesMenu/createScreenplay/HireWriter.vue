@@ -34,9 +34,11 @@
 import WriterList from "@/components/mainGameComponents/moviesMenu/createScreenplay/WriterList.vue";
 import WriterDetails from '@/components/mainGameComponents/moviesMenu/createScreenplay/WriterDetails.vue';
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "HireWriter",
   components: {IconButton, WriterList, WriterDetails},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

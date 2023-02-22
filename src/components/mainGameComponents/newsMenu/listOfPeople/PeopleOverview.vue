@@ -19,10 +19,12 @@
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import PeopleList from "@/components/mainGameComponents/newsMenu/listOfPeople/PeopleList.vue";
 import PeopleDetails from "@/components/mainGameComponents/newsMenu/listOfPeople/PeopleDetails.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "PeopleOverview",
   components: {PeopleDetails, PeopleList, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

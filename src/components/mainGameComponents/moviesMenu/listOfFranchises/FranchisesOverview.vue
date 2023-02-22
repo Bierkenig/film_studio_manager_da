@@ -19,10 +19,12 @@
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import FranchisesList from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesList.vue";
 import FranchisesDetails from "@/components/mainGameComponents/moviesMenu/listOfFranchises/FranchisesDetails.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "FranchisesOverview",
   components: {FranchisesDetails, FranchisesList, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return{

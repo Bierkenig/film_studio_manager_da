@@ -29,6 +29,7 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 export default {
   name: "DayEvents",
   components: {BackgroundTile, EventElement},
+
   props: {
     event: Object,
     clickedDay: Date,

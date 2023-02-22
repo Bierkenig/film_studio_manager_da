@@ -24,9 +24,11 @@
 
 <script>
 import {Movie} from "@/classes/Movie";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MovieItem",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     movie: Movie

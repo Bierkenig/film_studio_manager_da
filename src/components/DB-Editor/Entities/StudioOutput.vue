@@ -27,10 +27,13 @@ import IconButton from "@/components/kitchenSink/IconButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import InfoLine from "@/components/kitchenSink/InfoLine.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "StudioOutput",
   components: {CustomButton, InfoLine, BackgroundTile, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       otherStudios: null

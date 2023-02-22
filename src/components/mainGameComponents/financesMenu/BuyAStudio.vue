@@ -95,10 +95,12 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import InfoLine from "@/components/kitchenSink/InfoLine.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "BuyAStudio",
   components: {CustomButton, CustomIcon, InfoLine, BackgroundTile, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

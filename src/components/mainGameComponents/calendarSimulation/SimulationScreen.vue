@@ -48,9 +48,11 @@ import simulate from "@/simulation/simulation";
 import NewsElement from "@/components/kitchenSink/NewsElement.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import AnimationElement from "@/components/mainGameComponents/calendarSimulation/AnimationElement.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "SimulationScreen",
   components: {AnimationElement, BackgroundTile, NewsElement, CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
 
   data(){

@@ -22,10 +22,12 @@
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import {Screenplay} from "@/classes/Screenplay";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "franchiseSection",
   components: {CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

@@ -189,11 +189,14 @@ import SettingModal from "@/components/mainGameComponents/moviesMenu/createScree
 import {i18next} from '@/translation/i18n'
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 
 export default {
   name: "ScreenplayPlot",
   components: {IconButton, CustomButton, SettingModal, CharacterMomentsModal, TimePeriodModal},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data(){
     return {
       showTimePeriodModal: false,

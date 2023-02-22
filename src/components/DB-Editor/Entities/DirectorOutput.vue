@@ -29,10 +29,13 @@ import IconButton from "@/components/kitchenSink/IconButton.vue";
 import DbPeopleDetails from "@/components/DB-Editor/Entities/DbPeopleDetails.vue";
 import DbPeopleList from "@/components/DB-Editor/Entities/DbPeopleList.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "DirectorOutput",
   components: {CustomButton, DbPeopleList, DbPeopleDetails, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       allActors: [],

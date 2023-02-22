@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSection";
 import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
 import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
@@ -21,7 +20,6 @@ import ProjectsSection from "@/components/mainGameComponents/sectionsForMenus/Pr
 export default {
   name: "HomeMenu",
 
-  mixins: [soundeffectMixin('button', 'click')],
   components: {ProjectsSection, UpcomingEventsSection, EarningsSection, NewsSection},
   mounted() {
     window.ipcRenderer.send("updateDiscordDetails", "In Game: Home Menu")

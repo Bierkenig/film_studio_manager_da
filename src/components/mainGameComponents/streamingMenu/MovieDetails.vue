@@ -184,10 +184,12 @@ import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/B
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import store from "@/services/store";
 import Earnings from "@/classes/Earnings";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MovieDetails",
   components: {CustomButton, BuyModal, BackgroundTile, InfoCircle},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     movie: Movie,

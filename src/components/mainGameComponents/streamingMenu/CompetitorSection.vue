@@ -20,9 +20,12 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
 import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
 import StreamingCompetitorElement from "@/components/kitchenSink/StreamingCompetitorElement.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "CompetitorSection",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   components: {StreamingCompetitorElement, CustomListSort, CustomSelect, BackgroundTile},
   data() {
     return {

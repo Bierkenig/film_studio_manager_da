@@ -49,10 +49,13 @@
 
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "BuyModal",
   components: {CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   props: {
     headline: String
   },

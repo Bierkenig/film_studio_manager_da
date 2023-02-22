@@ -252,10 +252,12 @@ import IconButton from "@/components/kitchenSink/IconButton.vue";
 import ValueSelect from "@/components/mainGameComponents/moviesMenu/ValueSelect.vue";
 import {Character} from "@/classes/Character";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "NewCreateScreenplay",
   components: {CustomButton, ValueSelect, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
     return {

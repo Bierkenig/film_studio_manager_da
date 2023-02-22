@@ -56,10 +56,13 @@ import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSect
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "screenplaySection",
   components: {ScreenplayElement, BackgroundTile, CustomButton, ActionSection, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       screenplays: this.$store.getters.getAllScreenplays,

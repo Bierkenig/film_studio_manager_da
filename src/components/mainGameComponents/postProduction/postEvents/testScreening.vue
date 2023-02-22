@@ -84,10 +84,13 @@ import {i18next} from '@/translation/i18n'
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "reeditingDirector",
   components: {InfoCircle, CustomButton, BackgroundTile},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       feedbacks: false,

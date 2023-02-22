@@ -24,11 +24,13 @@ import i18next from "i18next";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Editor",
   components: {CustomButton, BackgroundTile, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   methods:{
     toWriter(){

@@ -120,10 +120,12 @@
 import AvatarElement from "@/components/kitchenSink/AvatarElement.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "DbPeopleDetails",
   components: {InfoCircle, CustomIcon, AvatarElement},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
     person: Object,

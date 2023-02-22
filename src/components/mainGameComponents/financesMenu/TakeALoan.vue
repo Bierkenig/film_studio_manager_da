@@ -55,10 +55,12 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import Loan from "@/classes/Loan";
 import LoanElement from "@/components/kitchenSink/LoanElement.vue";
 import InfoLine from "@/components/kitchenSink/InfoLine.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "TakeALoan",
   components: {InfoLine, LoanElement, BackgroundTile, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

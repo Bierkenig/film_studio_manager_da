@@ -57,7 +57,7 @@ import CloseModal from "@/components/mainGameComponents/CloseModal";
 
 export default {
   name: "LoadWindow",
-  mixins: [soundeffectMixin('button','click')],
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
   components: {CloseModal, LoadItem, IconButton},
 
   data(){

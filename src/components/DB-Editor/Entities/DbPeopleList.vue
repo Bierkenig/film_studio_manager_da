@@ -22,10 +22,12 @@
 import CustomSelect from "@/components/kitchenSink/CustomSelect.vue";
 import CustomListSort from "@/components/kitchenSink/CustomListSort.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "DbPeopleList",
   components: {BackgroundTile, CustomListSort, CustomSelect},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
     return {

@@ -166,10 +166,13 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import {Movie} from "@/classes/Movie";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MovieDetails",
   components: {CustomButton, InfoCircle, BackgroundTile, IconButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   data() {
     return {
       movie: this.$store.getters.getCurrentMovieDetails,

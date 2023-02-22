@@ -9,8 +9,12 @@
 </template>
 
 <script>
+import soundeffectMixin from "@/mixins/soundeffectMixin";
+
 export default {
-  name: "CompetitorServiceSection"
+  name: "CompetitorServiceSection",
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
 }
 </script>
 

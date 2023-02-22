@@ -46,7 +46,7 @@ import CloseModal from "@/components/mainGameComponents/CloseModal";
 
 export default {
   name: "SelectDBWindow",
-  mixins: [soundeffectMixin('button','click')],
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
   components: {CloseModal, IconButton, BackgroundTile, DBItem},
 
   data(){
@@ -58,7 +58,7 @@ export default {
 
   methods: {
     goBack(){
-      this.$router.push({name: 'default'})
+      this.$router.push({name: 'startMenu'})
     },
     showModal(value){
       this.resetSlot = value

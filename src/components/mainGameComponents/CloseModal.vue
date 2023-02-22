@@ -108,10 +108,13 @@
 
 <script>
 import CustomButton from "@/components/kitchenSink/CustomButton";
+import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "CloseModal",
   components: {CustomButton},
+  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+
   props: {
     headline: String
   },
