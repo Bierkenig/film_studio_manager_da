@@ -1,25 +1,5 @@
 <template>
-  <div>
-    <div>
-      <div>{{$t('buyScreenplaySection.expand')}}</div>
-      <div v-for="(el, index) in franchises" :key="index">
-        {{el.name}}
-        <button @click="goToExpandFranchise(el)">{{$t('buyScreenplaySection.expand2')}}</button>
-      </div>
-    </div>
-    <div>
-      <div>{{$t('createScreenplay')}}</div>
-      <button @click="goToCreateScreenplay">{{$t('create')}}</button>
-    </div>
-    <div>
-      <div>{{$t('buyScreenplaySection.existing')}}</div>
-      <div v-for="(el, index) in possibleScreenplays" :key="index">
-        {{el.title}} / {{el.genre}} / {{el.ageRating}} / {{el.writer._first_name}} | {{el.writer._last_name}} / {{el.description}} / {{el.rating}} / {{el.price}}
-        <button @click="setScreenplay(el)">{{$t('buyScreenplaySection.choose')}}</button>
-      </div>
-    </div>
-    <button v-if="this.$store.state.currentMovie._preProduction.screenplay !== null" @click="this.$router.push({name: 'directorSection'})">{{$t('buyScreenplaySection.continue')}}</button>
-
+  <div id="screenplaySectionMainDiv">
     <icon-button
         id="screenplaySectionBackButton"
         icon="simple-arrow-left"
@@ -28,17 +8,58 @@
         :bg-gradient="true"
         :icon-gradient="false"
         :shadow="false"
-        @click="goBack"/>
+        @click="goBack"
+    />
+
+    <background-tile :title="$t('buyScreenplaySection.expand')" class="screenplaySectionColumn"
+                     id="screenplaySectionLeft">
+      <div id="screenplaySectionLeftContent" class="verticalScroll">
+        <div v-for="(el, index) in franchises" :key="index" class="screenplaySectionFranchiseElementContainer">
+          <div class="screenplaySectionFranchiseElement">
+            <div class="screenplaySectionFranchiseName">{{ el.name }}</div>
+            <custom-button @click="goToExpandFranchise(el)" class="screenplaySectionFranchiseButton" size="small">
+              {{ $t('buyScreenplaySection.expand2') }}
+            </custom-button>
+          </div>
+        </div>
+      </div>
+    </background-tile>
+    <background-tile :title="$t('buyScreenplaySection.existing')" class="screenplaySectionColumn"
+                     id="screenplaySectionCenter">
+      <div id="screenplaySectionCenterContent" class="verticalScroll">
+        <div v-for="(el, index) in possibleScreenplays" :key="index" class="screenplaySectionScreenplayElement">
+          <screenplay-element :writer="el.writer.getFullName()"
+                              :genre-icon="el.genre.genreName.toLowerCase()"
+                              :genre="el.genre.genreName"
+                              :age="el.ageRating.substring(el.ageRating.indexOf('/') + 1)"
+                              :screenplay-title="el.title"
+                              :quality="el.rating"
+                              @open-clicked="setScreenplay(el);this.$router.push({name: 'directorSection'});"
+          />
+        </div>
+      </div>
+    </background-tile>
+    <div class="screenplaySectionColumn" id="screenplaySectionRight">
+      <action-section headline="createScreenplay" info-text="createScreenplayInfoText" button-text="create"
+                      icon="screenplay"/>
+<!--      <custom-button v-if="this.$store.state.currentMovie._preProduction.screenplay !== null"-->
+<!--                     @click="this.$router.push({name: 'directorSection'})">{{ $t('buyScreenplaySection.continue') }}-->
+<!--      </custom-button>-->
+    </div>
   </div>
 </template>
 
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import {Screenplay} from "@/classes/Screenplay";
+import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement.vue";
 
 export default {
   name: "screenplaySection",
-  components: {IconButton},
+  components: {ScreenplayElement, BackgroundTile, CustomButton, ActionSection, IconButton},
   data() {
     return {
       screenplays: this.$store.getters.getAllScreenplays,
@@ -65,12 +86,12 @@ export default {
     for (let i = 0; i < createdScreenplays.length; i++) {
       let screenplayAlreadyInUse = false;
       for (let j = 0; j < allStudioMovies.length; j++) {
-        if(allStudioMovies[j]._preProduction.screenplay === createdScreenplays[i]){
+        if (allStudioMovies[j]._preProduction.screenplay === createdScreenplays[i]) {
           screenplayAlreadyInUse = true;
         }
       }
 
-      if(createdScreenplays[i].franchise === null || !screenplayAlreadyInUse){
+      if (createdScreenplays[i].franchise === null || !screenplayAlreadyInUse) {
         this.possibleScreenplays.push(createdScreenplays[i])
       }
     }
@@ -79,30 +100,30 @@ export default {
   },
 
   methods: {
-    setOfferNumberZero(array){
+    setOfferNumberZero(array) {
       for (let i = 0; i < array.length; i++) {
         array[i]._no = 0;
       }
     },
 
     buy(screenplay) {
-      if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0){
-        this.$store.commit('subtractBalance',screenplay.price);
+      if ((this.$store.getters.getBalance - parseInt(screenplay.price)) > 0) {
+        this.$store.commit('subtractBalance', screenplay.price);
         this.$store.state.boughtScreenplays.push(screenplay)
         this.screenplays = this.screenplays.filter(el => el.id !== screenplay.id)
       }
     },
 
-    goToExpandFranchise(el){
+    goToExpandFranchise(el) {
       if (el !== null) {
         this.$store.state.currentFranchise = el;
       }
       this.$router.push({name: 'franchiseSection'});
     },
 
-    goToCreateScreenplay(){
+    goToCreateScreenplay() {
       this.$store.commit('setNewCurrentScreenplay', new Screenplay(this.$store.getters.getNextScreenplayId, null, null, null,
-          null,null, null, null, null, null,
+          null, null, null, null, null, null,
           {firstTopic: null, secondTopic: null, thirdTopic: null}));
       this.$router.push({name: 'newScreenplay'});
     },
@@ -112,7 +133,7 @@ export default {
       this.$store.state.currentMovie._preProduction.screenplay = screenplay
     },
 
-    goBack(){
+    goBack() {
       this.$router.push({name: 'movies'})
     }
   }
@@ -127,7 +148,81 @@ export default {
   top: 20px;
 }
 
-* {
-  text-align: center;
+#screenplaySectionMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.screenplaySectionColumn {
+  flex-basis: 0;
+  height: 80vh;
+}
+
+#screenplaySectionLeft {
+  flex-grow: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+#screenplaySectionLeftContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.screenplaySectionFranchiseElementContainer {
+  display: block;
+}
+
+.screenplaySectionFranchiseElement {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-s-border-radius);
+}
+
+.screenplaySectionFranchiseName {
+  flex-grow: 1;
+}
+
+.screenplaySectionFranchiseButton {
+  width: fit-content;
+  height: fit-content;
+}
+
+#screenplaySectionCenter {
+  flex-grow: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#screenplaySectionCenterContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.screenplaySectionScreenplayElement {
+  display: block;
+}
+
+#screenplaySectionRight {
+  flex-grow: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 </style>
