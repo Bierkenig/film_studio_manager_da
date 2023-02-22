@@ -1,23 +1,34 @@
 <template>
-
-  <button id="WriterInputButton" class="buttonStyle" @click="toWriter">Edit Writers</button>
-
-  <button id="DirectorInputButton" class="buttonStyle" @click="toDirector">Edit Directors</button>
-
-  <button id="ActorInputButton" class="buttonStyle" @click="toActor">Edit Actors</button>
-
-  <button id="exitButton" class="buttonStyle" @click="toStudio" >Edit Studios</button>
-
-  <button id="backButton" class="buttonStyle" @click="this.$router.go(-1)">Back</button>
-
+  <div id="dbEditorMainDiv">
+    <icon-button
+        id="dbEditorBackButton"
+        icon="simple-arrow-left"
+        size="medium"
+        :dark="true"
+        :bg-gradient="true"
+        :icon-gradient="false"
+        :shadow="false"
+        @click="$router.go(-1)"
+    />
+    <background-tile title="Edit Database" id="dbEditorBgTile">
+      <custom-button id="WriterInputButton" class="dbEditorButton" @click="toWriter">Writers</custom-button>
+      <custom-button id="DirectorInputButton" class="dbEditorButton" @click="toDirector">Directors</custom-button>
+      <custom-button id="ActorInputButton" class="dbEditorButton" @click="toActor">Actors</custom-button>
+      <custom-button id="exitButton" class="dbEditorButton" @click="toStudio">Studios</custom-button>
+    </background-tile>
+  </div>
 </template>
 
 <script>
 import i18next from "i18next";
+import IconButton from "@/components/kitchenSink/IconButton.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Editor",
+  components: {CustomButton, BackgroundTile, IconButton},
 
   methods:{
     toWriter(){
@@ -41,5 +52,25 @@ export default {
 </script>
 
 <style scoped>
+#dbEditorMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+#dbEditorBackButton {
+  position: absolute;
+  float: left;
+  left: 100px;
+  top: 20px;
+}
+
+#dbEditorBgTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+  width: fit-content;
+}
 </style>
