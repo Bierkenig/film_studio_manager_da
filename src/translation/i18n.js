@@ -237,7 +237,8 @@ i18next
                         rejected: "Rejected",
                         accepted: "Accepted",
                         think: "Try to readjust the salary",
-                        declined: " declined your Offers 3 times. Try to negotiate with another Director"
+                        declined: "This director declined your Offers 3 times. Try to negotiate with another Director",
+                        offerHeading: 'Contract Offer',
                     },
                     durationSection: {
                         set: "Set the Pre Production Phase of your Movie",
@@ -1333,7 +1334,8 @@ i18next
                         rejected: "Abgelehnt",
                         accepted: "Akzeptieren",
                         think: "Versuche das Gehalt anzupassen oder die kreative Kontrolle zu erhöhen",
-                        declined: " lehnte deine Angebote 3 Mal ab. Versuche mit einem anderen Regisseur zu verhandeln"
+                        declined: "Dieser Regisseur lehnte deine Angebote 3 Mal ab. Versuche mit einem anderen Regisseur zu verhandeln",
+                        offerHeading: 'Vertragsangebot',
                     },
                     durationSection: {
                         set: "Lege die Vorproduktionsphase Ihres Films fest",
