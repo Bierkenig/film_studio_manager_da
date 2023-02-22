@@ -9,7 +9,6 @@ module.exports = {
                 "icon": "public/FSM_Icon_256x.png",
                 extraResources: [
                     './public/DB',
-                    './src/backgroundMusic',
                     './src/mixins',
                     './src/soundeffects'
                 ],

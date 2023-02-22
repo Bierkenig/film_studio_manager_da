@@ -17,7 +17,9 @@
     />
 
     <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
-      <source :src="process.env.NODE_ENV !== 'production' ? './backgroundMusic/BackgroundMusic_mixdown.mp3' : '../bundled/media/BackgroundMusic_mixdown.mp3' " type="audio/mpeg">
+
+      <source id="audioSource" src="./backgroundMusic/BackgroundMusic_mixdown.mp3" type="audio/mpeg">
+
     </audio>
   </div>
 </template>
@@ -35,7 +37,9 @@ export default {
   data() {
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],
-      checkNavVisibility: false
+      checkNavVisibility: false,
+      process: process.env.ENV_NODE,
+      otherPath: "../bundled/media/BackgroundMusic_mixdown.fd7c75ac.mp3"
     }
   },
 
@@ -47,6 +51,7 @@ export default {
   },
 
   mounted(){
+    console.log(process.env.NODE_ENV )
     window.ipcRenderer.send('r2mSettingsLoading')
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if(data !== null) {

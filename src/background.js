@@ -31,7 +31,7 @@ async function createWindow() {
         },
         resizable: false,
         fullscreen: process.env.NODE_ENV === 'production',
-        frame: process.env.NODE_ENV !== 'production',
+        frame: true,
         movable: true,
         useContentSize: true,
     })

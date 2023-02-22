@@ -121,16 +121,17 @@ export default {
   },
   mounted(){
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
-      this.soundEffectStatus = data.state.soundeffects
-      this.backgroundMusicStatus = data.state.backgroundMusic
+      if(data != null){
+        this.soundEffectStatus = data.state.soundeffects
+        this.backgroundMusicStatus = data.state.backgroundMusic
+        this.$store.commit('setCurrentSoundeffect',data.state.soundeffects);
+      }
+
       if(this.backgroundMusicStatus){
         document.getElementById('backgroundMusic').play();
       } else {
         document.getElementById('backgroundMusic').pause();
       }
-
-      console.log(data.state.soundeffects)
-      this.$store.commit('setCurrentSoundeffect',data.state.soundeffects);
 
     })
   },
