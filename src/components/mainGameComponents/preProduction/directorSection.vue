@@ -1,38 +1,48 @@
 <template>
-  <div>
-    <div>{{$t('hireDirectorSection.hire')}}</div>
-    <div v-for="(el, index) in allDirectors" :key="index">
-      <avatar-element :svg-code="el._avatar"/>
-      {{el._first_name}} | {{el._last_name}} | {{el._age}} | {{el._gender}} | {{el._nationality}} | {{el._ethnicity}} | {{el._talent}} | {{el._rating}} | {{el._salary}}
-      <button @click="calcSalary(el)" :disabled="disabled">{{$t('hireDirectorSection.negotiate')}}</button>
+  <div id="directorSectionMainDiv">
+    <div class="directorSectionColumn" id="directorSectionLeft">
+      <director-list :directors="allDirectors" @send-person="recieveDirector"/>
     </div>
-
-    <div v-if="showNegotiation">
-      <div>
-        <div>{{$t('hireDirectorSection.salary')}} {{this.currentDirector._first_name}} {{this.currentDirector._last_name}}</div>
-        <input type="range" v-model="selectedSalary" :min="salaryRange.min" :max="salaryRange.max" :step="salaryRange.step">
-        <div>$ {{roundBudget(selectedSalary)}}</div>
-      </div>
-
-      <button v-if="decision !== true" @click="calcDirectorsDecision(); decision2 = true">{{$t('hireDirectorSection.offer')}}</button>
-
-      <div v-if="decision2">{{decision ? this.currentDirector._first_name + " " + this.currentDirector._last_name + $t('hireDirectorSection.decision') + $t('hireDirectorSection.accepted') : this.currentDirector._first_name + " " + this.currentDirector._last_name + $t('hireDirectorSection.decision') + $t('hireDirectorSection.rejected')}}</div>
-
-      <div v-if="decision === false && this.currentDirector._no !== 3 && decision2">{{$t('hireDirectorSection.think')}}</div>
-
-      <div v-if="this.currentDirector._no === 3">{{this.currentDirector._first_name}} {{this.currentDirector._last_name}}{{$t('hireDirectorSection.declined')}}</div>
-
-      <button v-if="recast === null" @click="goToDuration()" :disabled="!decision">{{$t('buyScreenplaySection.continue')}}</button>
-      <button v-if="recast !== null" @click="this.$router.push({name: 'home'})" :disabled="!decision">{{$t('buyScreenplaySection.continue')}}</button>
+    <div class="directorSectionColumn" id="directorSectionRight">
+      <director-details :person="currentDirector"/>
+      <background-tile v-if="showNegotiation" :title="$t('hireDirectorSection.offerHeading')" id="directorSectionNegotiation">
+        <info-line v-if="decision2">
+          {{decision ? this.currentDirector._first_name + " " + this.currentDirector._last_name + $t('hireDirectorSection.decision') + $t('hireDirectorSection.accepted') : this.currentDirector._first_name + " " + this.currentDirector._last_name + $t('hireDirectorSection.decision') + $t('hireDirectorSection.rejected') }}
+        </info-line>
+        <info-line v-if="decision === false && this.currentDirector._no !== 3 && decision2">
+          {{ $t('hireDirectorSection.think') }}
+        </info-line>
+        <div v-if="!decision" id="directorSectionNegotiationOffer">
+          <div>$ {{ roundBudget(selectedSalary) }}</div>
+          <div>
+            <input type="range" v-model="selectedSalary" :min="salaryRange.min" :max="salaryRange.max"
+                   :step="salaryRange.step">
+          </div>
+        </div>
+        <custom-button :disabled="decision" @click="calcDirectorsDecision(); decision2 = true">
+          {{ $t('hireDirectorSection.offer') }}
+        </custom-button>
+      </background-tile>
+      <info-line v-if="directorDeclined">
+        {{ $t('hireDirectorSection.declined') }}
+      </info-line>
+      <custom-button :disabled="!decision" @click="goToDuration">
+        {{ $t('buyScreenplaySection.continue') }}
+      </custom-button>
     </div>
   </div>
 </template>
 
 <script>
-import AvatarElement from "@/components/kitchenSink/AvatarElement";
+import DirectorList from "@/components/mainGameComponents/preProduction/DirectorList.vue";
+import DirectorDetails from "@/components/mainGameComponents/preProduction/DirectorDetails.vue";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import InfoLine from "@/components/kitchenSink/InfoLine.vue";
+
 export default {
   name: "directorSection",
-  components: {AvatarElement},
+  components: {InfoLine, CustomButton, BackgroundTile, DirectorDetails, DirectorList},
   data() {
     return {
       allDirectors: null,
@@ -51,7 +61,8 @@ export default {
       perfectSalary: 0,
       perfectSalary1: 0,
       allSalaries: [],
-      recast: null
+      recast: null,
+      directorDeclined: false,
     }
   },
 
@@ -70,7 +81,7 @@ export default {
       this.selectedSalary = this.salaryRange.min
     },
 
-    roundBudget(labelValue){
+    roundBudget(labelValue) {
       return Math.abs(Number(labelValue)) >= 1.0e+9
 
           ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
@@ -160,6 +171,8 @@ export default {
         this.salaryRange.min = 0
         this.salaryRange.max = 0
         this.selectedSalary = 0
+        this.showNegotiation = false;
+        this.directorDeclined = true;
       }
     },
 
@@ -173,10 +186,12 @@ export default {
     },
 
     goToDuration() {
-      this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector
-      this.$store.state.currentMovie._preProduction.budget.directorSalary = parseInt(this.selectedSalary)
-      this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
-      this.$router.push({name: 'durationSection'})
+      if (this.decision) {
+        this.$store.state.currentMovie._preProduction.hiredDirector = this.currentDirector
+        this.$store.state.currentMovie._preProduction.budget.directorSalary = parseInt(this.selectedSalary)
+        this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
+        this.$router.push({name: 'durationSection'})
+      }
     },
 
     gotToHome() {
@@ -184,7 +199,17 @@ export default {
       this.$store.state.currentMovie._preProduction.budget.directorSalary = parseInt(this.selectedSalary)
       this.$store.state.currentMovie._preProduction.hiredDirector._workingOnProjects++
       this.$router.push({name: 'home'})
-    }
+    },
+
+    recieveDirector(director) {
+      if (!this.decision) {
+        this.decision2 = false;
+        this.directorDeclined = false;
+        this.calcSalary(director);
+        this.selectedSalary = this.salaryRange.min
+        this.currentDirector = director;
+      }
+    },
   },
 
   mounted() {
@@ -198,5 +223,36 @@ export default {
 </script>
 
 <style scoped>
+#directorSectionMainDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
 
+.directorSectionColumn {
+  height: 80vh;
+}
+
+#directorSectionRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+#directorSectionNegotiation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#directorSectionNegotiationOffer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 </style>
