@@ -23,38 +23,66 @@
 
         <div id="buyAStudioListContent" class="verticalScroll">
           <div v-for="(el, index) in otherStudios"
-               :id="'buyAStudioListElement' + index"
-               class="buyAStudioListElement"
                :key="index"
-               @click="showMovieDetails(el.id, el.name, el.year, el.marketShare); showStreamingDetails(); currentStudio = el"
+               class="buyAStudioListElementContainer"
           >
-            {{ el.name }}
+            <div :id="'buyAStudioListElement' + index"
+                 class="buyAStudioListElement"
+                 @click="showMovieDetails(el.id, el.name, el.year, el.marketShare); showStreamingDetails(); currentStudio = el">
+              {{ el.name }}
+            </div>
           </div>
         </div>
       </background-tile>
 
-      <background-tile :title="$t('buyAStudio.detailsHeading')" id="buyAStudioDetails" class="buyAStudioTile">
-        <div v-if="detail">
-          {{ general.name }}
-          <div>{{ $t('buyAStudio.revenue') }} $ {{ roundBudget(general.revenue) }}</div>
-          <div>{{ $t('buyAStudio.profit') }} $ {{ roundBudget(general.profit) }}</div>
-          <div>
-            {{ $t('buyAStudio.share') }}
-            {{ general.share[this.$store.getters.getCurrentDate.getFullYear().toString()] }}%
+      <background-tile :title="$t('buyAStudio.general')" id="buyAStudioDetails" class="buyAStudioTile">
+        <div id="buyAStudioDetailsContent">
+          <div id="buyAStudioDetailsInfo">
+            <div v-if="detail" id="buyAStudioDetailsInfoGeneral">
+              <div id="buyAStudioDetailsInfoStudioName">
+                <custom-icon size="40px"/>
+                {{ general.name }}
+              </div>
+              <div id="buyAStudioDetailsInfoStudioValues">
+                <div class="buyAStudioDetailsInfoStudioValue">
+                  <div class="buyAStudioFontRegular">{{ $t('buyAStudio.revenue') }}</div>
+                  <div class="buyAStudioFontRegular">$ {{ roundBudget(general.revenue) }}</div>
+                </div>
+                <div class="buyAStudioDetailsInfoStudioValue">
+                  <div class="buyAStudioFontRegular">{{ $t('buyAStudio.profit') }}</div>
+                  <div class="buyAStudioFontRegular">$ {{ roundBudget(general.profit) }}</div>
+                </div>
+                <div class="buyAStudioDetailsInfoStudioValue">
+                  <div class="buyAStudioFontRegular">{{ $t('buyAStudio.share') }}</div>
+                  <div class="buyAStudioFontRegular">
+                    {{ general.share[this.$store.getters.getCurrentDate.getFullYear().toString()] }}%
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-if="detail" id="buyAStudioDetailsInfoStreamingHeading">
+              {{ $t('buyAStudio.streaming') }}
+            </div>
+            <div v-if="streaming.check" id="buyAStudioDetailsInfoStreaming">
+              <div id="buyAStudioDetailsInfoStreamingName">
+                <custom-icon size="40px"/>
+                {{ streaming.name }}
+              </div>
+              <div id="buyAStudioDetailsInfoStreamingValues">
+                <div class="buyAStudioDetailsInfoStreamingValue">
+                  <div class="buyAStudioFontRegular">{{ $t('buyAStudio.popularity') }}</div>
+                  <input type="range" min="1" max="100" step="1" :value="streaming.popularity" disabled>
+                </div>
+                <div class="buyAStudioDetailsInfoStreamingValue">
+                  <div class="buyAStudioFontRegular">{{ $t('buyAStudio.subs') }}</div>
+                  <div class="buyAStudioFontRegular">{{ roundBudget(streaming.subs) }}</div>
+                </div>
+              </div>
+            </div>
+            <info-line v-if="!detail">{{ $t('buyAStudio.noSelected') }}</info-line>
           </div>
+          <custom-button v-if="detail" @click="contact()">{{ $t('buyAStudio.contact') }}</custom-button>
         </div>
-      </background-tile>
-
-      <background-tile :title="$t('buyAStudio.offerHeading')" id="buyAStudioOffer" class="buyAStudioTile">
-        <div v-if="streaming.check">
-          {{ $t('buyAStudio.streaming') }}
-          <div>
-            {{ streaming.name }}
-            <div>{{ $t('buyAStudio.popularity') }} {{ streaming.popularity }}</div>
-            <div>{{ $t('buyAStudio.subs') }} {{ roundBudget(streaming.subs) }}</div>
-          </div>
-        </div>
-        <button @click="contact()">{{ $t('buyAStudio.contact') }}</button>
       </background-tile>
     </div>
   </div>
@@ -64,10 +92,13 @@
 import store from "@/services/store";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import InfoLine from "@/components/kitchenSink/InfoLine.vue";
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 
 export default {
   name: "BuyAStudio",
-  components: {BackgroundTile, IconButton},
+  components: {CustomButton, CustomIcon, InfoLine, BackgroundTile, IconButton},
 
   data() {
     return {
@@ -197,18 +228,6 @@ export default {
     goBack() {
       this.$router.push({name: 'finances'})
     },
-
-    styleSelectedStudio(id) {
-      let allElements = document.getElementsByClassName('buyAStudioListElement');
-      for (let element of allElements) {
-        if (element.getAttribute('id') === 'buyAStudioListElement' + id) {
-          element.setAttribute('class', 'buyAStudioListElementSelected buyAStudioListElement');
-        } else {
-          element.setAttribute('class', 'buyAStudioListElement');
-        }
-      }
-      // CONTINUE HERE (NOT WORKING)
-    },
   },
 
   mounted() {
@@ -262,6 +281,10 @@ export default {
   gap: 10px;
 }
 
+.buyAStudioListElementContainer {
+  display: block;
+}
+
 .buyAStudioListElement {
   display: flex;
   flex-direction: column;
@@ -274,18 +297,80 @@ export default {
   font-size: 18px;
   font-weight: var(--fsm-fw-regular);
   box-sizing: border-box;
-}
-
-.buyAStudioListElementSelected {
-  background-color: var(--fsm-pink-1);
-  color: var(--fsm-dark-blue-4);
-}
-
-#buyAStudioOffer {
-  flex-grow: 4;
+  padding-left: 20px;
 }
 
 #buyAStudioDetails {
-  flex-grow: 7;
+  flex-grow: 11;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#buyAStudioDetailsContent {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#buyAStudioDetailsInfo {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 10px;
+}
+
+#buyAStudioDetailsInfoGeneral, #buyAStudioDetailsInfoStreaming {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
+  padding: 20px;
+}
+
+#buyAStudioDetailsInfoStudioName, #buyAStudioDetailsInfoStreamingName {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 20px;
+  align-items: center;
+  font-size: 22px;
+}
+
+#buyAStudioDetailsInfoStudioValues, #buyAStudioDetailsInfoStreamingValues {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.buyAStudioDetailsInfoStudioValue, .buyAStudioDetailsInfoStreamingValue {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  background-color: var(--fsm-dark-blue-3);
+  border-radius: var(--fsm-s-border-radius);
+  padding: 0 10px 0 10px;
+}
+
+.buyAStudioFontRegular {
+  font-size: var(--fsm-fw-regular);
+}
+
+#buyAStudioDetailsInfoStreamingHeading {
+  font-weight: var(--fsm-fw-bold);
+  color: var(--fsm-pink-1);
+  font-size: 28px;
 }
 </style>

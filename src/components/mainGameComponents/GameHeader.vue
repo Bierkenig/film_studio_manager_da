@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import soundeffectMixin from "@/mixins/soundeffectMixin";
 import PageHeading from "@/components/kitchenSink/PageHeading";
 import SettingsHeader from "@/components/startComponents/SettingsHeader";
 import HeaderInfo from "@/components/kitchenSink/HeaderInfo";
@@ -47,7 +46,6 @@ import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 export default {
   name: "GameHeader",
   components: {CustomIcon, HeaderInfo, SettingsHeader, PageHeading, /*CustomButton*/},
-  mixins: [soundeffectMixin('button','click')],
 
   props: {
     studioname: String,

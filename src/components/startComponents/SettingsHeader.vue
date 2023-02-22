@@ -1,9 +1,9 @@
 <template>
   <div class="settingHeaderContainer">
     <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
-      <div class="settingHeaderMusicValue">
-        <input v-if="backgroundMusicStatus === true && this.showOnPage.includes(this.$route.name)" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1">
-        <input v-else-if="this.showOnPage.includes(this.$route.name)" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1" disabled>
+      <div v-show="this.showOnPage.includes(this.$route.name)" class="settingHeaderMusicValue">
+        <input v-if="backgroundMusicStatus === true" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1">
+        <input v-else v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1" disabled>
       </div>
       <info-circle
           class="button"

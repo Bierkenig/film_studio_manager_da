@@ -1,11 +1,10 @@
+import store from "@/services/store";
 export default function soundeffectMixin(element, event){
     return {
         mounted() {
             let btns = document.querySelectorAll(element);
 
             btns.forEach(playSound);
-
-            let status = this.$store.getters.getCurrentStatusOfSoundeffect
 
             let audio = null;
             if(element === 'button'){
@@ -16,7 +15,7 @@ export default function soundeffectMixin(element, event){
 
             function playSound(item) {
                 item.addEventListener(event, function () {
-                    if (status === true) {
+                    if (store.getters.getCurrentStatusOfSoundeffect === true) {
                         audio.play();
                     }
                 });
