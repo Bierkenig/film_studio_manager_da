@@ -13,7 +13,7 @@
                 :icon-gradient="false"
                 :shadow="false"
                 @click="showCloseModal = true"/>
-            
+
             <transition name="modal">
               <close-modal
                   v-if="showCloseModal"
@@ -51,10 +51,6 @@
                 </button>
               </router-link>
             </div>
-
-            <router-link :to="{ name: 'kitchenSink'}">
-              <button id="kitchenSinkButton" class="buttonStyle">kitchen-sink</button>
-            </router-link>
 
             <!--<router-link :to="{ name: 'SelectSlotWindow'}">
               <button id="slotButton" class="buttonStyle">Select Slot</button>

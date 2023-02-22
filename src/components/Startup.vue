@@ -1,7 +1,7 @@
 <template>
   <div>
     <video id="videoPlay" autoplay>
-      <source src="../animation/startUP.mp4">
+      <source src="../../src/animation/startUP.mp4">
     </video>
   </div>
 </template>
@@ -24,7 +24,7 @@ video {
   right: 0;
   bottom: 0;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 100%
 }
 
 </style>

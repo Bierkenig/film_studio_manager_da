@@ -17,7 +17,7 @@
     />
 
     <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
-      <source src="./backgroundMusic/BackgroundMusic_mixdown.mp3">
+      <source src="../src/backgroundMusic/BackgroundMusic_mixdown.mp3">
     </audio>
   </div>
 </template>

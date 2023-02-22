@@ -139,7 +139,7 @@ export default {
   methods: {
     goToStartMenu(){
       this.$store.state.slot = null
-      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'default', title: i18next.t('returnToMain') + '...', duration: '1.5'}})
+      this.$router.push({name: 'loadingScreen', params: {nextRoute: 'startMenu', title: i18next.t('returnToMain') + '...', duration: '1.5'}})
     },
 
     exit() {
