@@ -256,7 +256,7 @@ i18next
                     actorSection: {
                         hire: "Hire Actors for your Movie",
                         negotiate: "Negotiate",
-                        salary: "Select a Salary for ",
+                        salary: "Select a Salary",
                         offer: "Send offer",
                         decision: "'s decision: ",
                         yes: "Accepted",
@@ -1351,7 +1351,7 @@ i18next
                     actorSection: {
                         hire: "Schauspieler für deinen Film anheuern",
                         negotiate: "Verhandeln",
-                        salary: "Wähle ein Gehalt für ",
+                        salary: "Wähle ein Gehalt",
                         offer: "Angebot senden",
                         decision: "'s Entscheidung': ",
                         readjust: "Versuche das Gehalt neu anzupassen",
