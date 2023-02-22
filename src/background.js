@@ -31,6 +31,7 @@ async function createWindow() {
             enableRemoteModule: true
         },
         resizable: true,
+        fullscreen: process.env.NODE_ENV === 'production',
         movable: true,
         useContentSize: true,
     })
