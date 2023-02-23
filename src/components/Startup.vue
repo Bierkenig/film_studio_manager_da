@@ -17,13 +17,10 @@ export default {
 </script>
 
 <style scoped>
-video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  margin-right: -10px;
+#videoPlay {
+  width: 100%;
+  height: 100%;
+  margin-left: 0.01%;
 }
 
 </style>

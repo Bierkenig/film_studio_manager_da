@@ -23,14 +23,14 @@
 </template>
 
 <script>
-import MenuNav from "@/components/mainGameComponents/MenuNav";
-import GameHeader from "@/components/mainGameComponents/GameHeader";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import store from "@/services/store";
+import gameHeader from "@/components/mainGameComponents/GameHeader";
+import menuNav from "@/components/mainGameComponents/MenuNav";
 
 export default {
   name: 'App',
-  components: {GameHeader, MenuNav},
+  components: {gameHeader, menuNav},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
   data() {
     return {

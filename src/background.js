@@ -1,5 +1,5 @@
 'use strict'
-import {app, BrowserWindow, ipcMain, protocol} from 'electron'
+import {app, BrowserWindow, ipcMain, protocol, screen} from 'electron'
 import {createProtocol} from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, {VUEJS3_DEVTOOLS} from 'electron-devtools-installer'
 import {spawn} from "child_process";
@@ -20,6 +20,9 @@ protocol.registerSchemesAsPrivileged([
 export let updatePresence
 
 async function createWindow() {
+
+    const primaryDisplay = screen.getPrimaryDisplay()
+    const { width, height } = primaryDisplay.workAreaSize
     // Create the browser window.
     const win = new BrowserWindow({
         width: 1920,
@@ -33,10 +36,11 @@ async function createWindow() {
         fullscreen: true,
         frame: false,
         movable: false,
-        useContentSize: false,
     })
 
     launchDiscordGameSDK(win)
+
+    console.log(screen.getPrimaryDisplay())
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
@@ -275,7 +279,7 @@ async function createWindow() {
     if (isDevelopment) {
         // Load the url of the dev server if in development mode
         await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-        if (!process.env.IS_TEST) win.webContents.openDevTools()
+        //if (!process.env.IS_TEST) win.webContents.openDevTools()
     } else {
         createProtocol('app')
         // Load the index.html when not in development

@@ -11,7 +11,6 @@ module.exports = {
                     './public/DB',
                     './public/Discord.jar',
                     './public/discord_game_sdk.dll',
-                    './public/backgroundMusic',
                     './src/mixins',
                     './src/soundeffects',
                     './src/backgroundMusic',
