@@ -1,7 +1,7 @@
 <template>
   <div class="settingHeaderContainer">
     <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
-      <div v-show="this.showOnPage.includes(this.$route.name)" class="settingHeaderMusicValue">
+      <div class="settingHeaderMusicValue">
         <input v-if="backgroundMusicStatus === true" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1">
         <input v-else v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1" disabled>
       </div>
@@ -22,6 +22,25 @@
           v-show="this.showOnPage.includes(this.$route.name)"
           :text="this.$store.getters.getCurrentLanguage.toUpperCase()"
           @click="changeLanguage"/>
+
+      <info-circle
+          class="button"
+          v-show="!this.showOnPage.includes(this.$route.name)"
+          icon="music"
+          size="30px"
+          :grey-icon="!backgroundMusicStatus"
+          :data-title="$t('music')"
+          @click="changeMusicStatus"/>
+
+      <info-circle
+          class="button"
+          v-show="!this.showOnPage.includes(this.$route.name)"
+          icon="soundeffect"
+          size="30px"
+          :grey-icon="!soundEffectStatus"
+          :data-title="$t('soundeffects')"
+          @click="changeSoundeffectStatus"/>
+
       <icon-button
           class="button"
           v-if="!this.showOnPage.includes(this.$route.name)"
@@ -113,8 +132,8 @@ export default {
     return {
       onSettingButtonClicked: false,
       showOnPage: ['startMenu'],
-      soundEffectStatus: this.$store.getters.getCurrentStatusOfSoundeffect,
-      backgroundMusicStatus: this.$store.getters.getCurrentStatusOfBackgroundMusic,
+      soundEffectStatus: this.$store.state.soundeffects,
+      backgroundMusicStatus: this.$store.state.backgroundMusic,
       language: null,
       showCloseModal: false,
       showMenuModal: false,
@@ -122,6 +141,10 @@ export default {
     }
   },
   mounted(){
+    this.soundEffectStatus = this.$store.state.soundeffects
+    this.backgroundMusicStatus = this.$store.state.backgroundMusic
+
+    console.log(typeof this.backgroundMusicStatus)
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if(data != null){
         this.soundEffectStatus = data.state.soundeffects
