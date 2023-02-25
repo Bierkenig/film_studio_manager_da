@@ -207,6 +207,7 @@ export default {
 
 .newsElement {
   width: 100%;
+  flex: 1;
 }
 
 .meterBox {

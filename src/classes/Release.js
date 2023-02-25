@@ -167,7 +167,10 @@ export default class Release {
 
         this.hypeFromMarketing = this.calcFromMarketing()
 
-        this.hypeFormula = this.hype * this.hypeFromMarketing
+        console.log(this.preProduction.createTotal())
+        console.log(this.hypeFromMarketing)
+
+        this.hypeFormula = this.preProduction.createTotal() * this.hypeFromMarketing
 
         //FINAL FORMULA
         this.childrenMoviePopularityFormula = (this.topicPopularity * 20 + this.genrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 30) / 100
@@ -201,7 +204,6 @@ export default class Release {
         this.openingWeekGross = openingEarnings !== undefined ? openingEarnings: this.openingEarnings;
         this.cinemaGross = cinema !== undefined && cinema !== null? cinema : 100000;
         this.dvdGross = dvd !== undefined ? dvd : this.getDVDEarnings();
-
     }
 
     getDVDEarnings() {

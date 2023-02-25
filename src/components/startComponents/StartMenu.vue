@@ -204,15 +204,15 @@ export default {
 
 #startMenuSettingHeader {
   position: absolute;
-  float: right;
-  right: 100px;
+  float: left;
+  left: 100px;
   top: 20px;
 }
 
 #startMenuCloseButton {
   position: absolute;
-  float: left;
-  left: 100px;
+  float: right;
+  right: 100px;
   top: 20px;
 }
 

@@ -425,6 +425,8 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+  flex-grow: 1;
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   padding: 7px;

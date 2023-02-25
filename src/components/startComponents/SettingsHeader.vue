@@ -1,27 +1,10 @@
 <template>
   <div class="settingHeaderContainer">
-    <div id="settingHeaderIndividualOptions" v-if="onSettingButtonClicked">
+    <div v-if="!this.showOnPage.includes(this.$route.name) && onSettingButtonClicked" id="settingHeaderIndividualOptions">
       <div class="settingHeaderMusicValue">
         <input v-if="backgroundMusicStatus === true" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1">
         <input v-else v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1" disabled>
       </div>
-      <info-circle
-          class="button"
-          v-show="this.showOnPage.includes(this.$route.name)"
-          icon="music"
-          :grey-icon="!backgroundMusicStatus"
-          @click="changeMusicStatus"/>
-      <info-circle
-          class="button"
-          v-show="this.showOnPage.includes(this.$route.name)"
-          icon="soundeffect"
-          :grey-icon="!soundEffectStatus"
-          @click="changeSoundeffectStatus"/>
-      <info-circle
-          class="button"
-          v-show="this.showOnPage.includes(this.$route.name)"
-          :text="this.$store.getters.getCurrentLanguage.toUpperCase()"
-          @click="changeLanguage"/>
 
       <info-circle
           class="button"
@@ -113,6 +96,36 @@
         :shadow="false"
         :invertTheme="onSettingButtonClicked"
         @click="onSettingButtonClicked = !onSettingButtonClicked"/>
+
+    <div v-if="this.showOnPage.includes(this.$route.name) && onSettingButtonClicked" id="settingHeaderIndividualOptionsLeft">
+      <info-circle
+          class="button"
+          size="30px"
+          :data-title="$t('languages')"
+          v-show="this.showOnPage.includes(this.$route.name)"
+          :text="this.$store.getters.getCurrentLanguage.toUpperCase()"
+          @click="changeLanguage"/>
+      <info-circle
+          class="button"
+          size="30px"
+          v-show="this.showOnPage.includes(this.$route.name)"
+          icon="soundeffect"
+          :data-title="$t('soundeffects')"
+          :grey-icon="!soundEffectStatus"
+          @click="changeSoundeffectStatus"/>
+      <info-circle
+          class="button"
+          size="30px"
+          v-show="this.showOnPage.includes(this.$route.name)"
+          icon="music"
+          :data-title="$t('music')"
+          :grey-icon="!backgroundMusicStatus"
+          @click="changeMusicStatus"/>
+      <div class="settingHeaderMusicValueLeft">
+        <input v-if="backgroundMusicStatus === true" v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1">
+        <input v-else v-model="this.$store.state.backgroundMusicVolume" class="slide" type="range" :min="0" :max="1" :step="0.1" disabled>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -152,14 +165,18 @@ export default {
         this.$store.commit('setCurrentSoundeffect',data.state.soundeffects);
       }
 
-
       if(this.backgroundMusicStatus){
         document.getElementById('backgroundMusic').play();
       } else {
         document.getElementById('backgroundMusic').pause();
       }
-
     })
+
+    if(this.backgroundMusicStatus){
+      document.getElementById('backgroundMusic').play();
+    } else {
+      document.getElementById('backgroundMusic').pause();
+    }
   },
   methods: {
     goToStartMenu(){
@@ -235,8 +252,21 @@ export default {
   align-items: center;
 }
 
+#settingHeaderIndividualOptionsLeft {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  align-items: center;
+}
+
 .button{
   margin-left: 5px;
+}
+
+.settingHeaderMusicValueLeft {
+  margin-left: 10px;
+  background-color: var(--fsm-dark-blue-4);
+  border-radius: var(--fsm-m-border-radius);
 }
 
 .settingHeaderMusicValue {

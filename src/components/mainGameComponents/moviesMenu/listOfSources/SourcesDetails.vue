@@ -232,7 +232,7 @@
           <div class="movieDetailsFinancesLeft">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-              <div>$ {{ roundBudget(source._preProduction.budget.production) }}</div>
+              <div>$ {{ roundBudget(source._preProduction.getTotalBudget()) }}</div>
             </div>
             <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>

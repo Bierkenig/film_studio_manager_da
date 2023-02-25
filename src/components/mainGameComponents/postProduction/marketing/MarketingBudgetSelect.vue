@@ -22,7 +22,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Print</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valuePrint)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
@@ -34,7 +34,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Internet</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valueInternet)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
@@ -46,7 +46,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Commercial</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valueCommercial)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
@@ -60,7 +60,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Print</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valuePrint)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="100000" :max="1000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
@@ -72,7 +72,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Internet</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valueInternet)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="100000" :max="1000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
@@ -84,7 +84,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Commercial</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valueCommercial)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="100000" :max="1000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="2500000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="2500000" :max="5000000" :step="100">
@@ -98,7 +98,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Print</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valuePrint)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valuePrint" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valuePrint" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valuePrint" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
@@ -110,7 +110,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Internet</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valueInternet)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valueInternet" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueInternet" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valueInternet" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
@@ -122,7 +122,7 @@
                     <div class="marketingBudgetSelectContainerElement">
                       <div class="marketingBudgetSelectContainerHeader">Commercial</div>
                       <div class="marketingBudgetSelectValue">{{roundBudget(valueCommercial)}}</div>
-                      <div>
+                      <div v-show="!disableInputRange">
                         <input v-if="scope === 'Little'" v-model="valueCommercial" class="slide" type="range" :min="1000000" :max="5000000" :step="100">
                         <input v-if="scope === 'Small'" v-model="valueCommercial" class="slide" type="range" :min="5000000" :max="10000000" :step="100">
                         <input v-if="scope === 'Normal'" v-model="valueCommercial" class="slide" type="range" :min="10000000" :max="20000000" :step="100">
@@ -159,7 +159,8 @@ export default {
       scope: this.$store.getters.getCurrentMovie._preProduction.screenplay.details.scope,
       valuePrint: 0,
       valueInternet: 0,
-      valueCommercial: 0
+      valueCommercial: 0,
+      disableInputRange: false
     }
   },
   methods:{
@@ -168,9 +169,16 @@ export default {
       this.$store.getters.getCurrentMovie._postProduction.marketingInternet = parseInt(this.valueInternet)
       this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = parseInt(this.valueCommercial)
 
+      console.log(this.valuePrint);
+      console.log(this.valueInternet);
+      console.log(this.valueCommercial);
+
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingPrint)
+      console.log(this.$store.getters.getCurrentMovie._totalOutgoings)
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingInternet)
+      console.log(this.$store.getters.getCurrentMovie._totalOutgoings)
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingCommercial)
+      console.log(this.$store.getters.getCurrentMovie._totalOutgoings)
 
       this.$emit('close')
     },
@@ -247,6 +255,15 @@ export default {
           this.valueInternet = 7500000
           break
       }
+    }
+
+    let sumOfMarketing = this.$store.getters.getCurrentMovie._totalOutgoings + this.valuePrint + this.valueInternet + this.valueCommercial;
+    if(sumOfMarketing > this.$store.getters.getStudio.budget){
+      let possibleBudget = this.$store.getters.getStudio.budget - this.$store.getters.getCurrentMovie._totalOutgoings;
+      this.valueInternet = Math.round(possibleBudget / 3) - 1;
+      this.valueCommercial = Math.round(possibleBudget / 3) - 1;
+      this.valuePrint = Math.round(possibleBudget / 3) - 1;
+      this.disableInputRange = true;
     }
   }
 }

@@ -95,7 +95,7 @@
         <div class="movieDetailsFinancesLeft">
           <div class="noMargin movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.productionBudget') }}</div>
-            <div>$ {{ currencyFormatDE(movie._preProduction.budget.production) }}</div>
+            <div>$ {{ roundBudget(movie._preProduction.getTotalBudget()) }}</div>
           </div>
           <div v-if="movie._postProduction === null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -103,25 +103,25 @@
           </div>
           <div v-if="movie._postProduction !== null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>$ {{ currencyFormatDE(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) }}</div>
+            <div>$ {{ roundBudget(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
-            <div>$ {{ currencyFormatDE(movie._totalOutgoings) }}</div>
+            <div>$ {{ roundBudget(movie._totalOutgoings) }}</div>
           </div>
         </div>
         <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="movieDetailsFinancesRight">
           <div class="noMargin movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-            <div>$ {{ currencyFormatDE(movie._release.openingWeekGross) }}</div>
+            <div>$ {{ roundBudget(movie._release.openingWeekGross) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-            <div>$ {{ currencyFormatDE(movie._release.cinemaGross) }}</div>
+            <div>$ {{ roundBudget(movie._release.cinemaGross) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-            <div>$ {{ currencyFormatDE(movie._release.dvdGross) }}</div>
+            <div>$ {{ roundBudget(movie._release.dvdGross) }}</div>
           </div>
         </div>
         <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="movieDetailsFinancesRight">
