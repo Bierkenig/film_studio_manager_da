@@ -12,10 +12,15 @@
                 <div class="productionEventActionHeader">Actions</div>
                 <div class="productionEventActionContainer">
                   <div class="productionEventOptionContainer">
-                    <div class="productionEventOptionHeader">{{$t('productionEvents.optionA')}}</div>
-                    <div class="productionEventOptionDescription">{{ $t('productionEvents.' + type + '.optionA') }}</div>
+                    <div class="productionEventOptionHeader">{{ $t('productionEvents.optionA') }}</div>
+                    <div class="productionEventOptionDescription">{{
+                        $t('productionEvents.' + type + '.optionA')
+                      }}
+                    </div>
                     <div class="productionEventOptionResults">
-                      <div class="productionEventOptionResultsElement">{{ $t('productionEvents.' + type + '.consequenceA1') }}</div>
+                      <div class="productionEventOptionResultsElement">
+                        {{ $t('productionEvents.' + type + '.consequenceA1') }}
+                      </div>
                       <div class="productionEventOptionResultsElement" v-if="type === 'budgetForCostumes' || type === 'equipment' ||
                           type === 'budget' || type === 'breakdown' || type === 'duration' || type === 'directorLeaves' ||
                           type === 'changes' || type === 'injured'">
@@ -26,31 +31,43 @@
                           type === 'changes'">{{ $t('productionEvents.' + type + '.consequenceA3') }}
                       </div>
                     </div>
-                    <custom-button size="small" class="modal-default-button" @clicked="aOption(); bool = true">{{ $t('productionEvents.optionA') }}</custom-button>
+                    <custom-button size="small" class="modal-default-button" @clicked="aOption(); bool = true">
+                      {{ $t('productionEvents.optionA') }}
+                    </custom-button>
                   </div>
                   <div class="productionEventOptionContainer">
-                    <div class="productionEventOptionHeader">{{$t('productionEvents.optionB')}}</div>
-                    <div class="productionEventOptionDescription">{{ $t('productionEvents.' + type + '.optionB') }}</div>
+                    <div class="productionEventOptionHeader">{{ $t('productionEvents.optionB') }}</div>
+                    <div class="productionEventOptionDescription">{{
+                        $t('productionEvents.' + type + '.optionB')
+                      }}
+                    </div>
                     <div class="productionEventOptionResults">
-                      <div class="productionEventOptionResultsElement">{{ $t('productionEvents.' + type + '.consequenceB1') }}</div>
+                      <div class="productionEventOptionResultsElement">
+                        {{ $t('productionEvents.' + type + '.consequenceB1') }}
+                      </div>
                       <div class="productionEventOptionResultsElement" v-if="type === 'budgetForCostumes' || type === 'equipment' ||
                           type === 'budget' || type === 'breakdown' || type === 'directorLeaves' ||
                           type === 'changes' || type === 'injured'">
                         {{ $t('productionEvents.' + type + '.consequenceB2') }}
                       </div>
-                      <div class="productionEventOptionResultsElement" v-if="type === 'directorLeaves'">{{ $t('productionEvents.' + type + '.consequenceB3') }}</div>
+                      <div class="productionEventOptionResultsElement" v-if="type === 'directorLeaves'">
+                        {{ $t('productionEvents.' + type + '.consequenceB3') }}
+                      </div>
                     </div>
-                    <custom-button size="small" class="modal-default-button" @clicked="bOption(); bool = true">{{ $t('productionEvents.optionB') }}</custom-button>
+                    <custom-button size="small" class="modal-default-button" @clicked="bOption(); bool = true">
+                      {{ $t('productionEvents.optionB') }}
+                    </custom-button>
                   </div>
                 </div>
 
                 <div v-if="weeks">
-                  <div>{{$t('productionEvents.specify')}}</div>
+                  <div>{{ $t('productionEvents.specify') }}</div>
                   <input type="range" min="0" max="10" step="1" v-model="durWeeks">
-                  <div>{{durWeeks}}</div>
+                  <div>{{ durWeeks }}</div>
                 </div>
 
-                <button v-if="weeks" class="modal-default-button" @click="check()">{{$t('productionEvents.check')}}</button>
+                <button v-if="weeks" class="modal-default-button" @click="check()">{{ $t('productionEvents.check') }}
+                </button>
 
               </background-tile>
             </slot>
@@ -70,7 +87,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 export default {
   name: "prod-event-modal",
   components: {CustomButton, BackgroundTile},
-  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
+  mixins: [soundeffectMixin('button', 'click'), soundeffectMixin('img', 'click')],
 
   data() {
     return {
@@ -88,8 +105,8 @@ export default {
       switch (this.type) {
         case "weather":
           this.$store.state.currentMovie._preProduction.budget.set *= 1.1
-            this.$emit('close')
-            this.completeEvent();
+          this.$emit('close')
+          this.completeEvent();
           this.$store.state.currentMovie._production.happenedEvents.push("weather")
           break
         case "castMember":
@@ -273,11 +290,11 @@ export default {
       })
     },
 
-    completeEvent(){
+    completeEvent() {
       let allCalendarEvents = this.$store.getters.getCalendarEvents;
       let currentCalendarEvent = this.$store.getters.getCurrentCalendarEvent;
       for (let i = 0; i < allCalendarEvents.length; i++) {
-        if(allCalendarEvents[i].id === currentCalendarEvent.id){
+        if (allCalendarEvents[i].id === currentCalendarEvent.id) {
           allCalendarEvents[i].completed = true;
         }
       }

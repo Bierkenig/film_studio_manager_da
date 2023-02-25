@@ -7,6 +7,7 @@ export default class Production {
         }
         this.duration = duration
         this.startDate = null
+        this.weatherID = 0
         this.happenedEvents = []
     }
 

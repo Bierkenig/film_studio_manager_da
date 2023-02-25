@@ -49,6 +49,7 @@ export default {
       let newDate = new Date(endDate.getFullYear(),
           endDate.getMonth(),
           endDate.getDate() + 1)
+      this.$store.getters.getCurrentMovie._production.weatherID = store.getters.getNextEventId
       store.commit('addCalendarEvents', {
         id: store.getters.getNextEventId,
         movie: this.$store.getters.getCurrentMovie._preProduction.screenplay.title,

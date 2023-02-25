@@ -353,7 +353,7 @@ i18next
                         weather: {
                             problem: "Due to bad weather conditions the production cannot be resumed",
                             optionA: "Build another set on a different location",
-                            consequenceA: "Set budget increases by 10%",
+                            consequenceA1: "Set budget increases by 10%",
                             optionB: "Wait until it is possible to shoot again",
                             consequenceB1: "Production halted by 4 weeks"
                         },
@@ -1451,7 +1451,7 @@ i18next
                         weather: {
                             problem: "Aufgrund der schlechten Wetterbedingungen kann die Produktion nicht wieder aufgenommen werden",
                             optionA: "Bauen Sie ein anderes Set an einem anderen Ort",
-                            consequenceA: "Set-Budget erhöht sich um 10%",
+                            consequenceA1: "Set-Budget erhöht sich um 10%",
                             optionB: "Warten, bis die Dreharbeiten wieder möglich sind",
                             consequenceB1: "Die Produktion wird um 4 Wochen unterbrochen"
                         },
