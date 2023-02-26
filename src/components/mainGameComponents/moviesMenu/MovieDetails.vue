@@ -139,22 +139,6 @@
           </div>
         </div>
       </div>
-      <div class="movieDetailsButtons">
-        <custom-button
-            v-if="movie._status === 'Finished' || movie._status === 'Released'"
-            class="movieDetailsButton"
-            size="small"
-            @click="createNewMovie">
-          {{ $t('movieDetailsElement.newMovie') }}
-        </custom-button>
-        <custom-button
-            v-if="movie._franchiseType === null && movie._owner.id === this.ownStudio.id && !partOfFranchise && (movie._status === 'Finished' || movie._status === 'Released')"
-            class="movieDetailsButton"
-            size="small"
-            @click="createFranchise">
-          {{ $t('movieDetailsElement.newFranchise') }}
-        </custom-button>
-      </div>
     </background-tile>
   </div>
 </div>
@@ -164,13 +148,12 @@
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
-import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import {Movie} from "@/classes/Movie";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 
 export default {
   name: "MovieDetails",
-  components: {CustomButton, InfoCircle, BackgroundTile, IconButton},
+  components: {InfoCircle, BackgroundTile, IconButton},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
