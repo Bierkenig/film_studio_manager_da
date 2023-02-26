@@ -16,7 +16,7 @@
               onchange="this.size=1; this.blur();"
               v-model="type"
           >
-            <option :value="null" disabled selected hidden>Type</option>
+            <option :value="null" disabled selected hidden>{{ $t('type') }}</option>
             <option value="Feature">Feature</option>
             <option value="Indie">Indie</option>
             <option value="Animation">Animation</option>

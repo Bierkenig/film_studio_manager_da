@@ -687,6 +687,10 @@ export default createStore({
             state.otherStudios = payload
         },
 
+        addOtherStudios2(state, payload) {
+            state.otherStudios.push(payload)
+        },
+
         setAllCharacters(state, payload) {
             state.allCharacters = payload
         },

@@ -1,6 +1,6 @@
 <template>
   <background-tile class="projectTile" :title="$t('projects')">
-    <tile-pages-nav id="projectsNavigation" :pages='["All","Screenplays","Productions"]' :gradient='true'>
+    <tile-pages-nav id="projectsNavigation" :pages='[all,screenplaysText,productionsText]' :gradient='true'>
       <div class="projectsSectionElement verticalScroll">
         <screenplay-element class="projectsElement" v-for="(it, index) in this.screenplays" :key="index" svg-code="" :screenplay-title="it.title" :age="RegExp('\\+\\d+$').exec(it.ageRating)[0]" :genre="it.genre.genreName" :genre-icon="it.genre.genreName.toLowerCase()" :quality="it.rating" :writer="it.writer._first_name + ' ' + it.writer._last_name" @open-clicked="screenplayInfo(it)"/>
         <project-element class="projectsElement" v-for="(it, index) in this.productions" :key="index" :project-title="it._preProduction.screenplay.title" svg-code="" :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]" :genre="it._preProduction.screenplay.genre.genreName" :genre-icon="it._preProduction.screenplay.genre.genreName.toLowerCase()" :release="it._preProduction.releaseDate.toLocaleDateString('de-DE')" :status="it._status" @open-clicked="movieInfo(it)"/>
@@ -20,6 +20,7 @@ import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import ScreenplayElement from "@/components/kitchenSink/ScreenplayElement";
 import ProjectElement from "@/components/kitchenSink/ProjectElement.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import {i18next} from "@/translation/i18n";
 export default {
   name: "ProjectsSection",
   components: {BackgroundTile, ProjectElement, ScreenplayElement, TilePagesNav},
@@ -27,6 +28,9 @@ export default {
     return {
       screenplays: this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays),
       productions: this.$store.getters.getInProductionMovies,
+      all: i18next.t('all'),
+      screenplaysText: i18next.t('screenplays'),
+      productionsText: i18next.t('productions'),
     }
   },
 

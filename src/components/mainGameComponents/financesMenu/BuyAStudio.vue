@@ -40,7 +40,7 @@
           <div id="buyAStudioDetailsInfo">
             <div v-if="detail" id="buyAStudioDetailsInfoGeneral">
               <div id="buyAStudioDetailsInfoStudioName">
-                <custom-icon size="40px"/>
+                <custom-icon icon="studio" size="40px"/>
                 {{ general.name }}
               </div>
               <div id="buyAStudioDetailsInfoStudioValues">
@@ -60,12 +60,12 @@
                 </div>
               </div>
             </div>
-            <div v-if="detail" id="buyAStudioDetailsInfoStreamingHeading">
+            <div v-if="detail && streaming.check" id="buyAStudioDetailsInfoStreamingHeading">
               {{ $t('buyAStudio.streaming') }}
             </div>
             <div v-if="streaming.check" id="buyAStudioDetailsInfoStreaming">
               <div id="buyAStudioDetailsInfoStreamingName">
-                <custom-icon size="40px"/>
+                <custom-icon icon="streaming" size="40px"/>
                 {{ streaming.name }}
               </div>
               <div id="buyAStudioDetailsInfoStreamingValues">
@@ -195,11 +195,11 @@ export default {
     },
 
     showStreamingDetails() {
-      let otherStreaming = this.$store.getters.getStreamingServicesFromOtherStudios.filter((el) => {
-        el.owner.name = this.general.name
-      })
-
-      if (otherStreaming !== null) {
+      let otherStreaming = this.$store.getters.getStreamingServicesFromOtherStudios.filter((el) =>
+        el.owner.name === this.general.name
+      )
+    console.log(otherStreaming)
+      if (otherStreaming.length !== 0) {
         this.streaming.check = true
         this.streaming.name = otherStreaming._name
         this.streaming.popularity = otherStreaming._popularity

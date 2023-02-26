@@ -1,7 +1,7 @@
 <template>
   <div id="newsSection">
     <background-tile id="newsSectionBgTile" :title="$t('news2')">
-      <tile-pages-nav class="newsNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
+      <tile-pages-nav class="newsNavigation" :pages='[people,movies, "Studios"]' :gradient='true'>
         <div class="newsTextSection verticalScroll">
           <div v-for="(it, index) in this.peopleNews" :key="index">
             <news-element svg-code="" :heading-text="it._title"
@@ -32,6 +32,7 @@
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import NewsElement from "@/components/kitchenSink/NewsElement";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import {i18next} from "@/translation/i18n";
 
 export default {
   name: "NewsSection",
@@ -41,6 +42,8 @@ export default {
       peopleNews: [],
       movieNews: [],
       studioNews: [],
+      people: i18next.t('people'),
+      movies: i18next.t('movies'),
     }
   },
 
