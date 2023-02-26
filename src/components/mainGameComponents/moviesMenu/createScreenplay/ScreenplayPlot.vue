@@ -176,8 +176,13 @@
         @dragenter.prevent
         @dragover.prevent
         hidden>
-      <h3 class="screenplayPlotHeader">{{ $t('deleteItem') }}</h3>
-      <img src="../../../../assets/paperbin.png" alt="writer" style="width: 50px; height: 50px;" />
+      <h2 class="screenplayPlotHeader">{{ $t('deleteItem') }}</h2>
+      <custom-icon class="screenplayPlotDeleteButton"
+                   size="60px"
+                   theme="white"
+                   icon="paperbin"
+                   :shadow="false"
+                   :invert-theme="false"/>
     </div>
   </div>
 </template>
@@ -190,11 +195,12 @@ import {i18next} from '@/translation/i18n'
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 
 
 export default {
   name: "ScreenplayPlot",
-  components: {IconButton, CustomButton, SettingModal, CharacterMomentsModal, TimePeriodModal},
+  components: {CustomIcon, IconButton, CustomButton, SettingModal, CharacterMomentsModal, TimePeriodModal},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
@@ -499,5 +505,9 @@ export default {
   right: 100px;
   bottom: 20px;
   width: 15%;
+}
+
+.screenplayPlotDeleteButton {
+  margin: 0 auto;
 }
 </style>
