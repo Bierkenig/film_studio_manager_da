@@ -1,7 +1,7 @@
 <template>
   <div id="earningSection">
     <background-tile id="earningSectionBgTile" :title="$t('newsData.earnings')">
-      <tile-pages-nav class="earningNavigation" :pages='["This Week","This Month"]' :gradient='true'>
+      <tile-pages-nav class="earningNavigation" :pages='[week,month]' :gradient='true'>
         <div class="earningTextSection verticalScroll">
           <div v-for="(it, index) in this.weekEarnings.sort(function(a,b)
             {return new Date(b.date) - new Date(a.date);})"
@@ -25,6 +25,7 @@
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav";
 import EarningElement from "@/components/kitchenSink/EarningElement";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import {i18next} from "@/translation/i18n";
 
 export default {
   name: "EarningsSection",
@@ -34,6 +35,8 @@ export default {
       weekEarnings: [],
       monthEarnings: [],
       selectedTime: "Week",
+      week: i18next.t('thisWeek'),
+      month: i18next.t('thisMonth'),
     }
   },
 
