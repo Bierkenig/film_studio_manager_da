@@ -34,7 +34,7 @@
             }}
           </div>
         </div>
-        <custom-button id="durationSectionConfirmButton" @click="releaseSection = true">{{
+        <custom-button id="durationSectionConfirmButton" @click="releaseSection = true; confirm = true" :disabled="confirm">{{
             $t('durationSection.confirm')
           }}
         </custom-button>
@@ -90,6 +90,7 @@ export default {
       calcReleaseDate: null,
       release: false,
       releaseSection: false,
+      confirm: false,
     }
   },
 

@@ -48,7 +48,6 @@ export default {
   },
 
   mounted(){
-    console.log(process.env.NODE_ENV )
     window.ipcRenderer.send('r2mSettingsLoading')
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if(data !== null) {
@@ -80,8 +79,6 @@ export default {
           this.$store.state.backgroundMusicVolume = 0.5
         }
         await new Promise(resolve => setTimeout(resolve, 20))
-
-        console.log(this.$store.state)
       }
       })
     },

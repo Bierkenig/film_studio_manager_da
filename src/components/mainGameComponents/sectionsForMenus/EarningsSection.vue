@@ -79,11 +79,11 @@ export default {
     changeEarnings() {
       let allEarning = this.$store.getters.getEarnings;
       this.weekEarnings = allEarning.filter(item => {
-        return item.date > this.getLastWeeksDate();
+        return item.date > this.getLastWeeksDate() && item.amount > 0;
       });
 
       this.monthEarnings = allEarning.filter(item => {
-        return item.date > this.getLastMonthDate();
+        return item.date > this.getLastMonthDate() && item.amount > 0;
       });
     },
   },

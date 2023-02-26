@@ -2463,7 +2463,6 @@ function setEventDuringPostProduction() {
                         let Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
 
                         if (Difference_In_Days >= 6) {
-                            console.log(movie._preProduction.neededDuration)
                             if (movie._preProduction.neededDuration === 2) {
                                 if (movie._preProduction.hiredDirector.rating > 75) {
                                     if (randomNumber(0.05) === 0) {

@@ -157,7 +157,6 @@ export default {
     this.soundEffectStatus = this.$store.state.soundeffects
     this.backgroundMusicStatus = this.$store.state.backgroundMusic
 
-    console.log(typeof this.backgroundMusicStatus)
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if(data != null){
         this.soundEffectStatus = data.state.soundeffects
