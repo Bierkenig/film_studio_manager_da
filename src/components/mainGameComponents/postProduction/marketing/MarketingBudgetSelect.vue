@@ -169,16 +169,9 @@ export default {
       this.$store.getters.getCurrentMovie._postProduction.marketingInternet = parseInt(this.valueInternet)
       this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = parseInt(this.valueCommercial)
 
-      console.log(this.valuePrint);
-      console.log(this.valueInternet);
-      console.log(this.valueCommercial);
-
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingPrint)
-      console.log(this.$store.getters.getCurrentMovie._totalOutgoings)
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingInternet)
-      console.log(this.$store.getters.getCurrentMovie._totalOutgoings)
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingCommercial)
-      console.log(this.$store.getters.getCurrentMovie._totalOutgoings)
 
       this.$emit('close')
     },

@@ -38,7 +38,7 @@
           <loan-element v-for="(el, index) in currentLoans"
                         :key="index"
                         :title="'$ ' + roundBudget(Math.floor((el.value * (1 + el.interest / 100))))"
-                        :description="$t('takeALoan.initialLoan') + ' $ ' + roundBudget(el.value.toString() + ' ' + $t('takeALoan.with')) + ' ' + el.interest + '% ' + $t('takeALoan.interests')"
+                        :description="$t('takeALoan.initialLoan') + ' $ ' + roundBudget(el.value.toString()) + ' ' + $t('takeALoan.with') + ' ' + el.interest + '% ' + $t('takeALoan.interests')"
                         :button-text="$t('takeALoan.repay')"
                         :button-disabled="dateDiff(el)"
                         @button-clicked="repayLoan(el)"

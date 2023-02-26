@@ -34,6 +34,7 @@
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "StudioTakeOverResponse",
@@ -52,6 +53,9 @@ export default {
     accept(amount, studio) {
       //decrease balance
       this.$store.commit('subtractBalance', amount)
+
+      this.$store.commit('addEarnings', new Earnings(-amount, this.$store.getters.getCurrentDate))
+
 
       //transfer movies
       this.$store.getters.getAllMovies.forEach((movie) => {

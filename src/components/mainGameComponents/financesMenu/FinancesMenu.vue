@@ -147,19 +147,23 @@ export default {
     },
 
     roundBudget(labelValue){
+      let result = '';
+      if(labelValue.toString().charAt(0) === '-'){
+        result += '-';
+      }
       return Math.abs(Number(labelValue)) >= 1.0e+9
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+          ? result + (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
           // Six Zeroes for Millions
           : Math.abs(Number(labelValue)) >= 1.0e+6
 
-              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+              ? result + (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
               // Three Zeroes for Thousands
               : Math.abs(Number(labelValue)) >= 1.0e+3
 
-                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+                  ? result + (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
 
-                  : Math.abs(Number(labelValue));
+                  : result + Math.abs(Number(labelValue));
     },
 
     updateFiscalPerformance() {
@@ -178,23 +182,23 @@ export default {
       neededData.forEach((el) => {
         this.fiscalPerformanceData.production.incoming += el._production.incoming
         this.fiscalPerformanceData.production.outgoing += el._production.outgoing
-        this.fiscalPerformanceData.production.accumulated = this.fiscalPerformanceData.production.incoming - this.fiscalPerformanceData.production.outgoing
+        this.fiscalPerformanceData.production.accumulated = this.fiscalPerformanceData.production.incoming + this.fiscalPerformanceData.production.outgoing
 
         this.fiscalPerformanceData.marketing.incoming += el._marketing.incoming
         this.fiscalPerformanceData.marketing.outgoing += el._marketing.outgoing
-        this.fiscalPerformanceData.marketing.accumulated = this.fiscalPerformanceData.marketing.incoming - this.fiscalPerformanceData.marketing.outgoing
+        this.fiscalPerformanceData.marketing.accumulated = this.fiscalPerformanceData.marketing.incoming + this.fiscalPerformanceData.marketing.outgoing
 
         this.fiscalPerformanceData.loan.incoming += el._loan.incoming
         this.fiscalPerformanceData.loan.outgoing += el._loan.outgoing
-        this.fiscalPerformanceData.loan.accumulated = this.fiscalPerformanceData.loan.incoming - this.fiscalPerformanceData.loan.outgoing
+        this.fiscalPerformanceData.loan.accumulated = this.fiscalPerformanceData.loan.incoming + this.fiscalPerformanceData.loan.outgoing
 
         this.fiscalPerformanceData.cinema.incoming += el._cinema.incoming
         this.fiscalPerformanceData.cinema.outgoing += el._cinema.outgoing
-        this.fiscalPerformanceData.cinema.accumulated = this.fiscalPerformanceData.cinema.incoming - this.fiscalPerformanceData.cinema.outgoing
+        this.fiscalPerformanceData.cinema.accumulated = this.fiscalPerformanceData.cinema.incoming + this.fiscalPerformanceData.cinema.outgoing
 
         this.fiscalPerformanceData.streaming.incoming += el._streaming.incoming
         this.fiscalPerformanceData.streaming.outgoing += el._streaming.outgoing
-        this.fiscalPerformanceData.streaming.accumulated = this.fiscalPerformanceData.streaming.incoming - this.fiscalPerformanceData.streaming.outgoing
+        this.fiscalPerformanceData.streaming.accumulated = this.fiscalPerformanceData.streaming.incoming + this.fiscalPerformanceData.streaming.outgoing
 
         //total
         this.fiscalPerformanceData.total.incoming = this.fiscalPerformanceData.production.incoming +
@@ -205,7 +209,7 @@ export default {
             this.fiscalPerformanceData.marketing.outgoing + this.fiscalPerformanceData.loan.outgoing +
             this.fiscalPerformanceData.cinema.outgoing + this.fiscalPerformanceData.streaming.outgoing
 
-        this.fiscalPerformanceData.total.accumulated = this.fiscalPerformanceData.total.incoming - this.fiscalPerformanceData.total.outgoing
+        this.fiscalPerformanceData.total.accumulated = this.fiscalPerformanceData.total.incoming + this.fiscalPerformanceData.total.outgoing
       })
     },
 

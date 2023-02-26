@@ -23,15 +23,25 @@
           <!--:release="it._preProduction.releaseDate.getYear()"-->
     </div>
     <div v-if="headline === 'contentManagement'" class="moviesSectionDetails verticalScroll">
-      <streaming-element
-          class="moviesSectionMovieElement"
-          v-for="(it,index) in data"
-          :key="index"
-          svg-code=""
-          :streaming-title="it._preProduction.screenplay.title"
-          :popularity="Math.round(it.popularity)"
-          :contract="it._contract +  ' Years'"
-          @open-clicked="movieInfo(it)"/>
+      <div v-for="(it,index) in data"
+           :key="index">
+        <streaming-element
+            class="moviesSectionMovieElement"
+            v-if="it._contract > 0"
+            svg-code=""
+            :streaming-title="it._preProduction.screenplay.title"
+            :popularity="Math.round(it.popularity)"
+            :contract="it._contract +  ' Years'"
+            @open-clicked="movieInfo(it)"/>
+        <streaming-element
+            class="moviesSectionMovieElement"
+            v-else
+            svg-code=""
+            :streaming-title="it._preProduction.screenplay.title"
+            :popularity="Math.round(it.popularity)"
+            contract="Unlimited"
+            @open-clicked="movieInfo(it)"/>
+      </div>
     </div>
   </background-tile>
 </template>

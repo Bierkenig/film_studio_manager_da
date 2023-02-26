@@ -169,7 +169,6 @@ export default class Release {
 
         console.log(this.preProduction.createTotal())
         console.log(this.hypeFromMarketing)
-
         this.hypeFormula = this.preProduction.createTotal() * this.hypeFromMarketing
 
         //FINAL FORMULA
@@ -191,12 +190,13 @@ export default class Release {
         //Function below
 
         //FINAL FORMULA
-        this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
+        this.openingEarnings = ((this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
                 this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
-            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket
+            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket) / 100
 
-        this.continuingEarnings = this.openingEarnings * this.hypeFormula
+        console.log(this.hypeFormula)
+        this.continuingEarnings = (this.openingEarnings * this.hypeFormula) / 100000
 
         this.totalEarnings = allTotalEarnings !== undefined ? allTotalEarnings : this.openingEarnings + this.continuingEarnings
 

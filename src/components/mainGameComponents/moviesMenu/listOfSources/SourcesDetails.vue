@@ -407,6 +407,7 @@ export default {
       this.$store.commit('removeMovieFromOtherStudios',chosenMovie)
       this.$store.commit('removeMovieFromAllMovies',chosenMovie);
       this.$store.commit('addFinishedMovie',chosenMovie)
+      chosenMovie._contract = 0;
       chosenMovie._owner.budget += chosenMovie._totalCosts;
       chosenMovie._owner = this.$store.getters.getStudio;
       this.$store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, this.$store.getters.getCurrentDate))
