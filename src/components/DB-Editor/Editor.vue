@@ -10,10 +10,10 @@
         :shadow="false"
         @click="$router.go(-1)"
     />
-    <background-tile title="Edit Database" id="dbEditorBgTile">
-      <custom-button id="WriterInputButton" class="dbEditorButton" @click="toWriter">Writers</custom-button>
-      <custom-button id="DirectorInputButton" class="dbEditorButton" @click="toDirector">Directors</custom-button>
-      <custom-button id="ActorInputButton" class="dbEditorButton" @click="toActor">Actors</custom-button>
+    <background-tile :title="$t('editDB')" id="dbEditorBgTile">
+      <custom-button id="WriterInputButton" class="dbEditorButton" @click="toWriter">{{ $t('writers') }}</custom-button>
+      <custom-button id="DirectorInputButton" class="dbEditorButton" @click="toDirector">{{ $t('directors') }}</custom-button>
+      <custom-button id="ActorInputButton" class="dbEditorButton" @click="toActor">{{ $t('actors') }}</custom-button>
       <custom-button id="exitButton" class="dbEditorButton" @click="toStudio">Studios</custom-button>
     </background-tile>
   </div>

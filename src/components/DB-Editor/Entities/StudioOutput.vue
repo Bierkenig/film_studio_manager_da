@@ -13,8 +13,8 @@
     <background-tile title="Studios" id="studioOutputBgTile">
       <info-line v-for="(el, index) in otherStudios" :key="index" class="studioOutputElement">
         {{ el.name }}
-        <custom-button id="editButton" class="buttonStyle" @click="edit(el)" size="small">Edit</custom-button>
-        <custom-button id="deleteButton" class="buttonStyle" @click="deleteStudio(el)" size="small">Delete
+        <custom-button id="editButton" class="buttonStyle" @click="edit(el)" size="small">{{  $t('edit') }}</custom-button>
+        <custom-button id="deleteButton" class="buttonStyle" @click="deleteStudio(el)" size="small">{{  $t('delete') }}
         </custom-button>
       </info-line>
     </background-tile>

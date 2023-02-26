@@ -12,11 +12,11 @@
     />
     <background-tile title="Edit Person" id="personEditBgTile">
       <div class="personEditInputLine">
-        <label for="firstname">First Name</label>
+        <label for="firstname">{{$t('first_name')}}:</label>
         <input id="firstname" v-model="first_name">
       </div>
       <div class="personEditInputLine">
-        <label for="lastname">Last Name</label>
+        <label for="lastname">{{$t('last_name')}}:</label>
         <input id="lastname" v-model="last_name">
       </div>
       <select
@@ -50,20 +50,20 @@
       </select>
 
       <div class="personEditInputLine">
-        Is a Writer?
+        {{ $t('isWriter') }}
         <input type="checkbox" id="checkboxWriter" v-model="checkedWriter">
       </div>
       <div class="personEditInputLine">
-        Is a Director?
+        {{ $t('isDirector') }}
         <input type="checkbox" id="checkboxDirector" v-model="checkedDirector">
       </div>
 
       <div class="personEditInputLine">
-        Is an Actor?
+        {{ $t('isActor') }}
         <input type="checkbox" id="checkboxActor" v-model="checkedActor">
       </div>
 
-      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(person)">Save</custom-button>
+      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(person)">{{ $t('save') }}</custom-button>
     </background-tile>
   </div>
 </template>

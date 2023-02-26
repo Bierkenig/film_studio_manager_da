@@ -7,12 +7,12 @@
           id="selectButton"
           :dark="false"
           size="small"
-          @clicked="select">Edit</custom-button>
+          @clicked="select">{{ $t('edit') }}</custom-button>
       <custom-button
           id="deleteButton"
           :dark="false"
           size="small"
-          @clicked="reset">Reset</custom-button>
+          @clicked="reset">{{ $t('resetDBModal1') }}</custom-button>
     </div>
 
   </div>

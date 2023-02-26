@@ -209,7 +209,12 @@ export default {
           return
         }
         switch (this.radio) {
-          case "Main" || "Hauptdarsteller":
+          case "Main":
+            this.currentActor.salary += parseInt(this.proposedSalary)
+            this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
+            this.removeActor()
+            break
+          case "Hauptdarsteller":
             this.currentActor.salary += parseInt(this.proposedSalary)
             this.$store.state.currentMovie._preProduction.screenplay.actors.main.push(this.currentActor)
             this.removeActor()
@@ -219,7 +224,12 @@ export default {
             this.$store.state.currentMovie._preProduction.screenplay.actors.minor.push(this.currentActor)
             this.removeActor()
             break
-          case "Support" || "Nebendarsteller":
+          case "Support":
+            this.currentActor.salary += parseInt(this.proposedSalary)
+            this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
+            this.removeActor()
+            break
+          case "Nebendarsteller":
             this.currentActor.salary += parseInt(this.proposedSalary)
             this.$store.state.currentMovie._preProduction.screenplay.actors.support.push(this.currentActor)
             this.removeActor()

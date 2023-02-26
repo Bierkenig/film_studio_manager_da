@@ -1,5 +1,5 @@
 <template>
-  <background-tile :title="type" id="peopleList">
+  <background-tile :title="$t(type.toLowerCase())" id="peopleList">
     <div class="peopleListContainer">
       <div class="peopleListScroll verticalScroll">
         <div v-for="(item, index) in people" :id="'peopleItem' + index" :key="index" class="peopleListElement"

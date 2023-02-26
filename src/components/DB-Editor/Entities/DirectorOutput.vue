@@ -17,9 +17,9 @@
     <div class="actorOutputColumn" id="actorOutputRight">
       <db-people-details :person="currentActor"/>
       <router-link :to="{ name: 'PersonEdit'}">
-        <custom-button id="editButton" class="buttonStyle" @click="edit(currentActor)">Edit</custom-button>
+        <custom-button id="editButton" class="buttonStyle" @click="edit(currentActor)">{{  $t('edit') }}</custom-button>
       </router-link>
-      <custom-button id="deleteButton" class="buttonStyle" @click="deletePerson(currentActor)">Delete</custom-button>
+      <custom-button id="deleteButton" class="buttonStyle" @click="deletePerson(currentActor)">{{  $t('delete') }}</custom-button>
     </div>
   </div>
 </template>
