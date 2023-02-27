@@ -19,6 +19,7 @@
     <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
       <source src="../src/backgroundMusic/BackgroundMusic_mixdown.mp3">
     </audio>
+    <img id="bgImageSrc" ref="bgImageSrc" :src="require(`./assets/FSM_background.svg`)" alt="background image"/>
   </div>
 </template>
 
@@ -27,6 +28,7 @@ import soundeffectMixin from "@/mixins/soundeffectMixin";
 import store from "@/services/store";
 import gameHeader from "@/components/mainGameComponents/GameHeader";
 import menuNav from "@/components/mainGameComponents/MenuNav";
+import {Buffer} from "buffer";
 
 export default {
   name: 'App',
@@ -44,7 +46,41 @@ export default {
     visibilityChanged (isVisible) {
       this.checkNavVisibility = (isVisible && this.$router.options.history.state.back === '/createStudio')
           || (isVisible && this.$router.options.history.state.back === '/loadings');
-    }
+    },
+
+    async calcBG() {
+      let svgCode = (await this.getSVGCode()).toString();
+      let numIcons = (svgCode.match(/backgroundIcon/gm) || []).length;
+      svgCode = svgCode.split('\n');
+      for (let i = 0; i < numIcons; i++) {
+        console.log();
+      }
+      this.setBG(svgCode.join(''));
+    },
+
+    setBG(svgCode) {
+      document.getElementsByTagName('body')[0].style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")';
+    },
+
+    async getSVGCode() {
+      let requestResult = await new Promise((resolve) => {
+            let request = new XMLHttpRequest();
+            request.open('GET', this.$refs.bgImageSrc.src, true);
+            request.responseType = 'blob';
+            request.onload = async function () {
+              resolve(await new Promise((resolveRead) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolveRead(reader.result);
+                reader.onerror = () => console.log(reader.error);
+                reader.readAsDataURL(request.response);
+              }));
+            };
+            request.onerror = () => console.log(request.response);
+            request.send();
+          }
+      );
+      return Buffer.from(requestResult.substring(26), 'base64');
+    },
   },
 
   mounted(){
@@ -81,6 +117,7 @@ export default {
         await new Promise(resolve => setTimeout(resolve, 20))
       }
       })
+    this.calcBG();
     },
 
   async created(){
@@ -127,4 +164,7 @@ html, body {
   flex: 1;
 }
 
+#bgImageSrc {
+  display: none;
+}
 </style>
