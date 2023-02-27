@@ -171,13 +171,13 @@ export default {
 
 .moviesSectionDetails {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   margin-top: 20px;
   gap: 10px;
   height: auto;
   box-sizing: border-box;
   flex-grow: 1;
+  flex-basis: 0;
 }
 
 #moviesSectionSelectDiv {
@@ -185,9 +185,5 @@ export default {
   flex-direction: row;
   gap: 10px;
   width: 50%;
-}
-
-.moviesSectionMovieElement {
-  max-width: 49%;
 }
 </style>
