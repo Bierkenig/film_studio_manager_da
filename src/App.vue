@@ -1,29 +1,25 @@
 <template>
-  <div class="mainDivContainer">
-    <div id="bgImageLayer1">
-      <div id="bgImageLayer2">
-        <game-header
-            class="gameHeaderComponent"
-            v-if="this.showOnPage.includes(this.$route.name) || this.$route.name === 'simulation'"
-            :studioname="this.$store.getters.getStudio.name"
-            :budget="this.$store.getters.getBalance"
-            :page-name="this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1)"/>
+  <div id="mainDivContainer">
+    <game-header
+        class="gameHeaderComponent"
+        v-if="this.showOnPage.includes(this.$route.name) || this.$route.name === 'simulation'"
+        :studioname="this.$store.getters.getStudio.name"
+        :budget="this.$store.getters.getBalance"
+        :page-name="this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1)"/>
 
-        <router-view class="routerViewContainer"/>
+    <router-view class="routerViewContainer"/>
 
-        <menu-nav
-            class="menuNavComponent"
-            v-show="this.showOnPage.includes(this.$route.name)"
-            v-observe-visibility="visibilityChanged"
-            :check-visibility="checkNavVisibility"
-        />
+    <menu-nav
+        class="menuNavComponent"
+        v-show="this.showOnPage.includes(this.$route.name)"
+        v-observe-visibility="visibilityChanged"
+        :check-visibility="checkNavVisibility"
+    />
 
-        <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
-          <source src="../src/backgroundMusic/BackgroundMusic_mixdown.mp3">
-        </audio>
-        <img id="bgImageSrc" ref="bgImageSrc" :src="require(`./assets/FSM_background.svg`)" alt="background image"/>
-      </div>
-    </div>
+    <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
+      <source src="../src/backgroundMusic/BackgroundMusic_mixdown.mp3">
+    </audio>
+    <img id="bgImageSrc" ref="bgImageSrc" :src="require(`./assets/FSM_background.svg`)" alt="background image"/>
   </div>
 </template>
 
@@ -43,7 +39,6 @@ export default {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],
       checkNavVisibility: false,
       process: process.env.ENV_NODE,
-      useFirstBgLayer: true,
       coloredBgIcons: [],
     }
   },
@@ -58,31 +53,25 @@ export default {
       let svgCode = (await this.getSVGCode()).toString();
       let numIcons = (svgCode.match(/backgroundIcon/gm) || []).length;
       let maxColoredIcons = 5;
-      // for (let i = 0; i < svgCode.length; i++) {
-      //   if (wantedIconId >= numIcons) {
-      //     break;
-      //   }
-      //   if (svgCode[i].indexOf('backgroundIcon' + wantedIconId) !== -1) {
-      //     svgCode[i] = svgCode[i].replaceAll(/fill=".*?"/gm, 'fill="#FF3A4D"');
-      //     await new Promise(resolve => setTimeout(resolve, 100))
-      //     wantedIconId++;
-      //   }
-      // }
       while (numIcons > 0) {
         let nextIcon = Math.floor(Math.random() * numIcons);
-        if (this.coloredBgIcons.length === maxColoredIcons) {
-          this.setBG(this.changeIconColor(svgCode, nextIcon, true));
-        } else {
-          this.setBG(this.changeIconColor(svgCode, nextIcon));
+        while (this.coloredBgIcons.includes(nextIcon)) {
+          nextIcon = Math.floor(Math.random() * numIcons);
         }
+        if (this.coloredBgIcons.length === maxColoredIcons) {
+          svgCode = this.changeIconColor(svgCode, this.coloredBgIcons[0], true);
+          this.coloredBgIcons.splice(0, 1);
+        }
+        svgCode = this.changeIconColor(svgCode, nextIcon);
+        this.setBG(svgCode)
         this.coloredBgIcons.push(nextIcon);
-        await new Promise(resolve => setTimeout(resolve, 100))
+        await new Promise(resolve => setTimeout(resolve, 2100))
       }
     },
 
     changeIconColor(bgSvgCode, iconId, dark = false) {
       let lightIconColor = 'fill="#FF3A4D"';
-      let darkIconColor = 'fill="#161b25"';
+      let darkIconColor = 'fill="#161B25"';
       let fillRegex = /fill=".*?"/gm;
       let iconLineRegex = new RegExp('<path id="backgroundIcon' + iconId + '".*?/>', 'gm');
       let iconLine = bgSvgCode.match(iconLineRegex)[0];
@@ -95,13 +84,7 @@ export default {
     },
 
     setBG(svgCode) {
-      if (this.useFirstBgLayer) {
-        document.getElementById('bgImageLayer1').style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")';
-        this.useFirstBgLayer = false;
-      } else {
-        document.getElementById('bgImageLayer2').style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")';
-        this.useFirstBgLayer = true;
-      }
+      document.getElementById('mainDivContainer').style.backgroundImage = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svgCode) + '")';
     },
 
     async getSVGCode() {
@@ -178,11 +161,15 @@ html, body {
   min-height: 100%;
 }
 
-.mainDivContainer {
+#mainDivContainer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 100vh;
+  background-position: center;
+  background-size: cover;
+  -webkit-transition: background-image 2000ms ease-in-out;
+  transition: background-image 2000ms ease-in-out;
 }
 
 .gameHeaderComponent {
@@ -205,12 +192,5 @@ html, body {
 
 #bgImageSrc {
   display: none;
-}
-
-#bgImageLayer1, #bgImageLayer2 {
-  background-position: center;
-  background-size: cover;
-  -webkit-transition: background-image 100ms ease-in-out;
-  transition: background-image 100ms ease-in-out;
 }
 </style>
