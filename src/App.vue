@@ -108,7 +108,7 @@ export default {
     },
   },
 
-  mounted() {
+  async mounted(){
     window.ipcRenderer.send('r2mSettingsLoading')
     window.ipcRenderer.receive('m2rSettingsLoading', async data => {
       if (data !== null) {
@@ -138,8 +138,11 @@ export default {
         }
         await new Promise(resolve => setTimeout(resolve, 20))
       }
-    })
-    this.calcBG();
+      })
+    await new Promise(resolve => setTimeout(resolve, 1000))
+
+    await this.calcBG();
+
   },
 
   async created() {

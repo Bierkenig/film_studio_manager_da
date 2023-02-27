@@ -1,6 +1,6 @@
 <template>
   <video id="videoPlay" autoplay>
-    <source src="../../src/animation/startUP8.mp4">
+    <source src="../../src/animation/FSM_Startanimation_mit_Sound_4K_v1.mp4">
   </video>
 </template>
 
@@ -11,7 +11,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$router.push('startMenu')
-    }, 8000)
+    }, 20000)
   }
 }
 </script>
