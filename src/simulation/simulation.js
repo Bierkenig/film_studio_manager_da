@@ -210,7 +210,7 @@ function randomNumber(probability) {
 //function to create new studios
 function createStudios() {
     if (store.state.studioNames.length !== 0) {
-        let num = randomNumber(0.01);
+        let num = randomNumber(0.05);
         if (num === 0) {
             //get all existing studio names
             let allStudios = [store.getters.getStudio.getName()];
