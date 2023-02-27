@@ -12,9 +12,11 @@
     />
     <background-tile title="Studios" id="studioOutputBgTile">
       <info-line v-for="(el, index) in otherStudios" :key="index" class="studioOutputElement">
-        {{ el.name }}
-        <custom-button id="editButton" class="buttonStyle" @click="edit(el)" size="small">{{  $t('edit') }}</custom-button>
-        <custom-button id="deleteButton" class="buttonStyle" @click="deleteStudio(el)" size="small">{{  $t('delete') }}
+        <div id="studioOutputName" class="studioOutputElementPart">
+          {{ el.name }}
+        </div>
+        <custom-button id="editButton" class="studioOutputElementPart" @click="edit(el)" size="small">{{  $t('edit') }}</custom-button>
+        <custom-button id="deleteButton" class="studioOutputElementPart" @click="deleteStudio(el)" size="small">{{  $t('delete') }}
         </custom-button>
       </info-line>
     </background-tile>
@@ -91,14 +93,28 @@ export default {
   flex-direction: column;
   justify-content: flex-start;
   gap: 10px;
-  width: fit-content;
+  width: 50%;
 }
 
 .studioOutputElement {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
   height: fit-content;
+  white-space: nowrap;
+}
+
+.studioOutputElementPart {
+  flex-basis: 0;
+}
+
+#studioOutputName {
+  flex-grow: 2;
+}
+
+#editButton, #deleteButton {
+  flex-grow: 1;
 }
 </style>

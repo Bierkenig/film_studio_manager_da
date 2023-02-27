@@ -81,12 +81,14 @@ i18next
                     },
                     financialHistory: {
                         name: "Financial History",
-                        event1: "Studio acquired",
-                        desc1: "Of the Movie",
+                        event1: "Acquisition of ",
+                        desc1: "In ",
                         event2: "Studio closed",
                         desc2: "Of the Movie",
-                        event3: "New Studio has been founded",
-                        desc3: "Of the Movie",
+                        event3: "Opening of ",
+                        desc3: "In ",
+                        date: "Date",
+                        sortName: "Studio",
                     },
                     takeALoan: {
                         title: "Types of Loan",
@@ -1262,12 +1264,14 @@ i18next
                     },
                     financialHistory: {
                         name: "Finanzielle Geschichte",
-                        event1: "Studio wurde erworben",
-                        desc1: "Von dem Film",
+                        event1: "Erwerb von ",
+                        desc1: "Im ",
                         event2: "Studio geschlossen",
                         desc2: "Von dem Film",
-                        event3: "Neues Studio wurde gegründet",
-                        desc3: "Von dem Film",
+                        event3: "Eröffnung von ",
+                        desc3: "Im ",
+                        date: "Datum",
+                        sortName: "Studio"
                     },
                     recastActor: "Vorproduktion fortsetzen",
                     takeALoan: {

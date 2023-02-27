@@ -12,6 +12,7 @@ import Award from "@/classes/Award";
 import PostProduction from "@/classes/PostProduction";
 import FinancialPerformance from "@/classes/FinancialPerformance";
 import Release from "@/classes/Release";
+import FinancialHistoryEntry from "@/classes/FinancialHistoryEntry";
 
 //Avatar Option Lists
 const mouth = ["concerned", "default", "disbelief", "eating", "sad", "screamOpen", "serious", "smile", "tongue", "twinkle", "vomit"]
@@ -210,7 +211,7 @@ function randomNumber(probability) {
 //function to create new studios
 function createStudios() {
     if (store.state.studioNames.length !== 0) {
-        let num = randomNumber(0.01);
+        let num = randomNumber(0.05);
         if (num === 0) {
             //get all existing studio names
             let allStudios = [store.getters.getStudio.getName()];
@@ -241,6 +242,7 @@ function createStudios() {
             let newsTitle = newStudio.getName() + i18next.t('established');
             let newsDescription = i18next.t('theStudio') + newStudio.getName() + i18next.t('wasFounded') + '.';
             store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate, null, null, null, newStudio));
+            store.commit('addFinancialHistoryEntry', new FinancialHistoryEntry('event3', 'desc3', newStudio.getName(), this.$store.getters.getCurrentDate))
             store.state.studioNames.splice(store.state.studioNames.indexOf(studioName), 1);
         }
     }

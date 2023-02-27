@@ -22,7 +22,7 @@ export let updatePresence
 async function createWindow() {
 
     const primaryDisplay = screen.getPrimaryDisplay()
-    const { width, height } = primaryDisplay.workAreaSize
+    const {width, height} = primaryDisplay.workAreaSize
     // Create the browser window.
     const win = new BrowserWindow({
         width: 1920,
