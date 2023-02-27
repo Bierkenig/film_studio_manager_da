@@ -1,21 +1,18 @@
 <template>
-  <div class="loadingScreenMainDiv">
-    <background-tile class="loadingScreenBG" :title="title">
-      <div class="meterBox">
-        <div class="meter">
-          <span ref="bar" style="width:0"></span>
-        </div>
-      </div>
-    </background-tile>
-  </div>
+  <video v-if="this.$store.state.currentLanguage === 'de'" class="videoPlay" autoplay>
+    <source src="../../../src/animation/FSM_Hintergrundanimation_ger_v3.mp4">
+  </video>
+
+  <video v-if="this.$store.state.currentLanguage === 'en'" class="videoPlay" autoplay>
+    <source src="../../../src/animation/FSM_Hintergrundanimation_eng_v3.mp4">
+  </video>
 </template>
 
 <script>
-import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "LoadingScreen",
-  components: {BackgroundTile},
+  components: {},
   props: {
     nextRoute: String,
     title: String,
@@ -23,7 +20,7 @@ export default {
   },
   mounted() {
     setTimeout(this.animateBar, 10)
-    setTimeout(() => this.$router.push({name: this.nextRoute}), Math.floor(parseFloat(this.duration) * 1000) + 500)
+    setTimeout(() => this.$router.push({name: this.nextRoute}), 4000)
   },
   methods: {
     animateBar() {
@@ -35,6 +32,11 @@ export default {
 </script>
 
 <style scoped>
+.videoPlay {
+  width: 100%;
+  height: 100%;
+  margin-left: 0.01%;
+}
 .loadingScreenMainDiv {
   display: flex;
   flex-direction: column;
