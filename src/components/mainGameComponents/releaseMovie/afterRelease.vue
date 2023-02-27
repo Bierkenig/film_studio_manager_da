@@ -112,6 +112,7 @@ export default {
       this.$store.commit('removeCreatedMovie', this.$store.getters.getCurrentMovie)
       this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
 
+      console.log(this.$store.getters.getCurrentMovie._release.continuingEarnings)
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate))
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate))
       this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate))

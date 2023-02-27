@@ -41,9 +41,19 @@ export default class Release {
         //Equations
         //QUALITY
         //Production Budget
-        this.productionBudget = (this.budget.production * 15 + this.budget.extras * 5 + this.budget.cinematography * 7 +
-            this.budget.sound * 7 + this.budget.editing * 10 + this.budget.score * 7 + this.budget.set * 10 + this.budget.stunts * 5 +
-            this.budget.costume * 7 + this.budget.makeup * 5 + this.budget.sfx * 7 + this.budget.vfx * 15) / 100
+        let ratingValues = [20, 60, 100];
+        this.productionBudget = (ratingValues[Math.floor(Math.random() * ratingValues.length)] * 15 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 5 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 7 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 7 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 10 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 7 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 10 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 5 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 7 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 5 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 7 +
+            ratingValues[Math.floor(Math.random() * ratingValues.length)] * 15) / 100
 
         //Production Phases
         this.productionPhases = (preProduction.preProductionLength * 15 + preProduction.productionLength * 45 +
@@ -68,7 +78,6 @@ export default class Release {
 
         //FINAL FORMULA
         this.qualityFormula = (this.productionBudget * 20 + this.productionPhases * 10 + this.directorFormula * 20 + this.castFormula * 20 + this.screenplayFormula * 30) / 100
-
 
         //Popularity
         //Genre
@@ -156,13 +165,13 @@ export default class Release {
             effectAdults = 1
         }
 
-        this.childrenMarketingEffect = (this.print * 25 + this.internet * 60 + this.commercial * 15) / 100
+        this.childrenMarketingEffect = ((Math.random() * (0.25 - 0.15 + 1) + 0.15) * 25 + (Math.random() * (0.25 - 0.15 + 1) + 0.15) * 60 + (Math.random() * (0.25 - 0.15 + 1) + 0.15) * 15) / 100
         this.childrenMoviePopularityAfterMarketingFormula = (this.childrenMoviePopularity + this.childrenMarketingEffect) * effectChildren
 
-        this.teenagersMarketingEffect = (this.print * 25 + this.internet * 60 + this.commercial * 15) / 100
+        this.teenagersMarketingEffect = ((Math.random() * (0.25 - 0.15 + 1) + 0.15) * 25 + (Math.random() * (0.25 - 0.15 + 1) + 0.15) * 60 + (Math.random() * (0.25 - 0.15 + 1) + 0.15) * 15) / 100
         this.teenagersMoviePopularityAfterMarketingFormula = (this.teenagersMoviePopularity + this.teenagersMarketingEffect) * effectTeenagers
 
-        this.adultsMarketingEffect = (this.print * 25 + this.internet * 60 + this.commercial * 15) / 100
+        this.adultsMarketingEffect = ((Math.random() * (0.25 - 0.15 + 1) + 0.15) * 25 + (Math.random() * (0.25 - 0.15 + 1) + 0.15) * 60 + (Math.random() * (0.25 - 0.15 + 1) + 0.15) * 15) / 100
         this.adultsMoviePopularityAfterMarketingFormula = (this.adultsMoviePopularity + this.adultsMarketingEffect) * effectAdults
 
         this.hypeFromMarketing = this.calcFromMarketing()
@@ -188,18 +197,18 @@ export default class Release {
         //Function below
 
         //FINAL FORMULA
-        this.openingEarnings = ((this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
+        this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
                 this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
-            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket) / 100
+            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket
 
-        this.continuingEarnings = (this.openingEarnings * this.hypeFormula) / 100000
+        this.continuingEarnings = this.openingEarnings * (Math.random() * (3 - 1.75 + 1) + 1.75)
 
         this.totalEarnings = allTotalEarnings !== undefined ? allTotalEarnings : this.openingEarnings + this.continuingEarnings
 
         //Earnings for movies
         this.openingWeekGross = openingEarnings !== undefined ? openingEarnings: this.openingEarnings;
-        this.cinemaGross = cinema !== undefined && cinema !== null? cinema : 100000;
+        this.cinemaGross = cinema !== undefined && cinema !== null? cinema : 10000000;
         this.dvdGross = dvd !== undefined ? dvd : this.getDVDEarnings();
     }
 
@@ -336,14 +345,14 @@ export default class Release {
                 break
             case 'Large':
                 if (this.isBetween(duration, 16, 20) || duration > 20) return Math.round(Math.random() * (25 - 15)) + 15
-                if (this.isBetween(duration, 12, 16)) return Math.round(Math.random() * (5 - (-5))) + (-5)
-                if (this.isBetween(duration, 8, 12)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
-                break
+                else if (this.isBetween(duration, 12, 16)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                else if (this.isBetween(duration, 8, 12)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                else return Math.round(Math.random() * ((-20) - (-30))) + (-30)
             case 'Epic':
                 if (this.isBetween(duration, 20, 24) || duration > 24) return Math.round(Math.random() * (25 - 15)) + 15
-                if (this.isBetween(duration, 16, 20)) return Math.round(Math.random() * (5 - (-5))) + (-5)
-                if (this.isBetween(duration, 12, 16)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
-                break
+                else if (this.isBetween(duration, 16, 20)) return Math.round(Math.random() * (5 - (-5))) + (-5)
+                else if (this.isBetween(duration, 12, 16)) return Math.round(Math.random() * ((-15) - (-25))) + (-25)
+                else return Math.round(Math.random() * ((-20) - (-30))) + (-30)
             default:
                 return Math.round(Math.random() * (25 - 15)) + 15
         }

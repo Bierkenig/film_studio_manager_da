@@ -83,7 +83,6 @@
 
 body {
     margin: 0;
-    background-size: cover;
 }
 
 [data-title]:hover:after {

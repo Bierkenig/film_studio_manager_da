@@ -13,9 +13,7 @@ export default class PreProduction {
             this.crewMorale = this.calcCrewMorale()
             this.calcCastMorale()
         }
-        if (this.hiredDirector instanceof Person && this.screenplay instanceof Screenplay){
-            this.hype = this.createTotal()
-        }
+        this.hype = null
         this.preProductionLength = 0
         this.productionLength = 0
         this.postProductionLength = 0
@@ -115,9 +113,11 @@ export default class PreProduction {
         this.screenplay.actors.cameo.forEach((el) => {
             minorCameoPop += el._popularity
         })
-        return ((mainPop / this.screenplay.actors.main.length) * 50) +
+
+
+        return (((mainPop / this.screenplay.actors.main.length) * 50) +
             ((supportPop / this.screenplay.actors.support.length) * 35) +
-            ((minorCameoPop / (this.screenplay.actors.minor.length + this.screenplay.actors.cameo.length)) * 15) / 100
+            ((minorCameoPop / (this.screenplay.actors.minor.length + this.screenplay.actors.cameo.length)) * 15)) / 100
     }
 
     createTechnicalHype() {
