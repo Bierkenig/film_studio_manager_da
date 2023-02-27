@@ -59,7 +59,8 @@ export default createStore({
         boughtMovies: [],
         boughtMovieRights: [],
 
-        financialHistory: [],
+        financialHistory: [
+        ],
 
         currentLoans: [],
 
@@ -758,6 +759,10 @@ export default createStore({
 
         setAllTopics(state, value) {
             state.allTopics = value;
+        },
+
+        addFinancialHistoryEntry(state, payload) {
+            state.financialHistory.push(payload)
         },
 
         setAllGenres(state, payload) {

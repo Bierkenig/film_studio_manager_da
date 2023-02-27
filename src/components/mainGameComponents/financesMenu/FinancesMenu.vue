@@ -85,11 +85,31 @@
       </background-tile>
     </div>
     <div class="financesMenuRightSide">
-      <background-tile id="financesMenuFinancialHistory" :title="$t('financialHistory.name')">
-        <div v-for="(el, index) in financialHistory" :key="index">
-          <!-- TODO icon -->
-          <div>{{ $t("financialHistory." + el.title) }}</div>
-          <div>{{ $t("financialHistory." + el.description) }}</div>
+      <background-tile id="financesMenuFinancialHistory" class="historyTile" :title="$t('financialHistory.name')">
+        <div class="historySorts">
+          <select v-model="financialHistorySelect1" @change="updateFinancialHistory">
+            <option :value="-1">{{ $t('sortBy') }}</option>
+            <option value="name">{{ $t('financialHistory.sortName') }}</option>
+            <option value="date">{{ $t('financialHistory.date') }}</option>
+          </select>
+          <select v-model="financialHistorySelect2" @change="updateFinancialHistory">
+            <option value="asc">{{ $t('ascending') }}</option>
+            <option value="des">{{ $t('descending') }}</option>
+          </select>
+        </div>
+        <div class="historyList verticalScroll">
+          <div v-for="(el, index) in financialHistory" :key="index" class="historyElement">
+            <info-line class="infoLine">
+              <div class="div1">{{ $t("financialHistory." + el.title) }} {{ el.objectTitle }}</div>
+              <div class="div2">{{
+                  $t("financialHistory." + el.description)
+                }}{{
+                  this.$store.getters.getCurrentLanguage.toLowerCase() === 'en' ? eMonths[el.date.getMonth()] : dMonths[el.date.getMonth()]
+                }}
+                {{ el.date.getDate() }}
+              </div>
+            </info-line>
+          </div>
         </div>
       </background-tile>
     </div>
@@ -101,11 +121,12 @@ import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import FinanceElement from "@/components/kitchenSink/FinanceElement.vue";
 import MarketShareElement from "@/components/kitchenSink/MarketShareElement.vue";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import InfoLine from "@/components/kitchenSink/InfoLine";
 
 export default {
   name: "FinancesMenu",
-  mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
-  components: {MarketShareElement, FinanceElement, CustomButton, BackgroundTile},
+  mixins: [soundeffectMixin('button', 'click'), soundeffectMixin('img', 'click')],
+  components: {InfoLine, MarketShareElement, FinanceElement, CustomButton, BackgroundTile},
 
   data() {
     return {
@@ -115,6 +136,8 @@ export default {
       selectedMarketYear: -1,
       availablePerformanceDates: [],
       availablePerformanceYears: [],
+      eMonths: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      dMonths: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
       availableMonths: [],
       availableMarketYears: this.$store.getters.getMarketYears,
       fiscalPerformanceData: {
@@ -126,7 +149,9 @@ export default {
         total: {name: "total", incoming: 0, outgoing: 0, accumulated: 0}
       },
       otherStudios: [],
-      financialHistory: this.$store.getters.getFinancialHistory
+      financialHistory: [...this.$store.getters.getFinancialHistory],
+      financialHistorySelect1: -1,
+      financialHistorySelect2: "asc",
     }
   },
 
@@ -146,9 +171,9 @@ export default {
       }
     },
 
-    roundBudget(labelValue){
+    roundBudget(labelValue) {
       let result = '';
-      if(labelValue.toString().charAt(0) === '-'){
+      if (labelValue.toString().charAt(0) === '-') {
         result += '-';
       }
       return Math.abs(Number(labelValue)) >= 1.0e+9
@@ -164,6 +189,30 @@ export default {
                   ? result + (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
 
                   : result + Math.abs(Number(labelValue));
+    },
+
+    updateFinancialHistory() {
+      if (this.financialHistorySelect1 === 'name') {
+        if (this.financialHistorySelect2 === 'asc') {
+          this.financialHistory.sort((a, b) => {
+            return a.objectTitle.localeCompare(b.objectTitle)
+          })
+        } else if (this.financialHistorySelect2 === 'des') {
+          this.financialHistory.sort((a, b) => {
+            return a.objectTitle.localeCompare(b.objectTitle)
+          }).reverse()
+        }
+      } else if (this.financialHistorySelect1 === 'date') {
+        if (this.financialHistorySelect2 === 'asc') {
+          this.financialHistory.sort((a, b) => {
+            return a.date.getTime() - b.date.getTime()
+          })
+        } else if (this.financialHistorySelect2 === 'des') {
+          this.financialHistory.sort((a, b) => {
+            return a.date.getTime() - b.date.getTime()
+          }).reverse()
+        }
+      }
     },
 
     updateFiscalPerformance() {
@@ -249,6 +298,42 @@ export default {
   gap: 20px;
 }
 
+.historySorts {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.infoLine {
+  margin-top: 5px;
+  height: 50px;
+}
+
+.div1 {
+  font-size: 18px;
+}
+
+.div2 {
+  font-size: 12px;
+  margin-left: 1px;
+}
+
+.historyList {
+  flex-grow: 1;
+  flex-basis: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 5px;
+  min-height: 30px;
+}
+
+.historyElement {
+  display: block;
+}
+
 .financesMenuLeftSide, .financesMenuRightSide {
   flex-grow: 1;
   flex-basis: 0;
@@ -266,7 +351,7 @@ export default {
   gap: 20px;
 }
 
-.fiscalPerformanceTile, .marketShareTile {
+.fiscalPerformanceTile, .marketShareTile, .historyTile {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

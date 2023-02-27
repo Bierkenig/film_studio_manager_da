@@ -22,7 +22,7 @@ export let updatePresence
 async function createWindow() {
 
     const primaryDisplay = screen.getPrimaryDisplay()
-    const { width, height } = primaryDisplay.workAreaSize
+    const {width, height} = primaryDisplay.workAreaSize
     // Create the browser window.
     const win = new BrowserWindow({
         width: 1920,
@@ -333,14 +333,9 @@ if (isDevelopment) {
 async function launchDiscordGameSDK(win) {
     let child
     try {
-        if(process.env.NODE_ENV === 'production'){
-            child = spawn('java', ['-jar', '../bundled/Discord.jar', process.pid.toString()],
-                {stdio: ['pipe', process.stdout, process.stderr]});
-        }
-        else{
-            child = spawn('java', ['-jar', 'src/Discord.jar', process.pid.toString()],
-                {stdio: ['pipe', process.stdout, process.stderr]});
-        }
+        child = spawn('java', ['-jar', '../bundled/Discord.jar', process.pid.toString()],
+            {stdio: ['pipe', process.stdout, process.stderr]});
+
 
         child.stdin.on('error', (error) => {
             updatePresence = () => {
