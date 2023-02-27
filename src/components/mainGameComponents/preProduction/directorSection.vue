@@ -26,7 +26,7 @@
       <info-line v-if="directorDeclined">
         {{ $t('hireDirectorSection.declined') }}
       </info-line>
-      <custom-button :disabled="!decision" @click="goToDuration">
+      <custom-button :disabled="!decision" @click="this.$store.getters.getCurrentMovie._preProduction.hiredDirector === null ? goToDuration() : gotToHome()">
         {{ $t('buyScreenplaySection.continue') }}
       </custom-button>
     </div>

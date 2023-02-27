@@ -37,10 +37,10 @@
         </custom-button>
         <info-line v-if="cant">{{ $t('actorSection.cant') }}</info-line>
       </background-tile>
-      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null" @click="finishPreProd()" :disabled="finish">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null || this.$router.options.history.state.back === '/budgetSection'" @click="finishPreProd()" :disabled="finish">
         {{ $t('actorSection.continue') }}
       </custom-button>
-      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null" @click="gotToHome()" :disabled="finish">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/budgetSection'" @click="gotToHome()" :disabled="finish">
         {{ $t('recastActor') }}
       </custom-button>
     </div>
@@ -287,6 +287,10 @@ export default {
         })
         this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
 
+        console.log(this.$store.getters.getCurrentMovie._preProduction.createTotal())
+
+        this.$store.getters.getCurrentMovie._preProduction.hype = this.$store.getters.getCurrentMovie._preProduction.createTotal();
+
         this.$router.push({name: "movies"})
       }
     },
@@ -325,7 +329,9 @@ export default {
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
-      this.$store.getters.getCurrentCalendarEvent.actor._workingOnProjects--
+      if(this.$router.options.history.state.back !== '/budgetSection'){
+        this.$store.getters.getCurrentCalendarEvent.actor._workingOnProjects--
+      }
       this.$store.getters.getCurrentMovie._preProduction.budget.actorSalary -= this.$store.getters.getCurrentCalendarEvent.actor.salary
       this.allActors = this.allActors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.allActors = this.allActors.filter(el => !ids.includes(el.id))

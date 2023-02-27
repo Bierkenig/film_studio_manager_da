@@ -6,7 +6,7 @@
           <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set') }}</div>
           <div class="durationSectionDurationElementInputContainer">
             <input class="durationSectionDurationElementInput" type="range" :min="2" :max="12" step="1"
-                   v-model="preProductionInput">
+                   v-model="preProductionInput" :disabled="confirm">
           </div>
           <div class="durationSectionDurationElementValue">{{ preProductionInput }} {{
               $t('durationSection.weeks')
@@ -18,7 +18,7 @@
           <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set2') }}</div>
           <div class="durationSectionDurationElementInputContainer">
             <input class="durationSectionDurationElementInput" type="range" :min="4" :max="24" step="1"
-                   v-model="productionInput">
+                   v-model="productionInput" :disabled="confirm">
           </div>
           <div class="durationSectionDurationElementValue">{{ productionInput }} {{ $t('durationSection.weeks') }}</div>
         </div>
@@ -27,7 +27,7 @@
           <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set3') }}</div>
           <div class="durationSectionDurationElementInputContainer">
             <input class="durationSectionDurationElementInput" type="range" :min="4" :max="24" step="1"
-                   v-model="postProductionInput">
+                   v-model="postProductionInput" :disabled="confirm">
           </div>
           <div class="durationSectionDurationElementValue">{{ postProductionInput }} {{
               $t('durationSection.weeks')

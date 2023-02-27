@@ -13,34 +13,34 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
-                                       :current-time-title="$t('thisWeek')" :current-time-gross="roundBudget(getWeekEarnings(it))"/>
+                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                                       :current-time-title="$t('thisWeek')" :current-time-gross="getWeekEarnings(it)"/>
               </div>
             </div>
             <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisMonth')"
-                                       :current-time-gross="roundBudget(getMonthEarnings(it))"/>
+                                       :current-time-gross="getMonthEarnings(it)"/>
               </div>
             </div>
             <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
-                                       :current-time-title="$t('thisYear')" :current-time-gross="roundBudget(getYearEarnings(it))"/>
+                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                                       :current-time-title="$t('thisYear')" :current-time-gross="getYearEarnings(it)"/>
               </div>
             </div>
             <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('allTime')"
-                                       :current-time-gross="roundBudget(getAllTimeEarnings(it))"/>
+                                       :current-time-gross="getAllTimeEarnings(it)"/>
               </div>
             </div>
           </tile-pages-nav>
@@ -109,11 +109,11 @@ export default {
   methods: {
     getWeekEarnings(movie) {
       let weekEarningsOfMovie = 0;
-      let startDateOfWeek = new Date(this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay()));
-      let endDateOfWeek = new Date(this.currentDate.setDate(this.currentDate.getDate() - this.currentDate.getDay() + 6));
+      let startDateOfWeek = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - this.currentDate.getDay());
+      let endDateOfWeek = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - this.currentDate.getDay() + 6);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if (this.currentDate.getTime() >= startDateOfWeek.getTime() && this.currentDate.getTime() <= endDateOfWeek.getTime()) {
+        if (movie._earnings.date.getTime() >= startDateOfWeek.getTime() && movie._earnings.date.getTime() <= endDateOfWeek.getTime()) {
           weekEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -127,7 +127,7 @@ export default {
       let endDateOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if (this.currentDate.getTime() >= startDateOfMonth.getTime() && this.currentDate.getTime() <= endDateOfMonth.getTime()) {
+        if (movie._earnings.date.getTime() >= startDateOfMonth.getTime() && movie._earnings.date.getTime() <= endDateOfMonth.getTime()) {
           monthEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -141,7 +141,7 @@ export default {
       let endDateOfYear = new Date(this.currentDate.getFullYear(), 11, 31);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if (this.currentDate.getTime() >= startDateOfYear.getTime() && this.currentDate.getTime() <= endDateOfYear.getTime()) {
+        if (movie._earnings.date.getTime() >= startDateOfYear.getTime() && movie._earnings.date.getTime() <= endDateOfYear.getTime()) {
           yearEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -168,8 +168,12 @@ export default {
     getAllTimeEarnings(movie) {
       let allTimeEarningsOfMovie = 0;
 
-      for (let i = 0; i < movie._earnings.length; i++) {
-        allTimeEarningsOfMovie += movie._earnings[i].amount;
+      if(movie._earnings.length !== 0){
+        for (let i = 0; i < movie._earnings.length; i++) {
+          allTimeEarningsOfMovie += movie._earnings[i].amount;
+        }
+      } else {
+        allTimeEarningsOfMovie = movie.allTotalEarings
       }
 
       return allTimeEarningsOfMovie;
