@@ -83,7 +83,6 @@
 
 body {
     margin: 0;
-    background-image: url("../assets/standardBG.svg");
 }
 
 [data-title]:hover:after {

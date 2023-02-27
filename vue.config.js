@@ -6,7 +6,7 @@ module.exports = {
                 "appId": "com.fsm.app",
                 "productName": "Film Studio Manager",
                 "target": "NSIS",
-                "icon": "public/FSM_Icon_256x.png",
+                "icon": "public/FSM_Icon_1024x.png",
                 extraResources: [
                     './public/DB',
                     './public/Discord.jar',
