@@ -334,7 +334,8 @@ async function launchDiscordGameSDK(win) {
     let child
     try {
         if(process.env.NODE_ENV === 'production'){
-            child = spawn('java', ['-jar', '../bundled/Discord.jar', process.pid.toString()],
+            //For Steam Production
+            child = spawn('java', ['-jar', 'bundled/Discord.jar', process.pid.toString()],
                 {stdio: ['pipe', process.stdout, process.stderr]});
         }
         else{
