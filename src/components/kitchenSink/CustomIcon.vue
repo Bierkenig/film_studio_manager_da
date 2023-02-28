@@ -3,6 +3,7 @@
     <img class="customIconSrc" ref="customIconSrc" :src="require(`../../assets/icons/${icon}.svg`)" :alt="icon"/>
     <img class="customIconSrc" ref="maleIconSrc" :src="require(`../../assets/icons/male.svg`)" :alt="icon"/>
     <img class="customIconSrc" ref="femaleIconSrc" :src="require(`../../assets/icons/female.svg`)" :alt="icon"/>
+    <img class="customIconSrc" ref="diverseIconSrc" :src="require(`../../assets/icons/diverse.svg`)" :alt="icon"/>
   </div>
 </template>
 
@@ -137,6 +138,8 @@ export default {
               request.open('GET', this.$refs.maleIconSrc.src, true);
             } else if (this.icon === 'female') {
               request.open('GET', this.$refs.femaleIconSrc.src, true);
+            } else if (this.icon === 'diverse') {
+              request.open('GET', this.$refs.diverseIconSrc.src, true);
             } else {
               request.open('GET', this.$refs.customIconSrc.src, true);
             }
