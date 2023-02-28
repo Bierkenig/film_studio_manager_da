@@ -58,6 +58,21 @@ export default {
       default: true,
     },
   },
+
+  watch: {
+    incoming: function (){
+      this.setupElement();
+    },
+
+    outgoing: function (){
+      this.setupElement();
+    },
+
+    accumulated: function (){
+      this.setupElement();
+    }
+  },
+
   methods: {
     setupElement() {
       if (!this.colorIncoming) {

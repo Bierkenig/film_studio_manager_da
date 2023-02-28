@@ -287,8 +287,6 @@ export default {
         })
         this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
 
-        console.log(this.$store.getters.getCurrentMovie._preProduction.createTotal())
-
         this.$store.getters.getCurrentMovie._preProduction.hype = this.$store.getters.getCurrentMovie._preProduction.createTotal();
 
         this.$router.push({name: "movies"})
