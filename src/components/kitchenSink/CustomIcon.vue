@@ -1,6 +1,8 @@
 <template>
   <div class="customIcon" ref="customIcon">
     <img class="customIconSrc" ref="customIconSrc" :src="require(`../../assets/icons/${icon}.svg`)" :alt="icon"/>
+    <img class="customIconSrc" ref="maleIconSrc" :src="require(`../../assets/icons/male.svg`)" :alt="icon"/>
+    <img class="customIconSrc" ref="femaleIconSrc" :src="require(`../../assets/icons/female.svg`)" :alt="icon"/>
   </div>
 </template>
 
@@ -131,7 +133,13 @@ export default {
     async getSVGCode() {
       let requestResult = await new Promise((resolve) => {
             let request = new XMLHttpRequest();
-            request.open('GET', this.$refs.customIconSrc.src, true);
+            if (this.icon === 'male') {
+              request.open('GET', this.$refs.maleIconSrc.src, true);
+            } else if (this.icon === 'female') {
+              request.open('GET', this.$refs.femaleIconSrc.src, true);
+            } else {
+              request.open('GET', this.$refs.customIconSrc.src, true);
+            }
             request.responseType = 'blob';
             request.onload = async function () {
               resolve(await new Promise((resolveRead) => {
