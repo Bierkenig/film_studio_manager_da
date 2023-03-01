@@ -18,6 +18,7 @@ export default class DBFetcher {
 
     fetch() {
         this.clear()
+        window.ipcRenderer.removeAllListeners('fromGetPeople')
         //Fetch People
         window.ipcRenderer.send('toGetPeople','SELECT * FROM people');
         window.ipcRenderer.receive('fromGetPeople', (data) => {

@@ -65,7 +65,7 @@ export default {
       await new Promise(resolve => setTimeout(resolve, 200))
       window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
       window.ipcRenderer.receive('gotStudios', (data) => {
-        this.$store.commit('addOtherStudios', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
+        this.$store.commit('addOtherStudios2', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
       })
 
       this.$router.go(-1)

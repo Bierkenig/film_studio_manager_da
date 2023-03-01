@@ -151,7 +151,7 @@ export default {
 
   watch: {
     person: function(){
-      if (this.person.length !== 0) {
+      if (this.person !== null && this.person !== undefined) {
         this.showDetails = true;
         this.personAvatar = this.person._avatar
         this.personName = this.person._first_name + ' ' + this.person._last_name;
