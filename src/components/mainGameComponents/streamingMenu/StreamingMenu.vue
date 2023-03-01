@@ -31,6 +31,7 @@
         </div>
         <custom-button
             id="streamingMenuCreateButton"
+            size="small"
             :dark="false"
             :disabled="checkBalance || !name"
             @clicked="createService">
