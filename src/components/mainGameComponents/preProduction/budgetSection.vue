@@ -2,7 +2,7 @@
   <div id="budgetSectionMainDiv">
     <background-tile id="budgetSectionBgTile" title="Budget">
       <div id="budgetSectionContent">
-        <div class="">{{ $t('budgetSection.overall') }}</div>
+        <div class="budgetSectionDescription">{{ $t('budgetSection.overall') }}</div>
 
         <div class="budgetSectionBudgetContainer verticalScroll">
           <div class="budgetSectionBudgetElement">
@@ -127,7 +127,7 @@
           </div>
         </div>
 
-        <custom-button @click="setBudgetPop(); disabled = false">
+        <custom-button class="budgetSectionSetBudgetButton" @click="setBudgetPop(); disabled = false">
           {{ $t('budgetSection.button') }}
         </custom-button>
 
@@ -621,5 +621,15 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.budgetSectionSetBudgetButton {
+  margin-bottom: 10px;
+}
+
+.budgetSectionDescription {
+  font-size: 20px;
+  font-weight: var(--fsm-fw-bold);
+  margin-bottom: 10px;
 }
 </style>
