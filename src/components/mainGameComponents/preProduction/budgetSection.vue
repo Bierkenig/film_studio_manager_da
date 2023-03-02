@@ -4,127 +4,128 @@
       <div id="budgetSectionContent">
         <div class="">{{ $t('budgetSection.overall') }}</div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.production') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="production.min" :max="production.max"
-                   step="1" v-model="production.value"
-                   @change="selected = 1; calcSum()">
+        <div class="budgetSectionBudgetContainer verticalScroll">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.production') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="production.min" :max="production.max"
+                     step="1" v-model="production.value"
+                     @change="selected = 1; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(production.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(production.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.extras') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="extras.min" :max="extras.max" step="1"
-                   v-model="extras.value"
-                   @change="selected = 2; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.extras') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="extras.min" :max="extras.max" step="1"
+                     v-model="extras.value"
+                     @change="selected = 2; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(extras.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(extras.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.cinematography') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="cinematography.min"
-                   :max="cinematography.max" step="1"
-                   v-model="cinematography.value"
-                   @change="selected = 3; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.cinematography') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="cinematography.min"
+                     :max="cinematography.max" step="1"
+                     v-model="cinematography.value"
+                     @change="selected = 3; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(cinematography.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(cinematography.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.sound') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="sound.min" :max="sound.max" step="1"
-                   v-model="sound.value"
-                   @change="selected = 4; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.sound') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="sound.min" :max="sound.max" step="1"
+                     v-model="sound.value"
+                     @change="selected = 4; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(sound.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(sound.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.editing') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="editing.min" :max="editing.max" step="1"
-                   v-model="editing.value"
-                   @change="selected = 5; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.editing') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="editing.min" :max="editing.max" step="1"
+                     v-model="editing.value"
+                     @change="selected = 5; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(editing.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(editing.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.score') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="score.min" :max="score.max" step="1"
-                   v-model="score.value"
-                   @change="selected = 6; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.score') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="score.min" :max="score.max" step="1"
+                     v-model="score.value"
+                     @change="selected = 6; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(score.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(score.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.set') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="set.min" :max="set.max" step="1"
-                   v-model="set.value"
-                   @change="selected = 7; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.set') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="set.min" :max="set.max" step="1"
+                     v-model="set.value"
+                     @change="selected = 7; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(set.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(set.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.stunts') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="stunts.min" :max="stunts.max" step="1"
-                   v-model="stunts.value"
-                   @change="selected = 8; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.stunts') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="stunts.min" :max="stunts.max" step="1"
+                     v-model="stunts.value"
+                     @change="selected = 8; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(stunts.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(stunts.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.costume') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="costume.min" :max="costume.max" step="1"
-                   v-model="costume.value"
-                   @change="selected = 9; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.costume') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="costume.min" :max="costume.max" step="1"
+                     v-model="costume.value"
+                     @change="selected = 9; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(costume.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(costume.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.makeup') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="makeup.min" :max="makeup.max" step="1"
-                   v-model="makeup.value"
-                   @change="selected = 10; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.makeup') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="makeup.min" :max="makeup.max" step="1"
+                     v-model="makeup.value"
+                     @change="selected = 10; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(makeup.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(makeup.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.sfx') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="sfx.min" :max="sfx.max" step="1"
-                   v-model="sfx.value"
-                   @change="selected = 11; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.sfx') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="sfx.min" :max="sfx.max" step="1"
+                     v-model="sfx.value"
+                     @change="selected = 11; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(sfx.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(sfx.value) }}</div>
-        </div>
 
-        <div class="budgetSectionBudgetElement">
-          <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.vfx') }}</div>
-          <div class="budgetSectionBudgetElementInputContainer">
-            <input class="budgetSectionBudgetElementInput" type="range" :min="vfx.min" :max="vfx.max" step="1"
-                   v-model="vfx.value"
-                   @change="selected = 12; calcSum()">
+          <div class="budgetSectionBudgetElement">
+            <div class="budgetSectionBudgetElementLabel">{{ $t('budgetSection.vfx') }}</div>
+            <div class="budgetSectionBudgetElementInputContainer">
+              <input class="budgetSectionBudgetElementInput" type="range" :min="vfx.min" :max="vfx.max" step="1"
+                     v-model="vfx.value"
+                     @change="selected = 12; calcSum()">
+            </div>
+            <div class="budgetSectionBudgetElementValue">{{ roundBudget(vfx.value) }}</div>
           </div>
-          <div class="budgetSectionBudgetElementValue">{{ roundBudget(vfx.value) }}</div>
         </div>
-
 
         <custom-button @click="setBudgetPop(); disabled = false">
           {{ $t('budgetSection.button') }}
@@ -613,5 +614,12 @@ export default {
 
 .budgetSectionBudgetElementValue {
   white-space: nowrap;
+}
+
+.budgetSectionBudgetContainer {
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 </style>
