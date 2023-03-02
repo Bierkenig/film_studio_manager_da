@@ -81,7 +81,7 @@
                 {{ $t('worldwideGross') }}
               </div>
               <div>
-                $ {{ roundBudget(franchisePrice) }}
+                $ {{ roundBudget(franchiseExpenses) }}
               </div>
             </div>
           </div>
@@ -147,25 +147,22 @@ export default {
           let teenagerRatingSum = 0;
           let adultRatingSum = 0;
 
-          childrenRatingSum += this.franchiseMovies[i].genrePopularity['children'];
-          childrenRatingSum += this.franchiseMovies[i].subgenrePopularity['children'];
+          childrenRatingSum += this.franchiseMovies[i]._preProduction.screenplay.genre.childrenPopularity;
+          teenagerRatingSum += this.franchiseMovies[i]._preProduction.screenplay.genre.teenPopularity;
+          adultRatingSum += this.franchiseMovies[i]._preProduction.screenplay.genre.adultPopularity;
 
-          teenagerRatingSum += this.franchiseMovies[i].genrePopularity['teenager'];
-          teenagerRatingSum += this.franchiseMovies[i].subgenrePopularity['teenager'];
+          if(this.franchiseMovies[i]._preProduction.screenplay.subgenre !== null){
+            childrenRatingSum += this.franchiseMovies[i]._preProduction.screenplay.subgenre.childrenPopularity;
+            teenagerRatingSum += this.franchiseMovies[i]._preProduction.screenplay.subgenre.teenPopularity;
+            adultRatingSum += this.franchiseMovies[i]._preProduction.screenplay.subgenre.adultPopularity;
+          }
 
-          adultRatingSum += this.franchiseMovies[i].genrePopularity['adult'];
-          adultRatingSum += this.franchiseMovies[i].subgenrePopularity['adult'];
-
-          Object.keys(this.franchiseMovies[i].topicPopularity).forEach(key => {
-            Object.keys(this.franchiseMovies[i].topicPopularity[key]).forEach(key2 => {
-              if(key2 == 'children'){
-                childrenRatingSum += this.franchiseMovies[i].topicPopularity[key][key2]
-              } else if(key2 == 'teenager'){
-                teenagerRatingSum += this.franchiseMovies[i].topicPopularity[key][key2]
-              } else if(key2 == 'adult'){
-                adultRatingSum += this.franchiseMovies[i].topicPopularity[key][key2]
-              }
-            })
+          Object.keys(this.franchiseMovies[i]._preProduction.screenplay.topics).forEach(key => {
+            if(this.franchiseMovies[i]._preProduction.screenplay.topics[key] !== null){
+              childrenRatingSum += this.franchiseMovies[i]._preProduction.screenplay.topics[key].childrenPopularity
+              teenagerRatingSum += this.franchiseMovies[i]._preProduction.screenplay.topics[key].teenPopularity
+              adultRatingSum += this.franchiseMovies[i]._preProduction.screenplay.topics[key].adultPopularity
+            }
           })
 
           this.childrenRating += childrenRatingSum / 5;
@@ -177,10 +174,11 @@ export default {
           for (let j = 0; j < this.franchiseMovies[i]._earnings.length; j++) {
             movieEarnings += this.franchiseMovies[i]._earnings[j].amount
           }
-          this.franchisePrice += movieEarnings;
+
+          this.franchisePrice += this.franchiseMovies[i]._totalOutgoings;
           this.franchiseMovieEarnings.push(movieEarnings);
 
-          this.franchiseExpenses += this.franchiseMovies[i].totalOutgoings;
+          this.franchiseExpenses += movieEarnings;
         }
 
         this.childrenRating = this.childrenRating / this.franchiseMovies.length;

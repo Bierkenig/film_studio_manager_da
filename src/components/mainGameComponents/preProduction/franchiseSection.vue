@@ -40,12 +40,10 @@ export default {
       let lastScreenplay = this.$store.getters.getCurrentFranchise.getLastScreenplay();
       let newScreenplay = new Screenplay(this.$store.getters.getNextScreenplayId,lastScreenplay.title,
           lastScreenplay.type, lastScreenplay.genre,lastScreenplay.subgenre, lastScreenplay.ageRating,
-          null,lastScreenplay.description,lastScreenplay.rating,null,lastScreenplay.topics,
-          this.$store.getters.getCurrentFranchise);
+          null,lastScreenplay.description,lastScreenplay.rating,null, null, lastScreenplay.topics,
+          this.$store.getters.getCurrentFranchise,false, lastScreenplay.details, lastScreenplay.ageRatingDetails);
       newScreenplay.setRatingRange(lastScreenplay.ratingRange);
       newScreenplay.roles = lastScreenplay.roles;
-      newScreenplay.details = lastScreenplay.details;
-      newScreenplay.ageRatingDetails = lastScreenplay.ageRatingDetails;
 
       this.$store.getters.getCurrentMovie._franchiseType = this.movieFranchiseType;
       this.$store.commit('setNewCurrentScreenplay', newScreenplay);

@@ -236,7 +236,7 @@
             </div>
             <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
             <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -264,15 +264,15 @@
           <div v-if="source._status !== 'Finished' && source._status !== 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
           </div>
         </div>
