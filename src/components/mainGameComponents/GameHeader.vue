@@ -15,7 +15,7 @@
         <header-info :icon="this.$store.getters.getCurrentLogo">{{ studioname }}</header-info>
         <p class="headerBoxStudioPopularity">
           <custom-icon class="headerInfoIcon" icon="money" size="30px" :dark="false" :gradient="true" :shadow="true"/>
-          {{ roundBudget(budget) }}
+          {{ budget >= 1.0e+17 ? "ꝏ" : roundBudget(budget) }}
         </p>
         <p class="headerBoxStudioPopularity">
           <custom-icon class="headerInfoIcon" icon="calendar" size="30px" :dark="false" :gradient="true" :shadow="true"/>

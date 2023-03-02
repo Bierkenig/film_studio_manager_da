@@ -398,7 +398,7 @@ export default {
 .createStudioBackground {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 500px;
   padding: 10px 20px 10px 20px;
 }
 
@@ -465,7 +465,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-flow: row wrap;
-  width: 70%;
+  width: 75%;
   gap: 15px;
   padding-bottom: 15px;
 }

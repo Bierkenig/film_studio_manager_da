@@ -1,6 +1,6 @@
 <template>
   <div class="budgetSelectPagesNavBarMainDiv">
-    <div v-for="i in 3" :key="i" class="budgetSelectPagesNavElement">
+    <div v-for="i in 4" :key="i" class="budgetSelectPagesNavElement">
       <input :id="'budgetSelectPage' + i"
              :value="budgetValues[i-1]"
              v-model="budget"
@@ -25,9 +25,9 @@ export default {
   data(){
     return {
       budget: "250000000",
-      budgetValues: ["50000000","250000000", "1000000000"],
-      budgetLabelsEn: ["50 Million", "250 Million", "1 Billion"],
-      budgetLabelsDe: ["50 Millionen", "250 Millionen", "1 Milliarde"],
+      budgetValues: ["50000000","250000000", "1000000000", '9000000000000000000000000000000000000000'],
+      budgetLabelsEn: ["50 Million", "250 Million", "1 Billion", 'ꝏ'],
+      budgetLabelsDe: ["50 Millionen", "250 Millionen", "1 Milliarde", 'ꝏ'],
     }
   },
 

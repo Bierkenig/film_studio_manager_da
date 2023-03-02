@@ -188,7 +188,7 @@ function setFinancialPerformance() {
     //loan
     store.getters.getCurrentLoans.forEach(loa => {
         if (loa.date.getMonth() === currentDate.getMonth() && loa.date.getFullYear() === currentDate.getFullYear()) {
-            loan.outgoing += loa.value * -1
+            loan.incoming += loa.value
         }
     })
 
@@ -1106,15 +1106,15 @@ function renewPeople() {
             store.commit('removePerson', el.id)
             let type = ""
             if (el._isActor === "true") {
-                type += "Actor | "
+                type += "Actor "
                 roles.actor++
             }
             if (el._isDirector === "true") {
-                type += "Director | "
+                type += " | Director "
                 roles.director++
             }
             if (el._isWriter === "true") {
-                type += "Writer"
+                type += " | Writer"
                 roles.writer++
             }
             store.commit('addNews', new News(el._first_name + ' ' + el._last_name + " died", "The " + type + " " + el._first_name + ' ' + el._last_name + " died", 'People', store.getters.getCurrentDate, el))
