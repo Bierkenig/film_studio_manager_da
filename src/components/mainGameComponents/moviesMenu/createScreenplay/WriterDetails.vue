@@ -58,7 +58,7 @@
           <div class="writerDetailsInfoTextRow">
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="party" :shadow="false" :invert-theme="false"/>
                 <div>{{ $t('popularity') }}</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -70,7 +70,7 @@
             </div>
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="briefcase" :shadow="false" :invert-theme="false"/>
                 <div>{{ $t('experience') }}</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -84,7 +84,7 @@
           <div class="writerDetailsInfoTextRow">
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="star" :shadow="false" :invert-theme="false"/>
                 <div>{{ $t('rating') }}</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -96,7 +96,7 @@
             </div>
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="school" :shadow="false" :invert-theme="false"/>
                 <div>Talent</div>
               </div>
               <input class="writerDetailsRangeSlider"
