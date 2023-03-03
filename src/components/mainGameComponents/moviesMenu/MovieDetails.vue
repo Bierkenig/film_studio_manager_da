@@ -103,7 +103,7 @@
           </div>
           <div v-if="movie._postProduction !== null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>$ {{ roundBudget(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) }}</div>
+            <div>$ {{ roundBudget(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial + movie._postProduction.distributionCosts) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>

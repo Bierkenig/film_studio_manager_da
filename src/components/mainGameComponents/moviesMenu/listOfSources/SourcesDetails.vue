@@ -240,7 +240,7 @@
             </div>
             <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>$ {{ roundBudget(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
+              <div>$ {{ roundBudget(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial + source._postProduction.distributionCosts) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
