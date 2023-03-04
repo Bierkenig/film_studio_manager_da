@@ -46,8 +46,10 @@
             <input class="durationSectionDurationElementInput" type="range" :min="0" :max="12" step="1"
                    v-model="releaseDateInput">
           </div>
-          <div class="durationSectionDurationElementValue">{{ $t('durationSection.choice') }}{{ releaseDateInput }}
-            {{ $t('durationSection.weeks') }}
+          <div class="durationSectionDurationElementValue">
+            {{ $t('durationSection.choice') }}
+            <br>
+            {{ releaseDateInput }} {{ $t('durationSection.weeks') }}
           </div>
         </div>
 
@@ -196,30 +198,29 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-s-border-radius);
   padding: 10px;
 }
 
-.durationSectionDurationElementLabel, .durationSectionDurationElementInputContainer, .durationSectionDurationElementValue {
-  flex-basis: 0;
+.durationSectionDurationElementLabel {
+  width: 20vw;
 }
 
-.durationSectionDurationElementLabel {
-  flex-grow: 2;
+.durationSectionDurationElementInputContainer {
+  width: 6vw;
+  text-align: center;
+  margin: 0 10px 0 10px;
 }
 
 .durationSectionDurationElementInput {
-  flex-grow: 1;
+  box-sizing: border-box;
+  width: 5vw;
 }
 
 .durationSectionDurationElementValue {
-  flex-grow: 1;
+  width: 6vw;
   text-align: center;
-}
-
-.durationSectionDurationElementValue {
   white-space: nowrap;
 }
 
