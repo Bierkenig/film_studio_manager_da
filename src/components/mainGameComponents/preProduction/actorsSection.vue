@@ -350,10 +350,6 @@ export default {
   height: 100vh;
 }
 
-.actorsSectionColumn {
-  height: 80vh;
-}
-
 #actorSectionRight {
   display: flex;
   flex-direction: column;
