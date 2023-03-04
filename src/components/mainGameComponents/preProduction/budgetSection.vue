@@ -589,30 +589,29 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
   background-color: var(--fsm-dark-blue-3);
   border-radius: var(--fsm-s-border-radius);
   padding: 10px;
 }
 
-.budgetSectionBudgetElementLabel, .budgetSectionBudgetElementInputContainer, .budgetSectionBudgetElementValue {
-  flex-basis: 0;
+.budgetSectionBudgetElementLabel {
+  width: 20vw;
 }
 
-.budgetSectionBudgetElementLabel {
-  flex-grow: 2;
+.budgetSectionBudgetElementInputContainer {
+  width: 6vw;
+  text-align: center;
+  margin: 0 10px 0 10px;
 }
 
 .budgetSectionBudgetElementInput {
-  flex-grow: 1;
+  box-sizing: border-box;
+  width: 5vw;
 }
 
 .budgetSectionBudgetElementValue {
-  flex-grow: 1;
+  width: 6vw;
   text-align: center;
-}
-
-.budgetSectionBudgetElementValue {
   white-space: nowrap;
 }
 
