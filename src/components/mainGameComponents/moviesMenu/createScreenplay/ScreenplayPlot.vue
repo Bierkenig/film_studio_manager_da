@@ -151,6 +151,8 @@
       </div>
     </div>
 
+    <info-line id="screenplayPlotHint">{{ $t('plotHint') }}</info-line>
+
     <div>
       <icon-button
           v-if="this.$store.getters.getCurrentScreenplay.rewritingStatus"
@@ -196,11 +198,12 @@ import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import InfoLine from "@/components/kitchenSink/InfoLine.vue";
 
 
 export default {
   name: "ScreenplayPlot",
-  components: {CustomIcon, IconButton, CustomButton, SettingModal, CharacterMomentsModal, TimePeriodModal},
+  components: {InfoLine, CustomIcon, IconButton, CustomButton, SettingModal, CharacterMomentsModal, TimePeriodModal},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
@@ -421,6 +424,10 @@ export default {
   border-radius: var(--fsm-l-border-radius);
 
   width: 100%;
+}
+
+#screenplayPlotHint {
+  width: fit-content;
 }
 
 #dropZones {

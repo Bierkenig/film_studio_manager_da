@@ -885,6 +885,7 @@ i18next
                     sequel: 'Sequel',
                     prequel: 'Prequel',
                     screenplayPlot: 'Screenplay Plot',
+                    plotHint: 'You can use "drag & drop" to move or delete the elements',
                     contractOffer: 'Contract Offer',
                     events: {
                         dropOut: {
@@ -2047,6 +2048,7 @@ i18next
                     sequel: 'Fortsetzung',
                     prequel: 'Vorgeschichte',
                     screenplayPlot: 'Drehbuchhandlung',
+                    plotHint: 'Du kannst "drag & drop" benutzen um die Elemente zu verschieben oder zu löschen',
                     contractOffer: 'Vertragsangebot',
                     events: {
                         dropOut: {
