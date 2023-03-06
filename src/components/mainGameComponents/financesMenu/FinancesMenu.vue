@@ -3,16 +3,14 @@
     <div class="financesMenuLeftSide">
       <background-tile class="loanTile" :title="$t('labelTakeCredit')" content-color="grey" icon="price">
         {{ $t('descCredit') }}
-        <custom-button size="small" class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">{{
-            $t('takeCredit')
-          }}
+        <custom-button size="small" class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">
+          {{ $t('takeCredit') }}
         </custom-button>
       </background-tile>
       <background-tile class="buyStudioTile" :title="$t('labelBuyStudio')" content-color="grey" icon="studio">
         {{ $t('descStudio') }}
-        <custom-button size="small" class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">{{
-            $t('buyStudio')
-          }}
+        <custom-button size="small" class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">
+          {{ $t('buyStudio') }}
         </custom-button>
       </background-tile>
     </div>
@@ -101,11 +99,9 @@
           <div v-for="(el, index) in financialHistory" :key="index" class="historyElement">
             <info-line class="infoLine">
               <div class="div1">{{ $t("financialHistory." + el.title) }} {{ el.objectTitle }}</div>
-              <div class="div2">{{
-                  $t("financialHistory." + el.description)
-                }}{{
-                  this.$store.getters.getCurrentLanguage.toLowerCase() === 'en' ? eMonths[el.date.getMonth()] : dMonths[el.date.getMonth()]
-                }}
+              <div class="div2">
+                {{ $t("financialHistory." + el.description) }}
+                {{ this.$store.getters.getCurrentLanguage.toLowerCase() === 'en' ? eMonths[el.date.getMonth()] : dMonths[el.date.getMonth()] }}
                 {{ el.date.getDate() }}
               </div>
             </info-line>

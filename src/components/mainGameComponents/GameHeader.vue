@@ -2,7 +2,7 @@
   <div id="headerBox">
     <div class="headerSectionBox">
       <!-- TODO pageName ist immer englisch-->
-      <page-heading :heading="pageName">{{ $t('managerDashboard') }}</page-heading>
+      <page-heading :heading="$t('menuHeadings.' + pageName + '.title')">{{ $t('menuHeadings.' + pageName + '.description') }}</page-heading>
 
       <!--<div>
         <h2>{{ $t(pageName) }}</h2>
