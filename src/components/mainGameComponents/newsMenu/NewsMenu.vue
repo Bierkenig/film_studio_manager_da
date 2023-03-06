@@ -6,7 +6,7 @@
       <action-section headline="listOfAwards" info-text="listOfAwardsInfoText" button-text="open" icon="trophy"/>
     </div>
     <div class="newsMenuCenterBox">
-      <background-tile class="newsMenuCenterBoxBackground" title="Earning Statistics">
+      <background-tile class="newsMenuCenterBoxBackground" :title="$t('earningStatistics')">
           <tile-pages-nav class="newsMenuNavigation"
                           :pages='[$t("thisWeek"),$t("thisMonth"), $t("thisYear"), $t("allTime")]' :gradient='true'>
             <div class="newsMenuCenterBoxContent verticalScroll">
@@ -47,8 +47,8 @@
       </background-tile>
     </div>
     <div class="newsMenuRightBox">
-      <background-tile class="newsMenuRightBoxBackground" title="News">
-          <tile-pages-nav class="newsMenuNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
+      <background-tile class="newsMenuRightBoxBackground" :title="$t('news2')">
+          <tile-pages-nav class="newsMenuNavigation" :pages='[$t("people"),$t("movies"), "Studios"]' :gradient='true'>
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.peopleNews" :key="index">
                 <news-element svg-code="" :heading-text="it._title"

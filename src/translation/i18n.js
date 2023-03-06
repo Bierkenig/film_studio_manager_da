@@ -1205,6 +1205,7 @@ i18next
                     theStreamingService: 'The streaming service ',
                     wasFounded: ' was founded',
                     chooseSequelPrequel: 'Sequel or Prequel',
+                    earningStatistics: 'Earning Statistics',
                 }
             },
             de: {
@@ -2405,7 +2406,8 @@ i18next
                     theStudio: 'Das Studio ',
                     theStreamingService: 'Das Streaming Service ',
                     wasFounded: ' wurde gegründet',
-                    chooseSequelPrequel: 'Sequel oder Prequel'
+                    chooseSequelPrequel: 'Sequel oder Prequel',
+                    earningStatistics: 'Einnahmens-Statistiken',
                 }
             }
         }
