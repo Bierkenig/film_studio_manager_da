@@ -86,6 +86,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   gap: 35px;
 }
 

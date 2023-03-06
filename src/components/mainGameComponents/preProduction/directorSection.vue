@@ -239,10 +239,6 @@ export default {
   height: 100vh;
 }
 
-.directorSectionColumn {
-  height: 80vh;
-}
-
 #directorSectionRight {
   display: flex;
   flex-direction: column;
