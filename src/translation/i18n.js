@@ -1206,6 +1206,32 @@ i18next
                     wasFounded: ' was founded',
                     chooseSequelPrequel: 'Sequel or Prequel',
                     earningStatistics: 'Earning Statistics',
+                    menuHeadings: {
+                        home: {
+                            title: 'Home',
+                            description: 'Your manager dashboard.',
+                        },
+                        movies: {
+                            title: 'Movies',
+                            description: 'View and manage your current movie projects.',
+                        },
+                        streaming: {
+                            title: 'Streaming',
+                            description: 'View and manage your streaming service.',
+                        },
+                        finances: {
+                            title: 'Finances',
+                            description: 'View and manage your current finances.',
+                        },
+                        news: {
+                            title: 'News',
+                            description: 'Always be up to date.',
+                        },
+                        calendar: {
+                            title: 'Calendar',
+                            description: 'View upcoming and previous events.',
+                        },
+                    },
                 }
             },
             de: {
@@ -2408,6 +2434,32 @@ i18next
                     wasFounded: ' wurde gegründet',
                     chooseSequelPrequel: 'Sequel oder Prequel',
                     earningStatistics: 'Einnahmens-Statistiken',
+                    menuHeadings: {
+                        home: {
+                            title: 'Startseite',
+                            description: 'Dein Manager-Dashboard.',
+                        },
+                        movies: {
+                            title: 'Filme',
+                            description: 'Anzeigen und Verwalten deiner aktuellen Filmprojekte.',
+                        },
+                        streaming: {
+                            title: 'Streaming',
+                            description: 'Anzeigen und Verwalten deines Streaming-Service.',
+                        },
+                        finances: {
+                            title: 'Finanzen',
+                            description: 'Anzeigen und Verwalten deiner aktuellen Finanzen.',
+                        },
+                        news: {
+                            title: 'Nachrichten',
+                            description: 'Bleib immer auf dem Laufenden.',
+                        },
+                        calendar: {
+                            title: 'Kalender',
+                            description: 'Kommende und bisherige Ereignisse anzeigen.',
+                        },
+                    },
                 }
             }
         }
