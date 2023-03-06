@@ -5,7 +5,8 @@
     </div>
     <div class="actorSectionColumn" id="actorSectionRight">
       <actor-details :person="currentActor"/>
-      <background-tile v-if="negotiate" :title="$t('actorSection.salary')" id="actorSectionNegotiation">
+      <background-tile v-if="negotiate && (spots.main !== 0 || spots.minor !== 0 || spots.support !== 0 || spots.cameo !== 0)"
+                       :title="$t('actorSection.salary')" id="actorSectionNegotiation">
         <div id="actorSectionNegotiationOffer">
           <div>$ {{ roundBudget(proposedSalary) }}</div>
           <div>
@@ -26,7 +27,7 @@
                  :disabled="!spots.cameo >= 1">
           <label class="actorsSectionRoleTypeLabel" for="cameo">Cameo ({{ spots.cameo }})</label>
         </div>
-        <custom-button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</custom-button>
+        <custom-button @click="sendOffer(); sendOfferBool = true" :disabled="radio === null">{{ $t('actorSection.offer') }}</custom-button>
         <info-line v-if="sendOfferBool">
           {{ currentActor._first_name }}
           {{ currentActor._last_name }}{{ $t('actorSection.decision') }}

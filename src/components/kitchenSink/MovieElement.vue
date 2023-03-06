@@ -2,7 +2,9 @@
   <div class="movieElementMainDiv">
     <div class="movieElementHead">
       <div class="movieElementHeading">
-        <div class="movieElementImage"/>
+        <div class="movieElementImage">
+          <poster-element height="110px" width="80px" :poster-name="source.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+        </div>
         <div class="movieElementTitle">
           {{ movieTitle }}
         </div>
@@ -57,17 +59,13 @@
 import IconButton from "@/components/kitchenSink/IconButton";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "MovieElement",
-  components: {CustomIcon, InfoCircle, IconButton},
-  data() {
-    return {
-      svgBG: '',
-    }
-  },
+  components: {PosterElement, CustomIcon, InfoCircle, IconButton},
+
   props: {
-    svgCode: String,
     movieTitle: {
       type: String,
       required: true,
@@ -102,15 +100,9 @@ export default {
     },
   },
   methods: {
-    setSVG() {
-      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
-    },
     openButtonClicked() {
       this.$emit('open-clicked');
     },
-  },
-  mounted() {
-    this.setSVG();
   },
 }
 </script>
@@ -150,10 +142,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('svgBG');
   background-size: 70px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .movieElementInfo {

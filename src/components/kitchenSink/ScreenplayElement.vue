@@ -1,6 +1,8 @@
 <template>
   <div class="screenplayElementMainDiv">
-    <div class="screenplayElementImage"/>
+    <div class="screenplayElementImage">
+      <poster-element height="110px" width="80px" :poster-name="genreIcon + 'ScreenplayPoster'"/>
+    </div>
     <div class="screenplayElementInfo">
       <div class="screenplayElementHeading">
         <div class="screenplayElementTitle">
@@ -47,17 +49,13 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton";
 import InfoCircle from "@/components/kitchenSink/InfoCircle";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "ScreenplayElement",
-  components: {InfoCircle, IconButton},
-  data() {
-    return {
-      svgBG: '',
-    }
-  },
+  components: {PosterElement, InfoCircle, IconButton},
+
   props: {
-    svgCode: String,
     screenplayTitle: {
       type: String,
       required: true,
@@ -87,15 +85,9 @@ export default {
     },
   },
   methods: {
-    setSVG() {
-      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
-    },
     openButtonClicked() {
       this.$emit('open-clicked');
     },
-  },
-  mounted() {
-    this.setSVG();
   },
 }
 </script>
@@ -121,10 +113,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('svgBG');
   background-size: 80px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .screenplayElementInfo {

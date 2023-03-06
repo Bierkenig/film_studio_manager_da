@@ -47,9 +47,9 @@
           <div id="fiscalPerformanceList" class="verticalScroll">
             <div v-for="(element, index) in fiscalPerformanceData" :key="index" class="fiscalPerformanceListElement">
               <finance-element
-                  :accumulated="roundBudget(element.accumulated.toString())"
-                  :outgoing="roundBudget(element.outgoing.toString())"
-                  :incoming="roundBudget(element.incoming.toString())"
+                  :accumulated="'$ ' + roundBudget(element.accumulated.toString())"
+                  :outgoing="'$ ' + roundBudget(element.outgoing.toString())"
+                  :incoming="'$ ' + roundBudget(element.incoming.toString())"
                   :area="$t(element.name)"
               />
             </div>
@@ -75,8 +75,8 @@
           <div v-for="(el, index) in otherStudios" :key="index" class="marketShareListElement">
             <market-share-element icon="studio"
                                   :studio="el.name"
-                                  :revenue="roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0).toString())"
-                                  :profit="roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0).toString())"
+                                  :revenue="'$ ' + roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0).toString())"
+                                  :profit="'$ ' + roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0).toString())"
                                   :share="((el.marketShare[selectedMarketYear] !== undefined || !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) + '%').toString()"
                                   :change="(((el.marketShare[selectedMarketYear] !== undefined && !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) - (el.marketShare[selectedMarketYear - 1] !== undefined || !isNaN(el.marketShare[selectedMarketYear - 1]) ? el.marketShare[selectedMarketYear - 1] : 0)) + '%').toString()"
             />

@@ -13,7 +13,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisWeek')" :current-time-gross="getWeekEarnings(it)"/>
               </div>
             </div>
@@ -21,7 +21,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisMonth')"
                                        :current-time-gross="getMonthEarnings(it)"/>
               </div>
@@ -30,7 +30,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisYear')" :current-time-gross="getYearEarnings(it)"/>
               </div>
             </div>
@@ -38,7 +38,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('allTime')"
                                        :current-time-gross="getAllTimeEarnings(it)"/>
               </div>

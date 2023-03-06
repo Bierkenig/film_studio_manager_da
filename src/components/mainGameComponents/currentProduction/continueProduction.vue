@@ -34,9 +34,8 @@ export default {
   methods: {
     cancelMovie() {
       const index = this.$store.state.inProductionMovies.indexOf(this.$store.state.currentMovie)
-      this.$store.state.inProductionMovies.slice(index, 1)
+      this.$store.state.inProductionMovies.splice(index, 1)
       this.$store.state.currentMovie = null
-      this.$store.state.summaries.preProductionClose = true
       this.closeModal();
     },
 

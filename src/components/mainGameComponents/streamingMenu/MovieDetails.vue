@@ -26,7 +26,9 @@
                              size="60px"/>
               </div>
             </div>
-            <div class="movieDetailsPoster"/>
+            <div class="movieDetailsPoster">
+              <poster-element height="160px" width="120px" :poster-name="movie._preProduction.screenplay.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+            </div>
           </div>
         </div>
         <div class="movieDetailsGeneralBottomInfo">
@@ -185,10 +187,11 @@ import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import store from "@/services/store";
 import Earnings from "@/classes/Earnings";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "MovieDetails",
-  components: {CustomButton, BuyModal, BackgroundTile, InfoCircle},
+  components: {PosterElement, CustomButton, BuyModal, BackgroundTile, InfoCircle},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   props: {
@@ -200,7 +203,6 @@ export default {
       selectedContract: null,
       price: 0,
       movieTopics: [],
-      moviePosterSVG: 'none',
       checkBalance: true,
       showBuyMovieRightsModal: false
     }
@@ -394,10 +396,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('moviePosterSVG');
   background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .movieDetailsGeneralInfoLine, .movieDetailsFinancesInfoLine {

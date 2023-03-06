@@ -153,7 +153,8 @@ export default {
 }
 
 .simulationScreenNewsContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -203,11 +204,6 @@ export default {
   right: 100px;
   bottom: 20px;
   width: 15%;
-}
-
-.newsElement {
-  width: 100%;
-  flex: 1;
 }
 
 .meterBox {

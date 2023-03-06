@@ -10,8 +10,8 @@
           <div class="moviesDetailsGeneralTopInfoRight">
             <div class="moviesDetailsInfoCircles">
               <div v-if="movie._status === 'Finished' || movie._status === 'Released'" class="moviesDetailsInfoCirclesTop">
-                <info-circle class="moviesDetailsInfoCircle" :text="movie.quality" size="60px" :data-title="$t('quality')" large-font/>
-                <info-circle class="moviesDetailsInfoCircle" :text="movie._release.popularityFormula" size="60px" :data-title="$t('popularity')" large-font/>
+                <info-circle class="moviesDetailsInfoCircle" :text="Math.round(movie.quality).toString()" size="60px" :data-title="$t('quality')" large-font/>
+                <info-circle class="moviesDetailsInfoCircle" :text="Math.round(movie._release.popularityFormula).toString()" size="60px" :data-title="$t('popularity')" large-font/>
               </div>
               <div v-else class="moviesDetailsInfoCirclesTop">
                 <info-circle class="moviesDetailsInfoCircle" text="Q" size="60px" large-font/>
@@ -26,7 +26,9 @@
                              size="60px"/>
               </div>
             </div>
-            <div class="moviesDetailsPoster"/>
+            <div class="moviesDetailsPoster">
+              <poster-element height="160px" width="120px" :poster-name="movie._preProduction.screenplay.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+            </div>
           </div>
         </div>
         <div class="moviesDetailsGeneralBottomInfo">
@@ -69,7 +71,7 @@
             </div>
             <div class="moviesDetailsGeneralInfoLine">
               <div>{{ $t('movieDetailsElement.general.director') }}</div>
-              <div>{{ movie.director.getFullName() }}</div>
+              <div>{{ movie._preProduction.hiredDirector.getFullName() }}</div>
             </div>
           </div>
         </div>
@@ -91,7 +93,7 @@
           </div>
           <div v-if="movie._postProduction === null" class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
           <div v-if="movie._postProduction !== null" class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
@@ -119,15 +121,15 @@
         <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="moviesDetailsFinancesRight">
           <div class="noMargin moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
           <div class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
           <div class="moviesDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
         </div>
       </div>
@@ -141,10 +143,11 @@
 <script>
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "MoviesDetails",
-  components: {InfoCircle, BackgroundTile},
+  components: {PosterElement, InfoCircle, BackgroundTile},
 
   props: {
     movie: Object,
@@ -153,7 +156,6 @@ export default {
   data(){
     return {
       movieTopics: [],
-      moviePosterSVG: 'none',
     }
   },
 
@@ -292,10 +294,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('moviePosterSVG');
   background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .moviesDetailsGeneralInfoLine, .moviesDetailsFinancesInfoLine {

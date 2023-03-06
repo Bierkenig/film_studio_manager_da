@@ -2,7 +2,9 @@
   <div class="streamingElementMainDiv">
     <div class="streamingElementHead">
       <div class="streamingElementHeading">
-        <div class="streamingElementImage"/>
+        <div class="streamingElementImage">
+          <poster-element height="110px" width="80px" :poster-name="genre + 'MoviePoster'"/>
+        </div>
         <div class="streamingElementTitle">
           {{ streamingTitle }}
         </div>
@@ -49,17 +51,14 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "StreamingElement",
-  components: {CustomIcon, IconButton},
-  data() {
-    return {
-      svgBG: '',
-    }
-  },
+  components: {PosterElement, CustomIcon, IconButton},
+
   props: {
-    svgCode: String,
+    genre: String,
     streamingTitle: {
       type: String,
       required: true,
@@ -74,15 +73,9 @@ export default {
     },
   },
   methods: {
-    setSVG() {
-      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
-    },
     openButtonClicked() {
       this.$emit('open-clicked');
     },
-  },
-  mounted() {
-    this.setSVG();
   },
 }
 </script>
@@ -122,10 +115,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('svgBG');
   background-size: 70px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .streamingElementInfo {

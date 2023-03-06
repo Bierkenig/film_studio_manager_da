@@ -13,7 +13,9 @@
                 <info-circle class="screenplayDetailsInfoCircle" :icon="this.source.genre.genreName.toLowerCase()" data-title="Genre" size="60px"/>
                 <info-circle class="screenplayDetailsInfoCircle" :text="RegExp('\\+\\d+$').exec(source.ageRating)[0]" data-title="Age Rating" size="60px" large-font/>
               </div>
-              <div class="screenplayDetailsPoster"/>
+              <div class="screenplayDetailsPoster">
+                <poster-element height="160px" width="120px" :poster-name="source.genre.genreName.toLowerCase() + 'ScreenplayPoster'"/>
+              </div>
             </div>
           </div>
           <div id="screenplayDetailsMoreInfoContainer">
@@ -159,7 +161,9 @@
                                size="60px"/>
                 </div>
               </div>
-              <div class="movieDetailsPoster"/>
+              <div class="movieDetailsPoster">
+                <poster-element height="160px" width="120px" :poster-name="source._preProduction.screenplay.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+              </div>
             </div>
           </div>
           <div class="movieDetailsGeneralBottomInfo">
@@ -324,10 +328,11 @@ import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import Earnings from "@/classes/Earnings";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "SourcesDetails",
-  components: {BackgroundTile, BuyModal, CustomButton, InfoCircle},
+  components: {PosterElement, BackgroundTile, BuyModal, CustomButton, InfoCircle},
 
   props: {
     source: Object,
@@ -344,7 +349,6 @@ export default {
       characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
       showBuyScreenplayModal: false,
       showBuyMovieModal: false,
-      sourcePosterSVG: 'none',
     }
   },
 
@@ -643,10 +647,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('sourcePosterSVG');
   background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .movieDetailsGeneralInfoLine, .movieDetailsFinancesInfoLine, .screenplayDetailsGeneralInfoLine {
