@@ -674,6 +674,7 @@ i18next
                     save: 'Save',
                     saveCharacter: 'Save Character',
                     editPerson: 'Edit Person',
+                    editStudio: 'Edit Studio',
                     act1: 'Act 1',
                     act2: 'Act 2',
                     act3: 'Act 3',
@@ -1202,7 +1203,7 @@ i18next
                     theStudio: 'The studio ',
                     theStreamingService: 'The streaming service ',
                     wasFounded: ' was founded',
-                    chooseSequelPrequel: 'Sequel or Prequel'
+                    chooseSequelPrequel: 'Sequel or Prequel',
                 }
             },
             de: {
@@ -1730,6 +1731,7 @@ i18next
                     save: 'Speichern',
                     saveCharacter: 'Charakter speichern',
                     editPerson: 'Person bearbeiten',
+                    editStudio: 'Studio bearbeiten',
                     act1: 'Akt 1',
                     act2: 'Akt 2',
                     act3: 'Akt 3',
@@ -2354,7 +2356,7 @@ i18next
                     listOfMoviesInfoText: 'Sieh dir die Liste deiner Filme an.',
                     listOfPeopleInfoText: 'Sieh dir die Liste aller Personen an.',
                     listOfAwardsInfoText: 'Sieh dir die Liste aller Auszeichnungen an.',
-                    ethnicity: 'Herkunft',
+                    ethnicity: 'Ethnizität',
                     workingSince: 'Arbeitet seit',
                     directors: 'Regisseure',
                     writers: 'Autoren',

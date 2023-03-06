@@ -10,7 +10,7 @@
         :shadow="false"
         @click="$router.go(-1)"
     />
-    <background-tile title="Edit Studio" id="studioEditBgTile">
+    <background-tile :title="$t('editStudio')" id="studioEditBgTile">
       <div class="studioEditInputLine">
         <label for="name">Studio Name</label>
         <input id="name" v-model="name">
@@ -20,7 +20,7 @@
         <input id="popularity" type="Number"
                @change="() => { if(popularity > 100 || popularity < 1) { this.popularity = 0 }}" v-model="popularity">
       </div>
-      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(studio)">Save</custom-button>
+      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(studio)">{{ $t('save') }}</custom-button>
     </background-tile>
   </div>
 </template>

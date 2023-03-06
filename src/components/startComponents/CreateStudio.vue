@@ -59,16 +59,16 @@
                 <div>
                   <input id="currentDatabase" class="databaseRadioButton" type="radio" v-model="databaseType"
                          value="current">
-                  <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">{{
-                      $t('modified')
-                    }}</label>
+                  <label for="currentDatabase" id="currentDatabaseLabel" class="databaseLabel">
+                    {{ $t('modified') }}
+                  </label>
                 </div>
                 <div>
                   <input id="defaultDatabase" class="databaseRadioButton" type="radio" v-model="databaseType"
                          value="default">
-                  <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">{{
-                      $t('default')
-                    }}</label>
+                  <label for="defaultDatabase" id="defaultDatabaseLabel" class="databaseLabel">
+                    {{ $t('default') }}
+                  </label>
                 </div>
               </div>
               <div v-if="databaseType === 'current'">
@@ -76,10 +76,10 @@
                     id="createStudioDatabaseSelect"
                     v-model="databaseVersion"
                 >
-                  <option :value="null" disabled selected hidden>Database Number</option>
-                  <option :value="1">Database 1</option>
-                  <option :value="2">Database 2</option>
-                  <option :value="3">Database 3</option>
+                  <option :value="null" disabled selected hidden>{{ $t('database') }} Slot</option>
+                  <option :value="1">{{ $t('database') }} 1</option>
+                  <option :value="2">{{ $t('database') }} 2</option>
+                  <option :value="3">{{ $t('database') }} 3</option>
                 </select>
               </div>
             </div>
@@ -90,7 +90,9 @@
               :dark="false"
               size="medium"
               :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === '' || (databaseType === 'current' && databaseVersion === null)"
-              @clicked="startGame">{{ $t('createStudioButton') }}
+              @clicked="startGame"
+          >
+            {{ $t('createStudioButton') }}
           </custom-button>
         </background-tile>
       </div>
