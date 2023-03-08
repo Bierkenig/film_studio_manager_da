@@ -27,7 +27,7 @@
         <streaming-element
             class="moviesSectionMovieElement"
             v-if="it._contract > 0"
-            :genre="it._preProduction.screenplay.genre.genreName"
+            :genre="it._preProduction.screenplay.genre.genreName.toLowerCase()"
             :streaming-title="it._preProduction.screenplay.title"
             :popularity="Math.round(it.popularity)"
             :contract="it._contract +  ' Years'"
@@ -35,9 +35,9 @@
         <streaming-element
             class="moviesSectionMovieElement"
             v-else
-            :genre="it._preProduction.screenplay.genre.genreName"
+            :genre="it._preProduction.screenplay.genre.genreName.toLowerCase()"
             :streaming-title="it._preProduction.screenplay.title"
-            :popularity="Math.round(it.popularity)"
+            :popularity="Math.round(it._release.audiencePopularity)"
             contract="Unlimited"
             @open-clicked="movieInfo(it)"/>
       </div>

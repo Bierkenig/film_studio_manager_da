@@ -3,7 +3,7 @@
     <div class="movieElementHead">
       <div class="movieElementHeading">
         <div class="movieElementImage">
-          <poster-element height="110px" width="80px" :poster-name="source.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+          <poster-element height="90px" width="80px" :poster-name="genre.toLowerCase() + 'MoviePoster'"/>
         </div>
         <div class="movieElementTitle">
           {{ movieTitle }}

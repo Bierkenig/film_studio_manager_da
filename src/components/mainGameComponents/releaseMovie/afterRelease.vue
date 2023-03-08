@@ -146,10 +146,6 @@ export default {
       ) // use . as a separator
     }
   },
-
-  mounted() {
-    this.$store.commit('addBoughtMovieRights', this.movie)
-  }
 }
 </script>
 

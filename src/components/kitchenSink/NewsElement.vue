@@ -1,6 +1,12 @@
 <template>
   <div class="newsElementMainDiv">
-    <div class="newsElementImage"/>
+    <div v-if="type === 'People'" class="newsElementImage"/>
+    <div v-if="type === 'Movie'" class="newsElementImage">
+      <poster-element height="95px" width="70px" :poster-name="genre + 'MoviePoster'"/>
+    </div>
+    <div v-if="type === 'Studio'" class="newsElementImage">
+      <custom-icon class="iconButtonSVG" size="50px" theme="light" icon="studio" :shadow="false" :invert-theme="false"/>
+    </div>
     <div class="newsElementText">
       <div class="newsElementHeading">
         {{headingText}}
@@ -13,8 +19,12 @@
 </template>
 
 <script>
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+
 export default {
   name: "NewsElement",
+  components: {CustomIcon, PosterElement},
   data() {
     return {
       svgBG: '',
@@ -30,6 +40,8 @@ export default {
       type: String,
       required: true,
     },
+    type: String,
+    genre: String,
   },
   methods: {
     setSVG() {
@@ -67,6 +79,10 @@ export default {
   background-size: 70px;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .newsElementText {

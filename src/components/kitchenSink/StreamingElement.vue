@@ -3,7 +3,7 @@
     <div class="streamingElementHead">
       <div class="streamingElementHeading">
         <div class="streamingElementImage">
-          <poster-element height="110px" width="80px" :poster-name="genre + 'MoviePoster'"/>
+          <poster-element height="90px" width="80px" :poster-name="genre + 'MoviePoster'"/>
         </div>
         <div class="streamingElementTitle">
           {{ streamingTitle }}
