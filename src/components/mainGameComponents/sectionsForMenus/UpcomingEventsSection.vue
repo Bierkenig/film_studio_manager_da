@@ -2,7 +2,7 @@
   <div id="eventsSection">
     <background-tile id="eventsSectionBgTile" :title="$t('upcomingEvents')">
       <div id="eventsSectionContent" class="verticalScroll">
-        <div>
+        <div v-show="todayEvents.length !== 0">
           <div class="date">{{ $t('today') }}</div>
           <div class="events">
             <div class="event" v-for="(it,index) in todayEvents" :key="index">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div v-show="weekEvents.length !== 0">
           <div class="date">{{ $t('thisWeek') }}</div>
           <div class="events">
             <div class="event" v-for="(it,index) in weekEvents" :key="index">
@@ -29,7 +29,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div v-show="monthEvents.length !== 0">
           <div class="date">{{ $t('thisMonth') }}</div>
           <div class="events">
             <div class="event" v-for="(it,index) in monthEvents" :key="index">

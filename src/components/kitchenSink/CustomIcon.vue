@@ -1,6 +1,7 @@
 <template>
   <div class="customIcon" ref="customIcon">
     <img class="customIconSrc" ref="customIconSrc" :src="require(`../../assets/icons/${icon}.svg`)" :alt="icon"/>
+    <img class="customIconSrc" ref="placeholderIconSrc" :src="require(`../../assets/icons/placeholder.svg`)" :alt="icon"/>
     <img class="customIconSrc" ref="maleIconSrc" :src="require(`../../assets/icons/male.svg`)" :alt="icon"/>
     <img class="customIconSrc" ref="femaleIconSrc" :src="require(`../../assets/icons/female.svg`)" :alt="icon"/>
     <img class="customIconSrc" ref="diverseIconSrc" :src="require(`../../assets/icons/diverse.svg`)" :alt="icon"/>
@@ -140,6 +141,8 @@ export default {
               request.open('GET', this.$refs.femaleIconSrc.src, true);
             } else if (this.icon === 'diverse') {
               request.open('GET', this.$refs.diverseIconSrc.src, true);
+            } else if (this.icon === 'placeholder') {
+              request.open('GET', this.$refs.placeholderIconSrc.src, true);
             } else {
               request.open('GET', this.$refs.customIconSrc.src, true);
             }

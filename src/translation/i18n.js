@@ -1231,6 +1231,10 @@ i18next
                             title: 'Calendar',
                             description: 'View upcoming and previous events.',
                         },
+                        simulation: {
+                            title: 'Simulation',
+                            description: 'Simulate your way through the days to get to the next event.',
+                        },
                     },
                 }
             },
@@ -2458,6 +2462,10 @@ i18next
                         calendar: {
                             title: 'Kalender',
                             description: 'Kommende und bisherige Ereignisse anzeigen.',
+                        },
+                        simulation: {
+                            title: 'Simulation',
+                            description: 'Simuliere deinen Weg durch die Tage, um zum nächsten Ereignis zu gelangen.',
                         },
                     },
                 }
