@@ -101,6 +101,7 @@ export default {
 .streamingMenuContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
   flex: 1;
 }
@@ -113,12 +114,14 @@ export default {
 #leftSide, #rightSide {
   display: flex;
   flex-direction: column;
-  width: 30%;
   gap: 20px;
+  flex-basis: 0;
+  flex-grow: 4;
 }
 
 .moviesSectionTag {
-  width: 60%;
+  flex-basis: 0;
+  flex-grow: 7;
 }
 
 .streamingMenuEmptyMessageMainDiv {

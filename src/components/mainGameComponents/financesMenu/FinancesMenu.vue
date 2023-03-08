@@ -333,7 +333,7 @@ export default {
 }
 
 .financesMenuLeftSide, .financesMenuRightSide {
-  flex-grow: 1;
+  flex-grow: 4;
   flex-basis: 0;
   display: flex;
   flex-direction: column;
@@ -341,7 +341,7 @@ export default {
 }
 
 .financesMenuCenter {
-  flex-grow: 2;
+  flex-grow: 7;
   flex-basis: 0;
   display: flex;
   flex-direction: column;
