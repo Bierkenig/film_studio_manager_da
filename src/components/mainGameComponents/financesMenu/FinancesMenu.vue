@@ -300,6 +300,8 @@ export default {
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .infoLine {
