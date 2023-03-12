@@ -43,11 +43,19 @@ export default {
     type: String,
     genre: String,
   },
+
   methods: {
     setSVG() {
       this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
     },
   },
+
+  watch: {
+    svgCode: function (){
+      this.setSVG();
+    }
+  },
+
   mounted() {
     this.setSVG();
   },

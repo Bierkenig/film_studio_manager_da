@@ -74,8 +74,8 @@
                   </div>
                   <div class="cinemaNegotiationButtonBox">
                     <custom-button size="small" v-if="upgradedRemaining || upgradedOpening" @clicked="resetUpgrades">Reset</custom-button>
-                    <custom-button size="small" @clicked="finish">No Negotiation</custom-button>
-                    <custom-button size="small" @clicked="finish">Continue</custom-button>
+                    <custom-button size="small" v-if="!upgradedRemaining && !upgradedOpening" @clicked="finish">No Negotiation</custom-button>
+                    <custom-button size="small" v-if="upgradedRemaining || upgradedOpening" @clicked="finish">Continue</custom-button>
                   </div>
                 </div>
               </background-tile>

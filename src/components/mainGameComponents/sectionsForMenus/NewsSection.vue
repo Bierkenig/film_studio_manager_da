@@ -54,17 +54,14 @@ export default {
       let sourceData = this.$store.getters.getCurrentNews;
       sourceData.sort((a, b) => b._date - a._date)
       for (let i = 0; i < sourceData.length; i++) {
-        if (sourceData[i]._type === 'People') {
+        if (sourceData[i]._type === 'People' && this.peopleNews.length < 10) {
           this.peopleNews.push(sourceData[i])
         }
-        if (sourceData[i]._type === 'Movies') {
+        if (sourceData[i]._type === 'Movies' && this.movieNews.length < 10) {
           this.movieNews.push(sourceData[i])
         }
-        if (sourceData[i]._type === 'Studios') {
+        if (sourceData[i]._type === 'Studios' && this.studioNews.length < 10) {
           this.studioNews.push(sourceData[i])
-        }
-        if (i === 9) {
-          break;
         }
       }
     },

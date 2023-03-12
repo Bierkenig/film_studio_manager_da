@@ -15,11 +15,11 @@
       <feComposite operator="in" in="color"/>
       <feComposite operator="in" in2="SourceGraphic"/>
     </filter>
-    <clipPath id="clip-warMoivePoster">
+    <clipPath id="clip-warMoviePoster">
       <rect width="120" height="160"/>
     </clipPath>
   </defs>
-  <g id="warMoivePoster" clip-path="url(#clip-warMoivePoster)">
+  <g id="warMoviePoster" clip-path="url(#clip-warMoviePoster)">
     <rect width="120" height="160" fill="#ff8f9a"/>
     <g data-type="innerShadowGroup">
       <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#path77)">
