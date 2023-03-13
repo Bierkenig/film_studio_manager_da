@@ -62,10 +62,12 @@ export default function simulate() {
     setEventDuringPostProduction();
 
     //MONTHLY
-    if (store.getters.getCurrentDate.getDate() === 1) {
+    let lastDayOfMonth = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth() + 1, 0);
+    if (store.getters.getCurrentDate.getDate() === lastDayOfMonth.getDate()){
+        setFinancialPerformance()
+
         renewPeople();
         //FETCHING DB
-        setFinancialPerformance()
 
         updateOtherStreamingServices();
 
@@ -118,19 +120,21 @@ function setFinancialPerformance() {
     store.getters.getFinishedMovies.forEach(movie => {
         //production
         movie._earnings.forEach(earning => {
-            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
-                production.incoming += earning.amount
+            if (earning.date.getMonth() === currentDate.getMonth() &&
+                earning.date.getFullYear() === currentDate.getFullYear() &&
+                earning.type === 'Production') {
+                if(earning.amount > 0){
+                    production.incoming += earning.amount
+                } else {
+                    production.outgoing += earning.amount
+                }
             }
         })
 
-        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
-            production.outgoing += movie._totalOutgoings
-        }
-
         //marketing + cinema
         if (movie._postProduction instanceof PostProduction) {
-            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
-            cinema.outgoing += (movie._postProduction.distributionCosts)
+            marketing.outgoing -= (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial)
+            cinema.outgoing -= (movie._postProduction.distributionCosts)
         }
 
         if (movie._release instanceof Release) {
@@ -141,19 +145,21 @@ function setFinancialPerformance() {
     store.getters.getCreatedMovies.forEach(movie => {
         //production
         movie._earnings.forEach(earning => {
-            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
-                production.incoming += earning.amount
+            if (earning.date.getMonth() === currentDate.getMonth() &&
+                earning.date.getFullYear() === currentDate.getFullYear() &&
+                earning.type === 'Production') {
+                if(earning.amount > 0){
+                    production.incoming += earning.amount
+                } else {
+                    production.outgoing += earning.amount
+                }
             }
         })
 
-        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
-            production.outgoing += movie._totalOutgoings
-        }
-
         //marketing + cinema
         if (movie._postProduction instanceof PostProduction) {
-            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
-            cinema.outgoing += (movie._postProduction.distributionCosts)
+            marketing.outgoing -= (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial)
+            cinema.outgoing -= (movie._postProduction.distributionCosts)
         }
 
         if (movie._release instanceof Release) {
@@ -165,19 +171,21 @@ function setFinancialPerformance() {
     store.getters.getInProductionMovies.forEach(movie => {
         //production
         movie._earnings.forEach(earning => {
-            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
-                production.incoming += earning.amount
+            if (earning.date.getMonth() === currentDate.getMonth() &&
+                earning.date.getFullYear() === currentDate.getFullYear() &&
+                earning.type === 'Production') {
+                if(earning.amount > 0){
+                    production.incoming += earning.amount
+                } else {
+                    production.outgoing += earning.amount
+                }
             }
         })
 
-        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
-            production.outgoing += movie._totalOutgoings
-        }
-
         //marketing + cinema
         if (movie._postProduction instanceof PostProduction) {
-            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
-            cinema.outgoing += (movie._postProduction.distributionCosts)
+            marketing.outgoing -= (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial)
+            cinema.outgoing -= (movie._postProduction.distributionCosts)
         }
 
         if (movie._release instanceof Release) {
@@ -194,8 +202,13 @@ function setFinancialPerformance() {
 
     //streaming
     store.getters.getEarnings.forEach(el => {
-        if (el.date.getMonth() === currentDate.getMonth()) {
-            streaming.incoming += (el.amount / 5)
+        if (el.date.getMonth() === currentDate.getMonth() &&
+            el.type === 'Streaming') {
+            if(el.amount > 0){
+                streaming.incoming += el.amount
+            } else {
+                streaming.outgoing += el.amount
+            }
         }
     })
 
@@ -496,7 +509,8 @@ function streamingService() {
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
             //substract maintainment costs from balance
             if(serviceMaintainmentCosts !== 0){
-                store.commit('addEarnings', new Earnings(serviceMaintainmentCosts, store.getters.getCurrentDate))
+                console.log(serviceMaintainmentCosts)
+                store.commit('addEarnings', new Earnings(-serviceMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('subtractBalance', serviceMaintainmentCosts);
             }
 
@@ -504,7 +518,8 @@ function streamingService() {
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
             //add revenue to balance
             if(revenue !== 0){
-                store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate))
+                console.log(revenue)
+                store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('addBalance', revenue);
             }
 
@@ -569,9 +584,12 @@ function streamingService() {
             contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
 
             if(contentMaintainmentCosts !== 0){
-                store.commit('addEarnings', new Earnings(contentMaintainmentCosts, store.getters.getCurrentDate))
+                console.log(contentMaintainmentCosts)
+                store.commit('addEarnings', new Earnings(-contentMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('subtractBalance', contentMaintainmentCosts);
             }
+
+            store.getters.getOwnStreamingService._profit += (revenue - contentMaintainmentCosts - serviceMaintainmentCosts);
 
             //update streaming service popularity and number of subscribers
             updateServicePopularityAndSubscribers();
@@ -711,19 +729,20 @@ export function updateServicePopularityAndSubscribers() {
     let hypeDrop1 = 0;
     let hypeDrop2 = 0;
     allStreamingServiceMovies.forEach(function (movie) {
-        if (movie._release.critics <= 50) {
+        console.log(movie)
+        if (movie._release.criticsFormula <= 50) {
             hypeDrop1 = 0.75;
-        } else if (movie._release.critics >= 51 && movie._release.critics <= 75) {
+        } else if (movie._release.criticsFormula >= 51 && movie._release.criticsFormula <= 75) {
             hypeDrop1 = 0.85;
-        } else if (movie._release.critics >= 76) {
+        } else if (movie._release.criticsFormula >= 76) {
             hypeDrop1 = 0.95;
         }
 
-        if (movie._release.audienceRating <= 50) {
+        if (movie._release.audiencePopularity <= 50) {
             hypeDrop2 = 0.75;
-        } else if (movie._release.audienceRating >= 51 && movie._release.audienceRating <= 75) {
+        } else if (movie._release.audiencePopularity >= 51 && movie._release.audiencePopularity <= 75) {
             hypeDrop2 = 0.85;
-        } else if (movie._release.audienceRating >= 76) {
+        } else if (movie._release.audiencePopularity >= 76) {
             hypeDrop2 = 0.95;
         }
 

@@ -83,7 +83,7 @@ export default {
       }
       if (!this.colorAccumulated) {
         this.accumulatedColor = this.whiteColor;
-      } else if (this.accumulated.toString().charAt(0) === '-') {
+      } else if (this.accumulated.toString().charAt(2) === '-') {
         this.accumulatedColor = this.redColor;
       } else {
         this.accumulatedColor = this.greenColor;

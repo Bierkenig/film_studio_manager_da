@@ -265,7 +265,7 @@ export default {
       sendMovie._preProduction.hype = 100;
       sendMovie._owner.budget += this.price;
       this.$store.commit('addBoughtMovieRights',sendMovie);
-      store.commit('addEarnings',new Earnings(this.price, store.getters.getCurrentDate))
+      store.commit('addEarnings',new Earnings(-this.price, store.getters.getCurrentDate, 'Streaming'))
       this.$store.commit('subtractBalance', this.price)
       this.$router.push({name: 'streaming'})
     },

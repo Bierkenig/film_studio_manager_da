@@ -90,7 +90,7 @@ export default {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       updateServicePopularityAndSubscribers();
-      store.commit('addEarnings',new Earnings(-2500000000, store.getters.getCurrentDate))
+      store.commit('addEarnings',new Earnings(-2500000000, store.getters.getCurrentDate, 'Streaming'))
       this.$store.commit('subtractBalance', 2500000000)
     }
   }

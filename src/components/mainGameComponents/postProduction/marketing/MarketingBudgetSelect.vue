@@ -147,6 +147,7 @@
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import Earnings from "@/classes/Earnings";
 
 export default {
   name: "MarketingBudgetSelect",
@@ -168,6 +169,12 @@ export default {
       this.$store.getters.getCurrentMovie._postProduction.marketingPrint = parseInt(this.valuePrint)
       this.$store.getters.getCurrentMovie._postProduction.marketingInternet = parseInt(this.valueInternet)
       this.$store.getters.getCurrentMovie._postProduction.marketingCommercial = parseInt(this.valueCommercial)
+
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(-(parseInt(this.valuePrint) + parseInt(this.valueInternet) + parseInt(this.valueCommercial)),
+        this.$store.getters.getCurrentDate, 'Marketing'))
+
+      this.$store.commit('addEarnings', new Earnings(-(parseInt(this.valuePrint) + parseInt(this.valueInternet) + parseInt(this.valueCommercial)),
+          this.$store.getters.getCurrentDate, 'Marketing'))
 
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingPrint)
       this.$store.getters.getCurrentMovie._totalOutgoings += parseInt(this.$store.getters.getCurrentMovie._postProduction.marketingInternet)

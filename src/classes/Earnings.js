@@ -1,7 +1,7 @@
 import DataUtil from "@/classes/DataUtil";
 
 export default class Earnings {
-    constructor(amount, date) {
+    constructor(amount, date, type) {
         if(arguments[0] === DataUtil.skip){
             return
         }
@@ -9,6 +9,8 @@ export default class Earnings {
         this.amount = amount
         //TYPE -> Date Type
         this.date = date
+        //TYPE -> String
+        this.type = type
     }
 
     getAmount() {

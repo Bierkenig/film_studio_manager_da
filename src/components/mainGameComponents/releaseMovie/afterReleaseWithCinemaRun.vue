@@ -55,8 +55,8 @@ export default {
 
   methods: {
     closeModal(){
-      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
-      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate, 'Cinema'))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.openingWeekGross, this.$store.getters.getCurrentDate, 'Cinema'))
 
       this.$store.getters.getStudio.budget += this.$store.getters.getCurrentMovie._release.openingWeekGross;
 

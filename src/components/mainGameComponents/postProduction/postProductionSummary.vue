@@ -65,14 +65,16 @@ export default {
   mounted() {
     this.happenedEvents = this.$store.getters.getCurrentMovie._postProduction.happenedEvents
 
+    this.$store.getters.getCurrentMovie._totalOutgoings = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget();
+
     this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
   },
 
   methods: {
     closeSummary(){
-      this.$store.commit('addEarnings', new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings', new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate, 'Production'))
 
-      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(-this.$store.getters.getCurrentMovie._totalOutgoings, this.$store.getters.getCurrentDate, 'Production'))
 
       this.$store.getters.getStudio.budget -= this.$store.getters.getCurrentMovie._totalOutgoings;
 

@@ -113,17 +113,17 @@ export default {
       this.$store.commit('addFinishedMovie', this.$store.getters.getCurrentMovie)
 
       console.log(this.$store.getters.getCurrentMovie._release.continuingEarnings)
-      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate))
-      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate))
-      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate, 'Cinema'))
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate, 'Cinema'))
+      this.$store.commit('addEarnings', new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate, 'Cinema'))
 
       this.$store.getters.getStudio.budget += this.$store.getters.getCurrentMovie._release.continuingEarnings;
       this.$store.getters.getStudio.budget += this.$store.getters.getCurrentMovie._release.cinemaGross;
       this.$store.getters.getStudio.budget += this.$store.getters.getCurrentMovie._release.dvdGross;
 
-      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate))
-      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate))
-      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.continuingEarnings, this.$store.getters.getCurrentDate, 'Cinema'))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.cinemaGross, this.$store.getters.getCurrentDate, 'Cinema'))
+      this.$store.getters.getCurrentMovie._earnings.push(new Earnings(this.$store.getters.getCurrentMovie._release.dvdGross, this.$store.getters.getCurrentDate, 'Cinema'))
       this.closeModal();
     },
 
