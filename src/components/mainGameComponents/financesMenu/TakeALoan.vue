@@ -17,18 +17,21 @@
                       :description="low.interests + '% ' + $t('takeALoan.interests') + ', ' + durationYears + ' ' + $t('takeALoan.yearsDuration')"
                       :button-text="$t('takeALoan.take')"
                       @button-clicked="takeLoan(50000000, low.interests)"
+                      :button-disabled="this.$store.getters.getCurrentLoans.length >= 5"
         />
         <loan-element v-if="this.$store.getters.getStudio.budget >= 1"
                       :title="'$ ' + roundBudget(medium.value)"
                       :description="medium.interests + '% ' + $t('takeALoan.interests') + ', ' + durationYears + ' ' + $t('takeALoan.yearsDuration')"
                       :button-text="$t('takeALoan.take')"
                       @button-clicked="takeLoan(250000000, medium.interests)"
+                      :button-disabled="this.$store.getters.getCurrentLoans.length >= 5"
         />
         <loan-element v-if="this.$store.getters.getStudio.budget >= 1"
                       :title="'$ ' + roundBudget(high.value)"
                       :description="high.interests + '% ' + $t('takeALoan.interests') + ', ' + durationYears + ' ' + $t('takeALoan.yearsDuration')"
                       :button-text="$t('takeALoan.take')"
                       @button-clicked="takeLoan(1000000000, high.interests)"
+                      :button-disabled="this.$store.getters.getCurrentLoans.length >= 5"
         />
         <div id="takeALoanHeading">
           {{ $t('takeALoan.title2') }}
@@ -124,7 +127,7 @@ export default {
     goBack() {
       this.$router.push({name: 'finances'})
     },
-  }
+  },
 }
 </script>
 
