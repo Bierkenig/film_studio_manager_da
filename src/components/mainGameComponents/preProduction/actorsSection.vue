@@ -27,7 +27,7 @@
                  :disabled="!spots.cameo >= 1">
           <label class="actorsSectionRoleTypeLabel" for="cameo">Cameo ({{ spots.cameo }})</label>
         </div>
-        <custom-button @click="sendOffer(); sendOfferBool = true" :disabled="radio === null">{{ $t('actorSection.offer') }}</custom-button>
+        <custom-button @click="sendOffer(); sendOfferBool = true" :disabled="radio === null || actorDecision === true">{{ $t('actorSection.offer') }}</custom-button>
         <info-line v-if="sendOfferBool">
           {{ currentActor._first_name }}
           {{ currentActor._last_name }}{{ $t('actorSection.decision') }}
@@ -188,6 +188,7 @@ export default {
         const index = this.allActors.indexOf(this.currentActor)
         this.allActors.splice(index, 1)
         this.disabled = false
+        this.currentActor = this.allActors[0]
       }
     },
 

@@ -30,8 +30,8 @@ async function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
         },
         resizable: false,
-        fullscreen: true,
-        frame: false,
+        fullscreen: false,
+        frame: true,
         movable: false,
     })
 
