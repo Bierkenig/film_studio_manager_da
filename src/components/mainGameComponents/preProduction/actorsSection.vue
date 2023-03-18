@@ -258,6 +258,7 @@ export default {
         this.salary.max = 0
         this.radio = null
         this.proposedSalary = 0
+        this.actorDecision = false
       }
       this.radio = null;
       this.actorDecision = false;

@@ -148,6 +148,15 @@ export default {
       } else {
         process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db") : window.ipcRenderer.send('changeDBPath', "./bundled/DB/database/fsm.db")
       }
+      //Fetch Studios
+      let allStudios = []
+      await window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
+      await window.ipcRenderer.receive('gotStudios', (data) => {
+        allStudios.push(new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
+      })
+      this.$store.commit('addOtherStudios', allStudios)
+
+      await new Promise(resolve => setTimeout(resolve, 100))
       //Fetch Topics
       let allTopics = []
       await window.ipcRenderer.send('toGetTopics', 'SELECT * FROM topics');
@@ -164,16 +173,7 @@ export default {
         allGenres.push(new Genre(data.pk_genreID, data.genreName.replaceAll(' ', '-'), data.childrenPopularity, data.teenPopularity, data.adultPopularity))
       })
       this.$store.commit('setAllGenres', allGenres)
-      await new Promise(resolve => setTimeout(resolve, 100))
-      //Fetch Studios
-      let allStudios = []
-      await window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
-      await window.ipcRenderer.receive('gotStudios', (data) => {
-        allStudios.push(new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
-      })
-      this.$store.commit('addOtherStudios', allStudios)
-
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise(resolve => setTimeout(resolve, 200))
 
       //Fetch Subgenre once
       let allSubGenres = []
@@ -183,8 +183,8 @@ export default {
       await window.ipcRenderer.receive('gotSubGenres', (data) => {
         allSubGenres.push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity))
 
-        let allGenres = ['Action', 'Adventure', 'Comedy', 'Documentary', 'Drama', 'Fantasy', 'Horror', 'Musical', 'Romance', 'Science-Fiction', 'Thriller', 'War'];
-        this.$store.state.subgenresFromEachGenre[allGenres[index]].push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity));
+        let genres = ['Action', 'Adventure', 'Comedy', 'Documentary', 'Drama', 'Fantasy', 'Horror', 'Musical', 'Romance', 'Science-Fiction', 'Thriller', 'War'];
+        this.$store.state.subgenresFromEachGenre[genres[index]].push(new SubGenre(data.pk_subgenreID, data.subGenreName, data.subChildrenPopularity, data.subTeenPopularity, data.subAdultPopularity));
 
         if (counter % 5 === 0) {
           index++;
@@ -193,7 +193,7 @@ export default {
       })
       this.$store.commit('setAllSubGenres', allSubGenres)
 
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise(resolve => setTimeout(resolve, 200))
 
       //fetch Character
       let characters = []
