@@ -11,14 +11,14 @@
         <div class="simulationScreenNewsContainer">
           <div v-for="(it, index) in this.news" :key="index">
             <news-element v-if="it._person !== null"
-                          :svg-code="it._person._avatar" :heading-text="it._title"
+                          :avatar="it._person._avatar" :heading-text="it._title"
                           :info-text="it._description" type="People" class="newsElement"/>
             <news-element v-if="it._movie !== null"
-                          svg-code="" :heading-text="it._title"
+                          :heading-text="it._title"
                           :info-text="it._description" :genre="it._movie._preProduction.screenplay.genre.genreName.toLowerCase()"
                           type="Movie" class="newsElement"/>
             <news-element v-if="it._studio !== null"
-                          svg-code="" :heading-text="it._title"
+                          :heading-text="it._title"
                           :info-text="it._description"
                           type="Studio" class="newsElement"/>
           </div>

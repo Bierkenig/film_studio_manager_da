@@ -1,6 +1,8 @@
 <template>
   <div class="newsElementMainDiv">
-    <div v-if="type === 'People'" class="newsElementImage"/>
+    <div v-if="type === 'People'" class="newsElementImage">
+      <avatar-element :svg-code="avatar" size="75px"/>
+    </div>
     <div v-if="type === 'Movie'" class="newsElementImage">
       <poster-element height="95px" width="70px" :poster-name="genre + 'MoviePoster'"/>
     </div>
@@ -21,10 +23,11 @@
 <script>
 import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import AvatarElement from "@/components/kitchenSink/AvatarElement.vue";
 
 export default {
   name: "NewsElement",
-  components: {CustomIcon, PosterElement},
+  components: {AvatarElement, CustomIcon, PosterElement},
   data() {
     return {
       svgBG: '',
@@ -41,6 +44,7 @@ export default {
     },
     type: String,
     genre: String,
+    avatar: String,
   },
 }
 </script>

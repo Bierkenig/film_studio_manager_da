@@ -51,14 +51,14 @@
           <tile-pages-nav class="newsMenuNavigation" :pages='[$t("people"),$t("movies"), "Studios"]' :gradient='true'>
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.peopleNews" :key="index">
-                <news-element :svg-code="it._person._avatar" :heading-text="it._title"
+                <news-element :avatar="it._person._avatar" :heading-text="it._title"
                               :info-text="it._description" type="People" class="newsElement"/>
               </div>
             </div>
 
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.movieNews" :key="index">
-                <news-element svg-code="" :heading-text="it._title"
+                <news-element :heading-text="it._title"
                               :info-text="it._description" :genre="it._movie._preProduction.screenplay.genre.genreName.toLowerCase()"
                               type="Movie" class="newsElement"/>
               </div>
@@ -66,7 +66,7 @@
 
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.studioNews" :key="index">
-                <news-element svg-code="" :heading-text="it._title"
+                <news-element :heading-text="it._title"
                               :info-text="it._description"
                               type="Studio" class="newsElement"/>
               </div>
@@ -273,5 +273,9 @@ export default {
 .newsMenuCenterBoxContent {
   flex-grow: 1;
   flex-basis: 0;
+}
+
+.newsElement {
+  margin-bottom: 10px;
 }
 </style>
