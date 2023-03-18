@@ -1125,7 +1125,7 @@ export default createStore({
 
         resetState(state) {
             state.slot = null
-            state.screenplay = []
+            state.screenplays = []
             state.boughtScreenplays = []
             state.studio = null
             state.currentMovieExpenses = 0
@@ -1146,6 +1146,7 @@ export default createStore({
             state.franchise = []
             state.currentFranchise = null
             state.inProductionMovies = []
+            state.calenderEvents = []
             state.finishedMovies = []
             state.awardsOfOwnStudio = []
             state.moviesFromOtherStudios = []
