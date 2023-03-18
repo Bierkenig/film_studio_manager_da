@@ -1,18 +1,16 @@
 <template>
   <div id="createScreenplayMainDiv">
     <div id="createScreenplaySubDiv">
-      <!--<div>
-        <icon-button
-            v-if="this.$router.options.history.state.back !== '/screenplaySummary' && this.$router.options.history.state.back !== '/franchiseSection'"
-            id="createScreenplayBackButton"
-            icon="simple-arrow-left"
-            size="medium"
-            :dark="true"
-            :bg-gradient="true"
-            :icon-gradient="false"
-            :shadow="false"
-            @click="goBack()"/>
-      </div>-->
+      <icon-button
+          v-if="this.$router.options.history.state.back !== '/franchiseSection'"
+          id="createScreenplayBackButton"
+          icon="simple-arrow-left"
+          size="medium"
+          :dark="true"
+          :bg-gradient="true"
+          :icon-gradient="false"
+          :shadow="false"
+          @click="goBack()"/>
       <div class="createScreenplayBackground">
         <div class="verticalScroll">
           <div>
@@ -336,8 +334,11 @@ export default {
     goBack(){
       if(this.$router.options.history.state.back === '/screenplaySection'){
         this.$router.push({name: 'screenplaySection'})
-      } else {
+      } else if(this.$router.options.history.state.back === '/movies') {
         this.$router.push({name: 'movies'})
+      } else if(this.$router.options.history.state.back === '/screenplaySummary') {
+        this.$store.getters.getCurrentScreenplay.setRewritingStatus(false);
+        this.$router.push({name: 'screenplaySummary'})
       }
     },
 

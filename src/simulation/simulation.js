@@ -49,11 +49,11 @@ export default function simulate() {
         setAudienceAwardEvents()
     }
 
-    if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0, 4, new Date(store.getters.getCurrentDate.getFullYear(), 1)).getTime()) {
+    if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(5, 3, new Date(store.getters.getCurrentDate.getFullYear(), 1)).getTime()) {
         setAwardWinner('internationalAward')
-    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0, 2, new Date(store.getters.getCurrentDate.getFullYear(), 4)).getTime()) {
+    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(5, 1, new Date(store.getters.getCurrentDate.getFullYear(), 4)).getTime()) {
         setAwardWinner('independentAward')
-    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0, 3, new Date(store.getters.getCurrentDate.getFullYear(), 6)).getTime()) {
+    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(5, 2, new Date(store.getters.getCurrentDate.getFullYear(), 6)).getTime()) {
         setAwardWinner('audienceAward')
     }
 
@@ -509,7 +509,6 @@ function streamingService() {
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
             //substract maintainment costs from balance
             if(serviceMaintainmentCosts !== 0){
-                console.log(serviceMaintainmentCosts)
                 store.commit('addEarnings', new Earnings(-serviceMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('subtractBalance', serviceMaintainmentCosts);
             }
@@ -518,7 +517,6 @@ function streamingService() {
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
             //add revenue to balance
             if(revenue !== 0){
-                console.log(revenue)
                 store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('addBalance', revenue);
             }
@@ -584,7 +582,6 @@ function streamingService() {
             contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
 
             if(contentMaintainmentCosts !== 0){
-                console.log(contentMaintainmentCosts)
                 store.commit('addEarnings', new Earnings(-contentMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('subtractBalance', contentMaintainmentCosts);
             }
@@ -729,7 +726,6 @@ export function updateServicePopularityAndSubscribers() {
     let hypeDrop1 = 0;
     let hypeDrop2 = 0;
     allStreamingServiceMovies.forEach(function (movie) {
-        console.log(movie)
         if (movie._release.criticsFormula <= 50) {
             hypeDrop1 = 0.75;
         } else if (movie._release.criticsFormula >= 51 && movie._release.criticsFormula <= 75) {
@@ -1418,40 +1414,75 @@ function setAwardWinner(typeOfAward) {
     }
 
     for (let i = 0; i < Object.keys(nominationList).length; i++) {
-        let randomElement = nominationList[Object.keys(nominationList)[i]][Math.floor(Math.random() * nominationList[Object.keys(nominationList)[i]].length)]
-        nominationList[Object.keys(nominationList)[i]] = [randomElement]
+        let randomElement = null;
+        if(nominationList[Object.keys(nominationList)[i]].length !== 0){
+            randomElement = nominationList[Object.keys(nominationList)[i]][Math.floor(Math.random() * nominationList[Object.keys(nominationList)[i]].length)]
+        }
+
+        if(randomElement === null){
+            nominationList[Object.keys(nominationList)[i]] = []
+        } else {
+            nominationList[Object.keys(nominationList)[i]] = [randomElement]
+        }
     }
 
     if (typeOfAward === 'internationalAward') {
         store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
-            nominationList['ActorLeadingRole'][0].id, nominationList['ActorSupportingRole'][0].id,
-            nominationList['ActressLeadingRole'][0].id, nominationList['ActressSupportingRole'][0].id,
-            nominationList['Movies'][0].id, nominationList['Directors'][0].id, null,
-            nominationList['Writers'][0].id, null, null, null, null, null,
+            nominationList['ActorLeadingRole'].length !== 0 ? nominationList['ActorLeadingRole'][0].id : null,
+            nominationList['ActorSupportingRole'].length !== 0 ? nominationList['ActorSupportingRole'][0].id : null,
+            nominationList['ActressLeadingRole'].length !== 0 ? nominationList['ActressLeadingRole'][0].id : null,
+            nominationList['ActressSupportingRole'].length !== 0 ? nominationList['ActressSupportingRole'][0].id : null,
+            nominationList['Movies'].length !== 0 ? nominationList['Movies'][0].id : null,
+            nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+            null,
+            nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+            null, null, null, null, null,
             null, null, null, 'international',
             store.getters.getCurrentDate))
     } else if (typeOfAward === 'independentAward') {
         store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
             null, null, null, null,
-            nominationList['Movies'][0].id, nominationList['Directors'][0].id, null, nominationList['Writers'][0].id,
-            nominationList['Actor'][0].id, nominationList['Actress'][0].id, null, null, null,
+            nominationList['Movies'].length !== 0 ? nominationList['Movies'][0].id : null,
+            nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+            null,
+            nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+            nominationList['Actor'].length !== 0 ? nominationList['Actor'][0].id : null,
+            nominationList['Actress'].length !== 0 ? nominationList['Actress'][0].id : null,
+            null, null, null,
             null, null, null, 'independent',
             store.getters.getCurrentDate))
     } else if (typeOfAward === 'audienceAward') {
         if (nominationList['ActionOrAdventureMovies'][0]._preProduction.screenplay.genre.genreName === 'Action') {
             store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
                 null, null, null, null,
-                nominationList['Movies'][0].id, nominationList['Directors'][0].id, null, nominationList['Writers'][0].id,
-                nominationList['Actor'][0].id, nominationList['Actress'][0].id, null, nominationList['ActionOrAdventureMovies'][0].id,
-                nominationList['ThrillerMovies'][0].id, nominationList['ScienceFictionMovies'][0].id, nominationList['FantasyMovies'][0].id,
-                nominationList['HorrorMovies'][0].id, 'audience', store.getters.getCurrentDate))
+                nominationList['Movies'].length !== 0 ? nominationList['Movies'][0].id : null,
+                nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+                null,
+                nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+                nominationList['Actor'].length !== 0 ? nominationList['Actor'][0].id : null,
+                nominationList['Actress'].length !== 0 ? nominationList['Actress'][0].id : null,
+                null,
+                nominationList['ActionOrAdventureMovies'].length !== 0 ? nominationList['ActionOrAdventureMovies'][0].id : null,
+                nominationList['ThrillerMovies'].length !== 0 ? nominationList['ThrillerMovies'][0].id : null,
+                nominationList['ScienceFictionMovies'].length !== 0 ? nominationList['ScienceFictionMovies'][0].id : null,
+                nominationList['FantasyMovies'].length !== 0 ? nominationList['FantasyMovies'][0].id : null,
+                nominationList['HorrorMovies'].length !== 0 ? nominationList['HorrorMovies'][0].id : null,
+                'audience', store.getters.getCurrentDate))
         } else if (nominationList['ActionOrAdventureMovies'][0]._preProduction.screenplay.genre.genreName === 'Adventure') {
             store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
                 null, null, null, null, null,
-                nominationList['Directors'][0].id, null, nominationList['Writers'][0].id,
-                nominationList['Actor'][0].id, nominationList['Actress'][0].id, nominationList['ActionOrAdventureMovies'][0].id, null,
-                nominationList['ThrillerMovies'][0].id, nominationList['ScienceFictionMovies'][0].id, nominationList['FantasyMovies'][0].id,
-                nominationList['HorrorMovies'][0].id, 'audience', store.getters.getCurrentDate))
+                nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+                null,
+                nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+                nominationList['Actor'].length !== 0 ? nominationList['Actor'][0].id : null,
+                nominationList['Actress'].length !== 0 ? nominationList['Actress'][0].id : null,
+                nominationList['ActionOrAdventureMovies'].length !== 0 ? nominationList['ActionOrAdventureMovies'][0].id : null,
+                null,
+                nominationList['ThrillerMovies'].length !== 0 ? nominationList['ThrillerMovies'][0].id  : null,
+                nominationList['ScienceFictionMovies'].length !== 0 ? nominationList['ScienceFictionMovies'][0].id  : null,
+                nominationList['FantasyMovies'].length !== 0 ? nominationList['FantasyMovies'][0].id  : null,
+                nominationList['HorrorMovies'].length !== 0 ? nominationList['HorrorMovies'][0].id  : null,
+                'audience', store.getters.getCurrentDate))
         }
     }
 }
