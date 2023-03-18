@@ -10,7 +10,7 @@
         :shadow="false"
         @click="$router.go(-1)"
     />
-    <background-tile title="Edit Studio" id="studioEditBgTile">
+    <background-tile :title="$t('editStudio')" id="studioEditBgTile">
       <div class="studioEditInputLine">
         <label for="name">Studio Name</label>
         <input id="name" v-model="name">
@@ -20,7 +20,7 @@
         <input id="popularity" type="Number"
                @change="() => { if(popularity > 100 || popularity < 1) { this.popularity = 0 }}" v-model="popularity">
       </div>
-      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(studio)">Save</custom-button>
+      <custom-button id="saveButton" class="buttonStyle" @click="writeDB(studio)">{{ $t('save') }}</custom-button>
     </background-tile>
   </div>
 </template>
@@ -65,7 +65,7 @@ export default {
       await new Promise(resolve => setTimeout(resolve, 200))
       window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
       window.ipcRenderer.receive('gotStudios', (data) => {
-        this.$store.commit('addOtherStudios', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
+        this.$store.commit('addOtherStudios2', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
       })
 
       this.$router.go(-1)

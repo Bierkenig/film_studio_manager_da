@@ -58,7 +58,7 @@
           <div class="writerDetailsInfoTextRow">
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="party" :shadow="false" :invert-theme="false"/>
                 <div>{{ $t('popularity') }}</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -70,7 +70,7 @@
             </div>
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="briefcase" :shadow="false" :invert-theme="false"/>
                 <div>{{ $t('experience') }}</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -84,7 +84,7 @@
           <div class="writerDetailsInfoTextRow">
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="star" :shadow="false" :invert-theme="false"/>
                 <div>{{ $t('rating') }}</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -96,7 +96,7 @@
             </div>
             <div class="writerDetailsSpecificInfoDiv">
               <div class="writerDetailsMoreInfo">
-                <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                <custom-icon size="15px" theme="light" :gradient="false" icon="school" :shadow="false" :invert-theme="false"/>
                 <div>Talent</div>
               </div>
               <input class="writerDetailsRangeSlider"
@@ -361,11 +361,11 @@ export default {
       if (this.$store.getters.getCurrentMovie === null || this.$store.state.currentMovie._preProduction.screenplay !== null) {
         if(this.$store.getters.getCurrentScreenplay.rewritingStatus){
           this.screenplay.setPrice(this.copiedPrice + (this.selectedSalary/2));
-          store.commit('addEarnings',new Earnings(-(this.selectedSalary/2), store.getters.getCurrentDate))
+          store.commit('addEarnings',new Earnings(-(this.selectedSalary/2), store.getters.getCurrentDate, 'Production'))
           this.$store.commit('subtractBalance', (this.selectedSalary/2));
         } else {
           this.screenplay.setPrice(this.copiedPrice + this.selectedSalary);
-          store.commit('addEarnings',new Earnings(-this.selectedSalary, store.getters.getCurrentDate))
+          store.commit('addEarnings',new Earnings(-this.selectedSalary, store.getters.getCurrentDate, 'Production'))
           this.$store.commit('subtractBalance', this.selectedSalary);
         }
       } else {

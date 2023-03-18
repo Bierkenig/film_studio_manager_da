@@ -2,7 +2,7 @@
   <div id="headerBox">
     <div class="headerSectionBox">
       <!-- TODO pageName ist immer englisch-->
-      <page-heading :heading="pageName">{{ $t('managerDashboard') }}</page-heading>
+      <page-heading :heading="$t('menuHeadings.' + pageName + '.title')">{{ $t('menuHeadings.' + pageName + '.description') }}</page-heading>
 
       <!--<div>
         <h2>{{ $t(pageName) }}</h2>
@@ -15,7 +15,7 @@
         <header-info :icon="this.$store.getters.getCurrentLogo">{{ studioname }}</header-info>
         <p class="headerBoxStudioPopularity">
           <custom-icon class="headerInfoIcon" icon="money" size="30px" :dark="false" :gradient="true" :shadow="true"/>
-          {{ roundBudget(budget) }}
+          {{ budget >= 1.0e+17 ? "ꝏ" : roundBudget(budget) }}
         </p>
         <p class="headerBoxStudioPopularity">
           <custom-icon class="headerInfoIcon" icon="calendar" size="30px" :dark="false" :gradient="true" :shadow="true"/>

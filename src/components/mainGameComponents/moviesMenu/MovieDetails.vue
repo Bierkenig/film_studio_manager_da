@@ -30,7 +30,9 @@
                              size="60px"/>
               </div>
             </div>
-            <div class="movieDetailsPoster"/>
+            <div class="movieDetailsPoster">
+              <poster-element height="160px" width="120px" :poster-name="movie._preProduction.screenplay.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+            </div>
           </div>
         </div>
         <div class="movieDetailsGeneralBottomInfo">
@@ -99,11 +101,11 @@
           </div>
           <div v-if="movie._postProduction === null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
           <div v-if="movie._postProduction !== null" class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-            <div>$ {{ roundBudget(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) }}</div>
+            <div>$ {{ roundBudget(movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial + movie._postProduction.distributionCosts) }}</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
@@ -127,17 +129,26 @@
         <div v-if="movie._status !== 'Finished' && movie._status !== 'Released'" class="movieDetailsFinancesRight">
           <div class="noMargin movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
           <div class="movieDetailsFinancesInfoLine">
             <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
         </div>
+      </div>
+      <div class="movieDetailsButtons">
+        <custom-button
+            v-if="movie._franchiseType === null && movie._owner.id === this.ownStudio.id && !partOfFranchise && (movie._status === 'Finished' || movie._status === 'Released')"
+            class="movieDetailsButton"
+            size="small"
+            @click="createFranchise">
+          {{ $t('movieDetailsElement.newFranchise') }}
+        </custom-button>
       </div>
     </background-tile>
   </div>
@@ -150,10 +161,12 @@ import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import {Movie} from "@/classes/Movie";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import CustomButton from "@/components/kitchenSink/CustomButton.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "MovieDetails",
-  components: {InfoCircle, BackgroundTile, IconButton},
+  components: {PosterElement, CustomButton, InfoCircle, BackgroundTile, IconButton},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data() {
@@ -161,7 +174,6 @@ export default {
       movie: this.$store.getters.getCurrentMovieDetails,
       movieTopics: [],
       ownStudio: this.$store.getters.getStudio,
-      moviePosterSVG: 'none',
       partOfFranchise: false,
     }
   },
@@ -322,10 +334,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('moviePosterSVG');
   background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .movieDetailsGeneralInfoLine, .movieDetailsFinancesInfoLine {

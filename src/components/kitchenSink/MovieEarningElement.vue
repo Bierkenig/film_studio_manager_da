@@ -1,6 +1,8 @@
 <template>
   <div class="movieEarningElementMainDiv">
-    <div class="movieEarningElementImage"/>
+    <div class="movieEarningElementImage">
+      <poster-element height="110px" width="80px" :poster-name="source.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+    </div>
     <div class="movieEarningElementInfo">
       <div class="movieEarningElementHeading">
         <div class="movieEarningElementTitle">
@@ -35,19 +37,17 @@
 <script>
 import IconButton from "@/components/kitchenSink/IconButton.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "MovieEarningElement",
-  components: {CustomIcon, IconButton},
-
-  data() {
-    return {
-      svgBG: '',
-    }
-  },
+  components: {PosterElement, CustomIcon, IconButton},
 
   props: {
-    svgCode: String,
+    genre: {
+      type: String,
+      required: true,
+    },
     movieTitle: {
       type: String,
       required: true,
@@ -67,9 +67,6 @@ export default {
   },
 
   methods: {
-    setSVG() {
-      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
-    },
     openButtonClicked() {
       this.$emit('open-clicked');
     },
@@ -88,10 +85,6 @@ export default {
 
                   : Math.abs(Number(labelValue));
     },
-  },
-
-  mounted() {
-    this.setSVG();
   },
 }
 </script>
@@ -117,10 +110,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('svgBG');
   background-size: 80px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .movieEarningElementInfo {

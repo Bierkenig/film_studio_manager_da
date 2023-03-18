@@ -5,7 +5,8 @@
     </div>
     <div class="actorSectionColumn" id="actorSectionRight">
       <actor-details :person="currentActor"/>
-      <background-tile v-if="negotiate" :title="$t('actorSection.salary')" id="actorSectionNegotiation">
+      <background-tile v-if="negotiate && (spots.main !== 0 || spots.minor !== 0 || spots.support !== 0 || spots.cameo !== 0)"
+                       :title="$t('actorSection.salary')" id="actorSectionNegotiation">
         <div id="actorSectionNegotiationOffer">
           <div>$ {{ roundBudget(proposedSalary) }}</div>
           <div>
@@ -26,7 +27,7 @@
                  :disabled="!spots.cameo >= 1">
           <label class="actorsSectionRoleTypeLabel" for="cameo">Cameo ({{ spots.cameo }})</label>
         </div>
-        <custom-button @click="sendOffer(); sendOfferBool = true">{{ $t('actorSection.offer') }}</custom-button>
+        <custom-button @clicked="sendOffer(); sendOfferBool = true" :disabled="radio === null || actorDecision === true">{{ $t('actorSection.offer') }}</custom-button>
         <info-line v-if="sendOfferBool">
           {{ currentActor._first_name }}
           {{ currentActor._last_name }}{{ $t('actorSection.decision') }}
@@ -37,10 +38,10 @@
         </custom-button>
         <info-line v-if="cant">{{ $t('actorSection.cant') }}</info-line>
       </background-tile>
-      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null || this.$router.options.history.state.back === '/budgetSection'" @click="finishPreProd()" :disabled="finish">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null || this.$router.options.history.state.back === '/budgetSection'" @clicked="finishPreProd()" :disabled="finish">
         {{ $t('actorSection.continue') }}
       </custom-button>
-      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/budgetSection'" @click="gotToHome()" :disabled="finish">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/budgetSection'" @clicked="gotToHome()" :disabled="finish">
         {{ $t('recastActor') }}
       </custom-button>
     </div>
@@ -187,6 +188,7 @@ export default {
         const index = this.allActors.indexOf(this.currentActor)
         this.allActors.splice(index, 1)
         this.disabled = false
+        this.currentActor = this.allActors[0]
       }
     },
 
@@ -258,6 +260,7 @@ export default {
         this.proposedSalary = 0
       }
       this.radio = null;
+      this.actorDecision = false;
     },
 
     removeActor() {
@@ -286,8 +289,6 @@ export default {
           completed: false,
         })
         this.$store.commit('addInProductionMovie', this.$store.getters.getCurrentMovie);
-
-        console.log(this.$store.getters.getCurrentMovie._preProduction.createTotal())
 
         this.$store.getters.getCurrentMovie._preProduction.hype = this.$store.getters.getCurrentMovie._preProduction.createTotal();
 
@@ -350,10 +351,6 @@ export default {
   align-items: center;
   gap: 20px;
   height: 100vh;
-}
-
-.actorsSectionColumn {
-  height: 80vh;
 }
 
 #actorSectionRight {

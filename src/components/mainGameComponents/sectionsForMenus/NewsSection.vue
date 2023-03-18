@@ -4,22 +4,25 @@
       <tile-pages-nav class="newsNavigation" :pages='[people,movies, "Studios"]' :gradient='true'>
         <div class="newsTextSection verticalScroll">
           <div v-for="(it, index) in this.peopleNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+            <news-element :avatar="it._person._avatar" :heading-text="it._title"
+                          :info-text="it._description" type="People" class="newsElement"/>
           </div>
         </div>
 
         <div class="newsTextSection verticalScroll">
           <div v-for="(it, index) in this.movieNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+            <news-element :heading-text="it._title"
+                          :info-text="it._description"
+                          :genre="it._movie._preProduction.screenplay.genre.genreName.toLowerCase()"
+                          type="Movie" class="newsElement"/>
           </div>
         </div>
 
         <div class="newsTextSection verticalScroll">
           <div v-for="(it, index) in this.studioNews" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+            <news-element :heading-text="it._title"
+                          :info-text="it._description"
+                          type="Studio" class="newsElement"/>
           </div>
         </div>
 
@@ -52,17 +55,14 @@ export default {
       let sourceData = this.$store.getters.getCurrentNews;
       sourceData.sort((a, b) => b._date - a._date)
       for (let i = 0; i < sourceData.length; i++) {
-        if (sourceData[i]._type === 'People') {
+        if (sourceData[i]._type === 'People' && this.peopleNews.length < 10) {
           this.peopleNews.push(sourceData[i])
         }
-        if (sourceData[i]._type === 'Movies') {
+        if (sourceData[i]._type === 'Movies' && this.movieNews.length < 10) {
           this.movieNews.push(sourceData[i])
         }
-        if (sourceData[i]._type === 'Studios') {
+        if (sourceData[i]._type === 'Studios' && this.studioNews.length < 10) {
           this.studioNews.push(sourceData[i])
-        }
-        if (i === 9) {
-          break;
         }
       }
     },

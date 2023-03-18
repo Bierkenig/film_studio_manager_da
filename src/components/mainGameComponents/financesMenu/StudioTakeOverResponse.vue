@@ -55,7 +55,7 @@ export default {
       //decrease balance
       this.$store.commit('subtractBalance', amount)
 
-      this.$store.commit('addEarnings', new Earnings(-amount, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings', new Earnings(-amount, this.$store.getters.getCurrentDate,'StudioTakeover'))
 
       this.$store.commit('addFinancialHistoryEntry', new FinancialHistoryEntry("event1", "desc1", studio.name, this.$store.getters.getCurrentDate))
 

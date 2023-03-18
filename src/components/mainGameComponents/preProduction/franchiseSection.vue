@@ -1,21 +1,25 @@
 <template>
-  <div>
+  <div class="franchiseSectionMainDiv">
     <div>
-      <select
-          class="createFranchiseSelect"
-          v-model="movieFranchiseType"
-      >
-        <option :value="undefined" disabled selected hidden>Franchise Type</option>
-        <option value="Sequel">{{ $t('sequel') }}</option>
-        <option value="Prequel">{{ $t('prequel') }}</option>
-      </select>
+      <background-tile class="franchiseSectionTile" :title="$t('chooseSequelPrequel')">
+        <div>
+          <select
+              class="franchiseSectionSelect"
+              v-model="movieFranchiseType"
+          >
+            <option :value="undefined" disabled selected hidden>Franchise Type</option>
+            <option value="Sequel">{{ $t('sequel') }}</option>
+            <option value="Prequel">{{ $t('prequel') }}</option>
+          </select>
+        </div>
+        <custom-button
+            id="franchiseSectionContinueButton"
+            :dark="false"
+            size="small"
+            :disabled="!movieFranchiseType"
+            @clicked="goToScreenplay">{{ $t('continue')}}</custom-button>
+      </background-tile>
     </div>
-    <custom-button
-        id="franchiseSectionContinueButton"
-        :dark="false"
-        size="medium"
-        :disabled="!movieFranchiseType"
-        @clicked="goToScreenplay">{{ $t('continue')}}</custom-button>
   </div>
 </template>
 
@@ -23,10 +27,11 @@
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import {Screenplay} from "@/classes/Screenplay";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 
 export default {
   name: "franchiseSection",
-  components: {CustomButton},
+  components: {BackgroundTile, CustomButton},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
@@ -40,12 +45,10 @@ export default {
       let lastScreenplay = this.$store.getters.getCurrentFranchise.getLastScreenplay();
       let newScreenplay = new Screenplay(this.$store.getters.getNextScreenplayId,lastScreenplay.title,
           lastScreenplay.type, lastScreenplay.genre,lastScreenplay.subgenre, lastScreenplay.ageRating,
-          null,lastScreenplay.description,lastScreenplay.rating,null,lastScreenplay.topics,
-          this.$store.getters.getCurrentFranchise);
+          null,lastScreenplay.description,lastScreenplay.rating,null, null, lastScreenplay.topics,
+          this.$store.getters.getCurrentFranchise,false, lastScreenplay.details, lastScreenplay.ageRatingDetails);
       newScreenplay.setRatingRange(lastScreenplay.ratingRange);
       newScreenplay.roles = lastScreenplay.roles;
-      newScreenplay.details = lastScreenplay.details;
-      newScreenplay.ageRatingDetails = lastScreenplay.ageRatingDetails;
 
       this.$store.getters.getCurrentMovie._franchiseType = this.movieFranchiseType;
       this.$store.commit('setNewCurrentScreenplay', newScreenplay);
@@ -56,11 +59,23 @@ export default {
 </script>
 
 <style scoped>
+.franchiseSectionMainDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.franchiseSectionTile {
+  width: 400px;
+}
+
+.franchiseSectionSelect {
+  margin-top: 10px;
+}
+
 #franchiseSectionContinueButton {
-  position: absolute;
-  float: right;
-  right: 100px;
-  bottom: 20px;
-  width: 15%;
+  margin-top: 15px;
 }
 </style>

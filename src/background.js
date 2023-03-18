@@ -20,15 +20,12 @@ protocol.registerSchemesAsPrivileged([
 export let updatePresence
 
 async function createWindow() {
-
-    const primaryDisplay = screen.getPrimaryDisplay()
-    const {width, height} = primaryDisplay.workAreaSize
     // Create the browser window.
     const win = new BrowserWindow({
         width: 1920,
         height: 1080,
         webPreferences: {
-            nodeIntegration: false,
+            nodeIntegration: true,
             contextIsolation: true,
             preload: path.join(__dirname, 'preload.js'),
         },
@@ -42,7 +39,7 @@ async function createWindow() {
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
-    let dbPath = isDevelopment ? "public/DB/database/fsm.db" : "../bundled/DB/database/fsm.db"
+    let dbPath = isDevelopment ? "public/DB/database/fsm.db" : "./bundled/DB/database/fsm.db"
     let db = null
 
     //IPC Main
@@ -335,7 +332,7 @@ async function launchDiscordGameSDK(win) {
     try {
         if(process.env.NODE_ENV === 'production'){
             //For Steam Production
-            child = spawn('java', ['-jar', 'bundled/Discord.jar', process.pid.toString()],
+            child = spawn('java', ['-jar', './bundled/Discord.jar', process.pid.toString()],
                 {stdio: ['pipe', process.stdout, process.stderr]});
         }
         else{

@@ -36,17 +36,20 @@ export default {
 #moviesMenuContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
 }
 
 .moviesMenuActionContainer {
   display: flex;
   flex-direction: column;
-  width: 30%;
   gap: 20px;
+  flex-basis: 0;
+  flex-grow: 4;
 }
 
 .moviesMenuMoviesSection {
-  width: 70%;
+  flex-basis: 0;
+  flex-grow: 7;
 }
 </style>

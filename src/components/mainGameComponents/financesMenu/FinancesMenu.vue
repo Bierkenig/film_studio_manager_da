@@ -3,16 +3,14 @@
     <div class="financesMenuLeftSide">
       <background-tile class="loanTile" :title="$t('labelTakeCredit')" content-color="grey" icon="price">
         {{ $t('descCredit') }}
-        <custom-button class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">{{
-            $t('takeCredit')
-          }}
+        <custom-button size="small" class="loanButton" @click="this.$router.push({name: 'TakeALoan'})">
+          {{ $t('takeCredit') }}
         </custom-button>
       </background-tile>
       <background-tile class="buyStudioTile" :title="$t('labelBuyStudio')" content-color="grey" icon="studio">
         {{ $t('descStudio') }}
-        <custom-button class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">{{
-            $t('buyStudio')
-          }}
+        <custom-button size="small" class="buyStudioButton" @click="this.$router.push({name: 'BuyAStudio'})">
+          {{ $t('buyStudio') }}
         </custom-button>
       </background-tile>
     </div>
@@ -47,9 +45,9 @@
           <div id="fiscalPerformanceList" class="verticalScroll">
             <div v-for="(element, index) in fiscalPerformanceData" :key="index" class="fiscalPerformanceListElement">
               <finance-element
-                  :accumulated="roundBudget(element.accumulated.toString())"
-                  :outgoing="roundBudget(element.outgoing.toString())"
-                  :incoming="roundBudget(element.incoming.toString())"
+                  :accumulated="'$ ' + roundBudget(element.accumulated.toString())"
+                  :outgoing="'$ ' + roundBudget(element.outgoing.toString())"
+                  :incoming="'$ ' + roundBudget(element.incoming.toString())"
                   :area="$t(element.name)"
               />
             </div>
@@ -75,8 +73,8 @@
           <div v-for="(el, index) in otherStudios" :key="index" class="marketShareListElement">
             <market-share-element icon="studio"
                                   :studio="el.name"
-                                  :revenue="roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0).toString())"
-                                  :profit="roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0).toString())"
+                                  :revenue="'$ ' + roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcRevenue() : 0).toString())"
+                                  :profit="'$ ' + roundBudget((el.marketShare[selectedMarketYear] !== undefined ? el.calcProfit() : 0).toString())"
                                   :share="((el.marketShare[selectedMarketYear] !== undefined || !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) + '%').toString()"
                                   :change="(((el.marketShare[selectedMarketYear] !== undefined && !isNaN(el.marketShare[selectedMarketYear]) ? el.marketShare[selectedMarketYear] : 0) - (el.marketShare[selectedMarketYear - 1] !== undefined || !isNaN(el.marketShare[selectedMarketYear - 1]) ? el.marketShare[selectedMarketYear - 1] : 0)) + '%').toString()"
             />
@@ -101,11 +99,9 @@
           <div v-for="(el, index) in financialHistory" :key="index" class="historyElement">
             <info-line class="infoLine">
               <div class="div1">{{ $t("financialHistory." + el.title) }} {{ el.objectTitle }}</div>
-              <div class="div2">{{
-                  $t("financialHistory." + el.description)
-                }}{{
-                  this.$store.getters.getCurrentLanguage.toLowerCase() === 'en' ? eMonths[el.date.getMonth()] : dMonths[el.date.getMonth()]
-                }}
+              <div class="div2">
+                {{ $t("financialHistory." + el.description) }}
+                {{ this.$store.getters.getCurrentLanguage.toLowerCase() === 'en' ? eMonths[el.date.getMonth()] : dMonths[el.date.getMonth()] }}
                 {{ el.date.getDate() }}
               </div>
             </info-line>
@@ -304,6 +300,8 @@ export default {
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .infoLine {
@@ -335,7 +333,7 @@ export default {
 }
 
 .financesMenuLeftSide, .financesMenuRightSide {
-  flex-grow: 1;
+  flex-grow: 4;
   flex-basis: 0;
   display: flex;
   flex-direction: column;
@@ -343,7 +341,7 @@ export default {
 }
 
 .financesMenuCenter {
-  flex-grow: 2;
+  flex-grow: 7;
   flex-basis: 0;
   display: flex;
   flex-direction: column;

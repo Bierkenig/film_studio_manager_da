@@ -31,6 +31,7 @@
         </div>
         <custom-button
             id="streamingMenuCreateButton"
+            size="small"
             :dark="false"
             :disabled="checkBalance || !name"
             @clicked="createService">
@@ -89,7 +90,7 @@ export default {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
       updateServicePopularityAndSubscribers();
-      store.commit('addEarnings',new Earnings(-2500000000, store.getters.getCurrentDate))
+      store.commit('addEarnings',new Earnings(-2500000000, store.getters.getCurrentDate, 'Streaming'))
       this.$store.commit('subtractBalance', 2500000000)
     }
   }
@@ -100,6 +101,7 @@ export default {
 .streamingMenuContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 20px;
   flex: 1;
 }
@@ -112,12 +114,14 @@ export default {
 #leftSide, #rightSide {
   display: flex;
   flex-direction: column;
-  width: 30%;
   gap: 20px;
+  flex-basis: 0;
+  flex-grow: 4;
 }
 
 .moviesSectionTag {
-  width: 60%;
+  flex-basis: 0;
+  flex-grow: 7;
 }
 
 .streamingMenuEmptyMessageMainDiv {

@@ -24,7 +24,9 @@
                 <info-circle class="screenplaySummaryInfoCircle" :icon="screenplayGenre.genreName.toLowerCase()" data-title="Genre" size="60px"/>
                 <info-circle class="screenplaySummaryInfoCircle" :text="RegExp('\\+\\d+$').exec(screenplayAgeRating)[0]" data-title="Age Rating" size="60px" large-font/>
               </div>
-              <div class="screenplaySummaryPoster"/>
+              <div class="screenplaySummaryPoster">
+                <poster-element height="160px" width="120px" :poster-name="screenplayGenre.genreName.toLowerCase() + 'ScreenplayPoster'"/>
+              </div>
             </div>
           </div>
           <div id="screenplaySummaryMoreInfoContainer">
@@ -151,10 +153,11 @@ import InfoCircle from "@/components/kitchenSink/InfoCircle.vue";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "ScreenplaySummary",
-  components: {BackgroundTile, CustomButton, InfoCircle, IconButton},
+  components: {PosterElement, BackgroundTile, CustomButton, InfoCircle, IconButton},
   mixins: [soundeffectMixin('button','click'),soundeffectMixin('img','click')],
 
   data(){
@@ -170,7 +173,6 @@ export default {
       screenplayRoles: this.$store.getters.getCurrentScreenplay.roles,
       screenplayWriter: this.$store.getters.getCurrentScreenplay.writer._first_name + ' ' + this.$store.getters.getCurrentScreenplay.writer._last_name,
       characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
-      screenplayPosterSVG: 'none',
 
       checkIfScreenplayIsInUse: false,
     }
@@ -368,10 +370,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('screenplayPosterSVG');
   background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .screenplaySummaryGeneralInfoLine {

@@ -19,14 +19,7 @@ export default {
     duration: String
   },
   mounted() {
-    setTimeout(this.animateBar, 10)
     setTimeout(() => this.$router.push({name: this.nextRoute}), 4000)
-  },
-  methods: {
-    animateBar() {
-      this.$refs.bar.style.setProperty("transition", "width " +  this.duration + "s ease-in-out")
-      this.$refs.bar.style.setProperty("width", "100%")
-    }
   },
 }
 </script>

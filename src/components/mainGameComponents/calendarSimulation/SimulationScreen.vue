@@ -10,8 +10,17 @@
       <background-tile :title="$t('news2')">
         <div class="simulationScreenNewsContainer">
           <div v-for="(it, index) in this.news" :key="index">
-            <news-element svg-code="" :heading-text="it._title"
-                          :info-text="it._description" class="newsElement"/>
+            <news-element v-if="it._person !== null"
+                          :avatar="it._person._avatar" :heading-text="it._title"
+                          :info-text="it._description" type="People" class="newsElement"/>
+            <news-element v-if="it._movie !== null"
+                          :heading-text="it._title"
+                          :info-text="it._description" :genre="it._movie._preProduction.screenplay.genre.genreName.toLowerCase()"
+                          type="Movie" class="newsElement"/>
+            <news-element v-if="it._studio !== null"
+                          :heading-text="it._title"
+                          :info-text="it._description"
+                          type="Studio" class="newsElement"/>
           </div>
         </div>
       </background-tile>
@@ -153,7 +162,8 @@ export default {
 }
 
 .simulationScreenNewsContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -203,11 +213,6 @@ export default {
   right: 100px;
   bottom: 20px;
   width: 15%;
-}
-
-.newsElement {
-  width: 100%;
-  flex: 1;
 }
 
 .meterBox {

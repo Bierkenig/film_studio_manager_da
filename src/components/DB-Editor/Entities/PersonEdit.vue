@@ -10,7 +10,7 @@
         :shadow="false"
         @click="$router.go(-1)"
     />
-    <background-tile title="Edit Person" id="personEditBgTile">
+    <background-tile :title="$t('editPerson')" id="personEditBgTile">
       <div class="personEditInputLine">
         <label for="firstname">{{$t('first_name')}}:</label>
         <input id="firstname" v-model="first_name">

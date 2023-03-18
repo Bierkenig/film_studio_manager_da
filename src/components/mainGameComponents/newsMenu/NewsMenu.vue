@@ -6,14 +6,14 @@
       <action-section headline="listOfAwards" info-text="listOfAwardsInfoText" button-text="open" icon="trophy"/>
     </div>
     <div class="newsMenuCenterBox">
-      <background-tile class="newsMenuCenterBoxBackground" title="Earning Statistics">
+      <background-tile class="newsMenuCenterBoxBackground" :title="$t('earningStatistics')">
           <tile-pages-nav class="newsMenuNavigation"
                           :pages='[$t("thisWeek"),$t("thisMonth"), $t("thisYear"), $t("allTime")]' :gradient='true'>
             <div class="newsMenuCenterBoxContent verticalScroll">
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisWeek')" :current-time-gross="getWeekEarnings(it)"/>
               </div>
             </div>
@@ -21,7 +21,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisMonth')"
                                        :current-time-gross="getMonthEarnings(it)"/>
               </div>
@@ -30,7 +30,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('thisYear')" :current-time-gross="getYearEarnings(it)"/>
               </div>
             </div>
@@ -38,7 +38,7 @@
               <div
                   v-for="(it, index) in allMovies"
                   :key="index">
-                <movie-earning-element :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
+                <movie-earning-element :genre="it._preProduction.screenplay.genre.genreName" :movie-title="it._preProduction.screenplay.title" :opening-week-gross="it._release.openingWeekGross"
                                        :current-time-title="$t('allTime')"
                                        :current-time-gross="getAllTimeEarnings(it)"/>
               </div>
@@ -47,26 +47,28 @@
       </background-tile>
     </div>
     <div class="newsMenuRightBox">
-      <background-tile class="newsMenuRightBoxBackground" title="News">
-          <tile-pages-nav class="newsMenuNavigation" :pages='["People","Movie", "Studios"]' :gradient='true'>
+      <background-tile class="newsMenuRightBoxBackground" :title="$t('news2')">
+          <tile-pages-nav class="newsMenuNavigation" :pages='[$t("people"),$t("movies"), "Studios"]' :gradient='true'>
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.peopleNews" :key="index">
-                <news-element svg-code="" :heading-text="it._title"
-                              :info-text="it._description" class="newsElement"/>
+                <news-element :avatar="it._person._avatar" :heading-text="it._title"
+                              :info-text="it._description" type="People" class="newsElement"/>
               </div>
             </div>
 
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.movieNews" :key="index">
-                <news-element svg-code="" :heading-text="it._title"
-                              :info-text="it._description" class="newsElement"/>
+                <news-element :heading-text="it._title"
+                              :info-text="it._description" :genre="it._movie._preProduction.screenplay.genre.genreName.toLowerCase()"
+                              type="Movie" class="newsElement"/>
               </div>
             </div>
 
             <div class="newsTextSection verticalScroll">
               <div v-for="(it, index) in this.studioNews" :key="index">
-                <news-element svg-code="" :heading-text="it._title"
-                              :info-text="it._description" class="newsElement"/>
+                <news-element :heading-text="it._title"
+                              :info-text="it._description"
+                              type="Studio" class="newsElement"/>
               </div>
             </div>
           </tile-pages-nav>
@@ -258,21 +260,22 @@ export default {
   flex-wrap: wrap;
 }
 
-.newsElement {
-  margin-bottom: 10px;
-}
-
 .newsMenuNavigation {
   flex-grow: 1;
   flex-basis: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  gap: 10px;
   margin-top: 10px;
 }
 
 .newsMenuCenterBoxContent {
   flex-grow: 1;
   flex-basis: 0;
+}
+
+.newsElement {
+  margin-bottom: 10px;
 }
 </style>

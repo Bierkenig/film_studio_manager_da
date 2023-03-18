@@ -60,7 +60,7 @@
             <div class="peopleDetailsInfoTextRow">
               <div class="peopleDetailsSpecificInfoDiv">
                 <div class="peopleDetailsMoreInfo">
-                  <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                  <custom-icon size="15px" theme="light" :gradient="false" icon="party" :shadow="false" :invert-theme="false"/>
                   <div>{{ $t('popularity') }}</div>
                 </div>
                 <input class="peopleDetailsRangeSlider"
@@ -72,7 +72,7 @@
               </div>
               <div class="peopleDetailsSpecificInfoDiv">
                 <div class="peopleDetailsMoreInfo">
-                  <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                  <custom-icon size="15px" theme="light" :gradient="false" icon="briefcase" :shadow="false" :invert-theme="false"/>
                   <div>{{ $t('experience') }}</div>
                 </div>
                 <input class="peopleDetailsRangeSlider"
@@ -86,7 +86,7 @@
             <div class="peopleDetailsInfoTextRow">
               <div class="peopleDetailsSpecificInfoDiv">
                 <div class="peopleDetailsMoreInfo">
-                  <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                  <custom-icon size="15px" theme="light" :gradient="false" icon="star" :shadow="false" :invert-theme="false"/>
                   <div>{{ $t('rating') }}</div>
                 </div>
                 <input class="peopleDetailsRangeSlider"
@@ -98,7 +98,7 @@
               </div>
               <div class="peopleDetailsSpecificInfoDiv">
                 <div class="peopleDetailsMoreInfo">
-                  <custom-icon size="15px" theme="light" :gradient="false" icon="baseball" :shadow="false" :invert-theme="false"/>
+                  <custom-icon size="15px" theme="light" :gradient="false" icon="school" :shadow="false" :invert-theme="false"/>
                   <div>Talent</div>
                 </div>
                 <input class="peopleDetailsRangeSlider"
@@ -151,7 +151,7 @@ export default {
 
   watch: {
     person: function(){
-      if (this.person.length !== 0) {
+      if (this.person !== null && this.person !== undefined) {
         this.showDetails = true;
         this.personAvatar = this.person._avatar
         this.personName = this.person._first_name + ' ' + this.person._last_name;

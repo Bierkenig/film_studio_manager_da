@@ -1,6 +1,30 @@
 <template>
   <div id="posterElement">
-    <img class="posterElementSrc" ref="posterElementSrc" :src="require(`../../assets/poster/${posterName}.svg`)" :alt="posterName"/>
+    <img class="posterElementSrc" ref="actionMoviePosterElementSrc" :src="require(`../../assets/poster/actionMoviePoster.svg`)" alt="actionMoviePoster"/>
+    <img class="posterElementSrc" ref="actionScreenplayPosterElementSrc" :src="require(`../../assets/poster/actionScreenplayPoster.svg`)" alt="actionScreenplayPoster"/>
+    <img class="posterElementSrc" ref="adventureMoviePosterElementSrc" :src="require(`../../assets/poster/adventureMoviePoster.svg`)" alt="adventureMoviePoster"/>
+    <img class="posterElementSrc" ref="adventureScreenplayPosterElementSrc" :src="require(`../../assets/poster/adventureScreenplayPoster.svg`)" alt="adventureScreenplayPoster"/>
+    <img class="posterElementSrc" ref="comedyMoviePosterElementSrc" :src="require(`../../assets/poster/comedyMoviePoster.svg`)" alt="comedyMoviePoster"/>
+    <img class="posterElementSrc" ref="comedyScreenplayPosterElementSrc" :src="require(`../../assets/poster/comedyScreenplayPoster.svg`)" alt="comedyScreenplayPoster"/>
+    <img class="posterElementSrc" ref="documentaryMoviePosterElementSrc" :src="require(`../../assets/poster/documentaryMoviePoster.svg`)" alt="documentaryMoviePoster"/>
+    <img class="posterElementSrc" ref="documentaryScreenplayPosterElementSrc" :src="require(`../../assets/poster/documentaryScreenplayPoster.svg`)" alt="documentaryScreenplayPoster"/>
+    <img class="posterElementSrc" ref="dramaMoviePosterElementSrc" :src="require(`../../assets/poster/dramaMoviePoster.svg`)" alt="dramaMoviePoster"/>
+    <img class="posterElementSrc" ref="dramaScreenplayPosterElementSrc" :src="require(`../../assets/poster/dramaScreenplayPoster.svg`)" alt="dramaScreenplayPoster"/>
+    <img class="posterElementSrc" ref="fantasyMoviePosterElementSrc" :src="require(`../../assets/poster/fantasyMoviePoster.svg`)" alt="fantasyMoviePoster"/>
+    <img class="posterElementSrc" ref="fantasyScreenplayPosterElementSrc" :src="require(`../../assets/poster/fantasyScreenplayPoster.svg`)" alt="fantasyScreenplayPoster"/>
+    <img class="posterElementSrc" ref="horrorMoviePosterElementSrc" :src="require(`../../assets/poster/horrorMoviePoster.svg`)" alt="horrorMoviePoster"/>
+    <img class="posterElementSrc" ref="horrorScreenplayPosterElementSrc" :src="require(`../../assets/poster/horrorScreenplayPoster.svg`)" alt="horrorScreenplayPoster"/>
+    <img class="posterElementSrc" ref="musicalMoviePosterElementSrc" :src="require(`../../assets/poster/musicalMoviePoster.svg`)" alt="musicalMoviePoster"/>
+    <img class="posterElementSrc" ref="musicalScreenplayPosterElementSrc" :src="require(`../../assets/poster/musicalScreenplayPoster.svg`)" alt="musicalScreenplayPoster"/>
+    <img class="posterElementSrc" ref="placeholderElementSrc" :src="require(`../../assets/poster/placeholder.svg`)" alt="placeholder"/>
+    <img class="posterElementSrc" ref="romanceMoviePosterElementSrc" :src="require(`../../assets/poster/romanceMoviePoster.svg`)" alt="romanceMoviePoster"/>
+    <img class="posterElementSrc" ref="romanceScreenplayPosterElementSrc" :src="require(`../../assets/poster/romanceScreenplayPoster.svg`)" alt="romanceScreenplayPoster"/>
+    <img class="posterElementSrc" ref="science-fictionMoviePosterElementSrc" :src="require(`../../assets/poster/science-fictionMoviePoster.svg`)" alt="science-fictionMoviePoster"/>
+    <img class="posterElementSrc" ref="science-fictionScreenplayPosterElementSrc" :src="require(`../../assets/poster/science-fictionScreenplayPoster.svg`)" alt="science-fictionScreenplayPoster"/>
+    <img class="posterElementSrc" ref="thrillerMoviePosterElementSrc" :src="require(`../../assets/poster/thrillerMoviePoster.svg`)" alt="thrillerMoviePoster"/>
+    <img class="posterElementSrc" ref="thrillerScreenplayPosterElementSrc" :src="require(`../../assets/poster/thrillerScreenplayPoster.svg`)" alt="thrillerScreenplayPoster"/>
+    <img class="posterElementSrc" ref="warMoviePosterElementSrc" :src="require(`../../assets/poster/warMoviePoster.svg`)" alt="warMoviePoster"/>
+    <img class="posterElementSrc" ref="warScreenplayPosterElementSrc" :src="require(`../../assets/poster/warScreenplayPoster.svg`)" alt="warScreenplayPoster"/>
   </div>
 </template>
 
@@ -15,10 +39,6 @@ export default {
     }
   },
   props: {
-    svgCode: {
-      type: String,
-      default: '<?xml version="1.0" encoding="UTF-8"?><svg id="Ebene_1" data-name="Ebene 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2.83 2.83"><defs><style>.cls-1 {fill: #252D3E;}</style></defs><rect class="cls-1" width="2.83" height="2.83"/></svg>',
-    },
     height: {
       type: String,
       required: true,
@@ -34,16 +54,12 @@ export default {
   },
   methods: {
     async setSVG() {
-      if (this.posterName !== 'placeholder') {
-        this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent((await this.getSVGCode()).toString()) + '")';
-      } else {
-        this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
-      }
+      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent((await this.getSVGCode()).toString()) + '")';
     },
     async getSVGCode() {
       let requestResult = await new Promise((resolve) => {
             let request = new XMLHttpRequest();
-            request.open('GET', this.$refs.posterElementSrc.src, true);
+            request.open('GET', this.$refs[this.posterName + 'ElementSrc'].src, true);
             request.responseType = 'blob';
             request.onload = async function () {
               resolve(await new Promise((resolveRead) => {
@@ -64,7 +80,7 @@ export default {
     this.setSVG();
   },
   watch: {
-    svgCode: function () {
+    posterName: function () {
       this.setSVG();
     },
   },

@@ -1,6 +1,14 @@
 <template>
   <div class="newsElementMainDiv">
-    <div class="newsElementImage"/>
+    <div v-if="type === 'People'" class="newsElementImage">
+      <avatar-element :svg-code="avatar" size="75px"/>
+    </div>
+    <div v-if="type === 'Movie'" class="newsElementImage">
+      <poster-element height="95px" width="70px" :poster-name="genre + 'MoviePoster'"/>
+    </div>
+    <div v-if="type === 'Studio'" class="newsElementImage">
+      <custom-icon class="iconButtonSVG" size="50px" theme="light" icon="studio" :shadow="false" :invert-theme="false"/>
+    </div>
     <div class="newsElementText">
       <div class="newsElementHeading">
         {{headingText}}
@@ -13,15 +21,19 @@
 </template>
 
 <script>
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
+import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
+import AvatarElement from "@/components/kitchenSink/AvatarElement.vue";
+
 export default {
   name: "NewsElement",
+  components: {AvatarElement, CustomIcon, PosterElement},
   data() {
     return {
       svgBG: '',
     }
   },
   props: {
-    svgCode: String,
     headingText: {
       type: String,
       required: true,
@@ -30,14 +42,9 @@ export default {
       type: String,
       required: true,
     },
-  },
-  methods: {
-    setSVG() {
-      this.svgBG = 'url("data:image/svg+xml;utf8,' + encodeURIComponent(this.svgCode) + '")';
-    },
-  },
-  mounted() {
-    this.setSVG();
+    type: String,
+    genre: String,
+    avatar: String,
   },
 }
 </script>
@@ -67,6 +74,10 @@ export default {
   background-size: 70px;
   background-position: center;
   background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .newsElementText {

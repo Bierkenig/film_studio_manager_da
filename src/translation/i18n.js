@@ -62,8 +62,8 @@ i18next
                     buyStudio: "Buy",
                     labelTakeCredit: "Take out a loan",
                     labelBuyStudio: "Buy a Studio",
-                    descCredit: "Produce new movies from existing scripts or buy new.",
-                    descStudio: "View your own sources or buy them from your competitors.",
+                    descCredit: "Take out a loan to be able to fund more projects. These loans will be repaid over time.",
+                    descStudio: "Buy a rival film studio to increase the market share of yours.",
                     fiscalPerformance: {
                         name: "Fiscal Performance",
                         area: "Area",
@@ -657,6 +657,7 @@ i18next
                     romance: 'Romance',
                     war: 'War',
                     history: 'History',
+                    movieTitle: 'Movie title',
                     character: 'Character',
                     main: 'Main',
                     support: 'Support',
@@ -674,6 +675,7 @@ i18next
                     save: 'Save',
                     saveCharacter: 'Save Character',
                     editPerson: 'Edit Person',
+                    editStudio: 'Edit Studio',
                     act1: 'Act 1',
                     act2: 'Act 2',
                     act3: 'Act 3',
@@ -885,6 +887,7 @@ i18next
                     sequel: 'Sequel',
                     prequel: 'Prequel',
                     screenplayPlot: 'Screenplay Plot',
+                    plotHint: 'You can use "drag & drop" to move or delete the elements',
                     contractOffer: 'Contract Offer',
                     events: {
                         dropOut: {
@@ -1201,6 +1204,38 @@ i18next
                     theStudio: 'The studio ',
                     theStreamingService: 'The streaming service ',
                     wasFounded: ' was founded',
+                    chooseSequelPrequel: 'Sequel or Prequel',
+                    earningStatistics: 'Earning Statistics',
+                    menuHeadings: {
+                        home: {
+                            title: 'Home',
+                            description: 'Your manager dashboard.',
+                        },
+                        movies: {
+                            title: 'Movies',
+                            description: 'View and manage your current movie projects.',
+                        },
+                        streaming: {
+                            title: 'Streaming',
+                            description: 'View and manage your streaming service.',
+                        },
+                        finances: {
+                            title: 'Finances',
+                            description: 'View and manage your current finances.',
+                        },
+                        news: {
+                            title: 'News',
+                            description: 'Always be up to date.',
+                        },
+                        calendar: {
+                            title: 'Calendar',
+                            description: 'View upcoming and previous events.',
+                        },
+                        simulation: {
+                            title: 'Simulation',
+                            description: 'Simulate your way through the days to get to the next event.',
+                        },
+                    },
                 }
             },
             de: {
@@ -1248,14 +1283,14 @@ i18next
                     first_name: 'Vorname',
                     last_name: 'Nachname',
                     finances: 'Finanzen',
-                    takeCredit: "Leihen",
+                    takeCredit: "Kredit",
                     buyStudio: "Kaufen",
                     labelTakeCredit: "Kredit aufnehmen",
                     labelBuyStudio: "Studio kaufen",
-                    descCredit: "Produziere neue Filme nach vorhandenen Drehbüchern oder kaufe neue.",
-                    descStudio: "Sieh dir deine eigenen Quellen an oder kaufe welche von deinen Konkurrenten.",
+                    descCredit: "Nimm einen Kredit auf, um weitere Projekte finanzieren zu können. Diese Kredite werden im Laufe der Zeit zurückgezahlt.",
+                    descStudio: "Kauf eines konkurrierenden Filmstudios, um den Marktanteil des eigenen Studios zu erhöhen.",
                     fiscalPerformance: {
-                        name: "Finanzielle Leistungsfähigkeit",
+                        name: "Finanzielle Leistung",
                         area: "Bereich",
                         incoming: "Einkommen",
                         outgoing: "Ausgaben",
@@ -1647,6 +1682,17 @@ i18next
                         },
                     },
                     finishMovie: "Film fertigstellen",
+                    recast: {
+                        actor: {
+                            recast: "Schauspieler neu besetzen",
+                            negotiate: "Verhandeln",
+                            offer: "Angebot schicken",
+                        },
+                        director: {
+                            recast: "Regisseur neu besetzen",
+                            negotiate: "Verhandeln"
+                        }
+                    },
                     beforeRelease: {
                         details: "Filmdetails",
                         title: "Titel",
@@ -1675,6 +1721,14 @@ i18next
                         audienceRating: "Publikumsbewertung",
                         open: "Eröffnungswochenergebnis",
                         feedbacks: "Feedbacks"
+                    },
+                    afterReleaseWithCinema: {
+                        details: "Release Details",
+                        criticsRating: "Kritikerbewertung",
+                        audienceRating: "Publikumsbewertung",
+                        release: "Release Beliebtheit",
+                        open: "Eröffnungswochen-Einnahmen",
+                        close: "Schließen"
                     },
                     afterRelease: {
                         summary: "Filmaufführung",
@@ -1709,6 +1763,17 @@ i18next
                     createScreenplay: 'Drehbuch erstellen',
                     createMovie: 'Film erstellen',
                     buyScreenplay: 'Drehbuch kaufen',
+                    adventure: 'Abenteuer',
+                    biography: 'Biographie',
+                    comedy: 'Comedy',
+                    crime: 'Krimi',
+                    documentary: 'Dokumentation',
+                    erotic: 'Erotik',
+                    family: 'Familie',
+                    mystery: 'Mystery',
+                    romance: 'Romanze',
+                    war: 'Krieg',
+                    history: 'Geschichte',
                     description: 'Beschreibung',
                     movieTitle: 'Filmtitel',
                     character: 'Charakter',
@@ -1728,6 +1793,7 @@ i18next
                     save: 'Speichern',
                     saveCharacter: 'Charakter speichern',
                     editPerson: 'Person bearbeiten',
+                    editStudio: 'Studio bearbeiten',
                     act1: 'Akt 1',
                     act2: 'Akt 2',
                     act3: 'Akt 3',
@@ -1803,7 +1869,8 @@ i18next
                     topics: 'Themen',
                     scope: 'Umfang',
                     tone: 'Ton',
-                    useOfSpecialEffects: 'Verwendung von Special Effekte',
+                    useOfSpecialEffects: 'Verwendung von Spezialeffekten',
+                    specialEffects: 'Spezialeffekte',
                     little: 'Wenig',
                     small: 'Klein',
                     violence: 'Gewalt',
@@ -1912,9 +1979,15 @@ i18next
                     resetDBModal: 'Datenbank zurücksetzen',
                     resetDBMsg: 'Willst du diese Datenbank wirklich zurücksetzen?',
                     resetDBModal1: 'Zurücksetzen',
+                    reset: 'Zurücksetzen',
                     delete: 'Löschen',
                     general: 'Generell',
                     add: 'Hinzufügen',
+                    animation: 'Animation',
+                    feature: 'Spielfilm',
+                    indie: 'Indie',
+                    normal: 'Normal',
+                    mild: 'Mild',
                     lighthearted: 'Unbeschwert',
                     suitable: 'Geeignet',
                     deleteItem: 'Element löschen',
@@ -2046,6 +2119,7 @@ i18next
                     sequel: 'Fortsetzung',
                     prequel: 'Vorgeschichte',
                     screenplayPlot: 'Drehbuchhandlung',
+                    plotHint: 'Du kannst "drag & drop" benutzen um die Elemente zu verschieben oder zu löschen',
                     contractOffer: 'Vertragsangebot',
                     events: {
                         dropOut: {
@@ -2351,7 +2425,7 @@ i18next
                     listOfMoviesInfoText: 'Sieh dir die Liste deiner Filme an.',
                     listOfPeopleInfoText: 'Sieh dir die Liste aller Personen an.',
                     listOfAwardsInfoText: 'Sieh dir die Liste aller Auszeichnungen an.',
-                    ethnicity: 'Herkunft',
+                    ethnicity: 'Ethnizität',
                     workingSince: 'Arbeitet seit',
                     directors: 'Regisseure',
                     writers: 'Autoren',
@@ -2362,6 +2436,38 @@ i18next
                     theStudio: 'Das Studio ',
                     theStreamingService: 'Das Streaming Service ',
                     wasFounded: ' wurde gegründet',
+                    chooseSequelPrequel: 'Sequel oder Prequel',
+                    earningStatistics: 'Einnahmens-Statistiken',
+                    menuHeadings: {
+                        home: {
+                            title: 'Startseite',
+                            description: 'Dein Manager-Dashboard.',
+                        },
+                        movies: {
+                            title: 'Filme',
+                            description: 'Anzeigen und Verwalten deiner aktuellen Filmprojekte.',
+                        },
+                        streaming: {
+                            title: 'Streaming',
+                            description: 'Anzeigen und Verwalten deines Streaming-Service.',
+                        },
+                        finances: {
+                            title: 'Finanzen',
+                            description: 'Anzeigen und Verwalten deiner aktuellen Finanzen.',
+                        },
+                        news: {
+                            title: 'Nachrichten',
+                            description: 'Bleib immer auf dem Laufenden.',
+                        },
+                        calendar: {
+                            title: 'Kalender',
+                            description: 'Kommende und bisherige Ereignisse anzeigen.',
+                        },
+                        simulation: {
+                            title: 'Simulation',
+                            description: 'Simuliere deinen Weg durch die Tage, um zum nächsten Ereignis zu gelangen.',
+                        },
+                    },
                 }
             }
         }

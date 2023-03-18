@@ -11,7 +11,6 @@
           v-for="(it,index) in data"
           :key="index"
           :movie-title="it._preProduction.screenplay.title"
-          svg-code=""
           :viewers="Math.round(it._release.audiencePopularity).toString()"
           :critics="Math.round(it._release.criticsFormula).toString()"
           :age="RegExp('\\+\\d+$').exec(it._preProduction.screenplay.ageRating)[0]"
@@ -28,7 +27,7 @@
         <streaming-element
             class="moviesSectionMovieElement"
             v-if="it._contract > 0"
-            svg-code=""
+            :genre="it._preProduction.screenplay.genre.genreName.toLowerCase()"
             :streaming-title="it._preProduction.screenplay.title"
             :popularity="Math.round(it.popularity)"
             :contract="it._contract +  ' Years'"
@@ -36,9 +35,9 @@
         <streaming-element
             class="moviesSectionMovieElement"
             v-else
-            svg-code=""
+            :genre="it._preProduction.screenplay.genre.genreName.toLowerCase()"
             :streaming-title="it._preProduction.screenplay.title"
-            :popularity="Math.round(it.popularity)"
+            :popularity="Math.round(it._release.audiencePopularity)"
             contract="Unlimited"
             @open-clicked="movieInfo(it)"/>
       </div>

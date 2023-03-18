@@ -83,7 +83,7 @@ export default {
     this.$store.getters.getCurrentMovie._status = 'Pre Production'
 
 
-    let createdScreenplays = this.$store.getters.getScreenplays;
+    let createdScreenplays = this.$store.getters.getScreenplays.concat(this.$store.getters.getBoughtScreenplays);
     let allStudioMovies = this.$store.getters.getInProductionMovies.concat(this.$store.getters.getCreatedMovies, this.$store.getters.getFinishedMovies);
 
     for (let i = 0; i < createdScreenplays.length; i++) {
@@ -94,7 +94,7 @@ export default {
         }
       }
 
-      if (createdScreenplays[i].franchise === null || !screenplayAlreadyInUse) {
+      if (!screenplayAlreadyInUse) {
         this.possibleScreenplays.push(createdScreenplays[i])
       }
     }

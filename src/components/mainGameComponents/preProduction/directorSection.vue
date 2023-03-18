@@ -26,7 +26,10 @@
       <info-line v-if="directorDeclined">
         {{ $t('hireDirectorSection.declined') }}
       </info-line>
-      <custom-button :disabled="!decision" @click="this.$store.getters.getCurrentMovie._preProduction.hiredDirector === null ? goToDuration() : gotToHome()">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null || this.$router.options.history.state.back === '/screenplaySection'" :disabled="!decision" @click="goToDuration()">
+        {{ $t('buyScreenplaySection.continue') }}
+      </custom-button>
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/screenplaySection'" :disabled="!decision" @click="gotToHome()">
         {{ $t('buyScreenplaySection.continue') }}
       </custom-button>
     </div>
@@ -217,8 +220,9 @@ export default {
 
   mounted() {
     this.allDirectors = this.$store.getters.getAllDirectors
-    if (this.$store.getters.getCurrentCalendarEvent !== null) {
+    if (this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/screenplaySection') {
       this.allDirectors = this.allDirectors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.director.id)
+      this.$store.getters.getCurrentCalendarEvent.director._workingOnProjects--;
     }
     this.allSalaries = this.$store.getters.getDirectorAndActorSalaries
   }
@@ -233,10 +237,6 @@ export default {
   align-items: center;
   gap: 20px;
   height: 100vh;
-}
-
-.directorSectionColumn {
-  height: 80vh;
 }
 
 #directorSectionRight {

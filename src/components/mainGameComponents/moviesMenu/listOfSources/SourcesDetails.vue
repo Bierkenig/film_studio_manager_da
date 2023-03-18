@@ -13,7 +13,9 @@
                 <info-circle class="screenplayDetailsInfoCircle" :icon="this.source.genre.genreName.toLowerCase()" data-title="Genre" size="60px"/>
                 <info-circle class="screenplayDetailsInfoCircle" :text="RegExp('\\+\\d+$').exec(source.ageRating)[0]" data-title="Age Rating" size="60px" large-font/>
               </div>
-              <div class="screenplayDetailsPoster"/>
+              <div class="screenplayDetailsPoster">
+                <poster-element height="160px" width="120px" :poster-name="source.genre.genreName.toLowerCase() + 'ScreenplayPoster'"/>
+              </div>
             </div>
           </div>
           <div id="screenplayDetailsMoreInfoContainer">
@@ -159,7 +161,9 @@
                                size="60px"/>
                 </div>
               </div>
-              <div class="movieDetailsPoster"/>
+              <div class="movieDetailsPoster">
+                <poster-element height="160px" width="120px" :poster-name="source._preProduction.screenplay.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+              </div>
             </div>
           </div>
           <div class="movieDetailsGeneralBottomInfo">
@@ -236,11 +240,11 @@
             </div>
             <div v-if="source._postProduction === null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
             <div v-if="source._postProduction !== null" class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.marketingBudget') }}</div>
-              <div>$ {{ roundBudget(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial) }}</div>
+              <div>$ {{ roundBudget(source._postProduction.marketingPrint + source._postProduction.marketingInternet + source._postProduction.marketingCommercial + source._postProduction.distributionCosts) }}</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.totalCost') }}</div>
@@ -264,15 +268,15 @@
           <div v-if="source._status !== 'Finished' && source._status !== 'Released'" class="movieDetailsFinancesRight">
             <div class="noMargin movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.openingWeek') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.cinemaGross') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
             <div class="movieDetailsFinancesInfoLine">
               <div>{{ $t('movieDetailsElement.finances.dvdGross') }}</div>
-              <div>0</div>
+              <div>$ 0</div>
             </div>
           </div>
         </div>
@@ -324,10 +328,11 @@ import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import BuyModal from "@/components/mainGameComponents/moviesMenu/listOfSources/BuyModal.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import Earnings from "@/classes/Earnings";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "SourcesDetails",
-  components: {BackgroundTile, BuyModal, CustomButton, InfoCircle},
+  components: {PosterElement, BackgroundTile, BuyModal, CustomButton, InfoCircle},
 
   props: {
     source: Object,
@@ -344,7 +349,6 @@ export default {
       characterIndex: ['A','B','C','D','E','F','G','H','I','J','K','L'],
       showBuyScreenplayModal: false,
       showBuyMovieModal: false,
-      sourcePosterSVG: 'none',
     }
   },
 
@@ -389,7 +393,7 @@ export default {
       this.$store.commit('removeScreenplayFromWriters',chosenScreenplay)
       this.$store.commit('removeScreenplayFromAllScreenplays',chosenScreenplay);
       this.$store.commit('addBoughtScreenplay',chosenScreenplay)
-      this.$store.commit('addEarnings',new Earnings(-chosenScreenplay.price, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings',new Earnings(-chosenScreenplay.price, this.$store.getters.getCurrentDate, 'Production'))
       this.$store.commit('subtractBalance',chosenScreenplay.price)
 
       this.$router.push({name: 'movies'})
@@ -410,7 +414,7 @@ export default {
       chosenMovie._contract = 0;
       chosenMovie._owner.budget += chosenMovie._totalCosts;
       chosenMovie._owner = this.$store.getters.getStudio;
-      this.$store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, this.$store.getters.getCurrentDate))
+      this.$store.commit('addEarnings',new Earnings(-chosenMovie._totalCosts, this.$store.getters.getCurrentDate,'Production'))
       this.$store.commit('subtractBalance',chosenMovie._totalCosts)
 
       this.$router.push({name: 'movies'})
@@ -643,10 +647,7 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('sourcePosterSVG');
   background-size: 120px;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
 .movieDetailsGeneralInfoLine, .movieDetailsFinancesInfoLine, .screenplayDetailsGeneralInfoLine {

@@ -58,6 +58,21 @@ export default {
       default: true,
     },
   },
+
+  watch: {
+    incoming: function (){
+      this.setupElement();
+    },
+
+    outgoing: function (){
+      this.setupElement();
+    },
+
+    accumulated: function (){
+      this.setupElement();
+    }
+  },
+
   methods: {
     setupElement() {
       if (!this.colorIncoming) {
@@ -68,7 +83,7 @@ export default {
       }
       if (!this.colorAccumulated) {
         this.accumulatedColor = this.whiteColor;
-      } else if (this.accumulated.toString().charAt(0) === '-') {
+      } else if (this.accumulated.toString().charAt(2) === '-') {
         this.accumulatedColor = this.redColor;
       } else {
         this.accumulatedColor = this.greenColor;

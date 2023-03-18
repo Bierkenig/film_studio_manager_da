@@ -40,7 +40,7 @@ export class MovieTest {
         // null -> no rights bought / 0 -> unlimited rights (own created movie, bought movie)
         this._contract = contract;
         //NOT DONE YET
-        this._earnings = [new Earnings(100, new Date()), new Earnings(200, new Date())]
+        this._earnings = [new Earnings(100, new Date(), ''), new Earnings(200, new Date(),'')]
         //TYPE -> Integer
         this.genrePopularity = this.calcGenrePopularities()
         this.subgenrePopularity = this.calcSubGenrePopularities()

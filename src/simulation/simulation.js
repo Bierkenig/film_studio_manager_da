@@ -49,11 +49,11 @@ export default function simulate() {
         setAudienceAwardEvents()
     }
 
-    if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0, 4, new Date(store.getters.getCurrentDate.getFullYear(), 1)).getTime()) {
+    if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(5, 3, new Date(store.getters.getCurrentDate.getFullYear(), 1)).getTime()) {
         setAwardWinner('internationalAward')
-    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0, 2, new Date(store.getters.getCurrentDate.getFullYear(), 4)).getTime()) {
+    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(5, 1, new Date(store.getters.getCurrentDate.getFullYear(), 4)).getTime()) {
         setAwardWinner('independentAward')
-    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(0, 3, new Date(store.getters.getCurrentDate.getFullYear(), 6)).getTime()) {
+    } else if (store.getters.getCurrentDate.getTime() === nthWeekdayOfMonth(5, 2, new Date(store.getters.getCurrentDate.getFullYear(), 6)).getTime()) {
         setAwardWinner('audienceAward')
     }
 
@@ -62,10 +62,12 @@ export default function simulate() {
     setEventDuringPostProduction();
 
     //MONTHLY
-    if (store.getters.getCurrentDate.getDate() === 1) {
+    let lastDayOfMonth = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth() + 1, 0);
+    if (store.getters.getCurrentDate.getDate() === lastDayOfMonth.getDate()){
+        setFinancialPerformance()
+
         renewPeople();
         //FETCHING DB
-        setFinancialPerformance()
 
         updateOtherStreamingServices();
 
@@ -118,19 +120,21 @@ function setFinancialPerformance() {
     store.getters.getFinishedMovies.forEach(movie => {
         //production
         movie._earnings.forEach(earning => {
-            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
-                production.incoming += earning.amount
+            if (earning.date.getMonth() === currentDate.getMonth() &&
+                earning.date.getFullYear() === currentDate.getFullYear() &&
+                earning.type === 'Production') {
+                if(earning.amount > 0){
+                    production.incoming += earning.amount
+                } else {
+                    production.outgoing += earning.amount
+                }
             }
         })
 
-        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
-            production.outgoing += movie._totalOutgoings
-        }
-
         //marketing + cinema
         if (movie._postProduction instanceof PostProduction) {
-            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
-            cinema.outgoing += (movie._postProduction.distributionCosts)
+            marketing.outgoing -= (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial)
+            cinema.outgoing -= (movie._postProduction.distributionCosts)
         }
 
         if (movie._release instanceof Release) {
@@ -141,19 +145,21 @@ function setFinancialPerformance() {
     store.getters.getCreatedMovies.forEach(movie => {
         //production
         movie._earnings.forEach(earning => {
-            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
-                production.incoming += earning.amount
+            if (earning.date.getMonth() === currentDate.getMonth() &&
+                earning.date.getFullYear() === currentDate.getFullYear() &&
+                earning.type === 'Production') {
+                if(earning.amount > 0){
+                    production.incoming += earning.amount
+                } else {
+                    production.outgoing += earning.amount
+                }
             }
         })
 
-        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
-            production.outgoing += movie._totalOutgoings
-        }
-
         //marketing + cinema
         if (movie._postProduction instanceof PostProduction) {
-            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
-            cinema.outgoing += (movie._postProduction.distributionCosts)
+            marketing.outgoing -= (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial)
+            cinema.outgoing -= (movie._postProduction.distributionCosts)
         }
 
         if (movie._release instanceof Release) {
@@ -165,19 +171,21 @@ function setFinancialPerformance() {
     store.getters.getInProductionMovies.forEach(movie => {
         //production
         movie._earnings.forEach(earning => {
-            if (earning.date.getMonth() === currentDate.getMonth() && earning.date.getFullYear() === currentDate.getFullYear()) {
-                production.incoming += earning.amount
+            if (earning.date.getMonth() === currentDate.getMonth() &&
+                earning.date.getFullYear() === currentDate.getFullYear() &&
+                earning.type === 'Production') {
+                if(earning.amount > 0){
+                    production.incoming += earning.amount
+                } else {
+                    production.outgoing += earning.amount
+                }
             }
         })
 
-        if (movie._preProduction.releaseDate.getMonth() === currentDate.getMonth()) {
-            production.outgoing += movie._totalOutgoings
-        }
-
         //marketing + cinema
         if (movie._postProduction instanceof PostProduction) {
-            marketing.outgoing += (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial) * -1
-            cinema.outgoing += (movie._postProduction.distributionCosts)
+            marketing.outgoing -= (movie._postProduction.marketingPrint + movie._postProduction.marketingInternet + movie._postProduction.marketingCommercial)
+            cinema.outgoing -= (movie._postProduction.distributionCosts)
         }
 
         if (movie._release instanceof Release) {
@@ -188,14 +196,19 @@ function setFinancialPerformance() {
     //loan
     store.getters.getCurrentLoans.forEach(loa => {
         if (loa.date.getMonth() === currentDate.getMonth() && loa.date.getFullYear() === currentDate.getFullYear()) {
-            loan.outgoing += loa.value * -1
+            loan.incoming += loa.value
         }
     })
 
     //streaming
     store.getters.getEarnings.forEach(el => {
-        if (el.date.getMonth() === currentDate.getMonth()) {
-            streaming.incoming += (el.amount / 5)
+        if (el.date.getMonth() === currentDate.getMonth() &&
+            el.type === 'Streaming') {
+            if(el.amount > 0){
+                streaming.incoming += el.amount
+            } else {
+                streaming.outgoing += el.amount
+            }
         }
     })
 
@@ -242,7 +255,7 @@ function createStudios() {
             let newsTitle = newStudio.getName() + i18next.t('established');
             let newsDescription = i18next.t('theStudio') + newStudio.getName() + i18next.t('wasFounded') + '.';
             store.commit('addNews', new News(newsTitle, newsDescription, 'Studios', store.getters.getCurrentDate, null, null, null, newStudio));
-            store.commit('addFinancialHistoryEntry', new FinancialHistoryEntry('event3', 'desc3', newStudio.getName(), this.$store.getters.getCurrentDate))
+            store.commit('addFinancialHistoryEntry', new FinancialHistoryEntry('event3', 'desc3', newStudio.getName(), store.getters.getCurrentDate))
             store.state.studioNames.splice(store.state.studioNames.indexOf(studioName), 1);
         }
     }
@@ -496,7 +509,7 @@ function streamingService() {
             let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
             //substract maintainment costs from balance
             if(serviceMaintainmentCosts !== 0){
-                store.commit('addEarnings', new Earnings(serviceMaintainmentCosts, store.getters.getCurrentDate))
+                store.commit('addEarnings', new Earnings(-serviceMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('subtractBalance', serviceMaintainmentCosts);
             }
 
@@ -504,7 +517,7 @@ function streamingService() {
             let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
             //add revenue to balance
             if(revenue !== 0){
-                store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate))
+                store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('addBalance', revenue);
             }
 
@@ -569,9 +582,11 @@ function streamingService() {
             contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
 
             if(contentMaintainmentCosts !== 0){
-                store.commit('addEarnings', new Earnings(contentMaintainmentCosts, store.getters.getCurrentDate))
+                store.commit('addEarnings', new Earnings(-contentMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
                 store.commit('subtractBalance', contentMaintainmentCosts);
             }
+
+            store.getters.getOwnStreamingService._profit += (revenue - contentMaintainmentCosts - serviceMaintainmentCosts);
 
             //update streaming service popularity and number of subscribers
             updateServicePopularityAndSubscribers();
@@ -711,19 +726,19 @@ export function updateServicePopularityAndSubscribers() {
     let hypeDrop1 = 0;
     let hypeDrop2 = 0;
     allStreamingServiceMovies.forEach(function (movie) {
-        if (movie._release.critics <= 50) {
+        if (movie._release.criticsFormula <= 50) {
             hypeDrop1 = 0.75;
-        } else if (movie._release.critics >= 51 && movie._release.critics <= 75) {
+        } else if (movie._release.criticsFormula >= 51 && movie._release.criticsFormula <= 75) {
             hypeDrop1 = 0.85;
-        } else if (movie._release.critics >= 76) {
+        } else if (movie._release.criticsFormula >= 76) {
             hypeDrop1 = 0.95;
         }
 
-        if (movie._release.audienceRating <= 50) {
+        if (movie._release.audiencePopularity <= 50) {
             hypeDrop2 = 0.75;
-        } else if (movie._release.audienceRating >= 51 && movie._release.audienceRating <= 75) {
+        } else if (movie._release.audiencePopularity >= 51 && movie._release.audiencePopularity <= 75) {
             hypeDrop2 = 0.85;
-        } else if (movie._release.audienceRating >= 76) {
+        } else if (movie._release.audiencePopularity >= 76) {
             hypeDrop2 = 0.95;
         }
 
@@ -1106,15 +1121,15 @@ function renewPeople() {
             store.commit('removePerson', el.id)
             let type = ""
             if (el._isActor === "true") {
-                type += "Actor | "
+                type += "Actor "
                 roles.actor++
             }
             if (el._isDirector === "true") {
-                type += "Director | "
+                type += " | Director "
                 roles.director++
             }
             if (el._isWriter === "true") {
-                type += "Writer"
+                type += " | Writer"
                 roles.writer++
             }
             store.commit('addNews', new News(el._first_name + ' ' + el._last_name + " died", "The " + type + " " + el._first_name + ' ' + el._last_name + " died", 'People', store.getters.getCurrentDate, el))
@@ -1399,40 +1414,75 @@ function setAwardWinner(typeOfAward) {
     }
 
     for (let i = 0; i < Object.keys(nominationList).length; i++) {
-        let randomElement = nominationList[Object.keys(nominationList)[i]][Math.floor(Math.random() * nominationList[Object.keys(nominationList)[i]].length)]
-        nominationList[Object.keys(nominationList)[i]] = [randomElement]
+        let randomElement = null;
+        if(nominationList[Object.keys(nominationList)[i]].length !== 0){
+            randomElement = nominationList[Object.keys(nominationList)[i]][Math.floor(Math.random() * nominationList[Object.keys(nominationList)[i]].length)]
+        }
+
+        if(randomElement === null){
+            nominationList[Object.keys(nominationList)[i]] = []
+        } else {
+            nominationList[Object.keys(nominationList)[i]] = [randomElement]
+        }
     }
 
     if (typeOfAward === 'internationalAward') {
         store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
-            nominationList['ActorLeadingRole'][0].id, nominationList['ActorSupportingRole'][0].id,
-            nominationList['ActressLeadingRole'][0].id, nominationList['ActressSupportingRole'][0].id,
-            nominationList['Movies'][0].id, nominationList['Directors'][0].id, null,
-            nominationList['Writers'][0].id, null, null, null, null, null,
+            nominationList['ActorLeadingRole'].length !== 0 ? nominationList['ActorLeadingRole'][0].id : null,
+            nominationList['ActorSupportingRole'].length !== 0 ? nominationList['ActorSupportingRole'][0].id : null,
+            nominationList['ActressLeadingRole'].length !== 0 ? nominationList['ActressLeadingRole'][0].id : null,
+            nominationList['ActressSupportingRole'].length !== 0 ? nominationList['ActressSupportingRole'][0].id : null,
+            nominationList['Movies'].length !== 0 ? nominationList['Movies'][0].id : null,
+            nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+            null,
+            nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+            null, null, null, null, null,
             null, null, null, 'international',
             store.getters.getCurrentDate))
     } else if (typeOfAward === 'independentAward') {
         store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
             null, null, null, null,
-            nominationList['Movies'][0].id, nominationList['Directors'][0].id, null, nominationList['Writers'][0].id,
-            nominationList['Actor'][0].id, nominationList['Actress'][0].id, null, null, null,
+            nominationList['Movies'].length !== 0 ? nominationList['Movies'][0].id : null,
+            nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+            null,
+            nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+            nominationList['Actor'].length !== 0 ? nominationList['Actor'][0].id : null,
+            nominationList['Actress'].length !== 0 ? nominationList['Actress'][0].id : null,
+            null, null, null,
             null, null, null, 'independent',
             store.getters.getCurrentDate))
     } else if (typeOfAward === 'audienceAward') {
         if (nominationList['ActionOrAdventureMovies'][0]._preProduction.screenplay.genre.genreName === 'Action') {
             store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
                 null, null, null, null,
-                nominationList['Movies'][0].id, nominationList['Directors'][0].id, null, nominationList['Writers'][0].id,
-                nominationList['Actor'][0].id, nominationList['Actress'][0].id, null, nominationList['ActionOrAdventureMovies'][0].id,
-                nominationList['ThrillerMovies'][0].id, nominationList['ScienceFictionMovies'][0].id, nominationList['FantasyMovies'][0].id,
-                nominationList['HorrorMovies'][0].id, 'audience', store.getters.getCurrentDate))
+                nominationList['Movies'].length !== 0 ? nominationList['Movies'][0].id : null,
+                nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+                null,
+                nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+                nominationList['Actor'].length !== 0 ? nominationList['Actor'][0].id : null,
+                nominationList['Actress'].length !== 0 ? nominationList['Actress'][0].id : null,
+                null,
+                nominationList['ActionOrAdventureMovies'].length !== 0 ? nominationList['ActionOrAdventureMovies'][0].id : null,
+                nominationList['ThrillerMovies'].length !== 0 ? nominationList['ThrillerMovies'][0].id : null,
+                nominationList['ScienceFictionMovies'].length !== 0 ? nominationList['ScienceFictionMovies'][0].id : null,
+                nominationList['FantasyMovies'].length !== 0 ? nominationList['FantasyMovies'][0].id : null,
+                nominationList['HorrorMovies'].length !== 0 ? nominationList['HorrorMovies'][0].id : null,
+                'audience', store.getters.getCurrentDate))
         } else if (nominationList['ActionOrAdventureMovies'][0]._preProduction.screenplay.genre.genreName === 'Adventure') {
             store.commit('addCreatedAward', new Award(store.getters.getNextAwardId,
                 null, null, null, null, null,
-                nominationList['Directors'][0].id, null, nominationList['Writers'][0].id,
-                nominationList['Actor'][0].id, nominationList['Actress'][0].id, nominationList['ActionOrAdventureMovies'][0].id, null,
-                nominationList['ThrillerMovies'][0].id, nominationList['ScienceFictionMovies'][0].id, nominationList['FantasyMovies'][0].id,
-                nominationList['HorrorMovies'][0].id, 'audience', store.getters.getCurrentDate))
+                nominationList['Directors'].length !== 0 ? nominationList['Directors'][0].id : null,
+                null,
+                nominationList['Writers'].length !== 0 ? nominationList['Writers'][0].id : null,
+                nominationList['Actor'].length !== 0 ? nominationList['Actor'][0].id : null,
+                nominationList['Actress'].length !== 0 ? nominationList['Actress'][0].id : null,
+                nominationList['ActionOrAdventureMovies'].length !== 0 ? nominationList['ActionOrAdventureMovies'][0].id : null,
+                null,
+                nominationList['ThrillerMovies'].length !== 0 ? nominationList['ThrillerMovies'][0].id  : null,
+                nominationList['ScienceFictionMovies'].length !== 0 ? nominationList['ScienceFictionMovies'][0].id  : null,
+                nominationList['FantasyMovies'].length !== 0 ? nominationList['FantasyMovies'][0].id  : null,
+                nominationList['HorrorMovies'].length !== 0 ? nominationList['HorrorMovies'][0].id  : null,
+                'audience', store.getters.getCurrentDate))
         }
     }
 }
@@ -2837,7 +2887,7 @@ function addPreProductionEventWithProbability(probability, movie, actor, directo
 // function to generate movies
 function generateMoviesFromOtherStudios() {
     if (store.getters.getOtherStudios.length !== 0 && store.state.screenplayTitles.length !== 0) {
-        if (randomNumber(0.01) === 0) {
+        if (randomNumber(0.05) === 0) {
             let allOtherStudios = store.getters.getOtherStudios;
             let randomStudio = allOtherStudios[Math.floor(Math.random() * allOtherStudios.length)];
             let allTotalEarnings = Math.floor(Math.random() * (5000000000 - 1000000 + 1) + 10000000)
@@ -2934,8 +2984,8 @@ function generateMoviesFromOtherStudios() {
 
             randomStudio.budget -= newMovie._totalOutgoings;
             store.commit('addMoviesFromOtherStudios', newMovie);
-            store.commit('addNews', new News(newMovie._preProduction.screenplay.title + ' was created!',
-                'The studio "' + newMovie._owner.name + '" created this movie!', 'Movies', store.getters.getCurrentDate, null, newMovie, null, null));
+            store.commit('addNews', new News('New movie created',
+                'The studio "' + newMovie._owner.name + '" created a movie!', 'Movies', store.getters.getCurrentDate, null, newMovie, null, null));
         }
     }
 }
