@@ -179,11 +179,12 @@ export default class Release {
         this.hypeFormula = this.preProduction.createTotal() * this.hypeFromMarketing
 
         //FINAL FORMULA
-        this.childrenMoviePopularityFormula = (this.topicPopularity * 20 + this.genrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 30) / 100
+        this.childrenMoviePopularityFormula = (this.childrenTopicsPopularity * 20 + this.childrenGenrePopularity * 30 + this.qualityFormula * 20 + this.popularityFormula * 30) / 100
 
-        this.teenagersMoviePopularityFormula = (this.topicPopularity * 25 + this.genrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 25) / 100
+        this.teenagersMoviePopularityFormula = (this.teenagersTopicsPopularity * 25 + this.teenagersGenrePopularity * 25 + this.qualityFormula * 25 + this.popularityFormula * 25) / 100
 
-        this.adultsMoviePopularityFormula = (this.topicPopularity * 30 + this.genrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 20) / 100
+        this.adultsMoviePopularityFormula = (this.adultsTopicsPopularity * 30 + this.adultsGenrePopularity * 20 + this.qualityFormula * 30 + this.popularityFormula * 20) / 100
+
         //Ratings
         //Critics Rating
         this.criticsFormula = critics !== undefined ? critics : (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
@@ -202,7 +203,7 @@ export default class Release {
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
             (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket
 
-        this.continuingEarnings = this.openingEarnings * (Math.random() * (3 - 1.75 + 1) + 1.75)
+        this.continuingEarnings = this.openingEarnings * (Math.random() * (2.5 - 1.75 + 1) + 1.75)
 
         this.totalEarnings = allTotalEarnings !== undefined ? allTotalEarnings : this.openingEarnings + this.continuingEarnings
 

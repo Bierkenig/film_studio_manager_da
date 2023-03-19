@@ -257,9 +257,9 @@ export default {
       }
     }
 
-    let sumOfMarketing = this.$store.getters.getCurrentMovie._totalOutgoings + this.valuePrint + this.valueInternet + this.valueCommercial;
+    let sumOfMarketing = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget() + this.valuePrint + this.valueInternet + this.valueCommercial;
     if(sumOfMarketing > this.$store.getters.getStudio.budget){
-      let possibleBudget = this.$store.getters.getStudio.budget - this.$store.getters.getCurrentMovie._totalOutgoings;
+      let possibleBudget = this.$store.getters.getStudio.budget - this.$store.getters.getCurrentMovie._preProduction.getTotalBudget();
       this.valueInternet = Math.round(possibleBudget / 3) - 1;
       this.valueCommercial = Math.round(possibleBudget / 3) - 1;
       this.valuePrint = Math.round(possibleBudget / 3) - 1;

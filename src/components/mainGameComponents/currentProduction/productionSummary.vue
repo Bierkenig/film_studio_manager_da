@@ -63,8 +63,6 @@ export default {
   mounted() {
     this.happenedEvents = this.$store.getters.getCurrentMovie._production.happenedEvents
 
-    this.$store.getters.getCurrentMovie._totalOutgoings = this.$store.getters.getCurrentMovie._preProduction.getTotalBudget();
-
     this.percent = Math.round((this.currentWeeks * 100) / this.maxWeeks)
   },
 
