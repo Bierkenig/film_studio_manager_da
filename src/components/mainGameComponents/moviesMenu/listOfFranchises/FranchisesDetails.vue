@@ -75,7 +75,7 @@
                 {{ $t('expenses') }}
               </div>
               <div>
-                $ {{ roundBudget(franchiseExpenses) }}
+                $ {{ roundBudget(franchisePrice) }}
               </div>
             </div>
             <div class="franchiseDetailsFinancesDetails">
