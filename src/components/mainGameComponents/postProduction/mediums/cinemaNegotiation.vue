@@ -13,7 +13,7 @@
                     </div>
                     <div class="cinemaNegotiationDurationSlider">
                       {{ releaseWeeks }}
-                      <input v-model="releaseWeeks" class="slide" type="range" :min="2" :max="54" :step="1">
+                      <input v-model="releaseWeeks" class="slide" type="range" :min="1" :max="54" :step="1">
                     </div>
                   </div>
                   <div class="cinemaNegotiationHeader">Percentage Take</div>
@@ -99,7 +99,7 @@ export default {
 
   data() {
     return {
-      releaseWeeks: 2,
+      releaseWeeks: 1,
       popularity: this.$store.getters.getCurrentMovie._owner.popularity,
       openingWeekShareStudio: 0,
       openingWeekShareCinema: 0,

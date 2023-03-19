@@ -5,7 +5,7 @@
         <div class="durationSectionDurationElement">
           <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set') }}</div>
           <div class="durationSectionDurationElementInputContainer">
-            <input class="durationSectionDurationElementInput" type="range" :min="2" :max="12" step="1"
+            <input class="durationSectionDurationElementInput" type="range" :min="1" :max="12" step="1"
                    v-model="preProductionInput" :disabled="confirm">
           </div>
           <div class="durationSectionDurationElementValue">{{ preProductionInput }} {{
@@ -17,7 +17,7 @@
         <div class="durationSectionDurationElement">
           <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set2') }}</div>
           <div class="durationSectionDurationElementInputContainer">
-            <input class="durationSectionDurationElementInput" type="range" :min="4" :max="24" step="1"
+            <input class="durationSectionDurationElementInput" type="range" :min="1" :max="24" step="1"
                    v-model="productionInput" :disabled="confirm">
           </div>
           <div class="durationSectionDurationElementValue">{{ productionInput }} {{ $t('durationSection.weeks') }}</div>
@@ -26,7 +26,7 @@
         <div class="durationSectionDurationElement">
           <div class="durationSectionDurationElementLabel">{{ $t('durationSection.set3') }}</div>
           <div class="durationSectionDurationElementInputContainer">
-            <input class="durationSectionDurationElementInput" type="range" :min="4" :max="24" step="1"
+            <input class="durationSectionDurationElementInput" type="range" :min="1" :max="24" step="1"
                    v-model="postProductionInput" :disabled="confirm">
           </div>
           <div class="durationSectionDurationElementValue">{{ postProductionInput }} {{
@@ -116,17 +116,17 @@ export default {
       //check for needed
       switch (this.scope) {
         case "Small":
-          if (this.isBetween(2, 4, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
-          if (this.isBetween(4, 8, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
-          if (this.isBetween(4, 8, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(1, 4, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(1, 8, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
+          if (this.isBetween(1, 8, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
           break
         case "Normal":
           if (this.isBetween(4, 6, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
           if (this.isBetween(8, 12, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
           if (this.isBetween(8, 12, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
-          if (this.isBetween(2, 4, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
-          if (this.isBetween(4, 8, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
-          if (this.isBetween(4, 8, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(1, 4, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(1, 8, this.productionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
+          if (this.isBetween(1, 8, this.postProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.7
           break
         case "Large":
           if (this.isBetween(6, 8, this.preProductionInput)) this.$store.getters.getCurrentMovie._preProduction.neededDuration += 0.3
@@ -160,9 +160,9 @@ export default {
   },
 
   mounted() {
-    this.preProductionInput = 2
-    this.productionInput = 4
-    this.postProductionInput = 4
+    this.preProductionInput = 1
+    this.productionInput = 1
+    this.postProductionInput = 1
   }
 }
 </script>

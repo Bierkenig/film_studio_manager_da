@@ -882,10 +882,9 @@ export function createScreenplaysFromWriters(type) {
 
             //set screenplay roles
             //newScreenplay.roles = allScreenplayTitles[screenplayTitle].roles;
-            addCharacter(newScreenplay.roles.main, Math.floor(Math.random() * (3 - 1) + 1));
-            addCharacter(newScreenplay.roles.support, Math.floor(Math.random() * (3 - 1) + 1));
-            addCharacter(newScreenplay.roles.minor, Math.floor(Math.random() * (3 - 1) + 1));
-            addCharacter(newScreenplay.roles.cameo, Math.floor(Math.floor(Math.random() * 4)));
+            addCharacter(newScreenplay.roles.main, 1);
+            addCharacter(newScreenplay.roles.support, 1);
+            addCharacter(newScreenplay.roles.minor, 1);
 
             function addCharacter(array, max) {
                 if (max !== 0) {
