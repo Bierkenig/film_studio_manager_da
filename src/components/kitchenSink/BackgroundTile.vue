@@ -1,6 +1,6 @@
 <template>
   <div class="backgroundTileMainDiv">
-    <icon-button class="backgroundTileIcon" :id="'backgroundTileIcon' + randomId" :icon="icon" size="medium" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
+    <icon-button v-show="icon !== 'placeholder'" id="backgroundTileIcon" ref="backgroundTileIcon" :icon="icon" size="medium" :dark="false" :bg-gradient="true" :icon-gradient="false" :shadow="false"/>
     <div class="backgroundTileTitle">
       {{ title }}
     </div>
@@ -15,7 +15,6 @@ export default {
   components: {IconButton},
   data() {
     return {
-      randomId: Math.floor(Math.random() * Math.pow(10, 10)),
       whiteColor: 'var(--fsm-white)',
       greyColor: 'var(--fsm-grey-font-color)',
       colorValue: '',
@@ -45,9 +44,6 @@ export default {
       } else if (this.contentColor === 'grey') {
         this.colorValue = this.greyColor;
       }
-      if (this.icon !== 'placeholder') {
-        document.getElementById('backgroundTileIcon' + this.randomId).style.display = 'flex';
-      }
     },
   },
   mounted() {
@@ -72,8 +68,7 @@ export default {
   -webkit-backdrop-filter: blur(30px);
 }
 
-.backgroundTileIcon {
-  display: none;
+#backgroundTileIcon {
   float: right;
 }
 
