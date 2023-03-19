@@ -98,8 +98,6 @@ export default {
         this.possibleScreenplays.push(createdScreenplays[i])
       }
     }
-
-    this.possibleScreenplays = this.possibleScreenplays.concat(this.$store.getters.getBoughtScreenplays)
   },
 
   methods: {

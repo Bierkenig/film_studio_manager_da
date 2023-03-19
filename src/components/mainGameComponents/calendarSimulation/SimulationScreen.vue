@@ -124,7 +124,7 @@ export default {
       this.stopButtonDisabled = true;
       clearInterval(this.interval)
       setTimeout(() => {
-        this.$router.go(-1);
+        this.$router.push({name: 'home'});
       }, 3500)
     },
 

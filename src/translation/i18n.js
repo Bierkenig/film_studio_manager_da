@@ -229,7 +229,7 @@ i18next
                         expand2: "Expand",
                         new: "Create a new Screenplay",
                         create2: "Create",
-                        existing: "Choose a existing Screenplay",
+                        existing: "Choose an existing Screenplay",
                         pitch: "Pitch an idea",
                         idea: "Show screenplay infos",
                         continue: "Continue",
@@ -1236,6 +1236,7 @@ i18next
                             description: 'Simulate your way through the days to get to the next event.',
                         },
                     },
+                    franchiseSuccessMsg: 'Your new franchise has been created!'
                 }
             },
             de: {
@@ -2468,6 +2469,7 @@ i18next
                             description: 'Simuliere deinen Weg durch die Tage, um zum nächsten Ereignis zu gelangen.',
                         },
                     },
+                    franchiseSuccessMsg: 'Dein neues Franchise wurde erstellt!'
                 }
             }
         }

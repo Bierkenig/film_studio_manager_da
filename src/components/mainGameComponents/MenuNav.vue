@@ -88,7 +88,7 @@
           :dark="false"
           size="medium"
           :disabled="this.allEventsCompleted === false"
-          @clicked="this.$router.push({name: 'simulation'})">{{ $t('continue') }}</custom-button>
+          @clicked="startSimulation">{{ $t('continue') }}</custom-button>
     </div>
   </div>
 </template>
@@ -165,6 +165,13 @@ export default {
       }
 
       this.lastButton = name;
+    },
+
+    startSimulation(){
+      this.$router.push({name: 'simulation'})
+      this.highlightButton['homeButton'] = false;
+      this.highlightButton[this.lastButton] = false;
+      this.lastButton = 'homeButton';
     },
 
     formatDate(date) {

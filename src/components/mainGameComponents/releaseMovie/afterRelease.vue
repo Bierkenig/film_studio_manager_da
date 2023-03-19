@@ -9,8 +9,11 @@
                 <div class="afterReleaseFranchiseElement">
                   <div>{{$t('afterRelease.qst')}}</div>
                   <div class="afterReleaseFranchiseCreation">
-                    <input class="afterReleaseFranchiseName" type="text" v-model="inputFranchise" placeholder="Franchise Name">
-                    <custom-button class="afterReleaseFranchiseButton" size="small" @clicked="createFranchise">{{$t('afterRelease.create')}}</custom-button>
+                    <input class="afterReleaseFranchiseName" type="text" v-model="inputFranchise" placeholder="Franchise Name" :disabled="createFranchiseButtonStatus">
+                    <custom-button class="afterReleaseFranchiseButton" size="small" @clicked="createFranchise" :disabled="createFranchiseButtonStatus">{{$t('afterRelease.create')}}</custom-button>
+                  </div>
+                  <div v-if="createFranchiseButtonStatus">
+                    {{ $t('franchiseSuccessMsg') }}
                   </div>
                 </div>
 
@@ -68,7 +71,8 @@ export default {
     return {
       inputFranchise: "",
       release: this.movie._release,
-      streamMovies: this.$store.getters.getBoughtMovieRights
+      streamMovies: this.$store.getters.getBoughtMovieRights,
+      createFranchiseButtonStatus: false
     }
   },
 
@@ -86,6 +90,7 @@ export default {
 
       if (!check) {
         this.$store.commit('addFranchise', franchise)
+        this.createFranchiseButtonStatus = true
       }
     },
 
@@ -232,6 +237,7 @@ export default {
   border-style: none;
   flex: 1;
   padding: 10px;
+  outline: none;
 }
 
 .afterReleaseHeader {

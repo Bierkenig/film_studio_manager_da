@@ -197,7 +197,7 @@
                   </div>
                   <div id="createScreenplayCharacterRightSection">
                     <input id="createScreenplayCharacterName" v-model="characterName" :placeholder="$t('character') + ' Name'" />
-                    <input id="createScreenplayCharacterAge" type="number" v-model="characterAge" :placeholder="$t('character') + $t('age')" min="1" max="99" />
+                    <input id="createScreenplayCharacterAge" type="number" v-model="characterAge" :placeholder="$t('character') + ' ' + $t('age') + ' (1-99)'" min="1" max="99" />
                     <select
                         class="createScreenplaySelect"
                         id="createScreenplayCharacterGender"
@@ -225,7 +225,8 @@
                     id="createScreenplayCharacterAddButton"
                     :dark="false"
                     size="small"
-                    :disabled="characterName === '' || characterGender === null || characterRole === null"
+                    :disabled="characterAge === null || characterAge < 1 || characterAge > 99 || characterName === '' ||
+                                characterGender === null || characterRole === null"
                     @clicked="saveCharacter">{{ $t('add') }}</custom-button>
               </div>
             </div>
@@ -284,7 +285,7 @@ export default {
 
       characterName: '',
       characterGender: null,
-      characterAge: 1,
+      characterAge: null,
       characterRole: null,
 
       numberOfMainCharacters: this.$store.getters.getCurrentScreenplay.roles.main.length,
@@ -420,7 +421,7 @@ export default {
       }
       this.characterRole = null;
       this.characterName = '';
-      this.characterAge = 1;
+      this.characterAge = null;
       this.characterGender = null
     },
   }

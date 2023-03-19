@@ -169,7 +169,7 @@
           :dark="false"
           size="medium"
           :disabled="this.disableContinueButton"
-          @click="clickButton">{{ $t('continue')}}</custom-button>
+          @clicked="clickButton">{{ $t('continue')}}</custom-button>
     </div>
 
     <div
