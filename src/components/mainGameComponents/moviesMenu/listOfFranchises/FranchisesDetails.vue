@@ -3,7 +3,9 @@
     <background-tile :title="$t('general')">
       <div class="franchiseDetailsOuterBox">
         <div class="franchiseDetailsBox">
-          <div class="franchiseDetailsPosterBox"/>
+          <div class="franchiseDetailsPosterBox">
+            <poster-element v-if="franchiseGenre !== null" height="160px" width="120px" :poster-name="franchiseGenre + 'MoviePoster'"/>
+          </div>
           <div v-if="franchise !== null" class="franchiseDetailsFranchiseInfo">
             <div id="franchiseDetailsFranchiseName">
               {{ franchise.name }}
@@ -111,10 +113,11 @@
 <script>
 import Franchises from "@/classes/Franchises";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
+import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "FranchisesDetails",
-  components: {BackgroundTile},
+  components: {PosterElement, BackgroundTile},
 
   props: {
     franchise: Franchises,
@@ -129,6 +132,7 @@ export default {
       childrenRating: 0,
       teenagerRating: 0,
       adultRating: 0,
+      franchiseGenre: null,
     }
   },
 
@@ -141,6 +145,7 @@ export default {
         this.teenagerRating = 0;
         this.adultRating = 0;
         this.franchiseExpenses = 0;
+        this.franchiseGenre = this.franchiseMovies[0]._preProduction.screenplay.genre.genreName.toLowerCase();
 
         for (let i = 0; i < this.franchiseMovies.length; i++) {
           let childrenRatingSum = 0;
@@ -251,7 +256,6 @@ export default {
   flex-grow: 0;
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
-  background-image: v-bind('sourcePosterSVG');
   background-size: 120px;
   background-position: center;
   background-repeat: no-repeat;
