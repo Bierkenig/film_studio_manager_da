@@ -198,12 +198,14 @@ export default class Release {
         //Function below
 
         //FINAL FORMULA
-        this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
+        /*this.openingEarnings = (this.childrenMoviegoersPotential * (this.childrenMoviePopularityAfterMarketingFormula / 100) +
                 this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
-            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket
+            (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket*/
+        this.openingEarnings = 106500000;
 
-        this.continuingEarnings = this.openingEarnings * (Math.random() * (2.5 - 1.75 + 1) + 1.75)
+        /*this.continuingEarnings = this.openingEarnings * (Math.random() * (2.5 - 1.75 + 1) + 1.75)*/
+        this.continuingEarnings = 121300000;
 
         this.totalEarnings = allTotalEarnings !== undefined ? allTotalEarnings : this.openingEarnings + this.continuingEarnings
 
