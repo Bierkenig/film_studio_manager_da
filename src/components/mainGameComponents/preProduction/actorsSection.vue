@@ -88,6 +88,7 @@ export default {
 
   methods: {
     negotiateContract(actor) {
+      this.currentActor._no = 0
       this.currentActor = actor
       this.salaryLevel = Math.round((this.currentActor._talent * 35 + this.currentActor._experience * 25 + this.currentActor._popularity * 40) / 100)
 
@@ -188,6 +189,7 @@ export default {
         const index = this.allActors.indexOf(this.currentActor)
         this.allActors.splice(index, 1)
         this.disabled = false
+        this.currentActor._no = 0
         this.currentActor = this.allActors[0]
       }
     },
@@ -253,6 +255,7 @@ export default {
         }
         this.$store.state.currentMovie._preProduction.budget.actorSalary += parseInt(this.proposedSalary)
         this.negotiate = false
+        this.currentActor._no = 0
         this.currentActor = null
         this.salary.min = 0
         this.salary.max = 0
