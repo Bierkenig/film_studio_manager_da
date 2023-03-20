@@ -242,6 +242,10 @@ export default {
   margin-bottom: 10px;
 }
 
+.moviesDetailsGeneralTopInfoLeft {
+  word-break: break-word;
+}
+
 .moviesDetailsGeneralTopInfoLeft, .moviesDetailsGeneralTopInfoRight, .moviesDetailsGeneralBottomInfoLeft, .moviesDetailsGeneralBottomInfoRight, .moviesDetailsFinancesLeft, .moviesDetailsFinancesRight {
   flex-basis: 0;
   flex-grow: 1;

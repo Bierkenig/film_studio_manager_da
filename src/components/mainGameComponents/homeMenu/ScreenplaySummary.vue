@@ -273,6 +273,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  word-break: break-word;
 }
 
 .screenplaySummaryInfoFlexRight {
@@ -371,6 +372,7 @@ export default {
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
   background-size: 120px;
+  margin-top: 5px;
 }
 
 .screenplaySummaryGeneralInfoLine {

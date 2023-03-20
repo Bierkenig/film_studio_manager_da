@@ -492,6 +492,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  word-break: break-word;
 }
 
 .screenplayDetailsInfoFlexRight {
@@ -595,6 +596,10 @@ export default {
   margin-bottom: 10px;
 }
 
+.movieDetailsGeneralTopInfoLeft {
+  word-break: break-word;
+}
+
 .movieDetailsGeneralTopInfoLeft, .movieDetailsGeneralTopInfoRight, .movieDetailsGeneralBottomInfoLeft, .movieDetailsGeneralBottomInfoRight, .movieDetailsFinancesLeft, .movieDetailsFinancesRight {
   flex-basis: 0;
   flex-grow: 1;
@@ -648,6 +653,7 @@ export default {
   flex-shrink: 0;
   background-color: var(--fsm-dark-blue-3);
   background-size: 120px;
+  margin-top: 5px;
 }
 
 .movieDetailsGeneralInfoLine, .movieDetailsFinancesInfoLine, .screenplayDetailsGeneralInfoLine {
