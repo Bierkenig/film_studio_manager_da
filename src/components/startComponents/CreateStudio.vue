@@ -148,8 +148,22 @@ export default {
       } else {
         process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db") : window.ipcRenderer.send('changeDBPath', "./bundled/DB/database/fsm.db")
       }
+      //set all listeners null
+      window.ipcRenderer.removeAllListeners('gotStudios')
+      window.ipcRenderer.removeAllListeners('fromGetTopics')
+      window.ipcRenderer.removeAllListeners('gotGenres')
+      window.ipcRenderer.removeAllListeners('gotSubGenres')
+      window.ipcRenderer.removeAllListeners('gotCharacters')
+      window.ipcRenderer.removeAllListeners('fromGetPeople')
+      window.ipcRenderer.removeAllListeners('gotScreenplays')
+      window.ipcRenderer.removeAllListeners('gotRoles')
+      window.ipcRenderer.removeAllListeners('gotMovies')
+      window.ipcRenderer.removeAllListeners('gotIntAwards')
+      window.ipcRenderer.removeAllListeners('gotIndAwards')
+      window.ipcRenderer.removeAllListeners('gotAudAwards')
       //Fetch Studios
-      let allStudios = []
+      let
+          allStudios = []
       await window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
       await window.ipcRenderer.receive('gotStudios', (data) => {
         allStudios.push(new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
