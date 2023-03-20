@@ -379,6 +379,7 @@ export default {
   background-color: var(--fsm-dark-blue-4);
   border-radius: var(--fsm-m-border-radius);
   width: 100%;
+  word-break: break-word;
 }
 
 .screenplayInformationSubHeader {

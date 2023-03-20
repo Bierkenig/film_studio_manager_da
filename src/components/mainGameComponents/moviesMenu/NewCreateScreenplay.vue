@@ -165,28 +165,28 @@
                     <div id="createScreenplayCharacterLeftSectionInnerBox">
                       <div id="createScreenplayCharacterLeftSectionInnerBoxElements" class="verticalScroll">
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.main" :key="index">
-                          <div>{{ it.name }}</div>
+                          <div class="createScreenplayCharacterName">{{ it.name }}</div>
                           <div class="createScreenplayCharacterElementRoleInfo">
                             <div>{{ $t('main') }}</div>
                             <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'main')"/>
                           </div>
                         </div>
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.support" :key="index">
-                          <div>{{ it.name }}</div>
+                          <div class="createScreenplayCharacterName">{{ it.name }}</div>
                           <div class="createScreenplayCharacterElementRoleInfo">
                             <div>{{ $t('support') }}</div>
                             <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'support')"/>
                           </div>
                         </div>
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.minor" :key="index">
-                          <div>{{ it.name }}</div>
+                          <div class="createScreenplayCharacterName">{{ it.name }}</div>
                           <div class="createScreenplayCharacterElementRoleInfo">
                             <div>Minor</div>
                             <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'minor')"/>
                           </div>
                         </div>
                         <div class="createScreenplayCharacterElement" v-for="(it, index) in this.$store.getters.getCurrentScreenplay.roles.cameo" :key="index">
-                          <div>{{ it.name }}</div>
+                          <div class="createScreenplayCharacterName">{{ it.name }}</div>
                           <div class="createScreenplayCharacterElementRoleInfo">
                             <div>Cameo</div>
                             <icon-button icon="minus" size="extraSmall" :dark="false" :shadow="false" @click="removeCharacter(it,'cameo')"/>
@@ -660,5 +660,10 @@ option:disabled,
 option[disabled]{
   color: #848891;
   border-radius: var(--fsm-s-border-radius);
+}
+
+.createScreenplayCharacterName {
+  width: 40%;
+  word-wrap: break-word;
 }
 </style>
