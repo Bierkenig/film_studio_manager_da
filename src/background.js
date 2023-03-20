@@ -35,7 +35,7 @@ async function createWindow() {
         movable: false,
     })
 
-    launchDiscordGameSDK(win)
+    await launchDiscordGameSDK(win)
 
     //DB Dev Path
     const sqlite3 = require('sqlite3').verbose()
@@ -336,19 +336,20 @@ async function launchDiscordGameSDK(win) {
                 {stdio: ['pipe', process.stdout, process.stderr]});
         }
         else{
-            child = spawn('java', ['-jar', 'src/Discord.jar', process.pid.toString()],
+            child = spawn('asdf', ['-jar', 'src/Discord.jar', process.pid.toString()],
                 {stdio: ['pipe', process.stdout, process.stderr]});
         }
 
-        child.stdin.on('error', (error) => {
-            updatePresence = () => {
-            }
-        })
         updatePresence = (details) => {
             if (child.pid != undefined) {
                 streamWrite(child.stdin, details + '\n');
             }
         }
+
+        child.on('error', (error) => {
+            updatePresence = () => {
+            }
+        })
 
         await new Promise(resolve => setTimeout(resolve, 100))
         if (child.pid != undefined) {
