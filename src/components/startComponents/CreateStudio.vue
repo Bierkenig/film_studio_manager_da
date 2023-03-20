@@ -18,7 +18,7 @@
             <div class="createStudioBoxInnerElement">
               <div class="createStudioNameBox">
                 <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
-                <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name'/>
+                <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' minlength="1" maxlength="20"/>
               </div>
               <div id="radioBox">
                 <div id="budgetHint">
@@ -149,18 +149,18 @@ export default {
         process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/database/fsm.db")
       }
       //set all listeners null
-      window.ipcRenderer.removeAllListeners('gotStudios')
-      window.ipcRenderer.removeAllListeners('fromGetTopics')
-      window.ipcRenderer.removeAllListeners('gotGenres')
-      window.ipcRenderer.removeAllListeners('gotSubGenres')
-      window.ipcRenderer.removeAllListeners('gotCharacters')
-      window.ipcRenderer.removeAllListeners('fromGetPeople')
-      window.ipcRenderer.removeAllListeners('gotScreenplays')
-      window.ipcRenderer.removeAllListeners('gotRoles')
-      window.ipcRenderer.removeAllListeners('gotMovies')
-      window.ipcRenderer.removeAllListeners('gotIntAwards')
-      window.ipcRenderer.removeAllListeners('gotIndAwards')
-      window.ipcRenderer.removeAllListeners('gotAudAwards')
+      await window.ipcRenderer.removeAllListeners('gotStudios')
+      await window.ipcRenderer.removeAllListeners('fromGetTopics')
+      await window.ipcRenderer.removeAllListeners('gotGenres')
+      await window.ipcRenderer.removeAllListeners('gotSubGenres')
+      await window.ipcRenderer.removeAllListeners('gotCharacters')
+      await window.ipcRenderer.removeAllListeners('fromGetPeople')
+      await window.ipcRenderer.removeAllListeners('gotScreenplays')
+      await window.ipcRenderer.removeAllListeners('gotRoles')
+      await window.ipcRenderer.removeAllListeners('gotMovies')
+      await window.ipcRenderer.removeAllListeners('gotIntAwards')
+      await window.ipcRenderer.removeAllListeners('gotIndAwards')
+      await window.ipcRenderer.removeAllListeners('gotAudAwards')
       //Fetch Studios
       let allStudios = []
       await window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')

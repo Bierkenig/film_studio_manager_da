@@ -154,10 +154,14 @@ export default {
   data(){
     return{
       releaseDate: this.$store.getters.getCurrentMovie._preProduction.releaseDate,
-      date: new Date(),
-      oldReleaseDate:  this.date?.setDate(this.releaseDate.getDate() - 7 * this.addedWeeks)
+      date: this.$store.getters.getCurrentDate,
+      oldReleaseDate: null,
 
     }
+  },
+
+  mounted() {
+    this.oldReleaseDate = new Date(this.date.getFullYear(), this.date.getMonth(), this.date.getDate() - (7 * this.addedWeeks))
   },
 
   methods: {

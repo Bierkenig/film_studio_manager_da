@@ -26,10 +26,10 @@
       <info-line v-if="directorDeclined">
         {{ $t('hireDirectorSection.declined') }}
       </info-line>
-      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null || this.$router.options.history.state.back === '/screenplaySection'" :disabled="!decision" @click="goToDuration()">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent === null || this.$router.options.history.state.back === '/screenplaySection' || this.$router.options.history.state.back === '/screenplayInformation'" :disabled="!decision" @click="goToDuration()">
         {{ $t('buyScreenplaySection.continue') }}
       </custom-button>
-      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/screenplaySection'" :disabled="!decision" @click="gotToHome()">
+      <custom-button v-if="this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/screenplaySection' && this.$router.options.history.state.back !== '/screenplayInformation'" :disabled="!decision" @click="gotToHome()">
         {{ $t('buyScreenplaySection.continue') }}
       </custom-button>
     </div>
@@ -220,7 +220,8 @@ export default {
 
   mounted() {
     this.allDirectors = this.$store.getters.getAllDirectors
-    if (this.$store.getters.getCurrentCalendarEvent !== null && this.$router.options.history.state.back !== '/screenplaySection') {
+    if (this.$store.getters.getCurrentCalendarEvent !== null &&
+        (this.$router.options.history.state.back !== '/screenplaySection' && this.$router.options.history.state.back !== '/screenplayInformation')) {
       this.allDirectors = this.allDirectors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.director.id)
       this.$store.getters.getCurrentCalendarEvent.director._workingOnProjects--;
     }

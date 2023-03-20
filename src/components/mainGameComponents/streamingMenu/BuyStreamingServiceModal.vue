@@ -10,7 +10,7 @@
                 <legend>Streaming Service</legend>
                 <div>
                   <label for="streamingServiceName">Name</label>
-                  <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name">
+                  <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" minlength="1" maxlength="20">
                 </div>
               </fieldset>
             </slot>
