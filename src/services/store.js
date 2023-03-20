@@ -1009,7 +1009,7 @@ export default createStore({
                     "slot",
                     "logo",
                     "type",
-                    "calenderEvents",
+                    "calendarEvents",
                 ])
 
                 //TODO earnings
@@ -1142,11 +1142,10 @@ export default createStore({
             state.earnings = []
             state.financialPerformance = []
             state.currentCalendarEvent = null
-            state.calenderEvents = []
+            state.calendarEvents = []
             state.franchise = []
             state.currentFranchise = null
             state.inProductionMovies = []
-            state.calenderEvents = []
             state.finishedMovies = []
             state.awardsOfOwnStudio = []
             state.moviesFromOtherStudios = []
