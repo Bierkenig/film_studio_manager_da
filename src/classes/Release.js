@@ -187,10 +187,12 @@ export default class Release {
 
         //Ratings
         //Critics Rating
-        this.criticsFormula = critics !== undefined ? critics : (this.qualityFormula * 80 + this.popularityFormula * 20) / 100
+        /*this.criticsFormula = critics !== undefined ? critics : (this.qualityFormula * 80 + this.popularityFormula * 20) / 100*/
+        this.criticsFormula = 38;
 
         //Audience
-        this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100
+        /*this.audienceFormula = (this.qualityFormula * 20 + this.popularityFormula * 80) / 100*/
+        this.audienceFormula = 63;
         if (critics === undefined)this.setAudienceRating()
 
         //Earnings
