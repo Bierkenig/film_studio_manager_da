@@ -155,8 +155,7 @@ export default {
     return{
       releaseDate: this.$store.getters.getCurrentMovie._preProduction.releaseDate,
       date: this.$store.getters.getCurrentDate,
-      oldReleaseDate: null
-
+      oldReleaseDate: null,
     }
   },
 

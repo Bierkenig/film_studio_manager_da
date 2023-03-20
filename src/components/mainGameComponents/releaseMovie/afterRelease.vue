@@ -9,7 +9,7 @@
                 <div class="afterReleaseFranchiseElement">
                   <div>{{$t('afterRelease.qst')}}</div>
                   <div class="afterReleaseFranchiseCreation">
-                    <input class="afterReleaseFranchiseName" type="text" v-model="inputFranchise" placeholder="Franchise Name" :disabled="createFranchiseButtonStatus">
+                    <input class="afterReleaseFranchiseName" type="text" v-model="inputFranchise" placeholder="Franchise Name" :disabled="createFranchiseButtonStatus" minlength="1" maxlength="20">
                     <custom-button class="afterReleaseFranchiseButton" size="small" @clicked="createFranchise" :disabled="createFranchiseButtonStatus">{{$t('afterRelease.create')}}</custom-button>
                   </div>
                   <div v-if="createFranchiseButtonStatus">
