@@ -19,13 +19,13 @@
         <div id="fiscalPerformance">
           <div id="fiscalPerformanceSorts">
             <select v-model="selectedMonth" @change="updateFiscalPerformance()">
-              <option disabled :value="-1">{{ $t('month') }}</option>
+              <!--<option disabled :value="-1">{{ $t('month') }}</option>-->
               <option v-for="(el, index) in availableMonths" :key="index" :value="el">
                 {{ $t('dates.' + el) }}
               </option>
             </select>
             <select v-model="selectedYear" @change="calcMonths(); updateFiscalPerformance()">
-              <option disabled :value="-1">{{ $t('year') }}</option>
+              <!--<option disabled :value="-1">{{ $t('year') }}</option>-->
               <option v-for="(el, index) in availablePerformanceYears" :key="index" :value="el">
                 {{ el }}
               </option>
@@ -56,7 +56,7 @@
       </background-tile>
       <background-tile class="marketShareTile" :title="$t('marketShare.name')">
         <select id="marketShareSort" v-model="selectedMarketYear" @change="updateMarketShare">
-          <option disabled :value="-1">{{ $t('year') }}</option>
+          <!--<option disabled :value="-1">{{ $t('year') }}</option>-->
           <option v-for="year in availableMarketYears" :key="year" :value="year">{{ year }}</option>
         </select>
         <div id="marketShareListHeaderContainer">
@@ -129,7 +129,7 @@ export default {
       selectedYear: -1,
       selectedMonth: -1,
       selectDate: null,
-      selectedMarketYear: -1,
+      selectedMarketYear: 0,
       availablePerformanceDates: [],
       availablePerformanceYears: [],
       eMonths: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -271,6 +271,9 @@ export default {
       !this.availablePerformanceYears.includes(el._date.getFullYear()) ? this.availablePerformanceYears.push(el._date.getFullYear()) : ""
       this.availablePerformanceDates.push(el._date)
     })
+
+    this.selectedMarketYear = this.availableMarketYears[this.availableMarketYears.length -1]
+    this.selectedYear = this.availablePerformanceYears[this.availablePerformanceYears.length -1]
 
     this.calcMonths()
     this.updateFiscalPerformance()

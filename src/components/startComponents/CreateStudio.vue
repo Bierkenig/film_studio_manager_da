@@ -144,10 +144,23 @@ export default {
       this.$store.commit("setSlot", parseInt(this.slot))
       //For Production
       if (this.databaseType === 'current') {
-        process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db") : window.ipcRenderer.send('changeDBPath', "./bundled/DB/fsm_custom" + this.databaseVersion + ".db")
+        process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/fsm_custom" + this.databaseVersion + ".db")
       } else {
-        process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db") : window.ipcRenderer.send('changeDBPath', "./bundled/DB/database/fsm.db")
+        process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/database/fsm.db") : window.ipcRenderer.send('changeDBPath', "../bundled/DB/database/fsm.db")
       }
+      //set all listeners null
+      window.ipcRenderer.removeAllListeners('gotStudios')
+      window.ipcRenderer.removeAllListeners('fromGetTopics')
+      window.ipcRenderer.removeAllListeners('gotGenres')
+      window.ipcRenderer.removeAllListeners('gotSubGenres')
+      window.ipcRenderer.removeAllListeners('gotCharacters')
+      window.ipcRenderer.removeAllListeners('fromGetPeople')
+      window.ipcRenderer.removeAllListeners('gotScreenplays')
+      window.ipcRenderer.removeAllListeners('gotRoles')
+      window.ipcRenderer.removeAllListeners('gotMovies')
+      window.ipcRenderer.removeAllListeners('gotIntAwards')
+      window.ipcRenderer.removeAllListeners('gotIndAwards')
+      window.ipcRenderer.removeAllListeners('gotAudAwards')
       //Fetch Studios
       let allStudios = []
       await window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
