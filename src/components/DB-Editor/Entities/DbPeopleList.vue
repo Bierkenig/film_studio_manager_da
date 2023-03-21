@@ -112,7 +112,7 @@ export default {
 }
 
 .peopleListScroll {
-  height: 700px;
+  height: 60vh;
   display: flex;
   flex-direction: column;
   gap: 10px;
