@@ -336,7 +336,7 @@ async function launchDiscordGameSDK(win) {
                 {stdio: ['pipe', process.stdout, process.stderr]});
         }
         else{
-            child = spawn('asdf', ['-jar', 'src/Discord.jar', process.pid.toString()],
+            child = spawn('java', ['-jar', 'src/Discord.jar', process.pid.toString()],
                 {stdio: ['pipe', process.stdout, process.stderr]});
         }
 
@@ -345,6 +345,11 @@ async function launchDiscordGameSDK(win) {
                 streamWrite(child.stdin, details + '\n');
             }
         }
+
+        child.stdin.on('error', (error) => {
+            updatePresence = () => {
+            }
+        })
 
         child.on('error', (error) => {
             updatePresence = () => {
