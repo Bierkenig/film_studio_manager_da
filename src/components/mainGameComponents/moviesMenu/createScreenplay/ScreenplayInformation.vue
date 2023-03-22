@@ -275,7 +275,7 @@ export default {
         }
       }
 
-      if(position === -1){
+      if(position === -1 && this.screenplay.rewritingStatus !== true){
         this.$store.commit('addScreenplay', this.screenplay);
       } else {
         this.$store.getters.getCurrentScreenplay.subtractRewriting();
