@@ -127,7 +127,7 @@ export default {
     },
 
     '$route.name': function (){
-      if(this.$route.name === 'createStudio'){
+      if(this.$route.name === 'startMenu'){
         this.highlightButton['homeButton'] = false;
         this.highlightButton[this.lastButton] = false;
         this.lastButton = 'homeButton';
