@@ -2473,7 +2473,7 @@ i18next
                     },
                     franchiseSuccessMsg: 'Dein neues Franchise wurde erstellt!',
                     characterInfoMsg: 'Du benötigst min. 1 Haupt-, Neben- und Minor-Darsteller.',
-                    createServiceInfoMsg: 'Du benötigst min. $2.5 B um deinen Streaming Service zu erstellen.'
+                    createServiceInfoMsg: 'Du benötigst min. $2.5 Mrd um deinen Streaming Service zu erstellen.'
                 }
             }
         }
