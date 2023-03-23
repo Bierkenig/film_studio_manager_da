@@ -7,7 +7,7 @@
             {{ $t('createScreenplay') }}
           </div>
           <div v-if="this.$store.getters.getCurrentFranchise !== null">{{$t('buyScreenplaySection.selFran')}}{{this.$store.getters.getCurrentFranchise.name}}</div>
-          <input id="createScreenplayTitle" v-model="title" :placeholder="$t('movieTitle')" />
+          <input id="createScreenplayTitle" v-model="title" :placeholder="$t('movieTitle')" spellcheck="false"/>
           <textarea id="createScreenplayDescription" v-model="desc" :placeholder="$t('description')" />
           <select
               id="createScreenplayType"

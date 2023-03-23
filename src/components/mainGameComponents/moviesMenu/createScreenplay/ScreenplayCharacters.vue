@@ -30,7 +30,7 @@
       </div>
       <div id="characterDetails">
         <div>
-          <input id="characterName" v-model="characterName" :placeholder="$t('character') + ' Name'" />
+          <input id="characterName" v-model="characterName" :placeholder="$t('character') + ' Name'" spellcheck="false"/>
           <select
               id="characterGender"
               onfocus="this.size=5;"

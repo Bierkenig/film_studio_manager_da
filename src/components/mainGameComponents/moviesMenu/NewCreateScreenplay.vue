@@ -21,11 +21,11 @@
               <div class="createScreenplayBoxInnerElement">
                 <div>
                   <label id="createScreenplayNameLabel" for="createScreenplayName">{{ $t('newsData.movie') }} Name</label>
-                  <input id="createScreenplayName" v-model="title" type="text" :placeholder="$t('screenplay') + ' ' + $t('newsData.title')" minlength="1" maxlength="20"/>
+                  <input id="createScreenplayName" v-model="title" type="text" :placeholder="$t('screenplay') + ' ' + $t('newsData.title')" minlength="1" maxlength="20" spellcheck="false"/>
                 </div>
                 <div>
                   <label id="createScreenplayDescriptionLabel" for="createScreenplayDescription">{{ $t('description') }}</label>
-                  <input id="createScreenplayDescription" v-model="desc" type="text" :placeholder="$t('screenplay') + ' ' + $t('description')" minlength="1" maxlength="75"/>
+                  <input id="createScreenplayDescription" v-model="desc" type="text" :placeholder="$t('screenplay') + ' ' + $t('description')" minlength="1" maxlength="75" spellcheck="false"/>
                 </div>
                 <div id="typeBox">
                   <div id="typeHint">
@@ -196,7 +196,7 @@
                     </div>
                   </div>
                   <div id="createScreenplayCharacterRightSection">
-                    <input id="createScreenplayCharacterName" v-model="characterName" :placeholder="$t('character') + ' Name'" minlength="1" maxlength="20"/>
+                    <input id="createScreenplayCharacterName" type="text" v-model="characterName" :placeholder="$t('character') + ' Name'" minlength="1" maxlength="20" spellcheck="false"/>
                     <input id="createScreenplayCharacterAge" type="number" v-model="characterAge" :placeholder="$t('character') + ' ' + $t('age') + ' (1-99)'" min="1" max="99" />
                     <select
                         class="createScreenplaySelect"

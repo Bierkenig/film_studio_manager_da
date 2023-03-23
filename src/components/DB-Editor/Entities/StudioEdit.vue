@@ -13,7 +13,7 @@
     <background-tile :title="$t('editStudio')" id="studioEditBgTile">
       <div class="studioEditInputLine">
         <label for="name">Studio Name</label>
-        <input id="name" v-model="name">
+        <input id="name" v-model="name" spellcheck="false">
       </div>
       <div class="studioEditInputLine">
         <label for="popularity">Studio Popularity</label>

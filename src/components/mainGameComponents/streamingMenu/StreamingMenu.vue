@@ -27,7 +27,7 @@
     <div v-else class="streamingMenuEmptyMessageMainDiv">
       <background-tile class="streamingMenuEmptyMessage" :title="$t('createService')">
         <div class="streamingMenuNameInputDiv">
-          <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" placeholder="Name" minlength="1" maxlength="20">
+          <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" placeholder="Name" minlength="1" maxlength="20" spellcheck="false">
           <div class="streamingMenuCreateInfoText">
             {{ $t('createServiceInfoMsg') }}
           </div>

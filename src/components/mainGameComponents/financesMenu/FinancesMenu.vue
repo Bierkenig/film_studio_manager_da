@@ -172,19 +172,35 @@ export default {
       if (labelValue.toString().charAt(0) === '-') {
         result += '-';
       }
-      return Math.abs(Number(labelValue)) >= 1.0e+9
+      if(this.$store.getters.getCurrentLanguage === 'en'){
+        return Math.abs(Number(labelValue)) >= 1.0e+9
 
-          ? result + (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-          // Six Zeroes for Millions
-          : Math.abs(Number(labelValue)) >= 1.0e+6
+            ? result + (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+            // Six Zeroes for Millions
+            : Math.abs(Number(labelValue)) >= 1.0e+6
 
-              ? result + (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
-              // Three Zeroes for Thousands
-              : Math.abs(Number(labelValue)) >= 1.0e+3
+                ? result + (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+                // Three Zeroes for Thousands
+                : Math.abs(Number(labelValue)) >= 1.0e+3
 
-                  ? result + (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+                    ? result + (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
 
-                  : result + Math.abs(Number(labelValue));
+                    : result + Math.abs(Number(labelValue));
+      } else {
+        return Math.abs(Number(labelValue)) >= 1.0e+9
+
+            ? result + (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " Mrd"
+            // Six Zeroes for Millions
+            : Math.abs(Number(labelValue)) >= 1.0e+6
+
+                ? result + (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " Mio"
+                // Three Zeroes for Thousands
+                : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                    ? result + (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " T"
+
+                    : result + Math.abs(Number(labelValue));
+      }
     },
 
     updateFinancialHistory() {

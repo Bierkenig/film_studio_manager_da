@@ -3,7 +3,7 @@
     <div id="createFranchiseBox">
       <background-tile :title="$t('movieDetailsElement.newFranchise')">
         <div id="createFranchiseBoxInside">
-          <input id="createFranchiseName" v-model="franchiseTitle" type="text" placeholder="Franchise Name" />
+          <input id="createFranchiseName" v-model="franchiseTitle" type="text" placeholder="Franchise Name" spellcheck="false"/>
           <div id="createFranchiseInfoText">{{ $t('franchiseInfoText') }} <span id="createFranchiseMovieName">{{ this.$store.getters.getCurrentMovieDetails._preProduction.screenplay.title }}</span></div>
           <custom-button
               id="createFranchiseContinueButton"

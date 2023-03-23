@@ -18,7 +18,7 @@
             <div class="createStudioBoxInnerElement">
               <div class="createStudioNameBox">
                 <label id="createStudioNameLabel" for="createStudioName">Studio Name</label>
-                <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' minlength="1" maxlength="20"/>
+                <input id="createStudioName" v-model="name" type="text" placeholder='Studio Name' minlength="1" maxlength="20" spellcheck="false"/>
               </div>
               <div id="radioBox">
                 <div id="budgetHint">
