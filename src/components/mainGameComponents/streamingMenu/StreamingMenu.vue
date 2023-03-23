@@ -28,6 +28,9 @@
       <background-tile class="streamingMenuEmptyMessage" :title="$t('createService')">
         <div class="streamingMenuNameInputDiv">
           <input type="text" name="streamingServiceName" id="streamingServiceName" v-model="name" placeholder="Name" minlength="1" maxlength="20">
+          <div class="streamingMenuCreateInfoText">
+            {{ $t('createServiceInfoMsg') }}
+          </div>
         </div>
         <custom-button
             id="streamingMenuCreateButton"
@@ -142,7 +145,7 @@ export default {
   border-radius: var(--fsm-s-border-radius);
   border-style: none;
   height: 30px;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 5px 0;
   padding-left: 10px;
 }
 
@@ -159,5 +162,11 @@ export default {
 #streamingMenuCreateButton[disabled]{
   background-color: var(--fsm-white);
   color: var(--fsm-dark-blue-1);
+}
+
+.streamingMenuCreateInfoText {
+  color: var(--fsm-grey-font-color);
+  font-size: 14px;
+  margin-bottom: 15px;
 }
 </style>

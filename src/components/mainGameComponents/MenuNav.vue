@@ -136,6 +136,14 @@ export default {
 
     '$store.getters.getCurrentCalendarEvent.completed': function (){
       this.checkCalendarEvents();
+    },
+
+    '$route.name': function (){
+      if(this.$route.name === 'createStudio'){
+        this.highlightButton['homeButton'] = false;
+        this.highlightButton[this.lastButton] = false;
+        this.lastButton = 'homeButton';
+      }
     }
   },
 

@@ -221,6 +221,9 @@
                     </select>
                   </div>
                 </div>
+                <div class="createScreenplayCharacterInfoText">
+                  {{ $t('characterInfoMsg') }}
+                </div>
                 <custom-button
                     id="createScreenplayCharacterAddButton"
                     :dark="false"
@@ -665,5 +668,10 @@ option[disabled]{
 .createScreenplayCharacterName {
   width: 40%;
   word-wrap: break-word;
+}
+
+.createScreenplayCharacterInfoText {
+  color: var(--fsm-grey-font-color);
+  font-size: 14px;
 }
 </style>
