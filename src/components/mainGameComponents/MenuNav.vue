@@ -7,7 +7,7 @@
             id="homeButton"
             icon="home"
             size="medium"
-            :dark="false"
+            :dark="true"
             :bg-gradient="true"
             :icon-gradient="true"
             :shadow="false"
@@ -90,13 +90,9 @@ export default {
 
   components: {CustomButton, IconButton},
 
-  props: {
-    checkVisibility: Boolean
-  },
-
   data(){
     return {
-      lastButton: 'homeButton',
+      lastButton: null,
       highlightButton: {
         'homeButton': false,
         'moviesButton': false,
@@ -110,14 +106,6 @@ export default {
   },
 
   watch: {
-    checkVisibility: function (){
-      if(this.checkVisibility) {
-        this.highlightButton['homeButton'] = false;
-        this.highlightButton[this.lastButton] = false;
-        this.lastButton = 'homeButton';
-      }
-    },
-
     '$store.getters.getCurrentDate': function (){
       this.checkCalendarEvents();
     },
@@ -127,10 +115,30 @@ export default {
     },
 
     '$route.name': function (){
-      if(this.$route.name === 'startMenu'){
-        this.highlightButton['homeButton'] = false;
+      if(this.$route.name === 'home'){
         this.highlightButton[this.lastButton] = false;
+        this.highlightButton['homeButton'] = true;
         this.lastButton = 'homeButton';
+      } else if(this.$route.name === 'movies'){
+        this.highlightButton[this.lastButton] = false;
+        this.highlightButton['moviesButton'] = true;
+        this.lastButton = 'moviesButton';
+      } else if(this.$route.name === 'streaming'){
+        this.highlightButton[this.lastButton] = false;
+        this.highlightButton['streamingButton'] = true;
+        this.lastButton = 'streamingButton';
+      } else if(this.$route.name === 'finances'){
+        this.highlightButton[this.lastButton] = false;
+        this.highlightButton['financesButton'] = true;
+        this.lastButton = 'financesButton';
+      } else if(this.$route.name === 'news'){
+        this.highlightButton[this.lastButton] = false;
+        this.highlightButton['newsButton'] = true;
+        this.lastButton = 'newsButton';
+      } else if(this.$route.name === 'calendar'){
+        this.highlightButton[this.lastButton] = false;
+        this.highlightButton['calendarButton'] = true;
+        this.lastButton = 'calendarButton';
       }
     }
   },
@@ -149,17 +157,6 @@ export default {
     },
 
     focusButton(name){
-      if(name === 'homeButton'){
-        this.highlightButton[name] = false;
-      } else {
-        this.highlightButton[name] = true;
-      }
-      if(this.lastButton === 'homeButton'){
-        this.highlightButton[this.lastButton] = true;
-      } else {
-        this.highlightButton[this.lastButton] = false;
-      }
-
       if(name === 'moviesButton'){
         this.$router.push({name: 'movies'})
       } else if(name === 'homeButton'){
@@ -173,15 +170,10 @@ export default {
       } else if(name === 'calendarButton'){
         this.$router.push({name: 'calendar'})
       }
-
-      this.lastButton = name;
     },
 
     startSimulation(){
       this.$router.push({name: 'simulation'})
-      this.highlightButton['homeButton'] = false;
-      this.highlightButton[this.lastButton] = false;
-      this.lastButton = 'homeButton';
     },
 
     formatDate(date) {

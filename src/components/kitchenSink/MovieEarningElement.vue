@@ -1,14 +1,13 @@
 <template>
   <div class="movieEarningElementMainDiv">
     <div class="movieEarningElementImage">
-      <poster-element height="110px" width="80px" :poster-name="source.genre.genreName.toLowerCase() + 'MoviePoster'"/>
+      <poster-element height="110px" width="80px" :poster-name="genre.toLowerCase() + 'MoviePoster'"/>
     </div>
     <div class="movieEarningElementInfo">
       <div class="movieEarningElementHeading">
         <div class="movieEarningElementTitle">
           {{movieTitle}}
         </div>
-        <icon-button icon="open" size="small" :dark="false" :bg-gradient="false" :icon-gradient="false" :shadow="false" @click="openButtonClicked"/>
       </div>
       <div class="movieEarningElementInfoElements">
         <div class="movieEarningElementInfoElementsBackground">
@@ -35,13 +34,12 @@
 </template>
 
 <script>
-import IconButton from "@/components/kitchenSink/IconButton.vue";
 import CustomIcon from "@/components/kitchenSink/CustomIcon.vue";
 import PosterElement from "@/components/kitchenSink/PosterElement.vue";
 
 export default {
   name: "MovieEarningElement",
-  components: {PosterElement, CustomIcon, IconButton},
+  components: {PosterElement, CustomIcon},
 
   props: {
     genre: {
