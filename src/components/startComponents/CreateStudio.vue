@@ -89,7 +89,7 @@
               id="createStudioContinueButton"
               :dark="false"
               size="medium"
-              :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === '' || (databaseType === 'current' && databaseVersion === null)"
+              :disabled="name === '' || name === 'NO STUDIO' || chosenLogo === null || databaseType === '' || (databaseType === 'current' && databaseVersion === null) || disableCreateStudio"
               @clicked="startGame"
           >
             {{ $t('createStudioButton') }}
@@ -135,13 +135,15 @@ export default {
       chosenLogo: null,
       databaseType: "default",
       iconSelected: [false, false, false, false, false, false, false, false, false, false],
-      icon: ['logo1', 'logo2', 'logo3', 'logo4', 'logo5', 'logo6', 'logo7', 'logo8', 'logo9', 'logo10']//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
+      icon: ['logo1', 'logo2', 'logo3', 'logo4', 'logo5', 'logo6', 'logo7', 'logo8', 'logo9', 'logo10'],//['action','comedy','musical','movies','home','calendar','adventure','alchemy','animal','award']
+      disableCreateStudio: false
     }
   },
   methods: {
     async startGame() {
       this.$store.commit('resetState')
       this.$store.commit("setSlot", parseInt(this.slot))
+      this.disableCreateStudio = true
       //For Production
       if (this.databaseType === 'current') {
         process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.databaseVersion + ".db") : window.ipcRenderer.send('changeDBPath', "./bundled/DB/fsm_custom" + this.databaseVersion + ".db")
