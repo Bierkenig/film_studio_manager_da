@@ -204,10 +204,19 @@ export default class Release {
                 this.teenagersMoviegoersPotential * (this.teenagersMoviePopularityAfterMarketingFormula / 100) +
                 this.adultsMoviegoersPotential * (this.adultsMoviePopularityAfterMarketingFormula / 100)) *
             (this.movieInterest / 100 / this.releaseScope) * (this.preProduction.createTotal() / 100) * this.ticketPricePerTicket*/
-        this.openingEarnings = 106500000;
 
         /*this.continuingEarnings = this.openingEarnings * (Math.random() * (2.5 - 1.75 + 1) + 1.75)*/
-        this.continuingEarnings = 121300000;
+
+        let earningsValues = [40532000,45162000,49748000,53890000,56345000,58729000,62987000,65498000,67541000,73940000,79570000,81295000,84239000,89230900,92456000,94520400,97562000,98401000,101721000,103672000,108749000,112946000,115987000,118932000,123567000,223984500,254987000,273451000,312734000,334832100,364723000];
+        let continueEarnings = [49272000,50347000,54239000,57275000,60829000,65349000,66450000,68298000,71792000,74572000,82367000,84623000,89482000,92430900,95923000,96230400,99923000,102892000,103285000,104823000,112659000,115351000,117498000,121562000,128328000,242583500,289347000,306314000,352344000,345492100,393427000];
+
+        let randomNumber = Math.floor(Math.random() * earningsValues.length)
+
+        /*this.continuingEarnings = this.openingEarnings * (Math.random() * (2.5 - 1.75 + 1) + 1.75)*/
+        this.openingEarnings = earningsValues[randomNumber];
+
+        /*this.continuingEarnings = this.openingEarnings * (Math.random() * (2.5 - 1.75 + 1) + 1.75)*/
+        this.continuingEarnings = continueEarnings[randomNumber];
 
         this.totalEarnings = allTotalEarnings !== undefined ? allTotalEarnings : this.openingEarnings + this.continuingEarnings
 
