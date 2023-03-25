@@ -82,8 +82,9 @@ import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSect
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import TilePagesNav from "@/components/kitchenSink/TilePagesNav.vue";
 import NewsElement from "@/components/kitchenSink/NewsElement.vue";
-import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vue";
+
 import soundeffectMixin from "@/mixins/soundeffectMixin";
+import MovieEarningElement from "@/components/kitchenSink/MovieEarningElement.vue";
 
 export default {
   name: "NewsMenu",
@@ -115,7 +116,7 @@ export default {
       let endDateOfWeek = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - this.currentDate.getDay() + 6);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if (movie._earnings.date.getTime() >= startDateOfWeek.getTime() && movie._earnings.date.getTime() <= endDateOfWeek.getTime()) {
+        if (movie._earnings[i].date.getTime() >= startDateOfWeek.getTime() && movie._earnings[i].date.getTime() <= endDateOfWeek.getTime()) {
           weekEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -129,7 +130,7 @@ export default {
       let endDateOfMonth = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + 1, 0);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if (movie._earnings.date.getTime() >= startDateOfMonth.getTime() && movie._earnings.date.getTime() <= endDateOfMonth.getTime()) {
+        if (movie._earnings[i].date.getTime() >= startDateOfMonth.getTime() && movie._earnings[i].date.getTime() <= endDateOfMonth.getTime()) {
           monthEarningsOfMovie += movie._earnings[i].amount;
         }
       }
@@ -143,7 +144,7 @@ export default {
       let endDateOfYear = new Date(this.currentDate.getFullYear(), 11, 31);
 
       for (let i = 0; i < movie._earnings.length; i++) {
-        if (movie._earnings.date.getTime() >= startDateOfYear.getTime() && movie._earnings.date.getTime() <= endDateOfYear.getTime()) {
+        if (movie._earnings[i].date.getTime() >= startDateOfYear.getTime() && movie._earnings[i].date.getTime() <= endDateOfYear.getTime()) {
           yearEarningsOfMovie += movie._earnings[i].amount;
         }
       }
