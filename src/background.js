@@ -341,7 +341,7 @@ async function launchDiscordGameSDK(win) {
         }
 
         updatePresence = (details) => {
-            if (child.pid != undefined) {
+            if (child.pid !== undefined) {
                 streamWrite(child.stdin, details + '\n');
             }
         }
@@ -351,16 +351,13 @@ async function launchDiscordGameSDK(win) {
             }
         })
 
-        child.on('error', (error) => {
-            updatePresence = () => {
-            }
-        })
+        child.on('error', () => {})
 
         await new Promise(resolve => setTimeout(resolve, 100))
-        if (child.pid != undefined) {
+        if (child.pid !== undefined) {
             function keepAlive() {
                 updatePresence("keepAlive")
-                setTimeout(keepAlive, 10)
+                setTimeout(keepAlive, 16)
             }
 
             keepAlive()

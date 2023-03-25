@@ -352,8 +352,8 @@ export default {
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       if(this.$router.options.history.state.back !== '/budgetSection'){
         this.$store.getters.getCurrentCalendarEvent.actor._workingOnProjects--
+        this.$store.getters.getCurrentMovie._preProduction.budget.actorSalary -= this.$store.getters.getCurrentCalendarEvent.actor.salary
       }
-      this.$store.getters.getCurrentMovie._preProduction.budget.actorSalary -= this.$store.getters.getCurrentCalendarEvent.actor.salary
       this.allActors = this.allActors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.allActors = this.allActors.filter(el => !ids.includes(el.id))
     }
