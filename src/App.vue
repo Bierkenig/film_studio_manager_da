@@ -12,8 +12,6 @@
     <menu-nav
         class="menuNavComponent"
         v-show="this.showOnPage.includes(this.$route.name)"
-        v-observe-visibility="visibilityChanged"
-        :check-visibility="checkNavVisibility"
     />
 
     <audio id="backgroundMusic" :volume="this.$store.state.backgroundMusicVolume" autoplay loop>
@@ -37,18 +35,12 @@ export default {
   data() {
     return {
       showOnPage: ['home', 'news', 'movies', 'library', 'streaming', 'finances', 'calendar'],
-      checkNavVisibility: false,
       process: process.env.ENV_NODE,
       coloredBgIcons: [],
     }
   },
 
   methods: {
-    visibilityChanged(isVisible) {
-      this.checkNavVisibility = (isVisible && this.$router.options.history.state.back === '/createStudio')
-          || (isVisible && this.$router.options.history.state.back === '/loadings');
-    },
-
     async calcBG() {
       let svgCode = (await this.getSVGCode()).toString();
       let numIcons = (svgCode.match(/backgroundIcon/gm) || []).length;

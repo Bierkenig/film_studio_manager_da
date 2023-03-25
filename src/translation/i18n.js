@@ -1236,7 +1236,9 @@ i18next
                             description: 'Simulate your way through the days to get to the next event.',
                         },
                     },
-                    franchiseSuccessMsg: 'Your new franchise has been created!'
+                    franchiseSuccessMsg: 'Your new franchise has been created!',
+                    characterInfoMsg: 'You need at least 1 Main, Support and Minor Character.',
+                    createServiceInfoMsg: 'You need at least $2.5 B to create your own streaming service.'
                 }
             },
             de: {
@@ -2469,7 +2471,9 @@ i18next
                             description: 'Simuliere deinen Weg durch die Tage, um zum nächsten Ereignis zu gelangen.',
                         },
                     },
-                    franchiseSuccessMsg: 'Dein neues Franchise wurde erstellt!'
+                    franchiseSuccessMsg: 'Dein neues Franchise wurde erstellt!',
+                    characterInfoMsg: 'Du benötigst min. 1 Haupt-, Neben- und Minor-Darsteller.',
+                    createServiceInfoMsg: 'Du benötigst min. $2.5 Mrd um deinen Streaming Service zu erstellen.'
                 }
             }
         }

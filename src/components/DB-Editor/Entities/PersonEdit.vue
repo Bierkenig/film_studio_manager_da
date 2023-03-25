@@ -13,11 +13,11 @@
     <background-tile :title="$t('editPerson')" id="personEditBgTile">
       <div class="personEditInputLine">
         <label for="firstname">{{$t('first_name')}}:</label>
-        <input id="firstname" v-model="first_name">
+        <input id="firstname" v-model="first_name" spellcheck="false">
       </div>
       <div class="personEditInputLine">
         <label for="lastname">{{$t('last_name')}}:</label>
-        <input id="lastname" v-model="last_name">
+        <input id="lastname" v-model="last_name" spellcheck="false">
       </div>
       <select
           class="createScreenplaySelect"

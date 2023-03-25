@@ -804,40 +804,40 @@ export function createScreenplaysFromWriters(type) {
             //set screenplay description
             switch (screenplayGenre.genreName) {
                 case 'Action':
-                    screenplayDescription = 'An action movie.';
+                    screenplayDescription = 'An Action Movie';
                     break;
                 case 'Adventure':
-                    screenplayDescription = 'An adventure movie.';
+                    screenplayDescription = 'An Adventure Movie';
                     break;
                 case 'Comedy':
-                    screenplayDescription = 'A comedy movie.';
+                    screenplayDescription = 'A Comedy Movie';
                     break;
                 case 'Documentary':
-                    screenplayDescription = 'A documentary movie.';
+                    screenplayDescription = 'A Documentary Movie';
                     break;
                 case 'Drama':
-                    screenplayDescription = 'A drama movie.';
+                    screenplayDescription = 'A Drama Movie';
                     break;
                 case 'Fantasy':
-                    screenplayDescription = 'A fantasy movie.';
+                    screenplayDescription = 'A Fantasy Movie';
                     break;
                 case 'Horror':
-                    screenplayDescription = 'A horror movie.';
+                    screenplayDescription = 'A Horror Movie';
                     break;
                 case 'Musical':
-                    screenplayDescription = 'A musical movie.';
+                    screenplayDescription = 'A Musical Movie';
                     break;
                 case 'Romance':
-                    screenplayDescription = 'A romance movie.';
+                    screenplayDescription = 'A Romance Movie.';
                     break;
                 case 'Science-Fiction':
-                    screenplayDescription = 'A science-fiction movie.';
+                    screenplayDescription = 'A Science-Fiction Movie';
                     break;
                 case 'Thriller':
-                    screenplayDescription = 'A thriller movie.';
+                    screenplayDescription = 'A Thriller Movie';
                     break;
                 case 'War':
-                    screenplayDescription = 'A war movie.';
+                    screenplayDescription = 'A War Movie';
                     break;
                 default:
                     break;

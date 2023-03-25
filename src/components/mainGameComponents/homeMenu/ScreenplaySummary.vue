@@ -137,7 +137,7 @@
           </div>
           <custom-button
               id="screenplaySummaryRewriteButton"
-              v-if="this.$store.getters.getCurrentScreenplay.rewritingValue !== 0 || this.checkIfScreenplayIsInUse !== true || this.$store.getters.getCurrentScreenplay !== true"
+              v-if="this.$store.getters.getCurrentScreenplay.rewritingValue !== 0 && this.checkIfScreenplayIsInUse !== true"
               :dark="false"
               size="small"
               @clicked="rewrite">{{ $t('rewrite') }}</custom-button>
@@ -206,19 +206,35 @@ export default {
     },
 
     roundBudget(labelValue){
-      return Math.abs(Number(labelValue)) >= 1.0e+9
+      if(this.$store.getters.getCurrentLanguage === 'en'){
+        return Math.abs(Number(labelValue)) >= 1.0e+9
 
-          ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
-          // Six Zeroes for Millions
-          : Math.abs(Number(labelValue)) >= 1.0e+6
+            ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " B"
+            // Six Zeroes for Millions
+            : Math.abs(Number(labelValue)) >= 1.0e+6
 
-              ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
-              // Three Zeroes for Thousands
-              : Math.abs(Number(labelValue)) >= 1.0e+3
+                ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " M"
+                // Three Zeroes for Thousands
+                : Math.abs(Number(labelValue)) >= 1.0e+3
 
-                  ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
+                    ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " K"
 
-                  : Math.abs(Number(labelValue));
+                    : Math.abs(Number(labelValue));
+      } else {
+        return Math.abs(Number(labelValue)) >= 1.0e+9
+
+            ? (Math.abs(Number(labelValue)) / 1.0e+9).toFixed(2) + " Mrd"
+            // Six Zeroes for Millions
+            : Math.abs(Number(labelValue)) >= 1.0e+6
+
+                ? (Math.abs(Number(labelValue)) / 1.0e+6).toFixed(2) + " Mio"
+                // Three Zeroes for Thousands
+                : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                    ? (Math.abs(Number(labelValue)) / 1.0e+3).toFixed(2) + " T"
+
+                    : Math.abs(Number(labelValue));
+      }
     },
 
     currencyFormatDE(num) {
@@ -336,7 +352,7 @@ export default {
 }
 
 .screenplaySummaryCharacterElementRight {
-  width: 21%;
+  width: 30%;
 }
 
 .screenplaySummaryContent {
