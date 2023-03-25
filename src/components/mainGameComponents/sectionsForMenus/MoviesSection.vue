@@ -193,6 +193,7 @@ export default {
   box-sizing: border-box;
   flex-grow: 1;
   flex-basis: 0;
+  overflow-x: hidden;
 }
 
 #moviesSectionSelectDiv {
