@@ -34,7 +34,6 @@ const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
 export default function simulate() {
     createStudios();
-    streamingService();
 
     createScreenplaysFromWriters('forRandomGeneration');
     generateMoviesFromOtherStudios();
@@ -64,7 +63,8 @@ export default function simulate() {
     //MONTHLY
     let lastDayOfMonth = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth() + 1, 0);
     if (store.getters.getCurrentDate.getDate() === lastDayOfMonth.getDate()){
-        setFinancialPerformance()
+        setFinancialPerformance();
+        streamingService();
 
         renewPeople();
         //FETCHING DB
@@ -503,100 +503,98 @@ function streamingService() {
             }
         })
 
-        //earnings / costs per month
-        if (((store.getters.getCurrentDate - store.getters.getOwnStreamingService._lastCheckedDate) / (1000 * 60 * 60 * 24)) > 30) {
-            //get subscriber number
-            let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
-            //substract maintainment costs from balance
-            if(serviceMaintainmentCosts !== 0){
-                store.commit('addEarnings', new Earnings(-serviceMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
-                store.commit('subtractBalance', serviceMaintainmentCosts);
-            }
+        //update streaming service popularity and number of subscribers
+        updateServicePopularityAndSubscribers();
 
-            //calculate revenue for subscribers
-            let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
-            //add revenue to balance
-            if(revenue !== 0){
-                store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate, 'Streaming'))
-                store.commit('addBalance', revenue);
-            }
-
-            //content maintainment costs
-            //divide movies into contract length
-            let oneYearMovies = [];
-            let twoYearsMovies = [];
-            let threeYearsMovies = [];
-            let fourYearsMovies = [];
-            let fiveYearsMovies = [];
-
-            streamingServiceMovies.forEach(function (movie) {
-                switch (movie.contract) {
-                    case 1:
-                        oneYearMovies.push(movie);
-                        break;
-                    case 2:
-                        twoYearsMovies.push(movie);
-                        break;
-                    case 3:
-                        threeYearsMovies.push(movie);
-                        break;
-                    case 4:
-                        fourYearsMovies.push(movie);
-                        break;
-                    case 5:
-                        fiveYearsMovies.push(movie);
-                        break;
-                    default:
-                        break;
-                }
-            })
-
-            /*
-            einzelne Arrays durchgehen, preis von allen movies zusammenrechnen, durch die jeweilige Vertragslänge (außer bei 1) und durch 12 dividieren,
-            gesamtpreis abziehen von budget
-             */
-            let oneYearMoviesPrice = 0, twoYearsMoviesPrice = 0, threeYearsMoviesPrice = 0, fourYearsMoviesPrice = 0,
-                fiveYearsMoviesPrice = 0;
-
-            oneYearMovies.forEach((movie) => {
-                oneYearMoviesPrice += parseInt(movie._totalCosts);
-            })
-            twoYearsMovies.forEach((movie) => {
-                twoYearsMoviesPrice += parseInt(movie._totalCosts);
-            })
-            threeYearsMovies.forEach((movie) => {
-                threeYearsMoviesPrice += parseInt(movie._totalCosts);
-            })
-            fourYearsMovies.forEach((movie) => {
-                fourYearsMoviesPrice += parseInt(movie._totalCosts);
-            })
-            fiveYearsMovies.forEach((movie) => {
-                fiveYearsMoviesPrice += parseInt(movie._totalCosts);
-            })
-
-            let contentMaintainmentCosts = 0;
-            contentMaintainmentCosts += (oneYearMoviesPrice / 12)
-            contentMaintainmentCosts += (twoYearsMoviesPrice / 2 / 12)
-            contentMaintainmentCosts += (threeYearsMoviesPrice / 3 / 12)
-            contentMaintainmentCosts += (fourYearsMoviesPrice / 4 / 12)
-            contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
-
-            if(contentMaintainmentCosts !== 0){
-                store.commit('addEarnings', new Earnings(-contentMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
-                store.commit('subtractBalance', contentMaintainmentCosts);
-            }
-
-            store.getters.getOwnStreamingService._profit += (revenue - contentMaintainmentCosts - serviceMaintainmentCosts);
-
-            //update streaming service popularity and number of subscribers
-            updateServicePopularityAndSubscribers();
-
-            //set new last checked date to know if one month has passed
-            store.getters.getOwnStreamingService._lastCheckedDate = new Date(
-                store.getters.getOwnStreamingService._lastCheckedDate.getFullYear(),
-                store.getters.getOwnStreamingService._lastCheckedDate.getMonth() + 1,
-                store.getters.getOwnStreamingService._lastCheckedDate.getDate());
+        //get subscriber number
+        let serviceMaintainmentCosts = store.getters.getOwnStreamingService._subscribers;
+        //substract maintainment costs from balance
+        if(serviceMaintainmentCosts !== 0){
+            store.commit('addEarnings', new Earnings(-serviceMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
+            store.getters.getStudio.budget -= serviceMaintainmentCosts;
         }
+
+        //calculate revenue for subscribers
+        let revenue = store.getters.getOwnStreamingService._subscribers * store.getters.getOwnStreamingService._price;
+        //add revenue to balance
+        if(revenue !== 0){
+            store.commit('addEarnings', new Earnings(revenue, store.getters.getCurrentDate, 'Streaming'))
+            store.getters.getStudio.budget += revenue;
+        }
+
+        //content maintainment costs
+        //divide movies into contract length
+        let oneYearMovies = [];
+        let twoYearsMovies = [];
+        let threeYearsMovies = [];
+        let fourYearsMovies = [];
+        let fiveYearsMovies = [];
+
+        streamingServiceMovies.forEach(function (movie) {
+            switch (movie.contract) {
+                case 1:
+                    oneYearMovies.push(movie);
+                    break;
+                case 2:
+                    twoYearsMovies.push(movie);
+                    break;
+                case 3:
+                    threeYearsMovies.push(movie);
+                    break;
+                case 4:
+                    fourYearsMovies.push(movie);
+                    break;
+                case 5:
+                    fiveYearsMovies.push(movie);
+                    break;
+                default:
+                    break;
+            }
+        })
+
+        /*
+        einzelne Arrays durchgehen, preis von allen movies zusammenrechnen, durch die jeweilige Vertragslänge (außer bei 1) und durch 12 dividieren,
+        gesamtpreis abziehen von budget
+         */
+        let oneYearMoviesPrice = 0, twoYearsMoviesPrice = 0, threeYearsMoviesPrice = 0, fourYearsMoviesPrice = 0,
+            fiveYearsMoviesPrice = 0;
+
+        oneYearMovies.forEach((movie) => {
+            oneYearMoviesPrice += parseInt(movie._totalCosts);
+        })
+        twoYearsMovies.forEach((movie) => {
+            twoYearsMoviesPrice += parseInt(movie._totalCosts);
+        })
+        threeYearsMovies.forEach((movie) => {
+            threeYearsMoviesPrice += parseInt(movie._totalCosts);
+        })
+        fourYearsMovies.forEach((movie) => {
+            fourYearsMoviesPrice += parseInt(movie._totalCosts);
+        })
+        fiveYearsMovies.forEach((movie) => {
+            fiveYearsMoviesPrice += parseInt(movie._totalCosts);
+        })
+
+        let contentMaintainmentCosts = 0;
+        contentMaintainmentCosts += (oneYearMoviesPrice / 12)
+        contentMaintainmentCosts += (twoYearsMoviesPrice / 2 / 12)
+        contentMaintainmentCosts += (threeYearsMoviesPrice / 3 / 12)
+        contentMaintainmentCosts += (fourYearsMoviesPrice / 4 / 12)
+        contentMaintainmentCosts += (fiveYearsMoviesPrice / 5 / 12)
+
+        if(contentMaintainmentCosts !== 0){
+            store.commit('addEarnings', new Earnings(-contentMaintainmentCosts, store.getters.getCurrentDate, 'Streaming'))
+            store.getters.getStudio.budget -= contentMaintainmentCosts;
+        }
+
+        store.getters.getOwnStreamingService._profit += (revenue - contentMaintainmentCosts - serviceMaintainmentCosts);
+
+
+        //set new last checked date to know if one month has passed
+        store.getters.getOwnStreamingService._lastCheckedDate = new Date(
+            store.getters.getOwnStreamingService._lastCheckedDate.getFullYear(),
+            store.getters.getOwnStreamingService._lastCheckedDate.getMonth() + 1,
+            store.getters.getOwnStreamingService._lastCheckedDate.getDate());
     }
 }
 
@@ -635,25 +633,25 @@ export function updateServicePopularityAndSubscribers() {
     // determine rating for each genre
     Object.keys(allGenreRatings).forEach(key => {
         if (allGenreRatings[key] >= 1 && allGenreRatings[key] <= 5) {
-            allGenreRatings[key] = 1;
+            allGenreRatings[key] = 1 / 100;
         } else if (allGenreRatings[key] >= 6 && allGenreRatings[key] <= 10) {
-            allGenreRatings[key] = 5;
+            allGenreRatings[key] = 5 / 100;
         } else if (allGenreRatings[key] >= 11 && allGenreRatings[key] <= 20) {
-            allGenreRatings[key] = 10;
+            allGenreRatings[key] = 10 / 100;
         } else if (allGenreRatings[key] >= 21 && allGenreRatings[key] <= 30) {
-            allGenreRatings[key] = 20;
+            allGenreRatings[key] = 20 / 100;
         } else if (allGenreRatings[key] >= 31 && allGenreRatings[key] <= 40) {
-            allGenreRatings[key] = 30;
+            allGenreRatings[key] = 30 / 100;
         } else if (allGenreRatings[key] >= 41 && allGenreRatings[key] <= 50) {
-            allGenreRatings[key] = 45;
+            allGenreRatings[key] = 45 / 100;
         } else if (allGenreRatings[key] >= 51 && allGenreRatings[key] <= 60) {
-            allGenreRatings[key] = 55;
+            allGenreRatings[key] = 55 / 100;
         } else if (allGenreRatings[key] >= 61 && allGenreRatings[key] <= 70) {
-            allGenreRatings[key] = 70;
+            allGenreRatings[key] = 70 / 100;
         } else if (allGenreRatings[key] >= 71 && allGenreRatings[key] <= 85) {
-            allGenreRatings[key] = 85;
+            allGenreRatings[key] = 85 / 100;
         } else if (allGenreRatings[key] >= 86) {
-            allGenreRatings[key] = 100;
+            allGenreRatings[key] = 100 / 100;
         }
     });
 
@@ -675,26 +673,26 @@ export function updateServicePopularityAndSubscribers() {
 
     // get number of all movies
     let totalContent = 0;
-    if (allStreamingServiceMovies >= 1 && allStreamingServiceMovies <= 10) {
-        totalContent = 1;
-    } else if (allStreamingServiceMovies >= 11 && allStreamingServiceMovies <= 25) {
-        totalContent = 3;
-    } else if (allStreamingServiceMovies >= 26 && allStreamingServiceMovies <= 75) {
-        totalContent = 5;
-    } else if (allStreamingServiceMovies >= 76 && allStreamingServiceMovies <= 150) {
-        totalContent = 7;
-    } else if (allStreamingServiceMovies >= 151 && allStreamingServiceMovies <= 250) {
-        totalContent = 10;
-    } else if (allStreamingServiceMovies >= 251 && allStreamingServiceMovies <= 450) {
-        totalContent = 15;
-    } else if (allStreamingServiceMovies >= 451 && allStreamingServiceMovies <= 650) {
-        totalContent = 25;
-    } else if (allStreamingServiceMovies >= 651 && allStreamingServiceMovies <= 800) {
-        totalContent = 45;
-    } else if (allStreamingServiceMovies >= 801 && allStreamingServiceMovies <= 1000) {
-        totalContent = 65;
-    } else if (allStreamingServiceMovies >= 1001) {
-        totalContent = 100;
+    if (allStreamingServiceMovies.length >= 1 && allStreamingServiceMovies.length <= 10) {
+        totalContent = 1 / 100;
+    } else if (allStreamingServiceMovies.length >= 11 && allStreamingServiceMovies.length <= 25) {
+        totalContent = 3 / 100;
+    } else if (allStreamingServiceMovies.length >= 26 && allStreamingServiceMovies.length <= 75) {
+        totalContent = 5 / 100;
+    } else if (allStreamingServiceMovies.length >= 76 && allStreamingServiceMovies.length <= 150) {
+        totalContent = 7 / 100;
+    } else if (allStreamingServiceMovies.length >= 151 && allStreamingServiceMovies.length <= 250) {
+        totalContent = 10 / 100;
+    } else if (allStreamingServiceMovies.length >= 251 && allStreamingServiceMovies.length <= 450) {
+        totalContent = 15 / 100;
+    } else if (allStreamingServiceMovies.length >= 451 && allStreamingServiceMovies.length <= 650) {
+        totalContent = 25 / 100;
+    } else if (allStreamingServiceMovies.length >= 651 && allStreamingServiceMovies.length <= 800) {
+        totalContent = 45 / 100;
+    } else if (allStreamingServiceMovies.length >= 801 && allStreamingServiceMovies.length <= 1000) {
+        totalContent = 65 / 100;
+    } else if (allStreamingServiceMovies.length >= 1001) {
+        totalContent = 100 / 100;
     }
 
     let streamingContent = 0;
@@ -747,6 +745,7 @@ export function updateServicePopularityAndSubscribers() {
     })
 
     let streamingServiceHype = 0;
+
     if (allStreamingServiceMovies.length !== 0) {
         streamingServiceHype = sumOfHype / allStreamingServiceMovies.length;
     }
@@ -754,7 +753,7 @@ export function updateServicePopularityAndSubscribers() {
 
     //set streaming service services
     let potentialSubscribers = 300000000;
-    store.getters.getOwnStreamingService._subscribers = potentialSubscribers * ((streamingServicePricePotential * 15 + streamingContent * 15 + streamingServiceHype * 70) / 100);
+    store.getters.getOwnStreamingService._subscribers = potentialSubscribers * ((streamingContent * 35 + (streamingServiceHype / 100) * 65) / 100 * streamingServicePricePotential);
 }
 
 //create screenplays from other writers

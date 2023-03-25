@@ -333,7 +333,7 @@ export default {
   mounted() {
     this.allActors = this.$store.getters.getAllActors
     let ids = []
-    if (this.$store.getters.getCurrentCalendarEvent !== null) {
+    if (this.$router.options.history.state.back !== '/budgetSection') {
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.main.forEach(el => {
         ids.push(el.id)
       })
@@ -350,10 +350,8 @@ export default {
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.minor.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.support.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo = this.$store.getters.getCurrentMovie._preProduction.screenplay.actors.cameo.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
-      if(this.$router.options.history.state.back !== '/budgetSection'){
-        this.$store.getters.getCurrentCalendarEvent.actor._workingOnProjects--
-        this.$store.getters.getCurrentMovie._preProduction.budget.actorSalary -= this.$store.getters.getCurrentCalendarEvent.actor.salary
-      }
+      this.$store.getters.getCurrentCalendarEvent.actor._workingOnProjects--
+      this.$store.getters.getCurrentMovie._preProduction.budget.actorSalary -= this.$store.getters.getCurrentCalendarEvent.actor.salary
       this.allActors = this.allActors.filter(el => el.id !== this.$store.getters.getCurrentCalendarEvent.actor.id)
       this.allActors = this.allActors.filter(el => !ids.includes(el.id))
     }

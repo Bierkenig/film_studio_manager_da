@@ -54,7 +54,6 @@ import MoviesSection from "@/components/mainGameComponents/sectionsForMenus/Movi
 import {StreamingService} from "@/classes/StreamingService";
 import CustomButton from "@/components/kitchenSink/CustomButton.vue";
 import ActionSection from "@/components/mainGameComponents/moviesMenu/ActionSection.vue";
-import {updateServicePopularityAndSubscribers} from "@/simulation/simulation";
 import CompetitorSection from "@/components/mainGameComponents/streamingMenu/CompetitorSection.vue";
 import BackgroundTile from "@/components/kitchenSink/BackgroundTile.vue";
 import store from "@/services/store";
@@ -92,7 +91,6 @@ export default {
   methods: {
     createService(){
       this.$store.commit('setOwnStreamingService',new StreamingService(this.name,1,0,0,this.$store.getters.getStudio.popularity,this.$store.getters.getStudio.name, this.$store.getters.getCurrentDate))
-      updateServicePopularityAndSubscribers();
       store.commit('addEarnings',new Earnings(-2500000000, store.getters.getCurrentDate, 'Streaming'))
       this.$store.commit('subtractBalance', 2500000000)
     }

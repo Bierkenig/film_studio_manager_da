@@ -3,7 +3,7 @@
     <div class="movieElementHead">
       <div class="movieElementHeading">
         <div class="movieElementImage">
-          <poster-element height="90px" width="80px" :poster-name="genre.toLowerCase() + 'MoviePoster'"/>
+          <poster-element height="80px" width="80px" :poster-name="genre.toLowerCase() + 'MoviePoster'"/>
         </div>
         <div class="movieElementTitle">
           {{ movieTitle }}
@@ -141,7 +141,6 @@ export default {
   flex-basis: 70px;
   flex-grow: 0;
   flex-shrink: 0;
-  background-color: var(--fsm-dark-blue-3);
   background-size: 70px;
 }
 
