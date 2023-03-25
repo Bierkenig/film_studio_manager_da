@@ -12,6 +12,8 @@ export default class FinancialHistoryEntry {
     }
 
     static fromJSON(jsonObject){
-        return Object.assign(new FinancialHistoryEntry(DataUtil.skip), jsonObject)
+        let instance = Object.assign(new FinancialHistoryEntry(DataUtil.skip), jsonObject)
+        instance.date = jsonObject.date == null ? null : new Date(jsonObject.date)
+        return instance
     }
 }

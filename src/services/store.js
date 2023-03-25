@@ -59,8 +59,7 @@ export default createStore({
         boughtMovies: [],
         boughtMovieRights: [],
 
-        financialHistory: [
-        ],
+        financialHistory: [],
 
         currentLoans: [],
 
