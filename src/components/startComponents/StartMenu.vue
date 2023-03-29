@@ -28,7 +28,7 @@
 
             <settings-header id="startMenuSettingHeader"/>
             <div id="heading">
-              <img src="../../assets/FSM_Logo.svg" alt="Logo FSM"/>
+              <img id="image" src="../../assets/vue.svg" alt="Logo FSM"/>
               <div id="headline">Film Studio <hr style="height:0px; visibility:hidden; margin:-15px" /> Manager</div>
             </div>
             <div id="startMenuButtonContainer">
@@ -153,6 +153,10 @@ export default {
 </script>
 
 <style scoped>
+#image{
+  max-height:180px;
+  margin: 20px;
+}
 #startMenuMainDiv {
   display: flex;
   flex-direction: column;

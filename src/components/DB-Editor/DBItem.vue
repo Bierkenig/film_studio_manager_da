@@ -42,15 +42,12 @@ export default {
       window.ipcRenderer.removeAllListeners('gotStudios')
       process.env.NODE_ENV !== 'production' ? window.ipcRenderer.send('changeDBPath', "public/DB/fsm_custom" + this.slotNr +".db") : window.ipcRenderer.send('changeDBPath',  "./bundled/DB/fsm_custom"+ this.slotNr +".db")
       this.$store.state.dbFetcher.fetch()
-      console.log(this.$store.state.otherStudios)
       this.$store.state.otherStudios = []
       await new Promise(resolve => setTimeout(resolve, 200))
       window.ipcRenderer.send('getStudios', 'SELECT * FROM studio')
       window.ipcRenderer.receive('gotStudios', (data) => {
         this.$store.commit('addOtherStudios2', new Studio(data.pk_studioID, data.name, data.foundationDate, data.budget, data.popularity, {"2023": data.marketShare}))
       })
-      console.log(this.$store.state.otherStudios)
-
       this.$router.push("Editor")
     },
 

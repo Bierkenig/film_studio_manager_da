@@ -1,6 +1,6 @@
 <template>
   <div id="card">
-    <div v-if="this.disabledButton">
+    <div v-if="this.disabled">
       <h2 id="loadItemNoSavingsHeader">Slot {{slotNr}}</h2>
     </div>
     <div v-else>
@@ -14,7 +14,7 @@
             id="loadButton"
             :dark="false"
             size="small"
-            :disabled="disabledButton"
+            :disabled="disabled"
             @clicked="load">{{ $t('loadButton') }}</custom-button>
         <custom-button
             id="deleteButton"
@@ -41,7 +41,7 @@ export default {
 
   data(){
     return {
-      disabledButton: null,
+      disabled: null,
       date: null,
       studioName: null,
       showAutoSaveModal: false,
@@ -60,11 +60,11 @@ export default {
 
         if (data[0] === true) {
           if (data[1] === this.slotNr) {
-            this.disabledButton = false;
+            this.disabled = false;
           }
 
         } else if (data[0] === false && data[1] === this.slotNr) {
-          this.disabledButton = true;
+          this.disabled = true;
         }
       })
 

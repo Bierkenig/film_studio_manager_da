@@ -108,9 +108,6 @@ export default {
   },
   methods: {
     async writeDB(person) {
-      //TODO slot mitübergeben damit extra db für jeden speicherslot gemacht werden kann
-      //TODO muss dann mit speicherstand gespeichert, geladen, geupdated und gelöscht werden -> wenn spielstand neu belegt wird muss default db verwendet werden
-      //TODO Änderungen müssen auch im Store übernommen werden
       window.ipcRenderer.send('editDB', "UPDATE people SET first_name = '" + this.first_name + "', last_name = '" + this.last_name + "', birthday = '" + this.birthday + "', gender = '" + this.gender + "', nationality = '" + this.nationality + "', ethnicity = '" + this.ethnicity + "', isActor = '" + this.checkedActor + "', isDirector = '" + this.checkedDirector + "', isWriter = '" + this.checkedWriter + "' WHERE pk_personID = " + person._id)
       await new Promise(resolve => setTimeout(resolve, 200))
       this.$store.state.dbFetcher.clear()

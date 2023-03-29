@@ -11,7 +11,7 @@
         @click="this.$router.go(-2)"
     />
     <div class="actorOutputColumn" id="actorOutputLeft">
-      <db-people-list :people="allActors" type="Writers" @send-person="recieveActor"/>
+      <db-people-list :people="allWriters" type="Writers" @send-person="recieveActor"/>
     </div>
     <div class="actorOutputColumn" id="actorOutputRight">
       <db-people-details :person="currentActor"/>
@@ -37,12 +37,12 @@ export default {
 
   data() {
     return {
-      allActors: [],
+      allWriters: [],
       currentActor: null,
     };
   },
   mounted() {
-    this.allActors = this.$store.state.allWriters;
+    this.allWriters = this.$store.state.allWriters;
     this.currentActor = this.allActors[0];
   },
 
@@ -56,7 +56,7 @@ export default {
       await new Promise(resolve => setTimeout(resolve, 20))
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
-      this.allWriters = this.$store.state.allActors
+      this.allWriters = this.$store.state.allWriters
     },
 
     recieveActor(actor) {

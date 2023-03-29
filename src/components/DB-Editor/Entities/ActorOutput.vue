@@ -57,7 +57,7 @@ export default {
       await new Promise(resolve => setTimeout(resolve, 20))
       this.$store.state.dbFetcher.clear()
       this.$store.state.dbFetcher.fetch()
-      this.allWriters = this.$store.state.allActors
+      this.allActors = this.$store.state.allActors
     },
 
     recieveActor(actor) {
