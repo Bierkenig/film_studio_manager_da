@@ -1028,6 +1028,10 @@ i18next
                             description: 'Presentation of winners',
                             winner: 'List of Winners',
                         },
+                        movieGeneration: {
+                            title: 'Release of Movie',
+                            description: 'Release of a Movie from the studio'
+                        }
                     },
                     productionElement: {
                         release: 'Release',
@@ -1238,7 +1242,10 @@ i18next
                     },
                     franchiseSuccessMsg: 'Your new franchise has been created!',
                     characterInfoMsg: 'You need at least 1 Main, Support and Minor Character.',
-                    createServiceInfoMsg: 'You need at least $2.5 B to create your own streaming service.'
+                    createServiceInfoMsg: 'You need at least $2.5 B to create your own streaming service.',
+                    movieGenerationModalHeader:  'Release of Movie',
+                    movieGenerationDescriptionPart1: 'The studio',
+                    movieGenerationDescriptionPart2: 'created a new movie called',
                 }
             },
             de: {
@@ -2263,6 +2270,10 @@ i18next
                             description: 'Präsentation der Gewinner',
                             winner: 'Liste der Gewinner',
                         },
+                        movieGeneration: {
+                            title: 'Filmveröffentlichung',
+                            description: 'Veröffentlichung eines Films von Studio'
+                        }
                     },
                     productionElement: {
                         release: 'Veröffentlichung',
@@ -2473,7 +2484,10 @@ i18next
                     },
                     franchiseSuccessMsg: 'Dein neues Franchise wurde erstellt!',
                     characterInfoMsg: 'Du benötigst min. 1 Haupt-, Neben- und Minor-Darsteller.',
-                    createServiceInfoMsg: 'Du benötigst min. $2.5 Mrd um deinen Streaming Service zu erstellen.'
+                    createServiceInfoMsg: 'Du benötigst min. $2.5 Mrd um deinen Streaming Service zu erstellen.',
+                    movieGenerationModalHeader:  'Veröffentlichung eines Films',
+                    movieGenerationDescriptionPart1: 'Das Studio',
+                    movieGenerationDescriptionPart2: 'erstellte einen Film namens',
                 }
             }
         }

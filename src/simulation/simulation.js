@@ -2982,9 +2982,26 @@ function generateMoviesFromOtherStudios() {
             newMovie._owner = randomStudio;
 
             randomStudio.budget -= newMovie._totalOutgoings;
-            store.commit('addMoviesFromOtherStudios', newMovie);
-            store.commit('addNews', new News('New movie created',
-                'The studio "' + newMovie._owner.name + '" created a movie!', 'Movies', store.getters.getCurrentDate, null, newMovie, null, null));
+
+            let startDate = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth(),
+                store.getters.getCurrentDate.getDate() + 7);
+            let endDate = new Date(startDate.getFullYear(), startDate.getMonth(),
+                startDate.getDate() + 1);
+
+            store.commit('addCalendarEvent', {
+                id: store.getters.getNextEventId,
+                movie: newMovie,
+                studio: randomStudio,
+                actor: null,
+                director: null,
+                start: startDate.toISOString().split('T')[0],
+                end: endDate.toISOString().split('T')[0],
+                type: 'movieGeneration',
+                completed: false,
+            })
+
+            store.commit('addNews', new News('Release announced!',
+                'The studio "' + newMovie._owner.name + '" announced a new movie!', 'Movies', store.getters.getCurrentDate, null, newMovie, null, null));
         }
     }
 }

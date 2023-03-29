@@ -165,6 +165,7 @@ export default {
         'internationalAwardPresentation': ['award','remaining'],
         'independentAwardPresentation': ['award','remaining'],
         'audienceAwardPresentation': ['award','remaining'],
+        'movieGeneration': ['movies','movieGeneration']
       },
     }
   },
@@ -327,5 +328,9 @@ export default {
 
 .productionEvents {
   background-color: var(--fsm-pink-1)
+}
+
+.movieGenerationEvents {
+  background-color: var(--fsm-white);
 }
 </style>

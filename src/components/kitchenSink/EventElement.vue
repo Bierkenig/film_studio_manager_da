@@ -1,17 +1,14 @@
 <template>
 <div class="eventElementMainDiv" ref="eventElementMainDiv">
   <div class="eventElementMainContent">
-    <!--Event Modal - fertig designt-->
     <custom-icon class="eventElementIcon" :id="'dropOutIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'recastIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'creativeIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'difficultyIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
     <custom-icon class="eventElementIcon" :id="'extendIcon' + randomId" icon="action" :size="contentHeight" theme="blue"/>
 
-    <!--Event Modal - fertig designt -->
     <custom-icon class="eventElementIcon" :id="'preProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="blue"/>
 
-    <!--Event Modal - fertig designt -->
     <custom-icon class="eventElementIcon" :id="'weatherIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
     <custom-icon class="eventElementIcon" :id="'castMemberIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
     <custom-icon class="eventElementIcon" :id="'budgetForCostumesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
@@ -23,31 +20,24 @@
     <custom-icon class="eventElementIcon" :id="'changesIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
     <custom-icon class="eventElementIcon" :id="'injuredIcon' + randomId" icon="action" :size="contentHeight" theme="red"/>
 
-    <!--Event Modal - fertig designt -->
     <custom-icon class="eventElementIcon" :id="'productionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="red"/>
 
-    <!--Event Modal-->
     <custom-icon class="eventElementIcon" :id="'soundIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'postProductionProblemIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'visualEffectsIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'visualQualityIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
     <custom-icon class="eventElementIcon" :id="'reshootingIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
 
-    <!--Component - fertig designt-->
     <custom-icon class="eventElementIcon" :id="'testScreeningIcon' + randomId" icon="action" :size="contentHeight" theme="green"/>
 
-    <!--Event Modal - fertig designt -->
     <custom-icon class="eventElementIcon" :id="'postProductionFinishedIcon' + randomId" icon="simple-tick" :size="contentHeight" theme="green"/>
 
-    <!--Event Modal - fertig designt -->
     <custom-icon class="eventElementIcon" :id="'beforeReleaseIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'afterReleaseWithCinemaRunIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'afterReleaseIcon' + randomId" icon="documentary" :size="contentHeight" theme="yellow"/>
 
-    <!--Components - fertig designt-->
     <custom-icon class="eventElementIcon" :id="'studioTakeoverIcon' + randomId" icon="studio" :size="contentHeight" theme="yellow"/>
 
-    <!--Event Modal - fertig designt -->
     <custom-icon class="eventElementIcon" :id="'internationalAwardNominationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'independentAwardNominationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'audienceAwardNominationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
@@ -55,6 +45,9 @@
     <custom-icon class="eventElementIcon" :id="'internationalAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'independentAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
     <custom-icon class="eventElementIcon" :id="'audienceAwardPresentationIcon' + randomId" icon="award" :size="contentHeight" theme="yellow"/>
+
+    <custom-icon class="eventElementIcon" :id="'movieGenerationIcon' + randomId" icon="movies" :size="contentHeight" theme="white"/>
+
     <div class="eventElementText">
       <div class="eventElementTitle">{{title}}</div>
       <div v-if="typeOfMenu !== 'home'" class="eventElementDescription">{{description}}</div>
@@ -95,7 +88,8 @@ export default {
           'testScreening', 'sound', 'postProductionProblem', 'visualEffects', 'visualQuality', 'reshooting', 'postProductionFinished',
           'beforeRelease', 'afterReleaseWithCinemaRun', 'afterRelease', 'studioTakeover',
           'internationalAwardNomination', 'independentAwardNomination', 'audienceAwardNomination',
-          'internationalAwardPresentation', 'independentAwardPresentation', 'audienceAwardPresentation',].includes(value);
+          'internationalAwardPresentation', 'independentAwardPresentation', 'audienceAwardPresentation',
+          'movieGeneration'].includes(value);
       }
     },
     movieTitle: {
@@ -293,6 +287,11 @@ export default {
           document.getElementById('audienceAwardPresentationIcon' + this.randomId).style.display = 'block';
           this.title = this.$t('events.audienceAwardPresentation.title');
           this.description = this.$t('events.audienceAwardPresentation.description');
+          break;
+        case 'movieGeneration':
+          document.getElementById('movieGenerationIcon' + this.randomId).style.display = 'block';
+          this.title = this.$t('events.movieGeneration.title');
+          this.description = this.$t('events.movieGeneration.description') + ' "' + this.studio.name + '"';
           break;
         default:
           throw('Invalid event type!');

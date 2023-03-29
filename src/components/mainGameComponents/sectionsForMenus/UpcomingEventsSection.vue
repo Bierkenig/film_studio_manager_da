@@ -226,6 +226,17 @@
         </template>
       </award-presentation>
     </transition>
+
+    <!-- MOVIE GENERATION -->
+    <transition name="modal">
+      <movie-generation-modal
+          v-if="showMovieGeneration"
+          @close="showMovieGeneration = false">
+        <template v-slot:header>
+          <h3>custom header</h3>
+        </template>
+      </movie-generation-modal>
+    </transition>
   </div>
 </template>
 
@@ -249,10 +260,12 @@ import AwardPresentation from "@/components/mainGameComponents/awards/AwardPrese
 import ChooseMedium from "@/components/mainGameComponents/postProduction/mediums/chooseMedium.vue";
 import CinemaNegotiation from "@/components/mainGameComponents/postProduction/mediums/cinemaNegotiation.vue";
 import MarketingBudgetSelect from "@/components/mainGameComponents/postProduction/marketing/MarketingBudgetSelect.vue";
+import MovieGenerationModal from "@/components/mainGameComponents/sectionsForMenus/MovieGenerationModal.vue";
 
 export default {
   name: "UpcomingEventsSection",
   components: {
+    MovieGenerationModal,
     MarketingBudgetSelect,
     CinemaNegotiation,
     ChooseMedium,
@@ -309,6 +322,8 @@ export default {
       // data for showing award modals
       showAwardNomination: false,
       showAwardPresentation: false,
+
+      showMovieGeneration: false,
 
       awardType: '',
 
@@ -374,6 +389,8 @@ export default {
       } else if (event.type === 'testScreening') {
         this.$store.commit('setCurrentCalendarEvent', event);
         this.$router.push({name: 'testScreening'});
+      } else if (event.type === 'movieGeneration'){
+        this.showMovieGeneration = true;
       }
 
       this.$store.commit('setCurrentCalendarEvent', event);

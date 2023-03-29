@@ -187,6 +187,11 @@ export default {
               ' class="eventIconElements remainingEvents"' +
               ' src="' + require('../../../assets/icons/studio.svg') + '" ' +
               ' alt="remainingEventsIcon"/>'}
+      } else if(arg.event._def.extendedProps.type === 'movieGeneration'){
+        return {html: '<img ' +
+              ' class="eventIconElements movieGenerationEvents"' +
+              ' src="' + require('../../../assets/icons/movies.svg') + '" ' +
+              ' alt="movieGenerationIcon"/>'}
       }
     }
   },
@@ -319,5 +324,9 @@ export default {
 
 .productionEvents {
   background-color: var(--fsm-pink-1)
+}
+
+.movieGenerationEvents {
+  background-color: var(--fsm-white)
 }
 </style>
