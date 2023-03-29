@@ -7,7 +7,7 @@
     <source src="../../../src/animation/FSM_Hintergrundanimation_eng_v3.mp4">
   </video>
   <audio v-if="this.$store.state.soundeffects === true" autoplay>
-    <source src="../../../src/soundeffects/loading2.0.wav" type="audio/mpeg">
+    <source src="../../../src/soundeffects/loading3.0.wav" type="audio/mpeg">
   </audio>
 </template>
 
@@ -22,7 +22,7 @@ export default {
     duration: String
   },
   mounted() {
-    setTimeout(() => this.$router.push({name: this.nextRoute}), 3000)
+    setTimeout(() => this.$router.push({name: this.nextRoute}), 3500)
   },
 }
 </script>

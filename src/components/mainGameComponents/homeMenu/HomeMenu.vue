@@ -16,7 +16,6 @@ import NewsSection from "@/components/mainGameComponents/sectionsForMenus/NewsSe
 import EarningsSection from "@/components/mainGameComponents/sectionsForMenus/EarningsSection";
 import UpcomingEventsSection from "@/components/mainGameComponents/sectionsForMenus/UpcomingEventsSection";
 import ProjectsSection from "@/components/mainGameComponents/sectionsForMenus/ProjectsSection";
-//import PostProdModal from "@/components/mainGameComponents/postProduction/postProdEventModal";
 export default {
   name: "HomeMenu",
 
