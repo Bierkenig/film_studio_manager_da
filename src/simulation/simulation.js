@@ -31,8 +31,8 @@ const nationality = ["Algeria", " Angola", " Benin", "Botswana", "Burkina Faso",
 //ethnicity values
 const ethnicity = ["Caucasian", "Black", "Asian", "Arabic", "People of Color"]
 
-
 export default function simulate() {
+    //DAILY
     createStudios();
 
     createScreenplaysFromWriters('forRandomGeneration');
@@ -59,6 +59,24 @@ export default function simulate() {
     setEventDuringPreProduction();
     setEventDuringProduction();
     setEventDuringPostProduction();
+
+    const person1 = store.getters.getAllPeople[Math.floor(Math.random() * 599 + 1)]
+    const person2 = store.getters.getAllPeople[Math.floor(Math.random() * 599 + 1)]
+
+    console.log(store.getters.getAllPeople)
+    console.log(person1)
+    console.log(person2)
+
+    const gossipEN = [person1.getFullName() + " has a problem with " + person2.getFullName() + ".", person1.getFullName() + " has marriage problems.", person1.getFullName() + " has family problems."]
+    const titleEN = ["Dispute", "Marriage Problems", "Family Problems"]
+    const gossipDE = [person1.getFullName() + " hat ein Problem mit " + person2.getFullName() + ".", person1.getFullName() + " befindet sich in einem Ehestreit.", person1.getFullName() + " hat Familienprobleme."]
+    const titleDE = ["Streit", "Eheprobleme", "Familienprobleme"]
+    const random = Math.floor(Math.random() * 2 + 1);
+    if (store.getters.getCurrentLanguage === 'en') {
+        randomNumber(0.1) === 0 ? store.commit('addNews', new News(titleEN[random], gossipEN[random], 'People', store.getters.getCurrentDate, person1)) : null;
+    } else  {
+        randomNumber(0.1) === 0 ? store.commit('addNews', new News(titleDE[random], gossipDE[random], 'People', store.getters.getCurrentDate, person1)) : null;
+    }
 
     //MONTHLY
     let lastDayOfMonth = new Date(store.getters.getCurrentDate.getFullYear(), store.getters.getCurrentDate.getMonth() + 1, 0);
