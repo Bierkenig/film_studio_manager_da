@@ -563,6 +563,7 @@ export default {
 .screenplayDetailsCharacterElementLeft {
   width: 15%;
   float: left;
+  white-space: nowrap;
 }
 
 .screenplayDetailsCharacterElementCenter {
