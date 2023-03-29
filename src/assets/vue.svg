@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <clipPath id="clip-Windows_MacOs_App_Icon_5">
+      <rect width="1024" height="1024"/>
+    </clipPath>
+  </defs>
+  <g id="Windows_MacOs_App_Icon_5" data-name="Windows/MacOs App Icon – 5" clip-path="url(#clip-Windows_MacOs_App_Icon_5)">
+    <g id="Gruppe_3248" data-name="Gruppe 3248" transform="translate(-187 -187)">
+      <path id="Differenzmenge_206" data-name="Differenzmenge 206" d="M497.822,0h28.357C801.119,0,1024,229.23,1024,512s-222.881,512-497.821,512H497.822C222.882,1024,0,794.77,0,512S222.882,0,497.822,0Z" transform="translate(187 187)" fill="#ff3a4d"/>
+      <g id="Gruppe_3247" data-name="Gruppe 3247" transform="translate(412.28 465.843)">
+        <path id="Differenzmenge_180" data-name="Differenzmenge 180" d="M482.8,322.777h0l-393.388,0-.033-.006A89.521,89.521,0,0,1,0,233.113H482.792l-393.385,0H0V0H89.407l17.879,53.8H178.81L160.931,0h71.527l17.88,53.8h71.524L303.982,0h71.524l17.88,53.8h71.525L447.031,0H572.2V233.113a89.4,89.4,0,0,1-89.4,89.66ZM429.151,71.726a42.979,42.979,0,1,0,30.343,12.606A42.573,42.573,0,0,0,429.151,71.726Zm-143.051,0a42.979,42.979,0,1,0,30.343,12.606A42.57,42.57,0,0,0,286.1,71.726Zm-143.049,0A42.979,42.979,0,1,0,173.4,84.333,42.576,42.576,0,0,0,143.052,71.726Z" transform="translate(0 142.767)" fill="#252d3e"/>
+        <path id="Differenzmenge_188" data-name="Differenzmenge 188" d="M572.2,142.767H447.033l20.434-61.187L482.8,35.69,494.465.753A89.184,89.184,0,0,1,572.2,89.23H482.792l89.4,0,0,53.53Zm-268.212,0h0l0-.005,14.3-42.827L339.747,35.69,351.666,0h71.522L411.268,35.69,375.506,142.763Zm-143.048,0h-.005l0-.005,20.432-61.182L196.7,35.69,208.616,0h71.521L268.217,35.69,232.454,142.763ZM0,142.767H0V89.23A89.286,89.286,0,0,1,89.407,0h47.683L125.169,35.69,89.407,142.763Z" transform="translate(0 0)" fill="#252d3e"/>
+        <rect id="Rechteck_272" data-name="Rechteck 272" width="572.199" height="106.765" transform="translate(0 108.006)" fill="#252d3e"/>
+      </g>
+    </g>
+  </g>
+</svg>
