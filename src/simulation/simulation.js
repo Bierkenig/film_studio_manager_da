@@ -3015,7 +3015,7 @@ function generateMoviesFromOtherStudios() {
                 start: startDate.toISOString().split('T')[0],
                 end: endDate.toISOString().split('T')[0],
                 type: 'movieGeneration',
-                completed: false,
+                completed: true,
             })
 
             store.commit('addNews', new News('Release announced!',

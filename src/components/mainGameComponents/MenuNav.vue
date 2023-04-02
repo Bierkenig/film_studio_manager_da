@@ -151,6 +151,9 @@ export default {
         if(allCalendarEvents[i].start === this.formatDate(this.$store.getters.getCurrentDate.toDateString())){
           if(this.allEventsCompleted === null || this.allEventsCompleted === true){
             this.allEventsCompleted = allCalendarEvents[i].completed;
+            if(allCalendarEvents[i].type === 'movieGeneration'){
+              this.allEventsCompleted = true;
+            }
           }
         }
       }
